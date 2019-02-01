@@ -1,3 +1,12 @@
+---
+name: Slack Api Method
+about: Adding Slack Api Method
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 Reference: https://api.slack.com/methods/
 
 Acceptance Criteria:
