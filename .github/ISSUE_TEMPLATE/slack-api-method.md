@@ -2,7 +2,7 @@
 name: Slack Api Method
 about: Adding Slack Api Method
 title: ''
-labels: ''
+labels: ApiClient
 assignees: ''
 
 ---
