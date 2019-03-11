@@ -10,14 +10,14 @@ buildscript {
 
 allprojects {
 
-    group = "com.kreait.bots.slack"
+    group = "io.olaph.slack"
     version = "0.0.1.BUILD-SNAPSHOT"
 
     project.ext {
         junitJupiterVersion = "5.3.1"
         junitPlatformVersion = "1.3.1"
         springBootVersion = "2.1.0.RELEASE"
-        projectVersion = "0.0.1.BUILD-SNAPSHOT"
+        projectVersion = version
         kotlinVersion = "1.2.40"
     }
 
@@ -39,7 +39,26 @@ subprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
     apply plugin: "kotlin"
-    apply plugin: 'jacoco'
+    apply plugin: "jacoco"
+    apply plugin: "maven-publish"
+
+    publishing {
+        repositories {
+            maven {
+                url "s3://libs.olaph.io"
+                credentials(AwsCredentials) {
+                    accessKey ""
+                    secretKey ""
+                }
+            }
+
+        }
+    }
+
+    task sourceJar(type: Jar) {
+        from sourceSets.main.allSource
+        classifier "sources"
+    }
 
     compileKotlin {
         kotlinOptions {

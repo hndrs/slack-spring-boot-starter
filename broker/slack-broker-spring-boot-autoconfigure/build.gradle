@@ -1,6 +1,15 @@
 apply plugin: "java-library"
 apply plugin: "kotlin-kapt"
 
+publishing {
+    publications {
+        slackBrokerSpringBootAutoconfigure(MavenPublication) {
+            from components.java
+            artifact sourceJar
+        }
+    }
+}
+
 dependencies {
     api(project(":slack-broker-spring-boot"))
 

@@ -1,5 +1,14 @@
 apply plugin: "java-library"
 
+publishing {
+    publications {
+        slackBrokerSpringBoot(MavenPublication) {
+            from components.java
+            artifact sourceJar
+        }
+    }
+}
+
 dependencies {
     api(project(":slack-jackson-dto"))
 

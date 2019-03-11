@@ -1,5 +1,14 @@
 apply plugin: "java-library"
 
+publishing {
+    publications {
+        slackBrokerSpringBootStarter(MavenPublication) {
+            from components.java
+            artifact sourceJar
+        }
+    }
+}
+
 dependencies {
     api(project(":slack-broker-spring-boot-autoconfigure"))
     api(project(":slack-broker-spring-boot"))
