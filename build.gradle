@@ -9,6 +9,7 @@ buildscript {
     }
 }
 apply plugin: "org.sonarqube"
+
 sonarqube {
     properties {
         property "sonar.projectName", "Slack Broker"
@@ -65,9 +66,13 @@ subprojects {
         }
     }
 
+    test {
+        useJUnitPlatform()
+    }
+
     /**
-    * Replace illegal characters from the module key
-    */
+     * Replace illegal characters from the module key
+     */
     sonarqube {
         String regex = "(.*)/(.*)"
         String projectKey = project.name.replaceAll(regex, "\$1:\$2")

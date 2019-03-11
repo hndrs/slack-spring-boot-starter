@@ -24,7 +24,7 @@ class SlackEventBrokerAutoConfigurationTests {
                     "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
                     "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
             )
-            .withConfiguration(AutoConfigurations.of(SlackBrokerConfigurationProperties::class.java, SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+            .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
 
     @DisplayName("SlackArgumentResolver Registration")
     @Test

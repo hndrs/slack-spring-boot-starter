@@ -6,7 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 @ConfigurationProperties(prefix = "slack")
 open class SlackBrokerConfigurationProperties {
 
-
     var installation: Installation = Installation()
 
     open class Installation {

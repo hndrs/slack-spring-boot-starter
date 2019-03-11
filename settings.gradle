@@ -1,3 +1,5 @@
+rootProject.name = "SlackBroker"
+
 //broker
 include "slack-broker-spring-boot-starter"
 project(":slack-broker-spring-boot-starter").projectDir = new File("broker/slack-broker-spring-boot-starter")
