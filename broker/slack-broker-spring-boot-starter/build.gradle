@@ -1,0 +1,19 @@
+apply plugin: "java-library"
+
+publishing {
+    publications {
+        slackBrokerSpringBootStarter(MavenPublication) {
+            from components.java
+            artifact sourceJar
+        }
+    }
+}
+
+dependencies {
+    api(project(":slack-broker-spring-boot-autoconfigure"))
+    api(project(":slack-broker-spring-boot"))
+    api(group: "org.springframework.boot", name: "spring-boot-starter-web")
+
+    implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")
+    implementation(group: "org.jetbrains.kotlin", name: "kotlin-reflect")
+}

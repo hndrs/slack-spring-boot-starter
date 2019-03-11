@@ -1,0 +1,31 @@
+apply plugin: "java-library"
+apply plugin: "kotlin-kapt"
+
+publishing {
+    publications {
+        slackBrokerSpringBootAutoconfigure(MavenPublication) {
+            from components.java
+            artifact sourceJar
+        }
+    }
+}
+
+dependencies {
+    api(project(":slack-broker-spring-boot"))
+    
+    implementation(group: "org.springframework.boot", name: "spring-boot")
+    implementation(group: "org.springframework.boot", name: "spring-boot-starter-web")
+    implementation(group: "org.springframework.boot", name: "spring-boot-autoconfigure")
+
+    compileOnly(group: "org.springframework.boot", name: "spring-boot-configuration-processor")
+    annotationProcessor(group: "org.springframework.boot", name: "spring-boot-configuration-processor")
+    kapt(group: "org.springframework.boot", name: "spring-boot-configuration-processor")
+
+    implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")
+    implementation(group: "org.jetbrains.kotlin", name: "kotlin-reflect")
+
+    testImplementation(group: "org.springframework.boot", name: "spring-boot-starter-test", version: "${springBootVersion}") {
+        exclude(group: "junit", module: "junit")
+    }
+
+}

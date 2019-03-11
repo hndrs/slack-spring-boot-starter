@@ -1,0 +1,21 @@
+apply plugin: "java-library"
+
+publishing {
+    publications {
+        slackApiClient(MavenPublication) {
+            from components.java
+            artifact sourceJar
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api(project(":slack-jackson-dto"))
+
+    implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")
+    implementation(group: "org.jetbrains.kotlin", name: "kotlin-reflect")
+}

@@ -1,0 +1,29 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+os:
+  - linux
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - $HOME/.gradle
+
+stages:
+  - test
+  - name: publish
+    if: branch = master AND type != pull_request
+
+jobs:
+  include:
+  - stage: test
+    script: ./gradlew check sonarqube -Dsonar.login=$SONAR_TOKEN --info
+
+  - stage: publish
+
+    script: ./gradlew publish

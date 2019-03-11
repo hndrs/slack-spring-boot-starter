@@ -1,0 +1,17 @@
+
+publishing {
+    publications {
+        slackJacksonDto(MavenPublication) {
+            from components.java
+            artifact sourceJar
+        }
+    }
+}
+
+dependencies {
+    compileOnly(group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: "2.9.5")
+    compileOnly(group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "2.9.5")
+
+    implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")
+    implementation(group: "org.jetbrains.kotlin", name: "kotlin-reflect")
+}
