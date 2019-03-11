@@ -100,6 +100,10 @@ subprojects {
         toolVersion = "0.8.3"
     }
 
+    test{
+        useJUnitPlatform()
+    }
+
     tasks.withType(Test) {
         systemProperties = System.properties
         systemProperties['user.dir'] = workingDir
