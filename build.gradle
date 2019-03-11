@@ -57,10 +57,6 @@ subprojects {
         repositories {
             maven {
                 url "s3://libs.olaph.io"
-                credentials(AwsCredentials) {
-                    accessKey ""
-                    secretKey ""
-                }
             }
 
         }
