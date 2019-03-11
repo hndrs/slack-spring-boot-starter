@@ -17,6 +17,4 @@ cache:
 jobs:
   include:
   - stage: test
-    script: ./gradlew check test --info
-  - script: ./gradlew sonarqube \
-      -Dsonar.login=$SONAR_TOKEN
+    script: ./gradlew check sonarqube -Dsonar.login=$SONAR_TOKEN --info
