@@ -14,5 +14,9 @@ cache:
   directories:
     - $HOME/.gradle
 
-script:
-  - ./gradlew clean test --info
+jobs:
+  include:
+  - stage: test
+    script: ./gradlew check test --info
+  - script: ./gradlew sonarqube \
+      -Dsonar.login=$SONAR_TOKEN
