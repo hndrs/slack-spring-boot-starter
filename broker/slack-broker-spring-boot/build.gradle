@@ -1,0 +1,12 @@
+apply plugin: "java-library"
+
+dependencies {
+    api(project(":slack-jackson-dto"))
+
+    implementation(group: "org.springframework.boot", name: "spring-boot-starter-logging")
+    implementation(group: "org.springframework.boot", name: "spring-boot-starter-web")
+    implementation(group: "org.springframework.boot", name: "spring-boot-starter-websocket")
+
+    implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")
+    implementation(group: "org.jetbrains.kotlin", name: "kotlin-reflect")
+}

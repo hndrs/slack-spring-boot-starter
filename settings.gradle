@@ -1,0 +1,21 @@
+//broker
+include "slack-broker-spring-boot-starter"
+project(":slack-broker-spring-boot-starter").projectDir = new File("broker/slack-broker-spring-boot-starter")
+include "slack-broker-spring-boot-autoconfigure"
+project(":slack-broker-spring-boot-autoconfigure").projectDir = new File("broker/slack-broker-spring-boot-autoconfigure")
+include "slack-broker-spring-boot"
+project(":slack-broker-spring-boot").projectDir = new File("broker/slack-broker-spring-boot")
+
+//Data classes
+include "slack-jackson-dto"
+project(":slack-jackson-dto").projectDir = new File("data/slack-jackson-dto")
+include "slack-jackson-dto-test"
+project(":slack-jackson-dto-test").projectDir = new File("data/slack-jackson-dto-test-extensions")
+
+//Clients
+include "slack-api-client"
+project(":slack-api-client").projectDir = new File("client/slack-api-client")
+include "slack-spring-api-client"
+project(":slack-spring-api-client").projectDir = new File("client/slack-spring-api-client")
+include "slack-spring-test-api-client"
+project(":slack-spring-test-api-client").projectDir = new File("client/slack-spring-test-api-client")
