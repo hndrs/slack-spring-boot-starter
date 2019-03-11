@@ -57,6 +57,10 @@ subprojects {
         repositories {
             maven {
                 url "s3://libs.olaph.io"
+                credentials(AwsCredentials) {
+                    accessKey System.getenv("AWS_ACCESS_KEY_ID")
+                    secretKey System.getenv("AWS_SECRET_ACCESS_KEY")
+                }
             }
 
         }
@@ -101,7 +105,7 @@ subprojects {
         toolVersion = "0.8.3"
     }
 
-    test{
+    test {
         useJUnitPlatform()
     }
 

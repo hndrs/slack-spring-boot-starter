@@ -20,4 +20,5 @@ jobs:
     script: ./gradlew check sonarqube -Dsonar.login=$SONAR_TOKEN --info
 
   - stage: publish
+    if: branch = master
     script: ./gradlew publish
