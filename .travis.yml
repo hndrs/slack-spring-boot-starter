@@ -14,11 +14,15 @@ cache:
   directories:
     - $HOME/.gradle
 
+stages:
+  - name: publish
+    if: branch = master
+
 jobs:
   include:
   - stage: test
     script: ./gradlew check sonarqube -Dsonar.login=$SONAR_TOKEN --info
 
   - stage: publish
-    if: branch = master
+
     script: ./gradlew publish
