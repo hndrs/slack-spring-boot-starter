@@ -22,7 +22,7 @@ stages:
 jobs:
   include:
   - stage: test
-    script: ./gradlew check sonarqube -Dsonar.login=$SONAR_TOKEN --info
+    script: ./gradlew check jacocoTestReport sonarqube -Dsonar.login=$SONAR_TOKEN --info
 
   - stage: publish
 
