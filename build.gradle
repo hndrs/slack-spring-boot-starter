@@ -16,6 +16,7 @@ sonarqube {
         property "sonar.projectKey", "io.olaph.slack"
         property "sonar.host.url", "https://sonarcloud.io/"
         property "sonar.organization", "olaph-io"
+        property "sonar.jacoco.report missing.force.zero", "true"
     }
 }
 
@@ -77,7 +78,6 @@ subprojects {
         String regex = "(.*)/(.*)"
         String projectKey = project.name.replaceAll(regex, "\$1:\$2")
         String sonarModuleKey = rootProject.group + ":" + rootProject.name + ":" + projectKey
-
         properties {
             property "sonar.moduleKey", sonarModuleKey
         }
@@ -103,6 +103,12 @@ subprojects {
 
     jacoco {
         toolVersion = "0.8.3"
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+        }
     }
 
     test {
