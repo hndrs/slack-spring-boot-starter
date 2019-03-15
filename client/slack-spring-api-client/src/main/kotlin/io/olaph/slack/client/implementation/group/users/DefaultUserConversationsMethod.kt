@@ -9,7 +9,7 @@ import io.olaph.slack.dto.jackson.group.users.SuccessfulUserConversationsRespons
 import io.olaph.slack.dto.jackson.group.users.UserConversationsResponse
 
 @Suppress("UNCHECKED_CAST")
-class DefaultUserConversationsMethod(private val authToken: String) : UserConversationsMethod(authToken) {
+class DefaultUserConversationsMethod(private val authToken: String) : UserConversationsMethod() {
 
     override fun request(): ApiCallResult<SuccessfulUserConversationsResponse, ErrorUserConversationsResponse> {
         val response = SlackRequestBuilder<UserConversationsResponse>(authToken)
