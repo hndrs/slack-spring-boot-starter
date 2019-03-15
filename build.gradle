@@ -17,6 +17,7 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io/"
         property "sonar.organization", "olaph-io"
         property "sonar.jacoco.report missing.force.zero", "true"
+        property "sonar.pullrequest.provider", "github"
     }
 }
 
