@@ -16,12 +16,16 @@ abstract class SlackInfoResponse constructor(@JsonProperty("ok") open val ok: Bo
 @JacksonDataClass
 data class SuccessfulUsersInfoResponse constructor(override val ok: Boolean,
                                                    @JsonProperty("user") val user: User)
-    : SlackInfoResponse(ok)
+    : SlackInfoResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class ErrorUsersInfoResponse constructor(override val ok: Boolean,
                                               @JsonProperty("error") val error: String)
-    : SlackInfoResponse(ok)
+    : SlackInfoResponse(ok) {
+    companion object
+}
 
 data class User(
         @JsonProperty("id") val id: String,
@@ -44,7 +48,9 @@ data class User(
         @JsonProperty("updated") val updated: Int?,
         @JsonProperty("has_2fa") val has2fa: Boolean?,
         @JsonProperty("locale") val locale: String?
-)
+) {
+    companion object
+}
 
 data class Profile(
         @JsonProperty("title") val title: String?,
@@ -68,9 +74,15 @@ data class Profile(
         @JsonProperty("image_512") val image512: String?,
         @JsonProperty("status_text_canonical") val statusTextCanonical: String?,
         @JsonProperty("team") val team: String?
-)
+) {
+    companion object
+}
 
-data class SlackInfoRequest(private val userId: String, private val includeLocale: Boolean? = null) {
+data class SlackUserInfoRequest(private val userId: String, private val includeLocale: Boolean? = null) {
+
+    companion object {
+
+    }
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>("user" to userId)

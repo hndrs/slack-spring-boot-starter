@@ -20,12 +20,16 @@ data class SuccessfulUserListResponse(
         override val ok: Boolean,
         @JsonProperty("members") val members: List<Member>,
         @JsonProperty("cache_ts") val cacheTs: Int
-) : UserListResponse(ok)
+) : UserListResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class ErrorUserListResponse constructor(override val ok: Boolean,
                                              @JsonProperty("error") val error: String)
-    : UserListResponse(ok)
+    : UserListResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class Member(
@@ -48,7 +52,9 @@ data class Member(
         @JsonProperty("updated") val updated: Int,
         @JsonProperty("is_app_user") val isAppUser: Boolean,
         @JsonProperty("has_2fa") val has2fa: Boolean
-)
+){
+    companion object
+}
 
 @JacksonDataClass
 data class UserProfile(
@@ -78,7 +84,9 @@ data class UserProfile(
         @JsonProperty("image_1024") val image_1024: String?,
         @JsonProperty("status_text_canonical") val statusTextCanonical: String,
         @JsonProperty("team") val team: String
-)
+){
+    companion object
+}
 
 /**
  * DataClass that represents arguments as defined here https://api.slack.com/methods/users.list

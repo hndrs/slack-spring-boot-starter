@@ -4,11 +4,11 @@ import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.users.UsersInfoMethod
 import io.olaph.slack.client.test.MockMethod
 import io.olaph.slack.dto.jackson.group.users.ErrorUsersInfoResponse
-import io.olaph.slack.dto.jackson.group.users.SlackInfoRequest
+import io.olaph.slack.dto.jackson.group.users.SlackUserInfoRequest
 import io.olaph.slack.dto.jackson.group.users.SuccessfulUsersInfoResponse
 
-class MockUsersInfoMethod : UsersInfoMethod(), MockMethod<SuccessfulUsersInfoResponse, ErrorUsersInfoResponse, SlackInfoRequest> {
-    override fun params(): SlackInfoRequest {
+class MockUsersInfoMethod : UsersInfoMethod(), MockMethod<SuccessfulUsersInfoResponse, ErrorUsersInfoResponse, SlackUserInfoRequest> {
+    override fun params(): SlackUserInfoRequest {
         return params
     }
 
