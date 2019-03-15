@@ -1,5 +1,12 @@
 language: java
 
+addons:
+  sonarcloud:
+    organization: "olaph-io"
+    token:
+      secure: $SONAR_TOKEN
+
+
 jdk:
   - oraclejdk8
 
@@ -16,14 +23,21 @@ cache:
 
 stages:
   - test
-  - name: publish
-    if: branch = master AND type != pull_request
+  - publish
 
 jobs:
   include:
-  - stage: test
-    script: ./gradlew check jacocoTestReport sonarqube -Dsonar.login=$SONAR_TOKEN --info
+    - stage: test
+      name: "PullRequest Quality Check and Tests"
+      script: ./gradlew check jacocoTestReport sonarqube --info
+      if: type = pull_request
 
-  - stage: publish
+    - stage: test
+      name: "Quality Check and Tests"
+      script: ./gradlew check jacocoTestReport sonarqube -Dsonar.login=$SONAR_TOKEN --info
+      if: branch = master AND type != pull_request
 
-    script: ./gradlew publish
+    - stage: publish
+      name: "Publish Library"
+      script: ./gradlew publish
+      if: branch = master AND type != pull_request
