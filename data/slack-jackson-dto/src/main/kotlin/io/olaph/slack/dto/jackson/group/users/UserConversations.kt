@@ -19,17 +19,23 @@ abstract class UserConversationsResponse constructor(@JsonProperty("ok") open va
 data class ErrorUserConversationsResponse(
         override var ok: Boolean,
         @JsonProperty("error") val error: String
-) : UserConversationsResponse(ok)
+) : UserConversationsResponse(ok) {
+    companion object
+}
 
 data class SuccessfulUserConversationsResponse(
         override var ok: Boolean,
         @JsonProperty("channels") val channels: List<Channel>,
         @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
-) : UserConversationsResponse(ok)
+) : UserConversationsResponse(ok) {
 
-data class ResponseMetadata(
-        @JsonProperty("next_cursor") val nextCursor: String
-)
+    data class ResponseMetadata(@JsonProperty("next_cursor") val nextCursor: String) {
+        companion object
+    }
+
+    companion object
+}
+
 
 data class Channel(
         @JsonProperty("id") val id: String,
