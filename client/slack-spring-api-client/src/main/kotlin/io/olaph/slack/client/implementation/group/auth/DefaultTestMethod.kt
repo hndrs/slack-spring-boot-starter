@@ -4,27 +4,27 @@ import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.implementation.group.SlackRequestBuilder
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.auth.AuthTestMethod
-import io.olaph.slack.dto.jackson.group.auth.ErrorAuthResponse
-import io.olaph.slack.dto.jackson.group.auth.SlackAuthResponse
-import io.olaph.slack.dto.jackson.group.auth.SuccessfulAuthResponse
+import io.olaph.slack.dto.jackson.group.auth.ErrorAuthTestResponse
+import io.olaph.slack.dto.jackson.group.auth.SlackAuthTestResponse
+import io.olaph.slack.dto.jackson.group.auth.SuccessfulAuthTestResponse
 
 @Suppress("UNCHECKED_CAST")
 class DefaultTestMethod(private val authToken: String) : AuthTestMethod() {
 
-    override fun request(): ApiCallResult<SuccessfulAuthResponse, ErrorAuthResponse> {
-        val response = SlackRequestBuilder<SlackAuthResponse>(authToken)
+    override fun request(): ApiCallResult<SuccessfulAuthTestResponse, ErrorAuthTestResponse> {
+        val response = SlackRequestBuilder<SlackAuthTestResponse>(authToken)
                 .toMethod("auth.test")
-                .returnAsType(SlackAuthResponse::class.java)
+                .returnAsType(SlackAuthTestResponse::class.java)
                 .postWithJsonBody()
 
         return when {
-            response.body is SuccessfulAuthResponse -> {
-                val responseEntity = response.body as SuccessfulAuthResponse
+            response.body is SuccessfulAuthTestResponse -> {
+                val responseEntity = response.body as SuccessfulAuthTestResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorAuthResponse -> {
-                val responseEntity = response.body as ErrorAuthResponse
+            response.body is ErrorAuthTestResponse -> {
+                val responseEntity = response.body as ErrorAuthTestResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

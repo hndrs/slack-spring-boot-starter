@@ -24,7 +24,7 @@ sonarqube {
 allprojects {
 
     group = "io.olaph.slack"
-    version = "0.1.0.BUILD-SNAPSHOT"
+    version = "0.2.0.BUILD-SNAPSHOT"
 
     project.ext {
         junitJupiterVersion = "5.3.1"

@@ -6,5 +6,5 @@ interface AuthGroup {
     fun test(authToken: String): AuthTestMethod
 
     //TODO DOC
-    fun revoke(authToken: String): RevokeMethod
+    fun revoke(authToken: String): AuthRevokeMethod
 }
