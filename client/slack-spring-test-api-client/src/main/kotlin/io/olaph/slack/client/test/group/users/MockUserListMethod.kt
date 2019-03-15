@@ -1,7 +1,7 @@
 package io.olaph.slack.client.test.group.users
 
 import io.olaph.slack.client.group.ApiCallResult
-import io.olaph.slack.client.group.users.SlackUserListRequest
+import io.olaph.slack.dto.jackson.group.users.SlackUserListRequest
 import io.olaph.slack.client.group.users.UserListMethod
 import io.olaph.slack.client.test.MockMethod
 import io.olaph.slack.dto.jackson.group.users.ErrorUserListResponse

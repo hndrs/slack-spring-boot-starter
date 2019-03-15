@@ -3,6 +3,7 @@ package io.olaph.slack.dto.jackson.group.users
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
+import io.olaph.slack.dto.jackson.ChannelType
 import io.olaph.slack.dto.jackson.JacksonDataClass
 
 
@@ -66,3 +67,23 @@ data class Topic(
         @JsonProperty("value") val value: String?,
         @JsonProperty("creator") val creator: String?,
         @JsonProperty("last_set") val lastSet: Int?)
+
+/**
+ * DataClass that represents arguments as defined here https://api.slack.com/methods/users.conversations
+ */
+data class SlackUserConversationListRequest(private val cursor: String? = null,
+                                            private val excludeArchived: Boolean? = null,
+                                            private val limit: Int? = null,
+                                            private val types: Set<ChannelType>? = null,
+                                            private val userId: String? = null) {
+
+    fun toRequestMap(): MutableMap<String, String> {
+        val requestMap = mutableMapOf<String, String>()
+        cursor?.let { requestMap.put("cursor", it) }
+        excludeArchived?.let { requestMap.put("exclude_archived", it.toString()) }
+        limit?.let { requestMap.put("limit", it.toString()) }
+        types?.let { requestMap.put("types", it.map(ChannelType::value).joinToString(",")) }
+        userId?.let { requestMap.put("user", it) }
+        return requestMap
+    }
+}
