@@ -60,7 +60,9 @@ data class SlackPostMessageRequest constructor(@JsonProperty("text") val text: S
                                                @JsonProperty("reply_broadcast") val replyBroadcast: Boolean = false,
                                                @JsonProperty("thread_ts") val threadTs: String? = null,
                                                @JsonProperty("unfurl_links") val unfurlLinks: Boolean = false,
-                                               @JsonProperty("unfurl_media") val unfurlMedia: Boolean = true)
+                                               @JsonProperty("unfurl_media") val unfurlMedia: Boolean = true) {
+    companion object
+}
 
 @JsonSerialize(using = ResponseType.Serializer::class)
 enum class ResponseType {

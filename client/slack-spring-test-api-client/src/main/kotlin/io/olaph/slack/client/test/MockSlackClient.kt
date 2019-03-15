@@ -1,14 +1,14 @@
 package io.olaph.slack.client.test
 
 import io.olaph.slack.client.SlackClient
-import io.olaph.slack.client.group.channels.ChannelsMethodGroup
-import io.olaph.slack.client.group.conversations.ConversationsMethodGroup
-import io.olaph.slack.client.group.oauth.OauthMethodGroup
-import io.olaph.slack.client.group.users.UsersMethodGroup
 import io.olaph.slack.client.test.group.auth.MockAuthGroup
+import io.olaph.slack.client.test.group.channel.MockChannelsMethodGroup
 import io.olaph.slack.client.test.group.chat.MockChatGroup
+import io.olaph.slack.client.test.group.conversation.MockConversationMethodGroup
 import io.olaph.slack.client.test.group.dialog.MockDialogMethodGroup
 import io.olaph.slack.client.test.group.im.MockImMethodGroup
+import io.olaph.slack.client.test.group.oauth.MockOauthMethodGroup
+import io.olaph.slack.client.test.group.users.MockUsersMethodGroup
 
 class MockSlackClient : SlackClient {
 
@@ -16,6 +16,10 @@ class MockSlackClient : SlackClient {
     private val mockAuthGroup = MockAuthGroup()
     private val mockImMethodGroup = MockImMethodGroup()
     private val mockDialogMethodGroup = MockDialogMethodGroup()
+    private val mockConversationsMethodGroup = MockConversationMethodGroup()
+    private val mockChannelsMethodGroup = MockChannelsMethodGroup()
+    private val mockUsersMethodGroup = MockUsersMethodGroup()
+    private val mockOauthMethodGroup = MockOauthMethodGroup()
 
     override fun auth(): MockAuthGroup {
         return mockAuthGroup
@@ -29,23 +33,23 @@ class MockSlackClient : SlackClient {
         return mockDialogMethodGroup
     }
 
-    override fun conversation(): ConversationsMethodGroup {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun conversation(): MockConversationMethodGroup {
+        return mockConversationsMethodGroup
     }
 
-    override fun channel(): ChannelsMethodGroup {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun channel(): MockChannelsMethodGroup {
+        return mockChannelsMethodGroup
     }
 
     override fun im(): MockImMethodGroup {
         return mockImMethodGroup
     }
 
-    override fun users(): UsersMethodGroup {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun users(): MockUsersMethodGroup {
+        return mockUsersMethodGroup
     }
 
-    override fun oauth(): OauthMethodGroup {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun oauth(): MockOauthMethodGroup {
+        return mockOauthMethodGroup
     }
 }
