@@ -4,12 +4,15 @@ import io.olaph.slack.client.group.auth.AuthGroup
 
 class MockAuthGroup : AuthGroup {
 
+    private val mockAuthMethod = MockAuthTestMethod()
+    private val mockAuthRevokeMethod = MockAuthRevokeMethod()
+
     override fun test(authToken: String): MockAuthTestMethod {
-        return MockAuthTestMethod()
+        return mockAuthMethod
     }
 
-    override fun revoke(authToken: String): MockRevokeMethod {
-        return MockRevokeMethod()
+    override fun revoke(authToken: String): MockAuthRevokeMethod {
+        return mockAuthRevokeMethod
     }
 
 }

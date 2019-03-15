@@ -1,10 +1,11 @@
-import io.olaph.slack.client.group.ApiCallMethod
-import io.olaph.slack.client.test.MockMethod
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import io.olaph.slack.client.group.ApiCallMethod
+import io.olaph.slack.client.test.MockMethod
 import org.junit.jupiter.api.Assertions
 
 object MockMethodTestHelper {
+
 
     fun <Builder, Success, Failure, Params : Any> verify(method: ApiCallMethod<Builder, Success, Failure, Params>,
                                                          successFunction: (Success?) -> Any,

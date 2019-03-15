@@ -21,7 +21,9 @@ abstract class SlackOpenDialogResponse constructor(@JsonProperty("ok") open val 
 
 @JacksonDataClass
 data class SuccessfulOpenDialogResponse constructor(override val ok: Boolean)
-    : SlackOpenDialogResponse(ok)
+    : SlackOpenDialogResponse(ok){
+    companion object
+}
 
 @JacksonDataClass
 data class ErrorOpenDialogResponse constructor(override val ok: Boolean,
@@ -34,13 +36,18 @@ data class MetaData constructor(@JsonProperty("messages") val messages: List<Str
 
 @JacksonDataClass
 data class SlackOpenDialogRequest constructor(@JsonProperty("dialog") val dialog: Dialog,
-                                              @JsonProperty("trigger_id") val trigger_id: String)
+                                              @JsonProperty("trigger_id") val trigger_id: String) {
+    companion object
+
+}
 
 @JacksonDataClass
 data class Dialog constructor(@JsonProperty("callback_id") val callback_id: String,
                               @JsonProperty("title") val title: String,
                               @JsonProperty("state") val state: String? = "",
-                              @JsonProperty("elements") val elements: List<Element>)
+                              @JsonProperty("elements") val elements: List<Element>) {
+    companion object
+}
 
 @JacksonDataClass
 abstract class Element(@JsonProperty("label") open val label: String,
