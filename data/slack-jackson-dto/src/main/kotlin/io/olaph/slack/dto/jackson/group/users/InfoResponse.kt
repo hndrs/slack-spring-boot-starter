@@ -7,25 +7,21 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulInfoResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorInfoResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulUsersInfoResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorUsersInfoResponse::class, name = "false")
 )
 @JacksonDataClass
 abstract class SlackInfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulInfoResponse constructor(override val ok: Boolean,
-                                              @JsonProperty("user") val user: User)
+data class SuccessfulUsersInfoResponse constructor(override val ok: Boolean,
+                                                   @JsonProperty("user") val user: User)
     : SlackInfoResponse(ok)
 
 @JacksonDataClass
-data class ErrorInfoResponse constructor(override val ok: Boolean,
-                                         @JsonProperty("error") val error: String)
+data class ErrorUsersInfoResponse constructor(override val ok: Boolean,
+                                              @JsonProperty("error") val error: String)
     : SlackInfoResponse(ok)
-
-@JacksonDataClass
-data class SlackInfoRequest constructor(@JsonProperty("user") val user: String)
-
 
 data class User(
         @JsonProperty("id") val id: String,
@@ -73,3 +69,12 @@ data class Profile(
         @JsonProperty("status_text_canonical") val statusTextCanonical: String?,
         @JsonProperty("team") val team: String?
 )
+
+data class SlackInfoRequest(private val userId: String, private val includeLocale: Boolean? = null) {
+
+    fun toRequestMap(): MutableMap<String, String> {
+        val requestMap = mutableMapOf<String, String>("user" to userId)
+        includeLocale?.let { requestMap.put("include_locale", it.toString()) }
+        return requestMap
+    }
+}
