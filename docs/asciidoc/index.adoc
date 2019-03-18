@@ -1,0 +1,9 @@
+= Hello World
+:source-highlighter: prettify
+
+:sourcedir: ../../client/slack-spring-test-api-client/src/main/kotlin
+
+[source,kotlin]
+----
+include::{sourcedir}/io/olaph/slack/client/test/MockMethod.kt[]
+----
