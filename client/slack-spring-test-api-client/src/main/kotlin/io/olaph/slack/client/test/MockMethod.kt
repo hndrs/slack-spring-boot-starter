@@ -17,5 +17,4 @@ interface MockMethod<Success, Failure, Params> {
      */
     fun params(): Params
 
-
 }
