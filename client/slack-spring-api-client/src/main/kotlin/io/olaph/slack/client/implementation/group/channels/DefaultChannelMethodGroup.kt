@@ -21,11 +21,11 @@ import org.slf4j.LoggerFactory
 class DefaultChannelMethodGroup : ChannelsMethodGroup {
 
     override fun archive(authToken: String): ChannelsArchiveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultChannelsArchiveMethod(authToken)
     }
 
     override fun create(authToken: String): ChannelsCreateMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultChannelCreateMethod(authToken)
     }
 
     override fun history(authToken: String): ChannelsHistoryMethod {
@@ -33,7 +33,7 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
     }
 
     override fun invite(authToken: String): ChannelsInviteMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultChannelInviteMethod(authToken)
     }
 
     override fun join(authToken: String): ChannelsJoinMethod {

@@ -82,4 +82,6 @@ data class ChannelInfoPurpose(
 
 @JacksonDataClass
 data class SlackChannelsInfoRequest constructor(@JsonProperty("channel") val channel: String,
-                                                @JsonProperty("include_locale") val includeLocale: Boolean = false)
+                                                @JsonProperty("include_locale") val includeLocale: Boolean = false) {
+    companion object
+}
