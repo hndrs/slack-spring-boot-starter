@@ -4,14 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.DeserializationContext
-import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import io.olaph.slack.dto.jackson.common.messaging.Attachment
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -79,93 +76,9 @@ enum class ResponseType {
 }
 
 
-@JacksonDataClass
-data class Attachment(
-        @JsonProperty("title") val title: String? = null,
-        @JsonProperty("fallback") val fallback: String,
-        @JsonProperty("pretext") val pretext: String? = null,
-        @JsonProperty("color") val color: Color? = null,
-        @JsonProperty("attachment_type") val attachmentType: String? = null,
-        @JsonProperty("callback_id") val callbackId: String? = null,
-        @JsonProperty("actions") val actions: List<Action>? = listOf(),
-        @JsonProperty("text") val text: String? = null,
-        @JsonProperty("author_name") val authorName: String? = null)
 
-@JsonSerialize(using = Color.Serializer::class)
-data class Color(val code: String?) {
 
-    companion object {
-        val GOOD = Color(code = "good")
-        val WARNING = Color(code = "warning")
-        val DANGER = Color(code = "danger")
-        val NEUTRAL = Color(code = "neutral")
 
-        fun ofHex(hexCode: String): Color {
-            //TODO validation
-            return Color(hexCode)
-        }
-    }
 
-    class Serializer : JsonSerializer<Color>() {
-        override fun serialize(value: Color, gen: JsonGenerator?, serializers: SerializerProvider?) {
-            gen?.writeString(value.code)
-        }
-    }
 
-}
 
-@JacksonDataClass
-data class Action(
-        @JsonProperty("name") val name: String? = null,
-        @JsonProperty("text") val text: String? = null,
-        @JsonProperty("style") val style: Style? = null,
-        @JsonProperty("type") val type: ActionType,
-        @JsonProperty("value") val value: String? = null,
-        @JsonProperty("options") val options: List<Option>? = listOf(),
-        @JsonProperty("selected_options") val selectedOptions: List<Option>? = listOf()
-)
-
-@JsonDeserialize(using = ActionType.Deserializer::class)
-@JsonSerialize(using = ActionType.Serializer::class)
-enum class ActionType {
-    BUTTON,
-    SELECT;
-
-    class Serializer : JsonSerializer<ActionType>() {
-        override fun serialize(value: ActionType?, gen: JsonGenerator?, provider: SerializerProvider?) {
-            gen?.writeString(value.toString().toLowerCase())
-        }
-    }
-
-    class Deserializer : JsonDeserializer<ActionType>() {
-        override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): ActionType {
-            return ActionType.valueOf(p.text.toUpperCase())
-        }
-    }
-}
-
-@JsonDeserialize(using = Style.Deserializer::class)
-@JsonSerialize(using = Style.Serializer::class)
-enum class Style {
-    DEFAULT,
-    PRIMARY,
-    DANGER;
-
-    class Serializer : JsonSerializer<Style>() {
-        override fun serialize(value: Style?, gen: JsonGenerator?, provider: SerializerProvider?) {
-            gen?.writeString(value.toString().toLowerCase())
-        }
-    }
-
-    class Deserializer : JsonDeserializer<Style>() {
-        override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): Style {
-            return Style.valueOf(p.text.toUpperCase())
-        }
-    }
-}
-
-@JacksonDataClass
-data class Option(
-        @JsonProperty("text") val text: String? = null,
-        @JsonProperty("value") val value: String
-)
