@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import io.olaph.slack.dto.jackson.common.messaging.UpdateAttachment
 
 @JacksonDataClass
 data class SlackChatUpdateRequest constructor(@JsonProperty("channel") val channel: String,
@@ -37,14 +38,4 @@ data class ErrorChatUpdateResponse constructor(override val ok: Boolean,
                                                @JsonProperty("error") val error: String)
     : SlackChatUpdateResponse(ok)
 
-@JacksonDataClass
-data class UpdateAttachment(
-        @JsonProperty("pretext") val pretext: String? = null,
-        @JsonProperty("text") val text: String,
-        @JsonProperty("title") val title: String? = null,
-        @JsonProperty("color") val color: String? = null,
-        @JsonProperty("attachment_type") val attachmentType: String? = "default",
-        @JsonProperty("callback_id") val callbackId: String? = null,
-        @JsonProperty("actions") val actions: List<Action>? = listOf(),
-        @JsonProperty("author_name") val authorName: String? = null,
-        @JsonProperty("fallback") val fallback: String)
+

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
-import io.olaph.slack.dto.jackson.group.chat.Action
+import io.olaph.slack.dto.jackson.common.Action
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
@@ -21,7 +21,7 @@ abstract class SlackOpenDialogResponse constructor(@JsonProperty("ok") open val 
 
 @JacksonDataClass
 data class SuccessfulOpenDialogResponse constructor(override val ok: Boolean)
-    : SlackOpenDialogResponse(ok){
+    : SlackOpenDialogResponse(ok) {
     companion object
 }
 
