@@ -28,7 +28,7 @@ abstract class SlackPostMessageResponse constructor(@JsonProperty("ok") open val
 data class SuccessfulPostMessageResponse constructor(override val ok: Boolean,
                                                      @JsonProperty("channel") val channel: String,
                                                      @JsonProperty("ts") val timestamp: String,
-                                                     @JsonProperty("message") val message: Message? = Message()
+                                                     @JsonProperty("message") val message: Message? = null
 ) : SlackPostMessageResponse(ok)
 
 
@@ -38,6 +38,7 @@ data class Message(
         @JsonProperty("text") val text: String? = null,
         @JsonProperty("ts") val ts: String? = null,
         @JsonProperty("username") val username: String? = null,
+        @JsonProperty("attachments") val attachments: List<Attachment>? = listOf(),
         @JsonProperty("bot_id") val botId: String? = null
 )
 

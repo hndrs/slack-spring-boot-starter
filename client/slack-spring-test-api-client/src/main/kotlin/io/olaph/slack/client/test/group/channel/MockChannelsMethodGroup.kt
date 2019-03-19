@@ -18,12 +18,18 @@ import io.olaph.slack.client.group.channels.SetChannelsPurposeMethod
 import io.olaph.slack.client.group.channels.SetChannelsTopicMethod
 
 class MockChannelsMethodGroup : ChannelsMethodGroup {
+
+    private val mockChannelsInfoMethod = MockChannelsInfoMethod()
+    private val mockChannelsArchiveMethod = MockChannelsArchiveMethod()
+    private val mockChannelsCreateMethod = MockChannelsCreateMethod()
+    private val mockChannelsInviteMethod = MockChannelsInviteMethod()
+
     override fun archive(authToken: String): ChannelsArchiveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mockChannelsArchiveMethod
     }
 
     override fun create(authToken: String): ChannelsCreateMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mockChannelsCreateMethod
     }
 
     override fun history(authToken: String): ChannelsHistoryMethod {
@@ -31,11 +37,11 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun info(authToken: String): ChannelsInfoMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mockChannelsInfoMethod
     }
 
     override fun invite(authToken: String): ChannelsInviteMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mockChannelsInviteMethod
     }
 
     override fun join(authToken: String): ChannelsJoinMethod {

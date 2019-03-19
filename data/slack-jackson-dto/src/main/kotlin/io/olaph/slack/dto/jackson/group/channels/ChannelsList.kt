@@ -19,12 +19,16 @@ abstract class SlackGetChannelListResponse constructor(@JsonProperty("ok") open 
 @JacksonDataClass
 data class ErrorGetChannelListResponse constructor(override val ok: Boolean,
                                                    @JsonProperty("error") val error: String)
-    : SlackGetChannelListResponse(ok)
+    : SlackGetChannelListResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class SuccessfulGetChannelListResponse(
         override val ok: Boolean,
-        @JsonProperty("channels") val channels: List<Channel>) : SlackGetChannelListResponse(ok)
+        @JsonProperty("channels") val channels: List<Channel>) : SlackGetChannelListResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class Channel(
@@ -42,26 +46,33 @@ data class Channel(
         @JsonProperty("is_member") val isMember: Boolean,
         @JsonProperty("is_private") val isPrivate: Boolean,
         @JsonProperty("is_mpim") val isMpim: Boolean,
+        //TODO make this an INSTANT
+        @JsonProperty("last_read") val lastRead: String,
+        @JsonProperty("unread_count") val unreadCount: Int,
+        @JsonProperty("unread_count_display") val unreadCountDisplay: Int,
         @JsonProperty("members") val members: List<String>,
         @JsonProperty("topic") val topic: Topic,
         @JsonProperty("purpose") val purpose: Purpose,
-        @JsonProperty("previous_names") val previousNames: List<Any>,
+        @JsonProperty("previous_names") val previousNames: List<String>,
         @JsonProperty("num_members") val numMembers: Int
-)
+) {
+    companion object
+}
 
 @JacksonDataClass
 data class Purpose(
         @JsonProperty("value") val value: String,
         @JsonProperty("creator") val creator: String,
         @JsonProperty("last_set") val lastSet: Int
-)
+) {
+    companion object
+}
 
 @JacksonDataClass
 data class Topic(
         @JsonProperty("value") val value: String,
         @JsonProperty("creator") val creator: String,
         @JsonProperty("last_set") val lastSet: Int
-)
-
-
-class SlackGetChannelsRequest
+) {
+    companion object
+}
