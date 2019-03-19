@@ -10,25 +10,32 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
         property = "ok",
         visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulDeleteResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorDeleteResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulChatDeleteResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorChatDeleteResponse::class, name = "false")
 )
 @JacksonDataClass
 abstract class SlackDeleteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulDeleteResponse constructor(override val ok: Boolean,
-                                                @JsonProperty("channel") val channel: String,
-                                                @JsonProperty("ts") val team: String)
-    : SlackDeleteResponse(ok)
-
-@JacksonDataClass
-data class ErrorDeleteResponse constructor(override val ok: Boolean,
-                                           @JsonProperty("error") val error: String)
-    : SlackDeleteResponse(ok)
+data class SuccessfulChatDeleteResponse constructor(override val ok: Boolean,
+                                                    @JsonProperty("channel") val channel: String,
+                                                    @JsonProperty("ts") val team: String)
+    : SlackDeleteResponse(ok) {
+    companion object
+}
 
 
 @JacksonDataClass
-data class SlackDeleteRequest constructor(@JsonProperty("channel") val channel: String,
-                                          @JsonProperty("ts") val timestamp: String,
-                                          @JsonProperty("as_user") val asUser: Boolean = false)
+data class ErrorChatDeleteResponse constructor(override val ok: Boolean,
+                                               @JsonProperty("error") val error: String)
+    : SlackDeleteResponse(ok) {
+    companion object
+}
+
+
+@JacksonDataClass
+data class SlackChatDeleteRequest constructor(@JsonProperty("channel") val channel: String,
+                                              @JsonProperty("ts") val timestamp: String,
+                                              @JsonProperty("as_user") val asUser: Boolean = false) {
+    companion object
+}

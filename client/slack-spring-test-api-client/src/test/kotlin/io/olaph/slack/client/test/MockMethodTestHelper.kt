@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions
 
 object MockMethodTestHelper {
 
-
+    @Suppress("UNCHECKED_CAST")
     fun <Builder, Success, Failure, Params : Any> verify(method: ApiCallMethod<Builder, Success, Failure, Params>,
                                                          successFunction: (Success?) -> Any,
                                                          successResponse: Success,
