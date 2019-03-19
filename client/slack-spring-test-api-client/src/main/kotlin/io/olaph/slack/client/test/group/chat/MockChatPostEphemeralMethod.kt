@@ -22,6 +22,4 @@ open class MockChatPostEphemeralMethod : ChatPostEphemeralMethod(), MockMethod<S
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
-
-
 }

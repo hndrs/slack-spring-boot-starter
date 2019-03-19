@@ -30,7 +30,6 @@ data class SuccessfulPostMessageResponse constructor(override val ok: Boolean,
     companion object
 }
 
-
 data class Message(
         @JsonProperty("type") val type: String? = null,
         @JsonProperty("subtype") val subtype: String? = null,

@@ -1,6 +1,5 @@
 package io.olaph.slack.client.test.group.chat
 
-import io.olaph.slack.client.group.chat.ChatDeleteMethod
 import io.olaph.slack.client.group.chat.ChatMeMessageMethod
 import io.olaph.slack.client.group.chat.ChatMethodGroup
 import io.olaph.slack.client.group.chat.ChatUnfurlMethod
@@ -11,9 +10,10 @@ class MockChatGroup : ChatMethodGroup {
 
     private val mockChatPostEphemeralMethod = MockChatPostEphemeralMethod()
     private val mockChatPostMessageMethod = MockChatPostMessageMethod()
+    private val mockChatDeleteMethod = MockChatDeleteMethod()
 
-    override fun delete(authToken: String): ChatDeleteMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun delete(authToken: String): MockChatDeleteMethod {
+        return mockChatDeleteMethod
     }
 
     override fun getPermalink(authToken: String): GetChatPermalinkMethod {
