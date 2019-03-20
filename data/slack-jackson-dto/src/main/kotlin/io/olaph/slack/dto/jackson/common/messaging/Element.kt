@@ -9,6 +9,7 @@ import io.olaph.slack.dto.jackson.common.messaging.composition.Confirmation
 import io.olaph.slack.dto.jackson.common.messaging.composition.Option
 import io.olaph.slack.dto.jackson.common.messaging.composition.OptionGroup
 import io.olaph.slack.dto.jackson.common.messaging.composition.Text
+import java.time.LocalDate
 
 abstract class Element(@JsonProperty("type") val type: Type) {
 
@@ -43,16 +44,67 @@ data class ImageElement constructor(@JsonProperty("image_url") val imageUrl: Str
  */
 data class ButtonElement constructor(@JsonProperty("text") val text: Text,
                                      @JsonProperty("action_id") val actionId: String,
-                                     @JsonProperty("url") val url: String?,
-                                     @JsonProperty("value") val value: String?,
-                                     @JsonProperty("confirm") val confirmation: Confirmation?) : Element(Type.BUTTON)
+                                     @JsonProperty("url") val url: String? = null,
+                                     @JsonProperty("value") val value: String? = null,
+                                     @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.BUTTON)
 
 /**
  * https://api.slack.com/reference/messaging/block-elements#select
  */
-data class StaticelectElement constructor(@JsonProperty("placeholder") val placeholderText: Text,
+data class StaticSelectElement constructor(@JsonProperty("placeholder") val placeholderText: Text,
+                                           @JsonProperty("action_id") val actionId: String,
+                                           @JsonProperty("options") val options: List<Option>,
+                                           @JsonProperty("option_groups") val optionGroups: List<OptionGroup>? = null,
+                                           @JsonProperty("initial_option") val initialOption: Option? = null,
+                                           @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.STATIC_SELECT)
+
+
+/**
+ * https://api.slack.com/reference/messaging/block-elements#external-select
+ */
+data class ExternalSelectElement constructor(@JsonProperty("placeholder") val placeholderText: Text,
+                                             @JsonProperty("action_id") val actionId: String,
+                                             @JsonProperty("options") val options: List<Option>,
+                                             @JsonProperty("option_groups") val optionGroups: List<OptionGroup>? = null,
+                                             @JsonProperty("initial_option") val initialOption: Option? = null,
+                                             @JsonProperty("min_query_length") val minQueryLength: Int? = null,
+                                             @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.EXTERNAL_SELECT)
+
+/**
+ * https://api.slack.com/reference/messaging/block-elements#users-select
+ */
+data class UsersSelectElement constructor(@JsonProperty("placeholder") val placeholderText: Text,
                                           @JsonProperty("action_id") val actionId: String,
-                                          @JsonProperty("options") val options: List<Option>,
-                                          @JsonProperty("option_groups") val optionGroups: List<OptionGroup>?,
-                                          @JsonProperty("initial_option") val initialOption: Option?,
-                                          @JsonProperty("confirm") val confirmation: Confirmation?) : Element(Type.STATIC_SELECT)
+                                          @JsonProperty("initial_user") val initialUserId: String? = null,
+                                          @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.USERS_SELECT)
+
+/**
+ * https://api.slack.com/reference/messaging/block-elements#conversation-select
+ */
+data class ConversationsSelectElement constructor(@JsonProperty("placeholder") val placeholderText: Text,
+                                                  @JsonProperty("action_id") val actionId: String,
+                                                  @JsonProperty("initial_conversation") val initialConversationId: String? = null,
+                                                  @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.CONVERSATIONS_SELECT)
+
+/**
+ * https://api.slack.com/reference/messaging/block-elements#channel-select
+ */
+data class ChannelsSelectElement constructor(@JsonProperty("placeholder") val placeholderText: Text,
+                                             @JsonProperty("action_id") val actionId: String,
+                                             @JsonProperty("initial_channels") val initialChannelsId: String? = null,
+                                             @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.CHANNELS_SELECT)
+
+/**
+ * https://api.slack.com/reference/messaging/block-elements#overflow
+ */
+data class OverflowElement constructor(@JsonProperty("action_id") val actionId: String,
+                                       @JsonProperty("options") val options: List<Option>,
+                                       @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.OVERFLOW)
+
+/**
+ * https://api.slack.com/reference/messaging/block-elements#datepicker
+ */
+data class DatePickerElement constructor(@JsonProperty("action_id") val actionId: String,
+                                         @JsonProperty("placeholder") val placeholderText: Text? = null,
+                                         @JsonProperty("initial_date") val initialChannelsId: LocalDate? = null,
+                                         @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.OVERFLOW)
