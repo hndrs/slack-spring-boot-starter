@@ -40,7 +40,9 @@ data class Message(
         @JsonProperty("username") val username: String? = null,
         @JsonProperty("attachments") val attachments: List<Attachment>? = listOf(),
         @JsonProperty("bot_id") val botId: String? = null
-)
+) {
+    companion object
+}
 
 @JacksonDataClass
 data class ErrorPostMessageResponse constructor(override val ok: Boolean,
