@@ -19,14 +19,19 @@ abstract class SlackOpenResponse constructor(@JsonProperty("ok") open val ok: Bo
 @JacksonDataClass
 data class SuccessfulOpenResponse constructor(override val ok: Boolean,
                                               @JsonProperty("channel") val channel: Channel)
-    : SlackOpenResponse(ok)
+    : SlackOpenResponse(ok) {
+
+    @JacksonDataClass
+    data class Channel(val id: String)
+}
 
 @JacksonDataClass
 data class ErrorOpenResponse constructor(override val ok: Boolean, @JsonProperty("error") val error: String)
     : SlackOpenResponse(ok)
 
 @JacksonDataClass
-data class SlackOpenRequest constructor(@JsonProperty("users") val users: List<String>)
+data class SlackOpenRequest constructor(@JsonProperty("channel") val channelId: String? = null,
+                                        @JsonProperty("return_im") val shouldReturnIm: Boolean? = null,
+                                        @JsonProperty("users") val users: List<String>? = null)
 
-@JacksonDataClass
-data class Channel(val id: String)
+
