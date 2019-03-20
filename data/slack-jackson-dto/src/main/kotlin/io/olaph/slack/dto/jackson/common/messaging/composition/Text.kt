@@ -11,8 +11,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
  */
 data class Text(@JsonProperty("type") val type: Type,
                 @JsonProperty("text") val text: String,
-                @JsonProperty("emoji") val escapeEmojis: Boolean?,
-                @JsonProperty("verbatim") val verbatim: Boolean?) {
+                @JsonProperty("emoji") val escapeEmojis: Boolean? = null,
+                @JsonProperty("verbatim") val verbatim: Boolean? = null) {
 
     @JsonSerialize(using = Type.Serializer::class)
     enum class Type(val type: String) {
