@@ -37,7 +37,7 @@ interface ChannelsMethodGroup {
     fun rename(authToken:String): ChannelsRenameMethod
 
     /**Retrieve a thread of messages posted to a channel*/
-    fun replies(authToken:String): ChannelsRepliesMethos
+    fun replies(authToken:String): ChannelsRepliesMethod
 
     /**Sets the purpose for a channel.*/
     fun setPurpose(authToken:String): SetChannelsPurposeMethod

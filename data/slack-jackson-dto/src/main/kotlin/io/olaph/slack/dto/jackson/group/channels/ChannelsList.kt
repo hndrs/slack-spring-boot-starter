@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import io.olaph.slack.dto.jackson.group.chat.Message
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -48,6 +49,7 @@ data class Channel(
         @JsonProperty("is_mpim") val isMpim: Boolean,
         //TODO make this an INSTANT
         @JsonProperty("last_read") val lastRead: String,
+        @JsonProperty("latest") val latest: Message,
         @JsonProperty("unread_count") val unreadCount: Int,
         @JsonProperty("unread_count_display") val unreadCountDisplay: Int,
         @JsonProperty("members") val members: List<String>,

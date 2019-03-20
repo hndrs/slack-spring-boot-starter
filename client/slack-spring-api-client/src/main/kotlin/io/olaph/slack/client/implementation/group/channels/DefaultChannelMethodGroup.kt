@@ -12,7 +12,7 @@ import io.olaph.slack.client.group.channels.ChannelsListMethod
 import io.olaph.slack.client.group.channels.ChannelsMarkMethod
 import io.olaph.slack.client.group.channels.ChannelsMethodGroup
 import io.olaph.slack.client.group.channels.ChannelsRenameMethod
-import io.olaph.slack.client.group.channels.ChannelsRepliesMethos
+import io.olaph.slack.client.group.channels.ChannelsRepliesMethod
 import io.olaph.slack.client.group.channels.ChannelsUnarchiveMethod
 import io.olaph.slack.client.group.channels.SetChannelsPurposeMethod
 import io.olaph.slack.client.group.channels.SetChannelsTopicMethod
@@ -60,7 +60,7 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun replies(authToken: String): ChannelsRepliesMethos {
+    override fun replies(authToken: String): ChannelsRepliesMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
