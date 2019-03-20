@@ -37,7 +37,9 @@ sealed class Element(@JsonProperty("type") val type: Type) {
      * https://api.slack.com/reference/messaging/block-elements#image
      */
     data class Image constructor(@JsonProperty("image_url") val imageUrl: String,
-                                 @JsonProperty("alt_text") val altText: String) : Element(Type.IMAGE)
+                                 @JsonProperty("alt_text") val altText: String) : Element(Type.IMAGE) {
+        companion object
+    }
 
     /**
      * https://api.slack.com/reference/messaging/block-elements#button

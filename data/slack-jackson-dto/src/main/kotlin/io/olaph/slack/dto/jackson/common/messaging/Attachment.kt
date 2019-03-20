@@ -18,7 +18,10 @@ data class Attachment(
         @JsonProperty("callback_id") val callbackId: String? = null,
         @JsonProperty("actions") val actions: List<Action>? = listOf(),
         @JsonProperty("text") val text: String? = null,
-        @JsonProperty("author_name") val authorName: String? = null)
+        @JsonProperty("author_name") val authorName: String? = null) {
+
+    companion object
+}
 
 @JsonSerialize(using = Color.Serializer::class)
 data class Color(val code: String?) {
