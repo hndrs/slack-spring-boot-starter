@@ -52,8 +52,7 @@ sealed class Block(@JsonProperty("type") val type: Type) {
     /**
      * https://api.slack.com/reference/messaging/blocks#actions
      */
-    data class Action(@JsonProperty("image_url") val imageUrl: String,
-                      @JsonProperty("elements") val elements: List<Element>,
+    data class Action(@JsonProperty("elements") val elements: List<Element>,
                       @JsonProperty("block_id") val blockId: String? = null) : Block(Type.ACTIONS) {
         companion object
     }
