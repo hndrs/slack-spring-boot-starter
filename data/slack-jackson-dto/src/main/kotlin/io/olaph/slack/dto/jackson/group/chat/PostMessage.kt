@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import io.olaph.slack.dto.jackson.JacksonDataClass
 import io.olaph.slack.dto.jackson.common.messaging.Attachment
+import io.olaph.slack.dto.jackson.common.messaging.Block
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -48,7 +49,8 @@ data class ErrorPostMessageResponse constructor(override val ok: Boolean,
 
 @JacksonDataClass
 data class SlackPostMessageRequest constructor(@JsonProperty("text") val text: String? = null,
-                                               @JsonProperty("attachments") val attachments: List<Attachment>? = listOf(),
+                                               @JsonProperty("attachments") val attachments: List<Attachment>? = null,
+                                               @JsonProperty("blocks") val blocks: List<Block>? = null,
                                                @JsonProperty("channel") val channel: String,
                                                @JsonProperty("as_user") val asUser: Boolean? = false,
                                                @JsonProperty("username") val username: String? = null,

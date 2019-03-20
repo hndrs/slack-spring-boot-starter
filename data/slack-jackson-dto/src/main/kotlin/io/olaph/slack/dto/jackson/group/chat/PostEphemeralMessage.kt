@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
 import io.olaph.slack.dto.jackson.common.messaging.Attachment
+import io.olaph.slack.dto.jackson.common.messaging.Block
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -29,7 +30,8 @@ data class ErrorPostEphemeralMessageResponse constructor(override val ok: Boolea
 
 @JacksonDataClass
 data class SlackPostEphemeralMessageRequest constructor(@JsonProperty("text") val text: String? = null,
-                                                        @JsonProperty("attachments") val attachments: List<Attachment>? = listOf(),
+                                                        @JsonProperty("attachments") val attachments: List<Attachment>? = null,
+                                                        @JsonProperty("blocks") val blocks: List<Block>?,
                                                         @JsonProperty("channel") val channel: String,
                                                         @JsonProperty("as_user") val asUser: Boolean = false,
                                                         @JsonProperty("user") val user: String? = null,
