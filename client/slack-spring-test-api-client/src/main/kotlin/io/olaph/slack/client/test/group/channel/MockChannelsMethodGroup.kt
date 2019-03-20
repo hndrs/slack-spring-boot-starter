@@ -1,10 +1,6 @@
 package io.olaph.slack.client.test.group.channel
 
-import io.olaph.slack.client.group.channels.ChannelsArchiveMethod
-import io.olaph.slack.client.group.channels.ChannelsCreateMethod
 import io.olaph.slack.client.group.channels.ChannelsHistoryMethod
-import io.olaph.slack.client.group.channels.ChannelsInfoMethod
-import io.olaph.slack.client.group.channels.ChannelsInviteMethod
 import io.olaph.slack.client.group.channels.ChannelsJoinMethod
 import io.olaph.slack.client.group.channels.ChannelsKickMethod
 import io.olaph.slack.client.group.channels.ChannelsLeaveMethod
@@ -12,7 +8,7 @@ import io.olaph.slack.client.group.channels.ChannelsListMethod
 import io.olaph.slack.client.group.channels.ChannelsMarkMethod
 import io.olaph.slack.client.group.channels.ChannelsMethodGroup
 import io.olaph.slack.client.group.channels.ChannelsRenameMethod
-import io.olaph.slack.client.group.channels.ChannelsRepliesMethos
+import io.olaph.slack.client.group.channels.ChannelsRepliesMethod
 import io.olaph.slack.client.group.channels.ChannelsUnarchiveMethod
 import io.olaph.slack.client.group.channels.SetChannelsPurposeMethod
 import io.olaph.slack.client.group.channels.SetChannelsTopicMethod
@@ -24,11 +20,11 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     private val mockChannelsCreateMethod = MockChannelsCreateMethod()
     private val mockChannelsInviteMethod = MockChannelsInviteMethod()
 
-    override fun archive(authToken: String): ChannelsArchiveMethod {
+    override fun archive(authToken: String): MockChannelsArchiveMethod {
         return mockChannelsArchiveMethod
     }
 
-    override fun create(authToken: String): ChannelsCreateMethod {
+    override fun create(authToken: String): MockChannelsCreateMethod {
         return mockChannelsCreateMethod
     }
 
@@ -36,11 +32,11 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun info(authToken: String): ChannelsInfoMethod {
+    override fun info(authToken: String): MockChannelsInfoMethod {
         return mockChannelsInfoMethod
     }
 
-    override fun invite(authToken: String): ChannelsInviteMethod {
+    override fun invite(authToken: String): MockChannelsInviteMethod {
         return mockChannelsInviteMethod
     }
 
@@ -68,7 +64,7 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun replies(authToken: String): ChannelsRepliesMethos {
+    override fun replies(authToken: String): ChannelsRepliesMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
