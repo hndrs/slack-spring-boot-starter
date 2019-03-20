@@ -1,5 +1,6 @@
 package io.olaph.slack.dto.jackson.group.channels
 
+import io.olaph.slack.dto.jackson.common.types.Channel
 import io.olaph.slack.dto.jackson.group.chat.Message
 import io.olaph.slack.dto.jackson.group.chat.sample
 
@@ -27,13 +28,13 @@ fun Channel.Companion.sample(): Channel = Channel(
         unreadCount = 0,
         unreadCountDisplay = 0,
         members = listOf(),
-        topic = Topic.sample(),
-        purpose = Purpose.sample(),
+        topic = Channel.Topic.sample(),
+        purpose = Channel.Purpose.sample(),
         previousNames = listOf(),
         numMembers = 1
 )
 
 
-fun Topic.Companion.sample(): Topic = Topic("", "", 0)
+fun Channel.Topic.Companion.sample(): Channel.Topic = Channel.Topic("", "", 0)
 
-fun Purpose.Companion.sample(): Purpose = Purpose("", "", 0)
+fun Channel.Purpose.Companion.sample(): Channel.Purpose = Channel.Purpose("", "", 0)

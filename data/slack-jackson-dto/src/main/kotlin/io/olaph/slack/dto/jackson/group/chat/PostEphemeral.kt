@@ -31,7 +31,7 @@ data class ErrorPostEphemeralMessageResponse constructor(override val ok: Boolea
 @JacksonDataClass
 data class SlackPostEphemeralMessageRequest constructor(@JsonProperty("text") val text: String? = null,
                                                         @JsonProperty("attachments") val attachments: List<Attachment>? = null,
-                                                        @JsonProperty("blocks") val blocks: List<Block>?,
+                                                        @JsonProperty("blocks") val blocks: List<Block>? = null,
                                                         @JsonProperty("channel") val channel: String,
                                                         @JsonProperty("as_user") val asUser: Boolean = false,
                                                         @JsonProperty("user") val user: String? = null,
