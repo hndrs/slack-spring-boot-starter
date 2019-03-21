@@ -1,10 +1,10 @@
 package io.olaph.slack.client.group.chat
 
 import io.olaph.slack.client.group.ApiCallMethod
-import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralMessageResponse
-import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralMessageRequest
-import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralMessageResponse
+import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralResponse
+import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralRequest
+import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralResponse
 
-abstract class ChatPostEphemeralMethod : ApiCallMethod<ChatPostEphemeralMethod, SuccessfulPostEphemeralMessageResponse, ErrorPostEphemeralMessageResponse, SlackPostEphemeralMessageRequest>() {
+abstract class ChatPostEphemeralMethod : ApiCallMethod<ChatPostEphemeralMethod, SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse, SlackPostEphemeralRequest>() {
 
 }

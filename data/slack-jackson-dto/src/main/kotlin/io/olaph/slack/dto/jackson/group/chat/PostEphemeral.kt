@@ -12,31 +12,35 @@ import io.olaph.slack.dto.jackson.common.messaging.Block
         property = "ok",
         visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulPostEphemeralMessageResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorPostEphemeralMessageResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulPostEphemeralResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorPostEphemeralResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class SlackPostEphemeralMessageResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+abstract class SlackPostEphemeralResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulPostEphemeralMessageResponse constructor(override val ok: Boolean,
-                                                              @JsonProperty("message_ts") val timestamp: String)
-    : SlackPostEphemeralMessageResponse(ok)
+data class SuccessfulPostEphemeralResponse constructor(override val ok: Boolean,
+                                                       @JsonProperty("message_ts") val timestamp: String)
+    : SlackPostEphemeralResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
-data class ErrorPostEphemeralMessageResponse constructor(override val ok: Boolean,
-                                                         @JsonProperty("error") val error: String)
-    : SlackPostEphemeralMessageResponse(ok)
+data class ErrorPostEphemeralResponse constructor(override val ok: Boolean,
+                                                  @JsonProperty("error") val error: String)
+    : SlackPostEphemeralResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
-data class SlackPostEphemeralMessageRequest constructor(@JsonProperty("text") val text: String? = null,
-                                                        @JsonProperty("attachments") val attachments: List<Attachment>? = null,
-                                                        @JsonProperty("blocks") val blocks: List<Block>? = null,
-                                                        @JsonProperty("channel") val channel: String,
-                                                        @JsonProperty("as_user") val asUser: Boolean = false,
-                                                        @JsonProperty("user") val user: String? = null,
-                                                        @JsonProperty("link_names") val linkNames: Boolean = true,
-                                                        @JsonProperty("parse") val parse: String = "none",
-                                                        @JsonProperty("thread_ts") val threadTs: String? = null) {
+data class SlackPostEphemeralRequest constructor(@JsonProperty("text") val text: String? = null,
+                                                 @JsonProperty("attachments") val attachments: List<Attachment>? = null,
+                                                 @JsonProperty("blocks") val blocks: List<Block>? = null,
+                                                 @JsonProperty("channel") val channel: String,
+                                                 @JsonProperty("as_user") val asUser: Boolean = false,
+                                                 @JsonProperty("user") val user: String? = null,
+                                                 @JsonProperty("link_names") val linkNames: Boolean = true,
+                                                 @JsonProperty("parse") val parse: String = "none",
+                                                 @JsonProperty("thread_ts") val threadTs: String? = null) {
     companion object
 }

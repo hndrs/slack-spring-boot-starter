@@ -3,20 +3,20 @@ package io.olaph.slack.client.test.group.chat
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.chat.ChatPostEphemeralMethod
 import io.olaph.slack.client.test.MockMethod
-import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralMessageResponse
-import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralMessageRequest
-import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralMessageResponse
+import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralResponse
+import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralRequest
+import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralResponse
 
-open class MockChatPostEphemeralMethod : ChatPostEphemeralMethod(), MockMethod<SuccessfulPostEphemeralMessageResponse, ErrorPostEphemeralMessageResponse, SlackPostEphemeralMessageRequest> {
+open class MockChatPostEphemeralMethod : ChatPostEphemeralMethod(), MockMethod<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse, SlackPostEphemeralRequest> {
 
-    override fun params(): SlackPostEphemeralMessageRequest {
+    override fun params(): SlackPostEphemeralRequest {
         return params;
     }
 
-    override var successResponse: SuccessfulPostEphemeralMessageResponse? = null
-    override var failureResponse: ErrorPostEphemeralMessageResponse? = null
+    override var successResponse: SuccessfulPostEphemeralResponse? = null
+    override var failureResponse: ErrorPostEphemeralResponse? = null
 
-    override fun request(): ApiCallResult<SuccessfulPostEphemeralMessageResponse, ErrorPostEphemeralMessageResponse> {
+    override fun request(): ApiCallResult<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse> {
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

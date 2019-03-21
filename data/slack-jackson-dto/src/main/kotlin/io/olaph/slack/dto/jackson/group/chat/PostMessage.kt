@@ -26,8 +26,9 @@ abstract class SlackPostMessageResponse constructor(@JsonProperty("ok") open val
 data class SuccessfulPostMessageResponse constructor(override val ok: Boolean,
                                                      @JsonProperty("channel") val channel: String,
                                                      @JsonProperty("ts") val timestamp: String,
-                                                     @JsonProperty("message") val message: Message? = null
-) : SlackPostMessageResponse(ok)
+                                                     @JsonProperty("message") val message: Message? = null) : SlackPostMessageResponse(ok) {
+    companion object
+}
 
 
 data class Message(
@@ -37,15 +38,15 @@ data class Message(
         @JsonProperty("ts") val ts: String? = null,
         @JsonProperty("username") val username: String? = null,
         @JsonProperty("attachments") val attachments: List<Attachment>? = listOf(),
-        @JsonProperty("bot_id") val botId: String? = null
-) {
+        @JsonProperty("bot_id") val botId: String? = null) {
     companion object
 }
 
 @JacksonDataClass
 data class ErrorPostMessageResponse constructor(override val ok: Boolean,
-                                                @JsonProperty("error") val error: String
-) : SlackPostMessageResponse(ok)
+                                                @JsonProperty("error") val error: String) : SlackPostMessageResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class SlackPostMessageRequest constructor(@JsonProperty("text") val text: String? = null,
@@ -66,6 +67,7 @@ data class SlackPostMessageRequest constructor(@JsonProperty("text") val text: S
     companion object
 }
 
+//TODO figure out where this belongs
 @JsonSerialize(using = ResponseType.Serializer::class)
 enum class ResponseType {
     IN_CHANNEL, EPHEMERAL;
