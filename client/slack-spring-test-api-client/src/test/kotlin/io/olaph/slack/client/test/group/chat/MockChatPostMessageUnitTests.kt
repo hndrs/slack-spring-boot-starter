@@ -1,9 +1,6 @@
 package io.olaph.slack.client.test.group.chat
 
 import MockMethodTestHelper
-import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralMessageResponse
-import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralMessageRequest
-import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralMessageResponse
 import io.olaph.slack.dto.jackson.group.chat.sample
 import com.nhaarman.mockitokotlin2.mock
 import io.olaph.slack.dto.jackson.group.chat.ErrorPostMessageResponse

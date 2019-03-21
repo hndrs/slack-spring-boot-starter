@@ -1,5 +1,9 @@
 package io.olaph.slack.dto.jackson.group.chat
 
-fun SlackPostEphemeralMessageRequest.Companion.sample(): SlackPostEphemeralMessageRequest {
-    return SlackPostEphemeralMessageRequest(channel = "channelId")
+fun SlackPostEphemeralRequest.Companion.sample(): SlackPostEphemeralRequest {
+    return SlackPostEphemeralRequest(channel = "channelId")
 }
+
+fun SuccessfulPostEphemeralResponse.Companion.sample(): SuccessfulPostEphemeralResponse = SuccessfulPostEphemeralResponse(true, "")
+
+fun ErrorPostEphemeralResponse.Companion.sample(): ErrorPostEphemeralResponse = ErrorPostEphemeralResponse(false, "")

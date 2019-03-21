@@ -4,9 +4,9 @@ import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.implementation.group.SlackRequestBuilder
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.chat.ChatPostEphemeralMethod
-import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralMessageResponse
-import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralMessageResponse
-import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralMessageResponse
+import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralResponse
+import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralResponse
+import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralResponse
 
 /**
  * Posts a Ephemeral message to a channel which is only visible to a specific user
@@ -16,21 +16,21 @@ import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralMessageRespo
 @Suppress("UNCHECKED_CAST")
 class DefaultPostEphemeralMethod(private val authToken: String) : ChatPostEphemeralMethod() {
 
-    override fun request(): ApiCallResult<SuccessfulPostEphemeralMessageResponse, ErrorPostEphemeralMessageResponse> {
-        val response = SlackRequestBuilder<SlackPostEphemeralMessageResponse>(authToken)
+    override fun request(): ApiCallResult<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse> {
+        val response = SlackRequestBuilder<SlackPostEphemeralResponse>(authToken)
                 .with(this.params)
                 .toMethod("chat.postEphemeral")
-                .returnAsType(SlackPostEphemeralMessageResponse::class.java)
+                .returnAsType(SlackPostEphemeralResponse::class.java)
                 .postWithJsonBody()
 
         return when {
-            response.body is SuccessfulPostEphemeralMessageResponse -> {
-                val responseEntity = response.body as SuccessfulPostEphemeralMessageResponse
+            response.body is SuccessfulPostEphemeralResponse -> {
+                val responseEntity = response.body as SuccessfulPostEphemeralResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorPostEphemeralMessageResponse -> {
-                val responseEntity = response.body as ErrorPostEphemeralMessageResponse
+            response.body is ErrorPostEphemeralResponse -> {
+                val responseEntity = response.body as ErrorPostEphemeralResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }
