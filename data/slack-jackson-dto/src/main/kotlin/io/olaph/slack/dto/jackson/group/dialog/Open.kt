@@ -73,19 +73,27 @@ data class InteractiveComponentResponse(
         @JsonProperty("callback_id") val callbackId: String?,
         @JsonProperty("response_url") val responseUrl: String?,
         @JsonProperty("actions") val actions: List<Action>? = listOf(),
-        @JsonProperty("trigger_id") val triggerId: String?)
+        @JsonProperty("trigger_id") val triggerId: String?) {
+    companion object
+}
 
 @JacksonDataClass
 data class Channel(@JsonProperty("id") val id: String,
-                   @JsonProperty("name") val name: String)
+                   @JsonProperty("name") val name: String) {
+    companion object
+}
 
 @JacksonDataClass
 data class User(@JsonProperty("id") val id: String,
                 @JsonProperty("name") val name: String,
-                @JsonProperty("team_id") val teamId: String?)
+                @JsonProperty("team_id") val teamId: String?) {
+    companion object
+}
 
 @JacksonDataClass
 data class Team(@JsonProperty("id") val id: String,
                 @JsonProperty("domain") val domain: String,
                 @JsonProperty("enterprise_id") val enterpriseId: String?,
-                @JsonProperty("enterprise_name") val enterpriseName: String?)
+                @JsonProperty("enterprise_name") val enterpriseName: String?) {
+    companion object
+}

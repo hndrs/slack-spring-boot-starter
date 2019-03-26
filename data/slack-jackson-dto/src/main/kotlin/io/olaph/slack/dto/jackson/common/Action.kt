@@ -19,8 +19,7 @@ data class Action(
         @JsonProperty("type") val type: ActionType,
         @JsonProperty("value") val value: String? = null,
         @JsonProperty("options") val options: List<Option>? = listOf(),
-        @JsonProperty("selected_options") val selectedOptions: List<Option>? = listOf()
-) {
+        @JsonProperty("selected_options") val selectedOptions: List<Option>? = listOf()) {
 
     @JsonDeserialize(using = ActionType.Deserializer::class)
     @JsonSerialize(using = ActionType.Serializer::class)
@@ -64,6 +63,9 @@ data class Action(
     @JacksonDataClass
     data class Option(
             @JsonProperty("text") val text: String? = null,
-            @JsonProperty("value") val value: String
-    )
+            @JsonProperty("value") val value: String) {
+        companion object
+    }
+
+    companion object
 }
