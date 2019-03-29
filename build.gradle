@@ -17,7 +17,7 @@ plugins {
 
 sonarqube {
     properties {
-        property "sonar.projectName", "Slack Broker"
+        property "sonar.projectName", "Slack Spring Boot"
         property "sonar.projectKey", "io.olaph.slack"
         property "sonar.host.url", "https://sonarcloud.io/"
         property "sonar.organization", "olaph-io"
