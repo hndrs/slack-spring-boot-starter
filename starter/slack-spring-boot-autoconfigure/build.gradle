@@ -11,8 +11,8 @@ publishing {
 }
 
 dependencies {
-    api(project(":slack-broker-spring-boot"))
-    
+    api(project(":slack-spring-boot"))
+
     implementation(group: "org.springframework.boot", name: "spring-boot")
     implementation(group: "org.springframework.boot", name: "spring-boot-starter-web")
     implementation(group: "org.springframework.boot", name: "spring-boot-autoconfigure")

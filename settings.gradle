@@ -1,12 +1,12 @@
-rootProject.name = "SlackSpringBoot"
+rootProject.name = "Slack Spring Boot"
 
 //broker
-include "slack-broker-spring-boot-starter"
-project(":slack-broker-spring-boot-starter").projectDir = new File("broker/slack-broker-spring-boot-starter")
-include "slack-broker-spring-boot-autoconfigure"
-project(":slack-broker-spring-boot-autoconfigure").projectDir = new File("broker/slack-broker-spring-boot-autoconfigure")
-include "slack-broker-spring-boot"
-project(":slack-broker-spring-boot").projectDir = new File("broker/slack-broker-spring-boot")
+include "slack-spring-boot-starter"
+project(":slack-spring-boot-starter").projectDir = new File("starter/slack-spring-boot-starter")
+include "slack-spring-boot-autoconfigure"
+project(":slack-spring-boot-autoconfigure").projectDir = new File("starter/slack-spring-boot-autoconfigure")
+include "slack-spring-boot"
+project(":slack-spring-boot").projectDir = new File("starter/slack-spring-boot")
 
 //Data classes
 include "slack-jackson-dto"

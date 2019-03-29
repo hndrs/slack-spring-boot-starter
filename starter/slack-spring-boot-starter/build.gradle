@@ -10,8 +10,8 @@ publishing {
 }
 
 dependencies {
-    api(project(":slack-broker-spring-boot-autoconfigure"))
-    api(project(":slack-broker-spring-boot"))
+    api(project(":slack-spring-boot-autoconfigure"))
+    api(project(":slack-spring-boot"))
     api(group: "org.springframework.boot", name: "spring-boot-starter-web")
 
     implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")
