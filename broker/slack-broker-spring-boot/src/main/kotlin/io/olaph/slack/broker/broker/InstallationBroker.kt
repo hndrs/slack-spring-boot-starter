@@ -1,6 +1,7 @@
 package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.receiver.InstallationReceiver
+import io.olaph.slack.broker.security.VerifiesSlackSignature
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -28,6 +29,7 @@ class InstallationBroker constructor(
         private val LOG = LoggerFactory.getLogger(InstallationBroker::class.java)
     }
 
+    @VerifiesSlackSignature
     @GetMapping(value = ["/installation"])
     fun onInstall(@RequestParam("code") code: String, @RequestParam("state") state: String): RedirectView {
         return try {
