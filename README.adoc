@@ -1,0 +1,3 @@
+image:https://travis-ci.org/olaph-io/slack-spring-boot-starter.svg?branch=master["Build Status", link="https://travis-ci.org/olaph-io/slack-spring-boot-starter"]
+image:https://sonarcloud.io/api/project_badges/measure?project=io.olaph.slack&metric=alert_status&metric=alert_status[https://sonarcloud.io/dashboard?id=io.olaph.slack]
+image:https://sonarcloud.io/api/project_badges/measure?project=io.olaph.slack&metric=coverage[https://sonarcloud.io/dashboard?id=io.olaph.slack]
