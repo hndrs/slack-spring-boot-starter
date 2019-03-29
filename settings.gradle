@@ -1,4 +1,4 @@
-rootProject.name = "SlackBroker"
+rootProject.name = "SlackSpringBoot"
 
 //broker
 include "slack-broker-spring-boot-starter"
