@@ -1,6 +1,7 @@
 package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.receiver.EventReceiver
+import io.olaph.slack.broker.security.VerifiesSlackSignature
 import io.olaph.slack.dto.jackson.EventRequest
 import io.olaph.slack.dto.jackson.SlackChallenge
 import io.olaph.slack.dto.jackson.SlackEvent
@@ -21,6 +22,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
         val LOG = LoggerFactory.getLogger(EventReceiver::class.java)
     }
 
+    @VerifiesSlackSignature
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/events", consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun receiveEvents(@RequestBody event: EventRequest, @RequestHeader headers: HttpHeaders): Map<String, String> {

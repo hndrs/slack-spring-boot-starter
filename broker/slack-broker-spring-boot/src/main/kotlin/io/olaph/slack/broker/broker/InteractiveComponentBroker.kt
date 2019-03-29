@@ -2,6 +2,7 @@ package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.configuration.InteractiveResponse
 import io.olaph.slack.broker.receiver.InteractiveComponentReceiver
+import io.olaph.slack.broker.security.VerifiesSlackSignature
 import io.olaph.slack.dto.jackson.group.dialog.InteractiveComponentResponse
 import io.olaph.slack.dto.jackson.group.interactive_component.InteractiveComponentMessageResponse
 import org.springframework.http.HttpHeaders
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class InteractiveComponentBroker constructor(val slackInteractiveComponentReceivers: List<InteractiveComponentReceiver>) {
 
+    @VerifiesSlackSignature
     @PostMapping("/interactive-components", consumes = ["application/x-www-form-urlencoded"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun receiveEvents(@InteractiveResponse interactiveComponentResponse: InteractiveComponentResponse, @RequestHeader headers: HttpHeaders): ResponseEntity<InteractiveComponentMessageResponse> {
         slackInteractiveComponentReceivers
