@@ -30,12 +30,12 @@ object MockMethodTestHelper {
         // Set Failure Function
         method.onSuccess(null)
         method.onFailure(failureFunction)
-        methodProvider.invoke().request()
+        methodProvider.invoke().invoke()
         // Verify that failure function has been called once after invocation
         verify(failureFunction, times(1)).invoke(failureResponse)
         // Remove failure function
         method.onFailure(null)
-        val failureResult = methodProvider.invoke().request()
+        val failureResult = methodProvider.invoke().invoke()
         // Verify that function has still been called online once after invocation
         verify(failureFunction, times(1)).invoke(failureResponse)
         // Assert that failure response equal
@@ -47,12 +47,12 @@ object MockMethodTestHelper {
         // Set Success Function
         method.onSuccess(successFunction)
         method.onFailure(null)
-        methodProvider.invoke().request()
+        methodProvider.invoke().invoke()
         // Verify that function has been called once after invocation
         verify(successFunction, times(1)).invoke(successResponse)
         // Remove failure function
         method.onSuccess(null)
-        val successResult = methodProvider.invoke().request()
+        val successResult = methodProvider.invoke().invoke()
         // Verify that function has still been called online once after invocation
         verify(successFunction, times(1)).invoke(successResponse)
         Assertions.assertEquals(successResponse, successResult.success, "SuccessResponse is equal")
