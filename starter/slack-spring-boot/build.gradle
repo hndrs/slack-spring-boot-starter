@@ -11,6 +11,7 @@ publishing {
 
 dependencies {
     api(project(":slack-jackson-dto"))
+    api(project(":slack-spring-api-client"))
 
     implementation(group: "org.springframework.boot", name: "spring-boot-starter-logging")
     implementation(group: "org.springframework.boot", name: "spring-boot-starter-web")

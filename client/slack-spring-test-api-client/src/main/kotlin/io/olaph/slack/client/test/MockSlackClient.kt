@@ -3,7 +3,7 @@ package io.olaph.slack.client.test
 import io.olaph.slack.client.SlackClient
 import io.olaph.slack.client.test.group.auth.MockAuthGroup
 import io.olaph.slack.client.test.group.channel.MockChannelsMethodGroup
-import io.olaph.slack.client.test.group.chat.MockChatGroup
+import io.olaph.slack.client.test.group.chat.MockChatMethodGroup
 import io.olaph.slack.client.test.group.conversation.MockConversationMethodGroup
 import io.olaph.slack.client.test.group.dialog.MockDialogMethodGroup
 import io.olaph.slack.client.test.group.im.MockImMethodGroup
@@ -12,7 +12,7 @@ import io.olaph.slack.client.test.group.users.MockUsersMethodGroup
 
 class MockSlackClient : SlackClient {
 
-    private val mockChatGroup = MockChatGroup()
+    private val mockChatGroup = MockChatMethodGroup()
     private val mockAuthGroup = MockAuthGroup()
     private val mockImMethodGroup = MockImMethodGroup()
     private val mockDialogMethodGroup = MockDialogMethodGroup()
@@ -25,7 +25,7 @@ class MockSlackClient : SlackClient {
         return mockAuthGroup
     }
 
-    override fun chat(): MockChatGroup {
+    override fun chat(): MockChatMethodGroup {
         return mockChatGroup
     }
 

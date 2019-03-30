@@ -7,7 +7,7 @@ import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralRequest
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralResponse
 
-open class MockChatPostEphemeralMethod : ChatPostEphemeralMethod(), MockMethod<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse, SlackPostEphemeralRequest> {
+open class MockChatPostEphemeral : ChatPostEphemeralMethod(), MockMethod<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse, SlackPostEphemeralRequest> {
 
     override fun params(): SlackPostEphemeralRequest {
         return params;

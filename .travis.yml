@@ -1,5 +1,8 @@
 language: java
 
+git:
+  depth: false
+
 addons:
   sonarcloud:
     organization: "olaph-io"
@@ -29,12 +32,12 @@ jobs:
   include:
     - stage: test
       name: "PullRequest Quality Check and Tests"
-      script: ./gradlew check jacocoTestReport sonarqube --info
+      script: ./gradlew check jacocoTestReport sonarqube -Dslack.test.integration.token=$TEST_SLACK_SPACE_TOKEN -Dslack.test.integration.build=$TRAVIS_BUILD_NUMBER -Dslack.security.signing-secret=$TEST_SLACK_SPACE_SIGNING --info
       if: type = pull_request
 
     - stage: test
       name: "Quality Check and Tests"
-      script: ./gradlew check jacocoTestReport sonarqube -Dsonar.login=$SONAR_TOKEN --info
+      script: ./gradlew check jacocoTestReport sonarqube -Dsonar.login=$SONAR_TOKEN -Dslack.test.integration.token=$TEST_SLACK_SPACE_TOKEN -Dslack.test.integration.build=$TRAVIS_BUILD_NUMBER -Dslack.security.signing-secret=$TEST_SLACK_SPACE_SIGNING --info
       if: branch = master AND type != pull_request
 
     - stage: publish

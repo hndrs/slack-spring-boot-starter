@@ -18,8 +18,9 @@ class MockChannelsCreateUnitTest {
     fun testMockMethod() {
         val successFunction: (SuccessfulChannelCreateResponse?) -> Any = mock { }
         val failureFunction: (ErrorChannelCreateResponse?) -> Any = mock { }
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockSlackClient().channel().create(""),
+        MockMethodTestHelper.verify({ mockSlackClient.channel().create("") },
                 successFunction, SuccessfulChannelCreateResponse.sample(),
                 failureFunction, ErrorChannelCreateResponse.sample(),
                 SlackChannelCreateRequest.sample())

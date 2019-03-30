@@ -2,6 +2,7 @@ package io.olaph.slack.client.test.group.chat
 
 import MockMethodTestHelper
 import com.nhaarman.mockitokotlin2.mock
+import io.olaph.slack.client.test.MockSlackClient
 import io.olaph.slack.dto.jackson.group.chat.ErrorPostMessageResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackPostMessageRequest
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostMessageResponse
@@ -19,8 +20,9 @@ class MockChatPostMessageUnitTests {
     fun testMockMethod() {
         val successFunction: (SuccessfulPostMessageResponse?) -> Any = mock {}
         val failureFunction: (ErrorPostMessageResponse?) -> Any = mock {}
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockChatPostMessageMethod(),
+        MockMethodTestHelper.verify({ mockSlackClient.chat().postMessage("") },
                 successFunction, SuccessfulPostMessageResponse.sample(),
                 failureFunction, ErrorPostMessageResponse.sample(),
                 SlackPostMessageRequest.sample())

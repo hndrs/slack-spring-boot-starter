@@ -33,4 +33,6 @@ data class SuccessfulAuthTestResponse constructor(
 data class ErrorAuthTestResponse constructor(
         override val ok: Boolean,
         @JsonProperty("error") val error: String)
-    : SlackAuthTestResponse(ok)
+    : SlackAuthTestResponse(ok) {
+    companion object
+}

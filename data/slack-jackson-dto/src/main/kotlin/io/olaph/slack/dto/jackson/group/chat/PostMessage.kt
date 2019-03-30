@@ -48,10 +48,10 @@ data class ErrorPostMessageResponse constructor(override val ok: Boolean,
 }
 
 @JacksonDataClass
-data class SlackPostMessageRequest constructor(@JsonProperty("text") val text: String? = null,
+data class SlackPostMessageRequest constructor(@JsonProperty("text") val text: String,
+                                               @JsonProperty("channel") val channel: String,
                                                @JsonProperty("attachments") val attachments: List<Attachment>? = null,
                                                @JsonProperty("blocks") val blocks: List<Block>? = null,
-                                               @JsonProperty("channel") val channel: String,
                                                @JsonProperty("as_user") val asUser: Boolean? = false,
                                                @JsonProperty("username") val username: String? = null,
                                                @JsonProperty("icon_emoji") val iconEmoji: String? = null,

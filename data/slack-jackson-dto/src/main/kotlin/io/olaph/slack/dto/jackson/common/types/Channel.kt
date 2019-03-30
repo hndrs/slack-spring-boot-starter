@@ -23,10 +23,10 @@ data class Channel(
         @JsonProperty("is_mpim") val isMpim: Boolean,
         //TODO make this an INSTANT
         @JsonProperty("last_read") val lastRead: String,
-        @JsonProperty("latest") val latest: Message,
+        @JsonProperty("latest") val latest: Message? = null,
         @JsonProperty("unread_count") val unreadCount: Int,
         @JsonProperty("unread_count_display") val unreadCountDisplay: Int,
-        @JsonProperty("members") val members: List<String>,
+        @JsonProperty("members") val members: List<String>? = null,
         @JsonProperty("topic") val topic: Topic,
         @JsonProperty("purpose") val purpose: Purpose,
         @JsonProperty("previous_names") val previousNames: List<String>,

@@ -2,6 +2,7 @@ package io.olaph.slack.client.test.group.users
 
 import MockMethodTestHelper
 import com.nhaarman.mockitokotlin2.mock
+import io.olaph.slack.client.test.MockSlackClient
 import io.olaph.slack.dto.jackson.group.users.ErrorUsersInfoResponse
 import io.olaph.slack.dto.jackson.group.users.SlackUserInfoRequest
 import io.olaph.slack.dto.jackson.group.users.SuccessfulUsersInfoResponse
@@ -17,8 +18,9 @@ class UsersInfoUnitTest() {
     fun userListTest() {
         val successFunction: (SuccessfulUsersInfoResponse?) -> Any = mock {}
         val failureFunction: (ErrorUsersInfoResponse?) -> Any = mock {}
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockUsersInfoMethod(),
+        MockMethodTestHelper.verify({ mockSlackClient.users().info("") },
                 successFunction, SuccessfulUsersInfoResponse.sample(),
                 failureFunction, ErrorUsersInfoResponse.sample(),
                 SlackUserInfoRequest.sample()

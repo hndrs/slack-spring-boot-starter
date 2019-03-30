@@ -7,7 +7,7 @@ import io.olaph.slack.dto.jackson.group.chat.ErrorPostMessageResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackPostMessageRequest
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostMessageResponse
 
-open class MockChatPostMessageMethod : ChatPostMessageMethod(), MockMethod<SuccessfulPostMessageResponse, ErrorPostMessageResponse, SlackPostMessageRequest> {
+open class MockChatPostMessage : ChatPostMessageMethod(), MockMethod<SuccessfulPostMessageResponse, ErrorPostMessageResponse, SlackPostMessageRequest> {
 
     override fun params(): SlackPostMessageRequest {
         return params;

@@ -23,6 +23,7 @@ sonarqube {
         property "sonar.organization", "olaph-io"
         property "sonar.jacoco.report missing.force.zero", "true"
         property "sonar.pullrequest.provider", "github"
+        property "sonar.exclusions", "**/slack-spring-integration-test/**"
     }
 }
 

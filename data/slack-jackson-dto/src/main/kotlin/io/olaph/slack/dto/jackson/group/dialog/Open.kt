@@ -28,8 +28,9 @@ data class SuccessfulOpenDialogResponse constructor(override val ok: Boolean)
 @JacksonDataClass
 data class ErrorOpenDialogResponse constructor(override val ok: Boolean,
                                                @JsonProperty("error") val error: String,
-                                               @JsonProperty("response_metadata") val metadata: MetaData?
-) : SlackOpenDialogResponse(ok)
+                                               @JsonProperty("response_metadata") val metadata: MetaData? = null) : SlackOpenDialogResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class MetaData constructor(@JsonProperty("messages") val messages: List<String>?)

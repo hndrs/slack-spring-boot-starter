@@ -1,6 +1,6 @@
 rootProject.name = "SlackSpringBoot"
 
-//broker
+//starter
 include "slack-spring-boot-starter"
 project(":slack-spring-boot-starter").projectDir = new File("starter/slack-spring-boot-starter")
 include "slack-spring-boot-autoconfigure"
@@ -8,7 +8,7 @@ project(":slack-spring-boot-autoconfigure").projectDir = new File("starter/slack
 include "slack-spring-boot"
 project(":slack-spring-boot").projectDir = new File("starter/slack-spring-boot")
 
-//Data classes
+//data libraries
 include "slack-jackson-dto"
 project(":slack-jackson-dto").projectDir = new File("data/slack-jackson-dto")
 include "slack-jackson-dto-test"

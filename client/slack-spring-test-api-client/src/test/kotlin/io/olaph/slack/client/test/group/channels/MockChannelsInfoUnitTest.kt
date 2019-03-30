@@ -18,8 +18,9 @@ class MockChannelsInfoUnitTest {
     fun testMockMethod() {
         val successFunction: (SuccessfulGetChannelInfoResponse?) -> Any = mock { }
         val failureFunction: (ErrorGetChannelInfoResponse?) -> Any = mock { }
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockSlackClient().channel().info(""),
+        MockMethodTestHelper.verify({ mockSlackClient.channel().info("") },
                 successFunction, SuccessfulGetChannelInfoResponse.sample(),
                 failureFunction, ErrorGetChannelInfoResponse.sample(),
                 SlackChannelsInfoRequest.sample())

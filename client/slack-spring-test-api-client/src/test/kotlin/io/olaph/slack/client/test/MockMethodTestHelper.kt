@@ -7,32 +7,57 @@ import org.junit.jupiter.api.Assertions
 object MockMethodTestHelper {
 
     @Suppress("UNCHECKED_CAST")
-    fun <Builder, Success, Failure, Params : Any> verify(method: ApiCallMethod<Builder, Success, Failure, Params>,
+    fun <Builder, Success, Failure, Params : Any> verify(methodProvider: () -> ApiCallMethod<Builder, Success, Failure, Params>,
                                                          successFunction: (Success?) -> Any,
                                                          successResponse: Success,
                                                          failureFunction: (Failure?) -> Any,
                                                          failureResponse: Failure,
                                                          params: Params) {
 
+
+        val method = methodProvider.invoke()
+
         Assertions.assertTrue(method is MockMethod<*, *, *>)
 
         // setup method with
-        method.onSuccess(successFunction)
-        method.onFailure(failureFunction)
+
         method.with(params)
 
-        (method as MockMethod<Success, Failure, Params>).successResponse = successResponse
+
+        // Set Failure Response
+        (method as MockMethod<Success, Failure, Params>).successResponse = null
         (method as MockMethod<Success, Failure, Params>).failureResponse = failureResponse
-
-        // call method
-        val request = method.request()
-
-        // verify
-        verify(successFunction, times(1)).invoke(successResponse)
+        // Set Failure Function
+        method.onSuccess(null)
+        method.onFailure(failureFunction)
+        methodProvider.invoke().request()
+        // Verify that failure function has been called once after invocation
         verify(failureFunction, times(1)).invoke(failureResponse)
+        // Remove failure function
+        method.onFailure(null)
+        val failureResult = methodProvider.invoke().request()
+        // Verify that function has still been called online once after invocation
+        verify(failureFunction, times(1)).invoke(failureResponse)
+        // Assert that failure response equal
+        Assertions.assertEquals(failureResponse, failureResult.failure, "FailureResponse is equal")
+
+        // Set Success Response
+        (method as MockMethod<Success, Failure, Params>).successResponse = successResponse
+        (method as MockMethod<Success, Failure, Params>).failureResponse = null
+        // Set Success Function
+        method.onSuccess(successFunction)
+        method.onFailure(null)
+        methodProvider.invoke().request()
+        // Verify that function has been called once after invocation
+        verify(successFunction, times(1)).invoke(successResponse)
+        // Remove failure function
+        method.onSuccess(null)
+        val successResult = methodProvider.invoke().request()
+        // Verify that function has still been called online once after invocation
+        verify(successFunction, times(1)).invoke(successResponse)
+        Assertions.assertEquals(successResponse, successResult.success, "SuccessResponse is equal")
 
         Assertions.assertEquals(method.params(), params, "Params are equal")
-        Assertions.assertEquals(successResponse, request.success, "SuccessResponse is equal")
-        Assertions.assertEquals(failureResponse, request.failure, "FailureResponse is equal")
+
     }
 }
