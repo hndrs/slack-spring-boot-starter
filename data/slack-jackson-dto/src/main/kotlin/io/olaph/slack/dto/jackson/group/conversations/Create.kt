@@ -17,6 +17,9 @@ import io.olaph.slack.dto.jackson.common.types.Channel
 @JacksonDataClass
 sealed class SlackConversationCreateResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * [SlackDoc](https://api.slack.com/methods/conversations.create)
+ */
 data class SuccessfulConversationCreateResponse(
         override val ok: Boolean,
         @JsonProperty("channel") val channel: Channel
@@ -24,6 +27,9 @@ data class SuccessfulConversationCreateResponse(
     companion object
 }
 
+/**
+ * [SlackDoc](https://api.slack.com/methods/conversations.create)
+ */
 @JacksonDataClass
 data class ErrorConversationCreateResponse constructor(override val ok: Boolean,
                                                        @JsonProperty("error") val error: String)
@@ -31,6 +37,9 @@ data class ErrorConversationCreateResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * [SlackDoc](https://api.slack.com/methods/conversations.create)
+ */
 data class ConversationCreateRequest(@JsonProperty("name") val name: String,
                                      @JsonProperty("is_private") val isPrivate: Boolean? = null) {
     companion object
