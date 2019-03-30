@@ -4,9 +4,9 @@ import MockMethodTestHelper
 import com.nhaarman.mockitokotlin2.mock
 import io.olaph.slack.client.test.MockSlackClient
 import io.olaph.slack.dto.jackson.group.im.ErrorImRepliesResponse
-import io.olaph.slack.dto.jackson.group.im.Message
 import io.olaph.slack.dto.jackson.group.im.SlackImRepliesRequest
 import io.olaph.slack.dto.jackson.group.im.SuccessfulImRepliesResponse
+import io.olaph.slack.dto.jackson.group.im.sample
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -20,11 +20,12 @@ class MockImRepliesUnitTests {
     fun testMockMethod() {
         val successFunction: (SuccessfulImRepliesResponse?) -> Any = mock {}
         val failureFunction: (ErrorImRepliesResponse?) -> Any = mock {}
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockSlackClient().im().replies(""),
-                successFunction, SuccessfulImRepliesResponse(true, listOf(Message("type", "ts", null, null, null))),
-                failureFunction, ErrorImRepliesResponse(false, ""),
-                SlackImRepliesRequest("", "")
+        MockMethodTestHelper.verify({ mockSlackClient.im().replies("") },
+                successFunction, SuccessfulImRepliesResponse.sample(),
+                failureFunction, ErrorImRepliesResponse.sample(),
+                SlackImRepliesRequest.sample()
         )
     }
 

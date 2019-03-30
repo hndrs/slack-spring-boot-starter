@@ -22,26 +22,34 @@ abstract class SlackImRepliesResponse constructor(@JsonProperty(value = "ok") op
 @JacksonDataClass
 data class SuccessfulImRepliesResponse constructor(override val ok: Boolean,
                                                    @JsonProperty(value = "messages") val messages: List<Message>)
-    : SlackImRepliesResponse(ok)
+    : SlackImRepliesResponse(ok) {
+
+    companion object {}
+
+    data class Message(
+            @JsonProperty("type") val type: String,
+            @JsonProperty("ts") val ts: String,
+            @JsonProperty("user") val user: String? = null,
+            @JsonProperty("text") val text: String? = null,
+            @JsonProperty("is_starred") val isStarred: Boolean? = false) {
+        companion object
+    }
+}
 
 @JacksonDataClass
 data class ErrorImRepliesResponse constructor(override val ok: Boolean,
                                               @JsonProperty(value = "error") val error: String)
-    : SlackImRepliesResponse(ok)
-
-data class Message(
-        @JsonProperty("type") val type: String,
-        @JsonProperty("ts") val ts: String,
-        @JsonProperty("user") val user: String?,
-        @JsonProperty("text") val text: String?,
-        @JsonProperty("is_starred") val is_starred: Boolean? = false
-)
+    : SlackImRepliesResponse(ok) {
+    companion object
+}
 
 /**
  * DataClass that represents arguments as defined in https://api.slack.com/methods/im.replies
  */
 data class SlackImRepliesRequest(private val channel: String,
-                            private val thread_ts: String) {
+                                 private val thread_ts: String) {
+
+    companion object
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()

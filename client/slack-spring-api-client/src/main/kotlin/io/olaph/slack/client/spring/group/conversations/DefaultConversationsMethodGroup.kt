@@ -23,7 +23,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun create(authToken: String): ConversationsCreateMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsCreateMethod(authToken)
     }
 
     override fun history(authToken: String): ConversationsHistoryMethod {

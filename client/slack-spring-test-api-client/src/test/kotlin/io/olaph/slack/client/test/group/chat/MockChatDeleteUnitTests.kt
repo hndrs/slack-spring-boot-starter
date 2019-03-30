@@ -2,6 +2,7 @@ package io.olaph.slack.client.test.group.chat
 
 import MockMethodTestHelper
 import com.nhaarman.mockitokotlin2.mock
+import io.olaph.slack.client.test.MockSlackClient
 import io.olaph.slack.dto.jackson.group.chat.ErrorChatDeleteResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackChatDeleteRequest
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulChatDeleteResponse
@@ -19,8 +20,9 @@ class MockChatDeleteUnitTests {
     fun testMockMethod() {
         val successFunction: (SuccessfulChatDeleteResponse?) -> Any = mock {}
         val failureFunction: (ErrorChatDeleteResponse?) -> Any = mock {}
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockChatDeleteMethod(),
+        MockMethodTestHelper.verify({ mockSlackClient.chat().delete("") },
                 successFunction, SuccessfulChatDeleteResponse.sample(),
                 failureFunction, ErrorChatDeleteResponse.sample(),
                 SlackChatDeleteRequest.sample())

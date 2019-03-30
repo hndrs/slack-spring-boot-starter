@@ -12,12 +12,12 @@ abstract class ApiCallMethod<Builder, Success, Failure, Params : Any> {
         return this as Builder
     }
 
-    fun onSuccess(onSuccess: (Success) -> Any): Builder {
+    fun onSuccess(onSuccess: ((Success) -> Any)?): Builder {
         this.onSuccess = onSuccess
         return this as Builder
     }
 
-    fun onFailure(onFailure: (Failure) -> Any): Builder {
+    fun onFailure(onFailure: ((Failure) -> Any)?): Builder {
         this.onFailure = onFailure
         return this as Builder
     }

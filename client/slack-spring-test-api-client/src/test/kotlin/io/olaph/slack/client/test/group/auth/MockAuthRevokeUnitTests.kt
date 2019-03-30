@@ -20,8 +20,9 @@ class MockAuthRevokeUnitTests {
     fun testMockMethod() {
         val successFunction: (SuccessfulAuthRevokeResponse?) -> Any = mock {}
         val failureFunction: (ErrorAuthRevokeResponse?) -> Any = mock {}
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockSlackClient().auth().revoke(""),
+        MockMethodTestHelper.verify({ mockSlackClient.auth().revoke("") },
                 successFunction, SuccessfulAuthRevokeResponse.sample(),
                 failureFunction, ErrorAuthRevokeResponse(false, ""), AuthRevokeRequest.sample()
         )

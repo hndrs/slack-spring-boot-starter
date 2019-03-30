@@ -11,7 +11,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 
-@DisplayName("MockAuthTest")
+@DisplayName("MockDialogOpen")
 class MockDialogOpenUnitTests {
 
 
@@ -20,10 +20,11 @@ class MockDialogOpenUnitTests {
     fun testMockMethod() {
         val successFunction: (SuccessfulOpenDialogResponse?) -> Any = mock {}
         val failureFunction: (ErrorOpenDialogResponse?) -> Any = mock {}
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockSlackClient().dialog().open(""),
+        MockMethodTestHelper.verify({ mockSlackClient.dialog().open("") },
                 successFunction, SuccessfulOpenDialogResponse.sample(),
-                failureFunction, ErrorOpenDialogResponse(false, "",null), SlackOpenDialogRequest.sample()
+                failureFunction, ErrorOpenDialogResponse.sample(), SlackOpenDialogRequest.sample()
         )
     }
 

@@ -7,7 +7,7 @@ import io.olaph.slack.dto.jackson.group.chat.ErrorChatDeleteResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackChatDeleteRequest
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulChatDeleteResponse
 
-class MockChatDeleteMethod : ChatDeleteMethod(), MockMethod<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, SlackChatDeleteRequest> {
+class MockChatDelete : ChatDeleteMethod(), MockMethod<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, SlackChatDeleteRequest> {
 
     override fun params(): SlackChatDeleteRequest {
         return params;

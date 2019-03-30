@@ -19,10 +19,11 @@ class MockAuthTestUnitTests {
     fun testMockMethod() {
         val successFunction: (SuccessfulAuthTestResponse?) -> Any = mock {}
         val failureFunction: (ErrorAuthTestResponse?) -> Any = mock {}
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockSlackClient().auth().test(""),
+        MockMethodTestHelper.verify({ mockSlackClient.auth().test("") },
                 successFunction, SuccessfulAuthTestResponse.sample(),
-                failureFunction, ErrorAuthTestResponse(false, ""), Unit
+                failureFunction, ErrorAuthTestResponse.sample(), Unit
         )
     }
 

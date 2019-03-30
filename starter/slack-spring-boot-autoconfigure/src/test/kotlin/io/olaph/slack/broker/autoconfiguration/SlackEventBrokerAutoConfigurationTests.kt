@@ -64,6 +64,7 @@ class SlackEventBrokerAutoConfigurationTests {
                 }
 
         ApplicationContextRunner()
+                .withSystemProperties("slack.security.signing-secret:")
                 .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .run {
                     assertThrows<NoSuchBeanDefinitionException> { it.getBean<WebMvcConfigurer>("io.olaph.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration\$SecurityConfiguration") }

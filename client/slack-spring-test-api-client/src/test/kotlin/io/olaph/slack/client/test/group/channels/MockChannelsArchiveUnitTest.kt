@@ -18,8 +18,9 @@ class MockChannelsArchiveUnitTest {
     fun testMockMethod() {
         val successFunction: (SuccessfulChannelArchiveResponse?) -> Any = mock { }
         val failureFunction: (ErrorChannelArchiveResponse?) -> Any = mock { }
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockSlackClient().channel().archive(""),
+        MockMethodTestHelper.verify({ mockSlackClient.channel().archive("") },
                 successFunction, SuccessfulChannelArchiveResponse.sample(),
                 failureFunction, ErrorChannelArchiveResponse.sample(),
                 SlackChannelsArchiveRequest.sample())

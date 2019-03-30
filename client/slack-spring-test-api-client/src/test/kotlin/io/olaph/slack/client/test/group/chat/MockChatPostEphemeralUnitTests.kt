@@ -9,7 +9,6 @@ import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralResponse
 import io.olaph.slack.dto.jackson.group.chat.sample
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.Instant
 
 
 @DisplayName("MockChatPostEphemeralMethod")
@@ -21,10 +20,11 @@ class MockChatPostEphemeralUnitTests {
     fun testMockMethod() {
         val successFunction: (SuccessfulPostEphemeralResponse?) -> Any = mock {}
         val failureFunction: (ErrorPostEphemeralResponse?) -> Any = mock {}
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockSlackClient().chat().postEphemeral(""),
-                successFunction, SuccessfulPostEphemeralResponse(true, Instant.now().toString()),
-                failureFunction, ErrorPostEphemeralResponse(false, ""),
+        MockMethodTestHelper.verify({ mockSlackClient.chat().postEphemeral("") },
+                successFunction, SuccessfulPostEphemeralResponse.sample(),
+                failureFunction, ErrorPostEphemeralResponse.sample(),
                 SlackPostEphemeralRequest.sample()
         )
     }

@@ -11,3 +11,5 @@ fun Dialog.Companion.sample(): Dialog {
 fun SuccessfulOpenDialogResponse.Companion.sample(): SuccessfulOpenDialogResponse {
     return SuccessfulOpenDialogResponse(true)
 }
+
+fun ErrorOpenDialogResponse.Companion.sample(): ErrorOpenDialogResponse = ErrorOpenDialogResponse(false, "error")

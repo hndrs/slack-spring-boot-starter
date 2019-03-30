@@ -18,8 +18,9 @@ class MockChannelsInviteUnitTest {
     fun testMockMethod() {
         val successFunction: (SuccessfulChannelInviteResponse?) -> Any = mock { }
         val failureFunction: (ErrorChannelInviteResponse?) -> Any = mock { }
+        val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify(MockSlackClient().channel().invite(""),
+        MockMethodTestHelper.verify({ mockSlackClient.channel().invite("") },
                 successFunction, SuccessfulChannelInviteResponse.sample(),
                 failureFunction, ErrorChannelInviteResponse.sample(),
                 SlackChannelInviteRequest.sample())
