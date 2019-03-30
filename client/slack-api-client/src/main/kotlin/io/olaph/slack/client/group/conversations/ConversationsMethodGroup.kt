@@ -9,7 +9,14 @@ interface ConversationsMethodGroup {
     /**Closes a direct message or multi-person direct message.*/
     fun close(authToken: String): ConversationsCloseMethod
 
-    /**Initiates a public or private channel-based conversation*/
+    /**
+     * Initiates a public or private channel-based conversation
+     *
+     * [SlackDock](https://api.slack.com/methods/conversations.create)
+     *
+     * @param authToken to authenticate against the slack api
+     * @return RequestBuilder to create a conversation
+     */
     fun create(authToken: String): ConversationsCreateMethod
 
     /**Fetches a conversation's history of messages and events.*/
