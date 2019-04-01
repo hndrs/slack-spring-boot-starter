@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.im
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.im.ImCloseMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -24,20 +23,17 @@ class DefaultImCloseMethod(private val authToken: String, private val restTempla
                 .returnAsType(SlackImCloseResponse::class.java)
                 .postWithJsonBody()
 
-        return when {
-            response.body is SuccessfulImCloseResponse -> {
+        return when (response.body!!) {
+            is SuccessfulImCloseResponse -> {
                 val responseEntity = response.body as SuccessfulImCloseResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
 
-            response.body is ErrorImCloseResponse -> {
+            is ErrorImCloseResponse -> {
                 val responseEntity = response.body as ErrorImCloseResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }

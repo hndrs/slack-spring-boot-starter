@@ -16,7 +16,7 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
 )
 
 @JacksonDataClass
-abstract class SlackImCloseResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
+sealed class SlackImCloseResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulImCloseResponse constructor(override val ok: Boolean,
