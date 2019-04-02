@@ -2,8 +2,12 @@ package io.olaph.slack.dto.jackson.common.messaging
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import io.olaph.slack.dto.jackson.JacksonDataClass
 import io.olaph.slack.dto.jackson.common.Action
@@ -24,6 +28,8 @@ data class Attachment(
 }
 
 @JsonSerialize(using = Color.Serializer::class)
+@JsonDeserialize(using = Color.Deserializer::class)
+@JacksonDataClass
 data class Color(val code: String?) {
 
     companion object {
@@ -44,6 +50,11 @@ data class Color(val code: String?) {
         }
     }
 
+    class Deserializer : JsonDeserializer<Color>() {
+        override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): Color {
+            return Color.ofHex(p.text)
+        }
+    }
 }
 
 @JacksonDataClass
