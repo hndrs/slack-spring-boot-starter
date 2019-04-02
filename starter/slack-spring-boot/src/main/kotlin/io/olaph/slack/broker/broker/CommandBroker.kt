@@ -2,7 +2,6 @@ package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.configuration.Command
 import io.olaph.slack.broker.receiver.SlashCommandReceiver
-import io.olaph.slack.broker.security.VerifiesSlackSignature
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.dto.jackson.SlackCommand
 import org.springframework.http.HttpHeaders
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController
 class CommandBroker constructor(private val slackCommandReceivers: List<SlashCommandReceiver>,
                                 private val teamStore: TeamStore) {
 
-    @VerifiesSlackSignature
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/commands", consumes = ["application/x-www-form-urlencoded"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun receiveCommand(@Command slackCommand: SlackCommand, @RequestHeader headers: HttpHeaders) {

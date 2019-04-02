@@ -56,7 +56,7 @@ open class SlackBrokerConfigurationProperties {
         /**
         Secret that is used to verify signed requests from slack [Slack Doc](https://api.slack.com/docs/verifying-requests-from-slack)
          */
-        lateinit var signingSecret: String
+        var signingSecret: String? = null
     }
 
     open class Logging {

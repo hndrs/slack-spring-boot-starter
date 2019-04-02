@@ -21,3 +21,7 @@ include "slack-spring-api-client"
 project(":slack-spring-api-client").projectDir = new File("client/slack-spring-api-client")
 include "slack-spring-test-api-client"
 project(":slack-spring-test-api-client").projectDir = new File("client/slack-spring-test-api-client")
+
+//Samples
+include "slack-spring-boot-starter-sample"
+project(":slack-spring-boot-starter-sample").projectDir = new File("samples/slack-spring-boot-starter-sample")

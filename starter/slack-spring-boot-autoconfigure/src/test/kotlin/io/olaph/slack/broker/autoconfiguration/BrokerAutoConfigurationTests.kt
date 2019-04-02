@@ -2,6 +2,7 @@ package io.olaph.slack.broker.autoconfiguration
 
 import io.olaph.slack.broker.broker.CommandBroker
 import io.olaph.slack.broker.broker.EventBroker
+import io.olaph.slack.broker.configuration.EventRequestArgumentResolver
 import io.olaph.slack.broker.configuration.InteractiveResponseArgumentResolver
 import io.olaph.slack.broker.configuration.SlackCommandArgumentResolver
 import io.olaph.slack.broker.receiver.SL4JLoggingReceiver
@@ -40,6 +41,7 @@ class BrokerAutoConfigurationTests {
             bean.addArgumentResolvers(listOf)
             assertTrue(listOf[0] is SlackCommandArgumentResolver)
             assertTrue(listOf[1] is InteractiveResponseArgumentResolver)
+            assertTrue(listOf[2] is EventRequestArgumentResolver)
         }
     }
 

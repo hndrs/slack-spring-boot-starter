@@ -1,7 +1,6 @@
 package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.receiver.InstallationReceiver
-import io.olaph.slack.broker.security.VerifiesSlackSignature
 import io.olaph.slack.broker.store.Team
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.client.SlackClient
@@ -39,7 +38,6 @@ class InstallationBroker constructor(
      * Installation-endpoint which is called by slack
      * Obtains the token by calling [oauth.access](https://api.slack.com/methods/oauth.access) and saves the response into the TeamStore
      */
-    @VerifiesSlackSignature
     @GetMapping(value = ["/installation"])
     fun onInstall(@RequestParam("code") code: String, @RequestParam("state") state: String): RedirectView {
         return try {
