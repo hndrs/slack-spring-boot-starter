@@ -64,8 +64,7 @@ data class InteractiveComponentResponse(
         @JsonProperty("action_ts") val actionTs: String?,
         //TODO can this really be optional?
         @JsonProperty("message_ts") val messageTs: String?,
-        //TODO can this really be optional?
-        @JsonProperty("team") val team: Team?,
+        @JsonProperty("team") val team: Team,
         @JsonProperty("user") val user: User,
         @JsonProperty("state") val state: String? = "",
         @JsonProperty("channel") val channel: Channel,

@@ -2,6 +2,7 @@ package io.olaph.slack.client.spring
 
 import io.olaph.slack.dto.jackson.group.conversations.ConversationCreateRequest
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
@@ -15,6 +16,7 @@ class IntegrationTests {
         val LOG = LoggerFactory.getLogger(IntegrationTests::class.java)
     }
 
+    @Disabled
     @Test
     @DisplayName("Integration Suite")
     fun integrationSuite() {
