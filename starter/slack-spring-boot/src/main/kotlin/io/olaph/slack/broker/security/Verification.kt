@@ -11,7 +11,9 @@ import java.time.Instant
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-
+/**
+ * https://api.slack.com/docs/verifying-requests-from-slack
+ */
 class VerificationHandlerInterceptor(private val signingSecret: String) : HandlerInterceptorAdapter() {
 
     companion object {

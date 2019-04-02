@@ -2,6 +2,7 @@ package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.receiver.EventReceiver
 import io.olaph.slack.broker.security.VerifiesSlackSignature
+import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.dto.jackson.EventRequest
 import io.olaph.slack.dto.jackson.SlackChallenge
 import io.olaph.slack.dto.jackson.SlackEvent
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class EventBroker constructor(private val slackEventReceivers: List<EventReceiver>) {
+class EventBroker constructor(private val slackEventReceivers: List<EventReceiver>,
+                              private val teamStore: TeamStore) {
 
     companion object {
         val LOG = LoggerFactory.getLogger(EventReceiver::class.java)
@@ -29,6 +31,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
         if (event is SlackChallenge) {
             return mapOf(Pair("challenge", event.challenge))
         } else if (event is SlackEvent) {
+            val team = teamStore.findById(event.teamId)
             slackEventReceivers
                     .filter { receiver ->
                         val supportsEvent = receiver.supportsEvent(event)
@@ -39,7 +42,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
                     }
                     .forEach { receiver ->
                         try {
-                            receiver.onReceiveEvent(event, headers)
+                            receiver.onReceiveEvent(event, headers, team)
                         } catch (e: Exception) {
                             LOG.error("Exception", e)
                         }

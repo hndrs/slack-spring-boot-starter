@@ -38,13 +38,23 @@ open class SlackBrokerConfigurationProperties {
          */
         lateinit var errorRedirectUrl: String
 
+        /**
+        client id of your slack app
+         */
+        lateinit var clientId: String
+
+        /**
+        client secret of your slack app
+         */
+        lateinit var clientSecret: String
+
     }
 
 
     open class Security {
 
         /**
-        Secret that is used to verify signed requests from slack https://api.slack.com/docs/verifying-requests-from-slack
+        Secret that is used to verify signed requests from slack [Slack Doc](https://api.slack.com/docs/verifying-requests-from-slack)
          */
         lateinit var signingSecret: String
     }
