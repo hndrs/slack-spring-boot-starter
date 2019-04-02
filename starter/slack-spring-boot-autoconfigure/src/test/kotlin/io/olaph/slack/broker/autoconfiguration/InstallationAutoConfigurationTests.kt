@@ -15,8 +15,8 @@ class InstallationAutoConfigurationTests {
             .withSystemProperties(
                     "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
                     "slack.installation.success-redirect-url:http://localhost:8080/installation/success",
-                    "slack.installation.clientId:123",
-                    "slack.installation.clientSecret:1234"
+                    "slack.installation.client-id:123",
+                    "slack.installation.client-secret:1234"
             )
             .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
 

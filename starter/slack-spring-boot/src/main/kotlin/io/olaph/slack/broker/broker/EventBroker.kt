@@ -1,7 +1,7 @@
 package io.olaph.slack.broker.broker
 
+import io.olaph.slack.broker.configuration.Event
 import io.olaph.slack.broker.receiver.EventReceiver
-import io.olaph.slack.broker.security.VerifiesSlackSignature
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.dto.jackson.EventRequest
 import io.olaph.slack.dto.jackson.SlackChallenge
@@ -11,7 +11,6 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
@@ -24,10 +23,9 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
         val LOG = LoggerFactory.getLogger(EventReceiver::class.java)
     }
 
-    @VerifiesSlackSignature
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/events", consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun receiveEvents(@RequestBody event: EventRequest, @RequestHeader headers: HttpHeaders): Map<String, String> {
+    fun receiveEvents(@Event event: EventRequest, @RequestHeader headers: HttpHeaders): Map<String, String> {
         if (event is SlackChallenge) {
             return mapOf(Pair("challenge", event.challenge))
         } else if (event is SlackEvent) {

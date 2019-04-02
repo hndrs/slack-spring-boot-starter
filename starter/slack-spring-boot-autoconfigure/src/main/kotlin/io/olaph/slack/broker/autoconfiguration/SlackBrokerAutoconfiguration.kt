@@ -4,6 +4,7 @@ import io.olaph.slack.broker.broker.CommandBroker
 import io.olaph.slack.broker.broker.EventBroker
 import io.olaph.slack.broker.broker.InstallationBroker
 import io.olaph.slack.broker.broker.InteractiveComponentBroker
+import io.olaph.slack.broker.configuration.EventRequestArgumentResolver
 import io.olaph.slack.broker.configuration.InteractiveResponseArgumentResolver
 import io.olaph.slack.broker.configuration.SlackCommandArgumentResolver
 import io.olaph.slack.broker.exception.SlackExceptionHandler
@@ -12,7 +13,6 @@ import io.olaph.slack.broker.receiver.InstallationReceiver
 import io.olaph.slack.broker.receiver.InteractiveComponentReceiver
 import io.olaph.slack.broker.receiver.SL4JLoggingReceiver
 import io.olaph.slack.broker.receiver.SlashCommandReceiver
-import io.olaph.slack.broker.security.VerificationHandlerInterceptor
 import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.client.SlackClient
@@ -24,7 +24,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @EnableConfigurationProperties(SlackBrokerConfigurationProperties::class)
@@ -32,7 +31,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 open class SlackBrokerAutoConfiguration {
 
     @Configuration
-    open class BrokerConfiguration : WebMvcConfigurer {
+    open class BrokerConfiguration(private val configuration: SlackBrokerConfigurationProperties) : WebMvcConfigurer {
 
         @ConditionalOnMissingBean
         @Bean
@@ -56,8 +55,11 @@ open class SlackBrokerAutoConfiguration {
         }
 
         override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
-            resolvers.add(SlackCommandArgumentResolver())
-            resolvers.add(InteractiveResponseArgumentResolver())
+            val signingSecret = this.configuration.security.signingSecret
+
+            resolvers.add(SlackCommandArgumentResolver(signingSecret))
+            resolvers.add(InteractiveResponseArgumentResolver(signingSecret))
+            resolvers.add(EventRequestArgumentResolver(signingSecret))
         }
 
         @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.LOGGING_PROPERTY_PREFIX, name = ["enabled"], havingValue = "true", matchIfMissing = true)
@@ -71,7 +73,7 @@ open class SlackBrokerAutoConfiguration {
     open class InstallationConfiguration(private val configuration: SlackBrokerConfigurationProperties) {
 
         @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.INSTALLATION_PROPERTY_PREFIX,
-                name = ["error-redirect-url", "success-redirect-url", "clientId", "clientSecret"])
+                name = ["error-redirect-url", "success-redirect-url", "client-id", "client-secret"])
         @Bean
         open fun installationBroker(installationReceivers: List<InstallationReceiver>,
                                     teamStore: TeamStore,
@@ -98,15 +100,6 @@ open class SlackBrokerAutoConfiguration {
     @Bean
     open fun slackExceptionHandler(): SlackExceptionHandler {
         return SlackExceptionHandler()
-    }
-
-    @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.SECURITY_PROPERTY_PREFIX, name = ["signing-secret"])
-    @Configuration
-    open class SecurityConfiguration(private val configuration: SlackBrokerConfigurationProperties) : WebMvcConfigurer {
-
-        override fun addInterceptors(registry: InterceptorRegistry) {
-            registry.addInterceptor(VerificationHandlerInterceptor(configuration.security.signingSecret))
-        }
     }
 
 }
