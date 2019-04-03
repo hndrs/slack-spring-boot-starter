@@ -5,10 +5,13 @@ import io.olaph.slack.broker.broker.EventBroker
 import io.olaph.slack.broker.configuration.EventRequestArgumentResolver
 import io.olaph.slack.broker.configuration.InteractiveResponseArgumentResolver
 import io.olaph.slack.broker.configuration.SlackCommandArgumentResolver
+import io.olaph.slack.broker.exception.SlackExceptionHandler
 import io.olaph.slack.broker.receiver.SL4JLoggingReceiver
 import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.Team
 import io.olaph.slack.broker.store.TeamStore
+import io.olaph.slack.client.SlackClient
+import io.olaph.slack.client.spring.DefaultSlackClient
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
@@ -19,6 +22,7 @@ import org.springframework.beans.factory.getBean
 import org.springframework.boot.autoconfigure.AutoConfigurations
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 import org.springframework.boot.test.context.runner.ApplicationContextRunner
+import org.springframework.boot.test.context.runner.WebApplicationContextRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
@@ -84,6 +88,27 @@ class BrokerAutoConfigurationTests {
             assertDoesNotThrow { it.getBean(TeamStore::class.java) }
             assertTrue(it.getBean(TeamStore::class.java) is InMemoryTeamStore)
         }
+    }
+
+    @DisplayName("SlackExceptionHandler Registration")
+    @Test
+    fun slackExceptionHandlerRegistration() {
+        WebApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .run {
+                    assertDoesNotThrow { it.getBean(SlackExceptionHandler::class.java) }
+                }
+    }
+
+    @DisplayName("SlackClient Registration")
+    @Test
+    fun slackApiClientRegistration() {
+        ApplicationContextRunner()
+                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .run {
+                    assertDoesNotThrow { it.getBean(SlackClient::class.java) }
+                    assertTrue(it.getBean(SlackClient::class.java) is DefaultSlackClient)
+                }
     }
 
     @DisplayName("Custom TeamStore Registration")
