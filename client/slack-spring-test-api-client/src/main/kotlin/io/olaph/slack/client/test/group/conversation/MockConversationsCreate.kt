@@ -10,7 +10,7 @@ import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationCrea
 /**
  * Mock implementation of @link ConversationsCreateMethod
  */
-open class MockChatConversationCreate : ConversationsCreateMethod(), MockMethod<SuccessfulConversationCreateResponse, ErrorConversationCreateResponse, ConversationCreateRequest> {
+open class MockConversationsCreate : ConversationsCreateMethod(), MockMethod<SuccessfulConversationCreateResponse, ErrorConversationCreateResponse, ConversationCreateRequest> {
 
     override fun params(): ConversationCreateRequest {
         return params;
