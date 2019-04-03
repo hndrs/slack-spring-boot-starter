@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory
 
 class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     override fun close(authToken: String): ConversationsCloseMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsCloseMethod(authToken)
     }
 
     override fun create(authToken: String): ConversationsCreateMethod {
