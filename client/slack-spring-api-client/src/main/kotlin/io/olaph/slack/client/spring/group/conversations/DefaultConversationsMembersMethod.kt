@@ -1,12 +1,11 @@
 package io.olaph.slack.client.spring.group.conversations
 
-import io.olaph.slack.client.UnknownResponseException
-import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.conversations.ConversationsMembersMethod
-import io.olaph.slack.dto.jackson.group.conversations.ErrorGetMembersResponse
-import io.olaph.slack.dto.jackson.group.conversations.SlackGetMembersResponse
-import io.olaph.slack.dto.jackson.group.conversations.SuccessfulGetMembersResponse
+import io.olaph.slack.client.spring.group.SlackRequestBuilder
+import io.olaph.slack.dto.jackson.group.conversations.ConversationMembersResponse
+import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationMembersResponse
+import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationMembersResponse
 
 /**
  * https://api.slack.com/methods/conversations.members
@@ -14,25 +13,22 @@ import io.olaph.slack.dto.jackson.group.conversations.SuccessfulGetMembersRespon
 @Suppress("UNCHECKED_CAST")
 class DefaultConversationsMembersMethod(private val authToken: String) : ConversationsMembersMethod() {
 
-    override fun request(): ApiCallResult<SuccessfulGetMembersResponse, ErrorGetMembersResponse> {
-        val response = SlackRequestBuilder<SlackGetMembersResponse>(authToken)
+    override fun request(): ApiCallResult<SuccessfulConversationMembersResponse, ErrorConversationMembersResponse> {
+        val response = SlackRequestBuilder<ConversationMembersResponse>(authToken)
                 .toMethod("conversations.members")
-                .returnAsType(SlackGetMembersResponse::class.java)
-                .postUrlEncoded(this.params)
+                .returnAsType(ConversationMembersResponse::class.java)
+                .postUrlEncoded(this.params.toRequestMap())
 
-        return when {
-            response.body is SuccessfulGetMembersResponse -> {
-                val responseEntity = response.body as SuccessfulGetMembersResponse
+        return when (response.body!!) {
+            is SuccessfulConversationMembersResponse -> {
+                val responseEntity = response.body as SuccessfulConversationMembersResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorGetMembersResponse -> {
-                val responseEntity = response.body as ErrorGetMembersResponse
+            is ErrorConversationMembersResponse -> {
+                val responseEntity = response.body as ErrorConversationMembersResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }

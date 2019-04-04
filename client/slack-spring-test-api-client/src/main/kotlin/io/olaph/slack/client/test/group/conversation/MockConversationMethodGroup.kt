@@ -7,8 +7,6 @@ import io.olaph.slack.client.group.conversations.ConversationsInviteMethod
 import io.olaph.slack.client.group.conversations.ConversationsJoinMethod
 import io.olaph.slack.client.group.conversations.ConversationsKickMethod
 import io.olaph.slack.client.group.conversations.ConversationsLeaveMethod
-import io.olaph.slack.client.group.conversations.ConversationsListMethod
-import io.olaph.slack.client.group.conversations.ConversationsMembersMethod
 import io.olaph.slack.client.group.conversations.ConversationsMethodGroup
 import io.olaph.slack.client.group.conversations.ConversationsOpenMethod
 import io.olaph.slack.client.group.conversations.ConversationsRenameMethod
@@ -22,10 +20,10 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
 
     private val mockChatConversationsCreate = MockConversationsCreate()
     private val mockConversationsClose = MockConversationsClose()
+    private val mockConversationsListMethod = MockConversationsListMethod()
+    private val mockConversationsMembersMethod = MockConversationsMembersMethod()
 
-    override fun close(authToken: String): MockConversationsClose {
-        return mockConversationsClose
-    }
+    override fun close(authToken: String): MockConversationsClose = mockConversationsClose
 
     override fun create(authToken: String): MockConversationsCreate {
         return mockChatConversationsCreate
@@ -55,12 +53,12 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun list(authToken: String): ConversationsListMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun list(authToken: String): MockConversationsListMethod {
+        return mockConversationsListMethod
     }
 
-    override fun members(authToken: String): ConversationsMembersMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun members(authToken: String): MockConversationsMembersMethod {
+        return mockConversationsMembersMethod
     }
 
     override fun open(authToken: String): ConversationsOpenMethod {

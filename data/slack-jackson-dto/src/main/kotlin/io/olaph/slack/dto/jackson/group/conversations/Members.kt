@@ -11,21 +11,44 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
         property = "ok",
         visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGetMembersResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGetMembersResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulConversationMembersResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorConversationMembersResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class SlackGetMembersResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ConversationMembersResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulGetMembersResponse constructor(override val ok: Boolean,
-                                                    @JsonProperty("members") val members: List<String>,
-                                                    @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata)
-    : SlackGetMembersResponse(ok)
+data class SuccessfulConversationMembersResponse constructor(override val ok: Boolean,
+                                                             @JsonProperty("members") val memberIds: List<String>,
+                                                             @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata)
+    : ConversationMembersResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
-data class ErrorGetMembersResponse constructor(override val ok: Boolean, @JsonProperty("error") val error: String)
-    : SlackGetMembersResponse(ok)
+data class ErrorConversationMembersResponse constructor(override val ok: Boolean, @JsonProperty("error") val error: String)
+    : ConversationMembersResponse(ok) {
+    companion object
+}
 
-data class ResponseMetadata(@JsonProperty("next_cursor") val nextCursor: String)
+data class ResponseMetadata(@JsonProperty("next_cursor") val nextCursor: String) {
+    companion object
+}
 
+/**
+ * DataClass that represents arguments as defined here https://api.slack.com/methods/conversations.members
+ */
+data class ConversationMembersRequest(private val channelId: String,
+                                      private val cursor: String? = null,
+                                      private val limit: Int? = null) {
+
+    fun toRequestMap(): MutableMap<String, String> {
+        val requestMap = mutableMapOf<String, String>()
+        requestMap.put("channel", channelId)
+        cursor?.let { requestMap.put("cursor", it) }
+        limit?.let { requestMap.put("limit", it.toString()) }
+        return requestMap
+    }
+
+    companion object
+}

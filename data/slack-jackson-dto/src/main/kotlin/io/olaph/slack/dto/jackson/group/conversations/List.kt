@@ -12,22 +12,26 @@ import io.olaph.slack.dto.jackson.common.types.Conversation
         property = "ok",
         visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccesfulGetConversationListResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGetConversationListResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulConversationListResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorConversationListResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class SlackGetConversationListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ConversationListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
-data class SuccesfulGetConversationListResponse(
+data class SuccessfulConversationListResponse(
         override val ok: Boolean,
         @JsonProperty("channels") val channels: List<Conversation>,
         @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
-) : SlackGetConversationListResponse(ok)
+) : ConversationListResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
-data class ErrorGetConversationListResponse constructor(override val ok: Boolean,
-                                                        @JsonProperty("error") val error: String)
-    : SlackGetConversationListResponse(ok)
+data class ErrorConversationListResponse constructor(override val ok: Boolean,
+                                                     @JsonProperty("error") val error: String)
+    : ConversationListResponse(ok) {
+    companion object
+}
 
 /**
  * DataClass that represents arguments as defined here https://api.slack.com/methods/conversations.list
@@ -45,4 +49,7 @@ data class ConversationsListRequest(private val cursor: String? = null,
         types?.let { requestMap.put("types", it.map(ChannelType::value).joinToString(",")) }
         return requestMap
     }
+
+    companion object
+
 }
