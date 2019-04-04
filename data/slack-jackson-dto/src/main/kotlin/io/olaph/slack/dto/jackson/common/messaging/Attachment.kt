@@ -15,7 +15,7 @@ import io.olaph.slack.dto.jackson.common.Action
 @JacksonDataClass
 data class Attachment(
         @JsonProperty("title") val title: String? = null,
-        @JsonProperty("fallback") val fallback: String,
+        @JsonProperty("fallback") val fallback: String? = null,
         @JsonProperty("pretext") val pretext: String? = null,
         @JsonProperty("color") val color: Color? = null,
         @JsonProperty("attachment_type") val attachmentType: String? = null,
