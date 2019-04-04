@@ -4,28 +4,28 @@ import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.client.group.conversations.ConversationsOpenMethod
-import io.olaph.slack.dto.jackson.group.conversations.ErrorOpenResponse
-import io.olaph.slack.dto.jackson.group.conversations.SlackOpenResponse
-import io.olaph.slack.dto.jackson.group.conversations.SuccessfulOpenResponse
+import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationOpenResponse
+import io.olaph.slack.dto.jackson.group.conversations.ConversationOpenResponse
+import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationOpenResponse
 
 @Suppress("UNCHECKED_CAST")
 class DefaultConversationsOpenMethod(private val authToken: String) : ConversationsOpenMethod(){
 
-    override fun request(): ApiCallResult<SuccessfulOpenResponse, ErrorOpenResponse> {
-        val response = SlackRequestBuilder<SlackOpenResponse>(authToken)
+    override fun request(): ApiCallResult<SuccessfulConversationOpenResponse, ErrorConversationOpenResponse> {
+        val response = SlackRequestBuilder<ConversationOpenResponse>(authToken)
                 .with(this.params)
                 .toMethod("conversations.open")
-                .returnAsType(SlackOpenResponse::class.java)
+                .returnAsType(ConversationOpenResponse::class.java)
                 .postWithJsonBody()
 
         return when {
-            response.body is SuccessfulOpenResponse -> {
-                val responseEntity = response.body as SuccessfulOpenResponse
+            response.body is SuccessfulConversationOpenResponse -> {
+                val responseEntity = response.body as SuccessfulConversationOpenResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorOpenResponse -> {
-                val responseEntity = response.body as ErrorOpenResponse
+            response.body is ErrorConversationOpenResponse -> {
+                val responseEntity = response.body as ErrorConversationOpenResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

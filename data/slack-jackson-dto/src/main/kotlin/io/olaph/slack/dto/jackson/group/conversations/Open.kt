@@ -10,28 +10,28 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
         property = "ok",
         visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulOpenResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorOpenResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulConversationOpenResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorConversationOpenResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class SlackOpenResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+abstract class ConversationOpenResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulOpenResponse constructor(override val ok: Boolean,
-                                              @JsonProperty("channel") val channel: Channel)
-    : SlackOpenResponse(ok) {
+data class SuccessfulConversationOpenResponse constructor(override val ok: Boolean,
+                                                          @JsonProperty("channel") val channel: Channel)
+    : ConversationOpenResponse(ok) {
 
     @JacksonDataClass
-    data class Channel(val id: String)
+    data class Channel(@JsonProperty("id") val id: String)
 }
 
 @JacksonDataClass
-data class ErrorOpenResponse constructor(override val ok: Boolean, @JsonProperty("error") val error: String)
-    : SlackOpenResponse(ok)
+data class ErrorConversationOpenResponse constructor(override val ok: Boolean, @JsonProperty("error") val error: String)
+    : ConversationOpenResponse(ok)
 
 @JacksonDataClass
-data class SlackOpenRequest constructor(@JsonProperty("channel") val channelId: String? = null,
-                                        @JsonProperty("return_im") val shouldReturnIm: Boolean? = null,
-                                        @JsonProperty("users") val users: List<String>? = null)
+data class ConversationsOpenRequest constructor(@JsonProperty("channel") val channelId: String? = null,
+                                                @JsonProperty("return_im") val shouldReturnIm: Boolean? = null,
+                                                @JsonProperty("users") val users: List<String>? = null)
 
 
