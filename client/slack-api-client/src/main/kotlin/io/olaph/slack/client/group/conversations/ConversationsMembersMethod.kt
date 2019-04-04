@@ -1,9 +1,10 @@
 package io.olaph.slack.client.group.conversations
 
 import io.olaph.slack.client.group.ApiCallMethod
-import io.olaph.slack.dto.jackson.group.conversations.ErrorGetMembersResponse
-import io.olaph.slack.dto.jackson.group.conversations.SuccessfulGetMembersResponse
+import io.olaph.slack.dto.jackson.group.conversations.ConversationMembersRequest
+import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationMembersResponse
+import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationMembersResponse
 
-abstract class ConversationsMembersMethod : ApiCallMethod<ConversationsMembersMethod, SuccessfulGetMembersResponse, ErrorGetMembersResponse, MutableMap<String, String>>() {
+abstract class ConversationsMembersMethod : ApiCallMethod<ConversationsMembersMethod, SuccessfulConversationMembersResponse, ErrorConversationMembersResponse, ConversationMembersRequest>() {
 
 }
