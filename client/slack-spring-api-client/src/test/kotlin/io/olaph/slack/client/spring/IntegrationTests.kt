@@ -39,6 +39,9 @@ class IntegrationTests {
         return response.success!!.channel.id
     }
 
+    /**
+     * returns memberIds
+     */
     fun membersConversations(channelId: String): List<String> {
         val response = client.conversation().members(TestConfig.token())
                 .with(ConversationMembersRequest(channelId = channelId))
@@ -50,6 +53,9 @@ class IntegrationTests {
         return response.success!!.memberIds
     }
 
+    /**
+     * returns Conversations
+     */
     fun listConversations(): List<Conversation> {
         val response = client.conversation().list(TestConfig.token())
                 .with(ConversationsListRequest())
