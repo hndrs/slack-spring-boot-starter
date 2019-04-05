@@ -4,6 +4,8 @@ import io.olaph.slack.dto.jackson.common.types.Conversation
 import io.olaph.slack.dto.jackson.group.conversations.ConversationCreateRequest
 import io.olaph.slack.dto.jackson.group.conversations.ConversationMembersRequest
 import io.olaph.slack.dto.jackson.group.conversations.ConversationsListRequest
+import io.olaph.slack.dto.jackson.group.conversations.ConversationsOpenRequest
+import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationOpenResponse
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -24,6 +26,7 @@ class IntegrationTests {
         val channelId = createConversation()
         val memberIds = membersConversations(channelId)
         val listConversations = listConversations()
+        val openConversation = openConversation(memberIds)
     }
 
     /**
@@ -65,5 +68,20 @@ class IntegrationTests {
         Assertions.assertNotNull(response.success)
 
         return response.success!!.channels
+    }
+
+    /**
+     * returns channel
+     */
+    fun openConversation(memberIds: List<String>): SuccessfulConversationOpenResponse.Channel {
+        val response = client.conversation().open(TestConfig.token())
+                .with(ConversationsOpenRequest(users = memberIds))
+                .onFailure { LOG.info("{}", it) }
+                .onSuccess { LOG.info("{}", it) }
+                .invoke()
+
+        Assertions.assertNotNull(response.success)
+
+        return response.success!!.channel
     }
 }

@@ -43,7 +43,13 @@ interface ConversationsMethodGroup {
     /**Retrieve members of a conversation.*/
     fun members(authToken: String): ConversationsMembersMethod
 
-    /**Opens or resumes a direct message or multi-person direct message.*/
+    /**
+     * This Conversations API method opens a multi-person direct message or just a 1:1 direct message.
+     * [SlackDock](https://api.slack.com/methods/conversations.open)
+     *
+     * @param authToken to authenticate against the slack api
+     * @return RequestBuilder to build the request
+     */
     fun open(authToken: String): ConversationsOpenMethod
 
     /**Renames a conversation.*/
