@@ -32,7 +32,7 @@ data class SlackEvent constructor(
         @JsonProperty("authed_users") val authedUsers: Set<String>?,
         @JsonProperty("event_id") val eventId: String,
         @JsonProperty("event_time") val eventTime: Int,
-        @JsonProperty("event") val event: Map<String, String>
+        @JsonProperty("event") val event: Map<String, Any>
 ) : EventRequest(type, token) {
     companion object
 }
