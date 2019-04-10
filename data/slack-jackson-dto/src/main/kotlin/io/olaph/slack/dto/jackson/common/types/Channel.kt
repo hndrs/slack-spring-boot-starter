@@ -22,7 +22,7 @@ data class Channel(
         @JsonProperty("is_private") val isPrivate: Boolean,
         @JsonProperty("is_mpim") val isMpim: Boolean,
         //TODO make this an INSTANT
-        @JsonProperty("last_read") val lastRead: String,
+        @JsonProperty("last_read") val lastRead: String?,
         @JsonProperty("latest") val latest: Message? = null,
         @JsonProperty("unread_count") val unreadCount: Int,
         @JsonProperty("unread_count_display") val unreadCountDisplay: Int,
