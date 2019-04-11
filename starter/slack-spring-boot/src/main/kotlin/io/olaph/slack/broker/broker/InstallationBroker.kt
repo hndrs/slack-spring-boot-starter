@@ -1,5 +1,7 @@
 package io.olaph.slack.broker.broker
 
+import io.olaph.slack.broker.metrics.InstallationMetrics
+import io.olaph.slack.broker.metrics.InstallationMetricsCollector
 import io.olaph.slack.broker.receiver.InstallationReceiver
 import io.olaph.slack.broker.store.Team
 import io.olaph.slack.broker.store.TeamStore
@@ -23,9 +25,8 @@ import org.springframework.web.servlet.view.RedirectView
  */
 @RestController
 class InstallationBroker constructor(
-        private val successRedirectUrl: String,
-        private val errorRedirectUrl: String,
         private val installationReceivers: List<InstallationReceiver>,
+        private val metricsCollector: InstallationMetricsCollector?,
         private val teamStore: TeamStore,
         private val slackClient: SlackClient,
         private val config: Config) {
@@ -41,17 +42,26 @@ class InstallationBroker constructor(
     @GetMapping(value = ["/installation"])
     fun onInstall(@RequestParam("code") code: String, @RequestParam("state") state: String): RedirectView {
         return try {
+
+            this.metricsCollector?.installationAttempt()
+
             val team = obtainOauthAccess(code)
-            teamStore.put(team)
+            this.teamStore.put(team)
+
             this.installationReceivers
                     .forEach { receiver ->
                         receiver.onReceiveInstallation(code, state, team)
                     }
 
-            RedirectView(successRedirectUrl)
+            this.metricsCollector?.successfulInstallation()
+
+            RedirectView(this.config.successRedirectUrl)
         } catch (exception: Exception) {
+
             LOG.error("There was an error during the installation", exception)
-            RedirectView(errorRedirectUrl)
+            this.metricsCollector?.errorDuringInstallation()
+
+            RedirectView(this.config.errorRedirectUrl)
         }
     }
 
@@ -71,5 +81,7 @@ class InstallationBroker constructor(
         } ?: throw IllegalStateException("Could not obtain access-token")
     }
 
-    data class Config(val clientId: String, val clientSecret: String)
+    data class Config(val clientId: String, val clientSecret: String, val successRedirectUrl: String, val errorRedirectUrl: String)
+
+
 }

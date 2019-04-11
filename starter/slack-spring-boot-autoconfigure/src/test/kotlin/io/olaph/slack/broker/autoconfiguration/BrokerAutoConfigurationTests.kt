@@ -37,10 +37,10 @@ class BrokerAutoConfigurationTests {
 
     @DisplayName("SlackArgumentResolver Registration")
     @Test
-    fun slackCommandArgumentResolverRegistration() {
+    fun slackArgumentResolverRegistrations() {
         contextRunner.run {
             val listOf = ArrayList<HandlerMethodArgumentResolver>()
-            val bean = it.getBean<WebMvcConfigurer>("io.olaph.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration\$BrokerConfiguration")
+            val bean = it.getBean<WebMvcConfigurer>("io.olaph.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration\$BrokerAutoConfiguration")
 
             bean.addArgumentResolvers(listOf)
             assertTrue(listOf[0] is SlackCommandArgumentResolver)
