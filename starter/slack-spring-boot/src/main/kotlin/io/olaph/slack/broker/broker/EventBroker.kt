@@ -1,6 +1,7 @@
 package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.configuration.Event
+import io.olaph.slack.broker.metrics.EventMetricsCollector
 import io.olaph.slack.broker.receiver.EventReceiver
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.dto.jackson.EventRequest
@@ -17,15 +18,19 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class EventBroker constructor(private val slackEventReceivers: List<EventReceiver>,
-                              private val teamStore: TeamStore) {
+                              private val teamStore: TeamStore,
+                              private val metricsCollector: EventMetricsCollector?) {
 
     companion object {
-        val LOG = LoggerFactory.getLogger(EventReceiver::class.java)
+        val LOG = LoggerFactory.getLogger(EventBroker::class.java)
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/events", consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun receiveEvents(@Event event: EventRequest, @RequestHeader headers: HttpHeaders): Map<String, String> {
+
+        this.metricsCollector?.eventsReceived()
+
         if (event is SlackChallenge) {
             return mapOf(Pair("challenge", event.challenge))
         } else if (event is SlackEvent) {
@@ -33,6 +38,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
             slackEventReceivers
                     .filter { receiver ->
                         val supportsEvent = receiver.supportsEvent(event)
+
                         when {
                             LOG.isDebugEnabled -> LOG.debug("EventReceiver:{}\nSupportsEvent:{}\nEvent:{} ", receiver::class, supportsEvent, event)
                         }
@@ -40,8 +46,10 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
                     }
                     .forEach { receiver ->
                         try {
+                            this.metricsCollector?.receiverExecuted()
                             receiver.onReceiveEvent(event, headers, team)
                         } catch (e: Exception) {
+                            this.metricsCollector?.receiverExecutionError()
                             LOG.error("Exception", e)
                         }
                     }

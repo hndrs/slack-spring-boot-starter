@@ -1,10 +1,12 @@
 package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.configuration.InteractiveResponse
+import io.olaph.slack.broker.metrics.InteractiveComponentMetricsCollector
 import io.olaph.slack.broker.receiver.InteractiveComponentReceiver
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.dto.jackson.group.dialog.InteractiveComponentResponse
 import io.olaph.slack.dto.jackson.group.interactive_component.InteractiveComponentMessageResponse
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -15,15 +17,28 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class InteractiveComponentBroker constructor(private val slackInteractiveComponentReceivers: List<InteractiveComponentReceiver>,
-                                             private val teamStore: TeamStore) {
+                                             private val teamStore: TeamStore,
+                                             private val metricsCollector: InteractiveComponentMetricsCollector?) {
+
+    companion object {
+        val LOG = LoggerFactory.getLogger(InteractiveComponentBroker::class.java)
+    }
 
     @PostMapping("/interactive-components", consumes = ["application/x-www-form-urlencoded"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun receiveEvents(@InteractiveResponse interactiveComponentResponse: InteractiveComponentResponse, @RequestHeader headers: HttpHeaders): ResponseEntity<InteractiveComponentMessageResponse> {
+        this.metricsCollector?.responseReceived()
+
         val team = this.teamStore.findById(interactiveComponentResponse.team.id)
         slackInteractiveComponentReceivers
                 .filter { it -> it.supportsInteractiveMessage(interactiveComponentResponse) }
                 .forEach { receiver ->
-                    receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
+                    try {
+                        this.metricsCollector?.receiverExecuted()
+                        receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
+                    } catch (e: Exception) {
+                        this.metricsCollector?.receiverExecutionError()
+                        LOG.error("{}", e)
+                    }
                 }
         return if (interactiveComponentResponse.type == "interactive_message") {
             ResponseEntity(InteractiveComponentMessageResponse(deleteOriginal = true), HttpStatus.OK)

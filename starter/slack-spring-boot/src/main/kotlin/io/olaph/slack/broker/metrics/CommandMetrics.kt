@@ -1,0 +1,51 @@
+package io.olaph.slack.broker.metrics
+
+import io.micrometer.core.instrument.Counter
+import io.micrometer.core.instrument.MeterRegistry
+import io.micrometer.core.instrument.binder.MeterBinder
+
+interface CommandMetricsCollector {
+
+    /**
+     * Increments receiver execution metric
+     */
+    fun receiverExecuted()
+
+    /**
+     * Increments receiver execution metric
+     */
+    fun receiverExecutionError()
+
+    /**
+     * Increments commands received metric
+     */
+    fun commandsReceived()
+}
+
+class CommandMetrics : MeterBinder, CommandMetricsCollector {
+
+    private lateinit var commandReceiverExecutionErrors: Counter
+    private lateinit var commandReceiverExecutions: Counter
+    private lateinit var commandsReceived: Counter
+
+    override fun bindTo(registry: MeterRegistry) {
+
+        commandsReceived = Counter.builder("slack.commands.received")
+                .description("Total number of commands received")
+                .register(registry)
+
+        commandReceiverExecutions = Counter.builder("slack.commands.receiver.executions")
+                .description("Total number of command receivers executions")
+                .register(registry)
+
+        commandReceiverExecutionErrors = Counter.builder("slack.commands.receiver.errors")
+                .description("Number of errors during command receiver execution")
+                .register(registry)
+    }
+
+    override fun receiverExecuted() = this.commandReceiverExecutions.increment()
+
+    override fun receiverExecutionError() = this.commandReceiverExecutionErrors.increment()
+
+    override fun commandsReceived() = this.commandsReceived.increment()
+}

@@ -1,5 +1,6 @@
 package io.olaph.slack.broker.autoconfiguration
 
+import io.micrometer.core.instrument.MeterRegistry
 import io.olaph.slack.broker.broker.CommandBroker
 import io.olaph.slack.broker.broker.EventBroker
 import io.olaph.slack.broker.broker.InstallationBroker
@@ -8,6 +9,14 @@ import io.olaph.slack.broker.configuration.EventRequestArgumentResolver
 import io.olaph.slack.broker.configuration.InteractiveResponseArgumentResolver
 import io.olaph.slack.broker.configuration.SlackCommandArgumentResolver
 import io.olaph.slack.broker.exception.SlackExceptionHandler
+import io.olaph.slack.broker.metrics.CommandMetrics
+import io.olaph.slack.broker.metrics.CommandMetricsCollector
+import io.olaph.slack.broker.metrics.EventMetrics
+import io.olaph.slack.broker.metrics.EventMetricsCollector
+import io.olaph.slack.broker.metrics.InstallationMetrics
+import io.olaph.slack.broker.metrics.InstallationMetricsCollector
+import io.olaph.slack.broker.metrics.InteractiveComponentMetrics
+import io.olaph.slack.broker.metrics.InteractiveComponentMetricsCollector
 import io.olaph.slack.broker.receiver.EventReceiver
 import io.olaph.slack.broker.receiver.InstallationReceiver
 import io.olaph.slack.broker.receiver.InteractiveComponentReceiver
@@ -17,6 +26,9 @@ import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.client.SlackClient
 import io.olaph.slack.client.spring.DefaultSlackClient
+import org.springframework.boot.autoconfigure.AutoConfigureBefore
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
@@ -31,7 +43,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 open class SlackBrokerAutoConfiguration {
 
     @Configuration
-    open class BrokerConfiguration(private val configuration: SlackBrokerConfigurationProperties) : WebMvcConfigurer {
+    open class BrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties) : WebMvcConfigurer {
 
         @ConditionalOnMissingBean
         @Bean
@@ -40,18 +52,18 @@ open class SlackBrokerAutoConfiguration {
         }
 
         @Bean
-        open fun eventReceiver(slackEventReceivers: List<EventReceiver>, teamStore: TeamStore): EventBroker {
-            return EventBroker(slackEventReceivers, teamStore)
+        open fun eventReceiver(slackEventReceivers: List<EventReceiver>, teamStore: TeamStore, metricsCollector: EventMetricsCollector?): EventBroker {
+            return EventBroker(slackEventReceivers, teamStore, metricsCollector)
         }
 
         @Bean
-        open fun commandReceiver(slackEventReceivers: List<SlashCommandReceiver>, teamStore: TeamStore): CommandBroker {
-            return CommandBroker(slackEventReceivers, teamStore)
+        open fun commandReceiver(slackEventReceivers: List<SlashCommandReceiver>, teamStore: TeamStore, metricsCollector: CommandMetricsCollector?): CommandBroker {
+            return CommandBroker(slackEventReceivers, teamStore, metricsCollector)
         }
 
         @Bean
-        open fun componentReceiver(slackEventReceivers: List<InteractiveComponentReceiver>, teamStore: TeamStore): InteractiveComponentBroker {
-            return InteractiveComponentBroker(slackEventReceivers, teamStore)
+        open fun componentReceiver(slackEventReceivers: List<InteractiveComponentReceiver>, teamStore: TeamStore, metricsCollector: InteractiveComponentMetricsCollector?): InteractiveComponentBroker {
+            return InteractiveComponentBroker(slackEventReceivers, teamStore, metricsCollector)
         }
 
         override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
@@ -70,23 +82,55 @@ open class SlackBrokerAutoConfiguration {
     }
 
     @Configuration
-    open class InstallationConfiguration(private val configuration: SlackBrokerConfigurationProperties) {
+    open class InstallationAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties) {
 
         @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.INSTALLATION_PROPERTY_PREFIX,
                 name = ["error-redirect-url", "success-redirect-url", "client-id", "client-secret"])
         @Bean
         open fun installationBroker(installationReceivers: List<InstallationReceiver>,
                                     teamStore: TeamStore,
-                                    slackClient: SlackClient): InstallationBroker {
+                                    slackClient: SlackClient,
+                                    metricsCollector: InstallationMetricsCollector?): InstallationBroker {
 
             val installation = this.configuration.installation
-            return InstallationBroker(installation.successRedirectUrl,
-                    installation.errorRedirectUrl,
+            return InstallationBroker(
                     installationReceivers,
+                    metricsCollector,
                     teamStore,
                     slackClient,
-                    InstallationBroker.Config(installation.clientId, installation.clientSecret)
+                    InstallationBroker.Config(installation.clientId, installation.clientSecret, installation.successRedirectUrl, installation.errorRedirectUrl)
             )
+        }
+
+    }
+
+    @AutoConfigureBefore(InstallationAutoConfiguration::class, BrokerAutoConfiguration::class)
+    @ConditionalOnClass(MeterRegistry::class)
+    @Configuration
+    open class SlackBrokerMetricsAutoConfiguration {
+
+        @ConditionalOnMissingBean
+        @Bean
+        open fun installationMetrics(): InstallationMetricsCollector {
+            return InstallationMetrics()
+        }
+
+        @ConditionalOnMissingBean
+        @Bean
+        open fun eventMetrics(): EventMetricsCollector {
+            return EventMetrics()
+        }
+
+        @ConditionalOnMissingBean
+        @Bean
+        open fun commandMetrics(): CommandMetricsCollector {
+            return CommandMetrics()
+        }
+
+        @ConditionalOnMissingBean
+        @Bean
+        open fun interactiveComponentMetrics(): InteractiveComponentMetricsCollector {
+            return InteractiveComponentMetrics()
         }
     }
 
