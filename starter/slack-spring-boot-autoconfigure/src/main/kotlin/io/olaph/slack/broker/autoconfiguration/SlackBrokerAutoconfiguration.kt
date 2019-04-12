@@ -27,7 +27,6 @@ import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.client.SlackClient
 import io.olaph.slack.client.spring.DefaultSlackClient
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
@@ -111,25 +110,25 @@ open class SlackBrokerAutoConfiguration {
 
         @ConditionalOnMissingBean
         @Bean
-        open fun installationMetrics(): InstallationMetricsCollector {
+        open fun installationMetrics(): InstallationMetrics {
             return InstallationMetrics()
         }
 
         @ConditionalOnMissingBean
         @Bean
-        open fun eventMetrics(): EventMetricsCollector {
+        open fun eventMetrics(): EventMetrics {
             return EventMetrics()
         }
 
         @ConditionalOnMissingBean
         @Bean
-        open fun commandMetrics(): CommandMetricsCollector {
+        open fun commandMetrics(): CommandMetrics {
             return CommandMetrics()
         }
 
         @ConditionalOnMissingBean
         @Bean
-        open fun interactiveComponentMetrics(): InteractiveComponentMetricsCollector {
+        open fun interactiveComponentMetrics(): InteractiveComponentMetrics {
             return InteractiveComponentMetrics()
         }
     }
