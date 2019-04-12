@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 
 class InteractiveComponentMetricsTests {
-    
+
     @DisplayName("InteractiveComponent MetricsTests")
     @Test
     fun testInteractiveComponentMetrics() {

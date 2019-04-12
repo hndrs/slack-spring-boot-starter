@@ -31,18 +31,21 @@ data class Team(val teamId: String,
                 val teamName: String,
                 val incomingWebhook: IncomingWebhook,
                 val bot: Bot) {
+    companion object {}
 
     data class Bot(
             val userId: String,
-            val accessToken: String
-    )
+            val accessToken: String) {
+        companion object {}
+    }
 
     data class IncomingWebhook(
             val channel: String,
             val channelId: String,
             val configurationUrl: String,
-            val url: String
-    )
+            val url: String) {
+        companion object {}
+    }
 }
 
 /**
