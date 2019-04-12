@@ -1,5 +1,5 @@
 ---
-name: Slack Api Method
+name: New Slack Api Method
 about: Adding Slack Api Method
 title: ''
 labels: ApiClient
@@ -10,6 +10,9 @@ assignees: ''
 Reference: https://api.slack.com/methods/
 
 Acceptance Criteria:
-- [ ] Spring Slack Client is extended with given method
-- [ ] Spring Slack Test Client is extended with given method
+- [ ] **slack-jackson-dto** holds new dtos if needed
+- [ ] **slack-jackson-dto-test-extension** provides new extensions if needed
+- [ ] **slack-api-client** is extended with given method
+- [ ] **slack-spring-api-client** implements given method
+- [ ] **slack-spring-test-api-client** implements given method
 - [ ] JavaDoc/KDoc is added
