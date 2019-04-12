@@ -4,7 +4,7 @@ import io.olaph.slack.broker.configuration.InteractiveResponse
 import io.olaph.slack.broker.metrics.InteractiveComponentMetricsCollector
 import io.olaph.slack.broker.receiver.InteractiveComponentReceiver
 import io.olaph.slack.broker.store.TeamStore
-import io.olaph.slack.dto.jackson.group.dialog.InteractiveComponentResponse
+import io.olaph.slack.dto.jackson.InteractiveComponentResponse
 import io.olaph.slack.dto.jackson.group.interactive_component.InteractiveComponentMessageResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class InteractiveComponentBroker constructor(private val slackInteractiveComponentReceivers: List<InteractiveComponentReceiver>,
                                              private val teamStore: TeamStore,
-                                             private val metricsCollector: InteractiveComponentMetricsCollector?) {
+                                             private val metricsCollector: InteractiveComponentMetricsCollector? = null) {
 
     companion object {
         val LOG = LoggerFactory.getLogger(InteractiveComponentBroker::class.java)

@@ -52,15 +52,10 @@ class EventBrokerTests {
 
         teamStore.put(Team.sample().copy(teamId = "TestId"))
 
-        val metrics = EventMetrics()
-
-        val meterRegistry = SimpleMeterRegistry()
-        metrics.bindTo(meterRegistry)
-
         val successReceiver = SuccessReceiver()
         val errorReceiver = ErrorReceiver()
 
-        EventBroker(listOf(successReceiver, errorReceiver), teamStore, metrics).receiveEvents(SlackEvent.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
+        EventBroker(listOf(successReceiver, errorReceiver), teamStore).receiveEvents(SlackEvent.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)

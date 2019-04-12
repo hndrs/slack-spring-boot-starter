@@ -2,7 +2,7 @@ package io.olaph.slack.broker.configuration
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.olaph.slack.broker.security.VerificationMethodArgumentResolver
-import io.olaph.slack.dto.jackson.group.dialog.InteractiveComponentResponse
+import io.olaph.slack.dto.jackson.InteractiveComponentResponse
 import org.springframework.core.MethodParameter
 import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.method.support.ModelAndViewContainer

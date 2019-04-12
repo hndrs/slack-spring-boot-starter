@@ -14,7 +14,7 @@ fun IncomingWebhook.Companion.sample(): IncomingWebhook {
 }
 
 fun SuccessFullOauthAccessResponse.Companion.sample(): SuccessFullOauthAccessResponse {
-    return SuccessFullOauthAccessResponse(true, "", "", "", "", "",
+    return SuccessFullOauthAccessResponse(true, "token", "scope", "UserId", "TeamName", "TeamId",
             IncomingWebhook.sample(),
             Bot.sample())
 }

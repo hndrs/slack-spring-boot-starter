@@ -21,6 +21,16 @@ interface InstallationMetricsCollector {
      * Increments installation attempt metric
      */
     fun installationAttempt()
+
+    /**
+     * Increments receiver execution metric
+     */
+    fun receiverExecuted()
+
+    /**
+     * Increments receiver execution metric
+     */
+    fun receiverExecutionError()
 }
 
 class InstallationMetrics : MeterBinder, InstallationMetricsCollector {
@@ -28,6 +38,8 @@ class InstallationMetrics : MeterBinder, InstallationMetricsCollector {
     private lateinit var installationSuccessCounter: Counter
     private lateinit var installationErrorCounter: Counter
     private lateinit var installationCounter: Counter
+    private lateinit var installationReceiverExecutionErrors: Counter
+    private lateinit var installationReceiverExecutions: Counter
 
     override fun bindTo(registry: MeterRegistry) {
 
@@ -42,21 +54,23 @@ class InstallationMetrics : MeterBinder, InstallationMetricsCollector {
         installationCounter = Counter.builder("slack.installation.count")
                 .description("Number of installation attempts")
                 .register(registry)
+
+        installationReceiverExecutions = Counter.builder("slack.installation.receiver.executions")
+                .description("Total number of installation receivers executions")
+                .register(registry)
+
+        installationReceiverExecutionErrors = Counter.builder("slack.installation.receiver.errors")
+                .description("Number of errors during installation receiver execution")
+                .register(registry)
     }
 
-    /**
-     * Increments successful installation metric
-     */
     override fun successfulInstallation() = installationSuccessCounter.increment()
 
-    /**
-     * Increments error during installation metric
-     */
     override fun errorDuringInstallation() = installationErrorCounter.increment()
 
-
-    /**
-     * Increments installation attempt metric
-     */
     override fun installationAttempt() = installationCounter.increment()
+
+    override fun receiverExecuted() = installationReceiverExecutions.increment()
+
+    override fun receiverExecutionError() = installationReceiverExecutionErrors.increment()
 }
