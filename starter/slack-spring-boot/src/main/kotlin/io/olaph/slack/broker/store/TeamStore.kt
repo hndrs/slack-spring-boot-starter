@@ -36,7 +36,7 @@ data class Team(val teamId: String,
     data class Bot(
             val userId: String,
             val accessToken: String) {
-        companion object {}
+        companion object
     }
 
     data class IncomingWebhook(
@@ -44,7 +44,7 @@ data class Team(val teamId: String,
             val channelId: String,
             val configurationUrl: String,
             val url: String) {
-        companion object {}
+        companion object
     }
 }
 
