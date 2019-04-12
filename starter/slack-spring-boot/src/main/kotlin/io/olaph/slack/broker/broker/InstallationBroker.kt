@@ -1,6 +1,5 @@
 package io.olaph.slack.broker.broker
 
-import io.olaph.slack.broker.metrics.InstallationMetrics
 import io.olaph.slack.broker.metrics.InstallationMetricsCollector
 import io.olaph.slack.broker.receiver.InstallationReceiver
 import io.olaph.slack.broker.store.Team
@@ -47,20 +46,23 @@ class InstallationBroker constructor(
 
             val team = obtainOauthAccess(code)
             this.teamStore.put(team)
+            this.metricsCollector?.successfulInstallation()
 
             this.installationReceivers
                     .forEach { receiver ->
-                        receiver.onReceiveInstallation(code, state, team)
+                        try {
+                            this.metricsCollector?.receiverExecuted()
+                            receiver.onReceiveInstallation(code, state, team)
+                        } catch (e: Exception) {
+                            this.metricsCollector?.receiverExecutionError()
+                            InteractiveComponentBroker.LOG.error("{}", e)
+                        }
                     }
-
-            this.metricsCollector?.successfulInstallation()
 
             RedirectView(this.config.successRedirectUrl)
         } catch (exception: Exception) {
-
             LOG.error("There was an error during the installation", exception)
             this.metricsCollector?.errorDuringInstallation()
-
             RedirectView(this.config.errorRedirectUrl)
         }
     }

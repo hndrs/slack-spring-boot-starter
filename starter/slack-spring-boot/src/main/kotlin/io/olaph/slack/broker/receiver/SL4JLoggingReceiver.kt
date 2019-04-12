@@ -3,7 +3,7 @@ package io.olaph.slack.broker.receiver
 import io.olaph.slack.broker.store.Team
 import io.olaph.slack.dto.jackson.SlackCommand
 import io.olaph.slack.dto.jackson.SlackEvent
-import io.olaph.slack.dto.jackson.group.dialog.InteractiveComponentResponse
+import io.olaph.slack.dto.jackson.InteractiveComponentResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 

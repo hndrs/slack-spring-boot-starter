@@ -20,10 +20,14 @@ class InstallationMetricsTests {
         metrics.installationAttempt()
         metrics.errorDuringInstallation()
         metrics.successfulInstallation()
+        metrics.receiverExecuted()
+        metrics.receiverExecutionError()
 
 
         Assertions.assertEquals(1.0, simpleMeterRegistry.get("slack.installation.success").counter().count())
         Assertions.assertEquals(1.0, simpleMeterRegistry.get("slack.installation.error").counter().count())
         Assertions.assertEquals(1.0, simpleMeterRegistry.get("slack.installation.count").counter().count())
+        Assertions.assertEquals(1.0, simpleMeterRegistry.get("slack.installation.receiver.executions").counter().count())
+        Assertions.assertEquals(1.0, simpleMeterRegistry.get("slack.installation.receiver.errors").counter().count())
     }
 }

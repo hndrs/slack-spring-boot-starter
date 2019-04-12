@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class EventBroker constructor(private val slackEventReceivers: List<EventReceiver>,
                               private val teamStore: TeamStore,
-                              private val metricsCollector: EventMetricsCollector?) {
+                              private val metricsCollector: EventMetricsCollector? = null) {
 
     companion object {
         val LOG = LoggerFactory.getLogger(EventBroker::class.java)
