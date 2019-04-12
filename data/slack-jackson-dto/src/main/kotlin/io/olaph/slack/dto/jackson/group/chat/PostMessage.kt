@@ -58,7 +58,7 @@ data class SlackPostMessageRequest constructor(@JsonProperty("text") val text: S
                                                @JsonProperty("icon_url") val iconUrl: String? = null,
                                                @JsonProperty("link_names") val linkNames: Boolean = true,
                                                @JsonProperty("mrkdwn") val markDown: Boolean = true,
-                                               @JsonProperty("parse") val parse: String = "none",
+                                               @JsonProperty("parse") val parse: String? = null,
                                                @JsonProperty("reply_broadcast") val replyBroadcast: Boolean = false,
                                                @JsonProperty("thread_ts") val threadTs: String? = null,
                                                @JsonProperty("unfurl_links") val unfurlLinks: Boolean = false,

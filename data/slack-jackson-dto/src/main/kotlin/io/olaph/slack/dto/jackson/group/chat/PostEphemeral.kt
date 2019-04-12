@@ -40,7 +40,7 @@ data class SlackPostEphemeralRequest constructor(@JsonProperty("text") val text:
                                                  @JsonProperty("as_user") val asUser: Boolean = false,
                                                  @JsonProperty("user") val user: String? = null,
                                                  @JsonProperty("link_names") val linkNames: Boolean = true,
-                                                 @JsonProperty("parse") val parse: String = "none",
+                                                 @JsonProperty("parse") val parse: String? = null,
                                                  @JsonProperty("thread_ts") val threadTs: String? = null) {
     companion object
 }
