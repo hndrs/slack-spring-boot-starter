@@ -25,4 +25,5 @@ dependencies {
 
     testImplementation(group: "org.springframework.boot", name: "spring-boot-starter-web")
     testImplementation(group: "io.micrometer", name: "micrometer-core")
+    testImplementation(project(":slack-jackson-dto-test"))
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class CommandBroker constructor(private val slackCommandReceivers: List<SlashCommandReceiver>,
                                 private val teamStore: TeamStore,
-                                private val metricsCollector: CommandMetricsCollector?) {
+                                private val metricsCollector: CommandMetricsCollector? = null) {
 
     companion object {
         val LOG = LoggerFactory.getLogger(CommandBroker::class.java)
@@ -38,7 +38,7 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
                         broker.onReceiveSlashCommand(slackCommand, headers, team)
                     } catch (e: Exception) {
                         this.metricsCollector?.receiverExecutionError()
-                        LOG.error("{}",e)
+                        LOG.error("{}", e)
                     }
 
                 }
