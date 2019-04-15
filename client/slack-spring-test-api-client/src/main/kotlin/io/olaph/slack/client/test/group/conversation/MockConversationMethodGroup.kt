@@ -1,6 +1,5 @@
 package io.olaph.slack.client.test.group.conversation
 
-import io.olaph.slack.client.group.conversations.ConversationsArchiveMethod
 import io.olaph.slack.client.group.conversations.ConversationsHistoryMethod
 import io.olaph.slack.client.group.conversations.ConversationsInfoMethod
 import io.olaph.slack.client.group.conversations.ConversationsJoinMethod
@@ -22,6 +21,7 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
     private val mockConversationsMembersMethod = MockConversationsMembersMethod()
     private val mockConversationsInviteMethod = MockConversationsInviteMethod()
     private val mockConversationsLeaveMethod = MockConversationsLeaveMethod()
+    private val mockConversationsArchiveMethod = MockConversationsArchiveMethod()
 
     override fun close(authToken: String): MockConversationsClose = mockConversationsClose
 
@@ -85,8 +85,8 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun archive(authToken: String): ConversationsArchiveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun archive(authToken: String): MockConversationsArchiveMethod {
+        return mockConversationsArchiveMethod;
     }
 
 }
