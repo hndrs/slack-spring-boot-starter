@@ -1,3 +1,95 @@
-image:https://travis-ci.org/olaph-io/slack-spring-boot-starter.svg?branch=master["Build Status", link="https://travis-ci.org/olaph-io/slack-spring-boot-starter"]
+:source-highlighter: prettify
+
+:version: 1.0.0.M1
+
+= Slack Spring Boot
+
+Interact with Slack from your Spring Boot application.
+
+image:https://travis-ci.com/kreait/slack-spring-boot-starter.svg?branch=master["Build Status", link="https://travis-ci.org/olaph-io/slack-spring-boot-starter"]
 image:https://sonarcloud.io/api/project_badges/measure?project=io.olaph.slack&metric=alert_status&metric=alert_status[https://sonarcloud.io/dashboard?id=io.olaph.slack]
 image:https://sonarcloud.io/api/project_badges/measure?project=io.olaph.slack&metric=coverage[https://sonarcloud.io/dashboard?id=io.olaph.slack]
+image:https://img.shields.io/badge/version-{version}-fffff.svg[]
+
+= Quickstart Guide
+This short guide will guide you through a quick setup
+
+=== Create a Slack App
+
+Go to https://api.slack.com/
+Under "Your Apps" create a new Slack App, give it a name and select the Slack Workspace want for it.
+
+Now you will need to set-up your App on the Slack API page.
+
+=== Create a Spring Boot Application
+
+Create a new spring boot application for example on https://start.spring.io (best to use kotlin and gradle for this example)
+
+Add the following to you *build.gradle* file
+[source]
+--
+repositories {
+    maven { url "https://libs.olaph.io" }
+}
+
+dependencies {
+    implementation(group: "io.olaph.slack", name: "slack-spring-boot-starter", version: "{version}", changing: true)
+}
+--
+
+Add the following properties to the *application.properties* file
+[source]
+--
+//the url the user should be redirected to on a successful installation
+slack.installation.success-redirect-url=
+
+//the url the user should be redirected to on a failure during installation
+slack.installation.error-redirect-url=
+
+//app credentials you find on https://api.slack.com/ under your apps basic information
+slack.installation.client-id=
+slack.installation.client-secret=
+slack.security.signing-secret=
+--
+
+Start your application
+[source]
+--
+./gradlew bootRun
+--
+
+=== Configuration of your Slack App
+
+Now you will need to set-up your App on the Slack API page.
+At this point you might need to use a service like *ngrok* (which we recommend) or any other tunneling software in order to enable forwarding to your local environment.
+
+[source]
+--
+./ngrok http 8080
+--
+==== Interactive Components
+Head over to the Interactive Components, activate that feature and enter the url with the endpoint ```{ngrok_host}/interactive-components```
+this endpoint has automatically been registered with the starter package
+
+==== Slash Commands
+Go to Slash Commands and create a new command and point it to the endpoint ```{ngrok_host}/commands```
+this endpoint has automatically been registered with the starter package
+
+==== Events Subscription
+Go to Event Subscription and point it to the endpoint ```{ngrok_host}/events```
+this endpoint has automatically been registred with the starter package
+[NOTE]
+====
+Slack does not allow http access here, so you need https tunneling
+====
+
+==== Installing the app
+For your app to work it needs to be installed. For this head over to https://api.slack.com/ your app and *OAuth & Permissions*
+and add a redirect url ```{ngrok_host}/installation``` this endpoint has automatically been registered with the starter package
+Now head to the *Manage Distribution* setting on your app and click the *Add to Slack* button, this will install the app on your
+application
+[NOTE]
+====
+The Team will be saved in the link:starter/slack-spring-boot/src/main/kotlin/io/olaph/slack/broker/store/TeamStore.kt[*TeamStore*], the starter provides an InMemoryTeamStore which will be empty after you restart the application
+to persist the installation you have to provide your own implementation with a backing database
+====
