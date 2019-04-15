@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.channels
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.channels.ChannelsInfoMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -28,6 +29,9 @@ class DefaultGetChannelInfoMethod(private val authToken: String, private val res
             }
             is ErrorGetChannelInfoResponse -> {
                 val responseEntity = response.body as ErrorGetChannelInfoResponse
+                if (!response.statusCode.is2xxSuccessful) {
+                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
+                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

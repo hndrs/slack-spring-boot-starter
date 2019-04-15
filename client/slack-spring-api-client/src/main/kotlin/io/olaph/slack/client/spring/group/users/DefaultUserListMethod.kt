@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.users
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.users.UserListMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -27,6 +28,9 @@ class DefaultUserListMethod(private val authToken: String, private val restTempl
             }
             is ErrorUserListResponse -> {
                 val responseEntity = response.body as ErrorUserListResponse
+                if (!response.statusCode.is2xxSuccessful) {
+                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
+                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

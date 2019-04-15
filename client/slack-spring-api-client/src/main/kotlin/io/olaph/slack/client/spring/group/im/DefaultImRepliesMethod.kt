@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.im
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.im.ImRepliesMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -31,6 +32,9 @@ class DefaultImRepliesMethod(private val authToken: String, private val restTemp
             }
             is ErrorImRepliesResponse -> {
                 val responseEntity = response.body as ErrorImRepliesResponse
+                if (!response.statusCode.is2xxSuccessful) {
+                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
+                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }
