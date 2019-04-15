@@ -71,7 +71,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun archive(authToken: String): ConversationsArchiveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsArchiveMethod(authToken)
     }
 
     companion object {
