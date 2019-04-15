@@ -25,7 +25,7 @@ sonarqube {
         property "sonar.organization", "olaph-io"
         property "sonar.jacoco.report missing.force.zero", "true"
         property "sonar.pullrequest.provider", "github"
-        property "sonar.exclusions", "**/slack-jackson-dto-test-extensions/**,**/slack-jackson-dto/**"
+        property "sonar.exclusions", "**/slack-jackson-dto-test-extensions/**,**/slack-jackson-dto/**,**/samples/**"
     }
 }
 
