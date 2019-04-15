@@ -1,12 +1,3 @@
----
-name: Bug
-about: Bug Description
-title: ''
-labels: bug
-assignees: ''
----
-
-
 ## Corresponding Issue
 <!--- Tell us to what issue this pullrequest correlates to if there is one -->
 
