@@ -10,9 +10,10 @@ image:https://travis-ci.com/kreait/slack-spring-boot-starter.svg?branch=master["
 image:https://sonarcloud.io/api/project_badges/measure?project=io.olaph.slack&metric=alert_status&metric=alert_status[https://sonarcloud.io/dashboard?id=io.olaph.slack]
 image:https://sonarcloud.io/api/project_badges/measure?project=io.olaph.slack&metric=coverage[https://sonarcloud.io/dashboard?id=io.olaph.slack]
 image:https://img.shields.io/badge/version-{version}-fffff.svg[]
-image:https://badges.gitter.im/kreait/slack-spring-boot-starter.svg[https://gitter.im/kreait/slack-spring-boot-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge]
 
-Join the discussion on gitter :)
+Join the discussion on gitter :) image:https://badges.gitter.im/kreait/slack-spring-boot-starter.svg[https://gitter.im/kreait/slack-spring-boot-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge]
+
+Ask questions on stackoverflow image:http://img.shields.io/badge/stackoverflow-slack-informational.svg[https://meta.stackoverflow.com/questions/tagged/slack]
 
 = Quickstart Guide
 This short guide will guide you through a quick setup
