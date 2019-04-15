@@ -19,16 +19,15 @@ This short guide will guide you through a quick setup
 
 === Create a Slack App
 
-Go to https://api.slack.com/
-Under "Your Apps" create a new Slack App, give it a name and select the Slack Workspace want for it.
-
 Now you will need to set-up your App on the Slack API page.
+Go to https://api.slack.com/apps
+Under "Your Apps" create a new Slack App, give it a name and select the slack workspace you want to develop with (you can't change this workspace later)
 
 === Create a Spring Boot Application
 
 Create a new spring boot application for example on https://start.spring.io (best to use kotlin and gradle for this example)
 
-Add the following to you *build.gradle* file
+Add the following to your *build.gradle* file
 [source]
 --
 repositories {
@@ -36,6 +35,7 @@ repositories {
 }
 
 dependencies {
+	//we add changing true because we are working with changing milestone versions at the moment
     implementation(group: "io.olaph.slack", name: "slack-spring-boot-starter", version: "{version}", changing: true)
 }
 --
@@ -87,7 +87,7 @@ Slack does not allow http access here, so you need https tunneling
 ====
 
 ==== Installing the app
-For your app to work it needs to be installed. For this head over to https://api.slack.com/ your app and *OAuth & Permissions*
+For your app to work it needs to be installed. For this head over to https://api.slack.com/apps your app and *OAuth & Permissions*
 and add a redirect url ```{ngrok_host}/installation``` this endpoint has automatically been registered with the starter package
 Now head to the *Manage Distribution* setting on your app and click the *Add to Slack* button, this will install the app on your
 application
