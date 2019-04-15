@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.chat
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.chat.ChatPostEphemeralMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -33,6 +34,9 @@ class DefaultPostEphemeralMethod(private val authToken: String, private val rest
             }
             is ErrorPostEphemeralResponse -> {
                 val responseEntity = response.body as ErrorPostEphemeralResponse
+                if (!response.statusCode.is2xxSuccessful) {
+                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
+                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

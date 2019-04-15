@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.conversations
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.conversations.ConversationsCloseMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -28,6 +29,9 @@ class DefaultConversationsCloseMethod constructor(private val authToken: String,
             }
             is ErrorConversationCloseResponse -> {
                 val responseEntity = response.body as ErrorConversationCloseResponse
+                if (!response.statusCode.is2xxSuccessful) {
+                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
+                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

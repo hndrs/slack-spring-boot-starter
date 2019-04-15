@@ -1,15 +1,14 @@
 package io.olaph.slack.client.spring.group.conversations
 
-import io.olaph.slack.client.spring.group.SlackRequestBuilder
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.conversations.ConversationsListMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
-import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationListResponse
+import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.conversations.ConversationListResponse
+import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationListResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationListResponse
 import org.springframework.web.client.RestTemplate
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 
 
 @Suppress("UNCHECKED_CAST")
@@ -22,7 +21,7 @@ class DefaultConversationsListMethod(private val authToken: String, private val 
                 .returnAsType(ConversationListResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
-        return when(response.body!!) {
+        return when (response.body!!) {
             is SuccessfulConversationListResponse -> {
                 val responseEntity = response.body as SuccessfulConversationListResponse
                 this.onSuccess?.invoke(responseEntity)
@@ -30,6 +29,9 @@ class DefaultConversationsListMethod(private val authToken: String, private val 
             }
             is ErrorConversationListResponse -> {
                 val responseEntity = response.body as ErrorConversationListResponse
+                if (!response.statusCode.is2xxSuccessful) {
+                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
+                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

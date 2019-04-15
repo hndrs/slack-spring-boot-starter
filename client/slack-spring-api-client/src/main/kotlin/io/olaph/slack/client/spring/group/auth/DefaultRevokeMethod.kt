@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.auth
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.auth.AuthRevokeMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -29,6 +30,9 @@ class DefaultRevokeMethod(private val authToken: String, private val restTemplat
             }
             is ErrorAuthRevokeResponse -> {
                 val responseEntity = response.body as ErrorAuthRevokeResponse
+                if (!response.statusCode.is2xxSuccessful) {
+                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
+                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

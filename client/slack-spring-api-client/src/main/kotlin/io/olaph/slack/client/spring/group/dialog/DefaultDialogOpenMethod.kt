@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.dialog
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.dialog.DialogOpenMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -28,6 +29,9 @@ class DefaultDialogOpenMethod(private val authToken: String, private val restTem
             }
             is ErrorOpenDialogResponse -> {
                 val responseEntity = response.body as ErrorOpenDialogResponse
+                if (!response.statusCode.is2xxSuccessful) {
+                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
+                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

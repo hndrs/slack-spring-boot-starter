@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.im
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.im.ImMarkMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -32,6 +33,9 @@ class DefaultImMarkMethod(private val authToken: String, private val restTemplat
             }
             is ErrorImMarkResponse -> {
                 val responseEntity = response.body as ErrorImMarkResponse
+                if (!response.statusCode.is2xxSuccessful) {
+                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
+                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

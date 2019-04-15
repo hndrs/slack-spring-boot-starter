@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.conversations
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.conversations.ConversationsArchiveMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -20,19 +19,16 @@ class DefaultConversationsArchiveMethod(private val authToken: String, private v
                 .returnAsType(ConversationArchiveResponse::class.java)
                 .postWithJsonBody()
 
-        return when {
-            response.body is SuccessfulConversationArchiveResponse -> {
+        return when (response.body!!) {
+            is SuccessfulConversationArchiveResponse -> {
                 val responseEntity = response.body as SuccessfulConversationArchiveResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorConversationArchiveResponse -> {
+            is ErrorConversationArchiveResponse -> {
                 val responseEntity = response.body as ErrorConversationArchiveResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }
