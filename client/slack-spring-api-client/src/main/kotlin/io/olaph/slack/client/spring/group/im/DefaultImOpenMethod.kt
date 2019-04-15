@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.im
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.im.ImOpenMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -24,19 +23,16 @@ class DefaultImOpenMethod(private val authToken: String, private val restTemplat
                 .returnAsType(SlackImOpenResponse::class.java)
                 .postWithJsonBody()
 
-        return when {
-            response.body is SuccessfulImOpenResponse -> {
+        return when (response.body!!) {
+            is SuccessfulImOpenResponse -> {
                 val responseEntity = response.body as SuccessfulImOpenResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorImOpenResponse -> {
+            is ErrorImOpenResponse -> {
                 val responseEntity = response.body as ErrorImOpenResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }

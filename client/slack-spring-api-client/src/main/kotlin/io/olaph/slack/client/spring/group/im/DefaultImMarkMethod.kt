@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.im
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.im.ImMarkMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -25,19 +24,16 @@ class DefaultImMarkMethod(private val authToken: String, private val restTemplat
                 .returnAsType(SlackImMarkResponse::class.java)
                 .postWithJsonBody()
 
-        return when {
-            response.body is SuccessfulImMarkResponse -> {
+        return when (response.body!!) {
+            is SuccessfulImMarkResponse -> {
                 val responseEntity = response.body as SuccessfulImMarkResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorImMarkResponse -> {
+            is ErrorImMarkResponse -> {
                 val responseEntity = response.body as ErrorImMarkResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }

@@ -16,7 +16,7 @@ import io.olaph.slack.dto.jackson.common.messaging.Block
         JsonSubTypes.Type(value = ErrorPostEphemeralResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class SlackPostEphemeralResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class SlackPostEphemeralResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulPostEphemeralResponse constructor(override val ok: Boolean,

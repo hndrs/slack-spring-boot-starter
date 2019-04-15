@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.users
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.users.UserListMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -20,19 +19,16 @@ class DefaultUserListMethod(private val authToken: String, private val restTempl
                 .returnAsType(UserListResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
-        return when {
-            response.body is SuccessfulUserListResponse -> {
+        return when (response.body!!) {
+            is SuccessfulUserListResponse -> {
                 val responseEntity = response.body as SuccessfulUserListResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorUserListResponse -> {
+            is ErrorUserListResponse -> {
                 val responseEntity = response.body as ErrorUserListResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }

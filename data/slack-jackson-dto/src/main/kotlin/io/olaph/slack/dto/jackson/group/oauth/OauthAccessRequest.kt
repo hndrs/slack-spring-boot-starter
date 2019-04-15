@@ -17,7 +17,7 @@ data class OauthAccessRequest(val clientId: String, val client_secret: String, v
         JsonSubTypes.Type(value = ErrorOauthAccessResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class OauthAccessResponse(@JsonProperty("ok") open val ok: Boolean)
+sealed class OauthAccessResponse(@JsonProperty("ok") open val ok: Boolean)
 
 
 @JacksonDataClass

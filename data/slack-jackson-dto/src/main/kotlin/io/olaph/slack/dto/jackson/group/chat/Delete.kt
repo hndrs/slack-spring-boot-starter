@@ -14,7 +14,7 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
         JsonSubTypes.Type(value = ErrorChatDeleteResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class SlackDeleteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class SlackDeleteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulChatDeleteResponse constructor(override val ok: Boolean,

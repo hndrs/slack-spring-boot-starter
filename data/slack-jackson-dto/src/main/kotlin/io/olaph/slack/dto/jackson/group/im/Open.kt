@@ -14,7 +14,7 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
         JsonSubTypes.Type(value = ErrorImOpenResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class SlackImOpenResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class SlackImOpenResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulImOpenResponse constructor(override val ok: Boolean,

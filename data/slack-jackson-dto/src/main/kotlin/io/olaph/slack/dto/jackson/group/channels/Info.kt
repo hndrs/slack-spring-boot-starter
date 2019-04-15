@@ -15,7 +15,7 @@ import io.olaph.slack.dto.jackson.common.types.Channel
         JsonSubTypes.Type(value = ErrorGetChannelInfoResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class SlackGetChannelInfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class SlackGetChannelInfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulGetChannelInfoResponse constructor(override val ok: Boolean,
