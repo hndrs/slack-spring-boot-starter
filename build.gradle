@@ -37,7 +37,7 @@ asciidoctor {
 allprojects {
 
     group = "io.olaph.slack"
-    version = "1.0.0.M1"
+    version = rootProject.file("version.txt").text.trim()
 
     project.ext {
         junitJupiterVersion = "5.3.1"
