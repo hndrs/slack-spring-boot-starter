@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.im
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.im.ImRepliesMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -24,19 +23,16 @@ class DefaultImRepliesMethod(private val authToken: String, private val restTemp
                 .returnAsType(SlackImRepliesResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
-        return when {
-            response.body is SuccessfulImRepliesResponse -> {
+        return when (response.body!!) {
+            is SuccessfulImRepliesResponse -> {
                 val responseEntity = response.body as SuccessfulImRepliesResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorImRepliesResponse -> {
+            is ErrorImRepliesResponse -> {
                 val responseEntity = response.body as ErrorImRepliesResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }

@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.dialog
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.dialog.DialogOpenMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -21,22 +20,17 @@ class DefaultDialogOpenMethod(private val authToken: String, private val restTem
                 .returnAsType(SlackOpenDialogResponse::class.java)
                 .postWithJsonBody()
 
-        return when {
-            response.body is SuccessfulOpenDialogResponse -> {
+        return when (response.body!!) {
+            is SuccessfulOpenDialogResponse -> {
                 val responseEntity = response.body as SuccessfulOpenDialogResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorOpenDialogResponse -> {
+            is ErrorOpenDialogResponse -> {
                 val responseEntity = response.body as ErrorOpenDialogResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }
-            else -> {
-                throw UnknownResponseException(this::class, response)
-            }
         }
     }
-
-
 }

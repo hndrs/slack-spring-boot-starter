@@ -17,7 +17,7 @@ import io.olaph.slack.dto.jackson.common.types.Channel
 )
 
 @JacksonDataClass
-abstract class SlackChannelInviteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class SlackChannelInviteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulChannelInviteResponse constructor(override val ok: Boolean,

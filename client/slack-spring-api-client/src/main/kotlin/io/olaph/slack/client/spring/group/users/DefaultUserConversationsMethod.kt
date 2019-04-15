@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.users
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.users.UserConversationsMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -20,19 +19,16 @@ class DefaultUserConversationsMethod(private val authToken: String, private val 
                 .returnAsType(UserConversationsResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
-        return when {
-            response.body is SuccessfulUserConversationsResponse -> {
+        return when (response.body!!) {
+            is SuccessfulUserConversationsResponse -> {
                 val responseEntity = response.body as SuccessfulUserConversationsResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorUserConversationsResponse -> {
+            is ErrorUserConversationsResponse -> {
                 val responseEntity = response.body as ErrorUserConversationsResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }

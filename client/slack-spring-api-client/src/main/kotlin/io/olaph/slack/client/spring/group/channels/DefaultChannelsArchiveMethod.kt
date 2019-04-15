@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.channels
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.channels.ChannelsArchiveMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -22,19 +21,16 @@ class DefaultChannelsArchiveMethod(private val authToken: String, private val re
                 .returnAsType(SlackGetChannelArchiveResponse::class.java)
                 .postWithJsonBody()
 
-        return when {
-            response.body is SuccessfulChannelArchiveResponse -> {
+        return when (response.body!!) {
+            is SuccessfulChannelArchiveResponse -> {
                 val responseEntity = response.body as SuccessfulChannelArchiveResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorChannelArchiveResponse -> {
+            is ErrorChannelArchiveResponse -> {
                 val responseEntity = response.body as ErrorChannelArchiveResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }

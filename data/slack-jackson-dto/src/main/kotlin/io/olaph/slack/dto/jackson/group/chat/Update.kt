@@ -26,7 +26,7 @@ data class SlackChatUpdateRequest constructor(@JsonProperty("channel") val chann
         JsonSubTypes.Type(value = ErrorChatUpdateResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class SlackChatUpdateResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class SlackChatUpdateResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulChatUpdateResponse constructor(override val ok: Boolean,

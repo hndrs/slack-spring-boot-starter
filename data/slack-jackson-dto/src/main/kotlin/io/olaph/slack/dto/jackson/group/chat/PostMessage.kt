@@ -20,7 +20,7 @@ import io.olaph.slack.dto.jackson.common.messaging.Block
         JsonSubTypes.Type(value = ErrorPostMessageResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class SlackPostMessageResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class SlackPostMessageResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulPostMessageResponse constructor(override val ok: Boolean,

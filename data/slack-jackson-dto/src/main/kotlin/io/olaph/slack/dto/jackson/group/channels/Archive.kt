@@ -16,7 +16,7 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
 )
 
 @JacksonDataClass
-abstract class SlackGetChannelArchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class SlackGetChannelArchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulChannelArchiveResponse constructor(override val ok: Boolean)

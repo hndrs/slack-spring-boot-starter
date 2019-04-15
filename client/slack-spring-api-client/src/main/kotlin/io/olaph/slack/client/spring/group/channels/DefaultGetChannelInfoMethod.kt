@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.channels
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.channels.ChannelsInfoMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -21,19 +20,16 @@ class DefaultGetChannelInfoMethod(private val authToken: String, private val res
                 .returnAsType(SlackGetChannelInfoResponse::class.java)
                 .postUrlEncoded(mapOf(Pair("token", authToken), Pair("channel", this.params.channel)))
 
-        return when {
-            response.body is SuccessfulGetChannelInfoResponse -> {
+        return when (response.body!!) {
+            is SuccessfulGetChannelInfoResponse -> {
                 val responseEntity = response.body as SuccessfulGetChannelInfoResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorGetChannelInfoResponse -> {
+            is ErrorGetChannelInfoResponse -> {
                 val responseEntity = response.body as ErrorGetChannelInfoResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }

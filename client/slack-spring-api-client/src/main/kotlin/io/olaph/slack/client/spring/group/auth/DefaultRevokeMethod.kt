@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.auth
 
-import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.auth.AuthRevokeMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -22,19 +21,16 @@ class DefaultRevokeMethod(private val authToken: String, private val restTemplat
                 .returnAsType(SlackAuthRevokeResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
-        return when {
-            response.body is SuccessfulAuthRevokeResponse -> {
+        return when (response.body!!) {
+            is SuccessfulAuthRevokeResponse -> {
                 val responseEntity = response.body as SuccessfulAuthRevokeResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            response.body is ErrorAuthRevokeResponse -> {
+            is ErrorAuthRevokeResponse -> {
                 val responseEntity = response.body as ErrorAuthRevokeResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                throw UnknownResponseException(this::class, response)
             }
         }
     }
