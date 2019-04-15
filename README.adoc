@@ -10,6 +10,9 @@ image:https://travis-ci.com/kreait/slack-spring-boot-starter.svg?branch=master["
 image:https://sonarcloud.io/api/project_badges/measure?project=io.olaph.slack&metric=alert_status&metric=alert_status[https://sonarcloud.io/dashboard?id=io.olaph.slack]
 image:https://sonarcloud.io/api/project_badges/measure?project=io.olaph.slack&metric=coverage[https://sonarcloud.io/dashboard?id=io.olaph.slack]
 image:https://img.shields.io/badge/version-{version}-fffff.svg[]
+image:https://badges.gitter.im/kreait/slack-spring-boot-starter.svg[https://gitter.im/kreait/slack-spring-boot-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge]
+
+Join the discussion on gitter :)
 
 = Quickstart Guide
 This short guide will guide you through a quick setup
@@ -90,6 +93,39 @@ Now head to the *Manage Distribution* setting on your app and click the *Add to 
 application
 [NOTE]
 ====
-The Team will be saved in the link:starter/slack-spring-boot/src/main/kotlin/io/olaph/slack/broker/store/TeamStore.kt[*TeamStore*], the starter provides an InMemoryTeamStore which will be empty after you restart the application
-to persist the installation you have to provide your own implementation with a backing database
+The Team will be saved in the link:starter/slack-spring-boot/src/main/kotlin/io/olaph/slack/broker/store/TeamStore.kt[*TeamStore*], the starter provides an InMemoryTeamStore which
+will be reset after you restart the application to persist the installation you have to provide your own implementation with a backing database
 ====
+
+==== SL4JLoggingReceiver
+The starter package will automatically register a custom link:starter/slack-spring-boot/src/main/kotlin/io/olaph/slack/broker/receiver/SL4JLoggingReceiver.kt[receiver] that logs information
+on incoming events,commands and interactive-components
+[NOTE]
+====
+This receiver is meant to be used for development only to disable it add ```slack.logging.enabled=false``` to your application.properties
+====
+
+=== Writing your first CommandReceiver
+
+To write your first command receiver you write a component that implements the link:starter/slack-spring-boot/src/main/kotlin/io/olaph/slack/broker/receiver/SlashCommandReceiver.kt[SlashCommandReceiver] interface
+you can use the  link:client/slack-api-client/src/main/kotlin/io/olaph/slack/client/SlackClient.kt[SlackClient] that is automatically registered with the starter
+
+Example Ping Receiver that answers with a pong
+[source,kotlin]
+--
+@Component
+class PingCommandReceiver @Autowired constructor(private val slackClient: SlackClient) : SlashCommandReceiver {
+
+    override fun supportsCommand(slackCommand: SlackCommand): Boolean {
+        return slackCommand.command.startsWith("/ping")
+    }
+
+    override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
+        this.slackClient.chat().postMessage(team.bot.accessToken)
+                .with(SlackPostMessageRequest(
+                        text = "Pong",
+                        channel = slackCommand.channelId
+                )).invoke()
+    }
+}
+--
