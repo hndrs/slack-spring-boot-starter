@@ -25,6 +25,6 @@ class ChannelRenamedEventReceiver @Autowired constructor(private val slackClient
     }
 
     override fun supportsEvent(slackEvent: SlackEvent): Boolean {
-        return slackEvent.event["type"] == "app_uninstalled"
+        return slackEvent.event["type"] == "channel_rename"
     }
 }
