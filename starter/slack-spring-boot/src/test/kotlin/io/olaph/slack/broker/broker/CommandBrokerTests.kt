@@ -3,6 +3,7 @@ package io.olaph.slack.broker.broker
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import io.olaph.slack.broker.extensions.sample
 import io.olaph.slack.broker.metrics.CommandMetrics
+import io.olaph.slack.broker.receiver.MismatchCommandReciever
 import io.olaph.slack.broker.receiver.SlashCommandReceiver
 import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.Team
@@ -33,15 +34,19 @@ class CommandBrokerTests {
 
         val successReceiver = SuccessReceiver()
         val errorReceiver = ErrorReceiver()
+        val mismatchReceiver = Mismatch()
 
-        CommandBroker(listOf(successReceiver, errorReceiver), teamStore, commandMetrics).receiveCommand(SlackCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
+        CommandBroker(listOf(successReceiver, errorReceiver), teamStore,null, commandMetrics).receiveCommand(SlackCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
+        CommandBroker(listOf(), teamStore, mismatchReceiver, commandMetrics).receiveCommand(SlackCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
+        Assertions.assertTrue(mismatchReceiver.executed)
 
-        Assertions.assertEquals(1.0, meterRegistry.get("slack.commands.received").counter().count())
+        Assertions.assertEquals(2.0, meterRegistry.get("slack.commands.received").counter().count())
         Assertions.assertEquals(2.0, meterRegistry.get("slack.commands.receiver.executions").counter().count())
         Assertions.assertEquals(1.0, meterRegistry.get("slack.commands.receiver.errors").counter().count())
+        Assertions.assertEquals(1.0, meterRegistry.get("slack.commands.receiver.mismatch").counter().count())
     }
 
 
@@ -57,6 +62,7 @@ class CommandBrokerTests {
         val errorReceiver = ErrorReceiver()
 
         CommandBroker(listOf(successReceiver, errorReceiver), teamStore).receiveCommand(SlackCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
+
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
@@ -79,6 +85,15 @@ class CommandBrokerTests {
         override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
             executed = true
             throw IllegalStateException("Failing Test Case")
+        }
+
+    }
+
+    class Mismatch : MismatchCommandReciever {
+
+        var executed: Boolean = false
+        override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
+            executed = true
         }
 
     }

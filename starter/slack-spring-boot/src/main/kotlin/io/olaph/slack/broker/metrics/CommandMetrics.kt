@@ -7,6 +7,11 @@ import io.micrometer.core.instrument.binder.MeterBinder
 interface CommandMetricsCollector {
 
     /**
+     * Increments receiver not matched metric
+     */
+    fun receiverMismatch()
+
+    /**
      * Increments receiver execution metric
      */
     fun receiverExecuted()
@@ -27,6 +32,8 @@ class CommandMetrics : MeterBinder, CommandMetricsCollector {
     private lateinit var commandReceiverExecutionErrors: Counter
     private lateinit var commandReceiverExecutions: Counter
     private lateinit var commandsReceived: Counter
+    private lateinit var commandsReceiverNoneMatch: Counter
+
 
     override fun bindTo(registry: MeterRegistry) {
 
@@ -41,6 +48,10 @@ class CommandMetrics : MeterBinder, CommandMetricsCollector {
         commandReceiverExecutionErrors = Counter.builder("slack.commands.receiver.errors")
                 .description("Number of errors during command receiver execution")
                 .register(registry)
+
+        commandsReceiverNoneMatch = Counter.builder("slack.commands.receiver.mismatch")
+                .description("Number of times none of the receivers matched")
+                .register(registry)
     }
 
     override fun receiverExecuted() = this.commandReceiverExecutions.increment()
@@ -48,4 +59,6 @@ class CommandMetrics : MeterBinder, CommandMetricsCollector {
     override fun receiverExecutionError() = this.commandReceiverExecutionErrors.increment()
 
     override fun commandsReceived() = this.commandsReceived.increment()
+
+    override fun receiverMismatch() = this.commandsReceiverNoneMatch.increment()
 }

@@ -1,7 +1,9 @@
 package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.configuration.Command
+
 import io.olaph.slack.broker.metrics.CommandMetricsCollector
+import io.olaph.slack.broker.receiver.MismatchCommandReciever
 import io.olaph.slack.broker.receiver.SlashCommandReceiver
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.dto.jackson.SlackCommand
@@ -17,10 +19,11 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class CommandBroker constructor(private val slackCommandReceivers: List<SlashCommandReceiver>,
                                 private val teamStore: TeamStore,
+                                private val mismatchCommandReceiver: MismatchCommandReciever? = null,
                                 private val metricsCollector: CommandMetricsCollector? = null) {
 
     companion object {
-        val LOG = LoggerFactory.getLogger(CommandBroker::class.java)
+        private val LOG = LoggerFactory.getLogger(CommandBroker::class.java)
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -31,7 +34,12 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
 
         val team = this.teamStore.findById(slackCommand.teamId)
         slackCommandReceivers
-                .filter { broker -> broker.supportsCommand(slackCommand) }
+                .filter { it.supportsCommand(slackCommand) }
+                .ifEmpty {
+                    this.metricsCollector?.receiverMismatch()
+                    mismatchCommandReceiver?.onReceiveSlashCommand(slackCommand, headers, team)
+                    listOf()
+                }
                 .forEach { broker ->
                     try {
                         this.metricsCollector?.receiverExecuted()
@@ -40,7 +48,6 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
                         this.metricsCollector?.receiverExecutionError()
                         LOG.error("{}", e)
                     }
-
                 }
     }
 }
