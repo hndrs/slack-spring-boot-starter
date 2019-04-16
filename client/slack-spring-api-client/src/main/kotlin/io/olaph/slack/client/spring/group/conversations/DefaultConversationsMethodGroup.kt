@@ -35,7 +35,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun invite(authToken: String): ConversationsInviteMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsInviteMethod(authToken)
     }
 
     override fun join(authToken: String): ConversationsJoinMethod {

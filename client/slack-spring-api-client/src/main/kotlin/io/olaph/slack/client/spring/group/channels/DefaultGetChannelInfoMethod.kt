@@ -7,12 +7,16 @@ import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.channels.ErrorGetChannelInfoResponse
 import io.olaph.slack.dto.jackson.group.channels.SlackGetChannelInfoResponse
 import io.olaph.slack.dto.jackson.group.channels.SuccessfulGetChannelInfoResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 
 @Suppress("UNCHECKED_CAST")
-class DefaultGetChannelInfoMethod(private val authToken: String) : ChannelsInfoMethod() {
+class DefaultGetChannelInfoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ChannelsInfoMethod() {
 
     override fun request(): ApiCallResult<SuccessfulGetChannelInfoResponse, ErrorGetChannelInfoResponse> {
-        val response = SlackRequestBuilder<SlackGetChannelInfoResponse>(authToken)
+        val response = SlackRequestBuilder<SlackGetChannelInfoResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("channels.info")
                 .returnAsType(SlackGetChannelInfoResponse::class.java)

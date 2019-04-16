@@ -6,12 +6,16 @@ import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationCreateResponse
 import io.olaph.slack.dto.jackson.group.conversations.SlackConversationCreateResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationCreateResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 
 @Suppress("UNCHECKED_CAST")
-class DefaultConversationsCreateMethod(private val authToken: String) : ConversationsCreateMethod() {
+class DefaultConversationsCreateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ConversationsCreateMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationCreateResponse, ErrorConversationCreateResponse> {
-        val response = SlackRequestBuilder<SlackConversationCreateResponse>(authToken)
+        val response = SlackRequestBuilder<SlackConversationCreateResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("conversations.create")
                 .returnAsType(SlackConversationCreateResponse::class.java)

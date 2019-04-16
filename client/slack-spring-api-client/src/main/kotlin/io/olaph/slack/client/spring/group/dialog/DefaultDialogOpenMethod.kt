@@ -7,12 +7,16 @@ import io.olaph.slack.client.group.dialog.DialogOpenMethod
 import io.olaph.slack.dto.jackson.group.dialog.ErrorOpenDialogResponse
 import io.olaph.slack.dto.jackson.group.dialog.SlackOpenDialogResponse
 import io.olaph.slack.dto.jackson.group.dialog.SuccessfulOpenDialogResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 
 @Suppress("UNCHECKED_CAST")
-class DefaultDialogOpenMethod(private val authToken: String) : DialogOpenMethod() {
+class DefaultDialogOpenMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : DialogOpenMethod() {
 
     override fun request(): ApiCallResult<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse> {
-        val response = SlackRequestBuilder<SlackOpenDialogResponse>(authToken)
+        val response = SlackRequestBuilder<SlackOpenDialogResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("dialog.open")
                 .returnAsType(SlackOpenDialogResponse::class.java)

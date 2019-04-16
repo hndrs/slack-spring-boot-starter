@@ -7,12 +7,16 @@ import io.olaph.slack.client.group.users.UserListMethod
 import io.olaph.slack.dto.jackson.group.users.ErrorUserListResponse
 import io.olaph.slack.dto.jackson.group.users.SuccessfulUserListResponse
 import io.olaph.slack.dto.jackson.group.users.UserListResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 
 @Suppress("UNCHECKED_CAST")
-class DefaultUserListMethod(private val authToken: String) : UserListMethod() {
+class DefaultUserListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : UserListMethod() {
 
     override fun request(): ApiCallResult<SuccessfulUserListResponse, ErrorUserListResponse> {
-        val response = SlackRequestBuilder<UserListResponse>(authToken)
+        val response = SlackRequestBuilder<UserListResponse>(authToken, restTemplate)
                 .toMethod("users.list")
                 .returnAsType(UserListResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())

@@ -7,13 +7,16 @@ import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.auth.ErrorAuthRevokeResponse
 import io.olaph.slack.dto.jackson.group.auth.SlackAuthRevokeResponse
 import io.olaph.slack.dto.jackson.group.auth.SuccessfulAuthRevokeResponse
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+import org.springframework.web.client.RestTemplate
 
 
-class DefaultRevokeMethod(private val authToken: String) : AuthRevokeMethod() {
+class DefaultRevokeMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : AuthRevokeMethod() {
 
     override fun request(): ApiCallResult<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse> {
 
-        val response = SlackRequestBuilder<SlackAuthRevokeResponse>(authToken)
+        val response = SlackRequestBuilder<SlackAuthRevokeResponse>(authToken, restTemplate)
                 .toMethod("auth.test")
                 .returnAsType(SlackAuthRevokeResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
@@ -33,6 +36,5 @@ class DefaultRevokeMethod(private val authToken: String) : AuthRevokeMethod() {
                 throw UnknownResponseException(this::class, response)
             }
         }
-
     }
 }

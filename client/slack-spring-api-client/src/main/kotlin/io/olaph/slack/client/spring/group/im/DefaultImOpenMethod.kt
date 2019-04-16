@@ -7,15 +7,19 @@ import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.im.ErrorImOpenResponse
 import io.olaph.slack.dto.jackson.group.im.SlackImOpenResponse
 import io.olaph.slack.dto.jackson.group.im.SuccessfulImOpenResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 
 /**
  * https://api.slack.com/methods/im.open
  */
 @Suppress("UNCHECKED_CAST")
-class DefaultImOpenMethod(private val authToken: String) : ImOpenMethod() {
+class DefaultImOpenMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ImOpenMethod() {
 
     override fun request(): ApiCallResult<SuccessfulImOpenResponse, ErrorImOpenResponse> {
-        val response = SlackRequestBuilder<SlackImOpenResponse>(authToken)
+        val response = SlackRequestBuilder<SlackImOpenResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("im.open")
                 .returnAsType(SlackImOpenResponse::class.java)

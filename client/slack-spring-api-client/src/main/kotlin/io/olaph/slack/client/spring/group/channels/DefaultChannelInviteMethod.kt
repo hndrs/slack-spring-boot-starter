@@ -7,12 +7,16 @@ import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.channels.ErrorChannelInviteResponse
 import io.olaph.slack.dto.jackson.group.channels.SlackChannelInviteResponse
 import io.olaph.slack.dto.jackson.group.channels.SuccessfulChannelInviteResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 
 @Suppress("UNCHECKED_CAST")
-class DefaultChannelInviteMethod(private val authToken: String) : ChannelsInviteMethod() {
+class DefaultChannelInviteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ChannelsInviteMethod() {
 
     override fun request(): ApiCallResult<SuccessfulChannelInviteResponse, ErrorChannelInviteResponse> {
-        val response = SlackRequestBuilder<SlackChannelInviteResponse>(authToken)
+        val response = SlackRequestBuilder<SlackChannelInviteResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("channels.invite")
                 .returnAsType(SlackChannelInviteResponse::class.java)
