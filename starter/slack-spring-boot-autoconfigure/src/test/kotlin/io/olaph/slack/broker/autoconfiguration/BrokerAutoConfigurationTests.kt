@@ -6,6 +6,7 @@ import io.olaph.slack.broker.configuration.EventRequestArgumentResolver
 import io.olaph.slack.broker.configuration.InteractiveResponseArgumentResolver
 import io.olaph.slack.broker.configuration.SlackCommandArgumentResolver
 import io.olaph.slack.broker.exception.SlackExceptionHandler
+import io.olaph.slack.broker.receiver.CommandNotFoundReceiver
 import io.olaph.slack.broker.receiver.SL4JLoggingReceiver
 import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.Team
@@ -72,10 +73,32 @@ class BrokerAutoConfigurationTests {
                 }
     }
 
+    @DisplayName("CommandNotFound Registration")
+    @Test
+    fun testCommandNotFoundReceiverRegistration() {
+        contextRunner.run {
+            assertDoesNotThrow { it.getBean(CommandNotFoundReceiver::class.java) }
+        }
+
+        ApplicationContextRunner()
+                .withSystemProperties("slack.commands.mismatch.enabled:false")
+                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .run {
+                    assertThrows<NoSuchBeanDefinitionException> { it.getBean(CommandNotFoundReceiver::class.java) }
+                }
+
+        ApplicationContextRunner()
+                .withSystemProperties("slack.commands.mismatch.enabled:true")
+                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .run {
+                    assertDoesNotThrow { it.getBean(CommandNotFoundReceiver::class.java) }
+                }
+    }
+
 
     @DisplayName("CommandBroker Registration")
     @Test
-    fun commandReceiverRegistration() {
+    fun commandBrokerRegistration() {
         contextRunner.run {
             assertDoesNotThrow { it.getBean(CommandBroker::class.java) }
         }
@@ -143,7 +166,7 @@ class BrokerAutoConfigurationTests {
 
     @DisplayName("EventBroker Registration")
     @Test
-    fun eventReceiverRegistration() {
+    fun eventBrokerRegistration() {
         contextRunner.run {
             assertDoesNotThrow { it.getBean(EventBroker::class.java) }
         }

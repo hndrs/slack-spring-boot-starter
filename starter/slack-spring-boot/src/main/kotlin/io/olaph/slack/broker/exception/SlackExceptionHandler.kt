@@ -2,6 +2,7 @@ package io.olaph.slack.broker.exception
 
 import io.olaph.slack.broker.security.VerificationException
 import io.olaph.slack.dto.jackson.group.dialog.DialogErrorResponse
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -27,6 +28,6 @@ class SlackExceptionHandler {
      */
     @ExceptionHandler(VerificationException::class)
     fun handleVerificationException(ex: VerificationException): ResponseEntity<Any> {
-        return ResponseEntity.badRequest().body(ex.message)
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.message)
     }
 }

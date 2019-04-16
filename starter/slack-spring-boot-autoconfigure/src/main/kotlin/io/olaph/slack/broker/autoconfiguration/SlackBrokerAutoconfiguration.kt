@@ -17,9 +17,11 @@ import io.olaph.slack.broker.metrics.InstallationMetrics
 import io.olaph.slack.broker.metrics.InstallationMetricsCollector
 import io.olaph.slack.broker.metrics.InteractiveComponentMetrics
 import io.olaph.slack.broker.metrics.InteractiveComponentMetricsCollector
+import io.olaph.slack.broker.receiver.CommandNotFoundReceiver
 import io.olaph.slack.broker.receiver.EventReceiver
 import io.olaph.slack.broker.receiver.InstallationReceiver
 import io.olaph.slack.broker.receiver.InteractiveComponentReceiver
+import io.olaph.slack.broker.receiver.MismatchCommandReciever
 import io.olaph.slack.broker.receiver.SL4JLoggingReceiver
 import io.olaph.slack.broker.receiver.SlashCommandReceiver
 import io.olaph.slack.broker.store.InMemoryTeamStore
@@ -51,17 +53,17 @@ open class SlackBrokerAutoConfiguration {
         }
 
         @Bean
-        open fun eventReceiver(slackEventReceivers: List<EventReceiver>, teamStore: TeamStore, metricsCollector: EventMetricsCollector?): EventBroker {
+        open fun eventBroker(slackEventReceivers: List<EventReceiver>, teamStore: TeamStore, metricsCollector: EventMetricsCollector?): EventBroker {
             return EventBroker(slackEventReceivers, teamStore, metricsCollector)
         }
 
         @Bean
-        open fun commandReceiver(slackEventReceivers: List<SlashCommandReceiver>, teamStore: TeamStore, metricsCollector: CommandMetricsCollector?): CommandBroker {
-            return CommandBroker(slackEventReceivers, teamStore, metricsCollector)
+        open fun commandBroker(slackEventReceivers: List<SlashCommandReceiver>, teamStore: TeamStore, mismatchCommandReceiver: MismatchCommandReciever?, metricsCollector: CommandMetricsCollector?): CommandBroker {
+            return CommandBroker(slackEventReceivers, teamStore, mismatchCommandReceiver, metricsCollector)
         }
 
         @Bean
-        open fun componentReceiver(slackEventReceivers: List<InteractiveComponentReceiver>, teamStore: TeamStore, metricsCollector: InteractiveComponentMetricsCollector?): InteractiveComponentBroker {
+        open fun componentBroker(slackEventReceivers: List<InteractiveComponentReceiver>, teamStore: TeamStore, metricsCollector: InteractiveComponentMetricsCollector?): InteractiveComponentBroker {
             return InteractiveComponentBroker(slackEventReceivers, teamStore, metricsCollector)
         }
 
@@ -77,6 +79,13 @@ open class SlackBrokerAutoConfiguration {
         @Bean
         open fun sL4JLoggingReceiver(): SL4JLoggingReceiver {
             return SL4JLoggingReceiver()
+        }
+
+        @ConditionalOnMissingBean
+        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.MISMATCH_PROPERTY_PREFIX, name = ["enabled"], havingValue = "true", matchIfMissing = true)
+        @Bean
+        open fun commandNotFoundMismatchReceiver(slackClient: SlackClient): MismatchCommandReciever {
+            return CommandNotFoundReceiver(slackClient, configuration.commands.mismatch.text)
         }
     }
 
