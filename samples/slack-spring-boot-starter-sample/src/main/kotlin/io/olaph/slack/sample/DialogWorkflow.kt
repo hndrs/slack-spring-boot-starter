@@ -49,7 +49,7 @@ class OpenDialogCommandReceiver @Autowired constructor(private val slackClient: 
                 trigger_id = slackCommand.triggerId,
                 dialog = Dialog(
                         callback_id = DialogSubmissionReceiver.CALL_BACK_ID,
-                        title = "Welcome Please Entery your name",
+                        title = "Welcome Please enter your name",
                         elements = listOf(
                                 TextElement(
                                         label = "Name",
