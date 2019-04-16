@@ -5,7 +5,6 @@ import io.olaph.slack.client.group.conversations.ConversationsHistoryMethod
 import io.olaph.slack.client.group.conversations.ConversationsInfoMethod
 import io.olaph.slack.client.group.conversations.ConversationsJoinMethod
 import io.olaph.slack.client.group.conversations.ConversationsKickMethod
-import io.olaph.slack.client.group.conversations.ConversationsLeaveMethod
 import io.olaph.slack.client.group.conversations.ConversationsMethodGroup
 import io.olaph.slack.client.group.conversations.ConversationsOpenMethod
 import io.olaph.slack.client.group.conversations.ConversationsRenameMethod
@@ -22,6 +21,7 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
     private val mockConversationsListMethod = MockConversationsListMethod()
     private val mockConversationsMembersMethod = MockConversationsMembersMethod()
     private val mockConversationsInviteMethod = MockConversationsInviteMethod()
+    private val mockConversationsLeaveMethod = MockConversationsLeaveMethod()
 
     override fun close(authToken: String): MockConversationsClose = mockConversationsClose
 
@@ -49,8 +49,8 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun leave(authToken: String): ConversationsLeaveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun leave(authToken: String): MockConversationsLeaveMethod {
+        return mockConversationsLeaveMethod
     }
 
     override fun list(authToken: String): MockConversationsListMethod {

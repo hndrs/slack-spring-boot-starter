@@ -42,5 +42,5 @@ jobs:
 
     - stage: publish
       name: "Publish Library"
-      script: ./gradlew publish
+      script: ./gradlew publishclient/slack-spring-api-client/src/main/kotlin/io/olaph/slack/client/spring/group/conversations/DefaultConversationsMethodGroup.kt
       if: branch = master AND type != pull_request
