@@ -3,17 +3,21 @@
 :version: 1.0.0.M1
 
 = Slack Spring Boot
-
-Interact with Slack from your Spring Boot application.
-
 image:https://travis-ci.com/kreait/slack-spring-boot-starter.svg?branch=master["Build Status", link="https://travis-ci.org/olaph-io/slack-spring-boot-starter"]
 image:https://sonarcloud.io/api/project_badges/measure?project=io.olaph.slack&metric=alert_status&metric=alert_status[link="https://sonarcloud.io/dashboard?id=io.olaph.slack"]
 image:https://sonarcloud.io/api/project_badges/measure?project=io.olaph.slack&metric=coverage[link="https://sonarcloud.io/dashboard?id=io.olaph.slack"]
 image:https://img.shields.io/badge/version-{version}-fffff.svg[]
+image:https://badges.gitter.im/kreait/slack-spring-boot-starter.svg[link="https://gitter.im/kreait/slack-spring-boot-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"]
+image:http://img.shields.io/badge/stackoverflow-slack-informational.svg[link="https://meta.stackoverflow.com/questions/tagged/slack"]
 
-Join the discussion on gitter :) image:https://badges.gitter.im/kreait/slack-spring-boot-starter.svg[link="https://gitter.im/kreait/slack-spring-boot-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"]
 
-Ask questions on stackoverflow image:http://img.shields.io/badge/stackoverflow-slack-informational.svg[link="https://meta.stackoverflow.com/questions/tagged/slack"]
+= Why use slack-spring-boot-starter?
+- Comes with a handy set of abstractions that make your life *boilerplate free*
+- creating slash commands is as easy as implementing a single link:samples/slack-spring-boot-starter-sample/src/main/kotlin/io/olaph/slack/sample/PingCommandReceiver.kt[*interface*]
+- reacting on events is as easy as implementing a single link:samples/slack-spring-boot-starter-sample/src/main/kotlin/io/olaph/slack/sample/ChannelRenamedEventReceiver.kt[*interface*]
+- reacting on interactive components is as easy as implementing a single link:samples/slack-spring-boot-starter-sample/src/main/kotlin/io/olaph/slack/sample/DialogWorkflow.kt.kt[*interface*]
+- app installation workflow just works and takes care of the whole authentication flow
+- supports link:https://api.slack.com/docs/verifying-requests-from-slack[signing] out of the box
 
 = Quickstart Guide
 This short guide will guide you through a quick setup
