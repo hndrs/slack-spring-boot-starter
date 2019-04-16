@@ -47,7 +47,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun leave(authToken: String): ConversationsLeaveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsLeaveMethod(authToken)
     }
 
     override fun rename(authToken: String): ConversationsRenameMethod {
