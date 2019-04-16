@@ -7,12 +7,17 @@ import io.olaph.slack.client.group.chat.ChatPostMessageMethod
 import io.olaph.slack.dto.jackson.group.chat.ErrorPostMessageResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackPostMessageResponse
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostMessageResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
+
 
 @Suppress("UNCHECKED_CAST")
-class DefaultPostMessageMethod(private val authToken: String) : ChatPostMessageMethod() {
+class DefaultPostMessageMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ChatPostMessageMethod() {
 
     override fun request(): ApiCallResult<SuccessfulPostMessageResponse, ErrorPostMessageResponse> {
-        val response = SlackRequestBuilder<SlackPostMessageResponse>(authToken)
+        val response = SlackRequestBuilder<SlackPostMessageResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("chat.postMessage")
                 .returnAsType(SlackPostMessageResponse::class.java)

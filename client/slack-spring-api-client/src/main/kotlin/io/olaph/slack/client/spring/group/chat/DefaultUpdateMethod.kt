@@ -7,12 +7,16 @@ import io.olaph.slack.client.group.chat.ChatUpdateMethod
 import io.olaph.slack.dto.jackson.group.chat.ErrorChatUpdateResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackChatUpdateResponse
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulChatUpdateResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 
 @Suppress("UNCHECKED_CAST")
-class DefaultUpdateMethod(private val authToken: String) : ChatUpdateMethod(){
+class DefaultUpdateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ChatUpdateMethod(){
 
     override fun request(): ApiCallResult<SuccessfulChatUpdateResponse, ErrorChatUpdateResponse> {
-        val response = SlackRequestBuilder<SlackChatUpdateResponse>(authToken)
+        val response = SlackRequestBuilder<SlackChatUpdateResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("chat.update")
                 .returnAsType(SlackChatUpdateResponse::class.java)

@@ -7,6 +7,10 @@ import io.olaph.slack.client.group.chat.ChatPostEphemeralMethod
 import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralResponse
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 
 /**
  * Posts a Ephemeral message to a channel which is only visible to a specific user
@@ -14,10 +18,10 @@ import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralResponse
  * @return the API Call Method containing the ResponseEntities
  */
 @Suppress("UNCHECKED_CAST")
-class DefaultPostEphemeralMethod(private val authToken: String) : ChatPostEphemeralMethod() {
+class DefaultPostEphemeralMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ChatPostEphemeralMethod() {
 
     override fun request(): ApiCallResult<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse> {
-        val response = SlackRequestBuilder<SlackPostEphemeralResponse>(authToken)
+        val response = SlackRequestBuilder<SlackPostEphemeralResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("chat.postEphemeral")
                 .returnAsType(SlackPostEphemeralResponse::class.java)

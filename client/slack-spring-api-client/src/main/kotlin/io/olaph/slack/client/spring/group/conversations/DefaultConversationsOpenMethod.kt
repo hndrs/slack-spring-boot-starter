@@ -7,12 +7,16 @@ import io.olaph.slack.client.group.conversations.ConversationsOpenMethod
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationOpenResponse
 import io.olaph.slack.dto.jackson.group.conversations.ConversationOpenResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationOpenResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 
 @Suppress("UNCHECKED_CAST")
-class DefaultConversationsOpenMethod(private val authToken: String) : ConversationsOpenMethod(){
+class DefaultConversationsOpenMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ConversationsOpenMethod(){
 
     override fun request(): ApiCallResult<SuccessfulConversationOpenResponse, ErrorConversationOpenResponse> {
-        val response = SlackRequestBuilder<ConversationOpenResponse>(authToken)
+        val response = SlackRequestBuilder<ConversationOpenResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("conversations.open")
                 .returnAsType(ConversationOpenResponse::class.java)

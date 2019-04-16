@@ -8,27 +8,35 @@ import org.springframework.http.HttpRequest
 import org.springframework.http.MediaType
 import org.springframework.http.RequestEntity
 import org.springframework.http.ResponseEntity
-import org.springframework.http.client.BufferingClientHttpRequestFactory
 import org.springframework.http.client.ClientHttpRequestExecution
 import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.http.client.ClientHttpResponse
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.StreamUtils
 import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 import org.springframework.web.util.UriComponentsBuilder
 import java.io.IOException
 import java.net.URI
 import java.nio.charset.Charset.forName
 
 
-class SlackRequestBuilder<T> constructor(private val token: String? = null) {
+class SlackRequestBuilder<T>(private val token: String? = null, private val restTemplate: RestTemplate) {
 
     var body: Any? = null
     lateinit var uri: URI
     lateinit var responseType: Class<T>
 
+
+    init {
+        val mappingJackson2HttpMessageConverter = MappingJackson2HttpMessageConverter()
+        restTemplate.interceptors = listOf(RequestResponseLoggingInterceptor())
+        mappingJackson2HttpMessageConverter.supportedMediaTypes = listOf(MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED)
+        restTemplate.messageConverters.add(mappingJackson2HttpMessageConverter)
+    }
 
     /**
      * with body
@@ -75,19 +83,6 @@ class SlackRequestBuilder<T> constructor(private val token: String? = null) {
 
         httpHeaders[HttpHeaders.CONTENT_TYPE] = contentType
         return httpHeaders
-    }
-
-    companion object {
-
-        private val restTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))
-
-        init {
-            val mappingJackson2HttpMessageConverter = MappingJackson2HttpMessageConverter()
-            restTemplate.interceptors = listOf(RequestResponseLoggingInterceptor())
-            mappingJackson2HttpMessageConverter.supportedMediaTypes = listOf(MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED)
-            restTemplate.messageConverters.add(mappingJackson2HttpMessageConverter)
-        }
-
     }
 }
 

@@ -7,15 +7,19 @@ import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.im.ErrorImCloseResponse
 import io.olaph.slack.dto.jackson.group.im.SlackImCloseResponse
 import io.olaph.slack.dto.jackson.group.im.SuccessfulImCloseResponse
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.client.BufferingClientHttpRequestFactory
+import org.springframework.http.client.SimpleClientHttpRequestFactory
+
 
 /**
  * https://api.slack.com/methods/im.close
  */
 @Suppress("UNCHECKED_CAST")
-class DefaultImCloseMethod(private val authToken: String) : ImCloseMethod() {
+class DefaultImCloseMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ImCloseMethod() {
     override fun request(): ApiCallResult<SuccessfulImCloseResponse, ErrorImCloseResponse> {
 
-        val response = SlackRequestBuilder<SlackImCloseResponse>(authToken)
+        val response = SlackRequestBuilder<SlackImCloseResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("im.close")
                 .returnAsType(SlackImCloseResponse::class.java)
