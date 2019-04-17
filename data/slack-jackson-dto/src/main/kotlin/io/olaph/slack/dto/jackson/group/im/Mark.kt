@@ -20,13 +20,19 @@ abstract class SlackImMarkResponse constructor(@JsonProperty(value = "ok") open 
 
 @JacksonDataClass
 data class SuccessfulImMarkResponse constructor(override val ok: Boolean)
-    : SlackImMarkResponse(ok)
+    : SlackImMarkResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class ErrorImMarkResponse constructor(override val ok: Boolean,
                                            @JsonProperty(value = "error") val error: String)
-    : SlackImMarkResponse(ok)
+    : SlackImMarkResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class SlackImMarkRequest constructor(@JsonProperty(value = "channel") val channel: String,
-                                          @JsonProperty(value = "ts") val ts: String)
+                                          @JsonProperty(value = "ts") val ts: String) {
+    companion object
+}

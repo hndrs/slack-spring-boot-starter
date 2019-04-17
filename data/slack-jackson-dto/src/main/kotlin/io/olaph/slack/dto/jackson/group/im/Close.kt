@@ -22,12 +22,18 @@ abstract class SlackImCloseResponse constructor(@JsonProperty(value = "ok") open
 data class SuccessfulImCloseResponse constructor(override val ok: Boolean,
                                                  @JsonProperty(value = "no_op") val noOp: Boolean?,
                                                  @JsonProperty(value = "already_closed") val alreadyClosed: Boolean?)
-    : SlackImCloseResponse(ok)
+    : SlackImCloseResponse(ok){
+    companion object
+}
 
 @JacksonDataClass
 data class ErrorImCloseResponse constructor(override val ok: Boolean,
                                             @JsonProperty(value = "error") val error: String)
-    : SlackImCloseResponse(ok)
+    : SlackImCloseResponse(ok){
+    companion object
+}
 
 @JacksonDataClass
-data class SlackImCloseRequest constructor(@JsonProperty(value = "channel") val channelId: String)
+data class SlackImCloseRequest constructor(@JsonProperty(value = "channel") val channelId: String){
+    companion object
+}
