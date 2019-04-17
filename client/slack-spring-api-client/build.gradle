@@ -25,5 +25,6 @@ dependencies {
     testImplementation(group: "org.slf4j", name: "slf4j-api")
     testImplementation(group: "org.springframework.boot", name: "spring-boot-starter-web")
     testImplementation(group: "com.fasterxml.jackson.module", name: "jackson-module-kotlin")
-
+    testImplementation(group: "org.springframework", name: "spring-test")
+    testImplementation(project(":slack-jackson-dto-test"))
 }

@@ -14,7 +14,7 @@ import java.net.URI
 class MockServerHelper() {
     companion object {
 
-        fun getObjectString(response: Any): String {
+        private fun getObjectString(response: Any): String {
             val mapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()
             return mapper.writeValueAsString(response)
         }
@@ -23,14 +23,14 @@ class MockServerHelper() {
          * builds a mocked RestServer that responds with the defined [responseBody] when the
          * [methodEndpoint] is called on the [restTemplate]
          */
-        fun buildMockRestServer(restTemplate: RestTemplate, responseBody: String, methodEndpoint: String): MockRestServiceServer {
+        fun buildMockRestServer(restTemplate: RestTemplate, responseBody: Any, methodEndpoint: String): MockRestServiceServer {
             val mockserver = MockRestServiceServer.createServer(restTemplate)
             mockserver.expect(ExpectedCount.once(),
                     MockRestRequestMatchers.requestTo(URI("https://slack.com/api/$methodEndpoint")))
                     .andExpect(MockRestRequestMatchers.method(HttpMethod.POST))
                     .andRespond(MockRestResponseCreators.withSuccess()
                             .contentType(MediaType.APPLICATION_JSON)
-                            .body(responseBody))
+                            .body(getObjectString(responseBody)))
             return mockserver
         }
     }
