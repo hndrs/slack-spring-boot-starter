@@ -1,12 +1,12 @@
 package io.olaph.slack.client.spring.group.chat
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralRequest
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralResponse
 import io.olaph.slack.dto.jackson.group.chat.sample
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -26,13 +26,14 @@ internal class DefaultPostEphemeralMethodTest {
     fun chatPostEphemeralFailure() {
         val response = ErrorPostEphemeralResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "chat.postEphemeral")
+        val verifier = Verifier(response)
 
         DefaultPostEphemeralMethod("", mockTemplate)
                 .with(SlackPostEphemeralRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 
     @Test
@@ -40,12 +41,13 @@ internal class DefaultPostEphemeralMethodTest {
     fun chatPostEphemeralSuccess() {
         val response = SuccessfulPostEphemeralResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "chat.postEphemeral")
+        val verifier = Verifier(response)
 
         DefaultPostEphemeralMethod("", mockTemplate)
                 .with(SlackPostEphemeralRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 }
