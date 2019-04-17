@@ -17,7 +17,7 @@ class DefaultRevokeMethod(private val authToken: String, private val restTemplat
     override fun request(): ApiCallResult<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse> {
 
         val response = SlackRequestBuilder<SlackAuthRevokeResponse>(authToken, restTemplate)
-                .toMethod("auth.test")
+                .toMethod("auth.revoke")
                 .returnAsType(SlackAuthRevokeResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 

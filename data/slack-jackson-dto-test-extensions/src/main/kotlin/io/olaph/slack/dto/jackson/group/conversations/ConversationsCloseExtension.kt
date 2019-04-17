@@ -1,4 +1,4 @@
-package io.olaph.slack.dto.jackson.group.conversation
+package io.olaph.slack.dto.jackson.group.conversations
 
 import io.olaph.slack.dto.jackson.group.conversations.ConversationCloseRequest
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationCloseResponse

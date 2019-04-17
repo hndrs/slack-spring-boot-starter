@@ -7,3 +7,7 @@ fun AuthRevokeRequest.Companion.sample(): AuthRevokeRequest {
 fun SuccessfulAuthRevokeResponse.Companion.sample(): SuccessfulAuthRevokeResponse {
     return SuccessfulAuthRevokeResponse(true, true)
 }
+
+fun ErrorAuthRevokeResponse.Companion.sample(): ErrorAuthRevokeResponse {
+    return ErrorAuthRevokeResponse(true, "")
+}

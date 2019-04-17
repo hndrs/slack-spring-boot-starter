@@ -6,9 +6,9 @@ import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.conversations.ConversationMembersResponse
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationMembersResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationMembersResponse
-import org.springframework.web.client.RestTemplate
 import org.springframework.http.client.BufferingClientHttpRequestFactory
 import org.springframework.http.client.SimpleClientHttpRequestFactory
+import org.springframework.web.client.RestTemplate
 
 
 /**
