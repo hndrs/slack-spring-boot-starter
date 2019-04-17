@@ -1,12 +1,12 @@
 package io.olaph.slack.client.spring.group.channels
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.channels.ErrorGetChannelInfoResponse
 import io.olaph.slack.dto.jackson.group.channels.SlackChannelsInfoRequest
 import io.olaph.slack.dto.jackson.group.channels.SuccessfulGetChannelInfoResponse
 import io.olaph.slack.dto.jackson.group.channels.sample
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -26,13 +26,14 @@ class DefaultGetChannelInfoMethodTest {
     fun channelInfoFailure() {
         val response = ErrorGetChannelInfoResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.info?token=&channel=")
+        val verifier = Verifier(response)
 
         DefaultGetChannelInfoMethod("", mockTemplate)
                 .with(SlackChannelsInfoRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 
     @Test
@@ -40,12 +41,13 @@ class DefaultGetChannelInfoMethodTest {
     fun channelInfoSuccess() {
         val response = SuccessfulGetChannelInfoResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.info?token=&channel=")
+        val verifier = Verifier(response)
 
         DefaultGetChannelInfoMethod("", mockTemplate)
                 .with(SlackChannelsInfoRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 }
