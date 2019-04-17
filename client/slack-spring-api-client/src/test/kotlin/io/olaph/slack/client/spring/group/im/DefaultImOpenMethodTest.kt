@@ -21,7 +21,7 @@ internal class DefaultImOpenMethodTest {
 
     @Test
     @DisplayName("Im.Open Failure")
-    fun ImListFailure() {
+    fun imOpenFailure() {
         val response = ErrorImOpenResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.open")
 
@@ -35,7 +35,7 @@ internal class DefaultImOpenMethodTest {
 
     @Test
     @DisplayName("Im.Open Success")
-    fun ImListSuccess() {
+    fun imOpenSuccess() {
         val response = SuccessfulImOpenResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.open")
 

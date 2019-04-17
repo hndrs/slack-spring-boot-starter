@@ -20,8 +20,8 @@ internal class DefaultImCloseMethodTest {
     }
 
     @Test
-    @DisplayName("Im.Close Failure")
-    fun ImListFailure() {
+    @DisplayName("Im.close Failure")
+    fun imCloseFailure() {
         val response = ErrorImCloseResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.close")
 
@@ -34,8 +34,8 @@ internal class DefaultImCloseMethodTest {
     }
 
     @Test
-    @DisplayName("Im.Close Success")
-    fun ImListSuccess() {
+    @DisplayName("Im.close Success")
+    fun imCloseSuccess() {
         val response = SuccessfulImCloseResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.close")
 

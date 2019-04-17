@@ -21,7 +21,7 @@ internal class DefaultImRepliesMethodTest {
 
     @Test
     @DisplayName("Im.replies Failure")
-    fun ImListFailure() {
+    fun imRepliesFailure() {
         val response = ErrorImRepliesResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.replies?channel=channeId&thread_ts=1234567890.123456")
 
@@ -35,7 +35,7 @@ internal class DefaultImRepliesMethodTest {
 
     @Test
     @DisplayName("Im.replies Success")
-    fun ImListSuccess() {
+    fun imRepliesSuccess() {
         val response = SuccessfulImRepliesResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.replies?channel=channeId&thread_ts=1234567890.123456")
 

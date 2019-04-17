@@ -21,7 +21,7 @@ internal class DefaultImMarkMethodTest {
 
     @Test
     @DisplayName("Im.Mark Failure")
-    fun ImListFailure() {
+    fun imMarkFailure() {
         val response = ErrorImMarkResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.mark")
 
@@ -35,7 +35,7 @@ internal class DefaultImMarkMethodTest {
 
     @Test
     @DisplayName("Im.Mark Success")
-    fun ImListSuccess() {
+    fun imMarkSuccess() {
         val response = SuccessfulImMarkResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.mark")
 
