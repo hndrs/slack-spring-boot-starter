@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.users
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.users.ErrorUsersInfoResponse
 import io.olaph.slack.dto.jackson.group.users.SlackUserInfoRequest
 import io.olaph.slack.dto.jackson.group.users.SuccessfulUsersInfoResponse
@@ -16,7 +17,7 @@ class DefaultUsersInfoMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

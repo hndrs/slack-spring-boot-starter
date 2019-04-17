@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.dialog
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.dialog.ErrorOpenDialogResponse
 import io.olaph.slack.dto.jackson.group.dialog.SlackOpenDialogRequest
 import io.olaph.slack.dto.jackson.group.dialog.SuccessfulOpenDialogResponse
@@ -16,7 +17,7 @@ class DefaultDialogOpenMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

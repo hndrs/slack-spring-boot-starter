@@ -2,12 +2,11 @@ package io.olaph.slack.client.spring.group.conversations
 
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.conversations.ConversationsMembersMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.conversations.ConversationMembersResponse
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationMembersResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationMembersResponse
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
 
 
@@ -15,7 +14,7 @@ import org.springframework.web.client.RestTemplate
  * https://api.slack.com/methods/conversations.members
  */
 @Suppress("UNCHECKED_CAST")
-class DefaultConversationsMembersMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ConversationsMembersMethod() {
+class DefaultConversationsMembersMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsMembersMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationMembersResponse, ErrorConversationMembersResponse> {
         val response = SlackRequestBuilder<ConversationMembersResponse>(authToken, restTemplate)

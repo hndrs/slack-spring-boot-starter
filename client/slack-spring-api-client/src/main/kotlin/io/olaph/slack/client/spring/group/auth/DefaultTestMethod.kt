@@ -3,17 +3,16 @@ package io.olaph.slack.client.spring.group.auth
 import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.auth.AuthTestMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.auth.ErrorAuthTestResponse
 import io.olaph.slack.dto.jackson.group.auth.SlackAuthTestResponse
 import io.olaph.slack.dto.jackson.group.auth.SuccessfulAuthTestResponse
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultTestMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : AuthTestMethod() {
+class DefaultTestMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : AuthTestMethod() {
 
     override fun request(): ApiCallResult<SuccessfulAuthTestResponse, ErrorAuthTestResponse> {
         val response = SlackRequestBuilder<SlackAuthTestResponse>(authToken, restTemplate)

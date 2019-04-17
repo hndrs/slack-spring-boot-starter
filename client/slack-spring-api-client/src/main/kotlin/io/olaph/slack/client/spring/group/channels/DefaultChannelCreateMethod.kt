@@ -3,18 +3,16 @@ package io.olaph.slack.client.spring.group.channels
 import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.channels.ChannelsCreateMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.channels.ErrorChannelCreateResponse
 import io.olaph.slack.dto.jackson.group.channels.SlackChannelCreateResponse
 import io.olaph.slack.dto.jackson.group.channels.SuccessfulChannelCreateResponse
 import org.springframework.web.client.RestTemplate
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
-
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultChannelCreateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ChannelsCreateMethod() {
+class DefaultChannelCreateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsCreateMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelCreateResponse, ErrorChannelCreateResponse> {
 
         val response = SlackRequestBuilder<SlackChannelCreateResponse>(authToken, restTemplate)

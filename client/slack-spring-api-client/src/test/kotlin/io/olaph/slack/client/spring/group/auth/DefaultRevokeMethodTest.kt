@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.auth
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.auth.AuthRevokeRequest
 import io.olaph.slack.dto.jackson.group.auth.ErrorAuthRevokeResponse
 import io.olaph.slack.dto.jackson.group.auth.SuccessfulAuthRevokeResponse
@@ -17,7 +18,7 @@ class DefaultRevokeMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

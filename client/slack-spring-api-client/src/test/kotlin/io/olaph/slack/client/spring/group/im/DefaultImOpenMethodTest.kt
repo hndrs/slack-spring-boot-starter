@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.im
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.im.ErrorImOpenResponse
 import io.olaph.slack.dto.jackson.group.im.SlackImOpenRequest
 import io.olaph.slack.dto.jackson.group.im.SuccessfulImOpenResponse
@@ -16,7 +17,7 @@ internal class DefaultImOpenMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

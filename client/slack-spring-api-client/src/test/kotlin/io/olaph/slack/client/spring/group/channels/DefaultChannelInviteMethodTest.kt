@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.channels
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.channels.ErrorChannelInviteResponse
 import io.olaph.slack.dto.jackson.group.channels.SlackChannelInviteRequest
 import io.olaph.slack.dto.jackson.group.channels.SuccessfulChannelInviteResponse
@@ -17,7 +18,7 @@ class DefaultChannelInviteMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

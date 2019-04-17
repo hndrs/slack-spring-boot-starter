@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.chat
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.chat.ErrorChatDeleteResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackChatDeleteRequest
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulChatDeleteResponse
@@ -17,7 +18,7 @@ internal class DefaultDeleteMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

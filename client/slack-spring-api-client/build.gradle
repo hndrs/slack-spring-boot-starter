@@ -18,6 +18,7 @@ dependencies {
     api(project(":slack-api-client"))
     compileOnly(group: "org.springframework", name: "spring-web")
     compileOnly(group: "org.slf4j", name: "slf4j-api")
+    compileOnly(group: "com.fasterxml.jackson.core", name: "jackson-databind")
 
 
     implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")
@@ -25,6 +26,9 @@ dependencies {
     testImplementation(group: "org.slf4j", name: "slf4j-api")
     testImplementation(group: "org.springframework.boot", name: "spring-boot-starter-web")
     testImplementation(group: "com.fasterxml.jackson.module", name: "jackson-module-kotlin")
-    testImplementation(group: "org.springframework", name: "spring-test")
+    testImplementation(group: "org.springframework", name: "spring-test") {
+        exclude(group: "junit", module: "junit")
+    }
+
     testImplementation(project(":slack-jackson-dto-test"))
 }

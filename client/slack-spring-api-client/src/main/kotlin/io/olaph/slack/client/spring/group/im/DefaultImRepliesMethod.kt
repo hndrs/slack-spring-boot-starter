@@ -3,13 +3,12 @@ package io.olaph.slack.client.spring.group.im
 import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.im.ImRepliesMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.im.ErrorImRepliesResponse
 import io.olaph.slack.dto.jackson.group.im.SlackImRepliesResponse
 import io.olaph.slack.dto.jackson.group.im.SuccessfulImRepliesResponse
 import org.springframework.web.client.RestTemplate
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 
 
 /**
@@ -17,7 +16,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory
  */
 
 @Suppress("UNCHECKED_CAST")
-class DefaultImRepliesMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ImRepliesMethod() {
+class DefaultImRepliesMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ImRepliesMethod() {
     override fun request(): ApiCallResult<SuccessfulImRepliesResponse, ErrorImRepliesResponse> {
         val response = SlackRequestBuilder<SlackImRepliesResponse>(authToken, restTemplate)
                 .with(this.params)

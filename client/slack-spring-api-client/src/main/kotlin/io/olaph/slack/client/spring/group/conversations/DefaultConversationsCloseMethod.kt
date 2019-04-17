@@ -2,17 +2,16 @@ package io.olaph.slack.client.spring.group.conversations
 
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.conversations.ConversationsCloseMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationCloseResponse
 import io.olaph.slack.dto.jackson.group.conversations.SlackConversationCloseResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationCloseResponse
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultConversationsCloseMethod constructor(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ConversationsCloseMethod() {
+class DefaultConversationsCloseMethod constructor(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsCloseMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationCloseResponse, ErrorConversationCloseResponse> {
         val response = SlackRequestBuilder<SlackConversationCloseResponse>(authToken, restTemplate)
