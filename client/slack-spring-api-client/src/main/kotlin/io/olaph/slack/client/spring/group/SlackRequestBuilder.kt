@@ -1,27 +1,16 @@
 package io.olaph.slack.client.spring.group
 
-import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
-import org.springframework.http.HttpRequest
 import org.springframework.http.MediaType
 import org.springframework.http.RequestEntity
 import org.springframework.http.ResponseEntity
-import org.springframework.http.client.ClientHttpRequestExecution
-import org.springframework.http.client.ClientHttpRequestInterceptor
-import org.springframework.http.client.ClientHttpResponse
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.util.LinkedMultiValueMap
-import org.springframework.util.StreamUtils
 import org.springframework.web.client.RestTemplate
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
-
 import org.springframework.web.util.UriComponentsBuilder
-import java.io.IOException
 import java.net.URI
-import java.nio.charset.Charset.forName
 
 
 class SlackRequestBuilder<T>(private val token: String? = null, private val restTemplate: RestTemplate) {
@@ -33,7 +22,6 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
 
     init {
         val mappingJackson2HttpMessageConverter = MappingJackson2HttpMessageConverter()
-        restTemplate.interceptors = listOf(RequestResponseLoggingInterceptor())
         mappingJackson2HttpMessageConverter.supportedMediaTypes = listOf(MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED)
         restTemplate.messageConverters.add(mappingJackson2HttpMessageConverter)
     }
@@ -83,34 +71,5 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
 
         httpHeaders[HttpHeaders.CONTENT_TYPE] = contentType
         return httpHeaders
-    }
-}
-
-class RequestResponseLoggingInterceptor : ClientHttpRequestInterceptor {
-
-    private val log = LoggerFactory.getLogger(this.javaClass)
-
-    @Throws(IOException::class)
-    override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-        logRequest(request, body)
-        val response = execution.execute(request, body)
-        logResponse(response)
-        return response
-    }
-
-    @Throws(IOException::class)
-    private fun logRequest(request: HttpRequest, body: ByteArray) {
-        when {
-            log.isDebugEnabled ->
-                log.debug("\nURI         : {}\nMethod      : {}\nHeaders     : {}\nRequest body: {}", request.uri, request.method, request.headers, String(body, forName("UTF-8")))
-        }
-    }
-
-    @Throws(IOException::class)
-    private fun logResponse(response: ClientHttpResponse) {
-        when {
-            log.isDebugEnabled ->
-                log.debug("\nStatus code  : {}\nStatus text  : {}\nHeaders      : {}\nResponse body: {}", response.statusCode, response.statusText, response.headers, StreamUtils.copyToString(response.body, forName("UTF-8")))
-        }
     }
 }
