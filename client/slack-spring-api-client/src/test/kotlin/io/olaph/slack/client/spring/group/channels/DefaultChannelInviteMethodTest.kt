@@ -1,12 +1,12 @@
 package io.olaph.slack.client.spring.group.channels
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.channels.ErrorChannelInviteResponse
 import io.olaph.slack.dto.jackson.group.channels.SlackChannelInviteRequest
 import io.olaph.slack.dto.jackson.group.channels.SuccessfulChannelInviteResponse
 import io.olaph.slack.dto.jackson.group.channels.sample
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -26,13 +26,14 @@ class DefaultChannelInviteMethodTest {
     fun channelInviteFailure() {
         val response = ErrorChannelInviteResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.invite")
+        val verifier = Verifier(response)
 
         DefaultChannelInviteMethod("", mockTemplate)
                 .with(SlackChannelInviteRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 
     @Test
@@ -40,12 +41,13 @@ class DefaultChannelInviteMethodTest {
     fun channelInviteSuccess() {
         val response = SuccessfulChannelInviteResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.invite")
+        val verifier = Verifier(response)
 
         DefaultChannelInviteMethod("", mockTemplate)
                 .with(SlackChannelInviteRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 }
