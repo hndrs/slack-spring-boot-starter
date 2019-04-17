@@ -1,12 +1,12 @@
 package io.olaph.slack.client.spring.group.auth
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.auth.AuthRevokeRequest
 import io.olaph.slack.dto.jackson.group.auth.ErrorAuthRevokeResponse
 import io.olaph.slack.dto.jackson.group.auth.SuccessfulAuthRevokeResponse
 import io.olaph.slack.dto.jackson.group.auth.sample
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -26,13 +26,14 @@ class DefaultRevokeMethodTest {
     fun authRevokeFailure() {
         val response = ErrorAuthRevokeResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "auth.revoke?test=true")
+        val verifier = Verifier(response)
 
         DefaultRevokeMethod("", mockTemplate)
                 .with(AuthRevokeRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 
     @Test
@@ -40,12 +41,13 @@ class DefaultRevokeMethodTest {
     fun authRevokeSuccess() {
         val response = SuccessfulAuthRevokeResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "auth.revoke?test=true")
+        val verifier = Verifier(response)
 
         DefaultRevokeMethod("", mockTemplate)
                 .with(AuthRevokeRequest.sample())
-                .onFailure { }
-                .onSuccess { Assertions.assertEquals(response, it) }
+                .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 }
