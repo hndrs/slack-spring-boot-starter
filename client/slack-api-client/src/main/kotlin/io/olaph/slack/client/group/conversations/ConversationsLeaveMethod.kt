@@ -5,4 +5,4 @@ import io.olaph.slack.dto.jackson.group.conversations.ConversationsLeaveRequest
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationLeaveResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationLeaveResponse
 
-abstract class ConversationsLeaveMethod : ApiCallMethod<ConversationsLeaveRequest, SuccessfulConversationLeaveResponse, ErrorConversationLeaveResponse, ConversationsLeaveRequest>()
+abstract class ConversationsLeaveMethod : ApiCallMethod<ConversationsLeaveMethod, SuccessfulConversationLeaveResponse, ErrorConversationLeaveResponse, ConversationsLeaveRequest>()

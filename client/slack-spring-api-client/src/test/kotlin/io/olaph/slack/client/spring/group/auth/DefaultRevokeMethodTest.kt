@@ -43,8 +43,8 @@ class DefaultRevokeMethodTest {
 
         DefaultRevokeMethod("", mockTemplate)
                 .with(AuthRevokeRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onFailure { }
+                .onSuccess { Assertions.assertEquals(response, it) }
                 .invoke()
         mockServer.verify()
     }
