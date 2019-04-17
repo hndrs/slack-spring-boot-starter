@@ -92,4 +92,6 @@ data class SlackUserConversationListRequest(private val cursor: String? = null,
         userId?.let { requestMap.put("user", it) }
         return requestMap
     }
+
+    companion object
 }
