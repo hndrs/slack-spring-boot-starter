@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.channels
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.channels.ErrorGetChannelInfoResponse
 import io.olaph.slack.dto.jackson.group.channels.SlackChannelsInfoRequest
 import io.olaph.slack.dto.jackson.group.channels.SuccessfulGetChannelInfoResponse
@@ -17,7 +18,7 @@ class DefaultGetChannelInfoMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

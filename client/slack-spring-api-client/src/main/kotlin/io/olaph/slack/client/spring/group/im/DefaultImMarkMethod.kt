@@ -3,13 +3,12 @@ package io.olaph.slack.client.spring.group.im
 import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.im.ImMarkMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.im.ErrorImMarkResponse
 import io.olaph.slack.dto.jackson.group.im.SlackImMarkResponse
 import io.olaph.slack.dto.jackson.group.im.SuccessfulImMarkResponse
 import org.springframework.web.client.RestTemplate
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 
 
 /**
@@ -17,7 +16,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory
  */
 
 @Suppress("UNCHECKED_CAST")
-class DefaultImMarkMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ImMarkMethod() {
+class DefaultImMarkMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ImMarkMethod() {
 
     override fun request(): ApiCallResult<SuccessfulImMarkResponse, ErrorImMarkResponse> {
         val response = SlackRequestBuilder<SlackImMarkResponse>(authToken, restTemplate)

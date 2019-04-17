@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.conversations
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.conversations.ConversationsListRequest
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationListResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationListResponse
@@ -16,7 +17,7 @@ class ConversationListTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

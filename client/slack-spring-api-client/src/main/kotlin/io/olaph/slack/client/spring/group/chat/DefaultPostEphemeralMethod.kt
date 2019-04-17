@@ -1,15 +1,14 @@
 package io.olaph.slack.client.spring.group.chat
 
 import io.olaph.slack.client.UnknownResponseException
-import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.chat.ChatPostEphemeralMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
+import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.chat.ErrorPostEphemeralResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackPostEphemeralResponse
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostEphemeralResponse
 import org.springframework.web.client.RestTemplate
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 
 
 /**
@@ -18,7 +17,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory
  * @return the API Call Method containing the ResponseEntities
  */
 @Suppress("UNCHECKED_CAST")
-class DefaultPostEphemeralMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ChatPostEphemeralMethod() {
+class DefaultPostEphemeralMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatPostEphemeralMethod() {
 
     override fun request(): ApiCallResult<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse> {
         val response = SlackRequestBuilder<SlackPostEphemeralResponse>(authToken, restTemplate)

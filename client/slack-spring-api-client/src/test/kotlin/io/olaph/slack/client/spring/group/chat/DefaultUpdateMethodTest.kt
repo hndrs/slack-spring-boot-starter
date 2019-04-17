@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.chat
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.chat.ErrorChatUpdateResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackChatUpdateRequest
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulChatUpdateResponse
@@ -17,7 +18,7 @@ class DefaultUpdateMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.conversations
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.conversations.ConversationsInviteRequest
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationInviteResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationInviteResponse
@@ -17,7 +18,7 @@ class ConversationsInviteTest() {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.auth
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.auth.ErrorAuthTestResponse
 import io.olaph.slack.dto.jackson.group.auth.SuccessfulAuthTestResponse
 import io.olaph.slack.dto.jackson.group.auth.sample
@@ -16,7 +17,7 @@ class DefaultTestMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

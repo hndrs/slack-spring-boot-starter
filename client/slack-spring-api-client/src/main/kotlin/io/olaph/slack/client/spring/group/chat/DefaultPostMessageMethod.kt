@@ -2,19 +2,17 @@ package io.olaph.slack.client.spring.group.chat
 
 import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
-import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.client.group.chat.ChatPostMessageMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
+import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.chat.ErrorPostMessageResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackPostMessageResponse
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulPostMessageResponse
 import org.springframework.web.client.RestTemplate
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
-
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultPostMessageMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ChatPostMessageMethod() {
+class DefaultPostMessageMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatPostMessageMethod() {
 
     override fun request(): ApiCallResult<SuccessfulPostMessageResponse, ErrorPostMessageResponse> {
         val response = SlackRequestBuilder<SlackPostMessageResponse>(authToken, restTemplate)

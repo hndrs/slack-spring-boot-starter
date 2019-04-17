@@ -1,19 +1,18 @@
 package io.olaph.slack.client.spring.group.chat
 
 import io.olaph.slack.client.UnknownResponseException
-import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.chat.ChatDeleteMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
+import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.chat.ErrorChatDeleteResponse
 import io.olaph.slack.dto.jackson.group.chat.SlackDeleteResponse
 import io.olaph.slack.dto.jackson.group.chat.SuccessfulChatDeleteResponse
 import org.springframework.web.client.RestTemplate
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultDeleteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ChatDeleteMethod() {
+class DefaultDeleteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatDeleteMethod() {
 
     override fun request(): ApiCallResult<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse> {
         val response = SlackRequestBuilder<SlackDeleteResponse>(authToken, restTemplate)

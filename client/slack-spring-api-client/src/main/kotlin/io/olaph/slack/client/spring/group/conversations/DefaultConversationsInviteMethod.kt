@@ -2,17 +2,16 @@ package io.olaph.slack.client.spring.group.conversations
 
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.conversations.ConversationsInviteMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.conversations.ConversationInviteResponse
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationInviteResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationInviteResponse
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultConversationsInviteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ConversationsInviteMethod() {
+class DefaultConversationsInviteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsInviteMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationInviteResponse, ErrorConversationInviteResponse> {
         val response = SlackRequestBuilder<ConversationInviteResponse>(authToken, restTemplate)

@@ -1,6 +1,7 @@
 package io.olaph.slack.client.spring.group.channels
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.channels.ErrorChannelArchiveResponse
 import io.olaph.slack.dto.jackson.group.channels.SlackChannelsArchiveRequest
 import io.olaph.slack.dto.jackson.group.channels.SuccessfulChannelArchiveResponse
@@ -17,7 +18,7 @@ class DefaultChannelsArchiveMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test

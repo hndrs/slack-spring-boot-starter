@@ -3,6 +3,7 @@ package io.olaph.slack.client.spring.group.channels
 import io.olaph.slack.client.UnknownResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.channels.ChannelsArchiveMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.channels.ErrorChannelArchiveResponse
 import io.olaph.slack.dto.jackson.group.channels.SlackGetChannelArchiveResponse
@@ -13,7 +14,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultChannelsArchiveMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : ChannelsArchiveMethod() {
+class DefaultChannelsArchiveMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsArchiveMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelArchiveResponse, ErrorChannelArchiveResponse> {
         val response = SlackRequestBuilder<SlackGetChannelArchiveResponse>(authToken, restTemplate)
                 .with(this.params)

@@ -1,19 +1,18 @@
 package io.olaph.slack.client.spring.group.users
 
 import io.olaph.slack.client.UnknownResponseException
-import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.users.UserListMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
+import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.users.ErrorUserListResponse
 import io.olaph.slack.dto.jackson.group.users.SuccessfulUserListResponse
 import io.olaph.slack.dto.jackson.group.users.UserListResponse
 import org.springframework.web.client.RestTemplate
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultUserListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : UserListMethod() {
+class DefaultUserListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UserListMethod() {
 
     override fun request(): ApiCallResult<SuccessfulUserListResponse, ErrorUserListResponse> {
         val response = SlackRequestBuilder<UserListResponse>(authToken, restTemplate)

@@ -1,19 +1,18 @@
 package io.olaph.slack.client.spring.group.dialog
 
 import io.olaph.slack.client.UnknownResponseException
-import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.dialog.DialogOpenMethod
+import io.olaph.slack.client.spring.group.RestTemplateFactory
+import io.olaph.slack.client.spring.group.SlackRequestBuilder
 import io.olaph.slack.dto.jackson.group.dialog.ErrorOpenDialogResponse
 import io.olaph.slack.dto.jackson.group.dialog.SlackOpenDialogResponse
 import io.olaph.slack.dto.jackson.group.dialog.SuccessfulOpenDialogResponse
 import org.springframework.web.client.RestTemplate
-import org.springframework.http.client.BufferingClientHttpRequestFactory
-import org.springframework.http.client.SimpleClientHttpRequestFactory
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultDialogOpenMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplate(BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()))) : DialogOpenMethod() {
+class DefaultDialogOpenMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : DialogOpenMethod() {
 
     override fun request(): ApiCallResult<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse> {
         val response = SlackRequestBuilder<SlackOpenDialogResponse>(authToken, restTemplate)
