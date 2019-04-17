@@ -27,6 +27,7 @@ data class ErrorUsersInfoResponse constructor(override val ok: Boolean,
     companion object
 }
 
+@JacksonDataClass
 data class User(
         @JsonProperty("id") val id: String,
         @JsonProperty("team_id") val teamId: String,
@@ -52,6 +53,7 @@ data class User(
     companion object
 }
 
+@JacksonDataClass
 data class Profile(
         @JsonProperty("title") val title: String?,
         @JsonProperty("phone") val phone: String?,
@@ -80,9 +82,7 @@ data class Profile(
 
 data class SlackUserInfoRequest(private val userId: String, private val includeLocale: Boolean? = null) {
 
-    companion object {
-
-    }
+    companion object
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>("user" to userId)

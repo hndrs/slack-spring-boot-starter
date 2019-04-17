@@ -16,7 +16,8 @@ class MockServerHelper() {
 
         private fun getObjectString(response: Any): String {
             val mapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()
-            return mapper.writeValueAsString(response)
+            val writeValueAsString = mapper.writeValueAsString(response)
+            return writeValueAsString
         }
 
         /**

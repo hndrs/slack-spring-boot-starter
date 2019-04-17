@@ -1,12 +1,12 @@
 package io.olaph.slack.client.spring.group.im
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.im.ErrorImOpenResponse
 import io.olaph.slack.dto.jackson.group.im.SlackImOpenRequest
 import io.olaph.slack.dto.jackson.group.im.SuccessfulImOpenResponse
 import io.olaph.slack.dto.jackson.group.im.sample
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -25,13 +25,14 @@ internal class DefaultImOpenMethodTest {
     fun imOpenFailure() {
         val response = ErrorImOpenResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.open")
+        val verifier = Verifier(response)
 
         DefaultImOpenMethod("", mockTemplate)
                 .with(SlackImOpenRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 
     @Test
@@ -39,12 +40,13 @@ internal class DefaultImOpenMethodTest {
     fun imOpenSuccess() {
         val response = SuccessfulImOpenResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.open")
+        val verifier = Verifier(response)
 
         DefaultImOpenMethod("", mockTemplate)
                 .with(SlackImOpenRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 }
