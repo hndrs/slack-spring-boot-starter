@@ -1,12 +1,12 @@
 package io.olaph.slack.client.spring.group.users
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.users.ErrorUserListResponse
 import io.olaph.slack.dto.jackson.group.users.SlackUserListRequest
 import io.olaph.slack.dto.jackson.group.users.SuccessfulUserListResponse
 import io.olaph.slack.dto.jackson.group.users.sample
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -25,13 +25,14 @@ class DefaultUserListMethodTest {
     fun UserListFailure() {
         val response = ErrorUserListResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.list?cursor=&include_locale=false&limit=0&presence=false")
+        val verifier = Verifier(response)
 
         DefaultUserListMethod("", mockTemplate)
                 .with(SlackUserListRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 
     @Test
@@ -39,13 +40,14 @@ class DefaultUserListMethodTest {
     fun UserListSuccess() {
         val response = SuccessfulUserListResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.list?cursor=&include_locale=false&limit=0&presence=false")
+        val verifier = Verifier(response)
 
         DefaultUserListMethod("", mockTemplate)
                 .with(SlackUserListRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 
 }

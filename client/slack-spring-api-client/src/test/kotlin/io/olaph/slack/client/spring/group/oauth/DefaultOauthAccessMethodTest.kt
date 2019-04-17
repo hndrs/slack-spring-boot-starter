@@ -1,12 +1,12 @@
 package io.olaph.slack.client.spring.group.oauth
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.oauth.ErrorOauthAccessResponse
 import io.olaph.slack.dto.jackson.group.oauth.OauthAccessRequest
 import io.olaph.slack.dto.jackson.group.oauth.SuccessFullOauthAccessResponse
 import io.olaph.slack.dto.jackson.group.oauth.sample
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -25,13 +25,14 @@ class DefaultOauthAccessMethodTest {
     fun oauthAccessFailure() {
         val response = ErrorOauthAccessResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "oauth.access?client_id=&client_secret=&code=")
+        val verifier = Verifier(response)
 
         DefaultOauthAccessMethod(mockTemplate)
                 .with(OauthAccessRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 
     @Test
@@ -39,12 +40,13 @@ class DefaultOauthAccessMethodTest {
     fun oauthAccessSuccess() {
         val response = SuccessFullOauthAccessResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "oauth.access?client_id=&client_secret=&code=")
+        val verifier = Verifier(response)
 
         DefaultOauthAccessMethod(mockTemplate)
                 .with(OauthAccessRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 }

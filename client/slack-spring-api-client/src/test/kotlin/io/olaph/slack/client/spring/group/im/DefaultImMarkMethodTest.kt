@@ -1,12 +1,12 @@
 package io.olaph.slack.client.spring.group.im
 
 import io.olaph.slack.client.spring.MockServerHelper
+import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.im.ErrorImMarkResponse
 import io.olaph.slack.dto.jackson.group.im.SlackImMarkRequest
 import io.olaph.slack.dto.jackson.group.im.SuccessfulImMarkResponse
 import io.olaph.slack.dto.jackson.group.im.sample
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -25,13 +25,13 @@ internal class DefaultImMarkMethodTest {
     fun imMarkFailure() {
         val response = ErrorImMarkResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.mark")
-
+        val verifier = Verifier(response)
         DefaultImMarkMethod("", mockTemplate)
                 .with(SlackImMarkRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 
     @Test
@@ -39,12 +39,13 @@ internal class DefaultImMarkMethodTest {
     fun imMarkSuccess() {
         val response = SuccessfulImMarkResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.mark")
+        val verifier = Verifier(response)
 
         DefaultImMarkMethod("", mockTemplate)
                 .with(SlackImMarkRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()
+        verifier.verify()
     }
 }
