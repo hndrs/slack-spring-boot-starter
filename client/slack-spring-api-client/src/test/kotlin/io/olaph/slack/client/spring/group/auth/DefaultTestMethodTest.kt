@@ -28,7 +28,6 @@ class DefaultTestMethodTest {
 
         DefaultTestMethod("", mockTemplate)
                 .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
                 .invoke()
         mockServer.verify()
     }
@@ -40,8 +39,7 @@ class DefaultTestMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "auth.test")
 
         DefaultTestMethod("", mockTemplate)
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onSuccess { Assertions.assertEquals(response, it) }
                 .invoke()
         mockServer.verify()
     }

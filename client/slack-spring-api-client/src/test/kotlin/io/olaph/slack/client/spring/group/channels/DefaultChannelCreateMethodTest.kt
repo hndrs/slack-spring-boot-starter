@@ -30,7 +30,6 @@ class DefaultChannelCreateMethodTest {
         DefaultChannelCreateMethod("", mockTemplate)
                 .with(SlackChannelCreateRequest.sample())
                 .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
                 .invoke()
         mockServer.verify()
     }
@@ -43,8 +42,8 @@ class DefaultChannelCreateMethodTest {
 
         DefaultChannelCreateMethod("", mockTemplate)
                 .with(SlackChannelCreateRequest.sample())
-                .onFailure { Assertions.assertEquals(response, it) }
-                .onSuccess { }
+                .onSuccess { Assertions.assertEquals(response, it) }
+
                 .invoke()
         mockServer.verify()
     }

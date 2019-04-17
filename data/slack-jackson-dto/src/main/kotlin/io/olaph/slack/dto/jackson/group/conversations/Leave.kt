@@ -21,8 +21,7 @@ sealed class ConversationsLeaveResponse constructor(@JsonProperty("ok") open val
  */
 data class SuccessfulConversationLeaveResponse(
         override val ok: Boolean,
-        @JsonProperty("not_in_channel") val notInChannel: Boolean
-) : ConversationsLeaveResponse(ok) {
+        @JsonProperty("not_in_channel") val notInChannel: Boolean) : ConversationsLeaveResponse(ok) {
     companion object
 }
 
