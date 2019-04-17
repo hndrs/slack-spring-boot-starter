@@ -2,7 +2,7 @@ package io.olaph.slack.client.test.group.conversation
 
 import com.nhaarman.mockitokotlin2.mock
 import io.olaph.slack.client.test.MockSlackClient
-import io.olaph.slack.dto.jackson.group.conversation.sample
+import io.olaph.slack.dto.jackson.group.conversations.sample
 import io.olaph.slack.dto.jackson.group.conversations.ConversationCloseRequest
 import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationCloseResponse
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationCloseResponse

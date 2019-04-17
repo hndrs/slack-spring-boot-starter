@@ -14,24 +14,35 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
         JsonSubTypes.Type(value = ErrorConversationOpenResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class ConversationOpenResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+abstract class ConversationOpenResponse constructor(@JsonProperty("ok") open val ok: Boolean) {
+    companion object
+}
 
 @JacksonDataClass
 data class SuccessfulConversationOpenResponse constructor(override val ok: Boolean,
                                                           @JsonProperty("channel") val channel: Channel)
     : ConversationOpenResponse(ok) {
 
+    companion object
+
+
     @JacksonDataClass
-    data class Channel(@JsonProperty("id") val id: String)
+    data class Channel(@JsonProperty("id") val id: String) {
+        companion object
+    }
 }
 
 @JacksonDataClass
 data class ErrorConversationOpenResponse constructor(override val ok: Boolean, @JsonProperty("error") val error: String)
-    : ConversationOpenResponse(ok)
+    : ConversationOpenResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class ConversationsOpenRequest constructor(@JsonProperty("channel") val channelId: String? = null,
                                                 @JsonProperty("return_im") val shouldReturnIm: Boolean? = null,
-                                                @JsonProperty("users") val users: List<String>? = null)
+                                                @JsonProperty("users") val users: List<String>? = null) {
+    companion object
+}
 
 

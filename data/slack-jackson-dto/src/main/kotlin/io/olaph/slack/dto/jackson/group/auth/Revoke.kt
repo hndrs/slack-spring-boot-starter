@@ -11,8 +11,8 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
         property = "ok",
         visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulAuthTestResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorAuthTestResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulAuthRevokeResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorAuthRevokeResponse::class, name = "false")
 )
 @JacksonDataClass
 abstract class SlackAuthRevokeResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -29,7 +29,9 @@ data class SuccessfulAuthRevokeResponse constructor(
 data class ErrorAuthRevokeResponse constructor(
         override val ok: Boolean,
         @JsonProperty("error") val error: String)
-    : SlackAuthRevokeResponse(ok)
+    : SlackAuthRevokeResponse(ok) {
+    companion object
+}
 
 
 data class AuthRevokeRequest constructor(private val test: Boolean?) {

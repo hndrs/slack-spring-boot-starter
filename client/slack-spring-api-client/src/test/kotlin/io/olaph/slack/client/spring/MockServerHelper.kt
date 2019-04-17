@@ -25,6 +25,7 @@ class MockServerHelper() {
          */
         fun buildMockRestServer(restTemplate: RestTemplate, responseBody: Any, methodEndpoint: String): MockRestServiceServer {
             val mockserver = MockRestServiceServer.createServer(restTemplate)
+
             mockserver.expect(ExpectedCount.once(),
                     MockRestRequestMatchers.requestTo(URI("https://slack.com/api/$methodEndpoint")))
                     .andExpect(MockRestRequestMatchers.method(HttpMethod.POST))
