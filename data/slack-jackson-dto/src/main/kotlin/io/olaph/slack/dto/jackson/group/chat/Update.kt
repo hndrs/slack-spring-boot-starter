@@ -13,7 +13,9 @@ data class SlackChatUpdateRequest constructor(@JsonProperty("channel") val chann
                                               @JsonProperty("as_user") val asUser: Boolean? = true,
                                               @JsonProperty("attachments") val attachments: List<UpdateAttachment>? = null,
                                               @JsonProperty("link_names") val linkNames: Boolean? = true,
-                                              @JsonProperty("parse") val parse: String? = "client")
+                                              @JsonProperty("parse") val parse: String? = "client") {
+    companion object
+}
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -31,11 +33,15 @@ data class SuccessfulChatUpdateResponse constructor(override val ok: Boolean,
                                                     @JsonProperty("channel") val channel: String,
                                                     @JsonProperty("ts") val timestamp: String,
                                                     @JsonProperty("text") val text: String?)
-    : SlackChatUpdateResponse(ok)
+    : SlackChatUpdateResponse(ok) {
+    companion object
+}
 
 @JacksonDataClass
 data class ErrorChatUpdateResponse constructor(override val ok: Boolean,
                                                @JsonProperty("error") val error: String)
-    : SlackChatUpdateResponse(ok)
+    : SlackChatUpdateResponse(ok) {
+    companion object
+}
 
 
