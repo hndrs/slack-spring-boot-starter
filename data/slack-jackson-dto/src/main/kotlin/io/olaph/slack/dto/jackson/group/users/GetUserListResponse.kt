@@ -104,4 +104,7 @@ data class SlackUserListRequest(private val includeLocale: Boolean? = null,
         includePresence?.let { requestMap.put("presence", it.toString()) }
         return requestMap
     }
+    companion object {
+
+    }
 }

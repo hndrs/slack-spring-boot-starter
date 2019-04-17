@@ -17,3 +17,7 @@ fun UserProfile.Companion.sample(): UserProfile {
 fun ErrorUserListResponse.Companion.sample(): ErrorUserListResponse {
     return ErrorUserListResponse(false, "")
 }
+
+fun SlackUserListRequest.Companion.sample(): SlackUserListRequest {
+    return SlackUserListRequest(false, 0, false, "")
+}
