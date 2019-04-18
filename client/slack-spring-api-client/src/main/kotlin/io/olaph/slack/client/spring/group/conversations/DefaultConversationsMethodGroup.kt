@@ -43,7 +43,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun kick(authToken: String): ConversationsKickMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConverstationsKickMethod(authToken)
     }
 
     override fun leave(authToken: String): ConversationsLeaveMethod {
