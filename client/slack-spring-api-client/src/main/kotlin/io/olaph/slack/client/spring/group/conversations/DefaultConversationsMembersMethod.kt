@@ -23,6 +23,10 @@ class DefaultConversationsMembersMethod(private val authToken: String, private v
                 .returnAsType(ConversationMembersResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulConversationMembersResponse -> {
                 val responseEntity = response.body as SuccessfulConversationMembersResponse
@@ -31,9 +35,6 @@ class DefaultConversationsMembersMethod(private val authToken: String, private v
             }
             is ErrorConversationMembersResponse -> {
                 val responseEntity = response.body as ErrorConversationMembersResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

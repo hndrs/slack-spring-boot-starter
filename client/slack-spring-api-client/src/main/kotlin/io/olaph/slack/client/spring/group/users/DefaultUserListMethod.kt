@@ -20,6 +20,10 @@ class DefaultUserListMethod(private val authToken: String, private val restTempl
                 .returnAsType(UserListResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulUserListResponse -> {
                 val responseEntity = response.body as SuccessfulUserListResponse
@@ -28,9 +32,6 @@ class DefaultUserListMethod(private val authToken: String, private val restTempl
             }
             is ErrorUserListResponse -> {
                 val responseEntity = response.body as ErrorUserListResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

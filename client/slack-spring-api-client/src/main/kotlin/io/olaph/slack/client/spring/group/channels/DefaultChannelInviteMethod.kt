@@ -21,6 +21,10 @@ class DefaultChannelInviteMethod(private val authToken: String, private val rest
                 .returnAsType(SlackChannelInviteResponse::class.java)
                 .postWithJsonBody()
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulChannelInviteResponse -> {
                 val responseEntity = response.body as SuccessfulChannelInviteResponse
@@ -29,9 +33,6 @@ class DefaultChannelInviteMethod(private val authToken: String, private val rest
             }
             is ErrorChannelInviteResponse -> {
                 val responseEntity = response.body as ErrorChannelInviteResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

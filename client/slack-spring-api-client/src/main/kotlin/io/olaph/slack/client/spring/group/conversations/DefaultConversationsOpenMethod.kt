@@ -21,6 +21,10 @@ class DefaultConversationsOpenMethod(private val authToken: String, private val 
                 .returnAsType(ConversationOpenResponse::class.java)
                 .postWithJsonBody()
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulConversationOpenResponse -> {
                 val responseEntity = response.body as SuccessfulConversationOpenResponse
@@ -29,9 +33,6 @@ class DefaultConversationsOpenMethod(private val authToken: String, private val 
             }
             is ErrorConversationOpenResponse -> {
                 val responseEntity = response.body as ErrorConversationOpenResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

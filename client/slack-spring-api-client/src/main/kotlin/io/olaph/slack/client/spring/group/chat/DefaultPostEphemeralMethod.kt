@@ -26,6 +26,10 @@ class DefaultPostEphemeralMethod(private val authToken: String, private val rest
                 .returnAsType(SlackPostEphemeralResponse::class.java)
                 .postWithJsonBody()
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulPostEphemeralResponse -> {
                 val responseEntity = response.body as SuccessfulPostEphemeralResponse
@@ -34,9 +38,6 @@ class DefaultPostEphemeralMethod(private val authToken: String, private val rest
             }
             is ErrorPostEphemeralResponse -> {
                 val responseEntity = response.body as ErrorPostEphemeralResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }
