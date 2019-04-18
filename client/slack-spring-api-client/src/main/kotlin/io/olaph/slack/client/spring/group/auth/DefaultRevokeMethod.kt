@@ -22,9 +22,6 @@ class DefaultRevokeMethod(private val authToken: String, private val restTemplat
                 .returnAsType(SlackAuthRevokeResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
         return when (response.body!!) {
             is SuccessfulAuthRevokeResponse -> {
                 val responseEntity = response.body as SuccessfulAuthRevokeResponse

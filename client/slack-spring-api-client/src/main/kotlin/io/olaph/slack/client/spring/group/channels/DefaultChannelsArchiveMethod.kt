@@ -22,10 +22,6 @@ class DefaultChannelsArchiveMethod(private val authToken: String, private val re
                 .returnAsType(SlackGetChannelArchiveResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulChannelArchiveResponse -> {
                 val responseEntity = response.body as SuccessfulChannelArchiveResponse

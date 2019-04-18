@@ -20,10 +20,6 @@ class DefaultConversationsLeaveMethod(private val authToken: String, private val
                 .returnAsType(ConversationsLeaveResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulConversationLeaveResponse -> {
                 val responseEntity = response.body as SuccessfulConversationLeaveResponse

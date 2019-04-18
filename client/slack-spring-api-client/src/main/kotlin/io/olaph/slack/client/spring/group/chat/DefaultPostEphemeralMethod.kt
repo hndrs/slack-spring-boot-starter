@@ -26,10 +26,6 @@ class DefaultPostEphemeralMethod(private val authToken: String, private val rest
                 .returnAsType(SlackPostEphemeralResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulPostEphemeralResponse -> {
                 val responseEntity = response.body as SuccessfulPostEphemeralResponse

@@ -21,10 +21,6 @@ class DefaultConversationsListMethod(private val authToken: String, private val 
                 .returnAsType(ConversationListResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulConversationListResponse -> {
                 val responseEntity = response.body as SuccessfulConversationListResponse

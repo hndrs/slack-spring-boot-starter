@@ -24,10 +24,6 @@ class DefaultImRepliesMethod(private val authToken: String, private val restTemp
                 .returnAsType(SlackImRepliesResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulImRepliesResponse -> {
                 val responseEntity = response.body as SuccessfulImRepliesResponse

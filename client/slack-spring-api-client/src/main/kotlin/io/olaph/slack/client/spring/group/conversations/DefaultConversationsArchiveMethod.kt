@@ -20,10 +20,6 @@ class DefaultConversationsArchiveMethod(private val authToken: String, private v
                 .returnAsType(ConversationArchiveResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulConversationArchiveResponse -> {
                 val responseEntity = response.body as SuccessfulConversationArchiveResponse

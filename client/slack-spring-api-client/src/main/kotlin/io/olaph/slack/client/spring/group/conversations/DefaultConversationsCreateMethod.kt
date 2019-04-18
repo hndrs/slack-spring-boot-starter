@@ -21,10 +21,6 @@ class DefaultConversationsCreateMethod(private val authToken: String, private va
                 .returnAsType(SlackConversationCreateResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulConversationCreateResponse -> {
                 val responseEntity = response.body as SuccessfulConversationCreateResponse

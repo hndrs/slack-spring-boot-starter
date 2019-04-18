@@ -21,10 +21,6 @@ class DefaultConversationsInviteMethod(private val authToken: String, private va
                 .returnAsType(ConversationInviteResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulConversationInviteResponse -> {
                 val responseEntity = response.body as SuccessfulConversationInviteResponse

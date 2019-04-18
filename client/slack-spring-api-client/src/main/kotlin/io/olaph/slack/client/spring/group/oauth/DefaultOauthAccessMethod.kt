@@ -22,10 +22,6 @@ class DefaultOauthAccessMethod(private val restTemplate: RestTemplate = RestTemp
                         Pair("client_secret", params.client_secret),
                         Pair("code", params.code)))
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessFullOauthAccessResponse -> {
                 val responseEntity = response.body as SuccessFullOauthAccessResponse
