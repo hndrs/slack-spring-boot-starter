@@ -24,10 +24,6 @@ class DefaultImOpenMethod(private val authToken: String, private val restTemplat
                 .returnAsType(SlackImOpenResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulImOpenResponse -> {
                 val responseEntity = response.body as SuccessfulImOpenResponse

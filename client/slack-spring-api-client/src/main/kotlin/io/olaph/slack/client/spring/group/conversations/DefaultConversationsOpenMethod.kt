@@ -21,10 +21,6 @@ class DefaultConversationsOpenMethod(private val authToken: String, private val 
                 .returnAsType(ConversationOpenResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulConversationOpenResponse -> {
                 val responseEntity = response.body as SuccessfulConversationOpenResponse

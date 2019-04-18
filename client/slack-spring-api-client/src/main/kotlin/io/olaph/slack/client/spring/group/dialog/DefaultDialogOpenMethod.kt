@@ -21,10 +21,6 @@ class DefaultDialogOpenMethod(private val authToken: String, private val restTem
                 .returnAsType(SlackOpenDialogResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulOpenDialogResponse -> {
                 val responseEntity = response.body as SuccessfulOpenDialogResponse

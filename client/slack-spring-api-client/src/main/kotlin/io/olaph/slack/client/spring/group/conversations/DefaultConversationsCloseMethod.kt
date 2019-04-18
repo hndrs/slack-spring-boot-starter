@@ -21,10 +21,6 @@ class DefaultConversationsCloseMethod constructor(private val authToken: String,
                 .returnAsType(SlackConversationCloseResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulConversationCloseResponse -> {
                 val responseEntity = response.body as SuccessfulConversationCloseResponse

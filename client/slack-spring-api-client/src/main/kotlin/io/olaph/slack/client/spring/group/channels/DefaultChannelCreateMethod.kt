@@ -20,10 +20,6 @@ class DefaultChannelCreateMethod(private val authToken: String, private val rest
                 .toMethod("channels.create")
                 .returnAsType(SlackChannelCreateResponse::class.java)
                 .postWithJsonBody()
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulChannelCreateResponse -> {
                 val responseEntity = response.body as SuccessfulChannelCreateResponse

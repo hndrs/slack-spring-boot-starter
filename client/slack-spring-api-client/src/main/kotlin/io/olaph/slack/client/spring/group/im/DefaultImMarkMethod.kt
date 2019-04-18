@@ -25,10 +25,6 @@ class DefaultImMarkMethod(private val authToken: String, private val restTemplat
                 .returnAsType(SlackImMarkResponse::class.java)
                 .postWithJsonBody()
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulImMarkResponse -> {
                 val responseEntity = response.body as SuccessfulImMarkResponse

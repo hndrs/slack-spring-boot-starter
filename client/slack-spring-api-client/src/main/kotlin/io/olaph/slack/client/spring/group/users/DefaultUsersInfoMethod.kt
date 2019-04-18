@@ -20,10 +20,6 @@ class DefaultUsersInfoMethod(private val authToken: String, private val restTemp
                 .returnAsType(SlackInfoResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
-        if (!response.statusCode.is2xxSuccessful) {
-            throw ErrorResponseException(this::class, response.statusCode.name)
-        }
-
         return when (response.body!!) {
             is SuccessfulUsersInfoResponse -> {
                 val responseEntity = response.body as SuccessfulUsersInfoResponse
