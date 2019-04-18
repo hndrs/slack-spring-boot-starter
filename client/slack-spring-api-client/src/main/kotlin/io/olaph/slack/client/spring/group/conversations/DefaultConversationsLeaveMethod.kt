@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.conversations
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.conversations.ConversationsLeaveMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -18,6 +19,10 @@ class DefaultConversationsLeaveMethod(private val authToken: String, private val
                 .toMethod("conversations.leave")
                 .returnAsType(ConversationsLeaveResponse::class.java)
                 .postWithJsonBody()
+
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
 
         return when (response.body!!) {
             is SuccessfulConversationLeaveResponse -> {

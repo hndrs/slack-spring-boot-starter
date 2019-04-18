@@ -21,6 +21,10 @@ class DefaultUpdateMethod(private val authToken: String, private val restTemplat
                 .returnAsType(SlackChatUpdateResponse::class.java)
                 .postWithJsonBody()
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulChatUpdateResponse -> {
                 val responseEntity = response.body as SuccessfulChatUpdateResponse
@@ -29,9 +33,6 @@ class DefaultUpdateMethod(private val authToken: String, private val restTemplat
             }
             is ErrorChatUpdateResponse -> {
                 val responseEntity = response.body as ErrorChatUpdateResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

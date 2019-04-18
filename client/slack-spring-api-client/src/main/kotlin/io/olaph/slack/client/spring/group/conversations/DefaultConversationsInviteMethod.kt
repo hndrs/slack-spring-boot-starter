@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.conversations
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.conversations.ConversationsInviteMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -19,6 +20,11 @@ class DefaultConversationsInviteMethod(private val authToken: String, private va
                 .toMethod("conversations.invite")
                 .returnAsType(ConversationInviteResponse::class.java)
                 .postWithJsonBody()
+
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulConversationInviteResponse -> {
                 val responseEntity = response.body as SuccessfulConversationInviteResponse
@@ -29,9 +35,6 @@ class DefaultConversationsInviteMethod(private val authToken: String, private va
                 val responseEntity = response.body as ErrorConversationInviteResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
-            }
-            else -> {
-                ApiCallResult(failure = ErrorConversationInviteResponse(false, ""))
             }
         }
     }

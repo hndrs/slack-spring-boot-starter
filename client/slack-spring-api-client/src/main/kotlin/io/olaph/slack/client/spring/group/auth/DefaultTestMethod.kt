@@ -20,6 +20,10 @@ class DefaultTestMethod(private val authToken: String, private val restTemplate:
                 .returnAsType(SlackAuthTestResponse::class.java)
                 .postWithJsonBody()
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulAuthTestResponse -> {
                 val responseEntity = response.body as SuccessfulAuthTestResponse
@@ -28,9 +32,6 @@ class DefaultTestMethod(private val authToken: String, private val restTemplate:
             }
             is ErrorAuthTestResponse -> {
                 val responseEntity = response.body as ErrorAuthTestResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

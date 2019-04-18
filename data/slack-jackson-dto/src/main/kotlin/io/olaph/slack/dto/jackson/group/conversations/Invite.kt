@@ -15,7 +15,7 @@ import io.olaph.slack.dto.jackson.common.types.Channel
         JsonSubTypes.Type(value = ErrorConversationInviteResponse::class, name = "false")
 )
 @JacksonDataClass
-abstract class ConversationInviteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ConversationInviteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
  * [SlackDoc](https://api.slack.com/methods/conversations.invite)

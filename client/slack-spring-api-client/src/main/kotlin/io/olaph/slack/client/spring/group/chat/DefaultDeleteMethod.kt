@@ -21,6 +21,10 @@ class DefaultDeleteMethod(private val authToken: String, private val restTemplat
                 .returnAsType(SlackDeleteResponse::class.java)
                 .postWithJsonBody()
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulChatDeleteResponse -> {
                 val responseEntity = response.body as SuccessfulChatDeleteResponse
@@ -29,9 +33,6 @@ class DefaultDeleteMethod(private val authToken: String, private val restTemplat
             }
             is ErrorChatDeleteResponse -> {
                 val responseEntity = response.body as ErrorChatDeleteResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

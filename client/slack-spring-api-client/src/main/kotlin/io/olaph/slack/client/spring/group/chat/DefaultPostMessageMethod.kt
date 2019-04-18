@@ -21,6 +21,9 @@ class DefaultPostMessageMethod(private val authToken: String, private val restTe
                 .returnAsType(SlackPostMessageResponse::class.java)
                 .postWithJsonBody()
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
         return when (response.body!!) {
             is SuccessfulPostMessageResponse -> {
                 val responseEntity = response.body as SuccessfulPostMessageResponse
@@ -29,9 +32,6 @@ class DefaultPostMessageMethod(private val authToken: String, private val restTe
             }
             is ErrorPostMessageResponse -> {
                 val responseEntity = response.body as ErrorPostMessageResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

@@ -24,6 +24,10 @@ class DefaultImCloseMethod(private val authToken: String, private val restTempla
                 .returnAsType(SlackImCloseResponse::class.java)
                 .postWithJsonBody()
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulImCloseResponse -> {
                 val responseEntity = response.body as SuccessfulImCloseResponse
@@ -33,9 +37,6 @@ class DefaultImCloseMethod(private val authToken: String, private val restTempla
 
             is ErrorImCloseResponse -> {
                 val responseEntity = response.body as ErrorImCloseResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

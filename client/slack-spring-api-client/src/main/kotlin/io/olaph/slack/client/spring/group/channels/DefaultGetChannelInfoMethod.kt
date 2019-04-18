@@ -21,6 +21,10 @@ class DefaultGetChannelInfoMethod(private val authToken: String, private val res
                 .returnAsType(SlackGetChannelInfoResponse::class.java)
                 .postUrlEncoded(mapOf(Pair("token", authToken), Pair("channel", this.params.channel)))
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulGetChannelInfoResponse -> {
                 val responseEntity = response.body as SuccessfulGetChannelInfoResponse
@@ -29,9 +33,6 @@ class DefaultGetChannelInfoMethod(private val authToken: String, private val res
             }
             is ErrorGetChannelInfoResponse -> {
                 val responseEntity = response.body as ErrorGetChannelInfoResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

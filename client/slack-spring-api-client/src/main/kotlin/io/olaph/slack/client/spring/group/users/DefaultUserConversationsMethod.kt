@@ -20,6 +20,10 @@ class DefaultUserConversationsMethod(private val authToken: String, private val 
                 .returnAsType(UserConversationsResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
+
         return when (response.body!!) {
             is SuccessfulUserConversationsResponse -> {
                 val responseEntity = response.body as SuccessfulUserConversationsResponse
@@ -28,9 +32,6 @@ class DefaultUserConversationsMethod(private val authToken: String, private val 
             }
             is ErrorUserConversationsResponse -> {
                 val responseEntity = response.body as ErrorUserConversationsResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

@@ -20,6 +20,9 @@ class DefaultChannelCreateMethod(private val authToken: String, private val rest
                 .toMethod("channels.create")
                 .returnAsType(SlackChannelCreateResponse::class.java)
                 .postWithJsonBody()
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
 
         return when (response.body!!) {
             is SuccessfulChannelCreateResponse -> {
@@ -29,9 +32,6 @@ class DefaultChannelCreateMethod(private val authToken: String, private val rest
             }
             is ErrorChannelCreateResponse -> {
                 val responseEntity = response.body as ErrorChannelCreateResponse
-                if (!response.statusCode.is2xxSuccessful) {
-                    throw ErrorResponseException(this::class, response.statusCode.name, responseEntity.error)
-                }
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

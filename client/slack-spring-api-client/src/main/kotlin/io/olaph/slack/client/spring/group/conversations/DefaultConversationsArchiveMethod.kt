@@ -1,5 +1,6 @@
 package io.olaph.slack.client.spring.group.conversations
 
+import io.olaph.slack.client.ErrorResponseException
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.conversations.ConversationsArchiveMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -18,6 +19,10 @@ class DefaultConversationsArchiveMethod(private val authToken: String, private v
                 .toMethod("conversations.archive")
                 .returnAsType(ConversationArchiveResponse::class.java)
                 .postWithJsonBody()
+
+        if (!response.statusCode.is2xxSuccessful) {
+            throw ErrorResponseException(this::class, response.statusCode.name)
+        }
 
         return when (response.body!!) {
             is SuccessfulConversationArchiveResponse -> {
