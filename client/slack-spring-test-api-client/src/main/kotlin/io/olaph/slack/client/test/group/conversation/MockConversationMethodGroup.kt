@@ -3,12 +3,10 @@ package io.olaph.slack.client.test.group.conversation
 import io.olaph.slack.client.group.conversations.ConversationsHistoryMethod
 import io.olaph.slack.client.group.conversations.ConversationsInfoMethod
 import io.olaph.slack.client.group.conversations.ConversationsJoinMethod
-import io.olaph.slack.client.group.conversations.ConversationsKickMethod
 import io.olaph.slack.client.group.conversations.ConversationsMethodGroup
 import io.olaph.slack.client.group.conversations.ConversationsOpenMethod
 import io.olaph.slack.client.group.conversations.ConversationsRenameMethod
 import io.olaph.slack.client.group.conversations.ConversationsRepliesMethod
-import io.olaph.slack.client.group.conversations.ConversationsSetPurposeMethod
 import io.olaph.slack.client.group.conversations.ConversationsSetTopicMethod
 import io.olaph.slack.client.group.conversations.ConversationsUnarchiveMethod
 
@@ -23,6 +21,7 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
     private val mockConversationsLeaveMethod = MockConversationsLeaveMethod()
     private val mockConversationsArchiveMethod = MockConversationsArchiveMethod()
     private val mockConversationsKickMethod = MockConversationsKickMethod()
+    private val mockConversationsSetPurposeMethod = MockConversationsSetPurposeMethod()
 
     override fun close(authToken: String): MockConversationsClose = mockConversationsClose
 
@@ -74,8 +73,8 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setPurpose(authToken: String): ConversationsSetPurposeMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setPurpose(authToken: String): MockConversationsSetPurposeMethod {
+        return mockConversationsSetPurposeMethod
     }
 
     override fun setTopic(authToken: String): ConversationsSetTopicMethod {
