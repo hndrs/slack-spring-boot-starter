@@ -1,6 +1,8 @@
 package io.olaph.slack.client.group.conversations
 
-//TODO Implement
-abstract class ConversationsSetPurposeMethod {
+import io.olaph.slack.client.group.ApiCallMethod
+import io.olaph.slack.dto.jackson.group.conversations.ConversationsSetPurposeRequest
+import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationSetPurposeResponse
+import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationSetPurposeResponse
 
-}
+abstract class ConversationsSetPurposeMethod : ApiCallMethod<ConversationsSetPurposeMethod,SuccessfulConversationSetPurposeResponse,ErrorConversationSetPurposeResponse, ConversationsSetPurposeRequest>()
