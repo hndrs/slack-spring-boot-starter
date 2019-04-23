@@ -1,6 +1,6 @@
 package io.olaph.slack.client.spring.group.im
 
-import io.olaph.slack.client.ErrorResponseException
+
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.im.ImOpenMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory

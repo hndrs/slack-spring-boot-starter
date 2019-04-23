@@ -1,6 +1,6 @@
 package io.olaph.slack.client.spring.group.users
 
-import io.olaph.slack.client.ErrorResponseException
+
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.users.UserConversationsMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory

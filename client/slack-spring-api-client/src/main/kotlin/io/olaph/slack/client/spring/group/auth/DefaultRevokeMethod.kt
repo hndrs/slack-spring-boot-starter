@@ -1,6 +1,6 @@
 package io.olaph.slack.client.spring.group.auth
 
-import io.olaph.slack.client.ErrorResponseException
+
 import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.auth.AuthRevokeMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
