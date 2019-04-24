@@ -55,7 +55,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun replies(authToken: String): ConversationsRepliesMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsRepliesMethod(authToken)
     }
 
     override fun setPurpose(authToken: String): ConversationsSetPurposeMethod {
