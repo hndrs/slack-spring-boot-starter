@@ -5,7 +5,6 @@ import io.olaph.slack.client.group.conversations.ConversationsJoinMethod
 import io.olaph.slack.client.group.conversations.ConversationsMethodGroup
 import io.olaph.slack.client.group.conversations.ConversationsOpenMethod
 import io.olaph.slack.client.group.conversations.ConversationsRepliesMethod
-import io.olaph.slack.client.group.conversations.ConversationsSetTopicMethod
 
 
 class MockConversationMethodGroup : ConversationsMethodGroup {
@@ -78,7 +77,7 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
         return mockConversationsSetPurposeMethod
     }
 
-    override fun setTopic(authToken: String): ConversationsSetTopicMethod {
+    override fun setTopic(authToken: String): MockConversationsSetTopicMethod {
         return mockConversationsSetTopicMethod
     }
 
