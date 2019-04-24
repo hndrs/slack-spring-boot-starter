@@ -30,7 +30,11 @@ data class Channel(
         @JsonProperty("topic") val topic: Topic,
         @JsonProperty("purpose") val purpose: Purpose,
         @JsonProperty("previous_names") val previousNames: List<String>,
-        @JsonProperty("num_members") val numMembers: Int) {
+        @JsonProperty("num_members") val numMembers: Int,
+        @JsonProperty("locale") val locale: String? = null,
+        @JsonProperty("user") val user: String? = null,
+        @JsonProperty("is_open") val isOpen: Boolean = false,
+        @JsonProperty("priority") val priority: Double? = 0.0) {
     companion object
 
     @JacksonDataClass
