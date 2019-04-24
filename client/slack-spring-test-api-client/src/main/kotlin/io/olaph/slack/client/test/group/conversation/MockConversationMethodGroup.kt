@@ -3,7 +3,6 @@ package io.olaph.slack.client.test.group.conversation
 import io.olaph.slack.client.group.conversations.ConversationsHistoryMethod
 import io.olaph.slack.client.group.conversations.ConversationsMethodGroup
 import io.olaph.slack.client.group.conversations.ConversationsOpenMethod
-import io.olaph.slack.client.group.conversations.ConversationsRepliesMethod
 
 
 class MockConversationMethodGroup : ConversationsMethodGroup {
@@ -70,7 +69,7 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
         return mockConversationsRenameMethod
     }
 
-    override fun replies(authToken: String): ConversationsRepliesMethod {
+    override fun replies(authToken: String): MockConversationsRepliesMethod {
         return mockConversationsRepliesMethod
     }
 

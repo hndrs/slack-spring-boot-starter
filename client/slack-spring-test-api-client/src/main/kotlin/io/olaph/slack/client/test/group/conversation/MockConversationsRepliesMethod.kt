@@ -8,7 +8,7 @@ import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationRepliesRe
 import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationRepliesResponse
 
 /**
- * Mock implementation of @link ConversationsLeaveMethod
+ * Mock implementation of @link ConversationsRepliesMethod
  */
 open class MockConversationsRepliesMethod : ConversationsRepliesMethod(), MockMethod<SuccessfulConversationRepliesResponse, ErrorConversationRepliesResponse, ConversationsRepliesRequest> {
 
