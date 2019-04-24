@@ -22,6 +22,7 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
     private val mockConversationsSetPurposeMethod = MockConversationsSetPurposeMethod()
     private val mockConversationsInfoMethod = MockConversationsInfoMethod()
     private val mockConversationsRenameMethod = MockConversationsRenameMethod()
+    private val mockConversationsSetTopicMethod = MockConversationsSetTopicMethod()
 
     override fun close(authToken: String): MockConversationsClose = mockConversationsClose
 
@@ -78,7 +79,7 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
     }
 
     override fun setTopic(authToken: String): ConversationsSetTopicMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mockConversationsSetTopicMethod
     }
 
     override fun unarchive(authToken: String): MockConversationsUnarchiveMethod {
