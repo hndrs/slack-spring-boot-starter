@@ -23,7 +23,7 @@ class ConversationHistoryTest {
 
     @Test
     @DisplayName("conversations.history Failure")
-    fun conversationOpenFailure() {
+    fun conversationHistoryFailure() {
         val response = ErrorConversationHistoryResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.history?channel=&cursor=&inclusive=false")
         val verifier = Verifier(response)
@@ -38,7 +38,7 @@ class ConversationHistoryTest {
 
     @Test
     @DisplayName("conversations.history Success")
-    fun conversationOpenSuccess() {
+    fun conversationHistoryMockConversationsHistoryUnitTestSuccess() {
         val response = SuccessfulConversationHistoryResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.history?channel=&cursor=&inclusive=false")
         val verifier = Verifier(response)

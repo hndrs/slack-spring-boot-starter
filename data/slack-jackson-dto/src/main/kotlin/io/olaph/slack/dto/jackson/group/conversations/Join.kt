@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import io.olaph.slack.dto.jackson.common.ResponseMetadata
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -32,10 +33,6 @@ data class SuccessfulConversationJoinResponse(override val ok: Boolean,
         companion object
     }
 
-    @JacksonDataClass
-    data class ResponseMetadata(@JsonProperty("warnings") val warnings: List<String>?) {
-        companion object
-    }
 }
 
 /**

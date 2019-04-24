@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import io.olaph.slack.dto.jackson.common.ResponseMetadata
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -33,16 +34,16 @@ data class ErrorConversationHistoryResponse constructor(override val ok: Boolean
     companion object
 }
 
+@JacksonDataClass
 data class Message(
         @JsonProperty("type") val type: String,
         @JsonProperty("user") val user: String,
         @JsonProperty("text") val text: String,
         @JsonProperty("ts") val ts: String,
         @JsonProperty("attachments") val attachments: List<Attachment>) {
-    companion object {
+    companion object {}
 
-    }
-
+    @JacksonDataClass
     data class Attachment(
             @JsonProperty("service_name") val serviceName: String,
             @JsonProperty("text") val text: String,
@@ -51,9 +52,7 @@ data class Message(
             @JsonProperty("thumb_width") val thumbWidth: Int? = null,
             @JsonProperty("thumb_height") val thumbHeight: Int? = null,
             @JsonProperty("id") val id: Int) {
-        companion object {
-
-        }
+        companion object
     }
 }
 
@@ -70,12 +69,12 @@ data class ConversationsHistoryRequest(private val channel: String,
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()
-        channel.let { requestMap.put("channel", it) }
-        cursor?.let { requestMap.put("cursor", it) }
-        inclusive.let { requestMap.put("inclusive", it.toString()) }
-        latest?.let { requestMap.put("latest", it) }
-        limit?.let { requestMap.put("limit", it.toString()) }
-        oldest?.let { requestMap.put("oldest", it.toString()) }
+        channel.let { requestMap["channel"] = it }
+        cursor?.let { requestMap["cursor"] = it }
+        inclusive.let { requestMap["inclusive"] = it.toString() }
+        latest?.let { requestMap["latest"] = it }
+        limit?.let { requestMap["limit"] = it.toString() }
+        oldest?.let { requestMap["oldest"] = it.toString() }
         return requestMap
     }
 
