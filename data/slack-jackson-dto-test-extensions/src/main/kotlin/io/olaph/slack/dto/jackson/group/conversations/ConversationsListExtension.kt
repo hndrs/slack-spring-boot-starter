@@ -1,5 +1,8 @@
 package io.olaph.slack.dto.jackson.group.conversations
 
+import io.olaph.slack.dto.jackson.common.ResponseMetadata
+import io.olaph.slack.dto.jackson.common.sample
+
 fun SuccessfulConversationListResponse.Companion.sample(): SuccessfulConversationListResponse {
     return SuccessfulConversationListResponse(true, listOf(), ResponseMetadata.sample())
 }
