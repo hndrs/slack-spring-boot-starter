@@ -38,9 +38,15 @@ data class SuccessfulConversationRepliesResponse constructor(override val ok: Bo
             @JsonProperty("parent_user_id") val parentUserId: String? = null,
             @JsonProperty("subscribed") val subscribed: Boolean? = null,
             @JsonProperty("last_read") val lastRead: String? = null,
+            @JsonProperty("replies") val replies: Reply? = null,
+
             @JsonProperty("unread_count") val unreadCount: Int? = null) {
         companion object
     }
+
+    @JacksonDataClass
+    data class Reply(@JsonProperty("user") val userId: String,
+                     @JsonProperty("ts") val timestamp: String)
 }
 
 @JacksonDataClass
@@ -49,15 +55,27 @@ data class ErrorConversationRepliesResponse constructor(override val ok: Boolean
     companion object
 }
 
-@JacksonDataClass
-data class ConversationsRepliesRequest constructor(@JsonProperty("channel") val channelId: String,
-                                                   @JsonProperty("ts") val timestamp: String,
-                                                   @JsonProperty("cursor") val cursor: String? = null,
-                                                   @JsonProperty("inclusive") val inclusive: Boolean? = null,
-                                                   @JsonProperty("latest") val latest: String? = null,
-                                                   @JsonProperty("limit") val limit: Int? = null,
-                                                   @JsonProperty("oldest") val oldest: String? = null
+data class ConversationsRepliesRequest constructor(val channelId: String,
+                                                   val timestamp: String,
+                                                   val cursor: String? = null,
+                                                   val inclusive: Boolean? = null,
+                                                   val latest: String? = null,
+                                                   val limit: Int? = null,
+                                                   val oldest: String? = null
 ) {
+
+    fun toRequestMap(): MutableMap<String, String> {
+        val requestMap = mutableMapOf<String, String>()
+        requestMap["channel"] = channelId
+        requestMap["ts"] = timestamp
+        cursor?.let { requestMap.put("cursor", it) }
+        inclusive?.let { requestMap["inclusive"] = inclusive.toString() }
+        latest?.let { requestMap["latest"] = latest }
+        oldest?.let { requestMap["oldest"] = oldest }
+        limit?.let { requestMap.put("limit", it.toString()) }
+        return requestMap
+    }
+
     companion object
 }
 
