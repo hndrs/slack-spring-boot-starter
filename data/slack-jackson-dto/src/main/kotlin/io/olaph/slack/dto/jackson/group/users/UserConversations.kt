@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.ChannelType
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import io.olaph.slack.dto.jackson.common.ResponseMetadata
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
@@ -28,11 +29,6 @@ data class SuccessfulUserConversationsResponse(
         @JsonProperty("channels") val channels: List<Channel>,
         @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
 ) : UserConversationsResponse(ok) {
-
-    data class ResponseMetadata(@JsonProperty("next_cursor") val nextCursor: String) {
-        companion object
-    }
-
     companion object
 }
 

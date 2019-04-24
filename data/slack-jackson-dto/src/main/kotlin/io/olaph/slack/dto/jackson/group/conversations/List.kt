@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.ChannelType
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import io.olaph.slack.dto.jackson.common.ResponseMetadata
 import io.olaph.slack.dto.jackson.common.types.Conversation
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
