@@ -27,7 +27,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun history(authToken: String): ConversationsHistoryMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsHistoryMethod(authToken)
     }
 
     override fun info(authToken: String): ConversationsInfoMethod {
