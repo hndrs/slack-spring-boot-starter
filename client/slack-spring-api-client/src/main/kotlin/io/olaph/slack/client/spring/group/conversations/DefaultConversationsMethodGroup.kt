@@ -51,7 +51,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun rename(authToken: String): ConversationsRenameMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsRenameMethod(authToken)
     }
 
     override fun replies(authToken: String): ConversationsRepliesMethod {
