@@ -22,6 +22,7 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
     private val mockConversationsInfoMethod = MockConversationsInfoMethod()
     private val mockConversationsRenameMethod = MockConversationsRenameMethod()
     private val mockConversationsSetTopicMethod = MockConversationsSetTopicMethod()
+    private val mockConversationsJoinMethod = MockConversationsJoinMethod()
 
     override fun close(authToken: String): MockConversationsClose = mockConversationsClose
 
@@ -41,8 +42,8 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
         return mockConversationsInviteMethod
     }
 
-    override fun join(authToken: String): ConversationsJoinMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun join(authToken: String): MockConversationsJoinMethod {
+        return mockConversationsJoinMethod
     }
 
     override fun kick(authToken: String): MockConversationsKickMethod {

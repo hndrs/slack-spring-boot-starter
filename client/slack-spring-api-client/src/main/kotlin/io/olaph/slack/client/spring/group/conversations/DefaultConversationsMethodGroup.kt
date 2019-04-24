@@ -39,7 +39,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun join(authToken: String): ConversationsJoinMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsJoinMethod(authToken)
     }
 
     override fun kick(authToken: String): ConversationsKickMethod {
