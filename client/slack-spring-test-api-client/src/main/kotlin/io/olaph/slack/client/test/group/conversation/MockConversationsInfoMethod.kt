@@ -1,22 +1,22 @@
 package io.olaph.slack.client.test.group.conversation
 
 import io.olaph.slack.client.group.ApiCallResult
-import io.olaph.slack.client.group.conversations.ConversationsListMethod
+import io.olaph.slack.client.group.conversations.ConversationsInfoMethod
 import io.olaph.slack.client.test.MockMethod
-import io.olaph.slack.dto.jackson.group.conversations.ConversationsListRequest
-import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationListResponse
-import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationListResponse
+import io.olaph.slack.dto.jackson.group.conversations.ErrorConversationsInfoResponse
+import io.olaph.slack.dto.jackson.group.conversations.ConversationsInfoRequest
+import io.olaph.slack.dto.jackson.group.conversations.SuccessfulConversationsInfoResponse
 
-open class MockConversationsListMethod : ConversationsListMethod(), MockMethod<SuccessfulConversationListResponse, ErrorConversationListResponse, ConversationsListRequest> {
+open class MockConversationsInfoMethod : ConversationsInfoMethod(), MockMethod<SuccessfulConversationsInfoResponse, ErrorConversationsInfoResponse, ConversationsInfoRequest> {
 
-    override fun params(): ConversationsListRequest {
+    override fun params(): ConversationsInfoRequest {
         return params;
     }
 
-    override var successResponse: SuccessfulConversationListResponse? = null
-    override var failureResponse: ErrorConversationListResponse? = null
+    override var successResponse: SuccessfulConversationsInfoResponse? = null
+    override var failureResponse: ErrorConversationsInfoResponse? = null
 
-    override fun request(): ApiCallResult<SuccessfulConversationListResponse, ErrorConversationListResponse> {
+    override fun request(): ApiCallResult<SuccessfulConversationsInfoResponse, ErrorConversationsInfoResponse> {
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

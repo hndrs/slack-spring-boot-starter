@@ -1,14 +1,17 @@
 package io.olaph.slack.dto.jackson.group.conversations
 
-fun SuccessfulConversationListResponse.Companion.sample(): SuccessfulConversationListResponse {
-    return SuccessfulConversationListResponse(true, listOf(), ResponseMetadata.sample())
+import io.olaph.slack.dto.jackson.common.types.Channel
+import io.olaph.slack.dto.jackson.group.channels.sample
+
+fun SuccessfulConversationsInfoResponse.Companion.sample(): SuccessfulConversationsInfoResponse {
+    return SuccessfulConversationsInfoResponse(true, Channel.sample())
 }
 
-fun ErrorConversationListResponse.Companion.sample(): ErrorConversationListResponse {
-    return ErrorConversationListResponse(false, "")
+fun ErrorConversationsInfoResponse.Companion.sample(): ErrorConversationsInfoResponse {
+    return ErrorConversationsInfoResponse(false, "")
 }
 
 
-fun ConversationsListRequest.Companion.sample(): ConversationsListRequest {
-    return ConversationsListRequest("", true)
+fun ConversationsInfoRequest.Companion.sample(): ConversationsInfoRequest {
+    return ConversationsInfoRequest("")
 }

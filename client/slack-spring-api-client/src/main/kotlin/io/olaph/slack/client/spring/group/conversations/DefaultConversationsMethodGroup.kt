@@ -31,7 +31,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun info(authToken: String): ConversationsInfoMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsInfoMethod(authToken)
     }
 
     override fun invite(authToken: String): ConversationsInviteMethod {
