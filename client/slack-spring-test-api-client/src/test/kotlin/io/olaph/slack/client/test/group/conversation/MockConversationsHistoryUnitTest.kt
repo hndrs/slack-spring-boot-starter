@@ -16,14 +16,14 @@ class MockConversationsHistoryUnitTest {
     @Test
     fun testMock() {
         val successFunction: (SuccessfulConversationHistoryResponse?) -> Any = mock { }
-        val failureFunciton: (ErrorConversationHistoryResponse?) -> Any = mock { }
+        val failureFunction: (ErrorConversationHistoryResponse?) -> Any = mock { }
 
 
         val mockSlackClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockSlackClient.conversation().history("") },
                 successFunction, SuccessfulConversationHistoryResponse.sample(),
-                failureFunciton, ErrorConversationHistoryResponse.sample(),
+                failureFunction, ErrorConversationHistoryResponse.sample(),
                 ConversationsHistoryRequest.sample())
     }
 }
