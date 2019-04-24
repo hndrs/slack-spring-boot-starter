@@ -68,11 +68,11 @@ data class ConversationsRepliesRequest constructor(val channelId: String,
         val requestMap = mutableMapOf<String, String>()
         requestMap["channel"] = channelId
         requestMap["ts"] = timestamp
-        cursor?.let { requestMap.put("cursor", it) }
-        inclusive?.let { requestMap["inclusive"] = inclusive.toString() }
-        latest?.let { requestMap["latest"] = latest }
-        oldest?.let { requestMap["oldest"] = oldest }
-        limit?.let { requestMap.put("limit", it.toString()) }
+        cursor?.let { requestMap["cursor"] = it }
+        inclusive?.let { requestMap["inclusive"] = it.toString() }
+        latest?.let { requestMap["latest"] = it }
+        oldest?.let { requestMap["oldest"] = it }
+        limit?.let { requestMap["limit"] = it.toString() }
         return requestMap
     }
 
