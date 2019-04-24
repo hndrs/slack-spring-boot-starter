@@ -1,13 +1,12 @@
 package io.olaph.slack.client.test.group.conversation
 
-import io.olaph.slack.client.group.conversations.ConversationsHistoryMethod
 import io.olaph.slack.client.group.conversations.ConversationsMethodGroup
 import io.olaph.slack.client.group.conversations.ConversationsOpenMethod
 
 
 class MockConversationMethodGroup : ConversationsMethodGroup {
 
-    private val mockChatConversationsCreate = MockConversationsCreate()
+    private val mockConversationsCreate = MockConversationsCreate()
     private val mockConversationsClose = MockConversationsClose()
     private val mockConversationsListMethod = MockConversationsListMethod()
     private val mockConversationsMembersMethod = MockConversationsMembersMethod()
@@ -22,15 +21,16 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
     private val mockConversationsSetTopicMethod = MockConversationsSetTopicMethod()
     private val mockConversationsJoinMethod = MockConversationsJoinMethod()
     private val mockConversationsRepliesMethod = MockConversationsRepliesMethod()
+    private val mockConversationsHistoryMethod = MockConversationsHistoryMethod()
 
     override fun close(authToken: String): MockConversationsClose = mockConversationsClose
 
     override fun create(authToken: String): MockConversationsCreate {
-        return mockChatConversationsCreate
+        return mockConversationsCreate
     }
 
-    override fun history(authToken: String): ConversationsHistoryMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun history(authToken: String): MockConversationsHistoryMethod {
+        return mockConversationsHistoryMethod
     }
 
     override fun info(authToken: String): MockConversationsInfoMethod {
