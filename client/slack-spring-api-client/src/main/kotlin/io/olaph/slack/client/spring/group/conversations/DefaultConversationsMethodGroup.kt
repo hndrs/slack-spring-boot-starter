@@ -67,7 +67,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun unarchive(authToken: String): ConversationsUnarchiveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultConversationsUnarchiveMethod(authToken)
     }
 
     override fun archive(authToken: String): ConversationsArchiveMethod {

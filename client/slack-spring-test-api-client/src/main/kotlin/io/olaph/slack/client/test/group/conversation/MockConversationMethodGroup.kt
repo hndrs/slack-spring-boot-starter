@@ -8,7 +8,6 @@ import io.olaph.slack.client.group.conversations.ConversationsOpenMethod
 import io.olaph.slack.client.group.conversations.ConversationsRenameMethod
 import io.olaph.slack.client.group.conversations.ConversationsRepliesMethod
 import io.olaph.slack.client.group.conversations.ConversationsSetTopicMethod
-import io.olaph.slack.client.group.conversations.ConversationsUnarchiveMethod
 
 
 class MockConversationMethodGroup : ConversationsMethodGroup {
@@ -20,6 +19,7 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
     private val mockConversationsInviteMethod = MockConversationsInviteMethod()
     private val mockConversationsLeaveMethod = MockConversationsLeaveMethod()
     private val mockConversationsArchiveMethod = MockConversationsArchiveMethod()
+    private val mockConversationsUnarchiveMethod = MockConversationsUnarchiveMethod()
     private val mockConversationsKickMethod = MockConversationsKickMethod()
     private val mockConversationsSetPurposeMethod = MockConversationsSetPurposeMethod()
 
@@ -81,12 +81,12 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun unarchive(authToken: String): ConversationsUnarchiveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun unarchive(authToken: String): MockConversationsUnarchiveMethod {
+        return mockConversationsUnarchiveMethod
     }
 
     override fun archive(authToken: String): MockConversationsArchiveMethod {
-        return mockConversationsArchiveMethod;
+        return mockConversationsArchiveMethod
     }
 
 }
