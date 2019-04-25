@@ -1,0 +1,38 @@
+Contribution Guidelines
+-----------------------
+
+Code of Conduct
+~~~~~~~~~~~~~~~
+
+Please read and follow our https://github.com/kreait/slack-spring-boot-starter/blob/master/CODE_OF_CONDUCT.md[Code of Conduct^]  before contributing to the project.
+
+Missing Feature
+~~~~~~~~~~~~~~~
+If you are missing a feature, you can create an issue, stating which feature is missing and please reference the according  https://api.slack.com/[Slack Api Documentation^] entry.
+
+Contributing
+~~~~~~~~~~~~
+
+if you want to contribute to the project, please create or pick the according ticket, fork the project and submit a pull request.
+
+Scope
+~~~~~
+To add a new Feature or Slack Api Method:
+
+* create the abstract class for the Method
+* extend the according https://github.com/kreait/slack-spring-boot-starter/tree/master/client/slack-api-client/src/main/kotlin/io/olaph/slack/client/group[Method Group]
+* create a https://github.com/kreait/slack-spring-boot-starter/tree/master/client/slack-spring-api-client/src/main/kotlin/io/olaph/slack/client/spring[Default Implementation] and extend the https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-spring-api-client/src/main/kotlin/io/olaph/slack/client/spring/DefaultSlackClient.kt[DefaultSlackClient]
+* test your implementation in the https://github.com/kreait/slack-spring-boot-starter/tree/master/client/slack-spring-api-client/src/test/kotlin/io/olaph/slack/client/spring[Test module] (probably take already existing tests as an example)
+* extend the https://github.com/kreait/slack-spring-boot-starter/tree/master/client/slack-spring-test-api-client/src/main/kotlin/io/olaph/slack/client/test[Test Api Client] and create the https://github.com/kreait/slack-spring-boot-starter/tree/master/client/slack-spring-test-api-client/src/test/kotlin/io/olaph/slack/client/test[Mock Tests]
+
+Dtos
+^^^^^
+* All data classes should be located in the https://github.com/kreait/slack-spring-boot-starter/tree/master/data/slack-jackson-dto/src/main/kotlin/io/olaph/slack/dto/jackson[slack-jackson-dto package]
+
+* Create a `.sample()` extension for every created dto in the https://github.com/kreait/slack-spring-boot-starter/tree/master/data/slack-jackson-dto-test-extensions/src/main/kotlin/io/olaph/slack/dto/jackson[slack-jackson-dto-test-extension] package, which simply returns a created object with empty values
+
+
+Bugs
+~~~~~
+currently, not all methods are tested against a real workspace, so it could happen that even implemented methods don't work properly.
+If you find a bug, feel free to  an issue, or fix it and submit a pull request.create
