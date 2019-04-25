@@ -1,7 +1,7 @@
 == Contribution Guidelines
 
-Slack Sprin Boot Starter is released unter the https://github.com/kreait/slack-spring-boot-starter/blob/master/LICENSE[MIT license].
-The guidelines are here to help you getting started contributing to this project.
+Slack Spring Boot Starter is released under the https://github.com/kreait/slack-spring-boot-starter/blob/master/LICENSE[MIT license].
+These guidelines are here to help you getting started contributing to this project.
 
 === Code of Conduct
 
@@ -14,7 +14,7 @@ If you are missing a feature, you can create an issue, stating which feature is 
 
 === Contributing
 
-if you want to contribute to the project, please create or pick the according ticket, fork the project and submit a pull request.
+If you want to contribute to the project, please create or pick the according issue, fork the project and submit a pull request.
 
 ==== Scope
 
@@ -34,7 +34,7 @@ To add a new Feature or Slack Api Method:
 
 ==== Bugs
 
-Currently, not all methods are tested against a real workspace, so it could happen that even implemented methods don't work properly.
+Currently, not all methods are tested against a real workspace, but have been implemented according to the slack api documentation, so it could happen that even implemented methods don't work properly.
 If you encounter a bug, feel free to raise an issue, or fix it and submit a pull request.
 
 ==== Code Conventions
