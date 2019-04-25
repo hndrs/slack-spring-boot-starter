@@ -8,6 +8,10 @@ These guidelines are here to help you getting started contributing to this proje
 Please read and follow our https://github.com/kreait/slack-spring-boot-starter/blob/master/CODE_OF_CONDUCT.md[Code of Conduct^] before contributing to the project.
 By contributing we expect you to follow the this code of conduct and furthermore advise you to report any misbehaviour you encounter to the maintainers.
 
+=== Contact
+
+Feel free to join us on discord to discuss image:https://img.shields.io/discord/523866370778333184.svg[link="https://discord.gg/fXfQmdJ"]
+
 === Missing Feature
 
 If you are missing a feature, you can create an issue, stating which feature is missing and please reference the according https://api.slack.com/[Slack Api Documentation^] entry.
@@ -26,7 +30,7 @@ To add a new Feature or Slack Api Method:
 * test your implementation in the https://github.com/kreait/slack-spring-boot-starter/tree/master/client/slack-spring-api-client/src/test/kotlin/io/olaph/slack/client/spring[Test module] (probably take already existing tests as an example)
 * extend the https://github.com/kreait/slack-spring-boot-starter/tree/master/client/slack-spring-test-api-client/src/main/kotlin/io/olaph/slack/client/test[Test Api Client] and create the https://github.com/kreait/slack-spring-boot-starter/tree/master/client/slack-spring-test-api-client/src/test/kotlin/io/olaph/slack/client/test[Mock Tests]
 
-==== Dtos
+==== DTOS
 
 * All data classes should be located in the https://github.com/kreait/slack-spring-boot-starter/tree/master/data/slack-jackson-dto/src/main/kotlin/io/olaph/slack/dto/jackson[slack-jackson-dto package]
 
