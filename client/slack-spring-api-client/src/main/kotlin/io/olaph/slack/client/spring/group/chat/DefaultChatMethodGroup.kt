@@ -7,7 +7,6 @@ import io.olaph.slack.client.group.chat.GetChatPermalinkMethod
 import org.slf4j.LoggerFactory
 
 class DefaultChatMethodGroup : ChatMethodGroup {
-
     override fun getPermalink(authToken: String): GetChatPermalinkMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -39,5 +38,4 @@ class DefaultChatMethodGroup : ChatMethodGroup {
     override fun update(authToken: String): DefaultUpdateMethod {
         return DefaultUpdateMethod(authToken)
     }
-
 }

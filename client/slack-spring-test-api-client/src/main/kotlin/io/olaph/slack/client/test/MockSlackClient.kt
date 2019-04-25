@@ -1,6 +1,7 @@
 package io.olaph.slack.client.test
 
 import io.olaph.slack.client.SlackClient
+import io.olaph.slack.client.group.respond.RespondMethodGroup
 import io.olaph.slack.client.test.group.auth.MockAuthGroup
 import io.olaph.slack.client.test.group.channel.MockChannelsMethodGroup
 import io.olaph.slack.client.test.group.chat.MockChatMethodGroup
@@ -8,10 +9,10 @@ import io.olaph.slack.client.test.group.conversation.MockConversationMethodGroup
 import io.olaph.slack.client.test.group.dialog.MockDialogMethodGroup
 import io.olaph.slack.client.test.group.im.MockImMethodGroup
 import io.olaph.slack.client.test.group.oauth.MockOauthMethodGroup
+import io.olaph.slack.client.test.group.respond.MockRespondMethodGroup
 import io.olaph.slack.client.test.group.users.MockUsersMethodGroup
 
 class MockSlackClient : SlackClient {
-
     private val mockChatGroup = MockChatMethodGroup()
     private val mockAuthGroup = MockAuthGroup()
     private val mockImMethodGroup = MockImMethodGroup()
@@ -20,6 +21,7 @@ class MockSlackClient : SlackClient {
     private val mockChannelsMethodGroup = MockChannelsMethodGroup()
     private val mockUsersMethodGroup = MockUsersMethodGroup()
     private val mockOauthMethodGroup = MockOauthMethodGroup()
+    private val mockRespondMethodGroup = MockRespondMethodGroup()
 
     override fun auth(): MockAuthGroup {
         return mockAuthGroup
@@ -51,5 +53,9 @@ class MockSlackClient : SlackClient {
 
     override fun oauth(): MockOauthMethodGroup {
         return mockOauthMethodGroup
+    }
+
+    override fun respond(): RespondMethodGroup {
+        return mockRespondMethodGroup;
     }
 }

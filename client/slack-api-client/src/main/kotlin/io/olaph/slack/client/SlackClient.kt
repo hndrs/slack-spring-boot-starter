@@ -7,6 +7,7 @@ import io.olaph.slack.client.group.conversations.ConversationsMethodGroup
 import io.olaph.slack.client.group.dialog.DialogMethodGroup
 import io.olaph.slack.client.group.im.ImMethodGroup
 import io.olaph.slack.client.group.oauth.OauthMethodGroup
+import io.olaph.slack.client.group.respond.RespondMethodGroup
 import io.olaph.slack.client.group.users.UsersMethodGroup
 
 interface SlackClient {
@@ -57,4 +58,13 @@ interface SlackClient {
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
     fun oauth(): OauthMethodGroup
+
+    /**
+     * Convenience function to reply to slack interactions
+     *
+     * [Slack Api Documentation](https://api.slack.com/slash-commands#responding_response_url)
+     */
+    fun respond(): RespondMethodGroup
+
+
 }

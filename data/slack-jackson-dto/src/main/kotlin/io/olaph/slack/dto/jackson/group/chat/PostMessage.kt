@@ -66,19 +66,6 @@ data class SlackPostMessageRequest constructor(@JsonProperty("text") val text: S
     companion object
 }
 
-//TODO figure out where this belongs
-@JsonSerialize(using = ResponseType.Serializer::class)
-enum class ResponseType {
-    IN_CHANNEL, EPHEMERAL;
-
-    class Serializer : JsonSerializer<ResponseType>() {
-        override fun serialize(value: ResponseType?, gen: JsonGenerator?, provider: SerializerProvider?) {
-            gen?.writeString(value.toString().toLowerCase())
-        }
-    }
-}
-
-
 
 
 
