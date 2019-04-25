@@ -42,7 +42,7 @@ If you encounter a bug, feel free to raise an issue, or fix it and submit a pull
 These guidelines will help to improve the process of reviewing contributions.
 
 - We endorse readable and formatted code. The default formatting options provided by IDEs like IntelliJ, Netbeans and Eclipse
-are sufficient in most cases. If you are creating non-trivial pull requests please make sure your codes is well documented (kdoc).
+are sufficient in most cases. If you are creating non-trivial pull requests please make sure your code is well documented (kdoc).
 
 - This will help us to better read your code and follow your intentions you are trying to achieve.
 
