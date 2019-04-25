@@ -4,22 +4,20 @@ import io.olaph.slack.broker.receiver.SlashCommandReceiver
 import io.olaph.slack.broker.store.Team
 import io.olaph.slack.client.SlackClient
 import io.olaph.slack.dto.jackson.SlackCommand
-import io.olaph.slack.dto.jackson.group.chat.SlackPostMessageRequest
+import io.olaph.slack.dto.jackson.group.respond.SlackRespondMessageRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 
 @Component
-class PingCommandReceiver @Autowired constructor(private val slackClient: SlackClient) : SlashCommandReceiver {
+class ResponseCommandReceiver @Autowired constructor(private val slackClient: SlackClient) : SlashCommandReceiver {
     override fun supportsCommand(slackCommand: SlackCommand): Boolean {
-        return slackCommand.command.startsWith("/ping")
+        return slackCommand.command.startsWith("/response")
     }
 
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
-        this.slackClient.chat().postMessage(team.bot.accessToken)
-                .with(SlackPostMessageRequest(
-                        text = "Pong",
-                        channel = "dasd"
-                )).invoke()
+        this.slackClient.respond().ephemeral(slackCommand.responseUrl)
+                .with(SlackRespondMessageRequest(text = "lol"))
+                .invoke()
     }
 }

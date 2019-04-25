@@ -8,6 +8,7 @@ import io.olaph.slack.client.group.chat.ChatMethodGroup
 import io.olaph.slack.client.group.conversations.ConversationsMethodGroup
 import io.olaph.slack.client.group.im.ImMethodGroup
 import io.olaph.slack.client.group.oauth.OauthMethodGroup
+import io.olaph.slack.client.group.respond.RespondMethodGroup
 import io.olaph.slack.client.group.users.UsersMethodGroup
 import io.olaph.slack.client.spring.group.auth.DefaultAuthMethodGroup
 import io.olaph.slack.client.spring.group.channels.DefaultChannelMethodGroup
@@ -16,12 +17,16 @@ import io.olaph.slack.client.spring.group.conversations.DefaultConversationsMeth
 import io.olaph.slack.client.spring.group.dialog.DefaultDialogMethodGroup
 import io.olaph.slack.client.spring.group.im.DefaultImMethodGroup
 import io.olaph.slack.client.spring.group.oauth.DefaultOauthMethodGroup
+import io.olaph.slack.client.spring.group.respond.DefaultRespondMethodGroup
 import io.olaph.slack.client.spring.group.users.DefaultUserMethodGroup
 
 /**
  * Api Client to interact with the slack api
  */
 class DefaultSlackClient : SlackClient {
+    override fun respond(): RespondMethodGroup {
+        return DefaultRespondMethodGroup()
+    }
 
     /**
      * Convenience function to apply slack api auth method grouping

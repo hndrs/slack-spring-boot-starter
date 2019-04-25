@@ -7,7 +7,6 @@ import io.olaph.slack.client.group.chat.ChatUpdateMethod
 import io.olaph.slack.client.group.chat.GetChatPermalinkMethod
 
 class MockChatMethodGroup : ChatMethodGroup {
-
     private val mockChatPostEphemeralMethod = MockChatPostEphemeral()
     private val mockChatPostMessageMethod = MockChatPostMessage()
     private val mockChatDeleteMethod = MockChatDelete()
