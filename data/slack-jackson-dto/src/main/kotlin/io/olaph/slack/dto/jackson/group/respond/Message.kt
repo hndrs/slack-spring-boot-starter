@@ -13,7 +13,7 @@ import io.olaph.slack.dto.jackson.common.messaging.Block
 data class SlackRespondMessageRequest constructor(@JsonProperty("text") val text: String? = null,
                                                   @JsonProperty("attachments") val attachments: List<Attachment>? = null,
                                                   @JsonProperty("blocks") val blocks: List<Block>? = null,
-                                                  @JsonProperty("response_type") val responseType: ResponseType = ResponseType.EPHEMERAL) {
+                                                  @JsonProperty("response_type") val responseType: ResponseType) {
     companion object
 }
 
