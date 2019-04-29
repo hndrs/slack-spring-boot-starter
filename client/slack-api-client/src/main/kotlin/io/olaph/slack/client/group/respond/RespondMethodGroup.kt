@@ -3,9 +3,9 @@ package io.olaph.slack.client.group.respond
 interface RespondMethodGroup {
 
     /**
-     * sends an ephemeral response to the response-url
+     * sends a message response to the response-url
      */
-    fun ephemeral(responseUrl: String): RespondEphemeralMethod
+    fun message(responseUrl: String): RespondMessageMethod
 
 
 }

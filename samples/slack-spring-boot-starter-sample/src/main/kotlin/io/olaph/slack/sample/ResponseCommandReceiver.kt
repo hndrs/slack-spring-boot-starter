@@ -17,7 +17,7 @@ class ResponseCommandReceiver @Autowired constructor(private val slackClient: Sl
     }
 
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
-        this.slackClient.respond().ephemeral(slackCommand.responseUrl)
+        this.slackClient.respond().message(slackCommand.responseUrl)
                 .with(SlackRespondMessageRequest(text = "lol", responseType = ResponseType.EPHEMERAL))
                 .invoke()
     }
