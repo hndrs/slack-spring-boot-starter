@@ -68,9 +68,10 @@ class InstallationBroker constructor(
     }
 
     private fun obtainOauthAccess(code: String): Team {
-        return this.slackClient.oauth().access()
+        val response = this.slackClient.oauth().access()
                 .with(OauthAccessRequest(config.clientId, config.clientSecret, code))
-                .invoke().success?.let {
+                .invoke()
+        return response.success?.let {
             Team(it.teamId,
                     it.teamName,
                     Team.IncomingWebhook(it.incomingWebhook.channel,
@@ -80,7 +81,7 @@ class InstallationBroker constructor(
                     Team.Bot(it.bot.botUserId,
                             it.bot.botAccessToken)
             )
-        } ?: throw IllegalStateException("Could not obtain access-token")
+        } ?: throw IllegalStateException("Could not obtain access-token: ${response.failure}")
     }
 
     data class Config(val clientId: String, val clientSecret: String, val successRedirectUrl: String, val errorRedirectUrl: String)
