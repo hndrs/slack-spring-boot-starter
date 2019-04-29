@@ -2,6 +2,7 @@ package io.olaph.slack.client.spring.group
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
+import io.olaph.slack.client.spring.group.respond.SlackResponseErrorHandler
 import org.springframework.http.MediaType
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
@@ -13,7 +14,8 @@ import org.springframework.web.client.RestTemplate
  */
 object RestTemplateFactory {
 
-    val restTemplate = RestTemplate()
+    private val slackApiRestTemplate = RestTemplate()
+    private val slackResponseRestTemplate = RestTemplate()
 
     init {
 
@@ -25,11 +27,18 @@ object RestTemplateFactory {
 
         val mappingJackson2HttpMessageConverter = MappingJackson2HttpMessageConverter(objectMapper)
         mappingJackson2HttpMessageConverter.supportedMediaTypes = listOf(MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED)
-        restTemplate.messageConverters = listOf(mappingJackson2HttpMessageConverter)
+        slackApiRestTemplate.messageConverters = listOf(mappingJackson2HttpMessageConverter)
+
+        slackResponseRestTemplate.errorHandler = SlackResponseErrorHandler()
     }
 
     /**
-     * gets a slack compliant restTemplate
+     * gets a slack compliant slackApiRestTemplate
      */
-    fun slackTemplate() = restTemplate
+    fun slackTemplate() = slackApiRestTemplate
+
+    /**
+     *  gets a slackApiRestTemplate which logs errors without interrupting
+     */
+    fun slackResponseTemplate() = slackResponseRestTemplate
 }

@@ -2,6 +2,7 @@ package io.olaph.slack.client.spring.group.respond
 
 import io.olaph.slack.client.spring.MockServerHelper
 import io.olaph.slack.client.spring.Verifier
+import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.respond.SlackRespondMessageRequest
 import io.olaph.slack.dto.jackson.group.respond.sample
 import org.junit.jupiter.api.BeforeEach
@@ -16,7 +17,7 @@ internal class DefaultRespondMessageMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplate()
+        mockTemplate = RestTemplateFactory.slackResponseTemplate()
     }
 
     @Test
