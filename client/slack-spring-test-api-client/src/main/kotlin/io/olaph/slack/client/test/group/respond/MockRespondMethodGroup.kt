@@ -3,9 +3,9 @@ package io.olaph.slack.client.test.group.respond
 import io.olaph.slack.client.group.respond.RespondMethodGroup
 
 class MockRespondMethodGroup : RespondMethodGroup {
-    private val mockRespondEphemeralMethod = MockRespondEphemeralMethod();
+    private val mockRespondEphemeralMethod = MockRespondMessageMethod();
 
-    override fun ephemeral(responseUrl: String): MockRespondEphemeralMethod {
+    override fun message(responseUrl: String): MockRespondMessageMethod {
         return mockRespondEphemeralMethod
     }
 }

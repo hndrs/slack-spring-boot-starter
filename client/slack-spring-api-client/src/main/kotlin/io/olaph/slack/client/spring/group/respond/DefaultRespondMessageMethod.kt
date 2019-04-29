@@ -2,12 +2,9 @@ package io.olaph.slack.client.spring.group.respond
 
 
 import io.olaph.slack.client.group.ApiCallResult
-import io.olaph.slack.client.group.respond.RespondEphemeralMethod
-import org.slf4j.LoggerFactory
+import io.olaph.slack.client.group.respond.RespondMessageMethod
 import org.springframework.http.HttpMethod
 import org.springframework.http.RequestEntity
-import org.springframework.http.client.ClientHttpResponse
-import org.springframework.web.client.ResponseErrorHandler
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.exchange
 import java.net.URI
@@ -19,7 +16,7 @@ import java.net.URI
  * @return the API Call Method containing the ResponseEntities
  */
 @Suppress("UNCHECKED_CAST")
-class DefaultRespondEphemeralMethod(private val responseUrl: String, private val restTemplate: RestTemplate = RestTemplate()) : RespondEphemeralMethod() {
+class DefaultRespondMessageMethod(private val responseUrl: String, private val restTemplate: RestTemplate = RestTemplate()) : RespondMessageMethod() {
 
     override fun request(): ApiCallResult<Unit, Unit> {
 

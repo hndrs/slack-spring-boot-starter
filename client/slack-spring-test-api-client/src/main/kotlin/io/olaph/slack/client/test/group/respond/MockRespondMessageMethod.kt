@@ -1,11 +1,11 @@
 package io.olaph.slack.client.test.group.respond
 
 import io.olaph.slack.client.group.ApiCallResult
-import io.olaph.slack.client.group.respond.RespondEphemeralMethod
+import io.olaph.slack.client.group.respond.RespondMessageMethod
 import io.olaph.slack.client.test.MockMethod
 import io.olaph.slack.dto.jackson.group.respond.SlackRespondMessageRequest
 
-class MockRespondEphemeralMethod : RespondEphemeralMethod(), MockMethod<Unit, Unit, SlackRespondMessageRequest> {
+class MockRespondMessageMethod : RespondMessageMethod(), MockMethod<Unit, Unit, SlackRespondMessageRequest> {
 
     override fun params(): SlackRespondMessageRequest {
         return params

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 
-@DisplayName("MockRespondEphemeralMethod")
+@DisplayName("MockRespondMessageMethod")
 class MockChatRespondEphemeralUnitTests {
 
 
@@ -20,7 +20,7 @@ class MockChatRespondEphemeralUnitTests {
         val failureFunction: (Unit?) -> Any = mock {}
         val mockSlackClient = MockSlackClient()
 
-        MockMethodTestHelper.verify({ mockSlackClient.respond().ephemeral("") },
+        MockMethodTestHelper.verify({ mockSlackClient.respond().message("") },
                 successFunction, Unit,
                 failureFunction, Unit,
                 SlackRespondMessageRequest.sample()

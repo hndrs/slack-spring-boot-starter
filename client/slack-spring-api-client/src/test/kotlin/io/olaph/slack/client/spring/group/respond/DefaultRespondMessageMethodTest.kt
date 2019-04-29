@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.RestTemplate
 
-internal class DefaultRespondEphemeralMethodTest {
+internal class DefaultRespondMessageMethodTest {
 
     private lateinit var mockTemplate: RestTemplate
 
@@ -26,7 +26,7 @@ internal class DefaultRespondEphemeralMethodTest {
         val mockServer = MockServerHelper.buildMockRestServerForUrl(mockTemplate, response, "api.slack.com/test", HttpStatus.BAD_REQUEST)
         val verifier = Verifier(response)
 
-        DefaultRespondEphemeralMethod("api.slack.com/test", mockTemplate)
+        DefaultRespondMessageMethod("api.slack.com/test", mockTemplate)
                 .with(SlackRespondMessageRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
@@ -41,7 +41,7 @@ internal class DefaultRespondEphemeralMethodTest {
         val mockServer = MockServerHelper.buildMockRestServerForUrl(mockTemplate, response, "api.slack.com/test", HttpStatus.OK)
         val verifier = Verifier(response)
 
-        DefaultRespondEphemeralMethod("api.slack.com/test", mockTemplate)
+        DefaultRespondMessageMethod("api.slack.com/test", mockTemplate)
                 .with(SlackRespondMessageRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
