@@ -27,6 +27,7 @@ import io.olaph.slack.broker.receiver.MismatchCommandReciever
 import io.olaph.slack.broker.receiver.SL4JLoggingReceiver
 import io.olaph.slack.broker.receiver.SlashCommandReceiver
 import io.olaph.slack.broker.store.InMemoryTeamStore
+import io.olaph.slack.broker.store.FileTeamStore
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.client.SlackClient
 import io.olaph.slack.client.spring.DefaultSlackClient
@@ -48,10 +49,18 @@ open class SlackBrokerAutoConfiguration {
     @Configuration
     open class BrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties, private val credentialsProvider: CredentialsProvider) : WebMvcConfigurer {
 
+        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "memory", matchIfMissing = true)
         @ConditionalOnMissingBean
         @Bean
         open fun teamStore(): TeamStore {
             return InMemoryTeamStore()
+        }
+
+        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "file")
+        @ConditionalOnMissingBean
+        @Bean
+        open fun localTeamStore() : TeamStore {
+            return FileTeamStore()
         }
 
         @Bean

@@ -1,5 +1,6 @@
 package io.olaph.slack.broker.autoconfiguration
 
+import io.olaph.slack.broker.store.FileTeamStore
 import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.Team
 import io.olaph.slack.broker.store.TeamStore
@@ -23,6 +24,24 @@ class TeamStoreAutoConfigurationTests {
                     Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
                     Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
                 }
+
+        TestApplicationContext.base()
+                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withUserConfiguration(TestConfiguration::class.java)
+                .withPropertyValues("slack.store.type:memory")
+                .run {
+                    Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
+                    Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
+                }
+
+        TestApplicationContext.base()
+                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withUserConfiguration(TestConfiguration::class.java)
+                .withPropertyValues("slack.store.type:file")
+                .run {
+                    Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
+                    Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
+                }
     }
 
     @DisplayName("InMemoryTeamStore Registration")
@@ -30,9 +49,22 @@ class TeamStoreAutoConfigurationTests {
     fun teamStoreRegistration() {
         TestApplicationContext.base()
                 .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withPropertyValues("slack.store.type:memory")
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
                     Assertions.assertTrue(it.getBean(TeamStore::class.java) is InMemoryTeamStore)
+                }
+    }
+
+    @DisplayName("File TeamStore Registration")
+    @Test
+    fun fileTeamStoreRegistration() {
+        TestApplicationContext.base()
+                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withPropertyValues("slack.store.type:file")
+                .run {
+                    Assertions.assertDoesNotThrow { it.getBean(FileTeamStore::class.java) }
+                    Assertions.assertTrue(it.getBean(TeamStore::class.java) is FileTeamStore)
                 }
     }
 
@@ -41,9 +73,7 @@ class TeamStoreAutoConfigurationTests {
     open class TestConfiguration {
 
         @Bean
-        open fun testTeamStore(): TeamStore {
-            return TestTeamStore()
-        }
+        open fun testTeamStore(): TeamStore = TestTeamStore()
     }
 
     class TestTeamStore : TeamStore {
@@ -53,5 +83,7 @@ class TeamStoreAutoConfigurationTests {
         override fun put(team: Team) {}
 
         override fun removeById(id: String) {}
+
     }
+
 }
