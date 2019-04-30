@@ -8,12 +8,12 @@ import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.util.ContentCachingRequestWrapper
 
-class SlackCommandArgumentResolver(signingSecret: String?) : VerificationMethodArgumentResolver(signingSecret) {
+class SlackCommandArgumentResolver(signingSecret: String) : VerificationMethodArgumentResolver(signingSecret) {
 
     private val objectMapper = ObjectMapper()
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.getParameterAnnotation(Command::class.java) != null
+        return parameter.getParameterAnnotation(Command::class.java) != null && parameter.parameterType == SlackCommand::class.java
     }
 
     override fun internalResolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, request: ContentCachingRequestWrapper, binderFactory: WebDataBinderFactory?): Any? {
@@ -23,4 +23,6 @@ class SlackCommandArgumentResolver(signingSecret: String?) : VerificationMethodA
 }
 
 
+@Target(AnnotationTarget.VALUE_PARAMETER)
+@Retention(AnnotationRetention.RUNTIME)
 annotation class Command

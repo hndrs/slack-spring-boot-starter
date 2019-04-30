@@ -1,11 +1,13 @@
 package io.olaph.slack.broker.autoconfiguration
 
 import io.micrometer.core.instrument.MeterRegistry
+import io.olaph.slack.broker.autoconfiguration.credentials.CredentialsProvider
+import io.olaph.slack.broker.autoconfiguration.credentials.DefaultCredentialsProviderChain
 import io.olaph.slack.broker.broker.CommandBroker
 import io.olaph.slack.broker.broker.EventBroker
 import io.olaph.slack.broker.broker.InstallationBroker
 import io.olaph.slack.broker.broker.InteractiveComponentBroker
-import io.olaph.slack.broker.configuration.EventRequestArgumentResolver
+import io.olaph.slack.broker.configuration.EventArgumentResolver
 import io.olaph.slack.broker.configuration.InteractiveResponseArgumentResolver
 import io.olaph.slack.broker.configuration.SlackCommandArgumentResolver
 import io.olaph.slack.broker.exception.SlackExceptionHandler
@@ -44,7 +46,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 open class SlackBrokerAutoConfiguration {
 
     @Configuration
-    open class BrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties) : WebMvcConfigurer {
+    open class BrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties, private val credentialsProvider: CredentialsProvider) : WebMvcConfigurer {
 
         @ConditionalOnMissingBean
         @Bean
@@ -68,11 +70,11 @@ open class SlackBrokerAutoConfiguration {
         }
 
         override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
-            val signingSecret = this.configuration.security.signingSecret
+            val signingSecret = credentialsProvider.applicationCredentials().signingSecret
 
             resolvers.add(SlackCommandArgumentResolver(signingSecret))
             resolvers.add(InteractiveResponseArgumentResolver(signingSecret))
-            resolvers.add(EventRequestArgumentResolver(signingSecret))
+            resolvers.add(EventArgumentResolver(signingSecret))
         }
 
         @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.LOGGING_PROPERTY_PREFIX, name = ["enabled"], havingValue = "true", matchIfMissing = true)
@@ -93,20 +95,23 @@ open class SlackBrokerAutoConfiguration {
     open class InstallationAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties) {
 
         @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.INSTALLATION_PROPERTY_PREFIX,
-                name = ["error-redirect-url", "success-redirect-url", "client-id", "client-secret"])
+                name = ["error-redirect-url", "success-redirect-url"])
         @Bean
         open fun installationBroker(installationReceivers: List<InstallationReceiver>,
                                     teamStore: TeamStore,
                                     slackClient: SlackClient,
+                                    credentialsProvider: CredentialsProvider,
                                     metricsCollector: InstallationMetricsCollector?): InstallationBroker {
 
             val installation = this.configuration.installation
+            val applicationCredentials = credentialsProvider.applicationCredentials()
+
             return InstallationBroker(
                     installationReceivers,
                     metricsCollector,
                     teamStore,
                     slackClient,
-                    InstallationBroker.Config(installation.clientId, installation.clientSecret, installation.successRedirectUrl, installation.errorRedirectUrl)
+                    InstallationBroker.Config(applicationCredentials.clientId, applicationCredentials.clientSecret, installation.successRedirectUrl, installation.errorRedirectUrl)
             )
         }
 
@@ -152,6 +157,12 @@ open class SlackBrokerAutoConfiguration {
     @Bean
     open fun slackExceptionHandler(): SlackExceptionHandler {
         return SlackExceptionHandler()
+    }
+
+    @ConditionalOnMissingBean
+    @Bean
+    open fun slackCredentialsProvider(): CredentialsProvider {
+        return DefaultCredentialsProviderChain()
     }
 
 }

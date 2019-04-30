@@ -9,12 +9,12 @@ import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.util.ContentCachingRequestWrapper
 
-class EventRequestArgumentResolver(signingSecret: String?) : VerificationMethodArgumentResolver(signingSecret) {
+class EventArgumentResolver(signingSecret: String) : VerificationMethodArgumentResolver(signingSecret) {
 
     private val objectMapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.getParameterAnnotation(Event::class.java) != null
+        return parameter.getParameterAnnotation(Event::class.java) != null && parameter.parameterType == EventRequest::class.java
     }
 
     override fun internalResolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, request: ContentCachingRequestWrapper, binderFactory: WebDataBinderFactory?): Any? {
@@ -22,4 +22,6 @@ class EventRequestArgumentResolver(signingSecret: String?) : VerificationMethodA
     }
 }
 
+@Target(AnnotationTarget.VALUE_PARAMETER)
+@Retention(AnnotationRetention.RUNTIME)
 annotation class Event

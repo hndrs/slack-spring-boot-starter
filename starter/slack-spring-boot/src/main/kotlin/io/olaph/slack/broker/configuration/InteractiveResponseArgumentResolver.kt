@@ -8,7 +8,7 @@ import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.util.ContentCachingRequestWrapper
 
-class InteractiveResponseArgumentResolver(signingSecret: String?) : VerificationMethodArgumentResolver(signingSecret) {
+class InteractiveResponseArgumentResolver(signingSecret: String) : VerificationMethodArgumentResolver(signingSecret) {
 
     override fun internalResolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, request: ContentCachingRequestWrapper, binderFactory: WebDataBinderFactory?): Any? {
         val associateMap = request.parameterMap.entries.associate { it.key to it.value[0] }
@@ -19,9 +19,11 @@ class InteractiveResponseArgumentResolver(signingSecret: String?) : Verification
     private val objectMapper = ObjectMapper()
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.getParameterAnnotation(InteractiveResponse::class.java) != null
+        return parameter.getParameterAnnotation(InteractiveResponse::class.java) != null && parameter.parameterType == InteractiveComponentResponse::class.java
     }
 
 }
 
+@Target(AnnotationTarget.VALUE_PARAMETER)
+@Retention(AnnotationRetention.RUNTIME)
 annotation class InteractiveResponse

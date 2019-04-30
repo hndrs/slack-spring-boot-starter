@@ -18,7 +18,7 @@ class VerificationException(message: String) : RuntimeException(message)
 /**
  * https://api.slack.com/docs/verifying-requests-from-slack
  */
-abstract class VerificationMethodArgumentResolver(private val signingSecret: String?) : HandlerMethodArgumentResolver {
+abstract class VerificationMethodArgumentResolver(private val signingSecret: String) : HandlerMethodArgumentResolver {
 
     companion object {
         private const val SLACK_SIGNATURE_HEADER_NAME = "x-slack-signature"
@@ -30,7 +30,7 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
         val cachedRequestWrapper = ContentCachingRequestWrapper(webRequest.nativeRequest as HttpServletRequest)
         val resolvedArgument = internalResolveArgument(parameter, mavContainer, cachedRequestWrapper, binderFactory)
 
-        this.signingSecret?.let { validateSigning(cachedRequestWrapper, it) }
+        validateSigning(cachedRequestWrapper, this.signingSecret)
 
         return resolvedArgument
     }

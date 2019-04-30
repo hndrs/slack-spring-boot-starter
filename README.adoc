@@ -54,12 +54,40 @@ slack.installation.success-redirect-url=
 
 //the url the user should be redirected to on a failure during installation
 slack.installation.error-redirect-url=
-
-//app credentials you find on https://api.slack.com/ under your apps basic information
-slack.installation.client-id=
-slack.installation.client-secret=
-slack.security.signing-secret=
 --
+
+==== Credentials
+Locate your app credentials under the *Basic Information* menu item on https://api.slack.com/apps (select your app)
+By default there is 3 ways adding your slack credentials to the application
+
+1. Create a file $HOME/.slack/credentials
+
+[source]
+--
+slack_app_client_id=<client_id>
+slack_app_client_secret=<client_secret>
+slack_app_signing_secret=<signing secret>
+--
+
+2. Set Environment Variables
+
+[source]
+--
+SLACK_APP_CLIENT_ID=<client_id>
+SLACK_APP_CLIENT_SECRET=<client_secret>
+SLACK_APP_SIGNING_SECRET=<signing secret>
+--
+
+3. Set JVM System Properties
+
+[source]
+--
+slack.application.client-id=<client_id>
+slack.application.client-secret=<client_secret>
+slack.application.signing=<signing secret>
+--
+
+If you want to provide your own link:starter/slack-spring-boot-autoconfigure/src/main/kotlin/io/olaph/slack/broker/autoconfiguration/CredentialsProvider.kt[CredentialsProvider] implementation
 
 Start your application
 [source]

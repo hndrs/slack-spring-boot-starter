@@ -36,6 +36,3 @@ data class SlackEvent constructor(
 ) : EventRequest(type, token) {
     companion object
 }
-
-//@JacksonDataClass
-//data class EventMessage constructor(@JsonProperty("type") val type)
