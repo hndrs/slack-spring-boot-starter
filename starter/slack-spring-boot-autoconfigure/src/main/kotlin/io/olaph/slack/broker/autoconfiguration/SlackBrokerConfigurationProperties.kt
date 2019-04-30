@@ -19,9 +19,13 @@ open class SlackBrokerConfigurationProperties {
     /**
     Group that contains installation feature related configurations
      */
+
+
     var installation: Installation = Installation()
 
     var logging: Logging = Logging()
+
+    var application: Application = Application()
 
     var commands: Commands = Commands()
 
@@ -40,6 +44,14 @@ open class SlackBrokerConfigurationProperties {
          */
         lateinit var errorRedirectUrl: String
 
+    }
+
+    open class Application {
+
+        /**
+        Enables Logging receiver [io.olaph.slack.broker.receiver.SL4JLoggingReceiver]
+         */
+        var errorResponse: String = "Sorry i am having troubles right now"
     }
 
     open class Logging {
