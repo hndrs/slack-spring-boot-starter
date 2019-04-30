@@ -44,7 +44,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @EnableConfigurationProperties(SlackBrokerConfigurationProperties::class)
 @Configuration
-open class SlackBrokerAutoConfiguration {
+open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties) {
 
     @Configuration
     open class BrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties, private val credentialsProvider: CredentialsProvider) : WebMvcConfigurer {
@@ -165,7 +165,7 @@ open class SlackBrokerAutoConfiguration {
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
     @Bean
     open fun slackExceptionHandler(): SlackExceptionHandler {
-        return SlackExceptionHandler()
+        return SlackExceptionHandler(configuration.application.errorResponse)
     }
 
     @ConditionalOnMissingBean
