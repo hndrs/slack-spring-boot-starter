@@ -19,6 +19,8 @@ dependencies {
     compileOnly(group: "org.springframework", name: "spring-web")
     compileOnly(group: "org.slf4j", name: "slf4j-api")
     compileOnly(group: "com.fasterxml.jackson.core", name: "jackson-databind")
+    //this dependency is need on consumer side but not provided by default spring so lets put it here
+    api(group: "com.fasterxml.jackson.module", name: "jackson-module-kotlin")
 
 
     implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")

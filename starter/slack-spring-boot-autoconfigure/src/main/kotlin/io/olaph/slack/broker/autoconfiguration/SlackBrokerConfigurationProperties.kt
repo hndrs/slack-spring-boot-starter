@@ -10,7 +10,6 @@ open class SlackBrokerConfigurationProperties {
         const val PROPERTY_PREFIX = "slack"
         const val INSTALLATION_PROPERTY_PREFIX = "$PROPERTY_PREFIX.installation"
         const val LOGGING_PROPERTY_PREFIX = "$PROPERTY_PREFIX.logging"
-        const val SECURITY_PROPERTY_PREFIX = "$PROPERTY_PREFIX.security"
         const val COMMANDS_PROPERTY_PREFIX = "$PROPERTY_PREFIX.commands"
         const val MISMATCH_PROPERTY_PREFIX = "$COMMANDS_PROPERTY_PREFIX.mismatch"
     }
@@ -19,11 +18,6 @@ open class SlackBrokerConfigurationProperties {
     Group that contains installation feature related configurations
      */
     var installation: Installation = Installation()
-
-    /**
-    Group that contains security feature related configurations
-     */
-    var security: Security = Security()
 
     var logging: Logging = Logging()
 
@@ -42,25 +36,6 @@ open class SlackBrokerConfigurationProperties {
          */
         lateinit var errorRedirectUrl: String
 
-        /**
-        client id of your slack app
-         */
-        lateinit var clientId: String
-
-        /**
-        client secret of your slack app
-         */
-        lateinit var clientSecret: String
-
-    }
-
-
-    open class Security {
-
-        /**
-        Secret that is used to verify signed requests from slack [Slack Doc](https://api.slack.com/docs/verifying-requests-from-slack)
-         */
-        var signingSecret: String? = null
     }
 
     open class Logging {

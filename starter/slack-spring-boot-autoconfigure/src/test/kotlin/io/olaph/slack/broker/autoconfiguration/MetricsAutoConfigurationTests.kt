@@ -17,7 +17,6 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException
 import org.springframework.boot.autoconfigure.AutoConfigurations
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 import org.springframework.boot.test.context.FilteredClassLoader
-import org.springframework.boot.test.context.runner.ApplicationContextRunner
 
 @DisplayName("Test Installation Auto configuration")
 class MetricsAutoConfigurationTests {
@@ -30,12 +29,10 @@ class MetricsAutoConfigurationTests {
         @DisplayName("InstallationMetrics Registration")
         @Test
         fun installationMetricsRegistration() {
-            ApplicationContextRunner()
+            TestApplicationContext.base()
                     .withSystemProperties(
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success",
-                            "slack.installation.client-id:123",
-                            "slack.installation.client-secret:1234"
+                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
@@ -46,12 +43,10 @@ class MetricsAutoConfigurationTests {
         @DisplayName("InstallationBroker Registration Without Micrometer")
         @Test
         fun installationMetricsRegistrationWithoutMicrometer() {
-            ApplicationContextRunner()
+            TestApplicationContext.base()
                     .withSystemProperties(
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success",
-                            "slack.installation.client-id:123",
-                            "slack.installation.client-secret:1234"
+                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withClassLoader(FilteredClassLoader(MeterRegistry::class.java))
                     .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
@@ -70,12 +65,10 @@ class MetricsAutoConfigurationTests {
         @DisplayName("EventMetrics Registration")
         @Test
         fun eventMetricsRegistration() {
-            ApplicationContextRunner()
+            TestApplicationContext.base()
                     .withSystemProperties(
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success",
-                            "slack.installation.client-id:123",
-                            "slack.installation.client-secret:1234"
+                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
@@ -86,12 +79,10 @@ class MetricsAutoConfigurationTests {
         @DisplayName("EventBroker Registration Without Micrometer")
         @Test
         fun eventMetricsRegistrationWithoutMicrometer() {
-            ApplicationContextRunner()
+            TestApplicationContext.base()
                     .withSystemProperties(
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success",
-                            "slack.installation.client-id:123",
-                            "slack.installation.client-secret:1234"
+                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withClassLoader(FilteredClassLoader(MeterRegistry::class.java))
                     .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
@@ -110,12 +101,10 @@ class MetricsAutoConfigurationTests {
         @DisplayName("CommandMetrics Registration")
         @Test
         fun commandMetricsRegistration() {
-            ApplicationContextRunner()
+            TestApplicationContext.base()
                     .withSystemProperties(
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success",
-                            "slack.installation.client-id:123",
-                            "slack.installation.client-secret:1234"
+                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
@@ -126,12 +115,10 @@ class MetricsAutoConfigurationTests {
         @DisplayName("CommandBroker Registration Without Micrometer")
         @Test
         fun commandMetricsRegistrationWithoutMicrometer() {
-            ApplicationContextRunner()
+            TestApplicationContext.base()
                     .withSystemProperties(
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success",
-                            "slack.installation.client-id:123",
-                            "slack.installation.client-secret:1234"
+                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withClassLoader(FilteredClassLoader(MeterRegistry::class.java))
                     .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
@@ -150,12 +137,10 @@ class MetricsAutoConfigurationTests {
         @DisplayName("CommandMetrics Registration")
         @Test
         fun interactiveComponentMetricsRegistration() {
-            ApplicationContextRunner()
+            TestApplicationContext.base()
                     .withSystemProperties(
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success",
-                            "slack.installation.client-id:123",
-                            "slack.installation.client-secret:1234"
+                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
@@ -166,12 +151,10 @@ class MetricsAutoConfigurationTests {
         @DisplayName("CommandBroker Registration Without Micrometer")
         @Test
         fun interactiveComponentMetricsRegistrationWithoutMicrometer() {
-            ApplicationContextRunner()
+            TestApplicationContext.base()
                     .withSystemProperties(
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success",
-                            "slack.installation.client-id:123",
-                            "slack.installation.client-secret:1234"
+                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withClassLoader(FilteredClassLoader(MeterRegistry::class.java))
                     .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
