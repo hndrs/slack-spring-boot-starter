@@ -6,6 +6,7 @@ class MockUsersMethodGroup : UsersMethodGroup {
     private val mockUsersInfoMethod = MockUsersInfoMethod()
     private val mockUserListMethod = MockUserListMethod()
     private val mockUserConversationsMethod = MockUserConversationsMethod()
+    private val mockUsersDeletePhotoMethod = MockUsersDeletePhotoMethod()
 
     override fun info(authToken: String): MockUsersInfoMethod {
         return mockUsersInfoMethod
@@ -17,5 +18,9 @@ class MockUsersMethodGroup : UsersMethodGroup {
 
     override fun conversations(authToken: String): MockUserConversationsMethod {
         return mockUserConversationsMethod
+    }
+
+    override fun deletePhoto(authToken: String): MockUsersDeletePhotoMethod {
+        return mockUsersDeletePhotoMethod
     }
 }

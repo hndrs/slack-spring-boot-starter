@@ -9,4 +9,5 @@ interface UsersMethodGroup {
 
     fun conversations(authToken: String): UserConversationsMethod
 
+    fun deletePhoto(authToken: String): UsersDeletePhotoMethod
 }
