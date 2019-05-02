@@ -2,7 +2,6 @@ package io.olaph.slack.client.group.users
 
 interface UsersMethodGroup {
 
-
     fun info(authToken: String): UsersInfoMethod
 
     fun list(authToken: String): UserListMethod
@@ -10,4 +9,6 @@ interface UsersMethodGroup {
     fun conversations(authToken: String): UserConversationsMethod
 
     fun deletePhoto(authToken: String): UsersDeletePhotoMethod
+
+    fun identity(authToken: String): UsersIdentityMethod
 }

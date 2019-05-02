@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory
 
 class DefaultUserMethodGroup : UsersMethodGroup {
     companion object {
-
         val LOG = LoggerFactory.getLogger(DefaultUserMethodGroup::class.java)
     }
 
@@ -26,6 +25,10 @@ class DefaultUserMethodGroup : UsersMethodGroup {
 
     override fun deletePhoto(authToken: String): UsersDeletePhotoMethod {
         return DefaultUsersDeletePhotoMethod(authToken)
+    }
+
+    override fun identity(authToken: String): DefaultUsersIdentityMethod {
+        return DefaultUsersIdentityMethod(authToken)
     }
 }
 
