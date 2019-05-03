@@ -1,8 +1,9 @@
 package io.olaph.slack.broker.configuration
 
-import io.olaph.slack.broker.configuration.ArgumentResolverTestUtil.jsonBody
-import io.olaph.slack.broker.configuration.ArgumentResolverTestUtil.mockMethodParameter
-import io.olaph.slack.broker.configuration.ArgumentResolverTestUtil.mockNativeWebRequest
+import io.olaph.slack.broker.RequestTestUtils
+import io.olaph.slack.broker.RequestTestUtils.jsonBody
+import io.olaph.slack.broker.RequestTestUtils.mockMethodParameter
+import io.olaph.slack.broker.RequestTestUtils.mockNativeWebRequest
 import io.olaph.slack.dto.jackson.EventRequest
 import io.olaph.slack.dto.jackson.SlackEvent
 import io.olaph.slack.dto.jackson.sample
@@ -20,7 +21,7 @@ internal class EventArgumentResolverTest {
                 .supportsParameter(mockMethodParameter(EventRequest::class.java, Event::class.java)))
 
         assertFalse(EventArgumentResolver("")
-                .supportsParameter(mockMethodParameter(EventRequest::class.java, ArgumentResolverTestUtil.TestAnnotation::class.java)))
+                .supportsParameter(mockMethodParameter(EventRequest::class.java, RequestTestUtils.TestAnnotation::class.java)))
 
         assertFalse(EventArgumentResolver("")
                 .supportsParameter(mockMethodParameter(Any::class.java, Event::class.java)))
@@ -34,7 +35,7 @@ internal class EventArgumentResolverTest {
         val signingSecret = "mySecret"
         val timestamp = Instant.now()
 
-        val mockNativeWebRequest = mockNativeWebRequest(timestamp, signingSecret, jsonBody(slackEvent), mapOf())
+        val mockNativeWebRequest = mockNativeWebRequest(timestamp, signingSecret, jsonBody(slackEvent))
 
         //test
         val resolvedArgument = EventArgumentResolver(signingSecret)

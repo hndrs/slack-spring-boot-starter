@@ -1,4 +1,4 @@
-package io.olaph.slack.broker.configuration
+package io.olaph.slack.broker
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.nhaarman.mockitokotlin2.doReturn
@@ -12,7 +12,7 @@ import org.springframework.web.context.request.NativeWebRequest
 import java.nio.charset.Charset
 import java.time.Instant
 
-object ArgumentResolverTestUtil {
+object RequestTestUtils {
 
 
     fun jsonBody(value: Any): String {
@@ -26,20 +26,32 @@ object ArgumentResolverTestUtil {
         return parameter
     }
 
-    fun mockNativeWebRequest(timestamp: Instant, signingSecret: String, body: String, params: Map<String, Array<out String>>): NativeWebRequest {
+    fun mockNativeWebRequest(timestamp: Instant, signingSecret: String, body: String): NativeWebRequest {
         val mockRequest = MockHttpServletRequest()
-        val generatedHmacHex = generateHmacHex(body, "${timestamp.epochSecond}", signingSecret)
+        val generatedHmacHex = generateHmacHex(body, timestamp, signingSecret)
         mockRequest.addHeader("x-slack-signature", generatedHmacHex)
         mockRequest.addHeader("x-slack-request-timestamp", "${timestamp.epochSecond}")
-        mockRequest.contentAsByteArray
         mockRequest.setContent(body.toByteArray(Charset.forName("UTF-8")))
-        mockRequest.setParameters(params)
+        return mock { on { it.nativeRequest } doReturn mockRequest }
+    }
+
+    fun mockNativeWebRequest(timestamp: Instant, signingSecret: String, params: Map<String, List<String>>): NativeWebRequest {
+        val mockRequest = MockHttpServletRequest()
+        val body = toFormUrlString(params)
+        val generatedHmacHex = generateHmacHex(body, timestamp, signingSecret)
+        mockRequest.addHeader("x-slack-signature", generatedHmacHex)
+        mockRequest.addHeader("x-slack-request-timestamp", "${timestamp.epochSecond}")
+        mockRequest.setContent(body.toByteArray(Charset.forName("UTF-8")))
 
         return mock { on { it.nativeRequest } doReturn mockRequest }
     }
 
-    private fun generateHmacHex(requestBody: String, slackTimeStamp: String, signingSecret: String): String {
-        return "v0=${HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex("v0:$slackTimeStamp:$requestBody")}"
+    fun toFormUrlString(params: Map<String, List<String>>): String {
+        return params.flatMap { it.value.map { value -> "${it.key}=$value" } }.joinToString("&")
+    }
+
+    fun generateHmacHex(requestBody: String, timestamp: Instant, signingSecret: String): String {
+        return "v0=${HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex("v0:${timestamp.epochSecond}:$requestBody")}"
     }
 
     annotation class TestAnnotation

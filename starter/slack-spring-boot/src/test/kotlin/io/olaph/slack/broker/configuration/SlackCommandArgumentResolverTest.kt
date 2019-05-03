@@ -1,7 +1,8 @@
 package io.olaph.slack.broker.configuration
 
-import io.olaph.slack.broker.configuration.ArgumentResolverTestUtil.mockMethodParameter
-import io.olaph.slack.broker.configuration.ArgumentResolverTestUtil.mockNativeWebRequest
+import io.olaph.slack.broker.RequestTestUtils
+import io.olaph.slack.broker.RequestTestUtils.mockMethodParameter
+import io.olaph.slack.broker.RequestTestUtils.mockNativeWebRequest
 import io.olaph.slack.dto.jackson.SlackCommand
 import io.olaph.slack.dto.jackson.sample
 import io.olaph.slack.dto.jackson.toParameterMap
@@ -17,7 +18,7 @@ internal class SlackCommandArgumentResolverTest {
                 .supportsParameter(mockMethodParameter(SlackCommand::class.java, Command::class.java)))
 
         Assertions.assertFalse(SlackCommandArgumentResolver("")
-                .supportsParameter(mockMethodParameter(SlackCommand::class.java, ArgumentResolverTestUtil.TestAnnotation::class.java)))
+                .supportsParameter(mockMethodParameter(SlackCommand::class.java, RequestTestUtils.TestAnnotation::class.java)))
 
         Assertions.assertFalse(SlackCommandArgumentResolver("")
                 .supportsParameter(mockMethodParameter(Any::class.java, Command::class.java)))
@@ -30,7 +31,7 @@ internal class SlackCommandArgumentResolverTest {
         val signingSecret = "mySecret"
         val timestamp = Instant.now()
 
-        val mockNativeWebRequest = mockNativeWebRequest(timestamp, signingSecret, "", command.toParameterMap())
+        val mockNativeWebRequest = mockNativeWebRequest(timestamp, signingSecret, command.toParameterMap())
 
         //test
         val resolvedArgument = SlackCommandArgumentResolver(signingSecret)

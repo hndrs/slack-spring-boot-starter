@@ -30,23 +30,23 @@ fun SlackCommand.Companion.sample(): SlackCommand {
     )
 }
 
-fun SlackCommand.toParameterMap(): Map<String, Array<out String>> {
-    val parameterMap = mutableMapOf<String, Array<out String>>()
+fun SlackCommand.toParameterMap(): Map<String, List<String>> {
+    val parameterMap = mutableMapOf<String, List<String>>()
 
-    parameterMap[TOKEN_PROPERTY_NAME] = arrayOf(token)
-    parameterMap[TEAM_ID_PROPERTY_NAME] = arrayOf(teamId)
-    parameterMap[TEAM_DOMAIN_PROPERTY_NAME] = arrayOf(teamDomain)
-    parameterMap[CHANNEL_ID_PROPERTY_NAME] = arrayOf(channelId)
-    parameterMap[CHANNEL_NAME_PROPERTY_NAME] = arrayOf(channelName)
-    parameterMap[USER_ID_PROPERTY_NAME] = arrayOf(userId)
-    parameterMap[USER_NAME_PROPERTY_NAME] = arrayOf(userName)
-    parameterMap[COMMAND_PROPERTY_NAME] = arrayOf(command)
-    parameterMap[TEXT_PROPERTY_NAME] = arrayOf(text)
-    parameterMap[RESPONSE_URL_PROPERTY_NAME] = arrayOf(responseUrl)
-    parameterMap[TRIGGER_ID_PROPERTY_NAME] = arrayOf(triggerId)
+    parameterMap[TOKEN_PROPERTY_NAME] = listOf(token)
+    parameterMap[TEAM_ID_PROPERTY_NAME] = listOf(teamId)
+    parameterMap[TEAM_DOMAIN_PROPERTY_NAME] = listOf(teamDomain)
+    parameterMap[CHANNEL_ID_PROPERTY_NAME] = listOf(channelId)
+    parameterMap[CHANNEL_NAME_PROPERTY_NAME] = listOf(channelName)
+    parameterMap[USER_ID_PROPERTY_NAME] = listOf(userId)
+    parameterMap[USER_NAME_PROPERTY_NAME] = listOf(userName)
+    parameterMap[COMMAND_PROPERTY_NAME] = listOf(command)
+    parameterMap[TEXT_PROPERTY_NAME] = listOf(text)
+    parameterMap[RESPONSE_URL_PROPERTY_NAME] = listOf(responseUrl)
+    parameterMap[TRIGGER_ID_PROPERTY_NAME] = listOf(triggerId)
 
-    enterpriseId?.let { parameterMap[TRIGGER_ID_PROPERTY_NAME] = arrayOf(it) }
-    enterpriseName?.let { parameterMap[TRIGGER_ID_PROPERTY_NAME] = arrayOf(it) }
+    enterpriseId?.let { parameterMap[TRIGGER_ID_PROPERTY_NAME] = listOf(it) }
+    enterpriseName?.let { parameterMap[TRIGGER_ID_PROPERTY_NAME] = listOf(it) }
 
     return parameterMap
 }
