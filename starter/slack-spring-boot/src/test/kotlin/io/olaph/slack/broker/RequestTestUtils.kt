@@ -6,9 +6,12 @@ import com.nhaarman.mockitokotlin2.mock
 import org.apache.commons.codec.digest.HmacAlgorithms
 import org.apache.commons.codec.digest.HmacUtils
 import org.springframework.core.MethodParameter
+import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.web.context.request.NativeWebRequest
+import java.net.URLEncoder
 import java.nio.charset.Charset
 import java.time.Instant
 
@@ -37,17 +40,30 @@ object RequestTestUtils {
 
     fun mockNativeWebRequest(timestamp: Instant, signingSecret: String, params: Map<String, List<String>>): NativeWebRequest {
         val mockRequest = MockHttpServletRequest()
-        val body = toFormUrlString(params)
+        val body = toFormUrlEncodedString(params)
         val generatedHmacHex = generateHmacHex(body, timestamp, signingSecret)
         mockRequest.addHeader("x-slack-signature", generatedHmacHex)
         mockRequest.addHeader("x-slack-request-timestamp", "${timestamp.epochSecond}")
         mockRequest.setContent(body.toByteArray(Charset.forName("UTF-8")))
+        mockRequest.setParameters(toSupportedParameterMap(params))
+        mockRequest.contentType = MediaType.APPLICATION_FORM_URLENCODED_VALUE
+        mockRequest.method = HttpMethod.POST.name
+        mockRequest.characterEncoding = "UTF-8"
 
         return mock { on { it.nativeRequest } doReturn mockRequest }
     }
 
     fun toFormUrlString(params: Map<String, List<String>>): String {
         return params.flatMap { it.value.map { value -> "${it.key}=$value" } }.joinToString("&")
+    }
+
+    fun toFormUrlEncodedString(params: Map<String, List<String>>): String {
+        return params.flatMap { it.value.map { value -> "${URLEncoder.encode(it.key, "UTF8")}=${URLEncoder.encode(value, "UTF-8")}" } }.joinToString("&")
+    }
+
+
+    fun toSupportedParameterMap(params: Map<String, List<String>>): Map<String, Array<String>> {
+        return params.entries.associate { it.key to it.value.toTypedArray() }
     }
 
     fun generateHmacHex(requestBody: String, timestamp: Instant, signingSecret: String): String {
