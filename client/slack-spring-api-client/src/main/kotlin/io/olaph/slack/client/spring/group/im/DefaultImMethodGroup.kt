@@ -1,11 +1,6 @@
 package io.olaph.slack.client.spring.group.im
 
-import io.olaph.slack.client.group.im.ImCloseMethod
-import io.olaph.slack.client.group.im.ImHistoryMethod
-import io.olaph.slack.client.group.im.ImListMethod
-import io.olaph.slack.client.group.im.ImMarkMethod
-import io.olaph.slack.client.group.im.ImMethodGroup
-import io.olaph.slack.client.group.im.ImRepliesMethod
+import io.olaph.slack.client.group.im.*
 import org.slf4j.LoggerFactory
 
 class DefaultImMethodGroup : ImMethodGroup {
@@ -19,7 +14,7 @@ class DefaultImMethodGroup : ImMethodGroup {
     }
 
     override fun list(authToken: String): ImListMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultImListMethod(authToken)
     }
 
     override fun mark(authToken: String): ImMarkMethod {
