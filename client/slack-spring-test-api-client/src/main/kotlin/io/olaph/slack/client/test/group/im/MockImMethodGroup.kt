@@ -10,7 +10,7 @@ class MockImMethodGroup : ImMethodGroup {
     private val mockImRepliesMethod = MockImRepliesMethod()
     private val mockImOpenMethod = MockImOpenMethod()
     private val mockImMarkMethod = MockImMarkMethod()
-
+    private val mockImListMethod = MockImListMethod()
 
     override fun close(authToken: String): ImCloseMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -20,8 +20,8 @@ class MockImMethodGroup : ImMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun list(authToken: String): ImListMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun list(authToken: String): MockImListMethod {
+        return mockImListMethod
     }
 
     override fun mark(authToken: String): MockImMarkMethod {
