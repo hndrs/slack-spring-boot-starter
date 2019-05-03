@@ -11,4 +11,6 @@ interface UsersMethodGroup {
     fun deletePhoto(authToken: String): UsersDeletePhotoMethod
 
     fun identity(authToken: String): UsersIdentityMethod
+
+    fun getProfile(authToken: String): UsersGetProfileMethod
 }

@@ -1,5 +1,6 @@
 package io.olaph.slack.client.test.group.users
 
+import io.olaph.slack.client.group.users.UsersGetProfileMethod
 import io.olaph.slack.client.group.users.UsersMethodGroup
 
 class MockUsersMethodGroup : UsersMethodGroup {
@@ -8,6 +9,7 @@ class MockUsersMethodGroup : UsersMethodGroup {
     private val mockUserConversationsMethod = MockUserConversationsMethod()
     private val mockUsersDeletePhotoMethod = MockUsersDeletePhotoMethod()
     private val mockUsersIdentityMethod = MockUsersIdentityMethod()
+    private val mockUsersGetProfileMethod = MockUsersGetProfileMethod()
 
     override fun info(authToken: String): MockUsersInfoMethod {
         return mockUsersInfoMethod
@@ -27,5 +29,9 @@ class MockUsersMethodGroup : UsersMethodGroup {
 
     override fun identity(authToken: String): MockUsersIdentityMethod {
         return mockUsersIdentityMethod
+    }
+
+    override fun getProfile(authToken: String): UsersGetProfileMethod {
+        return mockUsersGetProfileMethod
     }
 }
