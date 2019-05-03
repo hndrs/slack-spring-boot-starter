@@ -1,8 +1,9 @@
 package io.olaph.slack.broker.configuration
 
-import io.olaph.slack.broker.configuration.ArgumentResolverTestUtil.jsonBody
-import io.olaph.slack.broker.configuration.ArgumentResolverTestUtil.mockMethodParameter
-import io.olaph.slack.broker.configuration.ArgumentResolverTestUtil.mockNativeWebRequest
+import io.olaph.slack.broker.RequestTestUtils
+import io.olaph.slack.broker.RequestTestUtils.jsonBody
+import io.olaph.slack.broker.RequestTestUtils.mockMethodParameter
+import io.olaph.slack.broker.RequestTestUtils.mockNativeWebRequest
 import io.olaph.slack.dto.jackson.InteractiveComponentResponse
 import io.olaph.slack.dto.jackson.sample
 import org.junit.jupiter.api.Assertions
@@ -18,7 +19,7 @@ internal class InteractiveResponseArgumentResolverTest {
                 .supportsParameter(mockMethodParameter(InteractiveComponentResponse::class.java, InteractiveResponse::class.java)))
 
         Assertions.assertFalse(InteractiveResponseArgumentResolver("")
-                .supportsParameter(mockMethodParameter(InteractiveComponentResponse::class.java, ArgumentResolverTestUtil.TestAnnotation::class.java)))
+                .supportsParameter(mockMethodParameter(InteractiveComponentResponse::class.java, RequestTestUtils.TestAnnotation::class.java)))
 
         Assertions.assertFalse(InteractiveResponseArgumentResolver("")
                 .supportsParameter(mockMethodParameter(Any::class.java, InteractiveResponse::class.java)))
@@ -31,7 +32,7 @@ internal class InteractiveResponseArgumentResolverTest {
         val signingSecret = "mySecret"
         val timestamp = Instant.now()
 
-        val mockNativeWebRequest = mockNativeWebRequest(timestamp, signingSecret, "", mapOf(Pair("payload", arrayOf(jsonBody(interactiveComponentResponse)))))
+        val mockNativeWebRequest = mockNativeWebRequest(timestamp, signingSecret, mapOf(Pair("payload", listOf(jsonBody(interactiveComponentResponse)))))
 
         //test
         val resolvedArgument = InteractiveResponseArgumentResolver(signingSecret)
