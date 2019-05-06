@@ -13,4 +13,7 @@ interface UsersMethodGroup {
     fun identity(authToken: String): UsersIdentityMethod
 
     fun getProfile(authToken: String): UsersGetProfileMethod
+
+    fun setProfile(authToken: String) : UsersSetProfileMethod
+
 }

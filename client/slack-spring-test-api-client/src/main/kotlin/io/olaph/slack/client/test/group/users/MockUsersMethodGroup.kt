@@ -9,6 +9,7 @@ class MockUsersMethodGroup : UsersMethodGroup {
     private val mockUsersDeletePhotoMethod = MockUsersDeletePhotoMethod()
     private val mockUsersIdentityMethod = MockUsersIdentityMethod()
     private val mockUsersGetProfileMethod = MockUsersGetProfileMethod()
+    private val mockUsersSetProfileMethod = MockUsersSetProfileMethod()
 
     override fun info(authToken: String): MockUsersInfoMethod {
         return mockUsersInfoMethod
@@ -32,5 +33,8 @@ class MockUsersMethodGroup : UsersMethodGroup {
 
     override fun getProfile(authToken: String): MockUsersGetProfileMethod {
         return mockUsersGetProfileMethod
+
+    override fun setProfile(authToken: String): MockUsersSetProfileMethod {
+        return mockUsersSetProfileMethod
     }
 }
