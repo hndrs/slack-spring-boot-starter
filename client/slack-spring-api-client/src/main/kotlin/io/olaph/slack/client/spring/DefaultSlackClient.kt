@@ -9,6 +9,7 @@ import io.olaph.slack.client.group.conversations.ConversationsMethodGroup
 import io.olaph.slack.client.group.im.ImMethodGroup
 import io.olaph.slack.client.group.oauth.OauthMethodGroup
 import io.olaph.slack.client.group.respond.RespondMethodGroup
+import io.olaph.slack.client.group.team.TeamMethodGroup
 import io.olaph.slack.client.group.users.UsersMethodGroup
 import io.olaph.slack.client.spring.group.auth.DefaultAuthMethodGroup
 import io.olaph.slack.client.spring.group.channels.DefaultChannelMethodGroup
@@ -18,6 +19,7 @@ import io.olaph.slack.client.spring.group.dialog.DefaultDialogMethodGroup
 import io.olaph.slack.client.spring.group.im.DefaultImMethodGroup
 import io.olaph.slack.client.spring.group.oauth.DefaultOauthMethodGroup
 import io.olaph.slack.client.spring.group.respond.DefaultRespondMethodGroup
+import io.olaph.slack.client.spring.group.team.DefaultTeamMethodGroup
 import io.olaph.slack.client.spring.group.users.DefaultUserMethodGroup
 
 /**
@@ -104,6 +106,10 @@ class DefaultSlackClient : SlackClient {
      */
     override fun oauth(): OauthMethodGroup {
         return DefaultOauthMethodGroup()
+    }
+
+    override fun team(): TeamMethodGroup {
+        return DefaultTeamMethodGroup()
     }
 
     /**
