@@ -72,93 +72,121 @@ internal class SlackExceptionHandlerTests {
     @DisplayName("Integration")
     internal class Integration {
 
-    }
 
+        private val testResponse = "TestResponse"
+        private val inMemoryTeamStore = InMemoryTeamStore()
 
-    val inMemoryTeamStore = InMemoryTeamStore()
-
-    init {
-        inMemoryTeamStore.put(Team.sample().copy(teamId = "sampleTeamId"))
-    }
-
-
-    @Test
-    @DisplayName("")
-    fun verificationException() {
-        val verificationException = VerificationException("")
-        val mockMvc = MockMvcBuilders
-                .standaloneSetup(commandBroker(verificationException), interactiveComponentBroker(verificationException), SlackExceptionHandler("LOl"))
-                .setCustomArgumentResolvers(SlackCommandArgumentResolver("1"))
-                .build()
-
-
-        val parameterMap = LinkedMultiValueMap(SlackCommand.sample().toParameterMap())
-
-        val timestamp = Instant.now()
-        val generatedHmacHex = RequestTestUtils.generateHmacHex("", timestamp, "1")
-
-        mockMvc.perform(post("/commands")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .params(parameterMap)
-                .header("x-slack-signature", generatedHmacHex)
-                .header("x-slack-request-timestamp", "${timestamp.epochSecond}")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect {
-                    Assertions.assertEquals(it.response.status, HttpStatus.UNAUTHORIZED.value())
-                }
-
-    }
-
-    @Test
-    @DisplayName("")
-    fun dialogValidationException() {
-        val dialogValidationException = DialogValidationException(listOf())
-        val mockMvc = MockMvcBuilders
-                .standaloneSetup(commandBroker(dialogValidationException), interactiveComponentBroker(dialogValidationException), SlackExceptionHandler("LOl"))
-                .setCustomArgumentResolvers(SlackCommandArgumentResolver("1"))
-                .build()
-
-
-        val parameterMap = LinkedMultiValueMap(SlackCommand.sample().toParameterMap())
-
-        val timestamp = Instant.now()
-        val generatedHmacHex = RequestTestUtils.generateHmacHex(RequestTestUtils.toFormUrlString(parameterMap), timestamp, "1")
-
-        mockMvc.perform(post("/commands")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .params(parameterMap)
-                .header("x-slack-signature", generatedHmacHex)
-                .header("x-slack-request-timestamp", "${timestamp.epochSecond}")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect {
-                    Assertions.assertEquals(it.response.status, HttpStatus.OK.value())
-                }
-
-    }
-
-
-    private fun commandBroker(exception: Exception): CommandBroker {
-        return CommandBroker(listOf(ErrorCommand(exception)), inMemoryTeamStore)
-    }
-
-    private fun interactiveComponentBroker(exception: Exception): InteractiveComponentBroker {
-        return InteractiveComponentBroker(listOf(ErrorInteractiveResponse(exception)), inMemoryTeamStore)
-    }
-
-
-    class ErrorCommand(private val exception: Exception) : SlashCommandReceiver {
-
-        override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
-            throw exception
-        }
-    }
-
-    class ErrorInteractiveResponse(private val exception: Exception) : InteractiveComponentReceiver {
-        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
-            throw exception
+        init {
+            inMemoryTeamStore.put(Team.sample().copy(teamId = "sampleTeamId"))
         }
 
-    }
 
+        @Test
+        @DisplayName("Test Verification Exception")
+        fun verificationException() {
+            val verificationException = VerificationException("")
+            val mockMvc = MockMvcBuilders
+                    .standaloneSetup(commandBroker(verificationException), interactiveComponentBroker(verificationException), SlackExceptionHandler(testResponse))
+                    .setCustomArgumentResolvers(SlackCommandArgumentResolver("1"))
+                    .build()
+
+
+            val parameterMap = LinkedMultiValueMap(SlackCommand.sample().toParameterMap())
+
+            val timestamp = Instant.now()
+            val generatedHmacHex = RequestTestUtils.generateHmacHex("", timestamp, "1")
+
+            mockMvc.perform(post("/commands")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .params(parameterMap)
+                    .header("x-slack-signature", generatedHmacHex)
+                    .header("x-slack-request-timestamp", "${timestamp.epochSecond}")
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andExpect {
+                        Assertions.assertEquals(it.response.status, HttpStatus.UNAUTHORIZED.value())
+                    }
+
+        }
+
+        @Test
+        @DisplayName("Test DialogValidationException")
+        fun dialogValidationException() {
+            val dialogValidationException = DialogValidationException(listOf())
+            val mockMvc = MockMvcBuilders
+                    .standaloneSetup(commandBroker(dialogValidationException), interactiveComponentBroker(dialogValidationException), SlackExceptionHandler(testResponse))
+                    .setCustomArgumentResolvers(SlackCommandArgumentResolver("1"))
+                    .build()
+
+
+            val parameterMap = LinkedMultiValueMap(SlackCommand.sample().toParameterMap())
+
+            val timestamp = Instant.now()
+            val generatedHmacHex = RequestTestUtils.generateHmacHex(RequestTestUtils.toFormUrlString(parameterMap), timestamp, "1")
+
+            mockMvc.perform(post("/commands")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .params(parameterMap)
+                    .header("x-slack-signature", generatedHmacHex)
+                    .header("x-slack-request-timestamp", "${timestamp.epochSecond}")
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andExpect {
+                        Assertions.assertEquals(it.response.status, HttpStatus.OK.value())
+                    }
+
+        }
+
+        @Test
+        @DisplayName("Test DialogValidationException")
+        fun unknownException() {
+            val runtimeException = RuntimeException()
+            val mockMvc = MockMvcBuilders
+                    .standaloneSetup(commandBroker(runtimeException), interactiveComponentBroker(runtimeException), SlackExceptionHandler(testResponse))
+                    .setCustomArgumentResolvers(SlackCommandArgumentResolver("1"))
+                    .build()
+
+
+            val parameterMap = LinkedMultiValueMap(SlackCommand.sample().toParameterMap())
+
+            val timestamp = Instant.now()
+            val generatedHmacHex = RequestTestUtils.generateHmacHex(RequestTestUtils.toFormUrlString(parameterMap), timestamp, "1")
+
+            mockMvc.perform(post("/commands")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .params(parameterMap)
+                    .header("x-slack-signature", generatedHmacHex)
+                    .header("x-slack-request-timestamp", "${timestamp.epochSecond}")
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andExpect {
+                        Assertions.assertEquals(HttpStatus.OK.value(), it.response.status)
+                        Assertions.assertEquals(testResponse, it.response.contentAsString)
+                    }
+
+        }
+
+
+        private fun commandBroker(exception: Exception): CommandBroker {
+            return CommandBroker(listOf(ErrorCommand(exception)), inMemoryTeamStore)
+        }
+
+        private fun interactiveComponentBroker(exception: Exception): InteractiveComponentBroker {
+            return InteractiveComponentBroker(listOf(ErrorInteractiveResponse(exception)), inMemoryTeamStore)
+        }
+
+
+        class ErrorCommand(private val exception: Exception) : SlashCommandReceiver {
+
+            override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
+                throw exception
+            }
+        }
+
+        class ErrorInteractiveResponse(private val exception: Exception) : InteractiveComponentReceiver {
+            override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+                throw exception
+            }
+
+        }
+
+    }
 
 }
