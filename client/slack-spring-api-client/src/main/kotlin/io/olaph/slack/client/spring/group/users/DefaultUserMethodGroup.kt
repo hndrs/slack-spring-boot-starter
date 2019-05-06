@@ -1,11 +1,16 @@
 package io.olaph.slack.client.spring.group.users
 
 import io.olaph.slack.client.group.users.*
+import io.olaph.slack.client.group.users.UserListMethod
+import io.olaph.slack.client.group.users.UsersDeletePhotoMethod
+import io.olaph.slack.client.group.users.UsersInfoMethod
+import io.olaph.slack.client.group.users.UsersMethodGroup
+import io.olaph.slack.client.group.users.UsersSetProfileMethod
 import org.slf4j.LoggerFactory
 
 class DefaultUserMethodGroup : UsersMethodGroup {
-    companion object {
 
+    companion object {
         val LOG = LoggerFactory.getLogger(DefaultUserMethodGroup::class.java)
     }
 
@@ -32,5 +37,8 @@ class DefaultUserMethodGroup : UsersMethodGroup {
     override fun getProfile(authToken: String): UsersGetProfileMethod {
         return DefaultUsersGetProfileMethod(authToken)
     }
-}
 
+    override fun setProfile(authToken: String): UsersSetProfileMethod {
+        return DefaultUsersSetProfileMethod(authToken)
+    }
+}
