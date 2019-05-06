@@ -8,6 +8,7 @@ import io.olaph.slack.client.group.dialog.DialogMethodGroup
 import io.olaph.slack.client.group.im.ImMethodGroup
 import io.olaph.slack.client.group.oauth.OauthMethodGroup
 import io.olaph.slack.client.group.respond.RespondMethodGroup
+import io.olaph.slack.client.group.team.TeamMethodGroup
 import io.olaph.slack.client.group.users.UsersMethodGroup
 
 interface SlackClient {
@@ -66,5 +67,11 @@ interface SlackClient {
      */
     fun respond(): RespondMethodGroup
 
+    /**
+     * Convenience function to apply slack api Team method grouping
+     *
+     * [Slack Api Documentation](https://api.slack.com/methods)
+     */
+    fun team(): TeamMethodGroup
 
 }
