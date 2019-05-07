@@ -5,6 +5,7 @@ import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.team.ErrorTeamGetProfileResponse
 import io.olaph.slack.dto.jackson.group.team.SuccessfulTeamGetProfileResponse
+import io.olaph.slack.dto.jackson.group.team.TeamGetProfileRequest
 import io.olaph.slack.dto.jackson.group.team.sample
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -23,10 +24,11 @@ class DefaultTeamGetProfileMethodTest {
     @DisplayName("team.identity Failure")
     fun TeamGetProfileFailure() {
         val response = ErrorTeamGetProfileResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "team.profile.get")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "team.profile.get?visibility=all")
         val verifier = Verifier(response)
 
         DefaultTeamGetProfileMethod("", mockTemplate)
+                .with(TeamGetProfileRequest("all"))
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -37,10 +39,11 @@ class DefaultTeamGetProfileMethodTest {
     @DisplayName("team.identity Success")
     fun TeamGetProfileSuccess() {
         val response = SuccessfulTeamGetProfileResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "team.profile.get")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "team.profile.get?visibility=all")
         val verifier = Verifier(response)
 
         DefaultTeamGetProfileMethod("", mockTemplate)
+                .with(TeamGetProfileRequest("all"))
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

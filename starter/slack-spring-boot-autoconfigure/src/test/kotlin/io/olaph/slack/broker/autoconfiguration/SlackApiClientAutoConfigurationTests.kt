@@ -9,6 +9,7 @@ import io.olaph.slack.client.group.dialog.DialogMethodGroup
 import io.olaph.slack.client.group.im.ImMethodGroup
 import io.olaph.slack.client.group.oauth.OauthMethodGroup
 import io.olaph.slack.client.group.respond.RespondMethodGroup
+import io.olaph.slack.client.group.team.TeamMethodGroup
 import io.olaph.slack.client.group.users.UsersMethodGroup
 import io.olaph.slack.client.spring.DefaultSlackClient
 import org.junit.jupiter.api.Assertions
@@ -73,6 +74,8 @@ class SlackApiClientAutoConfigurationTests {
         override fun oauth(): OauthMethodGroup = throw UnsupportedOperationException()
 
         override fun respond(): RespondMethodGroup = throw UnsupportedOperationException()
+
+        override fun team(): TeamMethodGroup = throw UnsupportedOperationException()
     }
 
 }
