@@ -2,6 +2,7 @@ package io.olaph.slack.client.spring.group.users
 
 import io.olaph.slack.client.group.users.*
 import io.olaph.slack.client.group.users.UserListMethod
+import io.olaph.slack.client.group.users.UsersSetPresenceMethod
 import io.olaph.slack.client.group.users.UsersDeletePhotoMethod
 import io.olaph.slack.client.group.users.UsersInfoMethod
 import io.olaph.slack.client.group.users.UsersMethodGroup
@@ -32,6 +33,10 @@ class DefaultUserMethodGroup : UsersMethodGroup {
 
     override fun identity(authToken: String): DefaultUsersIdentityMethod {
         return DefaultUsersIdentityMethod(authToken)
+    }
+
+    override fun setPresence(authToken: String): UsersSetPresenceMethod {
+        return DefaultUsersSetPresenceMethod(authToken)
     }
 
     override fun getProfile(authToken: String): UsersGetProfileMethod {
