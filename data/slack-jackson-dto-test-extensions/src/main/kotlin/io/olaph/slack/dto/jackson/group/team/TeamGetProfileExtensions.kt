@@ -9,7 +9,7 @@ fun TeamProfile.Companion.sample(): TeamProfile {
 }
 
 fun Field.Companion.sample(): Field {
-    return Field("", "", 1, "", "", 0, "", "")
+    return Field("", "", 0, "", "", 0, "", "")
 }
 
 fun ErrorTeamGetProfileResponse.Companion.sample(): ErrorTeamGetProfileResponse {
@@ -17,5 +17,5 @@ fun ErrorTeamGetProfileResponse.Companion.sample(): ErrorTeamGetProfileResponse 
 }
 
 fun TeamGetProfileRequest.Companion.sample(): TeamGetProfileRequest {
-    return TeamGetProfileRequest("all")
+    return TeamGetProfileRequest("all ")
 }
