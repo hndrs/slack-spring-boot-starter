@@ -22,7 +22,6 @@ class UsersSetPresenceUnitTest {
         MockMethodTestHelper.verify({mockClient.users().setPresence("")},
                 successFunction, SuccessfulUsersSetPresenceResponse.sample(),
                 failureFunction, ErrorUsersSetPresenceResponse.sample(),
-                SlackUsersSetPresenceRequest(""))
+                SlackUsersSetPresenceRequest.sample())
     }
-
 }
