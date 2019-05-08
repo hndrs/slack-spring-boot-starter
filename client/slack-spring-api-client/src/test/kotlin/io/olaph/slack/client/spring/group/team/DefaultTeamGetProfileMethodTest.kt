@@ -6,6 +6,7 @@ import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.dto.jackson.group.team.ErrorTeamGetProfileResponse
 import io.olaph.slack.dto.jackson.group.team.SuccessfulTeamGetProfileResponse
 import io.olaph.slack.dto.jackson.group.team.TeamGetProfileRequest
+import io.olaph.slack.dto.jackson.group.team.TeamVisibility
 import io.olaph.slack.dto.jackson.group.team.sample
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -28,7 +29,7 @@ class DefaultTeamGetProfileMethodTest {
         val verifier = Verifier(response)
 
         DefaultTeamGetProfileMethod("", mockTemplate)
-                .with(TeamGetProfileRequest("all"))
+                .with(TeamGetProfileRequest(TeamVisibility.ALL))
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -43,7 +44,7 @@ class DefaultTeamGetProfileMethodTest {
         val verifier = Verifier(response)
 
         DefaultTeamGetProfileMethod("", mockTemplate)
-                .with(TeamGetProfileRequest("all"))
+                .with(TeamGetProfileRequest(TeamVisibility.ALL))
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

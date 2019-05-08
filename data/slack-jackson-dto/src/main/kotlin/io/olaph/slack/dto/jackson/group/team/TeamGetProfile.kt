@@ -48,12 +48,19 @@ data class ErrorTeamGetProfileResponse constructor(override val ok: Boolean,
 }
 
 @JacksonDataClass
-data class TeamGetProfileRequest(@JsonProperty("visibility") val visibility: String?) {
+data class TeamGetProfileRequest(@JsonProperty("visibility") val visibility: TeamVisibility?) {
+
     companion object {}
 
     fun toRequestMap(): Map<String, String> {
         val map = mutableMapOf<String, String>()
-        visibility?.let { map.put("visibility", it) }
+        visibility?.let { map.put("visibility", it.value) }
         return map
     }
+}
+
+enum class TeamVisibility(val value: String) {
+    ALL("all"),
+    VISIBLE("visible"),
+    HIDDEN("is_hidden")
 }
