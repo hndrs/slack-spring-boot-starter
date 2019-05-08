@@ -14,6 +14,6 @@ interface UsersMethodGroup {
 
     fun getProfile(authToken: String): UsersGetProfileMethod
 
-    fun setProfile(authToken: String) : UsersSetProfileMethod
+    fun setProfile(authToken: String): UsersSetProfileMethod
 
 }
