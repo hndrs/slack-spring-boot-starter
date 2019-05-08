@@ -8,13 +8,11 @@ import io.olaph.slack.dto.jackson.group.im.SlackImListRequest
 import io.olaph.slack.dto.jackson.group.im.SuccessfulImListResponse
 
 class MockImListMethod : ImListMethod(), MockMethod<SuccessfulImListResponse, ErrorImListResponse, SlackImListRequest> {
+
+    override fun params() = params
+
     override var successResponse: SuccessfulImListResponse? = null
-
     override var failureResponse: ErrorImListResponse? = null
-
-    override fun params(): SlackImListRequest {
-        return params
-    }
 
     override fun request(): ApiCallResult<SuccessfulImListResponse, ErrorImListResponse> {
 

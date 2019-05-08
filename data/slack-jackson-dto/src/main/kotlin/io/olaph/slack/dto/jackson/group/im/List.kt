@@ -38,9 +38,7 @@ data class Im(val created: Int,
               val isOrgShared: Boolean,
               val isUserDeleted: Boolean,
               val user: String) {
-    companion object {
-
-    }
+    companion object
 }
 
 data class ResponseMetadata(val nextCursor: String) {
