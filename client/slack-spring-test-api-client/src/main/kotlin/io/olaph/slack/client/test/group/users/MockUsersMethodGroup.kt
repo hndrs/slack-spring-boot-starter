@@ -33,6 +33,7 @@ class MockUsersMethodGroup : UsersMethodGroup {
 
     override fun getProfile(authToken: String): MockUsersGetProfileMethod {
         return mockUsersGetProfileMethod
+    }
 
     override fun setProfile(authToken: String): MockUsersSetProfileMethod {
         return mockUsersSetProfileMethod
