@@ -10,7 +10,7 @@ class DefaultImMethodGroup : ImMethodGroup {
     }
 
     override fun history(authToken: String): ImHistoryMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultImHistoryMethod(authToken)
     }
 
     override fun list(authToken: String): ImListMethod {
