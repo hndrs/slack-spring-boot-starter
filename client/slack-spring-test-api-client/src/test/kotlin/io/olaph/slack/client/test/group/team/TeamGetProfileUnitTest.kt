@@ -27,6 +27,4 @@ class TeamGetProfileUnitTest {
                 TeamGetProfileRequest.sample()
         )
     }
-
-
 }

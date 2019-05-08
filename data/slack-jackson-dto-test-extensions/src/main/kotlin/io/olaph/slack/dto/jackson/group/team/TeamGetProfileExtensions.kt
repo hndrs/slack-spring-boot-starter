@@ -17,5 +17,5 @@ fun ErrorTeamGetProfileResponse.Companion.sample(): ErrorTeamGetProfileResponse 
 }
 
 fun TeamGetProfileRequest.Companion.sample(): TeamGetProfileRequest {
-    return TeamGetProfileRequest("all ")
+    return TeamGetProfileRequest(TeamVisibility.ALL)
 }
