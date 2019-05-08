@@ -1,8 +1,6 @@
 package io.olaph.slack.client.test.group.im
 
 import io.olaph.slack.client.group.im.ImCloseMethod
-import io.olaph.slack.client.group.im.ImHistoryMethod
-import io.olaph.slack.client.group.im.ImListMethod
 import io.olaph.slack.client.group.im.ImMethodGroup
 
 class MockImMethodGroup : ImMethodGroup {
@@ -11,13 +9,14 @@ class MockImMethodGroup : ImMethodGroup {
     private val mockImOpenMethod = MockImOpenMethod()
     private val mockImMarkMethod = MockImMarkMethod()
     private val mockImListMethod = MockImListMethod()
+    private val mockImHistoryMethod = MockImHistoryMethod()
 
     override fun close(authToken: String): ImCloseMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun history(authToken: String): ImHistoryMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun history(authToken: String): MockImHistoryMethod {
+        return mockImHistoryMethod
     }
 
     override fun list(authToken: String): MockImListMethod {
