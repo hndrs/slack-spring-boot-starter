@@ -1,6 +1,5 @@
 package io.olaph.slack.client.test.group.im
 
-import MockMethodTestHelper
 import com.nhaarman.mockitokotlin2.mock
 import io.olaph.slack.client.test.MockSlackClient
 import io.olaph.slack.dto.jackson.group.im.ErrorImCloseResponse
@@ -28,5 +27,4 @@ class MockImCloseUnitTests {
                 SlackImCloseRequest.sample()
         )
     }
-
 }
