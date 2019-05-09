@@ -40,13 +40,13 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
         return restTemplate.exchange(requestEntity, responseType)
     }
 
-    internal fun postUrlEncoded(params: Map<String, String>): ResponseEntity<T> {
+    internal fun postUrlEncoded(params: Map<String, String>, contentType: List<String> = listOf("application/x-www-form-urlencoded")): ResponseEntity<T> {
 
         val builder = UriComponentsBuilder.fromHttpUrl(this.uri.toString())
 
         params.forEach { key, value -> builder.queryParam(key, value) }
 
-        val requestEntity = HttpEntity<Any>(slackHeaders(listOf("application/x-www-form-urlencoded")))
+        val requestEntity = HttpEntity<Any>(slackHeaders(contentType))
         return restTemplate.exchange(
                 builder.toUriString(),
                 HttpMethod.POST,
