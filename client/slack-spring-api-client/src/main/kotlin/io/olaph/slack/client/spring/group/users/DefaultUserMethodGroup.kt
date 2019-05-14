@@ -46,4 +46,8 @@ class DefaultUserMethodGroup : UsersMethodGroup {
     override fun setProfile(authToken: String): UsersSetProfileMethod {
         return DefaultUsersSetProfileMethod(authToken)
     }
+
+    override fun setPhoto(authToken: String): UsersSetPhotoMethod {
+        return DefaultUsersSetPhotoMethod(authToken)
+    }
 }
