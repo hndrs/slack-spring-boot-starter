@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.RequestEntity
 import org.springframework.http.ResponseEntity
+import org.springframework.http.client.MultipartBodyBuilder
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
@@ -52,6 +53,20 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
                 HttpMethod.POST,
                 requestEntity,
                 this.responseType)
+    }
+
+    internal fun postMultipartFormdata(params: Map<String, String>, contentType: List<String> = listOf("multipart/form-data")): ResponseEntity<T> {
+
+        val builder = UriComponentsBuilder.fromHttpUrl(this.uri.toString())
+        params.forEach { key, value -> builder.queryParam(key, value) }
+
+        val requestEntity = HttpEntity<MultipartBodyBuilder>(slackHeaders(contentType))
+        return restTemplate.exchange(
+                builder.toUriString(),
+                HttpMethod.POST,
+                requestEntity,
+                this.responseType
+        )
     }
 
     private fun slackHeaders(contentType: List<String>): LinkedMultiValueMap<String, String> {

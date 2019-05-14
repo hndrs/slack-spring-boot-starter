@@ -13,4 +13,6 @@ dependencies {
 
     implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")
     implementation(group: "org.jetbrains.kotlin", name: "kotlin-reflect")
+
+    compile(group: "org.springframework.boot", name: "spring-boot-starter-web")
 }

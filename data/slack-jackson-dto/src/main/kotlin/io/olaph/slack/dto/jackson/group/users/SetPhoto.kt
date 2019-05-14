@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import org.springframework.web.multipart.MultipartFile
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
@@ -28,24 +29,20 @@ data class ErrorUsersSetPhotoResponse constructor(override val ok: Boolean,
 }
 
 @JacksonDataClass
-data class UsersSetPhotoRequest(private val image: String,
+data class UsersSetPhotoRequest(private val image: MultipartFile,
                                 private val cropW: Int?,
                                 private val cropX: Int?,
                                 private val cropY: Int?) {
     companion object{}
 
-    /*fun photoToFormData() {
+    fun toRequestMap(): MutableMap<String, String> {
         val formData: MutableMap<String, String> = mutableMapOf()
-        formData["Accept-Charset"] = "UTF-8"
+        formData["Accept-Charset"] = "gzip, deflate, br"
         formData["Connection"] = "Keep-Alive"
         formData["Cache-Control"] = "no-cache"
         formData["Content-Disposition"] = "multipart/form-data; name='image';"
-        image.endsWith(".gif").apply { formData["Content-Type"] = "image/gif" }
-        image.endsWith(".jpg").apply { formData["Content-Type"] = "image/jpeg" }
-        image.endsWith(".jpeg").apply { formData["Content-Type"] = "image/jpeg" }
-        image.endsWith(".png").apply { formData["Content-Type"] = "image/png" }
-    }*/
-
-
+        formData["Content-Type"] = image.contentType.toString()
+        return formData
+    }
 }
 
