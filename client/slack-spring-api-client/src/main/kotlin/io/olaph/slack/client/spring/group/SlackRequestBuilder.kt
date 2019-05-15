@@ -1,15 +1,26 @@
 package io.olaph.slack.client.spring.group
 
+import org.apache.tomcat.jni.Directory
+import org.springframework.core.io.Resource
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
 import org.springframework.http.RequestEntity
 import org.springframework.http.ResponseEntity
 import org.springframework.http.client.MultipartBodyBuilder
 import org.springframework.util.LinkedMultiValueMap
+import org.springframework.util.MultiValueMap
+import org.springframework.util.ObjectUtils
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
+import java.io.File
+import java.io.FileInputStream
 import java.net.URI
+import java.nio.file.Files
+import java.nio.file.Path
+import javax.imageio.ImageIO
+import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 
 class SlackRequestBuilder<T>(private val token: String? = null, private val restTemplate: RestTemplate) {
@@ -60,7 +71,10 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
         val builder = UriComponentsBuilder.fromHttpUrl(this.uri.toString())
         params.forEach { key, value -> builder.queryParam(key, value) }
 
-        val requestEntity = HttpEntity<MultipartBodyBuilder>(slackHeaders(contentType))
+        val imgPath = "test.png"
+        val img = ImageIO.read(javaClass.getResource(imgPath))
+        val requestEntity = HttpEntity<Any>(img, slackHeaders(contentType))
+
         return restTemplate.exchange(
                 builder.toUriString(),
                 HttpMethod.POST,
