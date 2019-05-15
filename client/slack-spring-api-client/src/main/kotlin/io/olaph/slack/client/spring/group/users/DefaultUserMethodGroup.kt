@@ -50,4 +50,8 @@ class DefaultUserMethodGroup : UsersMethodGroup {
     override fun setPhoto(authToken: String): UsersSetPhotoMethod {
         return DefaultUsersSetPhotoMethod(authToken)
     }
+
+    override fun getPresence(authToken: String): UsersGetPresenceMethod {
+        return DefaultUsersGetPresenceMethod(authToken)
+    }
 }
