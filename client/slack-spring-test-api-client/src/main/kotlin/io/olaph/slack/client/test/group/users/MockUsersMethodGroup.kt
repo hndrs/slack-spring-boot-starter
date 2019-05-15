@@ -1,7 +1,6 @@
 package io.olaph.slack.client.test.group.users
 
 import io.olaph.slack.client.group.users.UsersMethodGroup
-import io.olaph.slack.client.group.users.UsersSetPhotoMethod
 
 class MockUsersMethodGroup : UsersMethodGroup {
     private val mockUsersInfoMethod = MockUsersInfoMethod()
@@ -13,6 +12,7 @@ class MockUsersMethodGroup : UsersMethodGroup {
     private val mockUsersSetProfileMethod = MockUsersSetProfileMethod()
     private val mockUsersSetPresenceMethod = MockUsersSetPresenceMethod()
     private val mockUsersSetPhotoMethod = MockUsersSetPhotoMethod()
+    private val mockUsersGetPresenceMethod = MockUsersGetPresenceMethod()
 
     override fun info(authToken: String): MockUsersInfoMethod {
         return mockUsersInfoMethod
@@ -48,5 +48,9 @@ class MockUsersMethodGroup : UsersMethodGroup {
 
     override fun setPhoto(authToken: String): MockUsersSetPhotoMethod {
         return mockUsersSetPhotoMethod
+    }
+
+    override fun getPresence(authToken: String): MockUsersGetPresenceMethod {
+        return mockUsersGetPresenceMethod
     }
 }

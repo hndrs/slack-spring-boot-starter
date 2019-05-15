@@ -19,4 +19,7 @@ interface UsersMethodGroup {
     fun setPresence(authToken: String): UsersSetPresenceMethod
 
     fun setPhoto(authToken: String): UsersSetPhotoMethod
+
+    fun getPresence(authToken: String): UsersGetPresenceMethod
+
 }
