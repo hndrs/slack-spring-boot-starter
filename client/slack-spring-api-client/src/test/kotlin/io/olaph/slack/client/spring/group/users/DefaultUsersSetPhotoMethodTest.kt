@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestTemplate
+import javax.imageio.ImageIO
 
 class DefaultUsersSetPhotoMethodTest {
 
@@ -31,7 +32,7 @@ class DefaultUsersSetPhotoMethodTest {
         val verifier = Verifier(response)
 
         DefaultUsersSetPhotoMethod("", mockTemplate)
-                .with(UsersSetPhotoRequest(mock { }, 10, 10, 10))
+                .with(UsersSetPhotoRequest("test.png", 10, 10, 10))
                 .onSuccess { verifier.set(it) }
                 .invoke()
 

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
-import org.springframework.web.multipart.MultipartFile
+import org.springframework.core.io.Resource
+import java.awt.image.BufferedImage
+import javax.imageio.ImageIO
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
@@ -29,20 +31,22 @@ data class ErrorUsersSetPhotoResponse constructor(override val ok: Boolean,
 }
 
 @JacksonDataClass
-data class UsersSetPhotoRequest(private val image: MultipartFile,
+data class UsersSetPhotoRequest(private val image: String,
                                 private val cropW: Int?,
                                 private val cropX: Int?,
                                 private val cropY: Int?) {
     companion object{}
 
     fun toRequestMap(): MutableMap<String, String> {
-        val formData: MutableMap<String, String> = mutableMapOf()
-        formData["Accept-Charset"] = "gzip, deflate, br"
-        formData["Connection"] = "Keep-Alive"
-        formData["Cache-Control"] = "no-cache"
-        formData["Content-Disposition"] = "multipart/form-data; name='image';"
-        formData["Content-Type"] = image.contentType.toString()
-        return formData
+
+        val request: MutableMap<String, String> = mutableMapOf()
+        // imagePath
+        request["image"] = image
+        cropW?.let { request.put("crop_w", it.toString()) }
+        cropX?.let { request.put("crop_x", it.toString()) }
+        cropY?.let { request.put("crop_y", it.toString()) }
+
+        return request
     }
 }
 
