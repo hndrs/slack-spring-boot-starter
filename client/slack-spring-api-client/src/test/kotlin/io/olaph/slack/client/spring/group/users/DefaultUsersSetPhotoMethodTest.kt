@@ -1,6 +1,5 @@
 package io.olaph.slack.client.spring.group.users
 
-import com.nhaarman.mockitokotlin2.mock
 import io.olaph.slack.client.spring.MockServerHelper
 import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
@@ -11,8 +10,8 @@ import io.olaph.slack.dto.jackson.group.users.sample
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.springframework.core.io.ClassPathResource
 import org.springframework.web.client.RestTemplate
-import javax.imageio.ImageIO
 
 class DefaultUsersSetPhotoMethodTest {
 
@@ -32,7 +31,7 @@ class DefaultUsersSetPhotoMethodTest {
         val verifier = Verifier(response)
 
         DefaultUsersSetPhotoMethod("", mockTemplate)
-                .with(UsersSetPhotoRequest("test.png", 10, 10, 10))
+                .with(UsersSetPhotoRequest(ClassPathResource("olaph.png").file, 10, 10, 10))
                 .onSuccess { verifier.set(it) }
                 .invoke()
 
@@ -49,7 +48,7 @@ class DefaultUsersSetPhotoMethodTest {
         val verifier = Verifier(response)
 
         DefaultUsersSetPhotoMethod("", mockTemplate)
-                .with(UsersSetPhotoRequest(mock { }, 10, 10, 10))
+                .with(UsersSetPhotoRequest(ClassPathResource("olaph.png").file, 10, 10, 10))
                 .onFailure { verifier.set(it) }
                 .invoke()
 
