@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
-import org.springframework.core.io.Resource
-import java.awt.image.BufferedImage
-import javax.imageio.ImageIO
+import org.springframework.core.io.FileSystemResource
+import org.springframework.util.LinkedMultiValueMap
+import java.io.File
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
@@ -25,26 +25,24 @@ data class SuccessfulUsersSetPhotoResponse constructor(override val ok: Boolean)
 
 @JacksonDataClass
 data class ErrorUsersSetPhotoResponse constructor(override val ok: Boolean,
-                                                  private val error: String)
+                                                  val error: String)
     : UsersSetPhotoResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class UsersSetPhotoRequest(private val image: String,
-                                private val cropW: Int?,
-                                private val cropX: Int?,
-                                private val cropY: Int?) {
-    companion object{}
+data class UsersSetPhotoRequest(val image: File,
+                                val cropW: Int? = null,
+                                val cropX: Int? = null,
+                                val cropY: Int? = null) {
+    companion object {}
 
-    fun toRequestMap(): MutableMap<String, String> {
-
-        val request: MutableMap<String, String> = mutableMapOf()
-        // imagePath
-        request["image"] = image
-        cropW?.let { request.put("crop_w", it.toString()) }
-        cropX?.let { request.put("crop_x", it.toString()) }
-        cropY?.let { request.put("crop_y", it.toString()) }
+    fun toMultiValueMap(): LinkedMultiValueMap<String, Any> {
+        val request: LinkedMultiValueMap<String, Any> = LinkedMultiValueMap()
+        request.add("image", FileSystemResource(image))
+        cropW?.let { request.add("crop_w", it.toString()) }
+        cropX?.let { request.add("crop_x", it.toString()) }
+        cropY?.let { request.add("crop_y", it.toString()) }
 
         return request
     }

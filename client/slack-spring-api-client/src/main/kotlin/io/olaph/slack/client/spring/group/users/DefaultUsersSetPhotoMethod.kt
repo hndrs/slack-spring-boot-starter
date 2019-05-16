@@ -17,11 +17,12 @@ import org.springframework.web.client.RestTemplate
 class DefaultUsersSetPhotoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersSetPhotoMethod() {
 
     override fun request(): ApiCallResult<SuccessfulUsersSetPhotoResponse, ErrorUsersSetPhotoResponse> {
+
         val response = SlackRequestBuilder<UsersSetPhotoResponse>(authToken, restTemplate)
-                .with(this.params)
+                .with(this.params.toMultiValueMap())
                 .toMethod("users.setPhoto")
                 .returnAsType(UsersSetPhotoResponse::class.java)
-                .postMultipartFormdata(mapOf())
+                .postMultipartFormdata()
 
         return when (response.body!!) {
             is SuccessfulUsersSetPhotoResponse -> {
