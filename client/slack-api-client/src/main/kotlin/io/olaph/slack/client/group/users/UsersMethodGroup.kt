@@ -22,4 +22,5 @@ interface UsersMethodGroup {
 
     fun getPresence(authToken: String): UsersGetPresenceMethod
 
+    fun lookupByEmail(authToken: String): UsersLookupByEmailMethod
 }

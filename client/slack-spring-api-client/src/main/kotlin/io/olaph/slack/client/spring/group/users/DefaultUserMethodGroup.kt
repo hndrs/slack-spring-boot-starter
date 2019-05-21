@@ -1,11 +1,14 @@
 package io.olaph.slack.client.spring.group.users
 
-import io.olaph.slack.client.group.users.*
 import io.olaph.slack.client.group.users.UserListMethod
-import io.olaph.slack.client.group.users.UsersSetPresenceMethod
 import io.olaph.slack.client.group.users.UsersDeletePhotoMethod
+import io.olaph.slack.client.group.users.UsersGetPresenceMethod
+import io.olaph.slack.client.group.users.UsersGetProfileMethod
 import io.olaph.slack.client.group.users.UsersInfoMethod
+import io.olaph.slack.client.group.users.UsersLookupByEmailMethod
 import io.olaph.slack.client.group.users.UsersMethodGroup
+import io.olaph.slack.client.group.users.UsersSetPhotoMethod
+import io.olaph.slack.client.group.users.UsersSetPresenceMethod
 import io.olaph.slack.client.group.users.UsersSetProfileMethod
 import org.slf4j.LoggerFactory
 
@@ -53,5 +56,9 @@ class DefaultUserMethodGroup : UsersMethodGroup {
 
     override fun getPresence(authToken: String): UsersGetPresenceMethod {
         return DefaultUsersGetPresenceMethod(authToken)
+    }
+
+    override fun lookupByEmail(authToken: String): UsersLookupByEmailMethod {
+        return DefaultUsersLookupByEmailMethod(authToken)
     }
 }
