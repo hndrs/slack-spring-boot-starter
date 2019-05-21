@@ -10,6 +10,7 @@ import io.olaph.slack.client.group.im.ImMethodGroup
 import io.olaph.slack.client.group.oauth.OauthMethodGroup
 import io.olaph.slack.client.group.respond.RespondMethodGroup
 import io.olaph.slack.client.group.team.TeamMethodGroup
+import io.olaph.slack.client.group.usergroups.UsergroupsMethodGroup
 import io.olaph.slack.client.group.users.UsersMethodGroup
 import io.olaph.slack.client.spring.group.auth.DefaultAuthMethodGroup
 import io.olaph.slack.client.spring.group.channels.DefaultChannelMethodGroup
@@ -20,12 +21,19 @@ import io.olaph.slack.client.spring.group.im.DefaultImMethodGroup
 import io.olaph.slack.client.spring.group.oauth.DefaultOauthMethodGroup
 import io.olaph.slack.client.spring.group.respond.DefaultRespondMethodGroup
 import io.olaph.slack.client.spring.group.team.DefaultTeamMethodGroup
+import io.olaph.slack.client.spring.group.usergroups.DefaultUsergroupMethodGroup
 import io.olaph.slack.client.spring.group.users.DefaultUserMethodGroup
 
 /**
  * Api Client to interact with the slack api
  */
 class DefaultSlackClient : SlackClient {
+
+    /**
+     * Convenience function to apply slack api oauth method grouping
+     *
+     * [Slack Api Documentation](https://api.slack.com/methods)
+     */
     override fun respond(): RespondMethodGroup {
         return DefaultRespondMethodGroup()
     }
@@ -96,7 +104,6 @@ class DefaultSlackClient : SlackClient {
 
     override fun users(): UsersMethodGroup {
         return DefaultUserMethodGroup()
-
     }
 
     /**
@@ -108,8 +115,22 @@ class DefaultSlackClient : SlackClient {
         return DefaultOauthMethodGroup()
     }
 
+    /**
+     * Convenience function to apply slack api Team method grouping
+     *
+     * [Slack Api Documentation](https://api.slack.com/methods)
+     */
     override fun team(): TeamMethodGroup {
         return DefaultTeamMethodGroup()
+    }
+
+    /**
+     * Convenience function to apply slack api Usergroups method grouping
+     *
+     * [Slack Api Documentation](https://api.slack.com/methods)
+     */
+    override fun usergroups(): UsergroupsMethodGroup {
+        return DefaultUsergroupMethodGroup()
     }
 
     /**
