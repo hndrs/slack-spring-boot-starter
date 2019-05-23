@@ -6,4 +6,6 @@ interface UsergroupsMethodGroup {
 
     //TODO create subgroup
     fun usersUpdate(authToken: String): UsergroupsUsersUpdateMethod
+
+    fun create(authToken: String): UsergroupsCreateMethod
 }
