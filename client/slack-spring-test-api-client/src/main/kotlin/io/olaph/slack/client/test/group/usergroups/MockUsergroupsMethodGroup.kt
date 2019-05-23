@@ -6,6 +6,9 @@ import io.olaph.slack.client.test.group.usergroups.users.MockUsergroupsUsersUpda
 class MockUsergroupsMethodGroup : UsergroupsMethodGroup {
 
     private val mockUsergroupsUsersUpdateMethod = MockUsergroupsUsersUpdateMethod()
+    private val mockUsergroupsCreateMethod = MockUsergroupsCreateMethod()
 
     override fun usersUpdate(authToken: String) = mockUsergroupsUsersUpdateMethod
+
+    override fun create(authToken: String) = mockUsergroupsCreateMethod
 }
