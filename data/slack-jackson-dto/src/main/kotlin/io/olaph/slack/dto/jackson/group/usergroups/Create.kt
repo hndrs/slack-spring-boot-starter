@@ -7,6 +7,10 @@ import io.olaph.slack.dto.jackson.JacksonDataClass
 import io.olaph.slack.dto.jackson.common.types.Channel
 import io.olaph.slack.dto.jackson.common.types.Usergroup
 
+/**
+ * https://api.slack.com/methods/usergroups.create
+ */
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
         JsonSubTypes.Type(value = SuccessfulUsergroupsCreateResponse::class, name = "true"),
