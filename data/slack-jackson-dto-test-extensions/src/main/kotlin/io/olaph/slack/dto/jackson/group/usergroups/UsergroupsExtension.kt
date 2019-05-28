@@ -4,22 +4,22 @@ import io.olaph.slack.dto.jackson.common.types.AutoType
 import io.olaph.slack.dto.jackson.common.types.Prefs
 import io.olaph.slack.dto.jackson.common.types.Usergroup
 
-fun Usergroup.Companion.sample() = Usergroup(id = "SampleUsergroupID",
-        teamId = "SampleTeamID",
+fun Usergroup.Companion.sample() = Usergroup(id = "",
+        teamId = "",
         isUsergroup = true,
-        name = "SampleUsergroupName",
-        description = "SampleUsergroupDescription",
-        handle = "SampleUsergroupHandle",
+        name = "",
+        description = "",
+        handle = "",
         isExternal = false,
         dateCreate = 0,
         dateUpdate = 0,
         dateDelete = 1,
         autoType = AutoType.NULL,
-        createdBy = "SampleCreatorID",
-        updatedBy = "SampleUpdaterID",
-        deletedBy = "SampleDeleterID",
+        createdBy = "",
+        updatedBy = "",
+        deletedBy = "",
         prefs = Prefs.sample(),
-        users = listOf("SampleUserID1", "SampleUserID2"),
+        users = listOf("", ""),
         userCount = 2)
 
-fun Prefs.Companion.sample() = Prefs(listOf("SampleChannelID"), listOf("SampleGroupID"))
+fun Prefs.Companion.sample() = Prefs(listOf(""), listOf(""))

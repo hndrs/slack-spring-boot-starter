@@ -9,9 +9,9 @@ fun SuccessfulUsergroupsCreateResponse.Companion.sample() = SuccessfulUsergroups
 fun ErrorUsergroupsCreateResponse.Companion.sample() = ErrorUsergroupsCreateResponse(false, "")
 
 fun SlackUsergroupsCreateRequest.Companion.sample() = SlackUsergroupsCreateRequest(
-        "SampleUsergroup",
+        "",
         listOf(Channel.sample()),
-        "SampleUsergroupDescription",
-        "SampleUsergroupHandle",
+        "",
+        "",
         true
 )
