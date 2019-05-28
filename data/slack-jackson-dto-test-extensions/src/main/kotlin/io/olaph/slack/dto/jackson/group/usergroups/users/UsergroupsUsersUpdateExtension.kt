@@ -5,26 +5,26 @@ fun SuccessfulUsergroupUsersUpdateResponse.Companion.sample() = SuccessfulUsergr
 fun ErrorUsergroupUsersUpdateResponse.Companion.sample() = ErrorUsergroupUsersUpdateResponse(false, "")
 
 fun SlackUsergroupUsersUpdateRequest.Companion.sample() = SlackUsergroupUsersUpdateRequest(
-        "SampleUsergroupID",
-        listOf("SampleUserID1", "SampleUserID2"),
-        2)
+        "" ,
+        listOf("", ""),
+        1)
 
-fun Usergroup.Companion.sample() = Usergroup(id = "SampleUsergroupID",
-        teamId = "SampleTeamID",
+fun Usergroup.Companion.sample() = Usergroup(id = "",
+        teamId = "",
         isUsergroup = true,
-        name = "SampleUsergroupName",
-        description = "SampleUsergroupDescription",
-        handle = "SampleUsergroupHandle",
+        name = "",
+        description = "",
+        handle = "",
         isExternal = false,
         dateCreate = 0,
         dateUpdate = 0,
         dateDelete = 1,
         autoType = AutoType.NULL,
-        createdBy = "SampleCreatorID",
-        updatedBy = "SampleUpdaterID",
-        deletedBy = "SampleDeleterID",
+        createdBy = "",
+        updatedBy = "",
+        deletedBy = "",
         prefs = Prefs.sample(),
-        users = listOf("SampleUserID1", "SampleUserID2"),
+        users = listOf("", ""),
         userCount = 2)
 
-fun Prefs.Companion.sample() = Prefs(listOf("SampleChannelID"), listOf("SampleGroupID"))
+fun Prefs.Companion.sample() = Prefs(listOf(""), listOf(""))
