@@ -11,6 +11,7 @@ class MockUsergroupsMethodGroup : UsergroupsMethodGroup {
     private val mockUsergroupsUpdateMethod = MockUsergroupsUpdateMethod()
     private val mockUsergroupsDisableMethod = MockUsergroupsDisableMethod()
     private val mockUsergroupsUsersListMethod = MockUsergroupsUsersListMethod()
+    private val mockUsergroupsEnableMethod = MockUsergroupsEnableMethod()
 
     override fun usersUpdate(authToken: String) = mockUsergroupsUsersUpdateMethod
 
@@ -23,4 +24,6 @@ class MockUsergroupsMethodGroup : UsergroupsMethodGroup {
     override fun disable(authToken: String) = mockUsergroupsDisableMethod
 
     override fun usersList(authToken: String) = mockUsergroupsUsersListMethod
+
+    override fun enable(authToken: String) = mockUsergroupsEnableMethod
 }

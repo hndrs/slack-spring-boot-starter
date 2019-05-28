@@ -11,10 +11,12 @@ interface UsergroupsMethodGroup {
     fun create(authToken: String): UsergroupsCreateMethod
 
     fun list(authToken: String): UsergroupsListMethod
-    
+
     fun update(authToken: String): UsergroupsUpdateMethod
 
     fun disable(authToken: String): UsergroupsDisableMethod
 
     fun usersList(authToken: String): UsergroupsUsersListMethod
+
+    fun enable(authToken: String): UsergroupsEnableMethod
 }
