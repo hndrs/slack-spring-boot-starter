@@ -1,5 +1,6 @@
 package io.olaph.slack.client.group.usergroups
 
+import io.olaph.slack.client.group.usergroups.users.UsergroupsUsersListMethod
 import io.olaph.slack.client.group.usergroups.users.UsergroupsUsersUpdateMethod
 
 interface UsergroupsMethodGroup {
@@ -14,4 +15,6 @@ interface UsergroupsMethodGroup {
     fun update(authToken: String): UsergroupsUpdateMethod
 
     fun disable(authToken: String): UsergroupsDisableMethod
+
+    fun usersList(authToken: String): UsergroupsUsersListMethod
 }
