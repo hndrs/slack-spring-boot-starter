@@ -15,4 +15,6 @@ class DefaultUsergroupMethodGroup : UsergroupsMethodGroup {
     override fun create(authToken: String) = DefaultUsergroupsCreateMethod(authToken)
 
     override fun list(authToken: String) = DefaultUsergroupsListMethod(authToken)
+
+    override fun update(authToken: String) = DefaultUsergroupsUpdateMethod(authToken)
 }
