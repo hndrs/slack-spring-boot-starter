@@ -4,5 +4,6 @@ import io.olaph.slack.client.group.usergroups.users.UsergroupsUsersUpdateMethod
 
 interface UsergroupsMethodGroup {
 
+    //TODO create subgroup
     fun usersUpdate(authToken: String): UsergroupsUsersUpdateMethod
 }
