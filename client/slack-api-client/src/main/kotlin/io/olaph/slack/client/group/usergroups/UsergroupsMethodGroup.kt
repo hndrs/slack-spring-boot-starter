@@ -8,4 +8,6 @@ interface UsergroupsMethodGroup {
     fun usersUpdate(authToken: String): UsergroupsUsersUpdateMethod
 
     fun create(authToken: String): UsergroupsCreateMethod
+
+    fun list(authToken: String): UsergroupsListMethod
 }
