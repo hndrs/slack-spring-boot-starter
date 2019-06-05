@@ -32,10 +32,8 @@ data class ErrorUsersLookupByEmailResponse constructor(override val ok: Boolean,
 }
 
 data class SlackUsersLookupByEmailRequest(private val email: String) {
-
     companion object {}
 
     fun toRequestMap(): MutableMap<String, String> = mutableMapOf("email" to email)
-
 }
 

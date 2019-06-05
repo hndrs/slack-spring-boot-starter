@@ -23,16 +23,12 @@ class DefaultUsersLookupByEmailMethod(private val authToken: String, val restTem
                 .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {
-
             is SuccessfulUsersLookupByEmailResponse -> {
-
                 val responseEntity = response.body as SuccessfulUsersLookupByEmailResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-
             is ErrorUsersLookupByEmailResponse -> {
-
                 val responseEntity = response.body as ErrorUsersLookupByEmailResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
