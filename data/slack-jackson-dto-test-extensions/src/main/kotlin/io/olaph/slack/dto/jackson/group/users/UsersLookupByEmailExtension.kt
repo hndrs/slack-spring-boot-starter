@@ -4,4 +4,4 @@ fun SuccessfulUsersLookupByEmailResponse.Companion.sample() = SuccessfulUsersLoo
 
 fun ErrorUsersLookupByEmailResponse.Companion.sample() = ErrorUsersLookupByEmailResponse(false, "")
 
-fun SlackUsersLookupByEmailRequest.Companion.sample() = SlackUsersLookupByEmailRequest("user@acme.com")
+fun SlackUsersLookupByEmailRequest.Companion.sample() = SlackUsersLookupByEmailRequest("")

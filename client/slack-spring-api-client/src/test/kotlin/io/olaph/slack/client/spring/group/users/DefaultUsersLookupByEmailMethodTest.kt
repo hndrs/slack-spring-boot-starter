@@ -24,9 +24,8 @@ class DefaultUsersLookupByEmailMethodTest {
     @DisplayName("users.lookupByEmail Success")
     @Test
     fun lookupByEmailSuccess() {
-
         val response = SuccessfulUsersLookupByEmailResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.lookupByEmail?email=user@acme.com")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.lookupByEmail?email=")
         val verifier = Verifier(response)
 
         DefaultUsersLookupByEmailMethod("", mockTemplate)
@@ -42,9 +41,8 @@ class DefaultUsersLookupByEmailMethodTest {
     @DisplayName("users.lookupByEmail Failure")
     @Test
     fun lookupByEmailFailure() {
-
         val response = ErrorUsersLookupByEmailResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.lookupByEmail?email=user@acme.com")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.lookupByEmail?email=")
         val verifier = Verifier(response)
 
         DefaultUsersLookupByEmailMethod("", mockTemplate)

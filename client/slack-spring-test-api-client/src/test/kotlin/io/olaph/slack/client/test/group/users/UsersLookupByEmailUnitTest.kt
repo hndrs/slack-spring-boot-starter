@@ -16,10 +16,8 @@ class UsersLookupByEmailUnitTest {
     @DisplayName("users.lookupByEmail Test")
     @Test
     fun usersLookupByEmailTest() {
-
         val successFunction: (SuccessfulUsersLookupByEmailResponse?) -> Any = mock { }
         val failureFunction: (ErrorUsersLookupByEmailResponse?) -> Any = mock { }
-
         val mockClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockClient.users().lookupByEmail("") },
