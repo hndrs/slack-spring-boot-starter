@@ -22,14 +22,11 @@ class DefaultUsergroupsUsersUpdateMethod(private val authToken: String, private 
                 .postWithJsonBody()
 
         return when (response.body!!) {
-
             is SuccessfulUsergroupUsersUpdateResponse -> {
-
                 val responseEntity = response.body as SuccessfulUsergroupUsersUpdateResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-
             is ErrorUsergroupUsersUpdateResponse -> {
                 val responseEntity = response.body as ErrorUsergroupUsersUpdateResponse
                 this.onFailure?.invoke(responseEntity)

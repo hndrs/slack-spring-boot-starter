@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestTemplate
 
 class UsergroupsUsersUpdateMethodTest {
-
     private lateinit var mockTemplate: RestTemplate
 
     @BeforeEach
@@ -25,7 +24,6 @@ class UsergroupsUsersUpdateMethodTest {
     @DisplayName("usergroups.users.update Success")
     @Test
     fun usergroupsUsersUpdateSuccess() {
-
         val response = SuccessfulUsergroupUsersUpdateResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.users.update")
         val verifier = Verifier(response)
@@ -42,7 +40,6 @@ class UsergroupsUsersUpdateMethodTest {
     @DisplayName("usergroups.users.update Failure")
     @Test
     fun usergroupsUsersUpdateFailure() {
-
         val response = ErrorUsergroupUsersUpdateResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.users.update")
         val verifier = Verifier(response)
