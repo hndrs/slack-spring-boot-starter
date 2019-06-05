@@ -13,19 +13,16 @@ import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestTemplate
 
 class UsergroupsEnableMethodTest {
-
     private lateinit var mockTemplate: RestTemplate
 
     @BeforeEach
     fun setup() {
-
         mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @DisplayName("usergroups.enable Success")
     @Test
     fun usergroupsEnableSuccess() {
-
         val response = SuccessfulUsergroupsEnableResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.enable")
         val verifier = Verifier(response)
@@ -42,7 +39,6 @@ class UsergroupsEnableMethodTest {
     @DisplayName("usergroups.enable Failure")
     @Test
     fun usergroupsEnableFailure() {
-
         val response = ErrorUsergroupsEnableResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.enable")
         val verifier = Verifier(response)

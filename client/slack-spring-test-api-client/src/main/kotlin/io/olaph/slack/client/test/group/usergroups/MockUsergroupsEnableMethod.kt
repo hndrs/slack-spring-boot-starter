@@ -10,14 +10,12 @@ import io.olaph.slack.dto.jackson.group.usergroups.SuccessfulUsergroupsEnableRes
 class MockUsergroupsEnableMethod : UsergroupsEnableMethod(), MockMethod<SuccessfulUsergroupsEnableResponse, ErrorUsergroupsEnableResponse, SlackUsergroupsEnableRequest> {
 
     override fun params(): SlackUsergroupsEnableRequest = params
-
     override var successResponse: SuccessfulUsergroupsEnableResponse? = null
     override var failureResponse: ErrorUsergroupsEnableResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulUsergroupsEnableResponse, ErrorUsergroupsEnableResponse> {
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
-
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
 }
