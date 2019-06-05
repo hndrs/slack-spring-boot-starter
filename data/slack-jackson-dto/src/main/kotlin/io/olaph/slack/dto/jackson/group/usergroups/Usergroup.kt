@@ -1,4 +1,4 @@
-package io.olaph.slack.dto.jackson.common.types
+package io.olaph.slack.dto.jackson.group.usergroups
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.olaph.slack.dto.jackson.JacksonDataClass

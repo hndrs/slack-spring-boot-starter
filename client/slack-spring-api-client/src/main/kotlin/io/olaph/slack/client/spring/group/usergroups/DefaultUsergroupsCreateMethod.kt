@@ -4,7 +4,6 @@ import io.olaph.slack.client.group.ApiCallResult
 import io.olaph.slack.client.group.usergroups.UsergroupsCreateMethod
 import io.olaph.slack.client.spring.group.RestTemplateFactory
 import io.olaph.slack.client.spring.group.SlackRequestBuilder
-import io.olaph.slack.dto.jackson.common.types.Usergroup
 import io.olaph.slack.dto.jackson.group.usergroups.ErrorUsergroupsCreateResponse
 import io.olaph.slack.dto.jackson.group.usergroups.SuccessfulUsergroupsCreateResponse
 import io.olaph.slack.dto.jackson.group.usergroups.UsergroupsCreateResponse

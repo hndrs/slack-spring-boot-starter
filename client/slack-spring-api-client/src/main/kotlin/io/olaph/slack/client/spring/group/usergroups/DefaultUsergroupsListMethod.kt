@@ -16,29 +16,22 @@ import org.springframework.web.client.RestTemplate
 class DefaultUsergroupsListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsergroupsListMethod() {
 
     override fun request(): ApiCallResult<SuccessfulUsergroupsListResponse, ErrorUsergroupsListResponse> {
-
         val response = SlackRequestBuilder<UsergroupsListResponse>(authToken, restTemplate)
                 .toMethod("usergroups.list")
                 .returnAsType(UsergroupsListResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {
-
             is SuccessfulUsergroupsListResponse -> {
-
                 val responseEntity = response.body as SuccessfulUsergroupsListResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-
             is ErrorUsergroupsListResponse -> {
-
                 val responseEntity = response.body as ErrorUsergroupsListResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }
         }
-
-
     }
 }
