@@ -16,23 +16,18 @@ import org.springframework.web.client.RestTemplate
 class DefaultUsergroupsUpdateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsergroupsUpdateMethod() {
 
     override fun request(): ApiCallResult<SuccessfulUsergroupsUpdateResponse, ErrorUsergroupsUpdateResponse> {
-
         val response = SlackRequestBuilder<UsergroupsUpdateResponse>(authToken, restTemplate)
                 .toMethod("usergroups.update")
                 .returnAsType(UsergroupsUpdateResponse::class.java)
                 .postWithJsonBody()
 
         return when (response.body!!) {
-
             is SuccessfulUsergroupsUpdateResponse -> {
-
                 val responseEntity = response.body as SuccessfulUsergroupsUpdateResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-
             is ErrorUsergroupsUpdateResponse -> {
-
                 val responseEntity = response.body as ErrorUsergroupsUpdateResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)

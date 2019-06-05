@@ -1,5 +1,6 @@
 package io.olaph.slack.client.test.group.usergroups
 
+import MockMethodTestHelper
 import com.nhaarman.mockitokotlin2.mock
 import io.olaph.slack.client.test.MockSlackClient
 import io.olaph.slack.dto.jackson.group.usergroups.users.ErrorUsergroupUsersUpdateResponse
@@ -15,13 +16,11 @@ class UsergroupsUsersUpdateUnitTest {
     @DisplayName("Mock Successful")
     @Test
     fun testMockMethod() {
-
-        val successFunction: (SuccessfulUsergroupUsersUpdateResponse?) -> Any = mock {  }
-        val failureFunction: (ErrorUsergroupUsersUpdateResponse?) -> Any = mock {  }
-
+        val successFunction: (SuccessfulUsergroupUsersUpdateResponse?) -> Any = mock { }
+        val failureFunction: (ErrorUsergroupUsersUpdateResponse?) -> Any = mock { }
         val mockClient = MockSlackClient()
-
-        MockMethodTestHelper.verify( { mockClient.usergroups().usersUpdate("") },
+        
+        MockMethodTestHelper.verify({ mockClient.usergroups().usersUpdate("") },
                 successFunction, SuccessfulUsergroupUsersUpdateResponse.sample(),
                 failureFunction, ErrorUsergroupUsersUpdateResponse.sample(),
                 SlackUsergroupUsersUpdateRequest.sample())
