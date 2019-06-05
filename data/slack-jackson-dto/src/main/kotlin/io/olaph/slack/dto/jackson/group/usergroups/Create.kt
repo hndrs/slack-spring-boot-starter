@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
 import io.olaph.slack.dto.jackson.common.types.Channel
-import io.olaph.slack.dto.jackson.common.types.Usergroup
 
 /**
  * https://api.slack.com/methods/usergroups.create

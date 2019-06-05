@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
-import io.olaph.slack.dto.jackson.common.types.Usergroup
 
 /**
  * https://api.slack.com/methods/usergroups.list
@@ -35,7 +34,6 @@ data class ErrorUsergroupsListResponse constructor(override val ok: Boolean,
 data class SlackUsergroupsListRequest(private val includeCount: Boolean?,
                                       private val includeDisabled: Boolean?,
                                       private val includeUsers: Boolean?) {
-
     companion object
 
     fun toRequestMap(): MutableMap<String, String> {

@@ -13,19 +13,16 @@ import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestTemplate
 
 class UsergroupsListMethodTest {
-
     private lateinit var mockTemplate: RestTemplate
 
     @BeforeEach
     fun setup() {
-
         mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @DisplayName("usergroups.list Method Success")
     @Test
     fun usergroupsListMethodSuccess() {
-
         val response = SuccessfulUsergroupsListResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.list?include_count=false&include_disabled=false&include_users=false")
         val verifier = Verifier(response)
@@ -42,7 +39,6 @@ class UsergroupsListMethodTest {
     @DisplayName("usergroups.list Method Failure")
     @Test
     fun usergroupsListMethodFailure() {
-
         val response = ErrorUsergroupsListResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.list?include_count=false&include_disabled=false&include_users=false")
         val verifier = Verifier(response)
