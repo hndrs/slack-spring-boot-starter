@@ -14,7 +14,6 @@ class MockUsergroupsUsersListMethod : UsergroupsUsersListMethod(), MockMethod<Su
     override var failureResponse: ErrorUsergroupsUsersListResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulUsergroupsUsersListResponse, ErrorUsergroupsUsersListResponse> {
-
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
         return ApiCallResult(this.successResponse, this.failureResponse)
