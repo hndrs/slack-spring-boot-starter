@@ -20,7 +20,7 @@ class UsergroupsUsersListUnitTest {
         val failureFunction: (ErrorUsergroupsUsersListResponse?) -> Any = mock { }
         val mockClient = MockSlackClient()
 
-        MockMethodTestHelper.verify({ mockClient.usergroups().list("") },
+        MockMethodTestHelper.verify({ mockClient.usergroups().usersList("") },
                 successFunction, SuccessfulUsergroupsUsersListResponse.sample(),
                 failureFunction, ErrorUsergroupsUsersListResponse.sample(),
                 SlackUsergroupsUsersListRequest.sample())
