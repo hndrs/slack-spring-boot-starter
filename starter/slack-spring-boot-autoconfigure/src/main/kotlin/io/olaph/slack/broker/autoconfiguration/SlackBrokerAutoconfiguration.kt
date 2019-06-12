@@ -26,8 +26,8 @@ import io.olaph.slack.broker.receiver.InteractiveComponentReceiver
 import io.olaph.slack.broker.receiver.MismatchCommandReciever
 import io.olaph.slack.broker.receiver.SL4JLoggingReceiver
 import io.olaph.slack.broker.receiver.SlashCommandReceiver
-import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.FileTeamStore
+import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.client.SlackClient
 import io.olaph.slack.client.spring.DefaultSlackClient
@@ -59,7 +59,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "file")
         @ConditionalOnMissingBean
         @Bean
-        open fun localTeamStore() : TeamStore {
+        open fun localTeamStore(): TeamStore {
             return FileTeamStore()
         }
 
@@ -174,4 +174,8 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         return DefaultCredentialsProviderChain()
     }
 
+    @Bean
+    open fun slackEvaluationReport(): EvaluationReport {
+        return EvaluationReport()
+    }
 }
