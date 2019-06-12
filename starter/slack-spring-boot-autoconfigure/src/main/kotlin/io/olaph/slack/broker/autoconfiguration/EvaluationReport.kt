@@ -6,6 +6,7 @@ import io.olaph.slack.broker.receiver.InteractiveComponentReceiver
 import io.olaph.slack.broker.receiver.MismatchCommandReciever
 import io.olaph.slack.broker.receiver.SL4JLoggingReceiver
 import io.olaph.slack.broker.receiver.SlashCommandReceiver
+import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationListener
 import org.springframework.context.event.ContextRefreshedEvent
 
@@ -13,13 +14,16 @@ import org.springframework.context.event.ContextRefreshedEvent
 class EvaluationReport : ApplicationListener<ContextRefreshedEvent> {
 
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
+        println(buildEvaluationReport(event.applicationContext))
+    }
 
-        val eventReceiverBeans = event.applicationContext.getBeanNamesForType(EventReceiver::class.java)
-        val installationReceiverBeans = event.applicationContext.getBeanNamesForType(InstallationReceiver::class.java)
-        val interactiveCompReceiverBeans = event.applicationContext.getBeanNamesForType(InteractiveComponentReceiver::class.java)
-        val slashCommandReceiverBeans = event.applicationContext.getBeanNamesForType(SlashCommandReceiver::class.java)
-        val loggingReceiverBeans = event.applicationContext.getBeanNamesForType(SL4JLoggingReceiver::class.java)
-        val mismatchCommandRecieverBeans = event.applicationContext.getBeanNamesForType(MismatchCommandReciever::class.java)
+    fun buildEvaluationReport(applicationContext: ApplicationContext): String {
+        val eventReceiverBeans = applicationContext.getBeanNamesForType(EventReceiver::class.java)
+        val installationReceiverBeans = applicationContext.getBeanNamesForType(InstallationReceiver::class.java)
+        val interactiveCompReceiverBeans = applicationContext.getBeanNamesForType(InteractiveComponentReceiver::class.java)
+        val slashCommandReceiverBeans = applicationContext.getBeanNamesForType(SlashCommandReceiver::class.java)
+        val loggingReceiverBeans = applicationContext.getBeanNamesForType(SL4JLoggingReceiver::class.java)
+        val mismatchCommandRecieverBeans = applicationContext.getBeanNamesForType(MismatchCommandReciever::class.java)
 
         val sb = StringBuilder()
         sb.appendln("+------------------+")
@@ -56,6 +60,6 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent> {
         mismatchCommandRecieverBeans.forEach {
             sb.appendln("   - $it")
         }
-        println(sb)
+        return sb.toString()
     }
 }
