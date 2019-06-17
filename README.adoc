@@ -87,7 +87,7 @@ slack.application.client-secret=<client_secret>
 slack.application.signing=<signing secret>
 --
 
-If you want to provide your own link:starter/slack-spring-boot-autoconfigure/src/main/kotlin/io/olaph/slack/broker/autoconfiguration/CredentialsProvider.kt[CredentialsProvider] implement the interface
+If you want to provide your own link:starter/slack-spring-boot-autoconfigure/src/main/kotlin/io/olaph/slack/broker/autoconfiguration/credentials/CredentialsProvider.kt[CredentialsProvider] implement the interface
 and expose it as a Bean/Component
 
 Start your application
