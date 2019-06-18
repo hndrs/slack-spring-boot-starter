@@ -2,7 +2,6 @@ package io.olaph.slack.dto.jackson.common.types
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.olaph.slack.dto.jackson.JacksonDataClass
-import io.olaph.slack.dto.jackson.group.users.User
 import org.jetbrains.annotations.Nullable
 
 @JacksonDataClass
