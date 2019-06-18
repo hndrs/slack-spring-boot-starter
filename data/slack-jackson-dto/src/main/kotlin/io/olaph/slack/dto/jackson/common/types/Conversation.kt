@@ -2,6 +2,7 @@ package io.olaph.slack.dto.jackson.common.types
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import io.olaph.slack.dto.jackson.group.users.User
 import org.jetbrains.annotations.Nullable
 
 @JacksonDataClass
@@ -32,7 +33,9 @@ data class Conversation(
         @JsonProperty("num_members") val numMembers: Int?,
         @JsonProperty("last_read") @Nullable val lastRead: String?,
         @JsonProperty("is_open") val isOpen: Boolean,
-        @JsonProperty("priority") val priority: Int) {
+        @JsonProperty("priority") val priority: Int,
+        @JsonProperty("user") val user: User?,
+        @JsonProperty("is_user_deletec") val isUserDeleted: Boolean?) {
 
     companion object
 
