@@ -35,7 +35,7 @@ data class Conversation(
         @JsonProperty("is_open") val isOpen: Boolean,
         @JsonProperty("priority") val priority: Int,
         @JsonProperty("user") val user: String?,
-        @JsonProperty("is_user_deletec") val isUserDeleted: Boolean?) {
+        @JsonProperty("is_user_deleted") val isUserDeleted: Boolean?) {
 
     companion object
 
