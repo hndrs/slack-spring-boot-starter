@@ -9,9 +9,11 @@ import io.olaph.slack.broker.receiver.SlashCommandReceiver
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationListener
 import org.springframework.context.event.ContextRefreshedEvent
+import org.springframework.core.Ordered
 
+class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
 
-class EvaluationReport : ApplicationListener<ContextRefreshedEvent> {
+    override fun getOrder() = Ordered.LOWEST_PRECEDENCE
 
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
         println(buildEvaluationReport(event.applicationContext))
