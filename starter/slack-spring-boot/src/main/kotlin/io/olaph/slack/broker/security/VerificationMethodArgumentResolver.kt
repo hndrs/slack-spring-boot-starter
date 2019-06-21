@@ -1,5 +1,6 @@
 package io.olaph.slack.broker.security
 
+import io.olaph.slack.dto.jackson.InteractiveComponentResponse
 import org.apache.commons.codec.digest.HmacAlgorithms
 import org.apache.commons.codec.digest.HmacUtils
 import org.springframework.core.MethodParameter
@@ -30,7 +31,7 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
         val cachedRequestWrapper = ContentCachingRequestWrapper(webRequest.nativeRequest as HttpServletRequest)
         val resolvedArgument = internalResolveArgument(parameter, mavContainer, cachedRequestWrapper, binderFactory)
 
-        validateSigning(cachedRequestWrapper, this.signingSecret)
+        validateSigning(cachedRequestWrapper, this.signingSecret, resolvedArgument)
 
         return resolvedArgument
     }
@@ -38,10 +39,15 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
     protected abstract fun internalResolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, request: ContentCachingRequestWrapper, binderFactory: WebDataBinderFactory?): Any?
 
 
-    private fun validateSigning(request: ContentCachingRequestWrapper, signingSecret: String) {
+    private fun validateSigning(request: ContentCachingRequestWrapper, signingSecret: String, resolvedArgument: Any?) {
 
-        val slackSignature = request.getHeader(SLACK_SIGNATURE_HEADER_NAME) ?: throw VerificationException("No signature present in header")
-        val slackTimestamp = request.getHeader(SLACK_REQUEST_TIMESTAMP_HEADER_NAME) ?: throw VerificationException("No timestamp present in header")
+        val slackSignature = request.getHeader(SLACK_SIGNATURE_HEADER_NAME)
+                ?: throw VerificationException("No signature present in header")
+        var slackTimestamp = request.getHeader(SLACK_REQUEST_TIMESTAMP_HEADER_NAME)
+                ?: throw VerificationException("No timestamp present in header")
+        if (resolvedArgument is InteractiveComponentResponse)
+            if (resolvedArgument.type == "interactive_message")
+                slackTimestamp = resolvedArgument.actionTs.toString()
 
         this.validateTimeStamp(slackTimestamp, Instant.now())
 
