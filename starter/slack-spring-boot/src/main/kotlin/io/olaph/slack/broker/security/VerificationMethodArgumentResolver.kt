@@ -24,6 +24,7 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
         private const val SLACK_SIGNATURE_HEADER_NAME = "x-slack-signature"
         private const val SLACK_REQUEST_TIMESTAMP_HEADER_NAME = "x-slack-request-timestamp"
         private const val SLACK_SIGNATURE_VERSION = "v0"
+        private val specialChars = mapOf("*" to "%2A")
     }
 
     final override fun resolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, webRequest: NativeWebRequest, binderFactory: WebDataBinderFactory?): Any? {
@@ -54,7 +55,7 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
 
 
     private fun generateHmacHex(requestBody: String, slackTimeStamp: String, signingSecret: String): String {
-        return "v0=${HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex("$SLACK_SIGNATURE_VERSION:$slackTimeStamp:${requestBody.replace("*", "%2A")}")}"
+        return "v0=${HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex("$SLACK_SIGNATURE_VERSION:$slackTimeStamp:${replaceSpecialChars(requestBody)}")}"
     }
 
     private fun validateTimeStamp(slackTimestamp: String, currentTime: Instant): String {
@@ -73,6 +74,19 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
         } else {
             throw VerificationException("Request timestamp older than 5 minutes")
         }
+    }
+
+    /**
+     * since spring decodes unreserved characters automatically
+     * we need to replace them with their url escaped value again
+     * http://www.rfc-editor.org/rfc/rfc1738.txt
+     */
+    private fun replaceSpecialChars(payload: String): String {
+        var cache = payload
+        specialChars.forEach {
+            cache = cache.replace(it.key, it.value)
+        }
+        return cache
     }
 
 }
