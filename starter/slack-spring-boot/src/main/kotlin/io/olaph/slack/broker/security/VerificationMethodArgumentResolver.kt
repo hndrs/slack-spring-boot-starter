@@ -25,6 +25,20 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
         private const val SLACK_REQUEST_TIMESTAMP_HEADER_NAME = "x-slack-request-timestamp"
         private const val SLACK_SIGNATURE_VERSION = "v0"
         private val specialChars = mapOf("*" to "%2A")
+
+        /**
+         * since spring decodes unreserved characters automatically
+         * we need to replace them with their url escaped value again
+         * http://www.rfc-editor.org/rfc/rfc1738.txt
+         * May result in failures when there are special chars in parameter names
+         */
+        private fun replaceSpecialChars(payload: String): String {
+            var replacedPayload = payload
+            specialChars.forEach {
+                replacedPayload = replacedPayload.replace(it.key, it.value)
+            }
+            return replacedPayload
+        }
     }
 
     final override fun resolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, webRequest: NativeWebRequest, binderFactory: WebDataBinderFactory?): Any? {
@@ -76,17 +90,5 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
         }
     }
 
-    /**
-     * since spring decodes unreserved characters automatically
-     * we need to replace them with their url escaped value again
-     * http://www.rfc-editor.org/rfc/rfc1738.txt
-     */
-    private fun replaceSpecialChars(payload: String): String {
-        var cache = payload
-        specialChars.forEach {
-            cache = cache.replace(it.key, it.value)
-        }
-        return cache
-    }
 
 }
