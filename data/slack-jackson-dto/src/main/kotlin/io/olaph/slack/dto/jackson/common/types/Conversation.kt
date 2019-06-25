@@ -12,12 +12,13 @@ data class Conversation(
         @JsonProperty("is_group") val isGroup: Boolean?,
         @JsonProperty("is_im") val isIm: Boolean?,
         @JsonProperty("created") val created: Int?,
+        @JsonProperty("creator") val createdBy: String?,
         @JsonProperty("is_archived") val isArchived: Boolean?,
         @JsonProperty("is_general") val isGeneral: Boolean?,
         @JsonProperty("unlinked") val unlinked: Int?,
         @JsonProperty("name_normalized") val nameNormalized: String?,
         @JsonProperty("is_shared") val isShared: Boolean?,
-        @JsonProperty("creator") val createdBy: String?,
+        @JsonProperty("is_read_only") val isReadOnly: Boolean?,
         @JsonProperty("is_ext_shared") val isExtShared: Boolean?,
         @JsonProperty("is_org_shared") val isOrgShared: Boolean?,
         @JsonProperty("shared_team_ids") val sharedTeamIds: List<String>?,
@@ -43,14 +44,18 @@ data class Conversation(
             @JsonProperty("value") val value: String,
             @JsonProperty("creator") val createdBy: String,
             @JsonProperty("last_set") val lastSet: Int
-    )
+    ) {
+        companion object
+    }
 
     @JacksonDataClass
     data class Topic(
             @JsonProperty("value") val value: String,
             @JsonProperty("creator") val createdBy: String,
             @JsonProperty("last_set") val lastSet: Int
-    )
+    ) {
+        companion object
+    }
 }
 
 
