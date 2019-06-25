@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable
 @JacksonDataClass
 data class Conversation(
         @JsonProperty("id") val id: String,
-        @JsonProperty("name") val name: String,
+        @JsonProperty("name") val name: String?,
         @JsonProperty("is_channel") val isChannel: Boolean,
         @JsonProperty("is_group") val isGroup: Boolean,
         @JsonProperty("is_im") val isIm: Boolean,
