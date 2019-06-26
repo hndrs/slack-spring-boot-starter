@@ -3,6 +3,7 @@ package io.olaph.slack.broker.security
 import org.apache.commons.codec.digest.HmacAlgorithms
 import org.apache.commons.codec.digest.HmacUtils
 import org.springframework.core.MethodParameter
+import org.springframework.http.MediaType
 import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
@@ -23,6 +24,7 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
     companion object {
         private const val SLACK_SIGNATURE_HEADER_NAME = "x-slack-signature"
         private const val SLACK_REQUEST_TIMESTAMP_HEADER_NAME = "x-slack-request-timestamp"
+        private const val CONTENT_TYPE = "Content-Type"
         private const val SLACK_SIGNATURE_VERSION = "v0"
         private val specialChars = mapOf("*" to "%2A")
 
@@ -62,14 +64,18 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
 
         this.validateTimeStamp(slackTimestamp, Instant.now())
 
-        val hmac = generateHmacHex(String(request.contentAsByteArray, Charset.forName("UTF-8")), slackTimestamp, signingSecret)
+        val body = when (request.getHeader(CONTENT_TYPE)) {
+            MediaType.APPLICATION_FORM_URLENCODED_VALUE -> replaceSpecialChars(String(request.contentAsByteArray, Charset.forName("UTF-8")))
+            else -> String(request.contentAsByteArray, Charset.forName("UTF-8"))
+        }
 
+        val hmac = generateHmacHex(body, slackTimestamp, signingSecret)
         if (hmac != slackSignature) throw VerificationException("InvalidSignature")
     }
 
 
     private fun generateHmacHex(requestBody: String, slackTimeStamp: String, signingSecret: String): String {
-        return "v0=${HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex("$SLACK_SIGNATURE_VERSION:$slackTimeStamp:${replaceSpecialChars(requestBody)}")}"
+        return "v0=${HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex("$SLACK_SIGNATURE_VERSION:$slackTimeStamp:$requestBody")}"
     }
 
     private fun validateTimeStamp(slackTimestamp: String, currentTime: Instant): String {
