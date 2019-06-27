@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
-import io.olaph.slack.dto.jackson.group.users.User
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
@@ -17,7 +16,7 @@ sealed class UsergroupsUsersListResponse constructor(@JsonProperty("ok") open va
 
 @JacksonDataClass
 data class SuccessfulUsergroupsUsersListResponse constructor(override val ok: Boolean,
-                                                             @JsonProperty("users") val users: List<User>)
+                                                             @JsonProperty("users") val users: List<String>)
     : UsergroupsUsersListResponse(ok) {
     companion object
 }

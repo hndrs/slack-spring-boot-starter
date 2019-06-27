@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import io.olaph.slack.dto.jackson.common.types.Member
 
 /**
  * https://api.slack.com/methods/users.lookupByEmail
@@ -19,7 +20,7 @@ sealed class SlackLookupByEmailResponse constructor(@JsonProperty("ok") open val
 
 @JacksonDataClass
 data class SuccessfulUsersLookupByEmailResponse constructor(override val ok: Boolean,
-                                                            @JsonProperty("user") val user: User)
+                                                            @JsonProperty("user") val user: Member)
     : SlackLookupByEmailResponse(ok) {
     companion object
 }
