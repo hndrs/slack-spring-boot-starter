@@ -57,6 +57,5 @@ data class SetProfileRequest(@JsonProperty("name") val name: String?,
                              @JsonProperty("profile") val profile: Map<String, String>?,
                              @JsonProperty("user") val user: String?,
                              @JsonProperty("value") val value: String?) {
-    companion object {}
-
+    companion object
 }

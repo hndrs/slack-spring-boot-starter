@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.olaph.slack.dto.jackson.JacksonDataClass
+import io.olaph.slack.dto.jackson.common.types.Identity
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
@@ -24,22 +25,4 @@ data class ErrorUsersIdentityResponse constructor(override val ok: Boolean,
                                                   @JsonProperty("error") val error: String)
     : UsersIdentityResponse(ok) {
     companion object
-}
-
-data class Identity(val user: User, val team: Team) {
-    data class User(val name: String,
-                    val id: String,
-                    val email: String?,
-                    val image24: String?,
-                    val image32: String?,
-                    val image48: String?,
-                    val image72: String?,
-                    val image192: String?) {
-        companion object
-    }
-
-    data class Team(val id: String,
-                    val name: String?) {
-        companion object
-    }
 }

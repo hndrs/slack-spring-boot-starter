@@ -1,16 +1,10 @@
 package io.olaph.slack.dto.jackson.group.users
 
+import io.olaph.slack.dto.jackson.common.types.Identity
+import io.olaph.slack.dto.jackson.common.types.sample
 
 fun SuccessfulUsersIdentityResponse.Companion.sample(): SuccessfulUsersIdentityResponse {
-    return SuccessfulUsersIdentityResponse(true, Identity(Identity.User.sample(), Identity.Team.Companion.sample()))
-}
-
-fun Identity.User.Companion.sample(): Identity.User {
-    return Identity.User("", "", "", "", "", "", "", "")
-}
-
-fun Identity.Team.Companion.sample(): Identity.Team {
-    return Identity.Team("", "")
+    return SuccessfulUsersIdentityResponse(true, Identity(Identity.User.sample(), Identity.Team.sample()))
 }
 
 fun ErrorUsersIdentityResponse.Companion.sample(): ErrorUsersIdentityResponse {
