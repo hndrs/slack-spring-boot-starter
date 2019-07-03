@@ -47,7 +47,7 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
         val builder = UriComponentsBuilder.fromHttpUrl(this.uri.toString())
 
         params.forEach { key, value -> builder.queryParam(key, value) }
-
+        println(builder.toUriString())
         val requestEntity = HttpEntity<Any>(slackHeaders(contentType))
         return restTemplate.exchange(
                 builder.toUriString(),
