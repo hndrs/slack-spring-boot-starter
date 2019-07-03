@@ -42,12 +42,13 @@ data class SlackUserListRequest(private val includeLocale: Boolean? = null,
                                 private val cursor: String? = null) {
 
     fun toRequestMap(): MutableMap<String, String> {
+
         val requestMap = mutableMapOf<String, String>()
         cursor?.let { requestMap.put("cursor", it) }
         includeLocale?.let { requestMap.put("include_locale", it.toString()) }
         limit?.let { requestMap.put("limit", it.toString()) }
-        includePresence?.let { requestMap.put("presence", it.toString()) }
         return requestMap
     }
+
     companion object
 }
