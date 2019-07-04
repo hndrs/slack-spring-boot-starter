@@ -15,7 +15,7 @@ data class Conversation(
         @JsonProperty("is_archived") val isArchived: Boolean,
         @JsonProperty("is_general") val isGeneral: Boolean,
         @JsonProperty("unlinked") val unlinked: Int,
-        @JsonProperty("name_normalized") val nameNormalized: String,
+        @JsonProperty("name_normalized") val nameNormalized: String?,
         @JsonProperty("is_shared") val isShared: Boolean?,
         @JsonProperty("creator") val createdBy: String,
         @JsonProperty("is_ext_shared") val isExtShared: Boolean?,
