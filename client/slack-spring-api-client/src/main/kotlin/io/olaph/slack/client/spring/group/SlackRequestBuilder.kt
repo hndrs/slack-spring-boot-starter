@@ -8,8 +8,8 @@ import org.springframework.http.RequestEntity
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.FormHttpMessageConverter
 import org.springframework.util.LinkedMultiValueMap
+import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
-import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
 
@@ -43,17 +43,10 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
     }
 
     internal fun postUrlEncoded(params: Map<String, String>, contentType: List<String> = listOf("application/x-www-form-urlencoded")): ResponseEntity<T> {
-
-        val builder = UriComponentsBuilder.fromHttpUrl(this.uri.toString())
-
-        params.forEach { key, value -> builder.queryParam(key, value) }
-        println(builder.toUriString())
-        val requestEntity = HttpEntity<Any>(slackHeaders(contentType))
-        return restTemplate.exchange(
-                builder.toUriString(),
-                HttpMethod.POST,
-                requestEntity,
-                this.responseType)
+        val map = LinkedMultiValueMap<String, String>()
+        params.forEach { (key, value) -> map.add(key, value) }
+        val req = HttpEntity<MultiValueMap<String, String>>(map, slackHeaders(contentType))
+        return restTemplate.postForEntity(this.uri, req, responseType)
     }
 
     internal fun postMultipartFormdata(): ResponseEntity<T> {
