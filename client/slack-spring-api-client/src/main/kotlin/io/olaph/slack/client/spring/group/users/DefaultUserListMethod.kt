@@ -11,32 +11,33 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 
 @Suppress("UNCHECKED_CAST")
-class DefaultUserListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UserListMethod() {
+class DefaultUserListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.formUrlTemplate()) : UserListMethod() {
     private var result: SuccessfulUserListResponse? = null
     var nextCursor = ""
+
     override fun request(): ApiCallResult<SuccessfulUserListResponse, ErrorUserListResponse> {
-        println("cursor before request: $nextCursor")
         val map = this.params.copy(cursor = nextCursor).toRequestMap()
-        println(map)
         val response = postUsersListRequest(map)
         when (response.body!!) {
             is SuccessfulUserListResponse -> {
                 val responseEntity = response.body as SuccessfulUserListResponse
                 if (result == null) {
-                    println("first iteration")
                     result = responseEntity
                 }
                 nextCursor = responseEntity.responseMetadata.nextCursor!!
-                println("next_cursor: $nextCursor")
-                if (nextCursor != "") {
-                    result!!.members.toMutableList().addAll(responseEntity.members)
-                    println("added members")
+
+                return if (nextCursor != "") {
+                    result = result!!.copy(members = result!!.members.union(responseEntity.members).toList())
                     request()
                 } else {
-                    return if (result == null)
+                    if (result == null) {
+                        this.onSuccess?.invoke(responseEntity)
                         ApiCallResult(success = responseEntity)
-                    else
+                    } else {
+                        result = result!!.copy(members = result!!.members.union(responseEntity.members).toList())
+                        this.onSuccess?.invoke(result!!)
                         ApiCallResult(success = result)
+                    }
                 }
             }
             is ErrorUserListResponse -> {
@@ -45,11 +46,9 @@ class DefaultUserListMethod(private val authToken: String, private val restTempl
                 return ApiCallResult(failure = responseEntity)
             }
         }
-        return ApiCallResult(failure = ErrorUserListResponse(false, "error"))
     }
 
     private fun postUsersListRequest(params: Map<String, String>): ResponseEntity<UserListResponse> {
-        println(params)
         return SlackRequestBuilder<UserListResponse>(authToken, restTemplate)
                 .toMethod("users.list")
                 .returnAsType(UserListResponse::class.java)
