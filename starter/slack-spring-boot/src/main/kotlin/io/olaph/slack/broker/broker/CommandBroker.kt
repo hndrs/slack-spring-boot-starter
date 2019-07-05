@@ -1,6 +1,7 @@
 package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.configuration.Command
+import io.olaph.slack.broker.exception.ExceptionChain
 
 import io.olaph.slack.broker.metrics.CommandMetricsCollector
 import io.olaph.slack.broker.receiver.MismatchCommandReciever
@@ -31,6 +32,7 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
     fun receiveCommand(@Command slackCommand: SlackCommand, @RequestHeader headers: HttpHeaders) {
 
         this.metricsCollector?.commandsReceived()
+        val exceptionChain = ExceptionChain()
 
         val team = this.teamStore.findById(slackCommand.teamId)
         slackCommandReceivers
@@ -47,7 +49,10 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
                     } catch (e: Exception) {
                         this.metricsCollector?.receiverExecutionError()
                         LOG.error("{}", e)
+                        exceptionChain.add(e)
                     }
                 }
+        exceptionChain.trigger()
+
     }
 }

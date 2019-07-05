@@ -1,5 +1,7 @@
 package io.olaph.slack.broker.broker
 
+import io.olaph.slack.broker.exception.ExceptionChain
+import io.olaph.slack.broker.exception.MustThrow
 import io.olaph.slack.broker.metrics.InstallationMetricsCollector
 import io.olaph.slack.broker.receiver.InstallationReceiver
 import io.olaph.slack.broker.store.Team
@@ -48,6 +50,8 @@ class InstallationBroker constructor(
             this.teamStore.put(team)
             this.metricsCollector?.successfulInstallation()
 
+            val exceptionChain = ExceptionChain()
+
             this.installationReceivers
                     .forEach { receiver ->
                         try {
@@ -56,8 +60,11 @@ class InstallationBroker constructor(
                         } catch (e: Exception) {
                             this.metricsCollector?.receiverExecutionError()
                             InteractiveComponentBroker.LOG.error("{}", e)
+                            exceptionChain.add(e)
                         }
                     }
+
+            exceptionChain.trigger()
 
             RedirectView(this.config.successRedirectUrl)
         } catch (exception: Exception) {

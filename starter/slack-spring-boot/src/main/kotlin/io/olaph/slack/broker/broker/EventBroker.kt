@@ -1,6 +1,8 @@
 package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.configuration.Event
+import io.olaph.slack.broker.exception.ExceptionChain
+import io.olaph.slack.broker.exception.MustThrow
 import io.olaph.slack.broker.metrics.EventMetricsCollector
 import io.olaph.slack.broker.receiver.EventReceiver
 import io.olaph.slack.broker.store.TeamStore
@@ -30,6 +32,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
     fun receiveEvents(@Event event: EventRequest, @RequestHeader headers: HttpHeaders): Map<String, String> {
 
         this.metricsCollector?.eventsReceived()
+        val exceptionChain = ExceptionChain()
 
         if (event is SlackChallenge) {
             return mapOf(Pair("challenge", event.challenge))
@@ -51,9 +54,13 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
                         } catch (e: Exception) {
                             this.metricsCollector?.receiverExecutionError()
                             LOG.error("Exception", e)
+                            exceptionChain.add(e)
                         }
                     }
         }
+
+        exceptionChain.trigger()
+
         return mapOf()
     }
 }
