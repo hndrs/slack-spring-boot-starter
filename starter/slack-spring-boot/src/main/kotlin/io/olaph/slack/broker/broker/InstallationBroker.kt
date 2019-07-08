@@ -59,7 +59,7 @@ class InstallationBroker constructor(
                             receiver.onReceiveInstallation(code, state, team)
                         } catch (e: Exception) {
                             this.metricsCollector?.receiverExecutionError()
-                            InteractiveComponentBroker.LOG.error("{}", e)
+                            if (e !is MustThrow) LOG.error("{}", e)
                             exceptionChain.add(e)
                         }
                     }

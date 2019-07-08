@@ -53,7 +53,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
                             receiver.onReceiveEvent(event, headers, team)
                         } catch (e: Exception) {
                             this.metricsCollector?.receiverExecutionError()
-                            LOG.error("Exception", e)
+                            if (e !is MustThrow) LOG.error("Exception", e)
                             exceptionChain.add(e)
                         }
                     }
