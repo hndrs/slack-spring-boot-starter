@@ -41,7 +41,7 @@ class InteractiveComponentBroker constructor(private val slackInteractiveCompone
                         receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
                     } catch (e: Exception) {
                         this.metricsCollector?.receiverExecutionError()
-                        LOG.error("{}", e)
+                        if(e !is MustThrow) LOG.error("{}", e)
                         exceptionChain.add(e)
                     }
                 }

@@ -2,6 +2,7 @@ package io.olaph.slack.broker.broker
 
 import io.olaph.slack.broker.configuration.Command
 import io.olaph.slack.broker.exception.ExceptionChain
+import io.olaph.slack.broker.exception.MustThrow
 
 import io.olaph.slack.broker.metrics.CommandMetricsCollector
 import io.olaph.slack.broker.receiver.MismatchCommandReciever
@@ -48,7 +49,7 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
                         broker.onReceiveSlashCommand(slackCommand, headers, team)
                     } catch (e: Exception) {
                         this.metricsCollector?.receiverExecutionError()
-                        LOG.error("{}", e)
+                        if (e !is MustThrow) LOG.error("{}", e)
                         exceptionChain.add(e)
                     }
                 }
