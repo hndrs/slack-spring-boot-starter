@@ -46,7 +46,7 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
         val map = LinkedMultiValueMap<String, String>()
         params.forEach { (key, value) -> map.add(key, value) }
         val req = HttpEntity<MultiValueMap<String, String>>(map, slackHeaders(contentType))
-        return restTemplate.postForEntity(this.uri, req, responseType)
+        return restTemplate.exchange(this.uri, HttpMethod.POST, req, responseType)
     }
 
     internal fun postMultipartFormdata(): ResponseEntity<T> {
