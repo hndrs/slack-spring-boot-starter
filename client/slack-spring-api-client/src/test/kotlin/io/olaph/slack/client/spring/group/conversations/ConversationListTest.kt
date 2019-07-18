@@ -24,7 +24,7 @@ class ConversationListTest {
     @DisplayName("conversations.list Failure")
     fun conversationListFailure() {
         val response = ErrorConversationListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.list?cursor=&exclude_archived=true")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.list")
         val verifier = Verifier(response)
 
         DefaultConversationsListMethod("", mockTemplate)
@@ -39,7 +39,7 @@ class ConversationListTest {
     @DisplayName("conversations.list Success")
     fun conversationListSuccess() {
         val response = SuccessfulConversationListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.list?cursor=&exclude_archived=true")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.list")
         val verifier = Verifier(response)
 
         DefaultConversationsListMethod("", mockTemplate)
