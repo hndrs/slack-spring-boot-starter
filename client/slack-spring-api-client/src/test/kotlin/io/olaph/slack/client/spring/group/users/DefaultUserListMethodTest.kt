@@ -17,7 +17,7 @@ class DefaultUserListMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplateFactory.slackTemplate()
+        mockTemplate = RestTemplateFactory.formUrlTemplate()
     }
 
     @Test
@@ -44,6 +44,21 @@ class DefaultUserListMethodTest {
 
         DefaultUserListMethod("", mockTemplate)
                 .with(SlackUserListRequest.sample())
+                .onSuccess { verifier.set(it) }
+                .invoke()
+        mockServer.verify()
+        verifier.verify()
+    }
+
+    @Test
+    @DisplayName("user.list Success")
+    fun TestWithNextCursor() {
+        val response = SuccessfulUserListResponse.sample()
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.list")
+        val verifier = Verifier(response)
+
+        DefaultUserListMethod("", mockTemplate)
+                .with(SlackUserListRequest.sample().copy(limit = 10, cursor = "12324"))
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

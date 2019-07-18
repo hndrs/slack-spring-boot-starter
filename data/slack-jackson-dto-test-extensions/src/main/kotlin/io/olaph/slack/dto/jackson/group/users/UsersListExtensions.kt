@@ -12,5 +12,5 @@ fun ErrorUserListResponse.Companion.sample(): ErrorUserListResponse {
 }
 
 fun SlackUserListRequest.Companion.sample(): SlackUserListRequest {
-    return SlackUserListRequest(false, 0, false, "")
+    return SlackUserListRequest(false, 0, false, "test")
 }
