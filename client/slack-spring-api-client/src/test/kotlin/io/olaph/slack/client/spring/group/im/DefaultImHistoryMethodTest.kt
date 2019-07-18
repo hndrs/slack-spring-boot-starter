@@ -25,7 +25,7 @@ internal class DefaultImHistoryMethodTest {
     @DisplayName("im.history Failure")
     fun imHistoryFailure() {
         val response = ErrorImHistoryResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.history?channel=&inclusive=false&unreads=false")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.history")
         val verifier = Verifier(response)
         DefaultImHistoryMethod("", mockTemplate)
                 .with(SlackImHistoryRequest.sample())
@@ -39,7 +39,7 @@ internal class DefaultImHistoryMethodTest {
     @DisplayName("im.history Success")
     fun imHistorySuccess() {
         val response = SuccessfulImHistoryResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.history?channel=&inclusive=false&unreads=false")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.history")
         val verifier = Verifier(response)
 
         DefaultImHistoryMethod("", mockTemplate)

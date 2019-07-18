@@ -24,7 +24,7 @@ class DefaultUserListMethodTest {
     @DisplayName("user.list Failure")
     fun UserListFailure() {
         val response = ErrorUserListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.list?cursor=&include_locale=false&limit=0&presence=false")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.list")
         val verifier = Verifier(response)
 
         DefaultUserListMethod("", mockTemplate)
@@ -39,7 +39,7 @@ class DefaultUserListMethodTest {
     @DisplayName("user.list Success")
     fun UserListSuccess() {
         val response = SuccessfulUserListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.list?cursor=&include_locale=false&limit=0&presence=false")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.list")
         val verifier = Verifier(response)
 
         DefaultUserListMethod("", mockTemplate)

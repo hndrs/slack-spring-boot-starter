@@ -25,7 +25,7 @@ class DefaultRevokeMethodTest {
     @DisplayName("auth.revoke Failure")
     fun authRevokeFailure() {
         val response = ErrorAuthRevokeResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "auth.revoke?test=true")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "auth.revoke")
         val verifier = Verifier(response)
 
         DefaultRevokeMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class DefaultRevokeMethodTest {
     @DisplayName("auth.revoke Success")
     fun authRevokeSuccess() {
         val response = SuccessfulAuthRevokeResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "auth.revoke?test=true")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "auth.revoke")
         val verifier = Verifier(response)
 
         DefaultRevokeMethod("", mockTemplate)

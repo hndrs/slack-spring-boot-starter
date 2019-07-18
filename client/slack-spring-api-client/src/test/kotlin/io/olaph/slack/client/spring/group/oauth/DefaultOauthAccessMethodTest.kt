@@ -24,7 +24,7 @@ class DefaultOauthAccessMethodTest {
     @DisplayName("oauth.access Failure")
     fun oauthAccessFailure() {
         val response = ErrorOauthAccessResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "oauth.access?client_id=&client_secret=&code=")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "oauth.access")
         val verifier = Verifier(response)
 
         DefaultOauthAccessMethod(mockTemplate)
@@ -39,7 +39,7 @@ class DefaultOauthAccessMethodTest {
     @DisplayName("oauth.access Success")
     fun oauthAccessSuccess() {
         val response = SuccessFullOauthAccessResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "oauth.access?client_id=&client_secret=&code=")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "oauth.access")
         val verifier = Verifier(response)
 
         DefaultOauthAccessMethod(mockTemplate)

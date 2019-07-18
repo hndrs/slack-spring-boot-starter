@@ -24,7 +24,7 @@ class DefaultUserConversationsMethodTest {
     @DisplayName("Users.conversations Failure")
     fun UserConversationsFailure() {
         val response = ErrorUserConversationsResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.conversations?cursor=&exclude_archived=true&limit=0&types=im&user=")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.conversations")
         val verifier = Verifier(response)
 
         DefaultUserConversationsMethod("", mockTemplate)
@@ -39,7 +39,7 @@ class DefaultUserConversationsMethodTest {
     @DisplayName("Users.conversations Success")
     fun UserConversationsSuccess() {
         val response = SuccessfulUserConversationsResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.conversations?cursor=&exclude_archived=true&limit=0&types=im&user=")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.conversations")
         val verifier = Verifier(response)
 
         DefaultUserConversationsMethod("", mockTemplate)

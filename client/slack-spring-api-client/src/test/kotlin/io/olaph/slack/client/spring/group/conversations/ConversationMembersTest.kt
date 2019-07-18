@@ -25,7 +25,7 @@ class ConversationMembersTest {
     @DisplayName("conversations.members Failure")
     fun conversationMembersFailure() {
         val response = ErrorConversationMembersResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.members?channel=&cursor=&limit=100")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.members")
         val verifier = Verifier(response)
 
         DefaultConversationsMembersMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class ConversationMembersTest {
     @DisplayName("conversations.members Success")
     fun conversationMembersSuccess() {
         val response = SuccessfulConversationMembersResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.members?channel=&cursor=&limit=100")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.members")
         val verifier = Verifier(response)
 
         DefaultConversationsMembersMethod("", mockTemplate)
