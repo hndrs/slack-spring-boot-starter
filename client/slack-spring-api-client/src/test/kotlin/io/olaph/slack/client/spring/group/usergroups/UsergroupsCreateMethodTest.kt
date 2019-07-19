@@ -27,7 +27,7 @@ class UsergroupsCreateMethodTest {
     fun usergroupsCreateSuccess() {
 
         val response = SuccessfulUsergroupsCreateResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.create")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.create", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsCreateMethod("", mockTemplate)
@@ -44,7 +44,7 @@ class UsergroupsCreateMethodTest {
     fun usergroupsCreateFailure() {
 
         val response = ErrorUsergroupsCreateResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.create")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.create", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsCreateMethod("", mockTemplate)

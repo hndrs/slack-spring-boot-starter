@@ -24,7 +24,7 @@ class ConversationsInfoTest {
     @DisplayName("conversations.info Failure")
     fun conversationListFailure() {
         val response = ErrorConversationsInfoResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.info")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.info", response)
         val verifier = Verifier(response)
 
         DefaultConversationsInfoMethod("", mockTemplate)
@@ -39,7 +39,7 @@ class ConversationsInfoTest {
     @DisplayName("conversations.info Success")
     fun conversationListSuccess() {
         val response = SuccessfulConversationsInfoResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.info")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.info", response)
         val verifier = Verifier(response)
 
         DefaultConversationsInfoMethod("", mockTemplate)

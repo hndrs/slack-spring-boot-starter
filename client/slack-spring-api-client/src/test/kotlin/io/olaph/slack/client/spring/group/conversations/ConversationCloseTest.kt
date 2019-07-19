@@ -25,7 +25,7 @@ class ConversationCloseTest {
     @DisplayName("conversations.close Failure")
     fun conversationCloseFailure() {
         val response = ErrorConversationCloseResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.close")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.close", response)
         val verifier = Verifier(response)
 
         DefaultConversationsCloseMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class ConversationCloseTest {
     @DisplayName("conversations.close Success")
     fun conversationCloseSuccess() {
         val response = SuccessfulConversationCloseResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.close")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.close", response)
         val verifier = Verifier(response)
 
         DefaultConversationsCloseMethod("", mockTemplate)

@@ -23,7 +23,7 @@ class DefaultUsersIdentityMethodTest {
     @DisplayName("Users.identity Failure")
     fun UserIdentityFailure() {
         val response = ErrorUsersIdentityResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.identity")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.identity", response)
         val verifier = Verifier(response)
 
         DefaultUsersIdentityMethod("", mockTemplate)
@@ -37,7 +37,7 @@ class DefaultUsersIdentityMethodTest {
     @DisplayName("Users.identity Success")
     fun UserIdentitySuccess() {
         val response = SuccessfulUsersIdentityResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.identity")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.identity", response)
         val verifier = Verifier(response)
 
         DefaultUsersIdentityMethod("", mockTemplate)

@@ -25,7 +25,7 @@ class ConversationsJoinTest {
     @DisplayName("conversations.join Failure")
     fun conversationJoinFailure() {
         val response = ErrorConversationJoinResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.join")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.join", response)
         val verifier = Verifier(response)
 
         DefaultConversationsJoinMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class ConversationsJoinTest {
     @DisplayName("conversations.join Success")
     fun conversationJoinSuccess() {
         val response = SuccessfulConversationJoinResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.join")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.join", response)
         val verifier = Verifier(response)
 
         DefaultConversationsJoinMethod("", mockTemplate)

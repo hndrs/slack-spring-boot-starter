@@ -24,7 +24,7 @@ class DefaultUsersGetProfileMethodTest {
     @DisplayName("Users.getProfile Failure")
     fun UserGetProfileFailure() {
         val response = ErrorUsersGetProfileResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.profile.get")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.profile.get", response)
         val verifier = Verifier(response)
 
         DefaultUsersGetProfileMethod("", mockTemplate)
@@ -39,7 +39,7 @@ class DefaultUsersGetProfileMethodTest {
     @DisplayName("Users.getProfile Success")
     fun UserGetProfileSuccess() {
         val response = SuccessfulUsersGetProfileResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.profile.get")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.profile.get", response)
         val verifier = Verifier(response)
 
         DefaultUsersGetProfileMethod("", mockTemplate)

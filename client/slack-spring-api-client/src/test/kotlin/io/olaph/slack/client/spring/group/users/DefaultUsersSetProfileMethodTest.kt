@@ -23,7 +23,7 @@ class DefaultUsersSetProfileMethodTest {
     @DisplayName("Users.setProfile Failure")
     fun UserSetProfileFailure() {
         val response = ErrorUsersSetProfileResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.profile.set")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.profile.set", response)
         val verifier = Verifier(response)
 
         DefaultUsersSetProfileMethod("", mockTemplate)
@@ -37,7 +37,7 @@ class DefaultUsersSetProfileMethodTest {
     @DisplayName("Users.setProfile Success")
     fun UserSetProfileSuccess() {
         val response = SuccessfulUsersSetProfileResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.profile.set")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.profile.set", response)
         val verifier = Verifier(response)
 
         DefaultUsersSetProfileMethod("", mockTemplate)

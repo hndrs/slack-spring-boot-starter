@@ -24,7 +24,7 @@ internal class DefaultImCloseMethodTest {
     @DisplayName("Im.close Failure")
     fun imCloseFailure() {
         val response = ErrorImCloseResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.close")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.close", response)
         val verifier = Verifier(response)
 
         DefaultImCloseMethod("", mockTemplate)
@@ -39,7 +39,7 @@ internal class DefaultImCloseMethodTest {
     @DisplayName("Im.close Success")
     fun imCloseSuccess() {
         val response = SuccessfulImCloseResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.close")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.close", response)
         val verifier = Verifier(response)
 
         DefaultImCloseMethod("", mockTemplate)

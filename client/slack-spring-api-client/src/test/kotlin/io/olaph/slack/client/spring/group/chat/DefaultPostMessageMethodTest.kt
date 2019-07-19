@@ -25,7 +25,7 @@ class DefaultPostMessageMethodTest {
     @DisplayName("chat.postMessage Failure")
     fun chatPostMessageFailure() {
         val response = ErrorPostMessageResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "chat.postMessage")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "chat.postMessage", response)
         val verifier = Verifier(response)
 
         DefaultPostMessageMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class DefaultPostMessageMethodTest {
     @DisplayName("chat.PostMessage Success")
     fun chatPostMessageSuccess() {
         val response = SuccessfulPostMessageResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "chat.postMessage")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "chat.postMessage", response)
         val verifier = Verifier(response)
 
         DefaultPostMessageMethod("", mockTemplate)

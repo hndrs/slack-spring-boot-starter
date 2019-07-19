@@ -25,7 +25,7 @@ class DefaultUpdateMethodTest {
     @DisplayName("chat.update Failure")
     fun chatUpdateFailure() {
         val response = ErrorChatUpdateResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "chat.update")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "chat.update", response)
         val verifier = Verifier(response)
 
         DefaultUpdateMethod("", mockTemplate)
@@ -41,7 +41,7 @@ class DefaultUpdateMethodTest {
     @DisplayName("chat.update Success")
     fun chatUpdateSuccess() {
         val response = SuccessfulChatUpdateResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "chat.update")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "chat.update", response)
         val verifier = Verifier(response)
 
         DefaultUpdateMethod("", mockTemplate)

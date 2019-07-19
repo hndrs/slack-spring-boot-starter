@@ -25,15 +25,17 @@ class MockServerHelper() {
          * builds a mocked RestServer that responds with the defined [responseBody] when the
          * [methodEndpoint] is called on the [restTemplate]
          */
-        fun buildMockRestServer(restTemplate: RestTemplate, responseBody: Any, methodEndpoint: String): MockRestServiceServer {
+        fun buildMockRestServer(restTemplate: RestTemplate, methodEndpoint: String, vararg responseBody: Any = arrayOf("")): MockRestServiceServer {
             val mockserver = MockRestServiceServer.createServer(restTemplate)
 
-            mockserver.expect(ExpectedCount.once(),
-                    MockRestRequestMatchers.requestTo(URI("https://slack.com/api/$methodEndpoint")))
-                    .andExpect(MockRestRequestMatchers.method(HttpMethod.POST))
-                    .andRespond(MockRestResponseCreators.withSuccess()
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .body(getObjectString(responseBody)))
+            responseBody.forEach {
+                mockserver.expect(ExpectedCount.once(),
+                        MockRestRequestMatchers.requestTo(URI("https://slack.com/api/$methodEndpoint")))
+                        .andExpect(MockRestRequestMatchers.method(HttpMethod.POST))
+                        .andRespond(MockRestResponseCreators.withSuccess()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(getObjectString(it)))
+            }
             return mockserver
         }
 

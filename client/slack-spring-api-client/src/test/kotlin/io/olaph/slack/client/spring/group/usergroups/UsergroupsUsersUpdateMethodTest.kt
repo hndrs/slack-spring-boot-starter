@@ -25,7 +25,7 @@ class UsergroupsUsersUpdateMethodTest {
     @Test
     fun usergroupsUsersUpdateSuccess() {
         val response = SuccessfulUsergroupUsersUpdateResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.users.update")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.users.update", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsUsersUpdateMethod("", mockTemplate)
@@ -41,7 +41,7 @@ class UsergroupsUsersUpdateMethodTest {
     @Test
     fun usergroupsUsersUpdateFailure() {
         val response = ErrorUsergroupUsersUpdateResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.users.update")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.users.update", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsUsersUpdateMethod("", mockTemplate)

@@ -24,7 +24,7 @@ internal class DefaultImOpenMethodTest {
     @DisplayName("Im.Open Failure")
     fun imOpenFailure() {
         val response = ErrorImOpenResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.open")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.open", response)
         val verifier = Verifier(response)
 
         DefaultImOpenMethod("", mockTemplate)
@@ -39,7 +39,7 @@ internal class DefaultImOpenMethodTest {
     @DisplayName("Im.Open Success")
     fun imOpenSuccess() {
         val response = SuccessfulImOpenResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.open")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.open", response)
         val verifier = Verifier(response)
 
         DefaultImOpenMethod("", mockTemplate)

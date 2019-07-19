@@ -24,7 +24,7 @@ class DefaultUsersInfoMethodTest {
     @DisplayName("Users.info Failure")
     fun UserInfoFailure() {
         val response = ErrorUsersInfoResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.info")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.info", response)
         val verifier = Verifier(response)
 
         DefaultUsersInfoMethod("", mockTemplate)
@@ -39,7 +39,7 @@ class DefaultUsersInfoMethodTest {
     @DisplayName("Users.info Success")
     fun UserInfoSuccess() {
         val response = SuccessfulUsersInfoResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.info")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.info", response)
         val verifier = Verifier(response)
 
         DefaultUsersInfoMethod("", mockTemplate)

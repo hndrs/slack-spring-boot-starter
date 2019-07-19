@@ -25,7 +25,7 @@ class ConversationRepliesTest {
     @DisplayName("conversations.replies Failure")
     fun conversationLeaveFailure() {
         val response = ErrorConversationRepliesResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.replies")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.replies", response)
         val verifier = Verifier(response)
 
         DefaultConversationsRepliesMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class ConversationRepliesTest {
     @DisplayName("conversations.replies Success")
     fun conversationLeaveSuccess() {
         val response = SuccessfulConversationRepliesResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.replies")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.replies", response)
         val verifier = Verifier(response)
 
         DefaultConversationsRepliesMethod("", mockTemplate)

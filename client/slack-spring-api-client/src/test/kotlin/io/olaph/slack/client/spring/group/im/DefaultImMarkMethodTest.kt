@@ -24,7 +24,7 @@ internal class DefaultImMarkMethodTest {
     @DisplayName("Im.Mark Failure")
     fun imMarkFailure() {
         val response = ErrorImMarkResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.mark")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.mark", response)
         val verifier = Verifier(response)
         DefaultImMarkMethod("", mockTemplate)
                 .with(SlackImMarkRequest.sample())
@@ -38,7 +38,7 @@ internal class DefaultImMarkMethodTest {
     @DisplayName("Im.Mark Success")
     fun imMarkSuccess() {
         val response = SuccessfulImMarkResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.mark")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.mark", response)
         val verifier = Verifier(response)
 
         DefaultImMarkMethod("", mockTemplate)

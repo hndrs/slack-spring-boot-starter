@@ -24,7 +24,7 @@ class UsergroupsListMethodTest {
     @Test
     fun usergroupsListMethodSuccess() {
         val response = SuccessfulUsergroupsListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.list")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.list", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsListMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class UsergroupsListMethodTest {
     @Test
     fun usergroupsListMethodFailure() {
         val response = ErrorUsergroupsListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.list")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.list", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsListMethod("", mockTemplate)

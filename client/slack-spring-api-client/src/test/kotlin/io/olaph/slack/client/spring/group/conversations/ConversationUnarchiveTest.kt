@@ -25,7 +25,7 @@ class ConversationUnarchiveTest {
     @DisplayName("conversations.unarchive Failure")
     fun conversationUnarchiveFailure() {
         val response = ErrorConversationUnarchiveResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.unarchive")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.unarchive", response)
         val verifier = Verifier(response)
 
         DefaultConversationsUnarchiveMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class ConversationUnarchiveTest {
     @DisplayName("conversations.unarchive Success")
     fun conversationUnarchiveSuccess() {
         val response = SuccessfulConversationUnarchiveResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.unarchive")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.unarchive", response)
         val verifier = Verifier(response)
 
         DefaultConversationsUnarchiveMethod("", mockTemplate)

@@ -24,7 +24,7 @@ internal class DefaultImRepliesMethodTest {
     @DisplayName("Im.replies Failure")
     fun imRepliesFailure() {
         val response = ErrorImRepliesResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.replies")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.replies", response)
         val verifier = Verifier(response)
 
         DefaultImRepliesMethod("", mockTemplate)
@@ -39,7 +39,7 @@ internal class DefaultImRepliesMethodTest {
     @DisplayName("Im.replies Success")
     fun imRepliesSuccess() {
         val response = SuccessfulImRepliesResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.replies")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.replies", response)
         val verifier = Verifier(response)
 
         DefaultImRepliesMethod("", mockTemplate)

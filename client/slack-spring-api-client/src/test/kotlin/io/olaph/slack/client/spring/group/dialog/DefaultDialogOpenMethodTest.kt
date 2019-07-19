@@ -24,7 +24,7 @@ class DefaultDialogOpenMethodTest {
     @DisplayName("dialog.open Failure")
     fun DialogListFailure() {
         val response = ErrorOpenDialogResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "dialog.open")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "dialog.open", response)
         val verifier = Verifier(response)
 
         DefaultDialogOpenMethod("", mockTemplate)
@@ -39,7 +39,7 @@ class DefaultDialogOpenMethodTest {
     @DisplayName("dialog.open Success")
     fun DialogListSuccess() {
         val response = SuccessfulOpenDialogResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "dialog.open")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "dialog.open", response)
         val verifier = Verifier(response)
 
         DefaultDialogOpenMethod("", mockTemplate)

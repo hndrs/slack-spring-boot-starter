@@ -25,7 +25,7 @@ class DefaultChannelCreateMethodTest {
     @DisplayName("channels.create Failure")
     fun channelCreateFailure() {
         val response = ErrorChannelCreateResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.create")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.create", response)
         val verifier = Verifier(response)
 
         DefaultChannelCreateMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class DefaultChannelCreateMethodTest {
     @DisplayName("channels.create Success")
     fun channelCreateSuccess() {
         val response = SuccessfulChannelCreateResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.create")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.create", response)
         val verifier = Verifier(response)
 
         DefaultChannelCreateMethod("", mockTemplate)
