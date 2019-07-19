@@ -24,7 +24,7 @@ internal class DefaultImListMethodTest {
     @DisplayName("Im.list Failure")
     fun imListFailure() {
         val response = ErrorImListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.list")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.list", response)
         val verifier = Verifier(response)
         DefaultImListMethod("", mockTemplate)
                 .with(SlackImListRequest.sample())
@@ -38,7 +38,7 @@ internal class DefaultImListMethodTest {
     @DisplayName("Im.list Success")
     fun imListSuccess() {
         val response = SuccessfulImListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "im.list")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.list", response)
         val verifier = Verifier(response)
 
         DefaultImListMethod("", mockTemplate)

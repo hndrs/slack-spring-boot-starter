@@ -25,7 +25,7 @@ class DefaultChannelInviteMethodTest {
     @DisplayName("channels.invite Failure")
     fun channelInviteFailure() {
         val response = ErrorChannelInviteResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.invite")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.invite", response)
         val verifier = Verifier(response)
 
         DefaultChannelInviteMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class DefaultChannelInviteMethodTest {
     @DisplayName("channels.invite Success")
     fun channelInviteSuccess() {
         val response = SuccessfulChannelInviteResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.invite")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.invite", response)
         val verifier = Verifier(response)
 
         DefaultChannelInviteMethod("", mockTemplate)

@@ -27,7 +27,7 @@ class ConversationSetPurposeTest {
     fun conversationSetPurposeSuccess() {
         val response = SuccessfulConversationSetPurposeResponse.sample()
 
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.setPurpose")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate,  "conversations.setPurpose",response)
         val verifier = Verifier(response)
 
         DefaultConversationsSetPurposeMethod("", mockTemplate)
@@ -45,7 +45,7 @@ class ConversationSetPurposeTest {
     fun conversationSetPurposeFailure() {
         val response = ErrorConversationSetPurposeResponse.sample()
 
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.setPurpose")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate,  "conversations.setPurpose",response)
         val verifier = Verifier(response)
 
         DefaultConversationsSetPurposeMethod("", mockTemplate)

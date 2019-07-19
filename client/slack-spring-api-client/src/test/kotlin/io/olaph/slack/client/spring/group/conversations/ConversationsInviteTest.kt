@@ -25,7 +25,7 @@ class ConversationsInviteTest() {
     @DisplayName("conversations.invite Failure")
     fun conversationInvite() {
         val response = ErrorConversationInviteResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.invite")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.invite", response)
         val verifier = Verifier(response)
 
         DefaultConversationsInviteMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class ConversationsInviteTest() {
     @DisplayName("conversations.invite Success")
     fun conversationInviteSuccess() {
         val response = SuccessfulConversationInviteResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.invite")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.invite", response)
         val verifier = Verifier(response)
 
         DefaultConversationsInviteMethod("", mockTemplate)

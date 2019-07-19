@@ -25,7 +25,7 @@ internal class DefaultPostEphemeralMethodTest {
     @DisplayName("chat.PostEphemeral Failure")
     fun chatPostEphemeralFailure() {
         val response = ErrorPostEphemeralResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "chat.postEphemeral")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "chat.postEphemeral", response)
         val verifier = Verifier(response)
 
         DefaultPostEphemeralMethod("", mockTemplate)
@@ -40,7 +40,7 @@ internal class DefaultPostEphemeralMethodTest {
     @DisplayName("chat.PostEphemeral Success")
     fun chatPostEphemeralSuccess() {
         val response = SuccessfulPostEphemeralResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "chat.postEphemeral")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "chat.postEphemeral", response)
         val verifier = Verifier(response)
 
         DefaultPostEphemeralMethod("", mockTemplate)

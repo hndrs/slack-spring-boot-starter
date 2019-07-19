@@ -25,7 +25,7 @@ class DefaultUsersGetPresenceMethodTest {
     @Test
     fun usersGetPresenceSuccess() {
         val response = SuccessfulUsersGetPresenceResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.getPresence")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.getPresence", response)
         val verifier = Verifier(response)
 
 
@@ -41,7 +41,7 @@ class DefaultUsersGetPresenceMethodTest {
     @Test
     fun usersGetPresenceError() {
         val response = ErrorUsersGetPresenceResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.getPresence")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.getPresence", response)
         val verifier = Verifier(response)
 
 

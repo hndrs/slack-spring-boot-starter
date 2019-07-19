@@ -25,7 +25,7 @@ internal class DefaultDeleteMethodTest {
     @DisplayName("chat.delete Failure")
     fun chatDeleteFailure() {
         val response = ErrorChatDeleteResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "chat.delete")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "chat.delete", response)
         val verifier = Verifier(response)
 
         DefaultDeleteMethod("", mockTemplate)
@@ -40,7 +40,7 @@ internal class DefaultDeleteMethodTest {
     @DisplayName("chat.delete Success")
     fun chatDeleteSuccess() {
         val response = SuccessfulChatDeleteResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "chat.delete")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "chat.delete", response)
         val verifier = Verifier(response)
 
         DefaultDeleteMethod("", mockTemplate)

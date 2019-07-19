@@ -26,13 +26,13 @@ class ConversationsKickTest {
     fun conversationsKickSuccess() {
         val response = SuccessfulConversationKickResponse.sample()
 
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.kick")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.kick", response)
         val verifier = Verifier(response)
 
         DefaultConverstationsKickMethod("", mockTemplate)
                 .with(ConversationsKickRequest.sample())
                 .onSuccess { verifier.set(it) }
-                .onFailure {  }
+                .onFailure { }
                 .invoke()
         mockServer.verify()
         verifier.verify()
@@ -43,12 +43,12 @@ class ConversationsKickTest {
     fun conversationsKickFailure() {
         val response = ErrorConversationKickResponse.sample()
 
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.kick")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.kick", response)
         val verifier = Verifier(response)
 
         DefaultConverstationsKickMethod("", mockTemplate)
                 .with(ConversationsKickRequest.sample())
-                .onSuccess {  }
+                .onSuccess { }
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()

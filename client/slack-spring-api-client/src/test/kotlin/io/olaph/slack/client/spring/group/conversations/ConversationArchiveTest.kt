@@ -25,7 +25,7 @@ class ConversationArchiveTest {
     @DisplayName("conversations.archive Failure")
     fun conversationCloseFailure() {
         val response = ErrorConversationArchiveResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.archive")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.archive", response)
         val verifier = Verifier(response)
 
         DefaultConversationsArchiveMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class ConversationArchiveTest {
     @DisplayName("conversations.archive Success")
     fun conversationCloseSuccess() {
         val response = SuccessfulConversationArchiveResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.archive")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.archive", response)
         val verifier = Verifier(response)
 
         DefaultConversationsArchiveMethod("", mockTemplate)

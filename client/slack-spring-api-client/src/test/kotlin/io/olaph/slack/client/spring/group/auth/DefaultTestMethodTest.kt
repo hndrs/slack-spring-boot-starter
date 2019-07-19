@@ -24,7 +24,7 @@ class DefaultTestMethodTest {
     @DisplayName("auth.test Failure")
     fun authTestFailure() {
         val response = ErrorAuthTestResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "auth.test")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "auth.test", response)
         val verifier = Verifier(response)
 
         DefaultTestMethod("", mockTemplate)
@@ -38,7 +38,7 @@ class DefaultTestMethodTest {
     @DisplayName("auth.Test Success")
     fun authTestSuccess() {
         val response = SuccessfulAuthTestResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "auth.test")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "auth.test", response)
         val verifier = Verifier(response)
 
         DefaultTestMethod("", mockTemplate)

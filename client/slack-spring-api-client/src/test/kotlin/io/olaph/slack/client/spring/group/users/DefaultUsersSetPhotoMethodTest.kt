@@ -27,7 +27,7 @@ class DefaultUsersSetPhotoMethodTest {
     fun usersSetPhotoSuccess() {
 
         val response = SuccessfulUsersSetPhotoResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.setPhoto")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.setPhoto", response)
         val verifier = Verifier(response)
 
         DefaultUsersSetPhotoMethod("", mockTemplate)
@@ -44,7 +44,7 @@ class DefaultUsersSetPhotoMethodTest {
     fun usersSetPhotoFailure() {
 
         val response = ErrorUsersSetPhotoResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.setPhoto")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.setPhoto", response)
         val verifier = Verifier(response)
 
         DefaultUsersSetPhotoMethod("", mockTemplate)

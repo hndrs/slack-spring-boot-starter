@@ -25,7 +25,7 @@ class ConversationRenameTest {
     @DisplayName("conversations.rename Failure")
     fun conversationRenameFailure() {
         val response = ErrorConversationsRenameResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.rename")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.rename", response)
         val verifier = Verifier(response)
 
         DefaultConversationsRenameMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class ConversationRenameTest {
     @DisplayName("conversations.Rename Success")
     fun conversationRenameSuccess() {
         val response = SuccessfulConversationsRenameResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.rename")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.rename", response)
         val verifier = Verifier(response)
 
         DefaultConversationsRenameMethod("", mockTemplate)

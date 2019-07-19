@@ -25,7 +25,7 @@ class ConversationLeaveTest {
     @DisplayName("conversations.leave Failure")
     fun conversationLeaveFailure() {
         val response = ErrorConversationLeaveResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.leave")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.leave", response)
         val verifier = Verifier(response)
 
         DefaultConversationsLeaveMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class ConversationLeaveTest {
     @DisplayName("conversations.leave Success")
     fun conversationLeaveSuccess() {
         val response = SuccessfulConversationLeaveResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.leave")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.leave", response)
         val verifier = Verifier(response)
 
         DefaultConversationsLeaveMethod("", mockTemplate)

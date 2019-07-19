@@ -24,7 +24,7 @@ class UsergroupsEnableMethodTest {
     @Test
     fun usergroupsEnableSuccess() {
         val response = SuccessfulUsergroupsEnableResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.enable")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.enable", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsEnableMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class UsergroupsEnableMethodTest {
     @Test
     fun usergroupsEnableFailure() {
         val response = ErrorUsergroupsEnableResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "usergroups.enable")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.enable", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsEnableMethod("", mockTemplate)

@@ -25,7 +25,7 @@ class DefaultChannelsArchiveMethodTest {
     @DisplayName("channels.archive Failure")
     fun channelArchiveFailure() {
         val response = ErrorChannelArchiveResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.archive")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.archive", response)
         val verifier = Verifier(response)
 
         DefaultChannelsArchiveMethod("", mockTemplate)
@@ -39,7 +39,7 @@ class DefaultChannelsArchiveMethodTest {
     @DisplayName("channels.archive Success")
     fun channelArchiveSuccess() {
         val response = SuccessfulChannelArchiveResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.archive")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.archive", response)
         val verifier = Verifier(response)
 
         DefaultChannelsArchiveMethod("", mockTemplate)

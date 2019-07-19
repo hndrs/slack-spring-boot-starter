@@ -23,7 +23,7 @@ class DefaultUsersDeletePhotoMethodTest {
     @DisplayName("Users.deletePhoto Failure")
     fun UserDeletePhotoFailure() {
         val response = ErrorUsersDeletePhotoResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.deletePhoto")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.deletePhoto", response)
         val verifier = Verifier(response)
 
         DefaultUsersDeletePhotoMethod("", mockTemplate)
@@ -37,7 +37,7 @@ class DefaultUsersDeletePhotoMethodTest {
     @DisplayName("Users.deletePhoto Success")
     fun UserDeletePhotoSuccess() {
         val response = SuccessfulUsersDeletePhotoResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.deletePhoto")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.deletePhoto", response)
         val verifier = Verifier(response)
 
         DefaultUsersDeletePhotoMethod("", mockTemplate)

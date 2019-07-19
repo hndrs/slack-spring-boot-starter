@@ -25,7 +25,7 @@ class DefaultTeamGetProfileMethodTest {
     @DisplayName("team.identity Failure")
     fun TeamGetProfileFailure() {
         val response = ErrorTeamGetProfileResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "team.profile.get")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "team.profile.get", response)
         val verifier = Verifier(response)
 
         DefaultTeamGetProfileMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class DefaultTeamGetProfileMethodTest {
     @DisplayName("team.identity Success")
     fun TeamGetProfileSuccess() {
         val response = SuccessfulTeamGetProfileResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "team.profile.get")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "team.profile.get", response)
         val verifier = Verifier(response)
 
         DefaultTeamGetProfileMethod("", mockTemplate)

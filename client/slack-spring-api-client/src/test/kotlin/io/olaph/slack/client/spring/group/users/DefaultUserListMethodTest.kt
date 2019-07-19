@@ -3,6 +3,7 @@ package io.olaph.slack.client.spring.group.users
 import io.olaph.slack.client.spring.MockServerHelper
 import io.olaph.slack.client.spring.Verifier
 import io.olaph.slack.client.spring.group.RestTemplateFactory
+import io.olaph.slack.dto.jackson.common.ResponseMetadata
 import io.olaph.slack.dto.jackson.group.users.ErrorUserListResponse
 import io.olaph.slack.dto.jackson.group.users.SlackUserListRequest
 import io.olaph.slack.dto.jackson.group.users.SuccessfulUserListResponse
@@ -24,7 +25,7 @@ class DefaultUserListMethodTest {
     @DisplayName("user.list Failure")
     fun UserListFailure() {
         val response = ErrorUserListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.list")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.list", response)
         val verifier = Verifier(response)
 
         DefaultUserListMethod("", mockTemplate)
@@ -39,7 +40,7 @@ class DefaultUserListMethodTest {
     @DisplayName("user.list Success")
     fun UserListSuccess() {
         val response = SuccessfulUserListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.list")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.list", response)
         val verifier = Verifier(response)
 
         DefaultUserListMethod("", mockTemplate)
@@ -53,8 +54,9 @@ class DefaultUserListMethodTest {
     @Test
     @DisplayName("user.list Success")
     fun TestWithNextCursor() {
-        val response = SuccessfulUserListResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "users.list")
+        val response = SuccessfulUserListResponse.sample().copy(responseMetadata = ResponseMetadata("12324"))
+        val secondResponse = SuccessfulUserListResponse.sample()
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.list", response, secondResponse)
         val verifier = Verifier(response)
 
         DefaultUserListMethod("", mockTemplate)

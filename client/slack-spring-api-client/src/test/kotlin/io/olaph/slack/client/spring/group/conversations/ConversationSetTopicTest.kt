@@ -26,7 +26,7 @@ class ConversationSetTopicTest {
     fun conversationSetPurposeSuccess() {
         val response = SuccessfulConversationSetTopicResponse.sample()
 
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.setTopic")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.setTopic", response)
         val verifier = Verifier(response)
 
         DefaultConversationsSetTopicMethod("", mockTemplate)
@@ -44,7 +44,7 @@ class ConversationSetTopicTest {
     fun conversationSetTopicFailure() {
         val response = ErrorConversationSetTopicResponse.sample()
 
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "conversations.setTopic")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "conversations.setTopic", response)
         val verifier = Verifier(response)
 
         DefaultConversationsSetTopicMethod("", mockTemplate)

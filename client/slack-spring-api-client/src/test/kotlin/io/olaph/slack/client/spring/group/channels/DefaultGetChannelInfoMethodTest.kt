@@ -25,7 +25,7 @@ class DefaultGetChannelInfoMethodTest {
     @DisplayName("channels.info Failure")
     fun channelInfoFailure() {
         val response = ErrorGetChannelInfoResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.info")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.info", response)
         val verifier = Verifier(response)
 
         DefaultGetChannelInfoMethod("", mockTemplate)
@@ -40,7 +40,7 @@ class DefaultGetChannelInfoMethodTest {
     @DisplayName("channels.info Success")
     fun channelInfoSuccess() {
         val response = SuccessfulGetChannelInfoResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, response, "channels.info")
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.info", response)
         val verifier = Verifier(response)
 
         DefaultGetChannelInfoMethod("", mockTemplate)
