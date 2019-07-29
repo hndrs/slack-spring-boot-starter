@@ -4,6 +4,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import io.olaph.slack.broker.extensions.sample
 import io.olaph.slack.broker.metrics.EventMetrics
 import io.olaph.slack.broker.receiver.EventReceiver
+import io.olaph.slack.broker.store.InMemoryEventStore
 import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.Team
 import io.olaph.slack.dto.jackson.SlackEvent
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
+import kotlin.random.Random
 
 @DisplayName("Event Broker Tests")
 class EventBrokerTests {
@@ -23,6 +25,8 @@ class EventBrokerTests {
 
         val teamStore = InMemoryTeamStore()
 
+        val eventStore = InMemoryEventStore()
+
         teamStore.put(Team.sample().copy(teamId = "TestId"))
 
         val metrics = EventMetrics()
@@ -33,7 +37,7 @@ class EventBrokerTests {
         val successReceiver = SuccessReceiver()
         val errorReceiver = ErrorReceiver()
 
-        EventBroker(listOf(successReceiver, errorReceiver), teamStore, metrics).receiveEvents(SlackEvent.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
+        EventBroker(listOf(successReceiver, errorReceiver), teamStore, eventStore, metrics).receiveEvents(SlackEvent.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
@@ -50,12 +54,14 @@ class EventBrokerTests {
 
         val teamStore = InMemoryTeamStore()
 
+        val eventStore = InMemoryEventStore()
+
         teamStore.put(Team.sample().copy(teamId = "TestId"))
 
         val successReceiver = SuccessReceiver()
         val errorReceiver = ErrorReceiver()
 
-        EventBroker(listOf(successReceiver, errorReceiver), teamStore).receiveEvents(SlackEvent.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
+        EventBroker(listOf(successReceiver, errorReceiver), teamStore, eventStore).receiveEvents(SlackEvent.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)

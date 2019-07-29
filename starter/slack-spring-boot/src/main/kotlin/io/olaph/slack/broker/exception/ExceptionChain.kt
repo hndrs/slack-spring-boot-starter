@@ -16,7 +16,7 @@ class ExceptionChain constructor(private val listOFErrors: MutableList<Throwable
     /**
      * Throws first exception in the chain that implements the [MustThrow] interface
      */
-    fun trigger() {
+    fun evaluate() {
         listOFErrors.firstOrNull { it is MustThrow }?.let { throw it }
     }
 }
