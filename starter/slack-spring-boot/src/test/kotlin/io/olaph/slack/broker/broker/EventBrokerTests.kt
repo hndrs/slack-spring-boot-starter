@@ -1,6 +1,7 @@
 package io.olaph.slack.broker.broker
 
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
+import io.olaph.slack.broker.exception.MustThrow
 import io.olaph.slack.broker.extensions.sample
 import io.olaph.slack.broker.metrics.EventMetrics
 import io.olaph.slack.broker.receiver.EventReceiver
@@ -89,6 +90,22 @@ class EventBrokerTests {
         Assertions.assertFalse(errorReceiver.executed)
     }
 
+    @Test
+    @DisplayName("MustThrow exceptions are thrown at the end of the execution")
+    fun mustThrow() {
+
+        val teamStore = InMemoryTeamStore()
+        teamStore.put(Team.sample().copy(teamId = "TestId"))
+        
+        val eventStore = InMemoryEventStore()
+
+
+        val sampleEvent = SlackEvent.sample().copy(teamId = "TestId", eventId = "TestEventId")
+        Assertions.assertThrows(MustThrowReceiver.Exception::class.java) {
+            EventBroker(listOf(MustThrowReceiver()), teamStore, eventStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
+        }
+    }
+
     class SuccessReceiver : EventReceiver {
 
         var executed: Boolean = false
@@ -109,5 +126,14 @@ class EventBrokerTests {
             throw IllegalStateException("Failing Test Case")
         }
 
+    }
+
+    class MustThrowReceiver : EventReceiver {
+
+        override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
+            throw Exception()
+        }
+
+        class Exception : MustThrow()
     }
 }
