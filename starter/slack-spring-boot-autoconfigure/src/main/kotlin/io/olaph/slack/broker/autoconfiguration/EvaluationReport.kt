@@ -33,8 +33,6 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         this.addComponent(sb, "Team Store", ctx.getBeanNamesForType(TeamStore::class.java));
         this.addComponent(sb, "Event Store", ctx.getBeanNamesForType(TeamStore::class.java));
 
-        //TODO add default components check to report when default components are used
-
         return sb.toString()
     }
 
