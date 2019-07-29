@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
-import kotlin.random.Random
 
 @DisplayName("Event Broker Tests")
 class EventBrokerTests {
@@ -65,6 +64,29 @@ class EventBrokerTests {
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
+    }
+
+    @Test
+    @DisplayName("Duplicate Event In EventStore")
+    fun duplicateEvent() {
+
+        val teamStore = InMemoryTeamStore()
+
+        val sampleEvent = SlackEvent.sample().copy(teamId = "TestId", eventId = "TestEventId")
+
+        val eventStore = InMemoryEventStore()
+        // Put sampleEvent in teamStore
+        eventStore.put(sampleEvent)
+
+        teamStore.put(Team.sample().copy(teamId = "TestId"))
+
+        val successReceiver = SuccessReceiver()
+        val errorReceiver = ErrorReceiver()
+
+        EventBroker(listOf(successReceiver, errorReceiver), teamStore, eventStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
+
+        Assertions.assertFalse(successReceiver.executed)
+        Assertions.assertFalse(errorReceiver.executed)
     }
 
     class SuccessReceiver : EventReceiver {
