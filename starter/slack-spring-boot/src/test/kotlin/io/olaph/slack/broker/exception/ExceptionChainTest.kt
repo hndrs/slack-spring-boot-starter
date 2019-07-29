@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.*
 
 internal class ExceptionChainTest {
 
-    private class ThrowableMustThrow : Throwable(), MustThrow
+    private class ThrowableMustThrow : MustThrow()
 
     @Test
     fun withoutMustThrow() {
@@ -14,7 +14,7 @@ internal class ExceptionChainTest {
         val t1 = Throwable()
 
         exceptionChain.add(t1)
-        assertDoesNotThrow { exceptionChain.trigger() }
+        assertDoesNotThrow { exceptionChain.evaluate() }
     }
 
     @Test
@@ -26,6 +26,6 @@ internal class ExceptionChainTest {
         exceptionChain.add(t1)
         exceptionChain.add(t2)
 
-        assertThrows(ThrowableMustThrow::class.java) { exceptionChain.trigger() }
+        assertThrows(ThrowableMustThrow::class.java) { exceptionChain.evaluate() }
     }
 }

@@ -53,7 +53,7 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
                         exceptionChain.add(e)
                     }
                 }
-        exceptionChain.trigger()
+        exceptionChain.evaluate()
 
     }
 }

@@ -26,7 +26,9 @@ import io.olaph.slack.broker.receiver.InteractiveComponentReceiver
 import io.olaph.slack.broker.receiver.MismatchCommandReciever
 import io.olaph.slack.broker.receiver.SL4JLoggingReceiver
 import io.olaph.slack.broker.receiver.SlashCommandReceiver
+import io.olaph.slack.broker.store.EventStore
 import io.olaph.slack.broker.store.FileTeamStore
+import io.olaph.slack.broker.store.InMemoryEventStore
 import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.client.SlackClient
@@ -49,6 +51,12 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
     @Configuration
     open class BrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties, private val credentialsProvider: CredentialsProvider) : WebMvcConfigurer {
 
+        @ConditionalOnMissingBean
+        @Bean
+        open fun eventStore(): EventStore {
+            return InMemoryEventStore()
+        }
+
         @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "memory", matchIfMissing = true)
         @ConditionalOnMissingBean
         @Bean
@@ -64,8 +72,8 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         }
 
         @Bean
-        open fun eventBroker(slackEventReceivers: List<EventReceiver>, teamStore: TeamStore, metricsCollector: EventMetricsCollector?): EventBroker {
-            return EventBroker(slackEventReceivers, teamStore, metricsCollector)
+        open fun eventBroker(slackEventReceivers: List<EventReceiver>, teamStore: TeamStore, eventStore: EventStore, metricsCollector: EventMetricsCollector?): EventBroker {
+            return EventBroker(slackEventReceivers, teamStore, eventStore, metricsCollector)
         }
 
         @Bean

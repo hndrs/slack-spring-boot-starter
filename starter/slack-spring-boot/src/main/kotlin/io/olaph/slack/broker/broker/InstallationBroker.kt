@@ -64,7 +64,7 @@ class InstallationBroker constructor(
                         }
                     }
 
-            exceptionChain.trigger()
+            exceptionChain.evaluate()
 
             RedirectView(this.config.successRedirectUrl)
         } catch (exception: Exception) {

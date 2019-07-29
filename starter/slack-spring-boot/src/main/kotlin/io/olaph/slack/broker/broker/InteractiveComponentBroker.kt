@@ -46,7 +46,7 @@ class InteractiveComponentBroker constructor(private val slackInteractiveCompone
                     }
                 }
 
-        exceptionChain.trigger()
+        exceptionChain.evaluate()
 
         return if (interactiveComponentResponse.type == "interactive_message") {
             ResponseEntity(InteractiveComponentMessageResponse(deleteOriginal = true), HttpStatus.OK)

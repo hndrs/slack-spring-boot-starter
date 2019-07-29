@@ -5,6 +5,7 @@ import io.olaph.slack.broker.broker.EventBroker
 import io.olaph.slack.broker.broker.InteractiveComponentBroker
 import io.olaph.slack.broker.security.VerificationException
 import io.olaph.slack.dto.jackson.group.dialog.DialogErrorResponse
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -14,6 +15,10 @@ import org.springframework.web.context.request.WebRequest
 
 @ControllerAdvice(assignableTypes = [CommandBroker::class, InteractiveComponentBroker::class, EventBroker::class])
 class SlackExceptionHandler(private val errorResponse: String) {
+
+    companion object {
+        private val LOG = LoggerFactory.getLogger(SlackExceptionHandler::class.java)
+    }
 
     /**
      * Handle [DialogValidationException]s
@@ -32,15 +37,18 @@ class SlackExceptionHandler(private val errorResponse: String) {
      */
     @ExceptionHandler(VerificationException::class)
     fun handleVerificationException(ex: VerificationException): ResponseEntity<Any> {
+        when {
+            LOG.isDebugEnabled -> LOG.debug("Unsuccessful verification attempt", ex)
+        }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.message)
     }
-
 
     /**
      * This will handle any other unmapped exception thrown by during invocation of any of the brokers
      */
     @ExceptionHandler(Exception::class)
     fun handleExceptionInternal(ex: Exception, request: WebRequest): ResponseEntity<Any> {
+        LOG.error("Unhandled Exception:", ex)
         return ResponseEntity.ok(errorResponse)
     }
 }
