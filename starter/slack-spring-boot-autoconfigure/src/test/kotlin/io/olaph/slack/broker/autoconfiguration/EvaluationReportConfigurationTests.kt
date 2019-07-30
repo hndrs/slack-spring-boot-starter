@@ -6,7 +6,11 @@ import io.olaph.slack.broker.receiver.InteractiveComponentReceiver
 import io.olaph.slack.broker.receiver.MismatchCommandReciever
 import io.olaph.slack.broker.receiver.SL4JLoggingReceiver
 import io.olaph.slack.broker.receiver.SlashCommandReceiver
+import io.olaph.slack.broker.store.EventStore
+import io.olaph.slack.broker.store.InMemoryEventStore
+import io.olaph.slack.broker.store.InMemoryTeamStore
 import io.olaph.slack.broker.store.Team
+import io.olaph.slack.broker.store.TeamStore
 import io.olaph.slack.dto.jackson.InteractiveComponentResponse
 import io.olaph.slack.dto.jackson.SlackCommand
 import io.olaph.slack.dto.jackson.SlackEvent
@@ -49,6 +53,26 @@ class EvaluationReportConfigurationTests {
                 }
     }
 
+    @DisplayName("EvaluationReport Default Notifications")
+    @Test
+    fun evaluationReportDefaultBeans() {
+        TestApplicationContext.base()
+                .withConfiguration(AutoConfigurations.of(EvaluationReport::class.java))
+                .withUserConfiguration(DefaultEventStoreConfiguration::class.java)
+                .run {
+                    val evaluationReport = it.getBean(EvaluationReport::class.java).buildEvaluationReport(it)
+                    assertThat(evaluationReport, containsString("Default version of ${InMemoryEventStore::class.simpleName} is registered, this is not recommended for production"))
+                }
+
+        TestApplicationContext.base()
+                .withConfiguration(AutoConfigurations.of(EvaluationReport::class.java))
+                .withUserConfiguration(DefaultTeamStoreConfiguration::class.java)
+                .run {
+                    val evaluationReport = it.getBean(EvaluationReport::class.java).buildEvaluationReport(it)
+                    assertThat(evaluationReport, containsString("Default version of ${InMemoryTeamStore::class.simpleName} is registered, this is not recommended for production"))
+                }
+    }
+
     @Configuration
     open class TestConfiguration {
 
@@ -80,4 +104,19 @@ class EvaluationReportConfigurationTests {
             override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {}
         }
     }
+
+    @Configuration
+    open class DefaultTeamStoreConfiguration {
+
+        @Bean
+        open fun teamStore(): TeamStore = InMemoryTeamStore()
+    }
+
+    @Configuration
+    open class DefaultEventStoreConfiguration {
+
+        @Bean
+        open fun eventStore(): EventStore = InMemoryEventStore()
+    }
+
 }
