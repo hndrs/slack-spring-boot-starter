@@ -29,40 +29,45 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         sb.appendln("| REGISTERED SLACK BROKER COMPONENTS |")
         sb.appendln("+------------------------------------+")
 
-        this.addComponent(sb, "Event Receivers", ctx.getBeanNamesForType(EventReceiver::class.java));
-        this.addComponent(sb, "Installation Receivers", ctx.getBeanNamesForType(InstallationReceiver::class.java));
-        this.addComponent(sb, "Interactive Component Receivers", ctx.getBeanNamesForType(InteractiveComponentReceiver::class.java));
-        this.addComponent(sb, "Slash Command Receivers", ctx.getBeanNamesForType(SlashCommandReceiver::class.java));
-        this.addComponent(sb, "Mismatch Command Receivers", ctx.getBeanNamesForType(MismatchCommandReciever::class.java));
-        this.addComponent(sb, "Team Store", ctx.getBeanNamesForType(TeamStore::class.java));
-        this.addComponent(sb, "Event Store", ctx.getBeanNamesForType(TeamStore::class.java));
+        addComponent(sb, "Event Receivers", ctx.getBeanNamesForType(EventReceiver::class.java));
+        addComponent(sb, "Installation Receivers", ctx.getBeanNamesForType(InstallationReceiver::class.java));
+        addComponent(sb, "Interactive Component Receivers", ctx.getBeanNamesForType(InteractiveComponentReceiver::class.java));
+        addComponent(sb, "Slash Command Receivers", ctx.getBeanNamesForType(SlashCommandReceiver::class.java));
+        addComponent(sb, "Mismatch Command Receivers", ctx.getBeanNamesForType(MismatchCommandReciever::class.java));
+        addComponent(sb, "Team Store", ctx.getBeanNamesForType(TeamStore::class.java));
+        addComponent(sb, "Event Store", ctx.getBeanNamesForType(TeamStore::class.java));
 
-        this.defaultChecks(ctx, sb, Pair(TeamStore::class, InMemoryTeamStore::class), Pair(EventStore::class, InMemoryEventStore::class))
+        defaultChecks(ctx, sb, Pair(TeamStore::class, InMemoryTeamStore::class), Pair(EventStore::class, InMemoryEventStore::class))
 
         return sb.toString()
     }
 
-    private fun addComponent(sb: StringBuilder, title: String, names: Array<out String>) {
-        sb.appendln("\n\n$title")
-        sb.appendln("------------------------------")
-        names.forEach {
-            sb.appendln("   - $it")
-        }
-    }
+    companion object {
 
-    private fun defaultChecks(ctx: ApplicationContext, sb: StringBuilder, vararg checks: Pair<KClass<*>, KClass<*>>) {
-        sb.appendln()
-        sb.appendln("Notes:")
-        checks.forEach {
-            try {
-                val bean = ctx.getBean(it.first.java)
-                if (it.second.isInstance(bean)) {
-                    sb.appendln("   - Default version of ${it.second.simpleName} is registered, this is not recommended for production")
-                }
-            } catch (e: Exception) {
-                //do nothing
+        private fun addComponent(sb: StringBuilder, title: String, names: Array<out String>) {
+            sb.appendln("\n\n$title")
+            sb.appendln("------------------------------")
+            names.forEach {
+                sb.appendln("   - $it")
             }
         }
 
+        private fun defaultChecks(ctx: ApplicationContext, sb: StringBuilder, vararg checks: Pair<KClass<*>, KClass<*>>) {
+            sb.appendln()
+            sb.appendln("Notes:")
+            checks.forEach {
+                try {
+                    val bean = ctx.getBean(it.first.java)
+                    if (it.second.isInstance(bean)) {
+                        sb.appendln("   - Default version of ${it.second.simpleName} is registered, this is not recommended for production")
+                    }
+                } catch (e: Exception) {
+                    //do nothing
+                }
+            }
+
+        }
+
     }
+
 }
