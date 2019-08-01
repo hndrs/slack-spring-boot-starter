@@ -8,6 +8,7 @@ import com.kreait.slack.broker.broker.CommandBroker
 import com.kreait.slack.broker.broker.EventBroker
 import com.kreait.slack.broker.broker.InstallationBroker
 import com.kreait.slack.broker.broker.InteractiveComponentBroker
+import com.kreait.slack.broker.broker.common.DisableHttpCacheInterceptor
 import com.kreait.slack.broker.configuration.EventArgumentResolver
 import com.kreait.slack.broker.configuration.InteractiveResponseArgumentResolver
 import com.kreait.slack.broker.configuration.SlackCommandArgumentResolver
@@ -42,6 +43,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @EnableConfigurationProperties(com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties::class)
@@ -109,7 +111,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: com.kreait.sl
     }
 
     @Configuration
-    open class InstallationAutoConfiguration(private val configuration: com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties) {
+    open class InstallationAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties) : WebMvcConfigurer {
 
         @ConditionalOnProperty(prefix = com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties.Companion.INSTALLATION_PROPERTY_PREFIX,
                 name = ["error-redirect-url", "success-redirect-url"])
@@ -132,6 +134,9 @@ open class SlackBrokerAutoConfiguration(private val configuration: com.kreait.sl
             )
         }
 
+        override fun addInterceptors(registry: InterceptorRegistry) {
+            registry.addInterceptor(DisableHttpCacheInterceptor())
+        }
     }
 
     @AutoConfigureBefore(com.kreait.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration.InstallationAutoConfiguration::class, com.kreait.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration.BrokerAutoConfiguration::class)
@@ -183,7 +188,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: com.kreait.sl
     }
 
     @Bean
-    open fun slackEvaluationReport(): com.kreait.slack.broker.autoconfiguration.EvaluationReport {
-        return com.kreait.slack.broker.autoconfiguration.EvaluationReport()
+    open fun slackEvaluationReport(): EvaluationReport {
+        return EvaluationReport()
     }
 }
