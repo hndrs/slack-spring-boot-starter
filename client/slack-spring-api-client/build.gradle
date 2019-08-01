@@ -22,6 +22,8 @@ dependencies {
     //this dependency is need on consumer side but not provided by default spring so lets put it here
     api(group: "com.fasterxml.jackson.module", name: "jackson-module-kotlin")
 
+// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    implementation(group: "org.apache.httpcomponents", name: "httpclient", version: "4.5.9")
 
     implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")
     implementation(group: "org.jetbrains.kotlin", name: "kotlin-reflect")
