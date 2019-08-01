@@ -28,8 +28,10 @@ object RestTemplateFactory {
 
         slackApiRestTemplate.messageConverters = listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
         formUrlTemplate.messageConverters.add(FormHttpMessageConverter())
+
         slackResponseRestTemplate.errorHandler = SlackResponseErrorHandler()
     }
+
 
     /**
      * gets a slack compliant slackApiRestTemplate
