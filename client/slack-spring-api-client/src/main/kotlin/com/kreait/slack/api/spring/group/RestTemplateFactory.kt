@@ -3,10 +3,16 @@ package com.kreait.slack.api.spring.group
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.kreait.slack.api.spring.group.respond.SlackResponseErrorHandler
+import org.apache.http.HttpHost
+import org.apache.http.conn.ssl.NoopHostnameVerifier
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory
+import org.apache.http.impl.client.HttpClients
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
 import org.springframework.http.converter.FormHttpMessageConverter
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestTemplate
+import java.security.cert.X509Certificate
 
 
 /**
@@ -28,6 +34,23 @@ object RestTemplateFactory {
 
         slackApiRestTemplate.messageConverters = listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
         formUrlTemplate.messageConverters.add(FormHttpMessageConverter())
+
+
+        val acceptingTrustStrategy = { chain: Array<X509Certificate>, authType: String -> true }
+
+        val sslContext = org.apache.http.ssl.SSLContexts.custom()
+                .loadTrustMaterial(null, acceptingTrustStrategy)
+                .build()
+
+        val csf = SSLConnectionSocketFactory(sslContext)
+
+        val build = HttpClients.custom().setSSLHostnameVerifier(NoopHostnameVerifier())
+                .setSSLSocketFactory(csf)
+                .setProxy(HttpHost.create("http://localhost:8888"))
+                .build()
+
+        slackApiRestTemplate.requestFactory = HttpComponentsClientHttpRequestFactory(build)
+
 
         slackResponseRestTemplate.errorHandler = SlackResponseErrorHandler()
     }
