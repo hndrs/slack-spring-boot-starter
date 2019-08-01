@@ -50,6 +50,7 @@ object RestTemplateFactory {
                 .build()
 
         slackApiRestTemplate.requestFactory = HttpComponentsClientHttpRequestFactory(build)
+        formUrlTemplate.requestFactory = HttpComponentsClientHttpRequestFactory(build)
 
 
         slackResponseRestTemplate.errorHandler = SlackResponseErrorHandler()
