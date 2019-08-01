@@ -3,7 +3,6 @@ package io.olaph.slack.client.spring.group
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.olaph.slack.client.spring.group.respond.SlackResponseErrorHandler
-import org.springframework.http.MediaType
 import org.springframework.http.converter.FormHttpMessageConverter
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
@@ -27,9 +26,7 @@ object RestTemplateFactory {
                 .failOnUnknownProperties(false)
                 .build<ObjectMapper>()
 
-        val mappingJackson2HttpMessageConverter = MappingJackson2HttpMessageConverter(objectMapper)
-        mappingJackson2HttpMessageConverter.supportedMediaTypes = listOf(MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED)
-        slackApiRestTemplate.messageConverters = listOf(mappingJackson2HttpMessageConverter)
+        slackApiRestTemplate.messageConverters = listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
         formUrlTemplate.messageConverters.add(FormHttpMessageConverter())
         slackResponseRestTemplate.errorHandler = SlackResponseErrorHandler()
     }
