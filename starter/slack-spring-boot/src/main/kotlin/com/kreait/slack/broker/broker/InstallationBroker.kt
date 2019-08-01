@@ -2,6 +2,7 @@ package com.kreait.slack.broker.broker
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.group.oauth.AccessRequest
+import com.kreait.slack.broker.broker.common.DisableHttpCache
 import com.kreait.slack.broker.metrics.InstallationMetricsCollector
 import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.store.Team
@@ -37,7 +38,12 @@ class InstallationBroker constructor(
     /**
      * Installation-endpoint which is called by slack
      * Obtains the token by calling [oauth.access](https://api.slack.com/methods/oauth.access) and saves the response into the TeamStore
+     * Notes:
+     * Due to the insane fact that slack uses a get endpoint for installations.
+     * Using a CDN or having a client that does not properly handles cache control headers will cause issues.
+     * We send a CacheControl : no-store to prevent some of those issues
      */
+    @DisableHttpCache
     @GetMapping(value = ["/installation"])
     fun onInstall(@RequestParam("code") code: String, @RequestParam("state") state: String): RedirectView {
         return try {
