@@ -9,6 +9,10 @@ repositories {
     mavenCentral()
 }
 
+bootRun {
+    systemProperties = System.properties
+}
+
 dependencies {
     implementation(project(":slack-spring-boot-starter"))
     implementation("org.springframework.boot:spring-boot-starter")

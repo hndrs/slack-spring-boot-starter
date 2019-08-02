@@ -20,9 +20,10 @@ import java.security.cert.X509Certificate
  */
 object RestTemplateFactory {
 
-    private val slackApiRestTemplate = RestTemplate()
+    private const val PROXY_PROPERTY_NAME = "slack.development.proxyHost"
+    private const val SSL_PROPERTY_NAME = "slack.development.ssl.accept-self-signed"
+    private val slackApiRestTemplate = RestTemplate(clientFactory())
     private val slackResponseRestTemplate = RestTemplate()
-    private val formUrlTemplate = RestTemplate()
 
     init {
 
@@ -33,27 +34,33 @@ object RestTemplateFactory {
                 .build<ObjectMapper>()
 
         slackApiRestTemplate.messageConverters = listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
-        formUrlTemplate.messageConverters.add(FormHttpMessageConverter())
-
-
-        val acceptingTrustStrategy = { chain: Array<X509Certificate>, authType: String -> true }
-
-        val sslContext = org.apache.http.ssl.SSLContexts.custom()
-                .loadTrustMaterial(null, acceptingTrustStrategy)
-                .build()
-
-        val csf = SSLConnectionSocketFactory(sslContext)
-
-        val build = HttpClients.custom().setSSLHostnameVerifier(NoopHostnameVerifier())
-                .setSSLSocketFactory(csf)
-                .setProxy(HttpHost.create("http://localhost:8888"))
-                .build()
-
-        slackApiRestTemplate.requestFactory = HttpComponentsClientHttpRequestFactory(build)
-        formUrlTemplate.requestFactory = HttpComponentsClientHttpRequestFactory(build)
-
 
         slackResponseRestTemplate.errorHandler = SlackResponseErrorHandler()
+    }
+
+    /**
+     *
+     */
+    private fun clientFactory(): HttpComponentsClientHttpRequestFactory {
+        val builder = HttpClients.custom()
+
+        System.getProperty(PROXY_PROPERTY_NAME)?.let {
+            builder.setProxy(HttpHost.create(it))
+        }
+
+        (System.getProperty(SSL_PROPERTY_NAME) as Boolean?)?.let {
+            val acceptingTrustStrategy = { chain: Array<X509Certificate>, authType: String -> true }
+
+            val sslContext = org.apache.http.ssl.SSLContexts.custom()
+                    .loadTrustMaterial(null, acceptingTrustStrategy)
+                    .build()
+
+            val csf = SSLConnectionSocketFactory(sslContext)
+            builder.setSSLSocketFactory(csf)
+                    .setSSLHostnameVerifier(NoopHostnameVerifier())
+        }
+
+        return HttpComponentsClientHttpRequestFactory(builder.build())
     }
 
 
@@ -61,12 +68,6 @@ object RestTemplateFactory {
      * gets a slack compliant slackApiRestTemplate
      */
     fun slackTemplate() = slackApiRestTemplate
-
-
-    /**
-     * gets a slack compliant template for Form url encoded requests
-     */
-    fun formUrlTemplate() = formUrlTemplate
 
     /**
      *  gets a slackApiRestTemplate which logs errors without interrupting

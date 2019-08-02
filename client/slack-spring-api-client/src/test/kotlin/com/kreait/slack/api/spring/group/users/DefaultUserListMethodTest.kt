@@ -18,7 +18,7 @@ class DefaultUserListMethodTest {
 
     @BeforeEach
     fun setup() {
-        mockTemplate = RestTemplateFactory.formUrlTemplate()
+        mockTemplate = RestTemplateFactory.slackTemplate()
     }
 
     @Test
