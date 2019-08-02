@@ -7,7 +7,5 @@ import org.springframework.boot.runApplication
 class SampleApplication
 
 fun main(args: Array<String>) {
-    System.setProperty("http.proxyHost", "127.0.0.1");
-    System.setProperty("http.proxyPort", "8888");
     runApplication<SampleApplication>(*args)
 }
