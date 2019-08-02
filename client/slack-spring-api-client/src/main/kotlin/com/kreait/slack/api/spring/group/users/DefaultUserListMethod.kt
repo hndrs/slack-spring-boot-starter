@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.users
 
 import com.kreait.slack.api.contract.jackson.group.users.ErrorListResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListResponse
 import com.kreait.slack.api.contract.jackson.group.users.ListResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UserListMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 
 @Suppress("UNCHECKED_CAST")
-class DefaultUserListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.formUrlTemplate()) : UserListMethod() {
+class DefaultUserListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UserListMethod() {
     private var result: SuccessfulListResponse? = null
     var nextCursor = ""
 
