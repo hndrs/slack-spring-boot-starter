@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.olaph.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration
+com.kreait.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration

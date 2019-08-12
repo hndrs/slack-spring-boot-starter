@@ -20,10 +20,10 @@ plugins {
 
 sonarqube {
     properties {
-        property "sonar.projectName", "Slack Spring Boot"
-        property "sonar.projectKey", "io.olaph.slack"
+        property "sonar.projectName", "Slack Spring Boot Starter"
+        property "sonar.projectKey", "com.kreait.slack-spring-boot-starter"
         property "sonar.host.url", "https://sonarcloud.io/"
-        property "sonar.organization", "olaph-io"
+        property "sonar.organization", "kreait"
         property "sonar.jacoco.report missing.force.zero", "true"
         property "sonar.pullrequest.provider", "github"
         property "sonar.exclusions", "**/slack-jackson-dto-test-extensions/**,**/slack-jackson-dto/**,**/samples/**"
@@ -42,7 +42,7 @@ asciidoctor {
 
 allprojects {
 
-    group = "io.olaph.slack"
+    group = "com.kreait.slack"
     version = rootProject.file("version.txt").text.trim()
 
     project.ext {
