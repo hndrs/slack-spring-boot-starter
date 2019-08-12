@@ -3,6 +3,7 @@ package com.kreait.slack.api.spring.group.usergroups
 import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsUpdateResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsUpdateRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
 import com.kreait.slack.api.spring.group.RestTemplateFactory

@@ -3,6 +3,7 @@ package com.kreait.slack.api.test.group.conversations
 import com.kreait.slack.api.contract.jackson.group.conversations.ConversationUnarchiveRequest
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationUnarchiveResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationUnarchiveResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock

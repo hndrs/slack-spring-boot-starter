@@ -3,6 +3,7 @@ package com.kreait.slack.api.test.group.im
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImHistoryResponse
 import com.kreait.slack.api.contract.jackson.group.im.SlackImHistoryRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImHistoryResponse
+import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock

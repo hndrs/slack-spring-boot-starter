@@ -3,6 +3,7 @@ package com.kreait.slack.api.test.group.conversation
 import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsSetPurposeRequest
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationSetPurposeResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationSetPurposeResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock

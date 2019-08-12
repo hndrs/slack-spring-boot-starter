@@ -3,6 +3,7 @@ package com.kreait.slack.api.spring.group.auth
 import com.kreait.slack.api.contract.jackson.group.auth.AuthRevokeRequest
 import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthRevokeResponse
 import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthRevokeResponse
+import com.kreait.slack.api.contract.jackson.group.auth.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
 import com.kreait.slack.api.spring.group.RestTemplateFactory

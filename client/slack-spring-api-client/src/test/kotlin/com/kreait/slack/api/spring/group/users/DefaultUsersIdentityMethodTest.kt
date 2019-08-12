@@ -2,6 +2,7 @@ package com.kreait.slack.api.spring.group.users
 
 import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersIdentityResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersIdentityResponse
+import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
 import com.kreait.slack.api.spring.group.RestTemplateFactory

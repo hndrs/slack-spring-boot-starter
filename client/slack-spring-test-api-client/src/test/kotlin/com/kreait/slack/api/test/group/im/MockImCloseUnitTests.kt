@@ -3,6 +3,7 @@ package com.kreait.slack.api.test.group.im
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImCloseResponse
 import com.kreait.slack.api.contract.jackson.group.im.SlackImCloseRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImCloseResponse
+import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock

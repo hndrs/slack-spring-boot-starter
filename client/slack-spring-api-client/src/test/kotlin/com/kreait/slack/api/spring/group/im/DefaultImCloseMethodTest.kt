@@ -3,6 +3,7 @@ package com.kreait.slack.api.spring.group.im
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImCloseResponse
 import com.kreait.slack.api.contract.jackson.group.im.SlackImCloseRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImCloseResponse
+import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
 import com.kreait.slack.api.spring.group.RestTemplateFactory

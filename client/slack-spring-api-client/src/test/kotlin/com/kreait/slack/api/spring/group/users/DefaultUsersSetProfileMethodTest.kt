@@ -2,6 +2,7 @@ package com.kreait.slack.api.spring.group.users
 
 import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetProfileResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
 import com.kreait.slack.api.spring.group.RestTemplateFactory

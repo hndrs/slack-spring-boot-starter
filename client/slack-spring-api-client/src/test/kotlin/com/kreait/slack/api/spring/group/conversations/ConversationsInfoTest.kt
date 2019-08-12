@@ -3,6 +3,7 @@ package com.kreait.slack.api.spring.group.conversations
 import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsInfoRequest
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationsInfoResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationsInfoResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
 import com.kreait.slack.api.spring.group.RestTemplateFactory

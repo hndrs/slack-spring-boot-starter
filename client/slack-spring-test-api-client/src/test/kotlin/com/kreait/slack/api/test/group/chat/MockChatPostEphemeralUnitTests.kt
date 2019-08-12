@@ -3,6 +3,7 @@ package com.kreait.slack.api.test.group.chat
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
+import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock

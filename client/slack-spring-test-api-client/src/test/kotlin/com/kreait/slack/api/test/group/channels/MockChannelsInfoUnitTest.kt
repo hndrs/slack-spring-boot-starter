@@ -3,6 +3,7 @@ package com.kreait.slack.api.test.group.channels
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorGetChannelInfoResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelsInfoRequest
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulGetChannelInfoResponse
+import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock

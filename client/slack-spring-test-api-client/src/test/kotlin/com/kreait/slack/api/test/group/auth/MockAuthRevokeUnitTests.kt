@@ -3,6 +3,7 @@ package com.kreait.slack.api.test.group.auth
 import com.kreait.slack.api.contract.jackson.group.auth.AuthRevokeRequest
 import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthRevokeResponse
 import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthRevokeResponse
+import com.kreait.slack.api.contract.jackson.group.auth.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock
