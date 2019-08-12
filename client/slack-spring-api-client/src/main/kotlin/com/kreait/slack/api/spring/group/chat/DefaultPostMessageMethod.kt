@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.chat
 
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostMessageResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostMessageResponse
+import com.kreait.slack.api.contract.jackson.group.chat.PostMessageResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostMessageResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatPostMessageMethod
@@ -15,10 +15,10 @@ import org.springframework.web.client.RestTemplate
 class DefaultPostMessageMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatPostMessageMethod() {
 
     override fun request(): ApiCallResult<SuccessfulPostMessageResponse, ErrorPostMessageResponse> {
-        val response = SlackRequestBuilder<SlackPostMessageResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<PostMessageResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("chat.postMessage")
-                .returnAsType(SlackPostMessageResponse::class.java)
+                .returnAsType(PostMessageResponse::class.java)
                 .postWithJsonBody()
         return when (response.body!!) {
             is SuccessfulPostMessageResponse -> {

@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsCreateResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsCreateRequest
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsCreateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorCreateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.CreateRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulCreateResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -26,12 +26,12 @@ class UsergroupsCreateMethodTest {
     @Test
     fun usergroupsCreateSuccess() {
 
-        val response = SuccessfulUsergroupsCreateResponse.sample()
+        val response = SuccessfulCreateResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.create", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsCreateMethod("", mockTemplate)
-                .with(SlackUsergroupsCreateRequest.sample())
+                .with(CreateRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
 
@@ -43,12 +43,12 @@ class UsergroupsCreateMethodTest {
     @Test
     fun usergroupsCreateFailure() {
 
-        val response = ErrorUsergroupsCreateResponse.sample()
+        val response = ErrorCreateResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.create", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsCreateMethod("", mockTemplate)
-                .with(SlackUsergroupsCreateRequest.sample())
+                .with(CreateRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
 

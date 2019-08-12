@@ -8,6 +8,6 @@ fun ErrorImCloseResponse.Companion.sample(): ErrorImCloseResponse {
     return ErrorImCloseResponse(false, "")
 }
 
-fun SlackImCloseRequest.Companion.sample(): SlackImCloseRequest {
-    return SlackImCloseRequest("")
+fun ImCloseRequest.Companion.sample(): ImCloseRequest {
+    return ImCloseRequest("")
 }

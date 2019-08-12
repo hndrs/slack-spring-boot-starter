@@ -10,30 +10,30 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUsergroupsListResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUsergroupsListResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulListResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorListResponse::class, name = "false")
 )
 
 @JacksonDataClass
-sealed class UsergroupsListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulUsergroupsListResponse constructor(override val ok: Boolean,
-                                                        @JsonProperty("usergroups") val usergroups: List<Usergroup>)
-    : UsergroupsListResponse(ok) {
+data class SuccessfulListResponse constructor(override val ok: Boolean,
+                                              @JsonProperty("usergroups") val userGroups: List<UserGroup>)
+    : ListResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorUsergroupsListResponse constructor(override val ok: Boolean,
-                                                   @JsonProperty("error") val error: String)
-    : UsergroupsListResponse(ok) {
+data class ErrorListResponse constructor(override val ok: Boolean,
+                                         @JsonProperty("error") val error: String)
+    : ListResponse(ok) {
     companion object
 }
 
-data class SlackUsergroupsListRequest(private val includeCount: Boolean?,
-                                      private val includeDisabled: Boolean?,
-                                      private val includeUsers: Boolean?) {
+data class ListRequest(private val includeCount: Boolean?,
+                       private val includeDisabled: Boolean?,
+                       private val includeUsers: Boolean?) {
     companion object
 
     fun toRequestMap(): MutableMap<String, String> {

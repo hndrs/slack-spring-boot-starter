@@ -15,13 +15,13 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
         JsonSubTypes.Type(value = ErrorAuthRevokeResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class SlackAuthRevokeResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class AuthRevokeResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulAuthRevokeResponse constructor(
         override val ok: Boolean,
         @JsonProperty("revoked") val isRevoked: Boolean)
-    : SlackAuthRevokeResponse(ok) {
+    : AuthRevokeResponse(ok) {
     companion object
 }
 
@@ -29,7 +29,7 @@ data class SuccessfulAuthRevokeResponse constructor(
 data class ErrorAuthRevokeResponse constructor(
         override val ok: Boolean,
         @JsonProperty("error") val error: String)
-    : SlackAuthRevokeResponse(ok) {
+    : AuthRevokeResponse(ok) {
     companion object
 }
 

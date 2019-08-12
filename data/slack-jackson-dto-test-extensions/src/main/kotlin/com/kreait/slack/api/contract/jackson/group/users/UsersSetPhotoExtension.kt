@@ -1,5 +1,5 @@
 package com.kreait.slack.api.contract.jackson.group.users
 
-fun SuccessfulUsersSetPhotoResponse.Companion.sample() = SuccessfulUsersSetPhotoResponse(ok = true)
+fun SuccessfulSetPhotoResponse.Companion.sample() = SuccessfulSetPhotoResponse(ok = true)
 
-fun ErrorUsersSetPhotoResponse.Companion.sample() = ErrorUsersSetPhotoResponse(ok = false, error = "")
+fun ErrorSetPhotoResponse.Companion.sample() = ErrorSetPhotoResponse(ok = false, error = "")

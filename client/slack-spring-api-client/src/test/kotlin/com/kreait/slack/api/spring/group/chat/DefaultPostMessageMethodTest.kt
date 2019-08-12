@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.chat
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostMessageResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostMessageRequest
+import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostMessageResponse
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -29,7 +29,7 @@ class DefaultPostMessageMethodTest {
         val verifier = Verifier(response)
 
         DefaultPostMessageMethod("", mockTemplate)
-                .with(SlackPostMessageRequest.sample())
+                .with(PostMessageRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -44,7 +44,7 @@ class DefaultPostMessageMethodTest {
         val verifier = Verifier(response)
 
         DefaultPostMessageMethod("", mockTemplate)
-                .with(SlackPostMessageRequest.sample())
+                .with(PostMessageRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

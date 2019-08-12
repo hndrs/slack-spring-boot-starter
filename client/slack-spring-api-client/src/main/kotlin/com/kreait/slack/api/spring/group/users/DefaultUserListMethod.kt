@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUserListResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUserListResponse
-import com.kreait.slack.api.contract.jackson.group.users.UserListResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorListResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListResponse
+import com.kreait.slack.api.contract.jackson.group.users.ListResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UserListMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
@@ -12,15 +12,15 @@ import org.springframework.web.client.RestTemplate
 
 @Suppress("UNCHECKED_CAST")
 class DefaultUserListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.formUrlTemplate()) : UserListMethod() {
-    private var result: SuccessfulUserListResponse? = null
+    private var result: SuccessfulListResponse? = null
     var nextCursor = ""
 
-    override fun request(): ApiCallResult<SuccessfulUserListResponse, ErrorUserListResponse> {
+    override fun request(): ApiCallResult<SuccessfulListResponse, ErrorListResponse> {
         val map = this.params.copy(cursor = nextCursor).toRequestMap()
         val response = postUsersListRequest(map)
         when (response.body!!) {
-            is SuccessfulUserListResponse -> {
-                val responseEntity = response.body as SuccessfulUserListResponse
+            is SuccessfulListResponse -> {
+                val responseEntity = response.body as SuccessfulListResponse
                 if (result == null) {
                     result = responseEntity
                 }
@@ -40,18 +40,18 @@ class DefaultUserListMethod(private val authToken: String, private val restTempl
                     }
                 }
             }
-            is ErrorUserListResponse -> {
-                val responseEntity = response.body as ErrorUserListResponse
+            is ErrorListResponse -> {
+                val responseEntity = response.body as ErrorListResponse
                 this.onFailure?.invoke(responseEntity)
                 return ApiCallResult(failure = responseEntity)
             }
         }
     }
 
-    private fun postUsersListRequest(params: Map<String, String>): ResponseEntity<UserListResponse> {
-        return SlackRequestBuilder<UserListResponse>(authToken, restTemplate)
+    private fun postUsersListRequest(params: Map<String, String>): ResponseEntity<ListResponse> {
+        return SlackRequestBuilder<ListResponse>(authToken, restTemplate)
                 .toMethod("users.list")
-                .returnAsType(UserListResponse::class.java)
+                .returnAsType(ListResponse::class.java)
                 .postUrlEncoded(params)
     }
 }

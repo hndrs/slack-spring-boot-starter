@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.usergroups
 
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.ErrorUsergroupsUsersListResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.users.SlackUsergroupsUsersListRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.users.UsergroupsUsersListRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.SuccessfulUsergroupsUsersListResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -31,7 +31,7 @@ class UsergroupsUsersListMethodTest {
         val verifier = Verifier(response)
 
         DefaultUsergroupsUsersListMethod("", mockTemplate)
-                .with(SlackUsergroupsUsersListRequest.sample())
+                .with(UsergroupsUsersListRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
 
@@ -47,7 +47,7 @@ class UsergroupsUsersListMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.users.list", response)
 
         DefaultUsergroupsUsersListMethod("", mockTemplate)
-                .with(SlackUsergroupsUsersListRequest.sample())
+                .with(UsergroupsUsersListRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
 

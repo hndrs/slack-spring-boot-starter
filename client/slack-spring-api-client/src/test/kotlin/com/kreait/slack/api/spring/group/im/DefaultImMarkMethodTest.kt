@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.im
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImMarkResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImMarkRequest
+import com.kreait.slack.api.contract.jackson.group.im.ImMarkRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImMarkResponse
 import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -27,7 +27,7 @@ internal class DefaultImMarkMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.mark", response)
         val verifier = Verifier(response)
         DefaultImMarkMethod("", mockTemplate)
-                .with(SlackImMarkRequest.sample())
+                .with(ImMarkRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -42,7 +42,7 @@ internal class DefaultImMarkMethodTest {
         val verifier = Verifier(response)
 
         DefaultImMarkMethod("", mockTemplate)
-                .with(SlackImMarkRequest.sample())
+                .with(ImMarkRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

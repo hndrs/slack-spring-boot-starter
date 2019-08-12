@@ -8,6 +8,6 @@ fun ErrorImMarkResponse.Companion.sample(): ErrorImMarkResponse {
     return ErrorImMarkResponse(false, "")
 }
 
-fun SlackImMarkRequest.Companion.sample(): SlackImMarkRequest {
-    return SlackImMarkRequest("", "")
+fun ImMarkRequest.Companion.sample(): ImMarkRequest {
+    return ImMarkRequest("", "")
 }

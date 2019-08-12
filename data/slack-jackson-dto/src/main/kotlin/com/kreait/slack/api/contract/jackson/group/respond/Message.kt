@@ -10,10 +10,10 @@ import com.kreait.slack.api.contract.jackson.common.messaging.Attachment
 import com.kreait.slack.api.contract.jackson.common.messaging.Block
 
 @JacksonDataClass
-data class SlackRespondMessageRequest constructor(@JsonProperty("text") val text: String? = null,
-                                                  @JsonProperty("attachments") val attachments: List<Attachment>? = null,
-                                                  @JsonProperty("blocks") val blocks: List<Block>? = null,
-                                                  @JsonProperty("response_type") val responseType: ResponseType) {
+data class RespondMessageRequest constructor(@JsonProperty("text") val text: String? = null,
+                                             @JsonProperty("attachments") val attachments: List<Attachment>? = null,
+                                             @JsonProperty("blocks") val blocks: List<Block>? = null,
+                                             @JsonProperty("response_type") val responseType: ResponseType) {
     companion object
 }
 

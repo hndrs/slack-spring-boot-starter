@@ -1,21 +1,21 @@
 package com.kreait.slack.api.contract.jackson.group.team
 
-fun SuccessfulTeamGetProfileResponse.Companion.sample(): SuccessfulTeamGetProfileResponse {
-    return SuccessfulTeamGetProfileResponse(true, TeamProfile.sample())
+fun SuccessfulProfileResponse.Companion.sample(): SuccessfulProfileResponse {
+    return SuccessfulProfileResponse(true, TeamProfile.sample())
 }
 
 fun TeamProfile.Companion.sample(): TeamProfile {
-    return TeamProfile(listOf(Field.sample()))
+    return TeamProfile(listOf(TeamProfile.Field.sample()))
 }
 
-fun Field.Companion.sample(): Field {
-    return Field("", "", 0, "", "", 0, "", "")
+fun TeamProfile.Field.Companion.sample(): TeamProfile.Field {
+    return TeamProfile.Field("", "", 0, "", "", 0, "", "")
 }
 
-fun ErrorTeamGetProfileResponse.Companion.sample(): ErrorTeamGetProfileResponse {
-    return ErrorTeamGetProfileResponse(false, "")
+fun ErrorProfileResponse.Companion.sample(): ErrorProfileResponse {
+    return ErrorProfileResponse(false, "")
 }
 
-fun TeamGetProfileRequest.Companion.sample(): TeamGetProfileRequest {
-    return TeamGetProfileRequest(TeamVisibility.ALL)
+fun ProfileRequest.Companion.sample(): ProfileRequest {
+    return ProfileRequest(TeamVisibility.ALL)
 }

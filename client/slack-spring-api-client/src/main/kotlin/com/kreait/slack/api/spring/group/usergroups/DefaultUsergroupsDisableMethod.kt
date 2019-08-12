@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsDisableResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsDisableResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.UsergroupsDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.DisableResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsDisableMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
@@ -14,20 +14,20 @@ import org.springframework.web.client.RestTemplate
  */
 class DefaultUsergroupsDisableMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsergroupsDisableMethod() {
 
-    override fun request(): ApiCallResult<SuccessfulUsergroupsDisableResponse, ErrorUsergroupsDisableResponse> {
-        val response = SlackRequestBuilder<UsergroupsDisableResponse>(authToken, restTemplate)
+    override fun request(): ApiCallResult<SuccessfulDisableResponse, ErrorDisableResponse> {
+        val response = SlackRequestBuilder<DisableResponse>(authToken, restTemplate)
                 .toMethod("usergroups.disable")
-                .returnAsType(UsergroupsDisableResponse::class.java)
+                .returnAsType(DisableResponse::class.java)
                 .postWithJsonBody()
 
         return when (response.body!!) {
-            is SuccessfulUsergroupsDisableResponse -> {
-                val responseEntity = response.body as SuccessfulUsergroupsDisableResponse
+            is SuccessfulDisableResponse -> {
+                val responseEntity = response.body as SuccessfulDisableResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            is ErrorUsergroupsDisableResponse -> {
-                val responseEntity = response.body as ErrorUsergroupsDisableResponse
+            is ErrorDisableResponse -> {
+                val responseEntity = response.body as ErrorDisableResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

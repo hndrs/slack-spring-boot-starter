@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.chat
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatDeleteResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackChatDeleteRequest
+import com.kreait.slack.api.contract.jackson.group.chat.ChatDeleteRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatDeleteResponse
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -29,7 +29,7 @@ internal class DefaultDeleteMethodTest {
         val verifier = Verifier(response)
 
         DefaultDeleteMethod("", mockTemplate)
-                .with(SlackChatDeleteRequest.sample())
+                .with(ChatDeleteRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -44,7 +44,7 @@ internal class DefaultDeleteMethodTest {
         val verifier = Verifier(response)
 
         DefaultDeleteMethod("", mockTemplate)
-                .with(SlackChatDeleteRequest.sample())
+                .with(ChatDeleteRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

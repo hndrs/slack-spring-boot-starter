@@ -1,10 +1,10 @@
 package com.kreait.slack.api.contract.jackson.group.usergroups
 
-fun SuccessfulUsergroupsUpdateResponse.Companion.sample() = SuccessfulUsergroupsUpdateResponse(true, Usergroup.sample())
+fun SuccessfulUpdateResponse.Companion.sample() = SuccessfulUpdateResponse(true, UserGroup.sample())
 
-fun ErrorUsergroupsUpdateResponse.Companion.sample() = ErrorUsergroupsUpdateResponse(false, "")
+fun ErrorUpdateResponse.Companion.sample() = ErrorUpdateResponse(false, "")
 
-fun SlackUsergroupsUpdateRequest.Companion.sample() = SlackUsergroupsUpdateRequest(
+fun UpdateRequest.Companion.sample() = UpdateRequest(
         "",
         listOf(),
         "",

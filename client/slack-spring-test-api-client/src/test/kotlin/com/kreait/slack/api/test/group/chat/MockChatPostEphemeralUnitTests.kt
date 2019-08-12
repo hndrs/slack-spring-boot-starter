@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.chat
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralRequest
+import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
@@ -25,7 +25,7 @@ class MockChatPostEphemeralUnitTests {
         MockMethodTestHelper.verify({ mockSlackClient.chat().postEphemeral("") },
                 successFunction, SuccessfulPostEphemeralResponse.sample(),
                 failureFunction, ErrorPostEphemeralResponse.sample(),
-                SlackPostEphemeralRequest.sample()
+                PostEphemeralRequest.sample()
         )
     }
 

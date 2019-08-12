@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.channels
 
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelArchiveResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelsArchiveRequest
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelsArchiveRequest
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelArchiveResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
@@ -23,6 +23,6 @@ class MockChannelsArchiveUnitTest {
         MockMethodTestHelper.verify({ mockSlackClient.channel().archive("") },
                 successFunction, SuccessfulChannelArchiveResponse.sample(),
                 failureFunction, ErrorChannelArchiveResponse.sample(),
-                SlackChannelsArchiveRequest.sample())
+                ChannelsArchiveRequest.sample())
     }
 }

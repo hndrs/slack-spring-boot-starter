@@ -12,32 +12,32 @@ import com.kreait.slack.api.contract.jackson.common.types.Channel
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUsergroupsCreateResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUsergroupsCreateResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulCreateResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorCreateResponse::class, name = "false")
 )
 
 @JacksonDataClass
-sealed class UsergroupsCreateResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class CreateResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulUsergroupsCreateResponse constructor(override val ok: Boolean,
-                                                          @JsonProperty("usergroup") val usergroup: Usergroup)
-    : UsergroupsCreateResponse(ok) {
+data class SuccessfulCreateResponse constructor(override val ok: Boolean,
+                                                @JsonProperty("usergroup") val userGroup: UserGroup)
+    : CreateResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorUsergroupsCreateResponse constructor(override val ok: Boolean,
-                                                     @JsonProperty("error") val error: String)
-    : UsergroupsCreateResponse(ok) {
+data class ErrorCreateResponse constructor(override val ok: Boolean,
+                                           @JsonProperty("error") val error: String)
+    : CreateResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class SlackUsergroupsCreateRequest constructor(@JsonProperty("name") val name: String,
-                                                    @JsonProperty("channels") val channels: List<Channel>?,
-                                                    @JsonProperty("description") val description: String?,
-                                                    @JsonProperty("handle") val handle: String?,
-                                                    @JsonProperty("include_count") val includeCount: Boolean?) {
+data class CreateRequest constructor(@JsonProperty("name") val name: String,
+                                     @JsonProperty("channels") val channels: List<Channel>?,
+                                     @JsonProperty("description") val description: String?,
+                                     @JsonProperty("handle") val handle: String?,
+                                     @JsonProperty("include_count") val includeCount: Boolean?) {
     companion object
 }

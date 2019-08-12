@@ -17,26 +17,26 @@ import com.kreait.slack.api.contract.jackson.common.types.Channel
 )
 
 @JacksonDataClass
-sealed class SlackChannelInviteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ChannelInviteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulChannelInviteResponse constructor(override val ok: Boolean,
                                                        @JsonProperty("channel") val channel: Channel)
-    : SlackChannelInviteResponse(ok) {
+    : ChannelInviteResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
 data class ErrorChannelInviteResponse constructor(override val ok: Boolean,
                                                   @JsonProperty("error") val error: String)
-    : SlackChannelInviteResponse(ok) {
+    : ChannelInviteResponse(ok) {
     companion object
 }
 
 
 @JacksonDataClass
-data class SlackChannelInviteRequest constructor(@JsonProperty("channel") val channel: String,
-                                                 @JsonProperty("user") val user: String) {
+data class ChannelInviteRequest constructor(@JsonProperty("channel") val channel: String,
+                                            @JsonProperty("user") val user: String) {
 
     companion object
 }

@@ -1,21 +1,21 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersInfoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackUserInfoRequest
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersInfoResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorInfoResponse
+import com.kreait.slack.api.contract.jackson.group.users.InfoRequest
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulInfoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersInfoMethod
 import com.kreait.slack.api.test.MockMethod
 
-class MockUsersInfoMethod : UsersInfoMethod(), MockMethod<SuccessfulUsersInfoResponse, ErrorUsersInfoResponse, SlackUserInfoRequest> {
-    override fun params(): SlackUserInfoRequest {
+class MockUsersInfoMethod : UsersInfoMethod(), MockMethod<SuccessfulInfoResponse, ErrorInfoResponse, InfoRequest> {
+    override fun params(): InfoRequest {
         return params
     }
 
-    override var successResponse: SuccessfulUsersInfoResponse? = null
-    override var failureResponse: ErrorUsersInfoResponse? = null
+    override var successResponse: SuccessfulInfoResponse? = null
+    override var failureResponse: ErrorInfoResponse? = null
 
-    override fun request(): ApiCallResult<SuccessfulUsersInfoResponse, ErrorUsersInfoResponse> {
+    override fun request(): ApiCallResult<SuccessfulInfoResponse, ErrorInfoResponse> {
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

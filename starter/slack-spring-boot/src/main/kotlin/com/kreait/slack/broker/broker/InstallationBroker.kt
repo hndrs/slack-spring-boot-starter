@@ -1,7 +1,7 @@
 package com.kreait.slack.broker.broker
 
 import com.kreait.slack.api.SlackClient
-import com.kreait.slack.api.contract.jackson.group.oauth.OauthAccessRequest
+import com.kreait.slack.api.contract.jackson.group.oauth.AccessRequest
 import com.kreait.slack.broker.exception.ExceptionChain
 import com.kreait.slack.broker.exception.MustThrow
 import com.kreait.slack.broker.metrics.InstallationMetricsCollector
@@ -76,7 +76,7 @@ class InstallationBroker constructor(
 
     private fun obtainOauthAccess(code: String): Team {
         val response = this.slackClient.oauth().access()
-                .with(OauthAccessRequest(config.clientId, config.clientSecret, code))
+                .with(AccessRequest(config.clientId, config.clientSecret, code))
                 .invoke()
         return response.success?.let {
             Team(it.teamId,

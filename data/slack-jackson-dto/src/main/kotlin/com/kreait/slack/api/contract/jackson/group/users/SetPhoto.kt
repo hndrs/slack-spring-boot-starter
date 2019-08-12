@@ -10,31 +10,31 @@ import java.io.File
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUsersSetPhotoResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUsersSetPhotoResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulSetPhotoResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorSetPhotoResponse::class, name = "false")
 )
 
 @JacksonDataClass
-sealed class UsersSetPhotoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class SetPhotoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulUsersSetPhotoResponse constructor(override val ok: Boolean)
-    : UsersSetPhotoResponse(ok) {
+data class SuccessfulSetPhotoResponse constructor(override val ok: Boolean)
+    : SetPhotoResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorUsersSetPhotoResponse constructor(override val ok: Boolean,
-                                                  val error: String)
-    : UsersSetPhotoResponse(ok) {
+data class ErrorSetPhotoResponse constructor(override val ok: Boolean,
+                                             val error: String)
+    : SetPhotoResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class UsersSetPhotoRequest(val image: File,
-                                val cropW: Int? = null,
-                                val cropX: Int? = null,
-                                val cropY: Int? = null) {
+data class SetPhotoRequest(val image: File,
+                           val cropW: Int? = null,
+                           val cropX: Int? = null,
+                           val cropY: Int? = null) {
     companion object {}
 
     fun toMultiValueMap(): LinkedMultiValueMap<String, Any> {

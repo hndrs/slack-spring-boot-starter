@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.auth
 
 
 import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthTestResponse
-import com.kreait.slack.api.contract.jackson.group.auth.SlackAuthTestResponse
+import com.kreait.slack.api.contract.jackson.group.auth.AuthTestResponse
 import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthTestResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.auth.AuthTestMethod
@@ -15,9 +15,9 @@ import org.springframework.web.client.RestTemplate
 class DefaultTestMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : AuthTestMethod() {
 
     override fun request(): ApiCallResult<SuccessfulAuthTestResponse, ErrorAuthTestResponse> {
-        val response = SlackRequestBuilder<SlackAuthTestResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<AuthTestResponse>(authToken, restTemplate)
                 .toMethod("auth.test")
-                .returnAsType(SlackAuthTestResponse::class.java)
+                .returnAsType(AuthTestResponse::class.java)
                 .postWithJsonBody()
 
         return when (response.body!!) {

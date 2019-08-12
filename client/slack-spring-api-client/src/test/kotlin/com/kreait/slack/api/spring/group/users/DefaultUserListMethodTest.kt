@@ -1,9 +1,9 @@
 package com.kreait.slack.api.spring.group.users
 
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUserListResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackUserListRequest
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUserListResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorListResponse
+import com.kreait.slack.api.contract.jackson.group.users.ListRequest
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -24,12 +24,12 @@ class DefaultUserListMethodTest {
     @Test
     @DisplayName("user.list Failure")
     fun UserListFailure() {
-        val response = ErrorUserListResponse.sample()
+        val response = ErrorListResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.list", response)
         val verifier = Verifier(response)
 
         DefaultUserListMethod("", mockTemplate)
-                .with(SlackUserListRequest.sample())
+                .with(ListRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -39,12 +39,12 @@ class DefaultUserListMethodTest {
     @Test
     @DisplayName("user.list Success")
     fun UserListSuccess() {
-        val response = SuccessfulUserListResponse.sample()
+        val response = SuccessfulListResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.list", response)
         val verifier = Verifier(response)
 
         DefaultUserListMethod("", mockTemplate)
-                .with(SlackUserListRequest.sample())
+                .with(ListRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -54,13 +54,13 @@ class DefaultUserListMethodTest {
     @Test
     @DisplayName("user.list Success")
     fun TestWithNextCursor() {
-        val response = SuccessfulUserListResponse.sample().copy(responseMetadata = ResponseMetadata("12324"))
-        val secondResponse = SuccessfulUserListResponse.sample()
+        val response = SuccessfulListResponse.sample().copy(responseMetadata = ResponseMetadata("12324"))
+        val secondResponse = SuccessfulListResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.list", response, secondResponse)
         val verifier = Verifier(response)
 
         DefaultUserListMethod("", mockTemplate)
-                .with(SlackUserListRequest.sample().copy(limit = 10, cursor = "12324"))
+                .with(ListRequest.sample().copy(limit = 10, cursor = "12324"))
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.im
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImHistoryResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImHistoryRequest
+import com.kreait.slack.api.contract.jackson.group.im.ImHistoryRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImHistoryResponse
 import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
@@ -25,7 +25,7 @@ class MockImHistoryUnitTests {
         MockMethodTestHelper.verify( { mockClient.im().history("") },
                 successFunction, SuccessfulImHistoryResponse.sample(),
                 failureFunction, ErrorImHistoryResponse.sample(),
-                SlackImHistoryRequest.sample()
+                ImHistoryRequest.sample()
         )
     }
 }

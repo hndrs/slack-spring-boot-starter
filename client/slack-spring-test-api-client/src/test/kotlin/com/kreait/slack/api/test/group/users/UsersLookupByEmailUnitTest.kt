@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersLookupByEmailResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackUsersLookupByEmailRequest
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersLookupByEmailResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorLookupByEmailResponse
+import com.kreait.slack.api.contract.jackson.group.users.LookupByEmailRequest
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulLookupByEmailResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -16,13 +16,13 @@ class UsersLookupByEmailUnitTest {
     @DisplayName("users.lookupByEmail Test")
     @Test
     fun usersLookupByEmailTest() {
-        val successFunction: (SuccessfulUsersLookupByEmailResponse?) -> Any = mock { }
-        val failureFunction: (ErrorUsersLookupByEmailResponse?) -> Any = mock { }
+        val successFunction: (SuccessfulLookupByEmailResponse?) -> Any = mock { }
+        val failureFunction: (ErrorLookupByEmailResponse?) -> Any = mock { }
         val mockClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockClient.users().lookupByEmail("") },
-                successFunction, SuccessfulUsersLookupByEmailResponse.sample(),
-                failureFunction, ErrorUsersLookupByEmailResponse.sample(),
-                SlackUsersLookupByEmailRequest.sample())
+                successFunction, SuccessfulLookupByEmailResponse.sample(),
+                failureFunction, ErrorLookupByEmailResponse.sample(),
+                LookupByEmailRequest.sample())
     }
 }

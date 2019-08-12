@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsEnableResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsEnableRequest
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsEnableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorEnableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.EnableRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulEnableResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -16,13 +16,13 @@ class UsergroupsEnableUnitTest {
     @DisplayName("Mock Successful")
     @Test
     fun mockUsergroupsEnable() {
-        val successFunction: (SuccessfulUsergroupsEnableResponse?) -> Any = mock { }
-        val failureFunction: (ErrorUsergroupsEnableResponse?) -> Any = mock { }
+        val successFunction: (SuccessfulEnableResponse?) -> Any = mock { }
+        val failureFunction: (ErrorEnableResponse?) -> Any = mock { }
         val mockClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockClient.usergroups().enable("") },
-                successFunction, SuccessfulUsergroupsEnableResponse.sample(),
-                failureFunction, ErrorUsergroupsEnableResponse.sample(),
-                SlackUsergroupsEnableRequest.sample())
+                successFunction, SuccessfulEnableResponse.sample(),
+                failureFunction, ErrorEnableResponse.sample(),
+                EnableRequest.sample())
     }
 }

@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetPhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetPhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersSetPhotoRequest
+import com.kreait.slack.api.contract.jackson.group.users.ErrorSetPhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetPhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SetPhotoRequest
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -17,14 +17,14 @@ class UsersSetPhotoUnitTest {
     @Test
     fun usersSetPhotoTest() {
 
-        val successFunction: (SuccessfulUsersSetPhotoResponse?) -> Any = mock { }
-        val failureFunction: (ErrorUsersSetPhotoResponse?) -> Any = mock { }
+        val successFunction: (SuccessfulSetPhotoResponse?) -> Any = mock { }
+        val failureFunction: (ErrorSetPhotoResponse?) -> Any = mock { }
 
         val mockClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockClient.users().setPhoto("") },
-                successFunction, SuccessfulUsersSetPhotoResponse.sample(),
-                failureFunction, ErrorUsersSetPhotoResponse.sample(),
-                UsersSetPhotoRequest(mock { }, 0, 0, 0))
+                successFunction, SuccessfulSetPhotoResponse.sample(),
+                failureFunction, ErrorSetPhotoResponse.sample(),
+                SetPhotoRequest(mock { }, 0, 0, 0))
     }
 }

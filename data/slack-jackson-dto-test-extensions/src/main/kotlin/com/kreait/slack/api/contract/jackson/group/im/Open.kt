@@ -12,6 +12,6 @@ fun ErrorImOpenResponse.Companion.sample(): ErrorImOpenResponse {
     return ErrorImOpenResponse(false, "")
 }
 
-fun SlackImOpenRequest.Companion.sample(): SlackImOpenRequest {
-    return SlackImOpenRequest("")
+fun ImOpenRequest.Companion.sample(): ImOpenRequest {
+    return ImOpenRequest("")
 }

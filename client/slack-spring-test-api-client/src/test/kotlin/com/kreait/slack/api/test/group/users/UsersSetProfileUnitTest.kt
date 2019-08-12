@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetProfileResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorSetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetProfileResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -15,13 +15,13 @@ class UsersSetProfileUnitTest() {
     @DisplayName("Test Users.setProfile method")
     @Test
     fun userListTest() {
-        val successFunction: (SuccessfulUsersSetProfileResponse?) -> Any = mock {}
-        val failureFunction: (ErrorUsersSetProfileResponse?) -> Any = mock {}
+        val successFunction: (SuccessfulSetProfileResponse?) -> Any = mock {}
+        val failureFunction: (ErrorSetProfileResponse?) -> Any = mock {}
         val mockSlackClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockSlackClient.users().setProfile("") },
-                successFunction, SuccessfulUsersSetProfileResponse.sample(),
-                failureFunction, ErrorUsersSetProfileResponse.sample(),
+                successFunction, SuccessfulSetProfileResponse.sample(),
+                failureFunction, ErrorSetProfileResponse.sample(),
                 Unit
         )
     }

@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsUpdateResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsUpdateResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.UsergroupsUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.UpdateResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsUpdateMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
@@ -15,20 +15,20 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class DefaultUsergroupsUpdateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsergroupsUpdateMethod() {
 
-    override fun request(): ApiCallResult<SuccessfulUsergroupsUpdateResponse, ErrorUsergroupsUpdateResponse> {
-        val response = SlackRequestBuilder<UsergroupsUpdateResponse>(authToken, restTemplate)
+    override fun request(): ApiCallResult<SuccessfulUpdateResponse, ErrorUpdateResponse> {
+        val response = SlackRequestBuilder<UpdateResponse>(authToken, restTemplate)
                 .toMethod("usergroups.update")
-                .returnAsType(UsergroupsUpdateResponse::class.java)
+                .returnAsType(UpdateResponse::class.java)
                 .postWithJsonBody()
 
         return when (response.body!!) {
-            is SuccessfulUsergroupsUpdateResponse -> {
-                val responseEntity = response.body as SuccessfulUsergroupsUpdateResponse
+            is SuccessfulUpdateResponse -> {
+                val responseEntity = response.body as SuccessfulUpdateResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            is ErrorUsergroupsUpdateResponse -> {
-                val responseEntity = response.body as ErrorUsergroupsUpdateResponse
+            is ErrorUpdateResponse -> {
+                val responseEntity = response.body as ErrorUpdateResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

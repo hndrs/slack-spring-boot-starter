@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.chat
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralRequest
+import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -29,7 +29,7 @@ internal class DefaultPostEphemeralMethodTest {
         val verifier = Verifier(response)
 
         DefaultPostEphemeralMethod("", mockTemplate)
-                .with(SlackPostEphemeralRequest.sample())
+                .with(PostEphemeralRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -44,7 +44,7 @@ internal class DefaultPostEphemeralMethodTest {
         val verifier = Verifier(response)
 
         DefaultPostEphemeralMethod("", mockTemplate)
-                .with(SlackPostEphemeralRequest.sample())
+                .with(PostEphemeralRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.JacksonDataClass
-import com.kreait.slack.api.contract.jackson.group.usergroups.Usergroup
+import com.kreait.slack.api.contract.jackson.group.usergroups.UserGroup
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
@@ -17,7 +17,7 @@ sealed class UsergroupsUsersUpdateResponse constructor(@JsonProperty("ok") open 
 
 @JacksonDataClass
 data class SuccessfulUsergroupUsersUpdateResponse constructor(override val ok: Boolean,
-                                                              @JsonProperty("usergroup") val usergroup: Usergroup) :
+                                                              @JsonProperty("usergroup") val userGroup: UserGroup) :
         UsergroupsUsersUpdateResponse(ok) {
     companion object
 }
@@ -30,7 +30,7 @@ data class ErrorUsergroupUsersUpdateResponse constructor(override val ok: Boolea
 }
 
 @JacksonDataClass
-data class SlackUsergroupUsersUpdateRequest(@JsonProperty("usergroup") val usergroup: String,
+data class UsergroupUsersUpdateRequest(@JsonProperty("usergroup") val usergroup: String,
                                        @JsonProperty("users") val users: List<String>,
                                        @JsonProperty("include_count") val includeCount: Int?) {
     companion object

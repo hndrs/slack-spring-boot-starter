@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersGetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersGetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersGetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorGetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulGetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.GetPresenceResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersGetPresenceMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
@@ -14,25 +14,25 @@ import org.springframework.web.client.RestTemplate
  */
 class DefaultUsersGetPresenceMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersGetPresenceMethod() {
 
-    override fun request(): ApiCallResult<SuccessfulUsersGetPresenceResponse, ErrorUsersGetPresenceResponse> {
-        val response = SlackRequestBuilder<UsersGetPresenceResponse>(authToken, restTemplate)
+    override fun request(): ApiCallResult<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse> {
+        val response = SlackRequestBuilder<GetPresenceResponse>(authToken, restTemplate)
                 .toMethod("users.getPresence")
-                .returnAsType(UsersGetPresenceResponse::class.java)
+                .returnAsType(GetPresenceResponse::class.java)
                 .with(this.params)
                 .postUrlEncoded(mapOf())
 
         return when (response.body!!) {
 
-            is SuccessfulUsersGetPresenceResponse -> {
+            is SuccessfulGetPresenceResponse -> {
 
-                val responseEntity = response.body as SuccessfulUsersGetPresenceResponse
+                val responseEntity = response.body as SuccessfulGetPresenceResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
 
-            is ErrorUsersGetPresenceResponse -> {
+            is ErrorGetPresenceResponse -> {
 
-                val responseEntity = response.body as ErrorUsersGetPresenceResponse
+                val responseEntity = response.body as ErrorGetPresenceResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

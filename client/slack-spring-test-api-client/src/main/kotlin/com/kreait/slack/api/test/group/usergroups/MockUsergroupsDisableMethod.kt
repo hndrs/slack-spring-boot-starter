@@ -1,20 +1,20 @@
 package com.kreait.slack.api.test.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsDisableResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsDisableRequest
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.DisableRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulDisableResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsDisableMethod
 import com.kreait.slack.api.test.MockMethod
 
-class MockUsergroupsDisableMethod : UsergroupsDisableMethod(), MockMethod<SuccessfulUsergroupsDisableResponse, ErrorUsergroupsDisableResponse, SlackUsergroupsDisableRequest> {
+class MockUsergroupsDisableMethod : UsergroupsDisableMethod(), MockMethod<SuccessfulDisableResponse, ErrorDisableResponse, DisableRequest> {
 
-    override fun params(): SlackUsergroupsDisableRequest = params
+    override fun params(): DisableRequest = params
 
-    override var successResponse: SuccessfulUsergroupsDisableResponse? = null
-    override var failureResponse: ErrorUsergroupsDisableResponse? = null
+    override var successResponse: SuccessfulDisableResponse? = null
+    override var failureResponse: ErrorDisableResponse? = null
 
-    override fun request(): ApiCallResult<SuccessfulUsergroupsDisableResponse, ErrorUsergroupsDisableResponse> {
+    override fun request(): ApiCallResult<SuccessfulDisableResponse, ErrorDisableResponse> {
 
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }

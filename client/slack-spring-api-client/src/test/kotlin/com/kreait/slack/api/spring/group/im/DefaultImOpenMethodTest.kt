@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.im
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImOpenResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImOpenRequest
+import com.kreait.slack.api.contract.jackson.group.im.ImOpenRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImOpenResponse
 import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -28,7 +28,7 @@ internal class DefaultImOpenMethodTest {
         val verifier = Verifier(response)
 
         DefaultImOpenMethod("", mockTemplate)
-                .with(SlackImOpenRequest.sample())
+                .with(ImOpenRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -43,7 +43,7 @@ internal class DefaultImOpenMethodTest {
         val verifier = Verifier(response)
 
         DefaultImOpenMethod("", mockTemplate)
-                .with(SlackImOpenRequest.sample())
+                .with(ImOpenRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.oauth
 
-import com.kreait.slack.api.contract.jackson.group.oauth.ErrorOauthAccessResponse
-import com.kreait.slack.api.contract.jackson.group.oauth.OauthAccessRequest
-import com.kreait.slack.api.contract.jackson.group.oauth.SuccessFullOauthAccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.ErrorAccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.AccessRequest
+import com.kreait.slack.api.contract.jackson.group.oauth.SuccessfullAccessResponse
 import com.kreait.slack.api.contract.jackson.group.oauth.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -15,14 +15,14 @@ class MockOauthAccessUnitTest {
     @DisplayName("Test Oauth Access")
     @Test
     fun testOauthAccess() {
-        val successFunction: (SuccessFullOauthAccessResponse?) -> Any = mock {}
-        val failureFunction: (ErrorOauthAccessResponse?) -> Any = mock {}
+        val successFunction: (SuccessfullAccessResponse?) -> Any = mock {}
+        val failureFunction: (ErrorAccessResponse?) -> Any = mock {}
         val mockSlackClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockSlackClient.oauth().access() },
-                successFunction, SuccessFullOauthAccessResponse.sample(),
-                failureFunction, ErrorOauthAccessResponse.sample(),
-                OauthAccessRequest.sample()
+                successFunction, SuccessfullAccessResponse.sample(),
+                failureFunction, ErrorAccessResponse.sample(),
+                AccessRequest.sample()
         )
     }
 }

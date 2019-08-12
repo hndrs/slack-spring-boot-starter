@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.im
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImHistoryResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImHistoryResponse
+import com.kreait.slack.api.contract.jackson.group.im.ImHistoryResponse
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImHistoryResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImHistoryMethod
@@ -16,9 +16,9 @@ import org.springframework.web.client.RestTemplate
 class DefaultImHistoryMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ImHistoryMethod() {
 
     override fun request(): ApiCallResult<SuccessfulImHistoryResponse, ErrorImHistoryResponse> {
-        val response = SlackRequestBuilder<SlackImHistoryResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<ImHistoryResponse>(authToken, restTemplate)
                 .toMethod("im.history")
-                .returnAsType(SlackImHistoryResponse::class.java)
+                .returnAsType(ImHistoryResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {

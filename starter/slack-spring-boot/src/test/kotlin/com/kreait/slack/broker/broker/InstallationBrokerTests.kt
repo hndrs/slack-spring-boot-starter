@@ -1,7 +1,7 @@
 package com.kreait.slack.broker.broker
 
-import com.kreait.slack.api.contract.jackson.group.oauth.ErrorOauthAccessResponse
-import com.kreait.slack.api.contract.jackson.group.oauth.SuccessFullOauthAccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.ErrorAccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.SuccessfullAccessResponse
 import com.kreait.slack.api.contract.jackson.group.oauth.sample
 import com.kreait.slack.api.test.MockSlackClient
 import com.kreait.slack.broker.extensions.sample
@@ -38,7 +38,7 @@ class InstallationBrokerTests {
 
         val mockSlackClient = MockSlackClient()
 
-        mockSlackClient.oauth().access().successResponse = SuccessFullOauthAccessResponse.sample()
+        mockSlackClient.oauth().access().successResponse = SuccessfullAccessResponse.sample()
 
         InstallationBroker(listOf(successReceiver, errorReceiver), metrics, teamStore, mockSlackClient, InstallationBroker.Config("someClientId", "", "", ""))
                 .onInstall("code", "state")
@@ -76,7 +76,7 @@ class InstallationBrokerTests {
 
         val mockSlackClient = MockSlackClient()
 
-        mockSlackClient.oauth().access().failureResponse = ErrorOauthAccessResponse.sample()
+        mockSlackClient.oauth().access().failureResponse = ErrorAccessResponse.sample()
 
         InstallationBroker(listOf(successReceiver, errorReceiver), metrics, teamStore, mockSlackClient, InstallationBroker.Config("someClientId", "", "", ""))
                 .onInstall("code", "state")

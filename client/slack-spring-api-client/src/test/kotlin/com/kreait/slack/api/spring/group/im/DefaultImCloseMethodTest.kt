@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.im
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImCloseResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImCloseRequest
+import com.kreait.slack.api.contract.jackson.group.im.ImCloseRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImCloseResponse
 import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -28,7 +28,7 @@ internal class DefaultImCloseMethodTest {
         val verifier = Verifier(response)
 
         DefaultImCloseMethod("", mockTemplate)
-                .with(SlackImCloseRequest.sample())
+                .with(ImCloseRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -43,7 +43,7 @@ internal class DefaultImCloseMethodTest {
         val verifier = Verifier(response)
 
         DefaultImCloseMethod("", mockTemplate)
-                .with(SlackImCloseRequest.sample())
+                .with(ImCloseRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

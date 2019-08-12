@@ -15,7 +15,7 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
 )
 
 @JacksonDataClass
-sealed class SlackConversationCloseResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ConversationCloseResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
  * [SlackDoc](https://api.slack.com/methods/conversations.close)
@@ -24,7 +24,7 @@ data class SuccessfulConversationCloseResponse(
         override val ok: Boolean,
         @JsonProperty("no_op") val noOp: Boolean?,
         @JsonProperty("already_closed") val alreadyClosed: Boolean?
-) : SlackConversationCloseResponse(ok) {
+) : ConversationCloseResponse(ok) {
     companion object
 }
 
@@ -34,7 +34,7 @@ data class SuccessfulConversationCloseResponse(
 data class ErrorConversationCloseResponse constructor(
         override val ok: Boolean,
         @JsonProperty("error") val error: String
-) : SlackConversationCloseResponse(ok) {
+) : ConversationCloseResponse(ok) {
     companion object
 }
 

@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersGetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersGetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersGetPresenceRequest
+import com.kreait.slack.api.contract.jackson.group.users.ErrorGetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulGetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.GetPresenceRequest
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -17,14 +17,14 @@ class UsersGetPresenceUnitTest {
     @Test
     fun usersGetPresenceTest() {
 
-        val successFunction: (SuccessfulUsersGetPresenceResponse?) -> Any = mock {  }
-        val failureFunction: (ErrorUsersGetPresenceResponse?) -> Any = mock {  }
+        val successFunction: (SuccessfulGetPresenceResponse?) -> Any = mock {  }
+        val failureFunction: (ErrorGetPresenceResponse?) -> Any = mock {  }
 
         val mockClient = MockSlackClient()
 
         MockMethodTestHelper.verify( { mockClient.users().getPresence("") },
-                successFunction, SuccessfulUsersGetPresenceResponse.sample(),
-                failureFunction, ErrorUsersGetPresenceResponse.sample(),
-                UsersGetPresenceRequest.sample())
+                successFunction, SuccessfulGetPresenceResponse.sample(),
+                failureFunction, ErrorGetPresenceResponse.sample(),
+                GetPresenceRequest.sample())
     }
 }

@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersDeletePhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersDeletePhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorDeletePhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulDeletePhotoResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -15,13 +15,13 @@ class UsersDeletePhotoUnitTest() {
     @DisplayName("Test Users.deletePhoto method")
     @Test
     fun userListTest() {
-        val successFunction: (SuccessfulUsersDeletePhotoResponse?) -> Any = mock {}
-        val failureFunction: (ErrorUsersDeletePhotoResponse?) -> Any = mock {}
+        val successFunction: (SuccessfulDeletePhotoResponse?) -> Any = mock {}
+        val failureFunction: (ErrorDeletePhotoResponse?) -> Any = mock {}
         val mockSlackClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockSlackClient.users().deletePhoto("") },
-                successFunction, SuccessfulUsersDeletePhotoResponse.sample(),
-                failureFunction, ErrorUsersDeletePhotoResponse.sample(), Unit
+                successFunction, SuccessfulDeletePhotoResponse.sample(),
+                failureFunction, ErrorDeletePhotoResponse.sample(), Unit
         )
     }
 }

@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.conversations
 
 
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationCloseResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.SlackConversationCloseResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.ConversationCloseResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationCloseResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsCloseMethod
@@ -15,10 +15,10 @@ import org.springframework.web.client.RestTemplate
 class DefaultConversationsCloseMethod constructor(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsCloseMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationCloseResponse, ErrorConversationCloseResponse> {
-        val response = SlackRequestBuilder<SlackConversationCloseResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<ConversationCloseResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("conversations.close")
-                .returnAsType(SlackConversationCloseResponse::class.java)
+                .returnAsType(ConversationCloseResponse::class.java)
                 .postWithJsonBody()
 
         return when (response.body!!) {

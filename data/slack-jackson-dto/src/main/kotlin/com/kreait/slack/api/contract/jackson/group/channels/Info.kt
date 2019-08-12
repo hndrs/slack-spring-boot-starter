@@ -11,30 +11,30 @@ import com.kreait.slack.api.contract.jackson.common.types.Channel
         property = "ok",
         visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGetChannelInfoResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGetChannelInfoResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulChannelInfoResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorChannelInfoResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class SlackGetChannelInfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ChannelInfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulGetChannelInfoResponse constructor(override val ok: Boolean,
-                                                        @JsonProperty("channel") val channel: Channel)
-    : SlackGetChannelInfoResponse(ok) {
+data class SuccessfulChannelInfoResponse constructor(override val ok: Boolean,
+                                                     @JsonProperty("channel") val channel: Channel)
+    : ChannelInfoResponse(ok) {
 
     companion object
 }
 
 @JacksonDataClass
-data class ErrorGetChannelInfoResponse constructor(override val ok: Boolean,
-                                                   @JsonProperty("error") val error: String)
-    : SlackGetChannelInfoResponse(ok) {
+data class ErrorChannelInfoResponse constructor(override val ok: Boolean,
+                                                @JsonProperty("error") val error: String)
+    : ChannelInfoResponse(ok) {
 
     companion object
 }
 
 @JacksonDataClass
-data class SlackChannelsInfoRequest constructor(@JsonProperty("channel") val channel: String,
-                                                @JsonProperty("include_locale") val includeLocale: Boolean = false) {
+data class ChannelsInfoRequest constructor(@JsonProperty("channel") val channel: String,
+                                           @JsonProperty("include_locale") val includeLocale: Boolean = false) {
     companion object
 }

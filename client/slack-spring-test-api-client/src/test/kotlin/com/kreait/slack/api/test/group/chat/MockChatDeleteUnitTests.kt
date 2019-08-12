@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.chat
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatDeleteResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackChatDeleteRequest
+import com.kreait.slack.api.contract.jackson.group.chat.ChatDeleteRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatDeleteResponse
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
@@ -25,6 +25,6 @@ class MockChatDeleteUnitTests {
         MockMethodTestHelper.verify({ mockSlackClient.chat().delete("") },
                 successFunction, SuccessfulChatDeleteResponse.sample(),
                 failureFunction, ErrorChatDeleteResponse.sample(),
-                SlackChatDeleteRequest.sample())
+                ChatDeleteRequest.sample())
     }
 }

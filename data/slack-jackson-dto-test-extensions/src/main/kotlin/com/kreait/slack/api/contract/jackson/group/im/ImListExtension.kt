@@ -8,8 +8,8 @@ fun ErrorImListResponse.Companion.sample(): ErrorImListResponse {
     return ErrorImListResponse(false, "")
 }
 
-fun SlackImListRequest.Companion.sample(): SlackImListRequest {
-    return SlackImListRequest("", "")
+fun ImListRequest.Companion.sample(): ImListRequest {
+    return ImListRequest("", "")
 }
 
 fun Im.Companion.sample(): Im {

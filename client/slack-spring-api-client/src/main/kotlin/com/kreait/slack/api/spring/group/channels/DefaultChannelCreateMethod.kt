@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.channels
 
 
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelCreateResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelCreateResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelCreateResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelCreateResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsCreateMethod
@@ -15,10 +15,10 @@ import org.springframework.web.client.RestTemplate
 class DefaultChannelCreateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsCreateMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelCreateResponse, ErrorChannelCreateResponse> {
 
-        val response = SlackRequestBuilder<SlackChannelCreateResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<ChannelCreateResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("channels.create")
-                .returnAsType(SlackChannelCreateResponse::class.java)
+                .returnAsType(ChannelCreateResponse::class.java)
                 .postWithJsonBody()
         return when (response.body!!) {
             is SuccessfulChannelCreateResponse -> {

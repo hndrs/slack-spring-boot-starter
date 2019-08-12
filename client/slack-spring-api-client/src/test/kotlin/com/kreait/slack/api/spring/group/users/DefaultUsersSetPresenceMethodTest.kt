@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackUsersSetPresenceRequest
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorSetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.SetPresenceRequest
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetPresenceResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -25,12 +25,12 @@ class DefaultUsersSetPresenceMethodTest {
     @DisplayName("users.setPresence Success")
     fun userSetPresenceSuccess() {
 
-        val response = SuccessfulUsersSetPresenceResponse.sample()
+        val response = SuccessfulSetPresenceResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.setPresence", response)
         val verifier = Verifier(response)
 
         DefaultUsersSetPresenceMethod("", mockTemplate)
-                .with(SlackUsersSetPresenceRequest.sample())
+                .with(SetPresenceRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -41,12 +41,12 @@ class DefaultUsersSetPresenceMethodTest {
     @DisplayName("users.setPresence Failure")
     fun userSetPresenceFailure() {
 
-        val response = ErrorUsersSetPresenceResponse.sample()
+        val response = ErrorSetPresenceResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.setPresence", response)
         val verifier = Verifier(response)
 
         DefaultUsersSetPresenceMethod("", mockTemplate)
-                .with(SlackUsersSetPresenceRequest.sample())
+                .with(SetPresenceRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()

@@ -10,25 +10,25 @@ import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUserConversationsResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUserConversationsResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulConversationsResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorConversationsResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class UserConversationsResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ConversationsResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 
-data class ErrorUserConversationsResponse(
+data class ErrorConversationsResponse(
         override var ok: Boolean,
         @JsonProperty("error") val error: String
-) : UserConversationsResponse(ok) {
+) : ConversationsResponse(ok) {
     companion object
 }
 
-data class SuccessfulUserConversationsResponse(
+data class SuccessfulConversationsResponse(
         override var ok: Boolean,
         @JsonProperty("channels") val channels: List<Channel>,
         @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
-) : UserConversationsResponse(ok) {
+) : ConversationsResponse(ok) {
     companion object
 }
 
@@ -73,11 +73,11 @@ data class Topic(
 /**
  * DataClass that represents arguments as defined here https://api.slack.com/methods/users.conversations
  */
-data class SlackUserConversationListRequest(private val cursor: String? = null,
-                                            private val excludeArchived: Boolean? = null,
-                                            private val limit: Int? = null,
-                                            private val types: Set<ChannelType>? = null,
-                                            private val userId: String? = null) {
+data class ConversationsRequest(private val cursor: String? = null,
+                                private val excludeArchived: Boolean? = null,
+                                private val limit: Int? = null,
+                                private val types: Set<ChannelType>? = null,
+                                private val userId: String? = null) {
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()

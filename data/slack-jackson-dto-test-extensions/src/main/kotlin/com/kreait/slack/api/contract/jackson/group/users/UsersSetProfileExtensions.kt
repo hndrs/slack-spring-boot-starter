@@ -1,16 +1,16 @@
 package com.kreait.slack.api.contract.jackson.group.users
 
-fun SuccessfulUsersSetProfileResponse.Companion.sample(): SuccessfulUsersSetProfileResponse {
-    return SuccessfulUsersSetProfileResponse(true, SuccessfulUsersSetProfileResponse.Profile.sample())
+fun SuccessfulSetProfileResponse.Companion.sample(): SuccessfulSetProfileResponse {
+    return SuccessfulSetProfileResponse(true, SuccessfulSetProfileResponse.Profile.sample())
 }
 
-fun SuccessfulUsersSetProfileResponse.Profile.Companion.sample(): SuccessfulUsersSetProfileResponse.Profile {
-    return SuccessfulUsersSetProfileResponse.Profile("", "", "", "",
+fun SuccessfulSetProfileResponse.Profile.Companion.sample(): SuccessfulSetProfileResponse.Profile {
+    return SuccessfulSetProfileResponse.Profile("", "", "", "",
             mapOf(), "", "", "", "", "", "", "",
             "", "", "", "", "", "", 0, "",
             "", "")
 }
 
-fun ErrorUsersSetProfileResponse.Companion.sample(): ErrorUsersSetProfileResponse {
-    return ErrorUsersSetProfileResponse(false, "")
+fun ErrorSetProfileResponse.Companion.sample(): ErrorSetProfileResponse {
+    return ErrorSetProfileResponse(false, "")
 }

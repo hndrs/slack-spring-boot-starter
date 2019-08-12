@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.channels
 
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelInviteResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelInviteRequest
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelInviteRequest
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelInviteResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -29,7 +29,7 @@ class DefaultChannelInviteMethodTest {
         val verifier = Verifier(response)
 
         DefaultChannelInviteMethod("", mockTemplate)
-                .with(SlackChannelInviteRequest.sample())
+                .with(ChannelInviteRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -44,7 +44,7 @@ class DefaultChannelInviteMethodTest {
         val verifier = Verifier(response)
 
         DefaultChannelInviteMethod("", mockTemplate)
-                .with(SlackChannelInviteRequest.sample())
+                .with(ChannelInviteRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

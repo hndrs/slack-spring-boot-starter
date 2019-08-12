@@ -11,23 +11,23 @@ import com.kreait.slack.api.contract.jackson.common.types.Channel
         property = "ok",
         visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGetChannelListResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGetChannelListResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulChannelListResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorChannelListResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class SlackGetChannelListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ChannelListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class ErrorGetChannelListResponse constructor(override val ok: Boolean,
-                                                   @JsonProperty("error") val error: String)
-    : SlackGetChannelListResponse(ok) {
+data class ErrorChannelListResponse constructor(override val ok: Boolean,
+                                                @JsonProperty("error") val error: String)
+    : ChannelListResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class SuccessfulGetChannelListResponse(
+data class SuccessfulChannelListResponse(
         override val ok: Boolean,
-        @JsonProperty("channels") val channels: List<Channel>) : SlackGetChannelListResponse(ok) {
+        @JsonProperty("channels") val channels: List<Channel>) : ChannelListResponse(ok) {
     companion object
 }
 

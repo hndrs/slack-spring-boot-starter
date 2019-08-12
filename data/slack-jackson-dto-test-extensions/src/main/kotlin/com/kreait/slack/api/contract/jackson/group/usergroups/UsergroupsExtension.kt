@@ -1,6 +1,6 @@
 package com.kreait.slack.api.contract.jackson.group.usergroups
 
-fun Usergroup.Companion.sample() = Usergroup(id = "",
+fun UserGroup.Companion.sample() = UserGroup(id = "",
         teamId = "",
         isUsergroup = true,
         name = "",

@@ -29,8 +29,8 @@ data class ErrorUsergroupsUsersListResponse constructor(override val ok: Boolean
 }
 
 @JacksonDataClass
-data class SlackUsergroupsUsersListRequest(@JsonProperty("usergroup") val usergroupId: String,
-                                           @JsonProperty("include_disabled") val includeDisabled: Boolean?) {
+data class UsergroupsUsersListRequest(@JsonProperty("usergroup") val usergroupId: String,
+                                      @JsonProperty("include_disabled") val includeDisabled: Boolean?) {
     companion object
 
     fun toRequestMap(): MutableMap<String, String> {

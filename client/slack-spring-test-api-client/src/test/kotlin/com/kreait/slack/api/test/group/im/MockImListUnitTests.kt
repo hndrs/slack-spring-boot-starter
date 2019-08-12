@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.im
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImListResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImListRequest
+import com.kreait.slack.api.contract.jackson.group.im.ImListRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImListResponse
 import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
@@ -25,7 +25,7 @@ class MockImListUnitTests {
         MockMethodTestHelper.verify({ mockSlackClient.im().list("") },
                 successFunction, SuccessfulImListResponse.sample(),
                 failureFunction, ErrorImListResponse.sample(),
-                SlackImListRequest.sample()
+                ImListRequest.sample()
         )
     }
 }

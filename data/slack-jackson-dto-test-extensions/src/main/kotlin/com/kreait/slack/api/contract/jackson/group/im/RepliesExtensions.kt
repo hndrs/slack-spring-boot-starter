@@ -10,4 +10,4 @@ fun SuccessfulImRepliesResponse.Message.Companion.sample(): SuccessfulImRepliesR
 
 fun ErrorImRepliesResponse.Companion.sample(): ErrorImRepliesResponse = ErrorImRepliesResponse(false, "error")
 
-fun SlackImRepliesRequest.Companion.sample(): SlackImRepliesRequest = SlackImRepliesRequest("channeId", "1234567890.123456")
+fun ImRepliesRequest.Companion.sample(): ImRepliesRequest = ImRepliesRequest("channeId", "1234567890.123456")

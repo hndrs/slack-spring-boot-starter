@@ -7,7 +7,7 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
  * https://api.slack.com/types/usergroup
  */
 @JacksonDataClass
-data class Usergroup(
+data class UserGroup(
         @JsonProperty("id") val id: String,
         @JsonProperty("team_id") val teamId: String,
         @JsonProperty("is_usergroup") val isUsergroup: Boolean,

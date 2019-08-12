@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUserListResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackUserListRequest
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUserListResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorListResponse
+import com.kreait.slack.api.contract.jackson.group.users.ListRequest
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -16,14 +16,14 @@ class UsersListUnitTest {
     @DisplayName("Test Users.list method")
     @Test
     fun testUsersList() {
-        val successFunction: (SuccessfulUserListResponse?) -> Any = mock {}
-        val failureFunction: (ErrorUserListResponse?) -> Any = mock {}
+        val successFunction: (SuccessfulListResponse?) -> Any = mock {}
+        val failureFunction: (ErrorListResponse?) -> Any = mock {}
         val mockSlackClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockSlackClient.users().list("") },
-                successFunction, SuccessfulUserListResponse.sample(),
-                failureFunction, ErrorUserListResponse.sample(),
-                SlackUserListRequest()
+                successFunction, SuccessfulListResponse.sample(),
+                failureFunction, ErrorListResponse.sample(),
+                ListRequest()
         )
     }
 }

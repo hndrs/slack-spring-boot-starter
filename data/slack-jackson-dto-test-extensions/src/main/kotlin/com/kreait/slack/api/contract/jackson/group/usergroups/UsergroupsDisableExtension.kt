@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.usergroups
 
-fun SuccessfulUsergroupsDisableResponse.Companion.sample() = SuccessfulUsergroupsDisableResponse(true, Usergroup.sample())
+fun SuccessfulDisableResponse.Companion.sample() = SuccessfulDisableResponse(true, UserGroup.sample())
 
-fun ErrorUsergroupsDisableResponse.Companion.sample() = ErrorUsergroupsDisableResponse(false, "")
+fun ErrorDisableResponse.Companion.sample() = ErrorDisableResponse(false, "")
 
-fun SlackUsergroupsDisableRequest.Companion.sample() = SlackUsergroupsDisableRequest(Usergroup.sample(), false)
+fun DisableRequest.Companion.sample() = DisableRequest(UserGroup.sample(), false)

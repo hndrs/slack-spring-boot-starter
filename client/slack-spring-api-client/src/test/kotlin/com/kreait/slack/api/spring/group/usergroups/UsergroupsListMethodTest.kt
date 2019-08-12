@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsListResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsListRequest
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsListResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorListResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ListRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulListResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -23,12 +23,12 @@ class UsergroupsListMethodTest {
     @DisplayName("usergroups.list Method Success")
     @Test
     fun usergroupsListMethodSuccess() {
-        val response = SuccessfulUsergroupsListResponse.sample()
+        val response = SuccessfulListResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.list", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsListMethod("", mockTemplate)
-                .with(SlackUsergroupsListRequest.sample())
+                .with(ListRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
 
@@ -39,12 +39,12 @@ class UsergroupsListMethodTest {
     @DisplayName("usergroups.list Method Failure")
     @Test
     fun usergroupsListMethodFailure() {
-        val response = ErrorUsergroupsListResponse.sample()
+        val response = ErrorListResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.list", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsListMethod("", mockTemplate)
-                .with(SlackUsergroupsListRequest.sample())
+                .with(ListRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
 

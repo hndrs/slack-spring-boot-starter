@@ -1,20 +1,20 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersGetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersGetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersGetPresenceRequest
+import com.kreait.slack.api.contract.jackson.group.users.ErrorGetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulGetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.GetPresenceRequest
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersGetPresenceMethod
 import com.kreait.slack.api.test.MockMethod
 
-class MockUsersGetPresenceMethod : UsersGetPresenceMethod(), MockMethod<SuccessfulUsersGetPresenceResponse, ErrorUsersGetPresenceResponse, UsersGetPresenceRequest> {
+class MockUsersGetPresenceMethod : UsersGetPresenceMethod(), MockMethod<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse, GetPresenceRequest> {
 
     override fun params() = params
 
-    override var successResponse: SuccessfulUsersGetPresenceResponse? = null
-    override var failureResponse: ErrorUsersGetPresenceResponse? = null
+    override var successResponse: SuccessfulGetPresenceResponse? = null
+    override var failureResponse: ErrorGetPresenceResponse? = null
 
-    override fun request(): ApiCallResult<SuccessfulUsersGetPresenceResponse, ErrorUsersGetPresenceResponse> {
+    override fun request(): ApiCallResult<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse> {
 
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }

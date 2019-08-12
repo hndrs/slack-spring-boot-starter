@@ -7,15 +7,15 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUsersSetProfileResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUsersSetProfileResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulSetProfileResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorSetProfileResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class UsersSetProfileResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class SetProfileResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulUsersSetProfileResponse constructor(override val ok: Boolean,
-                                                         @JsonProperty("user") val user: Profile) : UsersSetProfileResponse(ok) {
+data class SuccessfulSetProfileResponse constructor(override val ok: Boolean,
+                                                    @JsonProperty("user") val user: Profile) : SetProfileResponse(ok) {
     companion object {}
 
     data class Profile(
@@ -40,18 +40,19 @@ data class SuccessfulUsersSetProfileResponse constructor(override val ok: Boolea
             @JsonProperty("status_expiration") val statusExpiration: Int?,
             @JsonProperty("status_text") val statusText: String?,
             @JsonProperty("status_text_canonical") val statusTextCanonical: String?,
-            @JsonProperty("title") val title: String?){
+            @JsonProperty("title") val title: String?) {
         companion object
     }
 }
 
 @JacksonDataClass
-data class ErrorUsersSetProfileResponse constructor(override val ok: Boolean,
-                                                    @JsonProperty("error") val error: String)
-    : UsersSetProfileResponse(ok) {
+data class ErrorSetProfileResponse constructor(override val ok: Boolean,
+                                               @JsonProperty("error") val error: String)
+    : SetProfileResponse(ok) {
     companion object
 }
 
+//TODO Unused?
 @JacksonDataClass
 data class SetProfileRequest(@JsonProperty("name") val name: String?,
                              @JsonProperty("profile") val profile: Map<String, String>?,
