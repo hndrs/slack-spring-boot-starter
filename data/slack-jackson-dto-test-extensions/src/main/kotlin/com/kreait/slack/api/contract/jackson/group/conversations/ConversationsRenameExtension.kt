@@ -1,9 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.conversations
 
-import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsRenameRequest
-import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationsRenameResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationsRenameResponse
 import com.kreait.slack.api.contract.jackson.common.types.Channel
+import com.kreait.slack.api.contract.jackson.group.channels.sample
 
 fun ConversationsRenameRequest.Companion.sample(): ConversationsRenameRequest {
     return ConversationsRenameRequest("", "")

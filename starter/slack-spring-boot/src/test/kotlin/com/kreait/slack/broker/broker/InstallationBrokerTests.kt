@@ -1,15 +1,15 @@
 package com.kreait.slack.broker.broker
 
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry
+import com.kreait.slack.api.contract.jackson.group.oauth.ErrorOauthAccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.SuccessFullOauthAccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.sample
+import com.kreait.slack.api.test.MockSlackClient
 import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.metrics.InstallationMetrics
 import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.store.InMemoryTeamStore
 import com.kreait.slack.broker.store.Team
-import com.kreait.slack.api.test.MockSlackClient
-import com.kreait.slack.api.contract.jackson.group.oauth.ErrorOauthAccessResponse
-import com.kreait.slack.api.contract.jackson.group.oauth.SuccessFullOauthAccessResponse
-import com.kreait.slack.api.contract.jackson.group.oauth.sample
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

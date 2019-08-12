@@ -1,11 +1,11 @@
 package com.kreait.slack.broker.configuration
 
-import com.kreait.slack.broker.RequestTestUtils
-import com.kreait.slack.broker.RequestTestUtils.mockMethodParameter
-import com.kreait.slack.broker.RequestTestUtils.mockNativeWebRequest
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.api.contract.jackson.toParameterMap
+import com.kreait.slack.broker.RequestTestUtils
+import com.kreait.slack.broker.RequestTestUtils.mockMethodParameter
+import com.kreait.slack.broker.RequestTestUtils.mockNativeWebRequest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import java.time.Instant

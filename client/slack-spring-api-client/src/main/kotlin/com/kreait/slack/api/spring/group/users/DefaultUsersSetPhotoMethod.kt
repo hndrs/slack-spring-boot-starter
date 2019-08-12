@@ -1,12 +1,12 @@
 package com.kreait.slack.api.spring.group.users
 
+import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetPhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetPhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.UsersSetPhotoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersSetPhotoMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetPhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetPhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersSetPhotoResponse
 import org.springframework.web.client.RestTemplate
 
 

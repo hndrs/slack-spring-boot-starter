@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.im
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.im.ImOpenMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImOpenResponse
 import com.kreait.slack.api.contract.jackson.group.im.SlackImOpenRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImOpenResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.im.ImOpenMethod
+import com.kreait.slack.api.test.MockMethod
 
 class MockImOpenMethod : ImOpenMethod(), MockMethod<SuccessfulImOpenResponse, ErrorImOpenResponse, SlackImOpenRequest> {
     override var successResponse: SuccessfulImOpenResponse? = null

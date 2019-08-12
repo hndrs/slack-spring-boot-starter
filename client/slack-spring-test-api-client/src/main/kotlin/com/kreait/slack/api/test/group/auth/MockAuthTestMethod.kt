@@ -1,10 +1,10 @@
 package com.kreait.slack.api.test.group.auth
 
+import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthTestResponse
+import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthTestResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.auth.AuthTestMethod
 import com.kreait.slack.api.test.MockMethod
-import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthTestResponse
-import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthTestResponse
 
 class MockAuthTestMethod : AuthTestMethod(), MockMethod<SuccessfulAuthTestResponse, ErrorAuthTestResponse, Unit> {
 

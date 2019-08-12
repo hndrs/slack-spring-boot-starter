@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.channel
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.channels.ChannelsInviteMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelInviteResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelInviteRequest
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelInviteResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.channels.ChannelsInviteMethod
+import com.kreait.slack.api.test.MockMethod
 
 class MockChannelsInviteMethod : ChannelsInviteMethod(), MockMethod<SuccessfulChannelInviteResponse, ErrorChannelInviteResponse, SlackChannelInviteRequest> {
 

@@ -1,6 +1,7 @@
 package com.kreait.slack.broker.autoconfiguration
 
-import io.micrometer.core.instrument.MeterRegistry
+import com.kreait.slack.api.SlackClient
+import com.kreait.slack.api.spring.DefaultSlackClient
 import com.kreait.slack.broker.autoconfiguration.credentials.CredentialsProvider
 import com.kreait.slack.broker.autoconfiguration.credentials.DefaultCredentialsProviderChain
 import com.kreait.slack.broker.broker.CommandBroker
@@ -31,8 +32,7 @@ import com.kreait.slack.broker.store.FileTeamStore
 import com.kreait.slack.broker.store.InMemoryEventStore
 import com.kreait.slack.broker.store.InMemoryTeamStore
 import com.kreait.slack.broker.store.TeamStore
-import com.kreait.slack.api.SlackClient
-import com.kreait.slack.api.spring.DefaultSlackClient
+import io.micrometer.core.instrument.MeterRegistry
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean

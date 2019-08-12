@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.channels
 
 
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelCreateResponse
+import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelCreateResponse
+import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelCreateResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsCreateMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelCreateResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelCreateResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelCreateResponse
 import org.springframework.web.client.RestTemplate
 
 

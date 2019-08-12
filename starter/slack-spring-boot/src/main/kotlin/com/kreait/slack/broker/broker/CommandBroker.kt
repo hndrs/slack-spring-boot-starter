@@ -1,14 +1,13 @@
 package com.kreait.slack.broker.broker
 
+import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.broker.configuration.Command
 import com.kreait.slack.broker.exception.ExceptionChain
 import com.kreait.slack.broker.exception.MustThrow
-
 import com.kreait.slack.broker.metrics.CommandMetricsCollector
 import com.kreait.slack.broker.receiver.MismatchCommandReciever
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.TeamStore
-import com.kreait.slack.api.contract.jackson.SlackCommand
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus

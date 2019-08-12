@@ -1,5 +1,8 @@
 package com.kreait.slack.broker.broker
 
+import com.kreait.slack.api.contract.jackson.EventRequest
+import com.kreait.slack.api.contract.jackson.SlackChallenge
+import com.kreait.slack.api.contract.jackson.SlackEvent
 import com.kreait.slack.broker.configuration.Event
 import com.kreait.slack.broker.exception.ExceptionChain
 import com.kreait.slack.broker.exception.MustThrow
@@ -8,9 +11,6 @@ import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.store.EventStore
 import com.kreait.slack.broker.store.Team
 import com.kreait.slack.broker.store.TeamStore
-import com.kreait.slack.api.contract.jackson.EventRequest
-import com.kreait.slack.api.contract.jackson.SlackChallenge
-import com.kreait.slack.api.contract.jackson.SlackEvent
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus

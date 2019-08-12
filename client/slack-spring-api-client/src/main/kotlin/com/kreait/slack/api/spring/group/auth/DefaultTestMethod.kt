@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.auth
 
 
+import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthTestResponse
+import com.kreait.slack.api.contract.jackson.group.auth.SlackAuthTestResponse
+import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthTestResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.auth.AuthTestMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthTestResponse
-import com.kreait.slack.api.contract.jackson.group.auth.SlackAuthTestResponse
-import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthTestResponse
 import org.springframework.web.client.RestTemplate
 
 

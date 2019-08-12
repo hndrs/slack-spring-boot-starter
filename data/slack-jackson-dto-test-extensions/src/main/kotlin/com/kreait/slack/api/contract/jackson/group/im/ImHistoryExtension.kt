@@ -1,7 +1,5 @@
 package com.kreait.slack.api.contract.jackson.group.im
 
-import com.kreait.slack.api.contract.jackson.group.im.ErrorImHistoryResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImHistoryRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImHistoryResponse
 
 fun SuccessfulImHistoryResponse.Companion.sample() = SuccessfulImHistoryResponse(true, "now", listOf(), false)

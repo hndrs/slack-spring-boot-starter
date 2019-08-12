@@ -1,8 +1,8 @@
 package com.kreait.slack.broker.configuration
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.kreait.slack.broker.security.VerificationMethodArgumentResolver
 import com.kreait.slack.api.contract.jackson.SlackCommand
+import com.kreait.slack.broker.security.VerificationMethodArgumentResolver
 import org.springframework.core.MethodParameter
 import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.method.support.ModelAndViewContainer

@@ -1,9 +1,6 @@
 package com.kreait.slack.api.contract.jackson.group.users
 
 import com.kreait.slack.api.contract.jackson.UserPresence
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersGetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersGetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersGetPresenceRequest
 
 fun SuccessfulUsersGetPresenceResponse.Companion.sample() = SuccessfulUsersGetPresenceResponse(
         ok = true,

@@ -1,12 +1,11 @@
 package com.kreait.slack.api.spring.group.im
 
-import com.kreait.slack.api.spring.MockServerHelper
-import com.kreait.slack.api.spring.Verifier
-import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImCloseResponse
 import com.kreait.slack.api.contract.jackson.group.im.SlackImCloseRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImCloseResponse
-import com.kreait.slack.api.spring.group.im.DefaultImCloseMethod
+import com.kreait.slack.api.spring.MockServerHelper
+import com.kreait.slack.api.spring.Verifier
+import com.kreait.slack.api.spring.group.RestTemplateFactory
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

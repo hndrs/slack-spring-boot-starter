@@ -2,6 +2,7 @@ package com.kreait.slack.api.contract.jackson.group.channels
 
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 import com.kreait.slack.api.contract.jackson.group.chat.Message
+import com.kreait.slack.api.contract.jackson.group.chat.sample
 
 fun SuccessfulGetChannelListResponse.Companion.sample(): SuccessfulGetChannelListResponse = SuccessfulGetChannelListResponse(true, listOf())
 

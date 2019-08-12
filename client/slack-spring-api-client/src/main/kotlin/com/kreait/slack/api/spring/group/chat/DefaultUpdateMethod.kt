@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.chat
 
 
+import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.chat.SlackChatUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatUpdateResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatUpdateMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatUpdateResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackChatUpdateResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatUpdateResponse
 import org.springframework.web.client.RestTemplate
 
 

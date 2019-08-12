@@ -1,23 +1,5 @@
 package com.kreait.slack.api.group.conversations
 
-import com.kreait.slack.api.group.conversations.ConversationsArchiveMethod
-import com.kreait.slack.api.group.conversations.ConversationsCloseMethod
-import com.kreait.slack.api.group.conversations.ConversationsCreateMethod
-import com.kreait.slack.api.group.conversations.ConversationsHistoryMethod
-import com.kreait.slack.api.group.conversations.ConversationsInfoMethod
-import com.kreait.slack.api.group.conversations.ConversationsInviteMethod
-import com.kreait.slack.api.group.conversations.ConversationsJoinMethod
-import com.kreait.slack.api.group.conversations.ConversationsKickMethod
-import com.kreait.slack.api.group.conversations.ConversationsLeaveMethod
-import com.kreait.slack.api.group.conversations.ConversationsListMethod
-import com.kreait.slack.api.group.conversations.ConversationsMembersMethod
-import com.kreait.slack.api.group.conversations.ConversationsOpenMethod
-import com.kreait.slack.api.group.conversations.ConversationsRenameMethod
-import com.kreait.slack.api.group.conversations.ConversationsRepliesMethod
-import com.kreait.slack.api.group.conversations.ConversationsSetPurposeMethod
-import com.kreait.slack.api.group.conversations.ConversationsSetTopicMethod
-import com.kreait.slack.api.group.conversations.ConversationsUnarchiveMethod
-
 interface ConversationsMethodGroup {
 
 

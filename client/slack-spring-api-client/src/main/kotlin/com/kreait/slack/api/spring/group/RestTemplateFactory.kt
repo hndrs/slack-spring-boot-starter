@@ -2,16 +2,7 @@ package com.kreait.slack.api.spring.group
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
-<<<<<<< Updated upstream:client/slack-spring-api-client/src/main/kotlin/io/olaph/slack/client/spring/group/RestTemplateFactory.kt
-import io.olaph.slack.client.spring.group.respond.SlackResponseErrorHandler
-=======
 import com.kreait.slack.api.spring.group.respond.SlackResponseErrorHandler
-import org.apache.http.HttpHost
-import org.apache.http.conn.ssl.NoopHostnameVerifier
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory
-import org.apache.http.impl.client.HttpClients
-
->>>>>>> Stashed changes:client/slack-spring-api-client/src/main/kotlin/com/kreait/slack/api/spring/group/RestTemplateFactory.kt
 import org.springframework.http.converter.FormHttpMessageConverter
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter

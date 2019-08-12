@@ -1,5 +1,8 @@
 package com.kreait.slack.broker.autoconfiguration
 
+import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
+import com.kreait.slack.api.contract.jackson.SlackCommand
+import com.kreait.slack.api.contract.jackson.SlackEvent
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
@@ -11,9 +14,6 @@ import com.kreait.slack.broker.store.InMemoryEventStore
 import com.kreait.slack.broker.store.InMemoryTeamStore
 import com.kreait.slack.broker.store.Team
 import com.kreait.slack.broker.store.TeamStore
-import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
-import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.SlackEvent
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Assertions

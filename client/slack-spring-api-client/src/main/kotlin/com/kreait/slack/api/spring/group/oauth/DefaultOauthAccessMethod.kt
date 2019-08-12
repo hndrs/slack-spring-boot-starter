@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.oauth
 
 
+import com.kreait.slack.api.contract.jackson.group.oauth.ErrorOauthAccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.OauthAccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.SuccessFullOauthAccessResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.oauth.OauthAccessMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.oauth.ErrorOauthAccessResponse
-import com.kreait.slack.api.contract.jackson.group.oauth.OauthAccessResponse
-import com.kreait.slack.api.contract.jackson.group.oauth.SuccessFullOauthAccessResponse
 import org.springframework.web.client.RestTemplate
 
 

@@ -1,6 +1,10 @@
 package com.kreait.slack.broker.exception
 
-import com.nhaarman.mockitokotlin2.mock
+import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
+import com.kreait.slack.api.contract.jackson.SlackCommand
+import com.kreait.slack.api.contract.jackson.group.dialog.DialogErrorResponse
+import com.kreait.slack.api.contract.jackson.sample
+import com.kreait.slack.api.contract.jackson.toParameterMap
 import com.kreait.slack.broker.RequestTestUtils
 import com.kreait.slack.broker.broker.CommandBroker
 import com.kreait.slack.broker.broker.InteractiveComponentBroker
@@ -11,11 +15,7 @@ import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.security.VerificationException
 import com.kreait.slack.broker.store.InMemoryTeamStore
 import com.kreait.slack.broker.store.Team
-import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
-import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.group.dialog.DialogErrorResponse
-import com.kreait.slack.api.contract.jackson.sample
-import com.kreait.slack.api.contract.jackson.toParameterMap
+import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested

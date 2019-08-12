@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.usergroups
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.usergroups.UsergroupsDisableMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsDisableResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsDisableRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsDisableResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.usergroups.UsergroupsDisableMethod
+import com.kreait.slack.api.test.MockMethod
 
 class MockUsergroupsDisableMethod : UsergroupsDisableMethod(), MockMethod<SuccessfulUsergroupsDisableResponse, ErrorUsergroupsDisableResponse, SlackUsergroupsDisableRequest> {
 

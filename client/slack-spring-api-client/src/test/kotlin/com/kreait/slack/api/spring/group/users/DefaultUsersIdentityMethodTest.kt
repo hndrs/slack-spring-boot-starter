@@ -1,11 +1,10 @@
 package com.kreait.slack.api.spring.group.users
 
+import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersIdentityResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersIdentityResponse
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
 import com.kreait.slack.api.spring.group.RestTemplateFactory
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersIdentityResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersIdentityResponse
-import com.kreait.slack.api.spring.group.users.DefaultUsersIdentityMethod
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

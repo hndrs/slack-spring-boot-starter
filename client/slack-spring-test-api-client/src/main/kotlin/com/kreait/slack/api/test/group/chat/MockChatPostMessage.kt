@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.chat
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.chat.ChatPostMessageMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostMessageResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SlackPostMessageRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostMessageResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.chat.ChatPostMessageMethod
+import com.kreait.slack.api.test.MockMethod
 
 open class MockChatPostMessage : ChatPostMessageMethod(), MockMethod<SuccessfulPostMessageResponse, ErrorPostMessageResponse, SlackPostMessageRequest> {
 

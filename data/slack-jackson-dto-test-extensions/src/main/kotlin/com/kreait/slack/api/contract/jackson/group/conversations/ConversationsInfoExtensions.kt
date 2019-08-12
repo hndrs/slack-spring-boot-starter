@@ -1,9 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.conversations
 
-import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsInfoRequest
-import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationsInfoResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationsInfoResponse
 import com.kreait.slack.api.contract.jackson.common.types.Channel
+import com.kreait.slack.api.contract.jackson.group.channels.sample
 
 fun SuccessfulConversationsInfoResponse.Companion.sample(): SuccessfulConversationsInfoResponse {
     return SuccessfulConversationsInfoResponse(true, Channel.sample())

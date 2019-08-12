@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.conversation
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.conversations.ConversationsSetPurposeMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsSetPurposeRequest
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationSetPurposeResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationSetPurposeResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsSetPurposeMethod
+import com.kreait.slack.api.test.MockMethod
 
 class MockConversationsSetPurposeMethod : ConversationsSetPurposeMethod(), MockMethod<SuccessfulConversationSetPurposeResponse, ErrorConversationSetPurposeResponse, ConversationsSetPurposeRequest> {
 

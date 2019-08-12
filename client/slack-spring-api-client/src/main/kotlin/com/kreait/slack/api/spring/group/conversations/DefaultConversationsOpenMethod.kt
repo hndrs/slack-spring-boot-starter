@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.conversations
 
 
+import com.kreait.slack.api.contract.jackson.group.conversations.ConversationOpenResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationOpenResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationOpenResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsOpenMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.conversations.ConversationOpenResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationOpenResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationOpenResponse
 import org.springframework.web.client.RestTemplate
 
 

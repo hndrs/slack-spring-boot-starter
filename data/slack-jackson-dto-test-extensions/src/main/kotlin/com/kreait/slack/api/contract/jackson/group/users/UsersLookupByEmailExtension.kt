@@ -1,9 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersLookupByEmailResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackUsersLookupByEmailRequest
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersLookupByEmailResponse
 import com.kreait.slack.api.contract.jackson.common.types.Member
+import com.kreait.slack.api.contract.jackson.common.types.sample
 
 fun SuccessfulUsersLookupByEmailResponse.Companion.sample() = SuccessfulUsersLookupByEmailResponse(true, Member.sample())
 

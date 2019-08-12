@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.im
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.im.ImHistoryMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImHistoryResponse
 import com.kreait.slack.api.contract.jackson.group.im.SlackImHistoryRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImHistoryResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.im.ImHistoryMethod
+import com.kreait.slack.api.test.MockMethod
 
 class MockImHistoryMethod : ImHistoryMethod(), MockMethod<SuccessfulImHistoryResponse, ErrorImHistoryResponse, SlackImHistoryRequest> {
 

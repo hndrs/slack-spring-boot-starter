@@ -1,9 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersGetProfileResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersGetProfileResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersGetProfileRequest
 import com.kreait.slack.api.contract.jackson.common.types.UserProfile
+import com.kreait.slack.api.contract.jackson.common.types.sample
 
 fun SuccessfulUsersGetProfileResponse.Companion.sample(): SuccessfulUsersGetProfileResponse {
     return SuccessfulUsersGetProfileResponse(true, UserProfile.sample())

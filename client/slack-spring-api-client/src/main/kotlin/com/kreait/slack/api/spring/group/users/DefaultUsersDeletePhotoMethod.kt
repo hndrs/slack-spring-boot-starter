@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.users
 
 
+import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersDeletePhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersDeletePhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.UsersDeletePhotoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersDeletePhotoMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersDeletePhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersDeletePhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersDeletePhotoResponse
 import org.springframework.web.client.RestTemplate
 
 

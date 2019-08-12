@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.conversation
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.conversations.ConversationsHistoryMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsHistoryRequest
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationHistoryResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationHistoryResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsHistoryMethod
+import com.kreait.slack.api.test.MockMethod
 
 open class MockConversationsHistoryMethod : ConversationsHistoryMethod(), MockMethod<SuccessfulConversationHistoryResponse, ErrorConversationHistoryResponse, ConversationsHistoryRequest> {
 

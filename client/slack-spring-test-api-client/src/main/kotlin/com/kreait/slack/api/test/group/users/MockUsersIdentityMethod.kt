@@ -1,10 +1,10 @@
 package com.kreait.slack.api.test.group.users
 
+import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersIdentityResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersIdentityResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersIdentityMethod
 import com.kreait.slack.api.test.MockMethod
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersIdentityResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersIdentityResponse
 
 class MockUsersIdentityMethod : UsersIdentityMethod(), MockMethod<SuccessfulUsersIdentityResponse, ErrorUsersIdentityResponse, Unit> {
     override fun params(): Unit {

@@ -1,12 +1,12 @@
 package com.kreait.slack.api.spring.group.users
 
+import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.UsersSetPresenceResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersSetPresenceMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersSetPresenceResponse
 import org.springframework.web.client.RestTemplate
 
 /**

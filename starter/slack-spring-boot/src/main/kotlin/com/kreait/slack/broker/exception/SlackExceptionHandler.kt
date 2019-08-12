@@ -1,10 +1,10 @@
 package com.kreait.slack.broker.exception
 
+import com.kreait.slack.api.contract.jackson.group.dialog.DialogErrorResponse
 import com.kreait.slack.broker.broker.CommandBroker
 import com.kreait.slack.broker.broker.EventBroker
 import com.kreait.slack.broker.broker.InteractiveComponentBroker
 import com.kreait.slack.broker.security.VerificationException
-import com.kreait.slack.api.contract.jackson.group.dialog.DialogErrorResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

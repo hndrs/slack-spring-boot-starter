@@ -1,8 +1,5 @@
 package com.kreait.slack.sample
 
-import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
-import com.kreait.slack.broker.receiver.SlashCommandReceiver
-import com.kreait.slack.broker.store.Team
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
 import com.kreait.slack.api.contract.jackson.SlackCommand
@@ -11,6 +8,9 @@ import com.kreait.slack.api.contract.jackson.group.dialog.Dialog
 import com.kreait.slack.api.contract.jackson.group.dialog.SlackOpenDialogRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.TextElement
 import com.kreait.slack.api.contract.jackson.group.dialog.Type
+import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
+import com.kreait.slack.broker.receiver.SlashCommandReceiver
+import com.kreait.slack.broker.store.Team
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component

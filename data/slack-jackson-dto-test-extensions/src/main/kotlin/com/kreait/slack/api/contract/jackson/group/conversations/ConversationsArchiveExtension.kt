@@ -1,9 +1,5 @@
 package com.kreait.slack.api.contract.jackson.group.conversations
 
-import com.kreait.slack.api.contract.jackson.group.conversations.ConversationArchiveRequest
-import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationArchiveResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationArchiveResponse
-
 fun ConversationArchiveRequest.Companion.sample(): ConversationArchiveRequest {
     return ConversationArchiveRequest("")
 }
