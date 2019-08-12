@@ -3,6 +3,7 @@ package com.kreait.slack.api.test.group.conversation
 import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsRenameRequest
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationsRenameResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationsRenameResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock

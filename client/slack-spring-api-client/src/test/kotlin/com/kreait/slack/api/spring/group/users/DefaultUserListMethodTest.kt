@@ -4,6 +4,7 @@ import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.group.users.ErrorUserListResponse
 import com.kreait.slack.api.contract.jackson.group.users.SlackUserListRequest
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUserListResponse
+import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
 import com.kreait.slack.api.spring.group.RestTemplateFactory

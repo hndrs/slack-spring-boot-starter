@@ -3,6 +3,7 @@ package com.kreait.slack.api.spring.group.chat
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
+import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
 import com.kreait.slack.api.spring.group.RestTemplateFactory

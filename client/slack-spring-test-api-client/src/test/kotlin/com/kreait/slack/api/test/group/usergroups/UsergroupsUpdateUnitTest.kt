@@ -3,6 +3,7 @@ package com.kreait.slack.api.test.group.usergroups
 import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsUpdateResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsUpdateRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock

@@ -4,6 +4,7 @@ import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
+import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.api.test.MockSlackClient
 import com.kreait.slack.broker.extensions.sample

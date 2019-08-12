@@ -1,6 +1,7 @@
 package com.kreait.slack.broker.broker
 
 import com.kreait.slack.api.contract.jackson.SlackEvent
+import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.broker.exception.MustThrow
 import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.metrics.EventMetrics
