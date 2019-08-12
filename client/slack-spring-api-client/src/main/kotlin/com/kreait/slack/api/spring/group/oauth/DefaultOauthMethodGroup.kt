@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.oauth
 
-import com.kreait.slack.api.spring.group.users.DefaultUserMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
 import com.kreait.slack.api.group.oauth.OauthTokenMethod
+import com.kreait.slack.api.spring.group.users.DefaultUserMethodGroup
 import org.slf4j.LoggerFactory
 
 class DefaultOauthMethodGroup : OauthMethodGroup {

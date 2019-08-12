@@ -1,10 +1,10 @@
 package com.kreait.slack.api.test.group.users
 
+import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetProfileResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersSetProfileMethod
 import com.kreait.slack.api.test.MockMethod
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetProfileResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetProfileResponse
 
 class MockUsersSetProfileMethod : UsersSetProfileMethod(), MockMethod<SuccessfulUsersSetProfileResponse, ErrorUsersSetProfileResponse, Unit> {
     override fun params(): Unit {

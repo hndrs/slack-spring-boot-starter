@@ -1,13 +1,13 @@
 package com.kreait.slack.broker.broker
 
+import com.kreait.slack.api.SlackClient
+import com.kreait.slack.api.contract.jackson.group.oauth.OauthAccessRequest
 import com.kreait.slack.broker.exception.ExceptionChain
 import com.kreait.slack.broker.exception.MustThrow
 import com.kreait.slack.broker.metrics.InstallationMetricsCollector
 import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.store.Team
 import com.kreait.slack.broker.store.TeamStore
-import com.kreait.slack.api.SlackClient
-import com.kreait.slack.api.contract.jackson.group.oauth.OauthAccessRequest
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam

@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.conversations
 
 
+import com.kreait.slack.api.contract.jackson.group.conversations.ConversationArchiveResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationArchiveResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationArchiveResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsArchiveMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.conversations.ConversationArchiveResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationArchiveResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationArchiveResponse
 import org.springframework.web.client.RestTemplate
 
 @Suppress("UNCHECKED_CAST")

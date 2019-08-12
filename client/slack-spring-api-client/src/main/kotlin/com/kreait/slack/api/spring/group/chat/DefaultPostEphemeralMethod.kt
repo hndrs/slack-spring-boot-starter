@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.chat
 
 
+import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
+import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralResponse
+import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatPostEphemeralMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
 import org.springframework.web.client.RestTemplate
 
 

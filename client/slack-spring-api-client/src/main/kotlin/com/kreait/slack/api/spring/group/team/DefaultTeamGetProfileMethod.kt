@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.team
 
 
+import com.kreait.slack.api.contract.jackson.group.team.ErrorTeamGetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.team.SuccessfulTeamGetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.team.TeamGetProfileResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.team.TeamGetProfileMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.team.ErrorTeamGetProfileResponse
-import com.kreait.slack.api.contract.jackson.group.team.SuccessfulTeamGetProfileResponse
-import com.kreait.slack.api.contract.jackson.group.team.TeamGetProfileResponse
 import org.springframework.web.client.RestTemplate
 
 

@@ -1,12 +1,12 @@
 package com.kreait.slack.api.test.group.oauth
 
-import com.kreait.slack.api.test.MockMethodTestHelper
-import com.nhaarman.mockitokotlin2.mock
-import com.kreait.slack.api.test.MockSlackClient
 import com.kreait.slack.api.contract.jackson.group.oauth.ErrorOauthAccessResponse
 import com.kreait.slack.api.contract.jackson.group.oauth.OauthAccessRequest
 import com.kreait.slack.api.contract.jackson.group.oauth.SuccessFullOauthAccessResponse
 import com.kreait.slack.api.contract.jackson.group.oauth.sample
+import com.kreait.slack.api.test.MockMethodTestHelper
+import com.kreait.slack.api.test.MockSlackClient
+import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

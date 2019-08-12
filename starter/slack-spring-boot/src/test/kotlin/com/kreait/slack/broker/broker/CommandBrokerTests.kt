@@ -1,14 +1,14 @@
 package com.kreait.slack.broker.broker
 
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry
+import com.kreait.slack.api.contract.jackson.SlackCommand
+import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.metrics.CommandMetrics
 import com.kreait.slack.broker.receiver.MismatchCommandReciever
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.InMemoryTeamStore
 import com.kreait.slack.broker.store.Team
-import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.sample
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

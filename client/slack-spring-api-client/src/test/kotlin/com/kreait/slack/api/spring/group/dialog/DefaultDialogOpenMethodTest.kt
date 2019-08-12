@@ -1,13 +1,12 @@
 package com.kreait.slack.api.spring.group.dialog
 
-import com.kreait.slack.api.spring.MockServerHelper
-import com.kreait.slack.api.spring.Verifier
-import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.contract.jackson.group.dialog.ErrorOpenDialogResponse
 import com.kreait.slack.api.contract.jackson.group.dialog.SlackOpenDialogRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.SuccessfulOpenDialogResponse
 import com.kreait.slack.api.contract.jackson.group.dialog.sample
-import com.kreait.slack.api.spring.group.dialog.DefaultDialogOpenMethod
+import com.kreait.slack.api.spring.MockServerHelper
+import com.kreait.slack.api.spring.Verifier
+import com.kreait.slack.api.spring.group.RestTemplateFactory
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

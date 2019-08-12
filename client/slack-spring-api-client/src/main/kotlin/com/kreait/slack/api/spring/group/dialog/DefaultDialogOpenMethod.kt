@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.dialog
 
 
+import com.kreait.slack.api.contract.jackson.group.dialog.ErrorOpenDialogResponse
+import com.kreait.slack.api.contract.jackson.group.dialog.SlackOpenDialogResponse
+import com.kreait.slack.api.contract.jackson.group.dialog.SuccessfulOpenDialogResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.dialog.DialogOpenMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.dialog.ErrorOpenDialogResponse
-import com.kreait.slack.api.contract.jackson.group.dialog.SlackOpenDialogResponse
-import com.kreait.slack.api.contract.jackson.group.dialog.SuccessfulOpenDialogResponse
 import org.springframework.web.client.RestTemplate
 
 

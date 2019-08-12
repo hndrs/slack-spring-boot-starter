@@ -1,6 +1,5 @@
 package com.kreait.slack.api.contract.jackson.group.conversations
 
-import com.kreait.slack.api.contract.jackson.group.conversations.ConversationMembersRequest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

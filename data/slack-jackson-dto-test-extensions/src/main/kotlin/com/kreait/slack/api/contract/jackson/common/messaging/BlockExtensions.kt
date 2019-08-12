@@ -1,9 +1,6 @@
 package com.kreait.slack.api.contract.jackson.common.messaging
 
-import com.kreait.slack.api.contract.jackson.common.messaging.Block
-import com.kreait.slack.api.contract.jackson.common.messaging.Element
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
-import com.kreait.slack.api.contract.jackson.common.messaging.sample
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.sample
 
 fun Block.Action.Companion.sample(): Block.Action = Block.Action(listOf(Element.Button.sample()))

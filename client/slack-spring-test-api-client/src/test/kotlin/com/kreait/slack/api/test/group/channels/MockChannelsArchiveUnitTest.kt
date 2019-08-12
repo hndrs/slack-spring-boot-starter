@@ -1,12 +1,12 @@
 package com.kreait.slack.api.test.group.channels
 
-import com.kreait.slack.api.test.MockMethodTestHelper
-import com.nhaarman.mockitokotlin2.mock
-import com.kreait.slack.api.test.MockSlackClient
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelArchiveResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelsArchiveRequest
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelArchiveResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
+import com.kreait.slack.api.test.MockMethodTestHelper
+import com.kreait.slack.api.test.MockSlackClient
+import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

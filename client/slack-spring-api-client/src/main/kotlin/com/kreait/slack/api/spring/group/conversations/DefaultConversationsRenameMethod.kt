@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.conversations
 
 
+import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsRenameResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationsRenameResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationsRenameResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsRenameMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsRenameResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationsRenameResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationsRenameResponse
 import org.springframework.web.client.RestTemplate
 
 

@@ -1,12 +1,12 @@
 package com.kreait.slack.api.test.group.team
 
-import com.kreait.slack.api.test.MockMethodTestHelper
-import com.nhaarman.mockitokotlin2.mock
-import com.kreait.slack.api.test.MockSlackClient
 import com.kreait.slack.api.contract.jackson.group.team.ErrorTeamGetProfileResponse
 import com.kreait.slack.api.contract.jackson.group.team.SuccessfulTeamGetProfileResponse
 import com.kreait.slack.api.contract.jackson.group.team.TeamGetProfileRequest
 import com.kreait.slack.api.contract.jackson.group.team.sample
+import com.kreait.slack.api.test.MockMethodTestHelper
+import com.kreait.slack.api.test.MockSlackClient
+import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.chat
 
 
+import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatDeleteResponse
+import com.kreait.slack.api.contract.jackson.group.chat.SlackDeleteResponse
+import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatDeleteResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatDeleteMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatDeleteResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackDeleteResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatDeleteResponse
 import org.springframework.web.client.RestTemplate
 
 

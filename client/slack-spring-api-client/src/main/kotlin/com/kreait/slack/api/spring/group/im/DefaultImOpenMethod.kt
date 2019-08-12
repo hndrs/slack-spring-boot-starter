@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.im
 
 
+import com.kreait.slack.api.contract.jackson.group.im.ErrorImOpenResponse
+import com.kreait.slack.api.contract.jackson.group.im.SlackImOpenResponse
+import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImOpenResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImOpenMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.im.ErrorImOpenResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImOpenResponse
-import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImOpenResponse
 import org.springframework.web.client.RestTemplate
 
 

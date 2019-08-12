@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.conversation
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.conversations.ConversationsCreateMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.conversations.ConversationCreateRequest
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationCreateResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationCreateResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsCreateMethod
+import com.kreait.slack.api.test.MockMethod
 
 /**
  * Mock implementation of @link ConversationsCreateMethod

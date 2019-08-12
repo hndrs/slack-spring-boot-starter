@@ -6,7 +6,6 @@ import com.kreait.slack.api.group.im.ImListMethod
 import com.kreait.slack.api.group.im.ImMarkMethod
 import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.im.ImRepliesMethod
-import com.kreait.slack.client.group.im.*
 import org.slf4j.LoggerFactory
 
 class DefaultImMethodGroup : ImMethodGroup {

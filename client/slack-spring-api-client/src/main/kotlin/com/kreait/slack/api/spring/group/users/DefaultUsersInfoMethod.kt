@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.users
 
 
+import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersInfoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SlackInfoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersInfoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersInfoMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersInfoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackInfoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersInfoResponse
 import org.springframework.web.client.RestTemplate
 
 

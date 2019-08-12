@@ -1,6 +1,5 @@
 package com.kreait.slack.broker.autoconfiguration
 
-import io.micrometer.core.instrument.MeterRegistry
 import com.kreait.slack.broker.broker.CommandBroker
 import com.kreait.slack.broker.broker.EventBroker
 import com.kreait.slack.broker.broker.InstallationBroker
@@ -9,6 +8,7 @@ import com.kreait.slack.broker.metrics.CommandMetricsCollector
 import com.kreait.slack.broker.metrics.EventMetricsCollector
 import com.kreait.slack.broker.metrics.InstallationMetrics
 import com.kreait.slack.broker.metrics.InteractiveComponentMetricsCollector
+import io.micrometer.core.instrument.MeterRegistry
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested

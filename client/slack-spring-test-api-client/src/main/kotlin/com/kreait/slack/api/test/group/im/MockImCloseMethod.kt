@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.im
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.im.ImCloseMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImCloseResponse
 import com.kreait.slack.api.contract.jackson.group.im.SlackImCloseRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImCloseResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.im.ImCloseMethod
+import com.kreait.slack.api.test.MockMethod
 
 class MockImCloseMethod : ImCloseMethod(), MockMethod<SuccessfulImCloseResponse, ErrorImCloseResponse, SlackImCloseRequest> {
 

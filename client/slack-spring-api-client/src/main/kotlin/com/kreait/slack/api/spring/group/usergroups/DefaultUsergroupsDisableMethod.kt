@@ -1,12 +1,12 @@
 package com.kreait.slack.api.spring.group.usergroups
 
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.UsergroupsDisableResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsDisableMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsDisableResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsDisableResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.UsergroupsDisableResponse
 import org.springframework.web.client.RestTemplate
 
 /**

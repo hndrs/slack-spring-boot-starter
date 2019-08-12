@@ -1,13 +1,13 @@
 package com.kreait.slack.broker.receiver
 
-import com.kreait.slack.broker.extensions.sample
-import com.kreait.slack.broker.store.Team
-import com.kreait.slack.api.test.MockSlackClient
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.sample
+import com.kreait.slack.api.test.MockSlackClient
+import com.kreait.slack.broker.extensions.sample
+import com.kreait.slack.broker.store.Team
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

@@ -1,12 +1,12 @@
 package com.kreait.slack.api.spring.group.channels
 
-import com.kreait.slack.api.spring.MockServerHelper
-import com.kreait.slack.api.spring.Verifier
-import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelArchiveResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelsArchiveRequest
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelArchiveResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
+import com.kreait.slack.api.spring.MockServerHelper
+import com.kreait.slack.api.spring.Verifier
+import com.kreait.slack.api.spring.group.RestTemplateFactory
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.usergroups
 
-import com.kreait.slack.api.test.MockMethodTestHelper
-import com.nhaarman.mockitokotlin2.mock
-import com.kreait.slack.api.test.MockSlackClient
 import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsDisableResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsDisableRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsDisableResponse
+import com.kreait.slack.api.test.MockMethodTestHelper
+import com.kreait.slack.api.test.MockSlackClient
+import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

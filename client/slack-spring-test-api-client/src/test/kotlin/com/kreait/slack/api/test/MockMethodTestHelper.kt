@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test
 
+import com.kreait.slack.api.group.ApiCallMethod
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
-import com.kreait.slack.api.group.ApiCallMethod
 import org.junit.jupiter.api.Assertions
 
 object MockMethodTestHelper {

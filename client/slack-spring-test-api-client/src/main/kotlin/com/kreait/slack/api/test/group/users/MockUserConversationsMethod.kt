@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.users.UserConversationsMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.users.ErrorUserConversationsResponse
 import com.kreait.slack.api.contract.jackson.group.users.SlackUserConversationListRequest
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUserConversationsResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.users.UserConversationsMethod
+import com.kreait.slack.api.test.MockMethod
 
 class MockUserConversationsMethod : UserConversationsMethod(), MockMethod<SuccessfulUserConversationsResponse, ErrorUserConversationsResponse, SlackUserConversationListRequest> {
     override fun params(): SlackUserConversationListRequest {

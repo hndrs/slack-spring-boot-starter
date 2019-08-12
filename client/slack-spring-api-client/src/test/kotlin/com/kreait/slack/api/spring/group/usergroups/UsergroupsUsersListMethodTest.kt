@@ -1,13 +1,13 @@
 package com.kreait.slack.api.spring.group.usergroups
 
-import com.kreait.slack.api.spring.MockServerHelper
-import com.kreait.slack.api.spring.Verifier
-import com.kreait.slack.api.spring.group.RestTemplateFactory
-import com.kreait.slack.api.spring.group.usergroups.users.DefaultUsergroupsUsersListMethod
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.ErrorUsergroupsUsersListResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.SlackUsergroupsUsersListRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.SuccessfulUsergroupsUsersListResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.sample
+import com.kreait.slack.api.spring.MockServerHelper
+import com.kreait.slack.api.spring.Verifier
+import com.kreait.slack.api.spring.group.RestTemplateFactory
+import com.kreait.slack.api.spring.group.usergroups.users.DefaultUsergroupsUsersListMethod
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

@@ -1,12 +1,12 @@
 package com.kreait.slack.api.spring.group.users
 
+import com.kreait.slack.api.contract.jackson.group.users.ErrorUserListResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUserListResponse
+import com.kreait.slack.api.contract.jackson.group.users.UserListResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UserListMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUserListResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUserListResponse
-import com.kreait.slack.api.contract.jackson.group.users.UserListResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 

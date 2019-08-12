@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.chat
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.chat.ChatPostEphemeralMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.chat.ChatPostEphemeralMethod
+import com.kreait.slack.api.test.MockMethod
 
 open class MockChatPostEphemeral : ChatPostEphemeralMethod(), MockMethod<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse, SlackPostEphemeralRequest> {
 

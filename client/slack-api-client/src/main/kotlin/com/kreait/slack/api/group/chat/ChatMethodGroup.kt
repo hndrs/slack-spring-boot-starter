@@ -1,13 +1,5 @@
 package com.kreait.slack.api.group.chat
 
-import com.kreait.slack.api.group.chat.ChatDeleteMethod
-import com.kreait.slack.api.group.chat.ChatMeMessageMethod
-import com.kreait.slack.api.group.chat.ChatPostEphemeralMethod
-import com.kreait.slack.api.group.chat.ChatPostMessageMethod
-import com.kreait.slack.api.group.chat.ChatUnfurlMethod
-import com.kreait.slack.api.group.chat.ChatUpdateMethod
-import com.kreait.slack.api.group.chat.GetChatPermalinkMethod
-
 interface ChatMethodGroup {
 
     //TODO DOC

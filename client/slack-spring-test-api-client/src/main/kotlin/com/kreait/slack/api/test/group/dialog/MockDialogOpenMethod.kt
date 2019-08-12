@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.dialog
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.dialog.DialogOpenMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.dialog.ErrorOpenDialogResponse
 import com.kreait.slack.api.contract.jackson.group.dialog.SlackOpenDialogRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.SuccessfulOpenDialogResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.dialog.DialogOpenMethod
+import com.kreait.slack.api.test.MockMethod
 
 class MockDialogOpenMethod : DialogOpenMethod(), MockMethod<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse, SlackOpenDialogRequest> {
 

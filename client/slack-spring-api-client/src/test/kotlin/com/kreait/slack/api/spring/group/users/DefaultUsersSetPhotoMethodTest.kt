@@ -1,12 +1,11 @@
 package com.kreait.slack.api.spring.group.users
 
-import com.kreait.slack.api.spring.MockServerHelper
-import com.kreait.slack.api.spring.Verifier
-import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetPhotoResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetPhotoResponse
 import com.kreait.slack.api.contract.jackson.group.users.UsersSetPhotoRequest
-import com.kreait.slack.api.spring.group.users.DefaultUsersSetPhotoMethod
+import com.kreait.slack.api.spring.MockServerHelper
+import com.kreait.slack.api.spring.Verifier
+import com.kreait.slack.api.spring.group.RestTemplateFactory
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

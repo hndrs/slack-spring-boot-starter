@@ -1,9 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.usergroups.users
 
 import com.kreait.slack.api.contract.jackson.group.usergroups.Usergroup
-import com.kreait.slack.api.contract.jackson.group.usergroups.users.ErrorUsergroupUsersUpdateResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.users.SlackUsergroupUsersUpdateRequest
-import com.kreait.slack.api.contract.jackson.group.usergroups.users.SuccessfulUsergroupUsersUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 
 fun SuccessfulUsergroupUsersUpdateResponse.Companion.sample() = SuccessfulUsergroupUsersUpdateResponse(true, Usergroup.sample())
 

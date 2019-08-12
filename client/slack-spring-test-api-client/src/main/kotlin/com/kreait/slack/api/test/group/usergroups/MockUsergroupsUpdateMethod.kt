@@ -1,11 +1,11 @@
 package com.kreait.slack.api.test.group.usergroups
 
-import com.kreait.slack.api.group.ApiCallResult
-import com.kreait.slack.api.group.usergroups.UsergroupsUpdateMethod
-import com.kreait.slack.api.test.MockMethod
 import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsUpdateResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsUpdateRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsUpdateResponse
+import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.usergroups.UsergroupsUpdateMethod
+import com.kreait.slack.api.test.MockMethod
 
 class MockUsergroupsUpdateMethod : UsergroupsUpdateMethod(), MockMethod<SuccessfulUsergroupsUpdateResponse, ErrorUsergroupsUpdateResponse, SlackUsergroupsUpdateRequest> {
 
