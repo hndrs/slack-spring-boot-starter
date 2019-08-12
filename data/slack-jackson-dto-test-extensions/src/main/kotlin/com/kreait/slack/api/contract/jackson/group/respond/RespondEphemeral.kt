@@ -1,0 +1,7 @@
+package com.kreait.slack.api.contract.jackson.group.respond
+
+import com.kreait.slack.api.contract.jackson.common.messaging.Attachment
+
+fun SlackRespondMessageRequest.Companion.sample(): SlackRespondMessageRequest {
+    return SlackRespondMessageRequest("", listOf(Attachment.sample()), listOf(), ResponseType.EPHEMERAL)
+}
