@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersDeletePhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersDeletePhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorDeletePhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulDeletePhotoResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -22,7 +22,7 @@ class DefaultUsersDeletePhotoMethodTest {
     @Test
     @DisplayName("Users.deletePhoto Failure")
     fun UserDeletePhotoFailure() {
-        val response = ErrorUsersDeletePhotoResponse.sample()
+        val response = ErrorDeletePhotoResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.deletePhoto", response)
         val verifier = Verifier(response)
 
@@ -36,7 +36,7 @@ class DefaultUsersDeletePhotoMethodTest {
     @Test
     @DisplayName("Users.deletePhoto Success")
     fun UserDeletePhotoSuccess() {
-        val response = SuccessfulUsersDeletePhotoResponse.sample()
+        val response = SuccessfulDeletePhotoResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.deletePhoto", response)
         val verifier = Verifier(response)
 

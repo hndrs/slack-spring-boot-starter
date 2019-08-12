@@ -4,9 +4,9 @@ import com.kreait.slack.api.contract.jackson.common.types.Channel
 import com.kreait.slack.api.contract.jackson.group.chat.Message
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 
-fun SuccessfulGetChannelListResponse.Companion.sample(): SuccessfulGetChannelListResponse = SuccessfulGetChannelListResponse(true, listOf())
+fun SuccessfulChannelListResponse.Companion.sample(): SuccessfulChannelListResponse = SuccessfulChannelListResponse(true, listOf())
 
-fun ErrorGetChannelListResponse.Companion.sample(): ErrorGetChannelListResponse = ErrorGetChannelListResponse(false, "")
+fun ErrorChannelListResponse.Companion.sample(): ErrorChannelListResponse = ErrorChannelListResponse(false, "")
 
 fun Channel.Companion.sample(): Channel = Channel(
         id = "",

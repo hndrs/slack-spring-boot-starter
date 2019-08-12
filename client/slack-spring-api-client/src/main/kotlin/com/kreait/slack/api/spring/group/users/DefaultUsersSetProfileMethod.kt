@@ -1,9 +1,9 @@
 package com.kreait.slack.api.spring.group.users
 
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetProfileResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetProfileResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersSetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorSetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.users.SetProfileResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersSetProfileMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
@@ -14,20 +14,20 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class DefaultUsersSetProfileMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersSetProfileMethod() {
 
-    override fun request(): ApiCallResult<SuccessfulUsersSetProfileResponse, ErrorUsersSetProfileResponse> {
-        val response = SlackRequestBuilder<UsersSetProfileResponse>(authToken, restTemplate)
+    override fun request(): ApiCallResult<SuccessfulSetProfileResponse, ErrorSetProfileResponse> {
+        val response = SlackRequestBuilder<SetProfileResponse>(authToken, restTemplate)
                 .toMethod("users.profile.set")
-                .returnAsType(UsersSetProfileResponse::class.java)
+                .returnAsType(SetProfileResponse::class.java)
                 .postUrlEncoded(mapOf())
 
         return when (response.body!!) {
-            is SuccessfulUsersSetProfileResponse -> {
-                val responseEntity = response.body as SuccessfulUsersSetProfileResponse
+            is SuccessfulSetProfileResponse -> {
+                val responseEntity = response.body as SuccessfulSetProfileResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            is ErrorUsersSetProfileResponse -> {
-                val responseEntity = response.body as ErrorUsersSetProfileResponse
+            is ErrorSetProfileResponse -> {
+                val responseEntity = response.body as ErrorSetProfileResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

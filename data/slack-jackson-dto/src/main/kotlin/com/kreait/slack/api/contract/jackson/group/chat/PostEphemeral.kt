@@ -16,31 +16,31 @@ import com.kreait.slack.api.contract.jackson.common.messaging.Block
         JsonSubTypes.Type(value = ErrorPostEphemeralResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class SlackPostEphemeralResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class PostEphemeralResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulPostEphemeralResponse constructor(override val ok: Boolean,
                                                        @JsonProperty("message_ts") val timestamp: String)
-    : SlackPostEphemeralResponse(ok) {
+    : PostEphemeralResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
 data class ErrorPostEphemeralResponse constructor(override val ok: Boolean,
                                                   @JsonProperty("error") val error: String)
-    : SlackPostEphemeralResponse(ok) {
+    : PostEphemeralResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class SlackPostEphemeralRequest constructor(@JsonProperty("text") val text: String? = null,
-                                                 @JsonProperty("attachments") val attachments: List<Attachment>? = null,
-                                                 @JsonProperty("blocks") val blocks: List<Block>? = null,
-                                                 @JsonProperty("channel") val channel: String,
-                                                 @JsonProperty("as_user") val asUser: Boolean = false,
-                                                 @JsonProperty("user") val user: String? = null,
-                                                 @JsonProperty("link_names") val linkNames: Boolean = true,
-                                                 @JsonProperty("parse") val parse: String? = null,
-                                                 @JsonProperty("thread_ts") val threadTs: String? = null) {
+data class PostEphemeralRequest constructor(@JsonProperty("text") val text: String? = null,
+                                            @JsonProperty("attachments") val attachments: List<Attachment>? = null,
+                                            @JsonProperty("blocks") val blocks: List<Block>? = null,
+                                            @JsonProperty("channel") val channel: String,
+                                            @JsonProperty("as_user") val asUser: Boolean = false,
+                                            @JsonProperty("user") val user: String? = null,
+                                            @JsonProperty("link_names") val linkNames: Boolean = true,
+                                            @JsonProperty("parse") val parse: String? = null,
+                                            @JsonProperty("thread_ts") val threadTs: String? = null) {
     companion object
 }

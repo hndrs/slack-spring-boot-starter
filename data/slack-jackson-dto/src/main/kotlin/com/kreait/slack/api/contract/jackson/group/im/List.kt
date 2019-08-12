@@ -16,19 +16,19 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
 )
 
 @JacksonDataClass
-sealed class SlackImListResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
+sealed class ImListResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulImListResponse constructor(override val ok: Boolean,
                                                 val ims: List<Im>,
                                                 val responseMetadata: ResponseMetadata)
-    : SlackImListResponse(ok) {
+    : ImListResponse(ok) {
     companion object
 }
 
 data class ErrorImListResponse constructor(override val ok: Boolean,
                                            val error: String)
-    : SlackImListResponse(ok) {
+    : ImListResponse(ok) {
     companion object
 }
 
@@ -45,8 +45,8 @@ data class ResponseMetadata(val nextCursor: String) {
     companion object
 }
 
-data class SlackImListRequest constructor(val cursor: String?,
-                                          val limit: String?) {
+data class ImListRequest constructor(val cursor: String?,
+                                     val limit: String?) {
     companion object {}
 
     fun toRequestMap(): MutableMap<String, String> {

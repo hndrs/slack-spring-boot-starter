@@ -15,7 +15,7 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
 )
 
 @JacksonDataClass
-sealed class SlackImHistoryResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
+sealed class ImHistoryResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulImHistoryResponse constructor(override val ok: Boolean,
@@ -23,7 +23,7 @@ data class SuccessfulImHistoryResponse constructor(override val ok: Boolean,
                                                    val messages: List<Message>,
                                                    val hasMore: Boolean,
                                                    val isLimited: Boolean? = false)
-    : SlackImHistoryResponse(ok) {
+    : ImHistoryResponse(ok) {
     companion object {}
 
     data class Message(
@@ -39,16 +39,16 @@ data class SuccessfulImHistoryResponse constructor(override val ok: Boolean,
 @JacksonDataClass
 data class ErrorImHistoryResponse constructor(override val ok: Boolean,
                                               val error: String)
-    : SlackImHistoryResponse(ok) {
+    : ImHistoryResponse(ok) {
     companion object
 }
 
-data class SlackImHistoryRequest(private val channel: String,
-                                 private val count: Int? = null,
-                                 private val inclusive: Boolean? = false,
-                                 private val latest: String? = null,
-                                 private val oldest: String? = null,
-                                 private val unreads: Boolean? = false) {
+data class ImHistoryRequest(private val channel: String,
+                            private val count: Int? = null,
+                            private val inclusive: Boolean? = false,
+                            private val latest: String? = null,
+                            private val oldest: String? = null,
+                            private val unreads: Boolean? = false) {
     companion object {}
 
     fun toRequestMap(): MutableMap<String, String> {

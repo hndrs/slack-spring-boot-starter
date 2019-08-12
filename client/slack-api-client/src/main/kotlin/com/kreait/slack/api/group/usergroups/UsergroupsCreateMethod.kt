@@ -1,9 +1,9 @@
 package com.kreait.slack.api.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsCreateResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsCreateRequest
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsCreateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorCreateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.CreateRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulCreateResponse
 import com.kreait.slack.api.group.ApiCallMethod
 
 @Suppress("UNCHECKED_CAST")
-abstract class UsergroupsCreateMethod : ApiCallMethod<UsergroupsCreateMethod, SuccessfulUsergroupsCreateResponse, ErrorUsergroupsCreateResponse, SlackUsergroupsCreateRequest>()
+abstract class UsergroupsCreateMethod : ApiCallMethod<UsergroupsCreateMethod, SuccessfulCreateResponse, ErrorCreateResponse, CreateRequest>()

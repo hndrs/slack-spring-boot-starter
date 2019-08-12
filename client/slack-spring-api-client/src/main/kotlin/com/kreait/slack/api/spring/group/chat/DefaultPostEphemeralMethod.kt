@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.chat
 
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralResponse
+import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatPostEphemeralMethod
@@ -20,10 +20,10 @@ import org.springframework.web.client.RestTemplate
 class DefaultPostEphemeralMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatPostEphemeralMethod() {
 
     override fun request(): ApiCallResult<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse> {
-        val response = SlackRequestBuilder<SlackPostEphemeralResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<PostEphemeralResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("chat.postEphemeral")
-                .returnAsType(SlackPostEphemeralResponse::class.java)
+                .returnAsType(PostEphemeralResponse::class.java)
                 .postWithJsonBody()
 
         return when (response.body!!) {

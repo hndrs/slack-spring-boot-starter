@@ -1,15 +1,15 @@
 package com.kreait.slack.api.test.group.chat
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatDeleteResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackChatDeleteRequest
+import com.kreait.slack.api.contract.jackson.group.chat.ChatDeleteRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatDeleteResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatDeleteMethod
 import com.kreait.slack.api.test.MockMethod
 
-class MockChatDelete : ChatDeleteMethod(), MockMethod<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, SlackChatDeleteRequest> {
+class MockChatDelete : ChatDeleteMethod(), MockMethod<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, ChatDeleteRequest> {
 
-    override fun params(): SlackChatDeleteRequest {
+    override fun params(): ChatDeleteRequest {
         return params;
     }
 

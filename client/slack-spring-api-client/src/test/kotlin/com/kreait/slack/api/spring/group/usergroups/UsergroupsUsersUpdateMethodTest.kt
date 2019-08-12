@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.usergroups
 
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.ErrorUsergroupUsersUpdateResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.users.SlackUsergroupUsersUpdateRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.users.UsergroupUsersUpdateRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.SuccessfulUsergroupUsersUpdateResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -29,7 +29,7 @@ class UsergroupsUsersUpdateMethodTest {
         val verifier = Verifier(response)
 
         DefaultUsergroupsUsersUpdateMethod("", mockTemplate)
-                .with(SlackUsergroupUsersUpdateRequest.sample())
+                .with(UsergroupUsersUpdateRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
 
@@ -45,7 +45,7 @@ class UsergroupsUsersUpdateMethodTest {
         val verifier = Verifier(response)
 
         DefaultUsergroupsUsersUpdateMethod("", mockTemplate)
-                .with(SlackUsergroupUsersUpdateRequest.sample())
+                .with(UsergroupUsersUpdateRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
 

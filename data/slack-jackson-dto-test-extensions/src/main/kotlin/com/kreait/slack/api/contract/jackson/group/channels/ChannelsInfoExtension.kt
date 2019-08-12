@@ -2,8 +2,8 @@ package com.kreait.slack.api.contract.jackson.group.channels
 
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 
-fun SlackChannelsInfoRequest.Companion.sample(): SlackChannelsInfoRequest = SlackChannelsInfoRequest("")
+fun ChannelsInfoRequest.Companion.sample(): ChannelsInfoRequest = ChannelsInfoRequest("")
 
-fun SuccessfulGetChannelInfoResponse.Companion.sample(): SuccessfulGetChannelInfoResponse = SuccessfulGetChannelInfoResponse(true, Channel.sample())
+fun SuccessfulChannelInfoResponse.Companion.sample(): SuccessfulChannelInfoResponse = SuccessfulChannelInfoResponse(true, Channel.sample())
 
-fun ErrorGetChannelInfoResponse.Companion.sample(): ErrorGetChannelInfoResponse = ErrorGetChannelInfoResponse(false, "")
+fun ErrorChannelInfoResponse.Companion.sample(): ErrorChannelInfoResponse = ErrorChannelInfoResponse(false, "")

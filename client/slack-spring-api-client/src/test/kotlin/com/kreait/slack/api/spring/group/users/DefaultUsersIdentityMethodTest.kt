@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersIdentityResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersIdentityResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorIdentityResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulIdentityResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -22,7 +22,7 @@ class DefaultUsersIdentityMethodTest {
     @Test
     @DisplayName("Users.identity Failure")
     fun UserIdentityFailure() {
-        val response = ErrorUsersIdentityResponse.sample()
+        val response = ErrorIdentityResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.identity", response)
         val verifier = Verifier(response)
 
@@ -36,7 +36,7 @@ class DefaultUsersIdentityMethodTest {
     @Test
     @DisplayName("Users.identity Success")
     fun UserIdentitySuccess() {
-        val response = SuccessfulUsersIdentityResponse.sample()
+        val response = SuccessfulIdentityResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.identity", response)
         val verifier = Verifier(response)
 

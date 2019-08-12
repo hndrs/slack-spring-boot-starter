@@ -1,9 +1,9 @@
 package com.kreait.slack.api.contract.jackson.group.users
 
-fun SuccessfulUsersDeletePhotoResponse.Companion.sample(): SuccessfulUsersDeletePhotoResponse {
-    return SuccessfulUsersDeletePhotoResponse(true)
+fun SuccessfulDeletePhotoResponse.Companion.sample(): SuccessfulDeletePhotoResponse {
+    return SuccessfulDeletePhotoResponse(true)
 }
 
-fun ErrorUsersDeletePhotoResponse.Companion.sample(): ErrorUsersDeletePhotoResponse {
-    return ErrorUsersDeletePhotoResponse(false, "")
+fun ErrorDeletePhotoResponse.Companion.sample(): ErrorDeletePhotoResponse {
+    return ErrorDeletePhotoResponse(false, "")
 }

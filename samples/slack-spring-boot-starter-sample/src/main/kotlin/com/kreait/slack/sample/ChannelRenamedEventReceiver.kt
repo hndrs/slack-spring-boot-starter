@@ -2,7 +2,7 @@ package com.kreait.slack.sample
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.SlackEvent
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostMessageRequest
+import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.store.Team
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +18,7 @@ class ChannelRenamedEventReceiver @Autowired constructor(private val slackClient
         val newChannelName = (slackEvent.event["channel"] as Map<*, *>)["name"] as String
 
         this.slackClient.chat().postMessage(team.bot.accessToken)
-                .with(SlackPostMessageRequest(
+                .with(PostMessageRequest(
                         text = "Wow $newChannelName is really cool",
                         channel = channelId
                 )).invoke()

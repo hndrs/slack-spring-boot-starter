@@ -3,7 +3,7 @@ package com.kreait.slack.sample
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
 import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostMessageRequest
+import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.Dialog
 import com.kreait.slack.api.contract.jackson.group.dialog.SlackOpenDialogRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.TextElement
@@ -29,7 +29,7 @@ class DialogSubmissionReceiver @Autowired constructor(private val slackClient: S
     override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
 
         this.slackClient.chat().postMessage(team.bot.accessToken)
-                .with(SlackPostMessageRequest(
+                .with(PostMessageRequest(
                         text = "We received your submission carry on :)",
                         channel = interactiveComponentResponse.channel.id
                 )).invoke()

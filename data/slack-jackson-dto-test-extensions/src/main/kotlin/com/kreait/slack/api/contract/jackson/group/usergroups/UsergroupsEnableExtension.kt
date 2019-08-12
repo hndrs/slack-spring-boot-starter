@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.usergroups
 
-fun SuccessfulUsergroupsEnableResponse.Companion.sample() = SuccessfulUsergroupsEnableResponse(true, Usergroup.sample())
+fun SuccessfulEnableResponse.Companion.sample() = SuccessfulEnableResponse(true, UserGroup.sample())
 
-fun ErrorUsergroupsEnableResponse.Companion.sample() = ErrorUsergroupsEnableResponse(false, "")
+fun ErrorEnableResponse.Companion.sample() = ErrorEnableResponse(false, "")
 
-fun SlackUsergroupsEnableRequest.Companion.sample() = SlackUsergroupsEnableRequest("", false)
+fun EnableRequest.Companion.sample() = EnableRequest("", false)

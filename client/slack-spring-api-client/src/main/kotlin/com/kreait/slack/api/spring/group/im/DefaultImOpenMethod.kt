@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.im
 
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImOpenResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImOpenResponse
+import com.kreait.slack.api.contract.jackson.group.im.ImOpenResponse
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImOpenResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImOpenMethod
@@ -18,10 +18,10 @@ import org.springframework.web.client.RestTemplate
 class DefaultImOpenMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ImOpenMethod() {
 
     override fun request(): ApiCallResult<SuccessfulImOpenResponse, ErrorImOpenResponse> {
-        val response = SlackRequestBuilder<SlackImOpenResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<ImOpenResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("im.open")
-                .returnAsType(SlackImOpenResponse::class.java)
+                .returnAsType(ImOpenResponse::class.java)
                 .postWithJsonBody()
 
         return when (response.body!!) {

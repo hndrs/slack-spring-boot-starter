@@ -1,6 +1,6 @@
 package com.kreait.slack.api.test.group.respond
 
-import com.kreait.slack.api.contract.jackson.group.respond.SlackRespondMessageRequest
+import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -23,7 +23,7 @@ class MockChatRespondEphemeralUnitTests {
         MockMethodTestHelper.verify({ mockSlackClient.respond().message("") },
                 successFunction, Unit,
                 failureFunction, Unit,
-                SlackRespondMessageRequest.sample()
+                RespondMessageRequest.sample()
         )
     }
 

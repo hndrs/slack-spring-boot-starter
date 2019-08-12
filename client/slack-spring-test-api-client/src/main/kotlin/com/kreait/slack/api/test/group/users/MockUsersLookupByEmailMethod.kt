@@ -1,20 +1,20 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersLookupByEmailResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackUsersLookupByEmailRequest
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersLookupByEmailResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorLookupByEmailResponse
+import com.kreait.slack.api.contract.jackson.group.users.LookupByEmailRequest
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulLookupByEmailResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersLookupByEmailMethod
 import com.kreait.slack.api.test.MockMethod
 
-class MockUsersLookupByEmailMethod : UsersLookupByEmailMethod(), MockMethod<SuccessfulUsersLookupByEmailResponse, ErrorUsersLookupByEmailResponse, SlackUsersLookupByEmailRequest> {
+class MockUsersLookupByEmailMethod : UsersLookupByEmailMethod(), MockMethod<SuccessfulLookupByEmailResponse, ErrorLookupByEmailResponse, LookupByEmailRequest> {
 
-    override fun params(): SlackUsersLookupByEmailRequest = params
+    override fun params(): LookupByEmailRequest = params
 
-    override var successResponse: SuccessfulUsersLookupByEmailResponse? = null
-    override var failureResponse: ErrorUsersLookupByEmailResponse? = null
+    override var successResponse: SuccessfulLookupByEmailResponse? = null
+    override var failureResponse: ErrorLookupByEmailResponse? = null
 
-    override fun request(): ApiCallResult<SuccessfulUsersLookupByEmailResponse, ErrorUsersLookupByEmailResponse> {
+    override fun request(): ApiCallResult<SuccessfulLookupByEmailResponse, ErrorLookupByEmailResponse> {
 
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }

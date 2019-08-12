@@ -2,7 +2,7 @@ package com.kreait.slack.api.contract.jackson.group.channels
 
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 
-fun SlackChannelCreateRequest.Companion.sample(): SlackChannelCreateRequest = SlackChannelCreateRequest("", true)
+fun ChannelCreateRequest.Companion.sample(): ChannelCreateRequest = ChannelCreateRequest("", true)
 
 fun SuccessfulChannelCreateResponse.Companion.sample(): SuccessfulChannelCreateResponse = SuccessfulChannelCreateResponse(true, Channel.sample())
 

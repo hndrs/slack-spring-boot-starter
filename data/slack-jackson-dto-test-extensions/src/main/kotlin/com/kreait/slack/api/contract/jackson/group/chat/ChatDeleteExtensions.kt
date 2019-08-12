@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.chat
 
-fun SlackChatDeleteRequest.Companion.sample(): SlackChatDeleteRequest {
-    return SlackChatDeleteRequest("", "", false)
+fun ChatDeleteRequest.Companion.sample(): ChatDeleteRequest {
+    return ChatDeleteRequest("", "", false)
 }
 
 fun SuccessfulChatDeleteResponse.Companion.sample(): SuccessfulChatDeleteResponse {

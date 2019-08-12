@@ -8,27 +8,27 @@ import com.kreait.slack.api.contract.jackson.common.types.UserProfile
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUsersGetProfileResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUsersGetProfileResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulGetProfileResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorGetProfileResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class UsersGetProfileResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class GetProfileResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulUsersGetProfileResponse constructor(override val ok: Boolean,
-                                                         @JsonProperty("profile") val profile: UserProfile)
-    : UsersGetProfileResponse(ok) {
+data class SuccessfulGetProfileResponse constructor(override val ok: Boolean,
+                                                    @JsonProperty("profile") val profile: UserProfile)
+    : GetProfileResponse(ok) {
     companion object {}
 }
 
 @JacksonDataClass
-data class ErrorUsersGetProfileResponse constructor(override val ok: Boolean,
-                                                    @JsonProperty("error") val error: String)
-    : UsersGetProfileResponse(ok) {
+data class ErrorGetProfileResponse constructor(override val ok: Boolean,
+                                               @JsonProperty("error") val error: String)
+    : GetProfileResponse(ok) {
     companion object
 }
 
-data class UsersGetProfileRequest(private val include_labels: Boolean? = false, private val user: String? = "") {
+data class GetProfileRequest(private val include_labels: Boolean? = false, private val user: String? = "") {
 
     companion object {}
 

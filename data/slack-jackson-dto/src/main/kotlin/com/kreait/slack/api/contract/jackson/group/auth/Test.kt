@@ -15,7 +15,7 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
         JsonSubTypes.Type(value = ErrorAuthTestResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class SlackAuthTestResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class AuthTestResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulAuthTestResponse constructor(
@@ -25,7 +25,7 @@ data class SuccessfulAuthTestResponse constructor(
         @JsonProperty("user") val user: String,
         @JsonProperty("team_id") val teamId: String,
         @JsonProperty("user_id") val userId: String)
-    : SlackAuthTestResponse(ok) {
+    : AuthTestResponse(ok) {
     companion object
 }
 
@@ -33,6 +33,6 @@ data class SuccessfulAuthTestResponse constructor(
 data class ErrorAuthTestResponse constructor(
         override val ok: Boolean,
         @JsonProperty("error") val error: String)
-    : SlackAuthTestResponse(ok) {
+    : AuthTestResponse(ok) {
     companion object
 }

@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersLookupByEmailResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackUsersLookupByEmailRequest
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersLookupByEmailResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorLookupByEmailResponse
+import com.kreait.slack.api.contract.jackson.group.users.LookupByEmailRequest
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulLookupByEmailResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -24,12 +24,12 @@ class DefaultUsersLookupByEmailMethodTest {
     @DisplayName("users.lookupByEmail Success")
     @Test
     fun lookupByEmailSuccess() {
-        val response = SuccessfulUsersLookupByEmailResponse.sample()
+        val response = SuccessfulLookupByEmailResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.lookupByEmail", response)
         val verifier = Verifier(response)
 
         DefaultUsersLookupByEmailMethod("", mockTemplate)
-                .with(SlackUsersLookupByEmailRequest.sample())
+                .with(LookupByEmailRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
 
@@ -41,12 +41,12 @@ class DefaultUsersLookupByEmailMethodTest {
     @DisplayName("users.lookupByEmail Failure")
     @Test
     fun lookupByEmailFailure() {
-        val response = ErrorUsersLookupByEmailResponse.sample()
+        val response = ErrorLookupByEmailResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.lookupByEmail", response)
         val verifier = Verifier(response)
 
         DefaultUsersLookupByEmailMethod("", mockTemplate)
-                .with(SlackUsersLookupByEmailRequest.sample())
+                .with(LookupByEmailRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
 

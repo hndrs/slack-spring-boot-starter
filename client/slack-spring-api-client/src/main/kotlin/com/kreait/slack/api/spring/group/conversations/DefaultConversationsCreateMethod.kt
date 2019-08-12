@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.conversations
 
 
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationCreateResponse
-import com.kreait.slack.api.contract.jackson.group.conversations.SlackConversationCreateResponse
+import com.kreait.slack.api.contract.jackson.group.conversations.ConversationCreateResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationCreateResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsCreateMethod
@@ -15,10 +15,10 @@ import org.springframework.web.client.RestTemplate
 class DefaultConversationsCreateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsCreateMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationCreateResponse, ErrorConversationCreateResponse> {
-        val response = SlackRequestBuilder<SlackConversationCreateResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<ConversationCreateResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("conversations.create")
-                .returnAsType(SlackConversationCreateResponse::class.java)
+                .returnAsType(ConversationCreateResponse::class.java)
                 .postWithJsonBody()
 
         return when (response.body!!) {

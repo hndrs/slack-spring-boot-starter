@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-internal class ConversationListRequestTest {
+internal class ConversationsRequestTest {
 
     @Test
     @DisplayName("ConversationListRequest to request map")

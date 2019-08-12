@@ -2,7 +2,7 @@ package com.kreait.slack.sample
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostMessageRequest
+import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.Team
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,7 +17,7 @@ class PingCommandReceiver @Autowired constructor(private val slackClient: SlackC
 
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
         this.slackClient.chat().postMessage(team.bot.accessToken)
-                .with(SlackPostMessageRequest(
+                .with(PostMessageRequest(
                         text = "Pong",
                         channel = "dasd"
                 )).invoke()

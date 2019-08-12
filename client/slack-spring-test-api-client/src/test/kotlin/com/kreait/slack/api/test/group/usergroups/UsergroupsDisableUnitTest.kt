@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsDisableResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsDisableRequest
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.DisableRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulDisableResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -16,13 +16,13 @@ class UsergroupsDisableUnitTest {
     @DisplayName("Mock Successful")
     @Test
     fun testMockMethod() {
-        val successFunction: (SuccessfulUsergroupsDisableResponse?) -> Any = mock { }
-        val failureFunction: (ErrorUsergroupsDisableResponse?) -> Any = mock { }
+        val successFunction: (SuccessfulDisableResponse?) -> Any = mock { }
+        val failureFunction: (ErrorDisableResponse?) -> Any = mock { }
         val mockClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockClient.usergroups().disable("") },
-                successFunction, SuccessfulUsergroupsDisableResponse.sample(),
-                failureFunction, ErrorUsergroupsDisableResponse.sample(),
-                SlackUsergroupsDisableRequest.sample())
+                successFunction, SuccessfulDisableResponse.sample(),
+                failureFunction, ErrorDisableResponse.sample(),
+                DisableRequest.sample())
     }
 }

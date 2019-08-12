@@ -1,9 +1,9 @@
 package com.kreait.slack.api.spring.group.users
 
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersInfoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackInfoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersInfoResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorInfoResponse
+import com.kreait.slack.api.contract.jackson.group.users.InfoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulInfoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersInfoMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
@@ -14,20 +14,20 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class DefaultUsersInfoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersInfoMethod() {
 
-    override fun request(): ApiCallResult<SuccessfulUsersInfoResponse, ErrorUsersInfoResponse> {
-        val response = SlackRequestBuilder<SlackInfoResponse>(authToken, restTemplate)
+    override fun request(): ApiCallResult<SuccessfulInfoResponse, ErrorInfoResponse> {
+        val response = SlackRequestBuilder<InfoResponse>(authToken, restTemplate)
                 .toMethod("users.info")
-                .returnAsType(SlackInfoResponse::class.java)
+                .returnAsType(InfoResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {
-            is SuccessfulUsersInfoResponse -> {
-                val responseEntity = response.body as SuccessfulUsersInfoResponse
+            is SuccessfulInfoResponse -> {
+                val responseEntity = response.body as SuccessfulInfoResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            is ErrorUsersInfoResponse -> {
-                val responseEntity = response.body as ErrorUsersInfoResponse
+            is ErrorInfoResponse -> {
+                val responseEntity = response.body as ErrorInfoResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

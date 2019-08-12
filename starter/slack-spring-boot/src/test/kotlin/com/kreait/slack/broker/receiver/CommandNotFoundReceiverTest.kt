@@ -2,7 +2,7 @@ package com.kreait.slack.broker.receiver
 
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralRequest
+import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.contract.jackson.sample
@@ -31,7 +31,7 @@ internal class CommandNotFoundReceiverTest {
 
         CommandNotFoundReceiver(mockSlackClient, expectedText).onReceiveSlashCommand(slackCommand, HttpHeaders.EMPTY, Team.sample())
 
-        val expectedRequest = SlackPostEphemeralRequest(
+        val expectedRequest = PostEphemeralRequest(
                 channel = expectedChannelId,
                 text = expectedText,
                 user = expectedUserId)

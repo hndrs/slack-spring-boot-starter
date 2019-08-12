@@ -3,15 +3,15 @@ package com.kreait.slack.api.contract.jackson.group.users
 import com.kreait.slack.api.contract.jackson.common.types.UserProfile
 import com.kreait.slack.api.contract.jackson.common.types.sample
 
-fun SuccessfulUsersGetProfileResponse.Companion.sample(): SuccessfulUsersGetProfileResponse {
-    return SuccessfulUsersGetProfileResponse(true, UserProfile.sample())
+fun SuccessfulGetProfileResponse.Companion.sample(): SuccessfulGetProfileResponse {
+    return SuccessfulGetProfileResponse(true, UserProfile.sample())
 }
 
-fun ErrorUsersGetProfileResponse.Companion.sample(): ErrorUsersGetProfileResponse {
-    return ErrorUsersGetProfileResponse(true, "")
+fun ErrorGetProfileResponse.Companion.sample(): ErrorGetProfileResponse {
+    return ErrorGetProfileResponse(true, "")
 }
 
-fun UsersGetProfileRequest.Companion.sample(): UsersGetProfileRequest {
-    return UsersGetProfileRequest(false, "")
+fun GetProfileRequest.Companion.sample(): GetProfileRequest {
+    return GetProfileRequest(false, "")
 }
 

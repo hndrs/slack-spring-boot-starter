@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.im
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImOpenResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImOpenRequest
+import com.kreait.slack.api.contract.jackson.group.im.ImOpenRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImOpenResponse
 import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
@@ -25,7 +25,7 @@ class MockImOpenUnitTests {
         MockMethodTestHelper.verify({ mockSlackClient.im().open("") },
                 successFunction, SuccessfulImOpenResponse.sample(),
                 failureFunction, ErrorImOpenResponse.sample(),
-                SlackImOpenRequest.sample()
+                ImOpenRequest.sample()
         )
     }
 }

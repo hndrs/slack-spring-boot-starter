@@ -11,28 +11,28 @@ import com.kreait.slack.api.contract.jackson.common.types.Member
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUsersLookupByEmailResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUsersLookupByEmailResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulLookupByEmailResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorLookupByEmailResponse::class, name = "false")
 )
 
 @JacksonDataClass
-sealed class SlackLookupByEmailResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class LookupByEmailResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulUsersLookupByEmailResponse constructor(override val ok: Boolean,
-                                                            @JsonProperty("user") val user: Member)
-    : SlackLookupByEmailResponse(ok) {
+data class SuccessfulLookupByEmailResponse constructor(override val ok: Boolean,
+                                                       @JsonProperty("user") val user: Member)
+    : LookupByEmailResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorUsersLookupByEmailResponse constructor(override val ok: Boolean,
-                                                       @JsonProperty("error") val error: String)
-    : SlackLookupByEmailResponse(ok) {
+data class ErrorLookupByEmailResponse constructor(override val ok: Boolean,
+                                                  @JsonProperty("error") val error: String)
+    : LookupByEmailResponse(ok) {
     companion object
 }
 
-data class SlackUsersLookupByEmailRequest(private val email: String) {
+data class LookupByEmailRequest(private val email: String) {
     companion object {}
 
     fun toRequestMap(): MutableMap<String, String> = mutableMapOf("email" to email)

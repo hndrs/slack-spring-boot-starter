@@ -8,6 +8,6 @@ fun SuccessfulChatUpdateResponse.Companion.sample(): SuccessfulChatUpdateRespons
     return SuccessfulChatUpdateResponse(true, "", "", "")
 }
 
-fun SlackChatUpdateRequest.Companion.sample(): SlackChatUpdateRequest {
-    return SlackChatUpdateRequest("", "", "", false, listOf(), false)
+fun ChatUpdateRequest.Companion.sample(): ChatUpdateRequest {
+    return ChatUpdateRequest("", "", "", false, listOf(), false)
 }

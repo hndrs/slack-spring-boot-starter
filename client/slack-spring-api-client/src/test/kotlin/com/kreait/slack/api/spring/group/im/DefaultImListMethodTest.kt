@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.im
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImListResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImListRequest
+import com.kreait.slack.api.contract.jackson.group.im.ImListRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImListResponse
 import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -27,7 +27,7 @@ internal class DefaultImListMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.list", response)
         val verifier = Verifier(response)
         DefaultImListMethod("", mockTemplate)
-                .with(SlackImListRequest.sample())
+                .with(ImListRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -42,7 +42,7 @@ internal class DefaultImListMethodTest {
         val verifier = Verifier(response)
 
         DefaultImListMethod("", mockTemplate)
-                .with(SlackImListRequest.sample())
+                .with(ImListRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

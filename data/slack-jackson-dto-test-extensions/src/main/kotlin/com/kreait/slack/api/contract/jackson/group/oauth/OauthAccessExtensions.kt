@@ -1,8 +1,8 @@
 package com.kreait.slack.api.contract.jackson.group.oauth
 
 
-fun OauthAccessRequest.Companion.sample(): OauthAccessRequest {
-    return OauthAccessRequest("", "", "")
+fun AccessRequest.Companion.sample(): AccessRequest {
+    return AccessRequest("", "", "")
 }
 
 fun Bot.Companion.sample(): Bot {
@@ -13,12 +13,12 @@ fun IncomingWebhook.Companion.sample(): IncomingWebhook {
     return IncomingWebhook("", "", "", "")
 }
 
-fun SuccessFullOauthAccessResponse.Companion.sample(): SuccessFullOauthAccessResponse {
-    return SuccessFullOauthAccessResponse(true, "token", "scope", "UserId", "TeamName", "TeamId",
+fun SuccessfullAccessResponse.Companion.sample(): SuccessfullAccessResponse {
+    return SuccessfullAccessResponse(true, "token", "scope", "UserId", "TeamName", "TeamId",
             IncomingWebhook.sample(),
             Bot.sample())
 }
 
-fun ErrorOauthAccessResponse.Companion.sample(): ErrorOauthAccessResponse {
-    return ErrorOauthAccessResponse(false, "")
+fun ErrorAccessResponse.Companion.sample(): ErrorAccessResponse {
+    return ErrorAccessResponse(false, "")
 }

@@ -16,13 +16,13 @@ import com.kreait.slack.api.contract.jackson.common.messaging.Block
         JsonSubTypes.Type(value = ErrorPostMessageResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class SlackPostMessageResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class PostMessageResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulPostMessageResponse constructor(override val ok: Boolean,
                                                      @JsonProperty("channel") val channel: String,
                                                      @JsonProperty("ts") val timestamp: String,
-                                                     @JsonProperty("message") val message: Message? = null) : SlackPostMessageResponse(ok) {
+                                                     @JsonProperty("message") val message: Message? = null) : PostMessageResponse(ok) {
     companion object
 }
 
@@ -39,26 +39,26 @@ data class Message(
 
 @JacksonDataClass
 data class ErrorPostMessageResponse constructor(override val ok: Boolean,
-                                                @JsonProperty("error") val error: String) : SlackPostMessageResponse(ok) {
+                                                @JsonProperty("error") val error: String) : PostMessageResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class SlackPostMessageRequest constructor(@JsonProperty("text") val text: String,
-                                               @JsonProperty("channel") val channel: String,
-                                               @JsonProperty("attachments") val attachments: List<Attachment>? = null,
-                                               @JsonProperty("blocks") val blocks: List<Block>? = null,
-                                               @JsonProperty("as_user") val asUser: Boolean? = false,
-                                               @JsonProperty("username") val username: String? = null,
-                                               @JsonProperty("icon_emoji") val iconEmoji: String? = null,
-                                               @JsonProperty("icon_url") val iconUrl: String? = null,
-                                               @JsonProperty("link_names") val linkNames: Boolean = true,
-                                               @JsonProperty("mrkdwn") val markDown: Boolean = true,
-                                               @JsonProperty("parse") val parse: String? = null,
-                                               @JsonProperty("reply_broadcast") val replyBroadcast: Boolean = false,
-                                               @JsonProperty("thread_ts") val threadTs: String? = null,
-                                               @JsonProperty("unfurl_links") val unfurlLinks: Boolean = false,
-                                               @JsonProperty("unfurl_media") val unfurlMedia: Boolean = true) {
+data class PostMessageRequest constructor(@JsonProperty("text") val text: String,
+                                          @JsonProperty("channel") val channel: String,
+                                          @JsonProperty("attachments") val attachments: List<Attachment>? = null,
+                                          @JsonProperty("blocks") val blocks: List<Block>? = null,
+                                          @JsonProperty("as_user") val asUser: Boolean? = false,
+                                          @JsonProperty("username") val username: String? = null,
+                                          @JsonProperty("icon_emoji") val iconEmoji: String? = null,
+                                          @JsonProperty("icon_url") val iconUrl: String? = null,
+                                          @JsonProperty("link_names") val linkNames: Boolean = true,
+                                          @JsonProperty("mrkdwn") val markDown: Boolean = true,
+                                          @JsonProperty("parse") val parse: String? = null,
+                                          @JsonProperty("reply_broadcast") val replyBroadcast: Boolean = false,
+                                          @JsonProperty("thread_ts") val threadTs: String? = null,
+                                          @JsonProperty("unfurl_links") val unfurlLinks: Boolean = false,
+                                          @JsonProperty("unfurl_media") val unfurlMedia: Boolean = true) {
     companion object
 }
 

@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetProfileResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorSetProfileResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetProfileResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -22,7 +22,7 @@ class DefaultUsersSetProfileMethodTest {
     @Test
     @DisplayName("Users.setProfile Failure")
     fun UserSetProfileFailure() {
-        val response = ErrorUsersSetProfileResponse.sample()
+        val response = ErrorSetProfileResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.profile.set", response)
         val verifier = Verifier(response)
 
@@ -36,7 +36,7 @@ class DefaultUsersSetProfileMethodTest {
     @Test
     @DisplayName("Users.setProfile Success")
     fun UserSetProfileSuccess() {
-        val response = SuccessfulUsersSetProfileResponse.sample()
+        val response = SuccessfulSetProfileResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "users.profile.set", response)
         val verifier = Verifier(response)
 

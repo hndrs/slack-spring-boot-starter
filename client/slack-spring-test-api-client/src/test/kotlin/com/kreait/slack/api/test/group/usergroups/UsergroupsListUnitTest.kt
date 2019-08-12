@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsListResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsListRequest
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsListResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorListResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ListRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulListResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -16,13 +16,13 @@ class UsergroupsListUnitTest {
     @DisplayName("Mock Successful")
     @Test
     fun testMockMethod() {
-        val successFunction: (SuccessfulUsergroupsListResponse?) -> Any = mock { }
-        val failureFunction: (ErrorUsergroupsListResponse?) -> Any = mock { }
+        val successFunction: (SuccessfulListResponse?) -> Any = mock { }
+        val failureFunction: (ErrorListResponse?) -> Any = mock { }
         val mockClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockClient.usergroups().list("") },
-                successFunction, SuccessfulUsergroupsListResponse.sample(),
-                failureFunction, ErrorUsergroupsListResponse.sample(),
-                SlackUsergroupsListRequest.sample())
+                successFunction, SuccessfulListResponse.sample(),
+                failureFunction, ErrorListResponse.sample(),
+                ListRequest.sample())
     }
 }

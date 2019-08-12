@@ -10,30 +10,30 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUsergroupsDisableResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUsergroupsDisableResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulDisableResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorDisableResponse::class, name = "false")
 )
 
 @JacksonDataClass
-sealed class UsergroupsDisableResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class DisableResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulUsergroupsDisableResponse constructor(override val ok: Boolean,
-                                                           @JsonProperty("usergroup") val usergroup: Usergroup)
-    : UsergroupsDisableResponse(ok) {
+data class SuccessfulDisableResponse constructor(override val ok: Boolean,
+                                                 @JsonProperty("usergroup") val userGroup: UserGroup)
+    : DisableResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorUsergroupsDisableResponse constructor(override val ok: Boolean,
-                                                      @JsonProperty("error") val error: String)
-    : UsergroupsDisableResponse(ok) {
+data class ErrorDisableResponse constructor(override val ok: Boolean,
+                                            @JsonProperty("error") val error: String)
+    : DisableResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class SlackUsergroupsDisableRequest constructor(@JsonProperty("usergroup") val usergroup: Usergroup,
-                                                     @JsonProperty("inclue_count") val includeCount: Boolean?) {
+data class DisableRequest constructor(@JsonProperty("usergroup") val userGroup: UserGroup,
+                                      @JsonProperty("inclue_count") val includeCount: Boolean?) {
     companion object
 }
 

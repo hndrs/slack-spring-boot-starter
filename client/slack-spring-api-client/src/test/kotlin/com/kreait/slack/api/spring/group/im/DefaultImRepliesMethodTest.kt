@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.im
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImRepliesResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImRepliesRequest
+import com.kreait.slack.api.contract.jackson.group.im.ImRepliesRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImRepliesResponse
 import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -28,7 +28,7 @@ internal class DefaultImRepliesMethodTest {
         val verifier = Verifier(response)
 
         DefaultImRepliesMethod("", mockTemplate)
-                .with(SlackImRepliesRequest.sample())
+                .with(ImRepliesRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -43,7 +43,7 @@ internal class DefaultImRepliesMethodTest {
         val verifier = Verifier(response)
 
         DefaultImRepliesMethod("", mockTemplate)
-                .with(SlackImRepliesRequest.sample())
+                .with(ImRepliesRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.chat
 
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatDeleteResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackDeleteResponse
+import com.kreait.slack.api.contract.jackson.group.chat.ChatDeleteResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatDeleteResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatDeleteMethod
@@ -15,10 +15,10 @@ import org.springframework.web.client.RestTemplate
 class DefaultDeleteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatDeleteMethod() {
 
     override fun request(): ApiCallResult<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse> {
-        val response = SlackRequestBuilder<SlackDeleteResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<ChatDeleteResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("chat.delete")
-                .returnAsType(SlackDeleteResponse::class.java)
+                .returnAsType(ChatDeleteResponse::class.java)
                 .postWithJsonBody()
 
         return when (response.body!!) {

@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.chat
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostMessageResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostMessageRequest
+import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostMessageResponse
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
@@ -25,6 +25,6 @@ class MockChatPostMessageUnitTests {
         MockMethodTestHelper.verify({ mockSlackClient.chat().postMessage("") },
                 successFunction, SuccessfulPostMessageResponse.sample(),
                 failureFunction, ErrorPostMessageResponse.sample(),
-                SlackPostMessageRequest.sample())
+                PostMessageRequest.sample())
     }
 }

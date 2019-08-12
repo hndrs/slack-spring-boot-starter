@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.im
 
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImListResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImListResponse
+import com.kreait.slack.api.contract.jackson.group.im.ImListResponse
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImListResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImListMethod
@@ -18,9 +18,9 @@ import org.springframework.web.client.RestTemplate
 class DefaultImListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ImListMethod() {
 
     override fun request(): ApiCallResult<SuccessfulImListResponse, ErrorImListResponse> {
-        val response = SlackRequestBuilder<SlackImListResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<ImListResponse>(authToken, restTemplate)
                 .toMethod("im.list")
-                .returnAsType(SlackImListResponse::class.java)
+                .returnAsType(ImListResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {

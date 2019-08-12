@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.chat
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatUpdateResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackChatUpdateRequest
+import com.kreait.slack.api.contract.jackson.group.chat.ChatUpdateRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatUpdateResponse
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -29,7 +29,7 @@ class DefaultUpdateMethodTest {
         val verifier = Verifier(response)
 
         DefaultUpdateMethod("", mockTemplate)
-                .with(SlackChatUpdateRequest.sample())
+                .with(ChatUpdateRequest.sample())
                 .onFailure { verifier.set(it) }
                 .onSuccess { }
                 .invoke()
@@ -45,7 +45,7 @@ class DefaultUpdateMethodTest {
         val verifier = Verifier(response)
 
         DefaultUpdateMethod("", mockTemplate)
-                .with(SlackChatUpdateRequest.sample())
+                .with(ChatUpdateRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

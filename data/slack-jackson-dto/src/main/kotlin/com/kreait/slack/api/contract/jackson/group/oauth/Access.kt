@@ -6,28 +6,28 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.JacksonDataClass
 
 
-data class OauthAccessRequest(val clientId: String, val client_secret: String, val code: String) {
+data class AccessRequest(val clientId: String, val client_secret: String, val code: String) {
     companion object
 }
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessFullOauthAccessResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorOauthAccessResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfullAccessResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorAccessResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class OauthAccessResponse(@JsonProperty("ok") open val ok: Boolean)
+sealed class AccessResponse(@JsonProperty("ok") open val ok: Boolean)
 
 
 @JacksonDataClass
-data class ErrorOauthAccessResponse constructor(override val ok: Boolean,
-                                                @JsonProperty("error") val error: String)
-    : OauthAccessResponse(ok) {
+data class ErrorAccessResponse constructor(override val ok: Boolean,
+                                           @JsonProperty("error") val error: String)
+    : AccessResponse(ok) {
     companion object
 }
 
-data class SuccessFullOauthAccessResponse(
+data class SuccessfullAccessResponse(
         @JsonProperty("ok") override val ok: Boolean,
         @JsonProperty("access_token") val accessToken: String,
         @JsonProperty("scope") val scope: String,
@@ -36,7 +36,7 @@ data class SuccessFullOauthAccessResponse(
         @JsonProperty("team_id") val teamId: String,
         @JsonProperty("incoming_webhook") val incomingWebhook: IncomingWebhook,
         @JsonProperty("bot") val bot: Bot
-) : OauthAccessResponse(ok) {
+) : AccessResponse(ok) {
     companion object
 }
 

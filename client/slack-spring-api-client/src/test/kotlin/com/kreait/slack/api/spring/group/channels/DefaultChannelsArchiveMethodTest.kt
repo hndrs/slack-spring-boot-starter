@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.channels
 
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelArchiveResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelsArchiveRequest
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelsArchiveRequest
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelArchiveResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -29,7 +29,7 @@ class DefaultChannelsArchiveMethodTest {
         val verifier = Verifier(response)
 
         DefaultChannelsArchiveMethod("", mockTemplate)
-                .with(SlackChannelsArchiveRequest.sample())
+                .with(ChannelsArchiveRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -43,7 +43,7 @@ class DefaultChannelsArchiveMethodTest {
         val verifier = Verifier(response)
 
         DefaultChannelsArchiveMethod("", mockTemplate)
-                .with(SlackChannelsArchiveRequest.sample())
+                .with(ChannelsArchiveRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

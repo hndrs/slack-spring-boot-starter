@@ -4,4 +4,4 @@ fun SuccessfulUsergroupsUsersListResponse.Companion.sample() = SuccessfulUsergro
 
 fun ErrorUsergroupsUsersListResponse.Companion.sample() = ErrorUsergroupsUsersListResponse(false, "")
 
-fun SlackUsergroupsUsersListRequest.Companion.sample() = SlackUsergroupsUsersListRequest("", true)
+fun UsergroupsUsersListRequest.Companion.sample() = UsergroupsUsersListRequest("", true)

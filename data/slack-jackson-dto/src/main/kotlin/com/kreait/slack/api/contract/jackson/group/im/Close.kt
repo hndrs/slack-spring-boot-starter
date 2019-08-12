@@ -16,24 +16,24 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
 )
 
 @JacksonDataClass
-sealed class SlackImCloseResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
+sealed class ImCloseResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulImCloseResponse constructor(override val ok: Boolean,
                                                  @JsonProperty(value = "no_op") val noOp: Boolean?,
                                                  @JsonProperty(value = "already_closed") val alreadyClosed: Boolean?)
-    : SlackImCloseResponse(ok){
+    : ImCloseResponse(ok){
     companion object
 }
 
 @JacksonDataClass
 data class ErrorImCloseResponse constructor(override val ok: Boolean,
                                             @JsonProperty(value = "error") val error: String)
-    : SlackImCloseResponse(ok){
+    : ImCloseResponse(ok){
     companion object
 }
 
 @JacksonDataClass
-data class SlackImCloseRequest constructor(@JsonProperty(value = "channel") val channelId: String){
+data class ImCloseRequest constructor(@JsonProperty(value = "channel") val channelId: String){
     companion object
 }

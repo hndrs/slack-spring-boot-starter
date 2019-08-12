@@ -2,8 +2,8 @@ package com.kreait.slack.api.contract.jackson.group.users
 
 import com.kreait.slack.api.contract.jackson.UserPresence
 
-fun SuccessfulUsersSetPresenceResponse.Companion.sample() = SuccessfulUsersSetPresenceResponse(ok = true)
+fun SuccessfulSetPresenceResponse.Companion.sample() = SuccessfulSetPresenceResponse(ok = true)
 
-fun ErrorUsersSetPresenceResponse.Companion.sample() = ErrorUsersSetPresenceResponse(ok = false, error = "")
+fun ErrorSetPresenceResponse.Companion.sample() = ErrorSetPresenceResponse(ok = false, error = "")
 
-fun SlackUsersSetPresenceRequest.Companion.sample() = SlackUsersSetPresenceRequest(presence = UserPresence.AUTO)
+fun SetPresenceRequest.Companion.sample() = SetPresenceRequest(presence = UserPresence.AUTO)

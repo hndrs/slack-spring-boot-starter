@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.chat
 
 
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatUpdateResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SlackChatUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.chat.ChatUpdateResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatUpdateResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatUpdateMethod
@@ -15,10 +15,10 @@ import org.springframework.web.client.RestTemplate
 class DefaultUpdateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatUpdateMethod() {
 
     override fun request(): ApiCallResult<SuccessfulChatUpdateResponse, ErrorChatUpdateResponse> {
-        val response = SlackRequestBuilder<SlackChatUpdateResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<ChatUpdateResponse>(authToken, restTemplate)
                 .with(this.params)
                 .toMethod("chat.update")
-                .returnAsType(SlackChatUpdateResponse::class.java)
+                .returnAsType(ChatUpdateResponse::class.java)
                 .postWithJsonBody()
 
         return when (response.body!!) {

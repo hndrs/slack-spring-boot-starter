@@ -16,23 +16,23 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
 )
 
 @JacksonDataClass
-sealed class SlackGetChannelArchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ChannelArchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulChannelArchiveResponse constructor(override val ok: Boolean)
-    : SlackGetChannelArchiveResponse(ok){
+    : ChannelArchiveResponse(ok){
     companion object
 }
 
 @JacksonDataClass
 data class ErrorChannelArchiveResponse constructor(override val ok: Boolean,
                                                    @JsonProperty("error") val error: String)
-    : SlackGetChannelArchiveResponse(ok) {
+    : ChannelArchiveResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class SlackChannelsArchiveRequest constructor(@JsonProperty("channel") val channel: String) {
+data class ChannelsArchiveRequest constructor(@JsonProperty("channel") val channel: String) {
 
     companion object
 }

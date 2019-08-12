@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.channels
 
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelCreateResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelCreateRequest
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelCreateRequest
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelCreateResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -29,7 +29,7 @@ class DefaultChannelCreateMethodTest {
         val verifier = Verifier(response)
 
         DefaultChannelCreateMethod("", mockTemplate)
-                .with(SlackChannelCreateRequest.sample())
+                .with(ChannelCreateRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -44,7 +44,7 @@ class DefaultChannelCreateMethodTest {
         val verifier = Verifier(response)
 
         DefaultChannelCreateMethod("", mockTemplate)
-                .with(SlackChannelCreateRequest.sample())
+                .with(ChannelCreateRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

@@ -1,21 +1,21 @@
 package com.kreait.slack.api.test.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUserConversationsResponse
-import com.kreait.slack.api.contract.jackson.group.users.SlackUserConversationListRequest
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUserConversationsResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorConversationsResponse
+import com.kreait.slack.api.contract.jackson.group.users.ConversationsRequest
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulConversationsResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UserConversationsMethod
 import com.kreait.slack.api.test.MockMethod
 
-class MockUserConversationsMethod : UserConversationsMethod(), MockMethod<SuccessfulUserConversationsResponse, ErrorUserConversationsResponse, SlackUserConversationListRequest> {
-    override fun params(): SlackUserConversationListRequest {
+class MockUserConversationsMethod : UserConversationsMethod(), MockMethod<SuccessfulConversationsResponse, ErrorConversationsResponse, ConversationsRequest> {
+    override fun params(): ConversationsRequest {
         return params
     }
 
-    override var successResponse: SuccessfulUserConversationsResponse? = null
-    override var failureResponse: ErrorUserConversationsResponse? = null
+    override var successResponse: SuccessfulConversationsResponse? = null
+    override var failureResponse: ErrorConversationsResponse? = null
 
-    override fun request(): ApiCallResult<SuccessfulUserConversationsResponse, ErrorUserConversationsResponse> {
+    override fun request(): ApiCallResult<SuccessfulConversationsResponse, ErrorConversationsResponse> {
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

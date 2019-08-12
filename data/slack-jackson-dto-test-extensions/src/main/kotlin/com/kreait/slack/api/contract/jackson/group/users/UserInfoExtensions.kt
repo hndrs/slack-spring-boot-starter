@@ -4,14 +4,14 @@ import com.kreait.slack.api.contract.jackson.common.types.Member
 import com.kreait.slack.api.contract.jackson.common.types.sample
 
 
-fun SuccessfulUsersInfoResponse.Companion.sample(): SuccessfulUsersInfoResponse {
-    return SuccessfulUsersInfoResponse(true, Member.sample())
+fun SuccessfulInfoResponse.Companion.sample(): SuccessfulInfoResponse {
+    return SuccessfulInfoResponse(true, Member.sample())
 }
 
-fun ErrorUsersInfoResponse.Companion.sample(): ErrorUsersInfoResponse {
-    return ErrorUsersInfoResponse(false, "")
+fun ErrorInfoResponse.Companion.sample(): ErrorInfoResponse {
+    return ErrorInfoResponse(false, "")
 }
 
-fun SlackUserInfoRequest.Companion.sample(): SlackUserInfoRequest {
-    return SlackUserInfoRequest("", false)
+fun InfoRequest.Companion.sample(): InfoRequest {
+    return InfoRequest("", false)
 }

@@ -1,7 +1,7 @@
 package com.kreait.slack.api.spring.group.im
 
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImHistoryResponse
-import com.kreait.slack.api.contract.jackson.group.im.SlackImHistoryRequest
+import com.kreait.slack.api.contract.jackson.group.im.ImHistoryRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImHistoryResponse
 import com.kreait.slack.api.contract.jackson.group.im.sample
 import com.kreait.slack.api.spring.MockServerHelper
@@ -28,7 +28,7 @@ internal class DefaultImHistoryMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "im.history", response)
         val verifier = Verifier(response)
         DefaultImHistoryMethod("", mockTemplate)
-                .with(SlackImHistoryRequest.sample())
+                .with(ImHistoryRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -43,7 +43,7 @@ internal class DefaultImHistoryMethodTest {
         val verifier = Verifier(response)
 
         DefaultImHistoryMethod("", mockTemplate)
-                .with(SlackImHistoryRequest.sample())
+                .with(ImHistoryRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

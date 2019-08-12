@@ -1,15 +1,15 @@
 package com.kreait.slack.api.test.group.channel
 
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelCreateResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SlackChannelCreateRequest
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelCreateRequest
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelCreateResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsCreateMethod
 import com.kreait.slack.api.test.MockMethod
 
-class MockChannelsCreateMethod : ChannelsCreateMethod(), MockMethod<SuccessfulChannelCreateResponse, ErrorChannelCreateResponse, SlackChannelCreateRequest> {
+class MockChannelsCreateMethod : ChannelsCreateMethod(), MockMethod<SuccessfulChannelCreateResponse, ErrorChannelCreateResponse, ChannelCreateRequest> {
 
-    override fun params(): SlackChannelCreateRequest {
+    override fun params(): ChannelCreateRequest {
         return params
     }
 

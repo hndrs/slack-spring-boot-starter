@@ -1,13 +1,13 @@
 package com.kreait.slack.api.test.group.respond
 
-import com.kreait.slack.api.contract.jackson.group.respond.SlackRespondMessageRequest
+import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.respond.RespondMessageMethod
 import com.kreait.slack.api.test.MockMethod
 
-class MockRespondMessageMethod : RespondMessageMethod(), MockMethod<Unit, Unit, SlackRespondMessageRequest> {
+class MockRespondMessageMethod : RespondMessageMethod(), MockMethod<Unit, Unit, RespondMessageRequest> {
 
-    override fun params(): SlackRespondMessageRequest {
+    override fun params(): RespondMessageRequest {
         return params
     }
 

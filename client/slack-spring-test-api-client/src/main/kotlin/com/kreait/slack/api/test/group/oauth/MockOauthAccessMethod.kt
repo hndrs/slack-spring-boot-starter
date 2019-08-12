@@ -1,23 +1,23 @@
 package com.kreait.slack.api.test.group.oauth
 
-import com.kreait.slack.api.contract.jackson.group.oauth.ErrorOauthAccessResponse
-import com.kreait.slack.api.contract.jackson.group.oauth.OauthAccessRequest
-import com.kreait.slack.api.contract.jackson.group.oauth.SuccessFullOauthAccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.ErrorAccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.AccessRequest
+import com.kreait.slack.api.contract.jackson.group.oauth.SuccessfullAccessResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.oauth.OauthAccessMethod
 import com.kreait.slack.api.test.MockMethod
 
-class MockOauthAccessMethod : OauthAccessMethod(), MockMethod<SuccessFullOauthAccessResponse, ErrorOauthAccessResponse, OauthAccessRequest> {
+class MockOauthAccessMethod : OauthAccessMethod(), MockMethod<SuccessfullAccessResponse, ErrorAccessResponse, AccessRequest> {
 
-    override var successResponse: SuccessFullOauthAccessResponse? = null
+    override var successResponse: SuccessfullAccessResponse? = null
 
-    override var failureResponse: ErrorOauthAccessResponse? = null
+    override var failureResponse: ErrorAccessResponse? = null
 
-    override fun params(): OauthAccessRequest {
+    override fun params(): AccessRequest {
         return params
     }
 
-    override fun request(): ApiCallResult<SuccessFullOauthAccessResponse, ErrorOauthAccessResponse> {
+    override fun request(): ApiCallResult<SuccessfullAccessResponse, ErrorAccessResponse> {
 
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }

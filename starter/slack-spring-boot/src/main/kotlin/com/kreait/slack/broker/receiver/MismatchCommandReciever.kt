@@ -2,7 +2,7 @@ package com.kreait.slack.broker.receiver
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.group.chat.SlackPostEphemeralRequest
+import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import com.kreait.slack.broker.store.Team
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
@@ -26,7 +26,7 @@ class CommandNotFoundReceiver(private val slackClient: SlackClient, private val 
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
         this.slackClient.chat()
                 .postEphemeral(team.bot.accessToken)
-                .with(SlackPostEphemeralRequest(
+                .with(PostEphemeralRequest(
                         channel = slackCommand.channelId,
                         text = text,
                         user = slackCommand.userId))

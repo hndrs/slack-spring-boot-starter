@@ -2,7 +2,7 @@ package com.kreait.slack.api.spring.group.auth
 
 
 import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthRevokeResponse
-import com.kreait.slack.api.contract.jackson.group.auth.SlackAuthRevokeResponse
+import com.kreait.slack.api.contract.jackson.group.auth.AuthRevokeResponse
 import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthRevokeResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.auth.AuthRevokeMethod
@@ -15,9 +15,9 @@ class DefaultRevokeMethod(private val authToken: String, private val restTemplat
 
     override fun request(): ApiCallResult<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse> {
 
-        val response = SlackRequestBuilder<SlackAuthRevokeResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<AuthRevokeResponse>(authToken, restTemplate)
                 .toMethod("auth.revoke")
-                .returnAsType(SlackAuthRevokeResponse::class.java)
+                .returnAsType(AuthRevokeResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {

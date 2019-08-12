@@ -8,27 +8,27 @@ import com.kreait.slack.api.contract.jackson.common.types.Member
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUsersInfoResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUsersInfoResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulInfoResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorInfoResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class SlackInfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class InfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulUsersInfoResponse constructor(override val ok: Boolean,
-                                                   @JsonProperty("user") val user: Member)
-    : SlackInfoResponse(ok) {
+data class SuccessfulInfoResponse constructor(override val ok: Boolean,
+                                              @JsonProperty("user") val user: Member)
+    : InfoResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorUsersInfoResponse constructor(override val ok: Boolean,
-                                              @JsonProperty("error") val error: String)
-    : SlackInfoResponse(ok) {
+data class ErrorInfoResponse constructor(override val ok: Boolean,
+                                         @JsonProperty("error") val error: String)
+    : InfoResponse(ok) {
     companion object
 }
 
-data class SlackUserInfoRequest(private val userId: String, private val includeLocale: Boolean? = null) {
+data class InfoRequest(private val userId: String, private val includeLocale: Boolean? = null) {
 
     companion object
 

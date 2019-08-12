@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUsergroupsDisableResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.SlackUsergroupsDisableRequest
-import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUsergroupsDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorDisableResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.DisableRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulDisableResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -23,12 +23,12 @@ class UsergroupsDisableMethodTest {
     @DisplayName("usergroups.disable Success")
     @Test
     fun usergroupsDisableSuccess() {
-        val response = SuccessfulUsergroupsDisableResponse.sample()
+        val response = SuccessfulDisableResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.disable", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsDisableMethod("", mockTemplate)
-                .with(SlackUsergroupsDisableRequest.sample())
+                .with(DisableRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
 
@@ -39,12 +39,12 @@ class UsergroupsDisableMethodTest {
     @DisplayName("usergroups.disable Failure")
     @Test
     fun usergroupsDisableFailure() {
-        val response = ErrorUsergroupsDisableResponse.sample()
+        val response = ErrorDisableResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "usergroups.disable", response)
         val verifier = Verifier(response)
 
         DefaultUsergroupsDisableMethod("", mockTemplate)
-                .with(SlackUsergroupsDisableRequest.sample())
+                .with(DisableRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
 

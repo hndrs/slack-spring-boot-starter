@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.chat
 
-fun SlackPostEphemeralRequest.Companion.sample(): SlackPostEphemeralRequest {
-    return SlackPostEphemeralRequest(channel = "channelId")
+fun PostEphemeralRequest.Companion.sample(): PostEphemeralRequest {
+    return PostEphemeralRequest(channel = "channelId")
 }
 
 fun SuccessfulPostEphemeralResponse.Companion.sample(): SuccessfulPostEphemeralResponse = SuccessfulPostEphemeralResponse(true, "")

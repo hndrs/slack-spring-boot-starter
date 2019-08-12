@@ -1,6 +1,6 @@
 package com.kreait.slack.api.spring.group.respond
 
-import com.kreait.slack.api.contract.jackson.group.respond.SlackRespondMessageRequest
+import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -28,7 +28,7 @@ internal class DefaultRespondMessageMethodTest {
         val verifier = Verifier(response)
 
         DefaultRespondMessageMethod("api.slack.com/test", mockTemplate)
-                .with(SlackRespondMessageRequest.sample())
+                .with(RespondMessageRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -43,7 +43,7 @@ internal class DefaultRespondMessageMethodTest {
         val verifier = Verifier(response)
 
         DefaultRespondMessageMethod("api.slack.com/test", mockTemplate)
-                .with(SlackRespondMessageRequest.sample())
+                .with(RespondMessageRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

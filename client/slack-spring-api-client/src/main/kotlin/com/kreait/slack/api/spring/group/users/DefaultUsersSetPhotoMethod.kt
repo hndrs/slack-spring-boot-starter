@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.users
 
-import com.kreait.slack.api.contract.jackson.group.users.ErrorUsersSetPhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulUsersSetPhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.UsersSetPhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorSetPhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetPhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SetPhotoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersSetPhotoMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
@@ -16,22 +16,22 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class DefaultUsersSetPhotoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersSetPhotoMethod() {
 
-    override fun request(): ApiCallResult<SuccessfulUsersSetPhotoResponse, ErrorUsersSetPhotoResponse> {
+    override fun request(): ApiCallResult<SuccessfulSetPhotoResponse, ErrorSetPhotoResponse> {
 
-        val response = SlackRequestBuilder<UsersSetPhotoResponse>(authToken, restTemplate)
+        val response = SlackRequestBuilder<SetPhotoResponse>(authToken, restTemplate)
                 .with(this.params.toMultiValueMap())
                 .toMethod("users.setPhoto")
-                .returnAsType(UsersSetPhotoResponse::class.java)
+                .returnAsType(SetPhotoResponse::class.java)
                 .postMultipartFormdata()
 
         return when (response.body!!) {
-            is SuccessfulUsersSetPhotoResponse -> {
-                val responseEntity = response.body as SuccessfulUsersSetPhotoResponse
+            is SuccessfulSetPhotoResponse -> {
+                val responseEntity = response.body as SuccessfulSetPhotoResponse
                 this.onSuccess?.invoke(responseEntity)
                 ApiCallResult(success = responseEntity)
             }
-            is ErrorUsersSetPhotoResponse -> {
-                val responseEntity = response.body as ErrorUsersSetPhotoResponse
+            is ErrorSetPhotoResponse -> {
+                val responseEntity = response.body as ErrorSetPhotoResponse
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }

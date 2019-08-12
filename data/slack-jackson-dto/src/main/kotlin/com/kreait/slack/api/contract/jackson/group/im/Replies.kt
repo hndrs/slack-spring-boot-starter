@@ -17,12 +17,12 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
 )
 
 @JacksonDataClass
-sealed class SlackImRepliesResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
+sealed class ImRepliesResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
 
 @JacksonDataClass
 data class SuccessfulImRepliesResponse constructor(override val ok: Boolean,
                                                    @JsonProperty(value = "messages") val messages: List<Message>)
-    : SlackImRepliesResponse(ok) {
+    : ImRepliesResponse(ok) {
 
     companion object {}
 
@@ -39,15 +39,15 @@ data class SuccessfulImRepliesResponse constructor(override val ok: Boolean,
 @JacksonDataClass
 data class ErrorImRepliesResponse constructor(override val ok: Boolean,
                                               @JsonProperty(value = "error") val error: String)
-    : SlackImRepliesResponse(ok) {
+    : ImRepliesResponse(ok) {
     companion object
 }
 
 /**
  * DataClass that represents arguments as defined in https://api.slack.com/methods/im.replies
  */
-data class SlackImRepliesRequest(private val channel: String,
-                                 private val thread_ts: String) {
+data class ImRepliesRequest(private val channel: String,
+                            private val thread_ts: String) {
 
     companion object
 

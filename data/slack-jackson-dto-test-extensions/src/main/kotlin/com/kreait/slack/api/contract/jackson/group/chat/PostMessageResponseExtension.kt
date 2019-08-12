@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.chat
 
-fun SlackPostMessageRequest.Companion.sample(): SlackPostMessageRequest {
-    return SlackPostMessageRequest(channel = "channelId", text = "text")
+fun PostMessageRequest.Companion.sample(): PostMessageRequest {
+    return PostMessageRequest(channel = "channelId", text = "text")
 }
 
 fun SuccessfulPostMessageResponse.Companion.sample(): SuccessfulPostMessageResponse = SuccessfulPostMessageResponse(true, "", "")
