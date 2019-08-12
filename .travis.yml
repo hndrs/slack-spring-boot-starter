@@ -5,7 +5,7 @@ git:
 
 addons:
   sonarcloud:
-    organization: "olaph-io"
+    organization: "kreait"
     token:
       secure: $SONAR_TOKEN
   apt:
