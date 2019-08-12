@@ -1,0 +1,9 @@
+[[features]]
+= Features
+
+include::features/installation.adoc[leveloffset=+1]
+include::features/events.adoc[leveloffset=+1]
+include::features/commands.adoc[leveloffset=+1]
+include::features/interactive-components.adoc[leveloffset=+1]
+include::features/security.adoc[leveloffset=+1]
+include::features/metrics.adoc[leveloffset=+1]
