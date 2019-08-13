@@ -1,0 +1,2 @@
+[[starter]]
+= Slack Spring Boot Starter
