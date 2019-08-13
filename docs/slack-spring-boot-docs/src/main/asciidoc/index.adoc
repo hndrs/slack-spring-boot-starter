@@ -1,0 +1,22 @@
+[[slack-spring-boot-reference-guide]]
+= Slack Spring Boot Reference Guide
+
+:idprefix:
+:idseparator: -
+:toc: left
+:toclevels: 4
+:toc-title: Table Of Content
+:tabsize: 4
+:numbered:
+:sectanchors:
+:sectnums:
+:icons: font
+:hide-uri-scheme:
+:source-highlighter: prettify :docinfo: shared
+
+include::license.adoc[leveloffset=+1]
+include::getting-started.adoc[leveloffset=+1]
+include::features.adoc[leveloffset=+1]
+include::development-features.adoc[leveloffset=+1]
+include::starter.adoc[leveloffset=+1]
+

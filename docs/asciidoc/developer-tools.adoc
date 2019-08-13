@@ -1,3 +1,0 @@
-[[developer-tools]]
-= Developer Tools
-
