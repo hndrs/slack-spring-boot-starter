@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
@@ -27,7 +28,9 @@ data class ErrorChannelListResponse constructor(override val ok: Boolean,
 @JacksonDataClass
 data class SuccessfulChannelListResponse(
         override val ok: Boolean,
-        @JsonProperty("channels") val channels: List<Channel>) : ChannelListResponse(ok) {
+        @JsonProperty("channels") val channels: List<Channel>,
+        @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata)
+    : ChannelListResponse(ok) {
     companion object
 }
 
