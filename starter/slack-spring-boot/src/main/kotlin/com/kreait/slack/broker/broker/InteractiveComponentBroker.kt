@@ -35,13 +35,17 @@ class InteractiveComponentBroker constructor(private val slackInteractiveCompone
         val team = this.teamStore.findById(interactiveComponentResponse.team.id)
         slackInteractiveComponentReceivers
                 .filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
+                .sortedBy { it.order() }
                 .forEach { receiver ->
                     try {
                         this.metricsCollector?.receiverExecuted()
                         receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
                     } catch (e: Exception) {
                         this.metricsCollector?.receiverExecutionError()
-                        if(e !is MustThrow) LOG.error("{}", e)
+                        if (receiver.shouldThrowException()) {
+                            throw e
+                        }
+                        if (e !is MustThrow) LOG.error("{}", e)
                         exceptionChain.add(e)
                     }
                 }

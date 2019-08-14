@@ -37,6 +37,7 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
         val team = this.teamStore.findById(slackCommand.teamId)
         slackCommandReceivers
                 .filter { it.supportsCommand(slackCommand) }
+                .sortedBy { it.order() }
                 .ifEmpty {
                     this.metricsCollector?.receiverMismatch()
                     mismatchCommandReceiver?.onReceiveSlashCommand(slackCommand, headers, team)
@@ -48,6 +49,9 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
                         broker.onReceiveSlashCommand(slackCommand, headers, team)
                     } catch (e: Exception) {
                         this.metricsCollector?.receiverExecutionError()
+                        if (broker.shouldThrowException()) {
+                            throw e
+                        }
                         if (e !is MustThrow) LOG.error("{}", e)
                         exceptionChain.add(e)
                     }
