@@ -15,7 +15,26 @@ import org.springframework.http.HttpHeaders
 
 @DisplayName("Event Broker Tests")
 class InteractiveComponentBrokerTests {
+    @Test
+    @DisplayName("exceptions are thrown at the end of the execution")
+    fun shouldThrow() {
+        val teamStore = InMemoryTeamStore()
+        teamStore.put(Team.sample().copy(teamId = "TestId"))
+        val sampleEvent = InteractiveComponentResponse.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
+        Assertions.assertThrows(Exception::class.java) {
+            InteractiveComponentBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
+        }
+    }
 
+    class ShouldThrowReceiver : InteractiveComponentReceiver {
+        override fun shouldThrowException(exception: Exception): Boolean {
+            return true
+        }
+
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+            throw Exception()
+        }
+    }
 
     @Test
     @DisplayName("Broker Test")

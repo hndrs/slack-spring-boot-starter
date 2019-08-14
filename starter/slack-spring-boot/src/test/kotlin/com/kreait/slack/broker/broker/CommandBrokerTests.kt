@@ -17,12 +17,31 @@ import org.springframework.http.HttpHeaders
 @DisplayName("Command Broker Tests")
 class CommandBrokerTests {
 
+    @Test
+    @DisplayName("exceptions are thrown at the end of the execution")
+    fun shouldThrow() {
+        val teamStore = InMemoryTeamStore()
+        teamStore.put(Team.sample().copy(teamId = "TestId"))
+        val sampleEvent = SlackCommand.sample().copy(teamId = "TestId")
+        Assertions.assertThrows(Exception::class.java) {
+            CommandBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore).receiveCommand(sampleEvent, HttpHeaders.EMPTY)
+        }
+    }
+
+    class ShouldThrowReceiver : SlashCommandReceiver {
+        override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
+            throw Exception()
+        }
+
+        override fun shouldThrowException(exception: Exception): Boolean {
+            return true
+        }
+
+    }
 
     @Test
     @DisplayName("Broker Test")
     fun brokerTest() {
-
-
         val teamStore = InMemoryTeamStore()
 
         teamStore.put(Team.sample().copy(teamId = "TestId"))
@@ -36,7 +55,7 @@ class CommandBrokerTests {
         val errorReceiver = ErrorReceiver()
         val mismatchReceiver = Mismatch()
 
-        CommandBroker(listOf(successReceiver, errorReceiver), teamStore,null, commandMetrics).receiveCommand(SlackCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
+        CommandBroker(listOf(successReceiver, errorReceiver), teamStore, null, commandMetrics).receiveCommand(SlackCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
         CommandBroker(listOf(), teamStore, mismatchReceiver, commandMetrics).receiveCommand(SlackCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
