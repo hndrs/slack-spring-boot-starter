@@ -13,10 +13,10 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
+import java.util.concurrent.atomic.AtomicInteger
 
 @DisplayName("Event Broker Tests")
 class EventBrokerTests {
-
 
     @Test
     @DisplayName("Broker Test")
@@ -44,6 +44,12 @@ class EventBrokerTests {
         Assertions.assertEquals(1.0, meterRegistry.get("slack.events.received").counter().count())
         Assertions.assertEquals(2.0, meterRegistry.get("slack.events.receiver.executions").counter().count())
         Assertions.assertEquals(1.0, meterRegistry.get("slack.events.receiver.errors").counter().count())
+    }
+
+    @Test
+    @DisplayName("verify execution order")
+    fun testExecutionOrder() {
+
     }
 
 
@@ -105,6 +111,58 @@ class EventBrokerTests {
         }
     }
 
+    @Test
+    @DisplayName("Test Eventreceiver")
+    fun testEventReceiverExecutionOrder() {
+        val atomic = AtomicInteger(0)
+        val first = FirstEventReceiver(atomic)
+        val second = SecondEventReceiver(atomic)
+        val third = ThirdEventReceiver(atomic)
+        val event = SlackEvent.sample().copy(teamId = "TestTeamId")
+        val store = InMemoryTeamStore()
+        store.put(Team.sample().copy(teamId = "TestTeamId"))
+
+        EventBroker(listOf(third, second, first), store, InMemoryEventStore())
+                .receiveEvents(event, HttpHeaders.EMPTY)
+
+        Assertions.assertEquals(0, first.currentOrder)
+        Assertions.assertEquals(1, second.currentOrder)
+        Assertions.assertEquals(2, third.currentOrder)
+    }
+
+    class FirstEventReceiver(private val current: AtomicInteger) : EventReceiver {
+        override fun order(): Int {
+            return 1
+        }
+
+        var currentOrder: Int? = null
+        override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
+    class SecondEventReceiver(private val current: AtomicInteger) : EventReceiver {
+        override fun order(): Int {
+            return 2
+        }
+
+        var currentOrder: Int? = null
+        override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
+    class ThirdEventReceiver(private val current: AtomicInteger) : EventReceiver {
+        override fun order(): Int {
+            return 3
+        }
+
+        var currentOrder: Int? = null
+        override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
     class SuccessReceiver : EventReceiver {
         var executed: Boolean = false
 
@@ -121,7 +179,6 @@ class EventBrokerTests {
             executed = true
             throw IllegalStateException("Failing Test Case")
         }
-
     }
 
     class ShouldThrowReceiver : EventReceiver {

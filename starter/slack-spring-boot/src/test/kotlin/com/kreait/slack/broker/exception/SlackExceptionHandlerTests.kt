@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -54,9 +55,30 @@ internal class SlackExceptionHandlerTests {
                             IllegalArgumentException(
                                     JsonMappingException(Closeable { }, "",
                                             DialogValidationException(listOf()))))
-
             Assertions.assertEquals(response.statusCode, HttpStatus.OK)
             Assertions.assertEquals(response.body, DialogErrorResponse(emptyList()))
+        }
+
+        @Test
+        @DisplayName("IllegalArgumentException without JsonMapping Exception")
+        fun illegalArgumentExceptionWithoutJson() {
+            val response = SlackExceptionHandler("TestResponse")
+                    .handleIllegalArgumentException(
+                            IllegalArgumentException())
+            Assertions.assertEquals(response.statusCode, HttpStatus.OK)
+            Assertions.assertEquals(response.body, "TestResponse")
+        }
+
+        @Test
+        @DisplayName("handleIllegalArgumentException without dialogvalidation")
+        fun illegalArgumentExceptionWithoutDialog() {
+            assertThrows<Exception> {
+                val response = SlackExceptionHandler("TestResponse")
+                        .handleIllegalArgumentException(
+                                IllegalArgumentException(
+                                        JsonMappingException(Closeable { }, "", Exception())))
+                Assertions.assertEquals(response.statusCode, HttpStatus.OK)
+            }
         }
 
         @Test

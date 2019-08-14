@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
+import java.util.concurrent.atomic.AtomicInteger
 
 @DisplayName("Command Broker Tests")
 class CommandBrokerTests {
@@ -86,6 +87,60 @@ class CommandBrokerTests {
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
     }
+
+    @Test
+    @DisplayName("Test Command Receiver order")
+    fun testCommandReceiverExecutionOrder() {
+        val atomic = AtomicInteger(0)
+        val first = FirstCommandReceiver(atomic)
+        val second = SecondCommandReceiver(atomic)
+        val third = ThirdCommandReceiver(atomic)
+        val event = SlackCommand.sample().copy(teamId = "TestTeamId")
+        val store = InMemoryTeamStore()
+        store.put(Team.sample().copy(teamId = "TestTeamId"))
+
+        CommandBroker(listOf(third, second, first), store)
+                .receiveCommand(event, HttpHeaders.EMPTY)
+
+        Assertions.assertEquals(0, first.currentOrder)
+        Assertions.assertEquals(1, second.currentOrder)
+        Assertions.assertEquals(2, third.currentOrder)
+    }
+
+    class FirstCommandReceiver(private val current: AtomicInteger) : SlashCommandReceiver {
+        var currentOrder: Int? = null
+
+        override fun order(): Int {
+            return 1
+        }
+
+        override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
+    class SecondCommandReceiver(private val current: AtomicInteger) : SlashCommandReceiver {
+        var currentOrder: Int? = null
+        override fun order(): Int {
+            return 2
+        }
+
+        override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
+    class ThirdCommandReceiver(private val current: AtomicInteger) : SlashCommandReceiver {
+        var currentOrder: Int? = null
+        override fun order(): Int {
+            return 3
+        }
+
+        override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
 
     class SuccessReceiver : SlashCommandReceiver {
 
