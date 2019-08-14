@@ -8,7 +8,7 @@ addons:
     s3_region: "eu-central-1"
     debug: true
     paths:
-      - $HOME/docs/slack-spring-boot-docs/build/generated-docs
+      - $TRAVIS_BUILD_DIR/docs/slack-spring-boot-docs/build/generated-docs
   sonarcloud:
     organization: "kreait"
     token:
