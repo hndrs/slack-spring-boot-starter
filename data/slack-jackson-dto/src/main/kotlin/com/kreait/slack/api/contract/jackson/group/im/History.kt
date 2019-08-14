@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import java.time.Instant
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -28,7 +29,7 @@ data class SuccessfulImHistoryResponse constructor(override val ok: Boolean,
 
     data class Message(
             @JsonProperty("type") val type: String,
-            @JsonProperty("ts") val ts: String,
+            @JsonProperty("ts") val timestamp: Instant,
             @JsonProperty("user") val user: String? = null,
             @JsonProperty("text") val text: String? = null,
             @JsonProperty("is_starred") val isStarred: Boolean? = false) {

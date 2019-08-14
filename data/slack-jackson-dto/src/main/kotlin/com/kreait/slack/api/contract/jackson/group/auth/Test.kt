@@ -21,7 +21,7 @@ sealed class AuthTestResponse constructor(@JsonProperty("ok") open val ok: Boole
 data class SuccessfulAuthTestResponse constructor(
         override val ok: Boolean,
         @JsonProperty("url") val url: String,
-        @JsonProperty("timestamp") val team: String,
+        @JsonProperty("team") val team: String,
         @JsonProperty("user") val user: String,
         @JsonProperty("team_id") val teamId: String,
         @JsonProperty("user_id") val userId: String)
