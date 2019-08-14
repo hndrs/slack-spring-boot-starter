@@ -24,5 +24,6 @@ internal class ConversationMembersRequestTest {
 
         assertEquals(channelId, minRequestMap["channel"])
         assertEquals(1, minRequestMap.size)
+
     }
 }

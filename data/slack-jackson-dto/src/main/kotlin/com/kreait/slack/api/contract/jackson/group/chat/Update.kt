@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.messaging.UpdateAttachment
+import java.time.Instant
 
 @JacksonDataClass
 data class ChatUpdateRequest constructor(@JsonProperty("channel") val channel: String,
                                          @JsonProperty("text") val text: String? = null,
-                                         @JsonProperty("ts") val timestamp: String? = null,
+                                         @JsonProperty("ts") val timestamp: Instant,
                                          @JsonProperty("as_user") val asUser: Boolean? = true,
                                          @JsonProperty("attachments") val attachments: List<UpdateAttachment>? = null,
                                          @JsonProperty("link_names") val linkNames: Boolean? = true,
@@ -31,7 +32,7 @@ sealed class ChatUpdateResponse constructor(@JsonProperty("ok") open val ok: Boo
 @JacksonDataClass
 data class SuccessfulChatUpdateResponse constructor(override val ok: Boolean,
                                                     @JsonProperty("channel") val channel: String,
-                                                    @JsonProperty("ts") val timestamp: String,
+                                                    @JsonProperty("ts") val timestamp: Instant,
                                                     @JsonProperty("text") val text: String?)
     : ChatUpdateResponse(ok) {
     companion object
