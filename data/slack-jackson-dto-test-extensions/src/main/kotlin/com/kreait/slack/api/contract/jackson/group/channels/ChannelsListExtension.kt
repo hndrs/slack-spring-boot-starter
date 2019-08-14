@@ -1,10 +1,12 @@
 package com.kreait.slack.api.contract.jackson.group.channels
 
+import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
+import com.kreait.slack.api.contract.jackson.common.sample
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 import com.kreait.slack.api.contract.jackson.group.chat.Message
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 
-fun SuccessfulChannelListResponse.Companion.sample(): SuccessfulChannelListResponse = SuccessfulChannelListResponse(true, listOf())
+fun SuccessfulChannelListResponse.Companion.sample(): SuccessfulChannelListResponse = SuccessfulChannelListResponse(true, listOf(), ResponseMetadata.sample())
 
 fun ErrorChannelListResponse.Companion.sample(): ErrorChannelListResponse = ErrorChannelListResponse(false, "")
 
