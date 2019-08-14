@@ -4,6 +4,11 @@ git:
   depth: false
 
 addons:
+  artifacts:
+    s3_region: "eu-central-1"
+    debug: true
+    paths:
+      - $HOME/docs/slack-spring-boot-docs/build/generated-docs
   sonarcloud:
     organization: "kreait"
     token:
@@ -48,3 +53,10 @@ jobs:
       name: "Publish Library"
       script: ./gradlew publish
       if: branch = master AND type != pull_request
+
+    - stage: publish
+      name: "Generate Reference Documentation"
+      script: ./gradlew asciidoctor
+      if: type = pull_request
+
+
