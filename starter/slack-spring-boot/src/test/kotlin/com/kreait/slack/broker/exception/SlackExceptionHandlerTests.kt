@@ -1,5 +1,6 @@
 package com.kreait.slack.broker.exception
 
+import com.fasterxml.jackson.databind.JsonMappingException
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.group.dialog.DialogErrorResponse
@@ -25,6 +26,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.util.LinkedMultiValueMap
+import java.io.Closeable
 import java.time.Instant
 
 @DisplayName("SlackExceptionHandler")
@@ -39,6 +41,19 @@ internal class SlackExceptionHandlerTests {
         fun dialogValidationException() {
             val response = SlackExceptionHandler("TestResponse")
                     .handleDialogValidationException(DialogValidationException(emptyList()))
+
+            Assertions.assertEquals(response.statusCode, HttpStatus.OK)
+            Assertions.assertEquals(response.body, DialogErrorResponse(emptyList()))
+        }
+
+        @Test
+        @DisplayName("IllegalArgumentException")
+        fun illegalArgumentException() {
+            val response = SlackExceptionHandler("TestResponse")
+                    .handleIllegalArgumentException(
+                            IllegalArgumentException(
+                                    JsonMappingException(Closeable { }, "",
+                                            DialogValidationException(listOf()))))
 
             Assertions.assertEquals(response.statusCode, HttpStatus.OK)
             Assertions.assertEquals(response.body, DialogErrorResponse(emptyList()))
