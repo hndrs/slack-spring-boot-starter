@@ -4,8 +4,6 @@ import com.kreait.slack.api.contract.jackson.EventRequest
 import com.kreait.slack.api.contract.jackson.SlackChallenge
 import com.kreait.slack.api.contract.jackson.SlackEvent
 import com.kreait.slack.broker.configuration.Event
-import com.kreait.slack.broker.exception.ExceptionChain
-import com.kreait.slack.broker.exception.MustThrow
 import com.kreait.slack.broker.metrics.EventMetricsCollector
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.store.EventStore
@@ -74,8 +72,6 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
      * Invokes the receiver chain
      */
     private fun invoke(event: SlackEvent, headers: HttpHeaders, team: Team) {
-        val exceptionChain = ExceptionChain()
-
         this.slackEventReceivers
                 .filter { receiver ->
                     val supportsEvent = receiver.supportsEvent(event)
@@ -92,13 +88,10 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
                         receiver.onReceiveEvent(event, headers, team)
                     } catch (e: Exception) {
                         this.metricsCollector?.receiverExecutionError()
-                        if (receiver.shouldThrowException()) {
+                        if (receiver.shouldThrowException(e)) {
                             throw e
                         }
-                        if (e !is MustThrow) LOG.error("Exception", e)
-                        exceptionChain.add(e)
                     }
                 }
-        exceptionChain.evaluate()
     }
 }

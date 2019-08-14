@@ -2,7 +2,6 @@ package com.kreait.slack.broker.broker
 
 import com.kreait.slack.api.contract.jackson.SlackEvent
 import com.kreait.slack.api.contract.jackson.sample
-import com.kreait.slack.broker.exception.MustThrow
 import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.metrics.EventMetrics
 import com.kreait.slack.broker.receiver.EventReceiver
@@ -96,12 +95,12 @@ class EventBrokerTests {
 
         val teamStore = InMemoryTeamStore()
         teamStore.put(Team.sample().copy(teamId = "TestId"))
-        
+
         val eventStore = InMemoryEventStore()
 
 
         val sampleEvent = SlackEvent.sample().copy(teamId = "TestId", eventId = "TestEventId")
-        Assertions.assertThrows(MustThrowReceiver.Exception::class.java) {
+        Assertions.assertThrows(Exception::class.java) {
             EventBroker(listOf(MustThrowReceiver()), teamStore, eventStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
         }
     }
@@ -129,11 +128,12 @@ class EventBrokerTests {
     }
 
     class MustThrowReceiver : EventReceiver {
+        override fun shouldThrowException(exception: Exception): Boolean {
+            return true
+        }
 
         override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
             throw Exception()
         }
-
-        class Exception : MustThrow()
     }
 }

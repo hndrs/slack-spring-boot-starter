@@ -2,8 +2,6 @@ package com.kreait.slack.broker.broker
 
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.broker.configuration.Command
-import com.kreait.slack.broker.exception.ExceptionChain
-import com.kreait.slack.broker.exception.MustThrow
 import com.kreait.slack.broker.metrics.CommandMetricsCollector
 import com.kreait.slack.broker.receiver.MismatchCommandReciever
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
@@ -32,7 +30,6 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
     fun receiveCommand(@Command slackCommand: SlackCommand, @RequestHeader headers: HttpHeaders) {
 
         this.metricsCollector?.commandsReceived()
-        val exceptionChain = ExceptionChain()
 
         val team = this.teamStore.findById(slackCommand.teamId)
         slackCommandReceivers
@@ -49,14 +46,10 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
                         broker.onReceiveSlashCommand(slackCommand, headers, team)
                     } catch (e: Exception) {
                         this.metricsCollector?.receiverExecutionError()
-                        if (broker.shouldThrowException()) {
+                        if (broker.shouldThrowException(e)) {
                             throw e
                         }
-                        if (e !is MustThrow) LOG.error("{}", e)
-                        exceptionChain.add(e)
                     }
                 }
-        exceptionChain.evaluate()
-
     }
 }

@@ -2,8 +2,6 @@ package com.kreait.slack.broker.broker
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.group.oauth.AccessRequest
-import com.kreait.slack.broker.exception.ExceptionChain
-import com.kreait.slack.broker.exception.MustThrow
 import com.kreait.slack.broker.metrics.InstallationMetricsCollector
 import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.store.Team
@@ -49,9 +47,6 @@ class InstallationBroker constructor(
             val team = obtainOauthAccess(code)
             this.teamStore.put(team)
             this.metricsCollector?.successfulInstallation()
-
-            val exceptionChain = ExceptionChain()
-
             this.installationReceivers
                     .forEach { receiver ->
                         try {
@@ -59,13 +54,8 @@ class InstallationBroker constructor(
                             receiver.onReceiveInstallation(code, state, team)
                         } catch (e: Exception) {
                             this.metricsCollector?.receiverExecutionError()
-                            if (e !is MustThrow) LOG.error("{}", e)
-                            exceptionChain.add(e)
                         }
                     }
-
-            exceptionChain.evaluate()
-
             RedirectView(this.config.successRedirectUrl)
         } catch (exception: Exception) {
             LOG.error("There was an error during the installation", exception)
