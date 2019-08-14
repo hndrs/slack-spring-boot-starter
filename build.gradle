@@ -24,7 +24,10 @@ sonarqube {
         property "sonar.organization", "kreait"
         property "sonar.jacoco.report missing.force.zero", "true"
         property "sonar.pullrequest.provider", "github"
-        property "sonar.exclusions", "**/slack-jackson-dto-test-extensions/**,**/slack-jackson-dto/**,**/samples/**"
+        property "sonar.exclusions", "**/slack-jackson-dto-test-extensions/**," +
+                "**/slack-jackson-dto/**," +
+                "**/samples/**, " +
+                "**/SL4JLoggingReceiver.kt"
     }
 }
 
