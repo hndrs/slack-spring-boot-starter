@@ -4,11 +4,6 @@ git:
   depth: false
 
 addons:
-  artifacts:
-    s3_region: "eu-central-1"
-    debug: true
-    paths:
-      - $TRAVIS_BUILD_DIR/docs/slack-spring-boot-docs/build/generated-docs
   sonarcloud:
     organization: "kreait"
     token:
@@ -58,5 +53,12 @@ jobs:
       name: "Generate Reference Documentation"
       script: ./gradlew asciidoctor
       if: branch = master
+      addons:
+        artifacts:
+          s3_region: "eu-central-1"
+          debug: true
+          paths:
+            - $TRAVIS_BUILD_DIR/docs/slack-spring-boot-docs/build/generated-docs
+
 
 
