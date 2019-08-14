@@ -3,8 +3,6 @@ package com.kreait.slack.broker.broker
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
 import com.kreait.slack.api.contract.jackson.group.interactive_component.InteractiveComponentMessageResponse
 import com.kreait.slack.broker.configuration.InteractiveResponse
-import com.kreait.slack.broker.exception.ExceptionChain
-import com.kreait.slack.broker.exception.MustThrow
 import com.kreait.slack.broker.metrics.InteractiveComponentMetricsCollector
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
 import com.kreait.slack.broker.store.TeamStore
@@ -30,8 +28,6 @@ class InteractiveComponentBroker constructor(private val slackInteractiveCompone
     fun receiveEvents(@InteractiveResponse interactiveComponentResponse: InteractiveComponentResponse, @RequestHeader headers: HttpHeaders): ResponseEntity<InteractiveComponentMessageResponse> {
         this.metricsCollector?.responseReceived()
 
-        val exceptionChain = ExceptionChain()
-
         val team = this.teamStore.findById(interactiveComponentResponse.team.id)
         slackInteractiveComponentReceivers
                 .filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
@@ -42,15 +38,11 @@ class InteractiveComponentBroker constructor(private val slackInteractiveCompone
                         receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
                     } catch (e: Exception) {
                         this.metricsCollector?.receiverExecutionError()
-                        if (receiver.shouldThrowException()) {
+                        if (receiver.shouldThrowException(e)) {
                             throw e
                         }
-                        if (e !is MustThrow) LOG.error("{}", e)
-                        exceptionChain.add(e)
                     }
                 }
-
-        exceptionChain.evaluate()
 
         return if (interactiveComponentResponse.type == "interactive_message") {
             ResponseEntity(InteractiveComponentMessageResponse(deleteOriginal = true), HttpStatus.OK)

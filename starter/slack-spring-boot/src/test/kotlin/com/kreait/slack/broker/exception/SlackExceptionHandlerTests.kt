@@ -15,7 +15,6 @@ import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.security.VerificationException
 import com.kreait.slack.broker.store.InMemoryTeamStore
 import com.kreait.slack.broker.store.Team
-import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -59,7 +58,7 @@ internal class SlackExceptionHandlerTests {
         @DisplayName("RuntimeException")
         fun runtimeException() {
             val response = SlackExceptionHandler("TestResponse")
-                    .handleExceptionInternal(RuntimeException(), mock { })
+                    .handleExceptionInternal(RuntimeException())
 
             Assertions.assertEquals(response.statusCode, HttpStatus.OK)
             Assertions.assertEquals(response.body, "TestResponse")
