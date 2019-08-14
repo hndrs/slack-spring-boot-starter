@@ -31,7 +31,8 @@ class SlackExceptionHandler(private val errorResponse: String) {
     }
 
     /**
-     * Handle [IllegalArgumentException]s
+     * Handles [IllegalArgumentException]s
+     * unwraps [IllegalArgumentException]s to check for wrapped [JsonMappingException]s (because Jackson wraps them)
      * This will also handle wrapped [DialogValidationException]s and return the correct type
      */
     @ExceptionHandler(IllegalArgumentException::class)
