@@ -101,7 +101,7 @@ class EventBrokerTests {
 
         val sampleEvent = SlackEvent.sample().copy(teamId = "TestId", eventId = "TestEventId")
         Assertions.assertThrows(Exception::class.java) {
-            EventBroker(listOf(MustThrowReceiver(), MustThrowReceiver()), teamStore, eventStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
+            EventBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore, eventStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
         }
     }
 
@@ -124,7 +124,7 @@ class EventBrokerTests {
 
     }
 
-    class MustThrowReceiver : EventReceiver {
+    class ShouldThrowReceiver : EventReceiver {
         override fun shouldThrowException(exception: Exception): Boolean {
             return true
         }
