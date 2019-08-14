@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
+import java.util.concurrent.atomic.AtomicInteger
 
 @DisplayName("Event Broker Tests")
 class InteractiveComponentBrokerTests {
@@ -83,6 +84,61 @@ class InteractiveComponentBrokerTests {
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
     }
+
+    @Test
+    @DisplayName("Test InteractiveComponentReceiver order")
+    fun testComponentReceiverExecutionOrder() {
+        val atomic = AtomicInteger(0)
+        val first = FirstComponentReceiver(atomic)
+        val second = SecondComponentReceiver(atomic)
+        val third = ThirdComponentReceiver(atomic)
+        val event = InteractiveComponentResponse.sample()
+                .copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestTeamId"))
+        val store = InMemoryTeamStore()
+        store.put(Team.sample().copy(teamId = "TestTeamId"))
+
+        InteractiveComponentBroker(listOf(third, second, first), store)
+                .receiveEvents(event, HttpHeaders.EMPTY)
+
+        Assertions.assertEquals(0, first.currentOrder)
+        Assertions.assertEquals(1, second.currentOrder)
+        Assertions.assertEquals(2, third.currentOrder)
+    }
+
+    class FirstComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver {
+        var currentOrder: Int? = null
+
+        override fun order(): Int {
+            return 1
+        }
+
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
+    class SecondComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver {
+        var currentOrder: Int? = null
+        override fun order(): Int {
+            return 2
+        }
+
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
+    class ThirdComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver {
+        var currentOrder: Int? = null
+        override fun order(): Int {
+            return 3
+        }
+
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
 
     class SuccessReceiver : InteractiveComponentReceiver {
         var executed: Boolean = false
