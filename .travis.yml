@@ -53,11 +53,7 @@ jobs:
       name: "Generate Reference Documentation"
       script: ./gradlew asciidoctor
       if: branch = master
-      addons:
-        artifacts:
-          debug: true
-          paths:
-            - $TRAVIS_BUILD_DIR/docs/slack-spring-boot-docs/build/generated-docs
+
 
 
 
