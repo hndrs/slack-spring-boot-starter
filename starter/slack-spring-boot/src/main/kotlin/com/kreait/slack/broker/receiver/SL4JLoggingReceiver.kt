@@ -13,7 +13,7 @@ class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InteractiveComp
         return Ordered.HIGHEST_PRECEDENCE
     }
 
-    override fun shouldThrowException(): Boolean {
+    override fun shouldThrowException(exception: Exception): Boolean {
         return false
     }
 

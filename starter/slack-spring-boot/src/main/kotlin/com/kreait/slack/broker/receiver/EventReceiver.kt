@@ -11,7 +11,7 @@ interface EventReceiver {
 
     fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team)
 
-    fun shouldThrowException(): Boolean = false
+    fun shouldThrowException(exception:Exception): Boolean = false
 
     fun order(): Int = Ordered.HIGHEST_PRECEDENCE
 }
