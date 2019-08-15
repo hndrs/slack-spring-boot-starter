@@ -1,7 +1,6 @@
 package com.kreait.slack.api.test.group.channel
 
 import com.kreait.slack.api.group.channels.ChannelsHistoryMethod
-import com.kreait.slack.api.group.channels.ChannelsJoinMethod
 import com.kreait.slack.api.group.channels.ChannelsKickMethod
 import com.kreait.slack.api.group.channels.ChannelsLeaveMethod
 import com.kreait.slack.api.group.channels.ChannelsMarkMethod
@@ -20,6 +19,7 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     private val mockChannelsSetPurposeMethod = MockChannelsSetPurposeMethod()
     private val mockChannelKickMethod = MockChannelsKickMethod()
     private val mockChannelsUnarchiveMethod = MockChannelsUnarchiveMethod()
+    private val mockChannelsJoinMethod = MockChannelsJoinMethod()
 
     override fun archive(authToken: String): MockChannelsArchiveMethod {
         return mockChannelsArchiveMethod
@@ -41,8 +41,8 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
         return mockChannelsInviteMethod
     }
 
-    override fun join(authToken: String): ChannelsJoinMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun join(authToken: String): MockChannelsJoinMethod {
+        return mockChannelsJoinMethod
     }
 
     override fun kick(authToken: String): ChannelsKickMethod {
