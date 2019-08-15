@@ -8,7 +8,6 @@ import com.kreait.slack.api.group.channels.ChannelsInviteMethod
 import com.kreait.slack.api.group.channels.ChannelsJoinMethod
 import com.kreait.slack.api.group.channels.ChannelsKickMethod
 import com.kreait.slack.api.group.channels.ChannelsLeaveMethod
-import com.kreait.slack.api.group.channels.ChannelsListMethod
 import com.kreait.slack.api.group.channels.ChannelsMarkMethod
 import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.channels.ChannelsRenameMethod
@@ -45,10 +44,6 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
     }
 
     override fun leave(authToken: String): ChannelsLeaveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun list(authToken: String): ChannelsListMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
