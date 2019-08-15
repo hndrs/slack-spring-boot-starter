@@ -11,32 +11,32 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
         visible = true)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelSetPurposeResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelSetPurposeResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulChannelsSetPurposeResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorChannelsSetPurposeResponse::class, name = "false")
 )
 
 @JacksonDataClass
-sealed class ChannelSetPurposeResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ChannelsSetPurposeResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulChannelSetPurposeResponse constructor(override val ok: Boolean,
-                                                           @JsonProperty("purpose") val purpose: String)
-    : ChannelSetPurposeResponse(ok) {
+data class SuccessfulChannelsSetPurposeResponse constructor(override val ok: Boolean,
+                                                            @JsonProperty("purpose") val purpose: String)
+    : ChannelsSetPurposeResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorChannelSetPurposeResponse constructor(override val ok: Boolean,
-                                                      @JsonProperty("error") val error: String)
-    : ChannelSetPurposeResponse(ok) {
+data class ErrorChannelsSetPurposeResponse constructor(override val ok: Boolean,
+                                                       @JsonProperty("error") val error: String)
+    : ChannelsSetPurposeResponse(ok) {
     companion object
 }
 
 
 @JacksonDataClass
-data class ChannelSetPurposeRequest constructor(@JsonProperty("channel") val channel: String,
-                                                @JsonProperty("purpose") val purpose: String,
-                                                @JsonProperty("name_tagging") val nameTagging: Boolean? = true) {
+data class ChannelsSetPurposeRequest constructor(@JsonProperty("channel") val channel: String,
+                                                 @JsonProperty("purpose") val purpose: String,
+                                                 @JsonProperty("name_tagging") val nameTagging: Boolean? = true) {
 
     companion object
 }

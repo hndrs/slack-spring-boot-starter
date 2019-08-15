@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.channels
 
-import com.kreait.slack.api.contract.jackson.group.channels.ChannelSetPurposeRequest
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelSetPurposeResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelSetPurposeResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelsSetPurposeRequest
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsSetPurposeResponse
+import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsSetPurposeResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -16,13 +16,13 @@ class MockChannelsSetPurposeUnitTest {
     @DisplayName("Mocking Successful")
     @Test
     fun testMockMethod() {
-        val successFunction: (SuccessfulChannelSetPurposeResponse?) -> Any = mock { }
-        val failureFunction: (ErrorChannelSetPurposeResponse?) -> Any = mock { }
+        val successFunction: (SuccessfulChannelsSetPurposeResponse?) -> Any = mock { }
+        val failureFunction: (ErrorChannelsSetPurposeResponse?) -> Any = mock { }
         val mockSlackClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockSlackClient.channel().setPurpose("") },
-                successFunction, SuccessfulChannelSetPurposeResponse.sample(),
-                failureFunction, ErrorChannelSetPurposeResponse.sample(),
-                ChannelSetPurposeRequest.sample())
+                successFunction, SuccessfulChannelsSetPurposeResponse.sample(),
+                failureFunction, ErrorChannelsSetPurposeResponse.sample(),
+                ChannelsSetPurposeRequest.sample())
     }
 }

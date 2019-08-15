@@ -40,7 +40,7 @@ interface ChannelsMethodGroup {
     fun setPurpose(authToken: String): ChannelsSetPurposeMethod
 
     /**Sets the topic for a channel.*/
-    fun setTopic(authToken: String): SetChannelsTopicMethod
+    fun setTopic(authToken: String): ChannelsSetTopicMethod
 
     /**Unarchives a channel.*/
     fun unarchive(authToken: String): ChannelsUnarchiveMethod
