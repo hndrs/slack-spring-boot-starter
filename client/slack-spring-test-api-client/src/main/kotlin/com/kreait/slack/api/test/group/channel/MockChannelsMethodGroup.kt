@@ -8,8 +8,8 @@ import com.kreait.slack.api.group.channels.ChannelsMarkMethod
 import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.channels.ChannelsRenameMethod
 import com.kreait.slack.api.group.channels.ChannelsRepliesMethod
+import com.kreait.slack.api.group.channels.ChannelsSetPurposeMethod
 import com.kreait.slack.api.group.channels.ChannelsUnarchiveMethod
-import com.kreait.slack.api.group.channels.SetChannelsPurposeMethod
 import com.kreait.slack.api.group.channels.SetChannelsTopicMethod
 
 class MockChannelsMethodGroup : ChannelsMethodGroup {
@@ -18,7 +18,7 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     private val mockChannelsArchiveMethod = MockChannelsArchiveMethod()
     private val mockChannelsCreateMethod = MockChannelsCreateMethod()
     private val mockChannelsInviteMethod = MockChannelsInviteMethod()
-
+    private val mockChannelsSetPurposeMethod = MockChannelsSetPurposeMethod()
     override fun archive(authToken: String): MockChannelsArchiveMethod {
         return mockChannelsArchiveMethod
     }
@@ -63,8 +63,8 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setPurpose(authToken: String): SetChannelsPurposeMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setPurpose(authToken: String): ChannelsSetPurposeMethod {
+        return mockChannelsSetPurposeMethod
     }
 
     override fun setTopic(authToken: String): SetChannelsTopicMethod {
