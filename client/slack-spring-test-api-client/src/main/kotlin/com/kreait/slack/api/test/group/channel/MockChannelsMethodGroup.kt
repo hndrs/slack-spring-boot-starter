@@ -5,7 +5,6 @@ import com.kreait.slack.api.group.channels.ChannelsKickMethod
 import com.kreait.slack.api.group.channels.ChannelsLeaveMethod
 import com.kreait.slack.api.group.channels.ChannelsMarkMethod
 import com.kreait.slack.api.group.channels.ChannelsMethodGroup
-import com.kreait.slack.api.group.channels.ChannelsRenameMethod
 import com.kreait.slack.api.group.channels.ChannelsRepliesMethod
 import com.kreait.slack.api.group.channels.ChannelsSetPurposeMethod
 import com.kreait.slack.api.group.channels.SetChannelsTopicMethod
@@ -20,6 +19,7 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     private val mockChannelKickMethod = MockChannelsKickMethod()
     private val mockChannelsUnarchiveMethod = MockChannelsUnarchiveMethod()
     private val mockChannelsJoinMethod = MockChannelsJoinMethod()
+    private val mockChannelsRenameMethod = MockChannelsRenameMethod()
 
     override fun archive(authToken: String): MockChannelsArchiveMethod {
         return mockChannelsArchiveMethod
@@ -57,8 +57,8 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun rename(authToken: String): ChannelsRenameMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun rename(authToken: String): MockChannelsRenameMethod {
+        return mockChannelsRenameMethod
     }
 
     override fun replies(authToken: String): ChannelsRepliesMethod {
