@@ -48,7 +48,7 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
     }
 
     override fun mark(authToken: String): ChannelsMarkMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultChannelMarkMethod(authToken)
     }
 
     override fun rename(authToken: String): ChannelsRenameMethod {
