@@ -14,6 +14,11 @@ import com.kreait.slack.api.group.users.UsersMethodGroup
 
 interface SlackClient {
 
+    /**
+     * Convenience function to handle the authentication token
+     *
+     *  [Slack Api Documentation](https://api.slack.com/methods)
+     */
     fun auth(): AuthGroup
 
     /**
