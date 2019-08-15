@@ -56,7 +56,7 @@ class DefaultChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun replies(authToken: String): ChannelsRepliesMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultChannelRepliesMethod(authToken)
     }
 
     override fun setPurpose(authToken: String): ChannelsSetPurposeMethod {
