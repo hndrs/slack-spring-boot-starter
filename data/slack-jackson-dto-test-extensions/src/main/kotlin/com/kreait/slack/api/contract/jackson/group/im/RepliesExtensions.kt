@@ -7,7 +7,7 @@ fun SuccessfulImRepliesResponse.Companion.sample(): SuccessfulImRepliesResponse 
 }
 
 fun SuccessfulImRepliesResponse.Message.Companion.sample(): SuccessfulImRepliesResponse.Message {
-    return SuccessfulImRepliesResponse.Message("text", Instant.now())
+    return SuccessfulImRepliesResponse.Message("text", Instant.ofEpochSecond(10000))
 }
 
 fun ErrorImRepliesResponse.Companion.sample(): ErrorImRepliesResponse = ErrorImRepliesResponse(false, "error")

@@ -6,7 +6,7 @@ fun Message.Companion.sample(): Message = Message(
         "",
         "",
         "",
-        Instant.now(),
+        Instant.ofEpochSecond(10000),
         "",
         listOf(),
         ""

@@ -7,9 +7,9 @@ fun ErrorChatUpdateResponse.Companion.sample(): ErrorChatUpdateResponse {
 }
 
 fun SuccessfulChatUpdateResponse.Companion.sample(): SuccessfulChatUpdateResponse {
-    return SuccessfulChatUpdateResponse(true, "", Instant.now(), "")
+    return SuccessfulChatUpdateResponse(true, "", Instant.ofEpochSecond(10000), "")
 }
 
 fun ChatUpdateRequest.Companion.sample(): ChatUpdateRequest {
-    return ChatUpdateRequest("", "", Instant.now(), false, listOf(), false)
+    return ChatUpdateRequest("", "", Instant.ofEpochSecond(10000), false, listOf(), false)
 }
