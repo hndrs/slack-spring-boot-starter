@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.channels
 
-import com.kreait.slack.api.contract.jackson.group.channels.ChannelSetPurposeRequest
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelSetPurposeResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelSetPurposeResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelsSetPurposeRequest
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsSetPurposeResponse
+import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsSetPurposeResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -24,12 +24,12 @@ class DefaultChannelSetPurposeMethodTest {
     @Test
     @DisplayName("channels.setPurpose Failure")
     fun channelSetPurposeFailure() {
-        val response = ErrorChannelSetPurposeResponse.sample()
+        val response = ErrorChannelsSetPurposeResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.setPurpose", response)
         val verifier = Verifier(response)
 
         DefaultChannelSetPurposeMethod("", mockTemplate)
-                .with(ChannelSetPurposeRequest.sample())
+                .with(ChannelsSetPurposeRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -39,12 +39,12 @@ class DefaultChannelSetPurposeMethodTest {
     @Test
     @DisplayName("channels.setPurpose Success")
     fun channelSetPurposeSuccess() {
-        val response = SuccessfulChannelSetPurposeResponse.sample()
+        val response = SuccessfulChannelsSetPurposeResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.setPurpose", response)
         val verifier = Verifier(response)
 
         DefaultChannelSetPurposeMethod("", mockTemplate)
-                .with(ChannelSetPurposeRequest.sample())
+                .with(ChannelsSetPurposeRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

@@ -3,8 +3,8 @@ package com.kreait.slack.api.contract.jackson.group.channels
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 import com.kreait.slack.api.contract.jackson.common.types.sample
 
-fun ChannelCreateRequest.Companion.sample(): ChannelCreateRequest = ChannelCreateRequest("", true)
+fun ChannelsCreateRequest.Companion.sample(): ChannelsCreateRequest = ChannelsCreateRequest("", true)
 
-fun SuccessfulChannelCreateResponse.Companion.sample(): SuccessfulChannelCreateResponse = SuccessfulChannelCreateResponse(true, Channel.sample())
+fun SuccessfulChannelsCreateResponse.Companion.sample(): SuccessfulChannelsCreateResponse = SuccessfulChannelsCreateResponse(true, Channel.sample())
 
-fun ErrorChannelCreateResponse.Companion.sample(): ErrorChannelCreateResponse = ErrorChannelCreateResponse(false, "", "")
+fun ErrorChannelsCreateResponse.Companion.sample(): ErrorChannelsCreateResponse = ErrorChannelsCreateResponse(false, "", "")

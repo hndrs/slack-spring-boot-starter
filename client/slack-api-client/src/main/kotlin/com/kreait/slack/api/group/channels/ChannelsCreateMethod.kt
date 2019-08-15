@@ -1,10 +1,10 @@
 package com.kreait.slack.api.group.channels
 
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelCreateResponse
-import com.kreait.slack.api.contract.jackson.group.channels.ChannelCreateRequest
-import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelCreateResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsCreateResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelsCreateRequest
+import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsCreateResponse
 import com.kreait.slack.api.group.ApiCallMethod
 
-abstract class ChannelsCreateMethod : ApiCallMethod<ChannelsCreateMethod, SuccessfulChannelCreateResponse, ErrorChannelCreateResponse, ChannelCreateRequest>() {
+abstract class ChannelsCreateMethod : ApiCallMethod<ChannelsCreateMethod, SuccessfulChannelsCreateResponse, ErrorChannelsCreateResponse, ChannelsCreateRequest>() {
 
 }

@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.channels
 
-fun ChannelSetPurposeRequest.Companion.sample(): ChannelSetPurposeRequest = ChannelSetPurposeRequest("", "")
+fun ChannelsSetPurposeRequest.Companion.sample(): ChannelsSetPurposeRequest = ChannelsSetPurposeRequest("", "")
 
-fun SuccessfulChannelSetPurposeResponse.Companion.sample(): SuccessfulChannelSetPurposeResponse = SuccessfulChannelSetPurposeResponse(true, "")
+fun SuccessfulChannelsSetPurposeResponse.Companion.sample(): SuccessfulChannelsSetPurposeResponse = SuccessfulChannelsSetPurposeResponse(true, "")
 
-fun ErrorChannelSetPurposeResponse.Companion.sample(): ErrorChannelSetPurposeResponse = ErrorChannelSetPurposeResponse(false, "")
+fun ErrorChannelsSetPurposeResponse.Companion.sample(): ErrorChannelsSetPurposeResponse = ErrorChannelsSetPurposeResponse(false, "")

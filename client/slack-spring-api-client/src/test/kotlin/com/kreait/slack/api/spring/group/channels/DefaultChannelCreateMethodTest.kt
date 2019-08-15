@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.channels
 
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelCreateResponse
-import com.kreait.slack.api.contract.jackson.group.channels.ChannelCreateRequest
-import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelCreateResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsCreateResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelsCreateRequest
+import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsCreateResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -24,12 +24,12 @@ class DefaultChannelCreateMethodTest {
     @Test
     @DisplayName("channels.create Failure")
     fun channelCreateFailure() {
-        val response = ErrorChannelCreateResponse.sample()
+        val response = ErrorChannelsCreateResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.create", response)
         val verifier = Verifier(response)
 
         DefaultChannelCreateMethod("", mockTemplate)
-                .with(ChannelCreateRequest.sample())
+                .with(ChannelsCreateRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
         mockServer.verify()
@@ -39,12 +39,12 @@ class DefaultChannelCreateMethodTest {
     @Test
     @DisplayName("channels.create Success")
     fun channelCreateSuccess() {
-        val response = SuccessfulChannelCreateResponse.sample()
+        val response = SuccessfulChannelsCreateResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.create", response)
         val verifier = Verifier(response)
 
         DefaultChannelCreateMethod("", mockTemplate)
-                .with(ChannelCreateRequest.sample())
+                .with(ChannelsCreateRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
         mockServer.verify()

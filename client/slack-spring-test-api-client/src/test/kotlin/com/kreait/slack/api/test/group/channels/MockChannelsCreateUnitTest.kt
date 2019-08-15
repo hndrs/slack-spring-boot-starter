@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.channels
 
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelCreateResponse
-import com.kreait.slack.api.contract.jackson.group.channels.ChannelCreateRequest
-import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelCreateResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsCreateResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelsCreateRequest
+import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsCreateResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -16,13 +16,13 @@ class MockChannelsCreateUnitTest {
     @DisplayName("Mocking Successful")
     @Test
     fun testMockMethod() {
-        val successFunction: (SuccessfulChannelCreateResponse?) -> Any = mock { }
-        val failureFunction: (ErrorChannelCreateResponse?) -> Any = mock { }
+        val successFunction: (SuccessfulChannelsCreateResponse?) -> Any = mock { }
+        val failureFunction: (ErrorChannelsCreateResponse?) -> Any = mock { }
         val mockSlackClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockSlackClient.channel().create("") },
-                successFunction, SuccessfulChannelCreateResponse.sample(),
-                failureFunction, ErrorChannelCreateResponse.sample(),
-                ChannelCreateRequest.sample())
+                successFunction, SuccessfulChannelsCreateResponse.sample(),
+                failureFunction, ErrorChannelsCreateResponse.sample(),
+                ChannelsCreateRequest.sample())
     }
 }
