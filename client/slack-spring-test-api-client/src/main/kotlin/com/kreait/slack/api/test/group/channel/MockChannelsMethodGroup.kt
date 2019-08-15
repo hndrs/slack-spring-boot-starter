@@ -9,7 +9,6 @@ import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.channels.ChannelsRenameMethod
 import com.kreait.slack.api.group.channels.ChannelsRepliesMethod
 import com.kreait.slack.api.group.channels.ChannelsSetPurposeMethod
-import com.kreait.slack.api.group.channels.ChannelsUnarchiveMethod
 import com.kreait.slack.api.group.channels.SetChannelsTopicMethod
 
 class MockChannelsMethodGroup : ChannelsMethodGroup {
@@ -20,6 +19,7 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     private val mockChannelsInviteMethod = MockChannelsInviteMethod()
     private val mockChannelsSetPurposeMethod = MockChannelsSetPurposeMethod()
     private val mockChannelKickMethod = MockChannelsKickMethod()
+    private val mockChannelsUnarchiveMethod = MockChannelsUnarchiveMethod()
 
     override fun archive(authToken: String): MockChannelsArchiveMethod {
         return mockChannelsArchiveMethod
@@ -73,7 +73,7 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun unarchive(authToken: String): ChannelsUnarchiveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun unarchive(authToken: String): MockChannelsUnarchiveMethod {
+        return mockChannelsUnarchiveMethod
     }
 }
