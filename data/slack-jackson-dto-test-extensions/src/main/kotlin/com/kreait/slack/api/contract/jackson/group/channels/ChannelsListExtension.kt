@@ -1,5 +1,6 @@
 package com.kreait.slack.api.contract.jackson.group.channels
 
+import com.kreait.slack.api.contract.jackson.common.InstantSample
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.sample
 import com.kreait.slack.api.contract.jackson.common.types.Channel
@@ -14,7 +15,7 @@ fun Channel.Companion.sample(): Channel = Channel(
         id = "",
         name = "",
         isChannel = true,
-        created = 0,
+        createdAt = InstantSample.sample(),
         isArchived = false,
         isGeneral = true,
         unlinked = 0,
@@ -25,7 +26,7 @@ fun Channel.Companion.sample(): Channel = Channel(
         isMember = false,
         isPrivate = false,
         isMpim = false,
-        lastRead = "",
+        lastReadAt = InstantSample.sample(),
         latest = Message.sample(),
         unreadCount = 0,
         unreadCountDisplay = 0,
@@ -37,6 +38,6 @@ fun Channel.Companion.sample(): Channel = Channel(
 )
 
 
-fun Channel.Topic.Companion.sample(): Channel.Topic = Channel.Topic("", "", 0)
+fun Channel.Topic.Companion.sample(): Channel.Topic = Channel.Topic("", "", InstantSample.sample())
 
-fun Channel.Purpose.Companion.sample(): Channel.Purpose = Channel.Purpose("", "", 0)
+fun Channel.Purpose.Companion.sample(): Channel.Purpose = Channel.Purpose("", "", InstantSample.sample())

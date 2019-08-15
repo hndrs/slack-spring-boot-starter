@@ -1,5 +1,6 @@
 package com.kreait.slack.api.contract.jackson.group.conversations
 
+import com.kreait.slack.api.contract.jackson.common.InstantSample
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.sample
 import java.time.Instant
@@ -12,7 +13,7 @@ fun SuccessfulConversationHistoryResponse.Companion.sample() =
 fun ErrorConversationHistoryResponse.Companion.sample() = ErrorConversationHistoryResponse(false, "")
 
 fun Message.Companion.sample(): Message {
-    return Message("", "", "", Instant.ofEpochSecond(10000), listOf(Message.Attachment.sample()))
+    return Message("", "", "", InstantSample.sample(), listOf(Message.Attachment.sample()))
 }
 
 fun Message.Attachment.Companion.sample(): Message.Attachment {

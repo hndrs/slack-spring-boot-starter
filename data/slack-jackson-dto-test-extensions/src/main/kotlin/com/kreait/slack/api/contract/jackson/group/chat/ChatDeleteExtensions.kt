@@ -1,13 +1,13 @@
 package com.kreait.slack.api.contract.jackson.group.chat
 
-import java.time.Instant
+import com.kreait.slack.api.contract.jackson.common.InstantSample
 
 fun ChatDeleteRequest.Companion.sample(): ChatDeleteRequest {
-    return ChatDeleteRequest("", Instant.ofEpochSecond(10000), false)
+    return ChatDeleteRequest("", InstantSample.sample(), false)
 }
 
 fun SuccessfulChatDeleteResponse.Companion.sample(): SuccessfulChatDeleteResponse {
-    return SuccessfulChatDeleteResponse(true, "", Instant.ofEpochSecond(10000))
+    return SuccessfulChatDeleteResponse(true, "", InstantSample.sample())
 }
 
 fun ErrorChatDeleteResponse.Companion.sample(): ErrorChatDeleteResponse {

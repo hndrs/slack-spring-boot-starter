@@ -1,12 +1,12 @@
 package com.kreait.slack.api.contract.jackson.group.chat
 
-import java.time.Instant
+import com.kreait.slack.api.contract.jackson.common.InstantSample
 
 fun Message.Companion.sample(): Message = Message(
         "",
         "",
         "",
-        Instant.ofEpochSecond(10000),
+        InstantSample.sample(),
         "",
         listOf(),
         ""
