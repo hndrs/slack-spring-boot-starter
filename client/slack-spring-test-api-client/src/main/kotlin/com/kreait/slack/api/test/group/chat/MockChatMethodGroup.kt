@@ -10,6 +10,7 @@ class MockChatMethodGroup : ChatMethodGroup {
     private val mockChatDeleteMethod = MockChatDelete()
     private val mockChatGetPermalinkMethod = MockChatGetPermalink()
     private val mockChatMeMessageMethod = MockChatMeMessage()
+    private val mockChatUnfurl = MockChatUnfurl()
 
     override fun delete(authToken: String): MockChatDelete {
         return mockChatDeleteMethod
@@ -32,7 +33,7 @@ class MockChatMethodGroup : ChatMethodGroup {
     }
 
     override fun unfurl(authToken: String): ChatUnfurlMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mockChatUnfurl
     }
 
     override fun update(authToken: String): ChatUpdateMethod {

@@ -16,7 +16,7 @@ class DefaultChatMethodGroup : ChatMethodGroup {
     }
 
     override fun unfurl(authToken: String): ChatUnfurlMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultUnfurlMethod(authToken)
     }
 
     companion object {
