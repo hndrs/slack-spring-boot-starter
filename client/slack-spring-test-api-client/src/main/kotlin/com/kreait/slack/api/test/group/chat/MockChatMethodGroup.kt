@@ -1,6 +1,5 @@
 package com.kreait.slack.api.test.group.chat
 
-import com.kreait.slack.api.group.chat.ChatMeMessageMethod
 import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.chat.ChatUnfurlMethod
 import com.kreait.slack.api.group.chat.ChatUpdateMethod
@@ -10,6 +9,7 @@ class MockChatMethodGroup : ChatMethodGroup {
     private val mockChatPostMessageMethod = MockChatPostMessage()
     private val mockChatDeleteMethod = MockChatDelete()
     private val mockChatGetPermalinkMethod = MockChatGetPermalink()
+    private val mockChatMeMessageMethod = MockChatMeMessage()
 
     override fun delete(authToken: String): MockChatDelete {
         return mockChatDeleteMethod
@@ -19,8 +19,8 @@ class MockChatMethodGroup : ChatMethodGroup {
         return mockChatGetPermalinkMethod
     }
 
-    override fun meMessage(authToken: String): ChatMeMessageMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun meMessage(authToken: String): MockChatMeMessage {
+        return mockChatMeMessageMethod
     }
 
     override fun postEphemeral(authToken: String): MockChatPostEphemeral {

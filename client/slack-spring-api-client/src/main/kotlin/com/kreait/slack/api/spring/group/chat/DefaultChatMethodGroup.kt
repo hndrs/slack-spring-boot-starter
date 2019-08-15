@@ -12,7 +12,7 @@ class DefaultChatMethodGroup : ChatMethodGroup {
     }
 
     override fun meMessage(authToken: String): ChatMeMessageMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultMeMessageMethod(authToken)
     }
 
     override fun unfurl(authToken: String): ChatUnfurlMethod {
