@@ -20,7 +20,8 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     private val mockChannelsSetTopicMethod = MockChannelsSetTopicMethod()
     private val mockChannelsMarkMethod = MockChannelsMarkMethod()
     private val mockChannelsRepliesMethod = MockChannelsRepliesMethod()
-
+    private val mockChannelsLeaveMethod = MockChannelsLeaveMethod()
+    
     override fun archive(authToken: String): MockChannelsArchiveMethod {
         return mockChannelsArchiveMethod
     }
@@ -50,7 +51,7 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun leave(authToken: String): ChannelsLeaveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mockChannelsLeaveMethod
     }
 
 

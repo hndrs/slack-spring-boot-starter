@@ -44,7 +44,7 @@ class DefaultChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun leave(authToken: String): ChannelsLeaveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultChannelsLeaveMethod(authToken)
     }
 
     override fun mark(authToken: String): ChannelsMarkMethod {
