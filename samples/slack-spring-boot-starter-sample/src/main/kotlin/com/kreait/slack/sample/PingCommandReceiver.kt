@@ -2,6 +2,7 @@ package com.kreait.slack.sample
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.SlackCommand
+import com.kreait.slack.api.contract.jackson.group.chat.ChatUpdateRequest
 import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.Team
@@ -19,7 +20,19 @@ class PingCommandReceiver @Autowired constructor(private val slackClient: SlackC
         this.slackClient.chat().postMessage(team.bot.accessToken)
                 .with(PostMessageRequest(
                         text = "Pong",
-                        channel = "dasd"
-                )).invoke()
+                        channel = slackCommand.channelId
+                )).onSuccess {
+                    this.slackClient.chat()
+                            .update(team.bot.accessToken)
+                            .with(ChatUpdateRequest(channel = slackCommand.channelId,
+                                    text = "ping",
+                                    timestamp = it.timestamp))
+                            .onSuccess { println(it) }
+                            .onFailure { println(it) }
+                            .invoke()
+                }.onFailure {
+                    println(it)
+                }
+                .invoke()
     }
 }
