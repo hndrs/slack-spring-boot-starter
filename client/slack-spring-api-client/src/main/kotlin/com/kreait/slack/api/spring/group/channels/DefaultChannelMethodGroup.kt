@@ -40,7 +40,7 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
     }
 
     override fun kick(authToken: String): ChannelsKickMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultGetChannelKickMethod(authToken)
     }
 
     override fun leave(authToken: String): ChannelsLeaveMethod {
