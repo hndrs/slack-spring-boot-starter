@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import java.time.Instant
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -20,8 +21,8 @@ sealed class ImListResponse constructor(@JsonProperty(value = "ok") open val ok:
 
 @JacksonDataClass
 data class SuccessfulImListResponse constructor(override val ok: Boolean,
-                                                val ims: List<Im>,
-                                                val responseMetadata: ResponseMetadata)
+                                                @JsonProperty("ims") val ims: List<Im>,
+                                                @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata)
     : ImListResponse(ok) {
     companion object
 }
@@ -32,16 +33,16 @@ data class ErrorImListResponse constructor(override val ok: Boolean,
     companion object
 }
 
-data class Im(val created: Int,
-              val id: String,
-              val isIm: Boolean,
-              val isOrgShared: Boolean,
-              val isUserDeleted: Boolean,
-              val user: String) {
+data class Im(@JsonProperty("created") val createdAt: Instant,
+              @JsonProperty("id") val id: String,
+              @JsonProperty("is_im") val isIm: Boolean,
+              @JsonProperty("is_org_shared") val isOrgShared: Boolean,
+              @JsonProperty("is_user_deleted") val isUserDeleted: Boolean,
+              @JsonProperty("user") val user: String) {
     companion object
 }
 
-data class ResponseMetadata(val nextCursor: String) {
+data class ResponseMetadata(@JsonProperty("next_cursor") val nextCursor: String) {
     companion object
 }
 

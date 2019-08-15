@@ -1,5 +1,6 @@
 package com.kreait.slack.api.contract.jackson.group.chat
 
+import com.kreait.slack.api.contract.jackson.common.InstantSample
 import java.time.Instant
 
 fun ErrorChatUpdateResponse.Companion.sample(): ErrorChatUpdateResponse {
@@ -7,9 +8,9 @@ fun ErrorChatUpdateResponse.Companion.sample(): ErrorChatUpdateResponse {
 }
 
 fun SuccessfulChatUpdateResponse.Companion.sample(): SuccessfulChatUpdateResponse {
-    return SuccessfulChatUpdateResponse(true, "", Instant.ofEpochSecond(10000), "")
+    return SuccessfulChatUpdateResponse(true, "", InstantSample.sample(), "")
 }
 
 fun ChatUpdateRequest.Companion.sample(): ChatUpdateRequest {
-    return ChatUpdateRequest("", "", Instant.ofEpochSecond(10000), false, listOf(), false)
+    return ChatUpdateRequest("", "", InstantSample.sample(), false, listOf(), false)
 }

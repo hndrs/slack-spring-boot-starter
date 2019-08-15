@@ -1,8 +1,8 @@
 package com.kreait.slack.api.contract.jackson.group.conversations
 
+import com.kreait.slack.api.contract.jackson.common.InstantSample
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.sample
-import java.time.Instant
 
 fun ConversationsRepliesRequest.Companion.sample(): ConversationsRepliesRequest {
     return ConversationsRepliesRequest("", "")
@@ -17,6 +17,6 @@ fun ErrorConversationRepliesResponse.Companion.sample(): ErrorConversationReplie
 }
 
 fun SuccessfulConversationRepliesResponse.Message.Companion.sample(): SuccessfulConversationRepliesResponse.Message {
-    return SuccessfulConversationRepliesResponse.Message("", Instant.ofEpochSecond(10000), "", "")
+    return SuccessfulConversationRepliesResponse.Message("", InstantSample.sample(), "", "")
 }
 

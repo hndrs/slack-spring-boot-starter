@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.ChannelType
 import com.kreait.slack.api.contract.jackson.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
+import java.time.Instant
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
@@ -39,7 +40,7 @@ data class Channel(
         @JsonProperty("is_channel") val isChannel: Boolean?,
         @JsonProperty("is_group") val isGroup: Boolean?,
         @JsonProperty("is_im") val isIm: Boolean?,
-        @JsonProperty("created") val created: Int?,
+        @JsonProperty("created") val createdAt: Instant,
         @JsonProperty("creator") val creator: String = "",
         @JsonProperty("is_archived") val isArchived: Boolean?,
         @JsonProperty("is_general") val isGeneral: Boolean?,

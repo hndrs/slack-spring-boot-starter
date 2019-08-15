@@ -1,6 +1,6 @@
 package com.kreait.slack.api.contract.jackson.group.im
 
-import java.time.Instant
+import com.kreait.slack.api.contract.jackson.common.InstantSample
 
 fun SuccessfulImHistoryResponse.Companion.sample() = SuccessfulImHistoryResponse(true, "now", listOf(), false)
 
@@ -8,4 +8,4 @@ fun ErrorImHistoryResponse.Companion.sample() = ErrorImHistoryResponse(false, ""
 
 fun ImHistoryRequest.Companion.sample() = ImHistoryRequest("")
 
-fun SuccessfulImHistoryResponse.Message.Companion.sample() = SuccessfulImHistoryResponse.Message("", Instant.ofEpochSecond(10000))
+fun SuccessfulImHistoryResponse.Message.Companion.sample() = SuccessfulImHistoryResponse.Message("", InstantSample.sample())

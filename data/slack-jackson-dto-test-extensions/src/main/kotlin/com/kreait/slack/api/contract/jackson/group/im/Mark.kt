@@ -1,6 +1,6 @@
 package com.kreait.slack.api.contract.jackson.group.im
 
-import java.time.Instant
+import com.kreait.slack.api.contract.jackson.common.InstantSample
 
 fun SuccessfulImMarkResponse.Companion.sample(): SuccessfulImMarkResponse {
     return SuccessfulImMarkResponse(true)
@@ -11,5 +11,5 @@ fun ErrorImMarkResponse.Companion.sample(): ErrorImMarkResponse {
 }
 
 fun ImMarkRequest.Companion.sample(): ImMarkRequest {
-    return ImMarkRequest("", Instant.ofEpochSecond(10000))
+    return ImMarkRequest("", InstantSample.sample())
 }

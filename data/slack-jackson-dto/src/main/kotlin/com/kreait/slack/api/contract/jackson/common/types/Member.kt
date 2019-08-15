@@ -2,6 +2,7 @@ package com.kreait.slack.api.contract.jackson.common.types
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import java.time.Instant
 
 @JacksonDataClass
 data class Member(
@@ -21,7 +22,7 @@ data class Member(
         @JsonProperty("is_restricted") val isRestricted: Boolean,
         @JsonProperty("is_ultra_restricted") val isUltraRestricted: Boolean,
         @JsonProperty("is_bot") val isBot: Boolean,
-        @JsonProperty("updated") val updated: Int,
+        @JsonProperty("updated") val updated: Instant,
         @JsonProperty("is_app_user") val isAppUser: Boolean,
         @JsonProperty("has_2fa") val has2fa: Boolean,
         @JsonProperty("locale") val locale: String?
