@@ -18,7 +18,11 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     private val mockChannelsArchiveMethod = MockChannelsArchiveMethod()
     private val mockChannelsCreateMethod = MockChannelsCreateMethod()
     private val mockChannelsInviteMethod = MockChannelsInviteMethod()
+<<<<<<< HEAD
     private val mockChannelsSetPurposeMethod = MockChannelsSetPurposeMethod()
+=======
+    private val mockChannelKickMethod = MockChannelsKickMethod()
+>>>>>>> added channel kick method, mocks, tests, extensions and default impl
 
     override fun archive(authToken: String): MockChannelsArchiveMethod {
         return mockChannelsArchiveMethod
@@ -45,7 +49,7 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun kick(authToken: String): ChannelsKickMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mockChannelKickMethod
     }
 
     override fun leave(authToken: String): ChannelsLeaveMethod {
