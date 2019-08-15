@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.channels
 
-fun ChannelsArchiveRequest.Companion.sample(): ChannelsArchiveRequest = ChannelsArchiveRequest("")
+fun ChannelsUnarchiveRequest.Companion.sample(): ChannelsUnarchiveRequest = ChannelsUnarchiveRequest("")
 
-fun ErrorChannelArchiveResponse.Companion.sample(): ErrorChannelArchiveResponse = ErrorChannelArchiveResponse(false, "")
+fun ErrorChannelUnarchiveResponse.Companion.sample(): ErrorChannelUnarchiveResponse = ErrorChannelUnarchiveResponse(false, "")
 
-fun SuccessfulChannelArchiveResponse.Companion.sample(): SuccessfulChannelArchiveResponse = SuccessfulChannelArchiveResponse(true)
+fun SuccessfulChannelUnarchiveResponse.Companion.sample(): SuccessfulChannelUnarchiveResponse = SuccessfulChannelUnarchiveResponse(true)
