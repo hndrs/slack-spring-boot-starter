@@ -37,7 +37,7 @@ interface ChannelsMethodGroup {
     fun replies(authToken: String): ChannelsRepliesMethod
 
     /**Sets the purpose for a channel.*/
-    fun setPurpose(authToken: String): SetChannelsPurposeMethod
+    fun setPurpose(authToken: String): ChannelsSetPurposeMethod
 
     /**Sets the topic for a channel.*/
     fun setTopic(authToken: String): SetChannelsTopicMethod

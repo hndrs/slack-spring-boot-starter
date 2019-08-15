@@ -12,8 +12,8 @@ import com.kreait.slack.api.group.channels.ChannelsMarkMethod
 import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.channels.ChannelsRenameMethod
 import com.kreait.slack.api.group.channels.ChannelsRepliesMethod
+import com.kreait.slack.api.group.channels.ChannelsSetPurposeMethod
 import com.kreait.slack.api.group.channels.ChannelsUnarchiveMethod
-import com.kreait.slack.api.group.channels.SetChannelsPurposeMethod
 import com.kreait.slack.api.group.channels.SetChannelsTopicMethod
 import org.slf4j.LoggerFactory
 
@@ -59,8 +59,8 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setPurpose(authToken: String): SetChannelsPurposeMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setPurpose(authToken: String): ChannelsSetPurposeMethod {
+        return DefaultChannelSetPurposeMethod(authToken)
     }
 
     override fun setTopic(authToken: String): SetChannelsTopicMethod {
