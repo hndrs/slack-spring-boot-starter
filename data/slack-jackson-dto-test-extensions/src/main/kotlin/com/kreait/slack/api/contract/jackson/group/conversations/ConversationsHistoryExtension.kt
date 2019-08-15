@@ -12,7 +12,7 @@ fun SuccessfulConversationHistoryResponse.Companion.sample() =
 fun ErrorConversationHistoryResponse.Companion.sample() = ErrorConversationHistoryResponse(false, "")
 
 fun Message.Companion.sample(): Message {
-    return Message("", "", "", Instant.now(), listOf(Message.Attachment.sample()))
+    return Message("", "", "", Instant.ofEpochSecond(10000), listOf(Message.Attachment.sample()))
 }
 
 fun Message.Attachment.Companion.sample(): Message.Attachment {

@@ -11,5 +11,5 @@ fun ErrorImMarkResponse.Companion.sample(): ErrorImMarkResponse {
 }
 
 fun ImMarkRequest.Companion.sample(): ImMarkRequest {
-    return ImMarkRequest("", Instant.now())
+    return ImMarkRequest("", Instant.ofEpochSecond(10000))
 }

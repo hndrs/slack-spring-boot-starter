@@ -17,6 +17,6 @@ fun ErrorConversationRepliesResponse.Companion.sample(): ErrorConversationReplie
 }
 
 fun SuccessfulConversationRepliesResponse.Message.Companion.sample(): SuccessfulConversationRepliesResponse.Message {
-    return SuccessfulConversationRepliesResponse.Message("", Instant.now(), "", "")
+    return SuccessfulConversationRepliesResponse.Message("", Instant.ofEpochSecond(10000), "", "")
 }
 
