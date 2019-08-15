@@ -4,19 +4,19 @@ import com.kreait.slack.api.group.chat.ChatMeMessageMethod
 import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.chat.ChatUnfurlMethod
 import com.kreait.slack.api.group.chat.ChatUpdateMethod
-import com.kreait.slack.api.group.chat.GetChatPermalinkMethod
 
 class MockChatMethodGroup : ChatMethodGroup {
     private val mockChatPostEphemeralMethod = MockChatPostEphemeral()
     private val mockChatPostMessageMethod = MockChatPostMessage()
     private val mockChatDeleteMethod = MockChatDelete()
+    private val mockChatGetPermalinkMethod = MockChatGetPermalink()
 
     override fun delete(authToken: String): MockChatDelete {
         return mockChatDeleteMethod
     }
 
-    override fun getPermalink(authToken: String): GetChatPermalinkMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getPermalink(authToken: String): MockChatGetPermalink {
+        return mockChatGetPermalinkMethod
     }
 
     override fun meMessage(authToken: String): ChatMeMessageMethod {

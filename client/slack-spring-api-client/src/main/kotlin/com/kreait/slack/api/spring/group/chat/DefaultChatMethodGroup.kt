@@ -1,14 +1,14 @@
 package com.kreait.slack.api.spring.group.chat
 
+import com.kreait.slack.api.group.chat.ChatGetPermalinkMethod
 import com.kreait.slack.api.group.chat.ChatMeMessageMethod
 import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.chat.ChatUnfurlMethod
-import com.kreait.slack.api.group.chat.GetChatPermalinkMethod
 import org.slf4j.LoggerFactory
 
 class DefaultChatMethodGroup : ChatMethodGroup {
-    override fun getPermalink(authToken: String): GetChatPermalinkMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getPermalink(authToken: String): ChatGetPermalinkMethod {
+        return DefaultGetPermalinkMethod(authToken)
     }
 
     override fun meMessage(authToken: String): ChatMeMessageMethod {
