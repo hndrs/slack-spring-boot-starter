@@ -28,7 +28,7 @@ class DefaultChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun history(authToken: String): ChannelsHistoryMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return DefaultChannelHistoryMethod(authToken)
     }
 
     override fun invite(authToken: String): ChannelsInviteMethod {
