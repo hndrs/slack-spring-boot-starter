@@ -36,7 +36,7 @@ data class ErrorChannelSetPurposeResponse constructor(override val ok: Boolean,
 @JacksonDataClass
 data class ChannelSetPurposeRequest constructor(@JsonProperty("channel") val channel: String,
                                                 @JsonProperty("purpose") val purpose: String,
-                                                @JsonProperty("name_tagging") val nameTagging: Boolean = true) {
+                                                @JsonProperty("name_tagging") val nameTagging: Boolean? = true) {
 
     companion object
 }

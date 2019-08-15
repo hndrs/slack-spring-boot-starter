@@ -19,6 +19,7 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     private val mockChannelsCreateMethod = MockChannelsCreateMethod()
     private val mockChannelsInviteMethod = MockChannelsInviteMethod()
     private val mockChannelsSetPurposeMethod = MockChannelsSetPurposeMethod()
+
     override fun archive(authToken: String): MockChannelsArchiveMethod {
         return mockChannelsArchiveMethod
     }
