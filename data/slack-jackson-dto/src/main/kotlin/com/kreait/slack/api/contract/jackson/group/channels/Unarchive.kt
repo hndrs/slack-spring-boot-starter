@@ -3,7 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.channels
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -11,28 +11,28 @@ import com.kreait.slack.api.contract.jackson.JacksonDataClass
         visible = true)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelArchiveResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelArchiveResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulChannelUnarchiveResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorChannelUnarchiveResponse::class, name = "false")
 )
 
 @JacksonDataClass
-sealed class ChannelArchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ChannelUnarchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulChannelArchiveResponse constructor(override val ok: Boolean)
-    : ChannelArchiveResponse(ok){
+data class SuccessfulChannelUnarchiveResponse constructor(override val ok: Boolean)
+    : ChannelUnarchiveResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorChannelArchiveResponse constructor(override val ok: Boolean,
-                                                   @JsonProperty("error") val error: String)
-    : ChannelArchiveResponse(ok) {
+data class ErrorChannelUnarchiveResponse constructor(override val ok: Boolean,
+                                                     @JsonProperty("error") val error: String)
+    : ChannelUnarchiveResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ChannelsArchiveRequest constructor(@JsonProperty("channel") val channel: String) {
+data class ChannelsUnarchiveRequest constructor(@JsonProperty("channel") val channelId: String) {
 
     companion object
 }
