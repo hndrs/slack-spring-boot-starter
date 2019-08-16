@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestTemplate
 
-class DefaultChannelCreateMethodTest {
+class DefaultChannelsCreateMethodTest {
 
     private lateinit var mockTemplate: RestTemplate
 
@@ -28,7 +28,7 @@ class DefaultChannelCreateMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.create", response)
         val verifier = Verifier(response)
 
-        DefaultChannelCreateMethod("", mockTemplate)
+        DefaultChannelsCreateMethod("", mockTemplate)
                 .with(ChannelsCreateRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
@@ -43,7 +43,7 @@ class DefaultChannelCreateMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.create", response)
         val verifier = Verifier(response)
 
-        DefaultChannelCreateMethod("", mockTemplate)
+        DefaultChannelsCreateMethod("", mockTemplate)
                 .with(ChannelsCreateRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()

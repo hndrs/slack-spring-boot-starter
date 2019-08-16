@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestTemplate
 
-class DefaultChannelRenameMethodTest {
+class DefaultChannelsRenameMethodTest {
 
     private lateinit var mockTemplate: RestTemplate
 
@@ -28,7 +28,7 @@ class DefaultChannelRenameMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.rename", response)
         val verifier = Verifier(response)
 
-        DefaultChannelRenameMethod("", mockTemplate)
+        DefaultChannelsRenameMethod("", mockTemplate)
                 .with(ChannelRenameRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
@@ -43,7 +43,7 @@ class DefaultChannelRenameMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.rename", response)
         val verifier = Verifier(response)
 
-        DefaultChannelRenameMethod("", mockTemplate)
+        DefaultChannelsRenameMethod("", mockTemplate)
                 .with(ChannelRenameRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()

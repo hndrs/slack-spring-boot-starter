@@ -17,14 +17,14 @@ import com.kreait.slack.api.group.channels.ChannelsSetTopicMethod
 import com.kreait.slack.api.group.channels.ChannelsUnarchiveMethod
 import org.slf4j.LoggerFactory
 
-class DefaultChannelMethodGroup : ChannelsMethodGroup {
+class DefaultChannelsMethodGroup : ChannelsMethodGroup {
 
     override fun archive(authToken: String): ChannelsArchiveMethod {
         return DefaultChannelsArchiveMethod(authToken)
     }
 
     override fun create(authToken: String): ChannelsCreateMethod {
-        return DefaultChannelCreateMethod(authToken)
+        return DefaultChannelsCreateMethod(authToken)
     }
 
     override fun history(authToken: String): ChannelsHistoryMethod {
@@ -32,7 +32,7 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
     }
 
     override fun invite(authToken: String): ChannelsInviteMethod {
-        return DefaultChannelInviteMethod(authToken)
+        return DefaultChannelsInviteMethod(authToken)
     }
 
     override fun join(authToken: String): ChannelsJoinMethod {
@@ -40,7 +40,7 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
     }
 
     override fun kick(authToken: String): ChannelsKickMethod {
-        return DefaultGetChannelKickMethod(authToken)
+        return DefaultChannelsKickMethod(authToken)
     }
 
     override fun leave(authToken: String): ChannelsLeaveMethod {
@@ -60,11 +60,11 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
     }
 
     override fun setPurpose(authToken: String): ChannelsSetPurposeMethod {
-        return DefaultChannelSetPurposeMethod(authToken)
+        return DefaultChannelsSetPurposeMethod(authToken)
     }
 
     override fun setTopic(authToken: String): ChannelsSetTopicMethod {
-        return DefaultChannelSetTopicMethod(authToken)
+        return DefaultChannelsSetTopicMethod(authToken)
     }
 
     override fun unarchive(authToken: String): ChannelsUnarchiveMethod {
@@ -72,11 +72,11 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
     }
 
     companion object {
-        val LOG = LoggerFactory.getLogger(DefaultChannelMethodGroup::class.java)
+        val LOG = LoggerFactory.getLogger(DefaultChannelsMethodGroup::class.java)
     }
 
     override fun info(authToken: String): ChannelsInfoMethod {
-        return DefaultGetChannelInfoMethod(authToken)
+        return DefaultChannelsInfoMethod(authToken)
     }
 
 }

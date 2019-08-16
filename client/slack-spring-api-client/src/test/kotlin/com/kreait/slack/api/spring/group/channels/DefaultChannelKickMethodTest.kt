@@ -28,7 +28,7 @@ class DefaultChannelKickMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.kick", response)
         val verifier = Verifier(response)
 
-        DefaultGetChannelKickMethod("", mockTemplate)
+        DefaultChannelsKickMethod("", mockTemplate)
                 .with(ChannelsKickRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
@@ -43,7 +43,7 @@ class DefaultChannelKickMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.kick", response)
         val verifier = Verifier(response)
 
-        DefaultGetChannelKickMethod("", mockTemplate)
+        DefaultChannelsKickMethod("", mockTemplate)
                 .with(ChannelsKickRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()

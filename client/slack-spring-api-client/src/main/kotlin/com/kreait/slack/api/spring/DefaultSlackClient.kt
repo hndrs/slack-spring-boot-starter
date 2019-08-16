@@ -13,7 +13,7 @@ import com.kreait.slack.api.group.team.TeamMethodGroup
 import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.spring.group.auth.DefaultAuthMethodGroup
-import com.kreait.slack.api.spring.group.channels.DefaultChannelMethodGroup
+import com.kreait.slack.api.spring.group.channels.DefaultChannelsMethodGroup
 import com.kreait.slack.api.spring.group.chat.DefaultChatMethodGroup
 import com.kreait.slack.api.spring.group.conversations.DefaultConversationsMethodGroup
 import com.kreait.slack.api.spring.group.dialog.DefaultDialogMethodGroup
@@ -83,7 +83,7 @@ class DefaultSlackClient : SlackClient {
      */
 
     override fun channel(): ChannelsMethodGroup {
-        return DefaultChannelMethodGroup()
+        return DefaultChannelsMethodGroup()
     }
 
     /**
