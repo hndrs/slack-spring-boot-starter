@@ -35,10 +35,10 @@ internal class InstantConverterTests {
 
 
         val serializedValue = mapper.writeValueAsString(InstantValueHolder(sampleInstant, sampleInstant))
-        val createdAt = JsonPath.parse(serializedValue).read<Long>("createdAt")
+        val createdAt = JsonPath.parse(serializedValue).read<Int>("createdAt")
         val timestamp = JsonPath.parse(serializedValue).read<String>("ts")
 
-        Assertions.assertEquals(sampleInstant.epochSecond, createdAt)
+        Assertions.assertEquals(sampleInstant.epochSecond, createdAt.toLong())
         Assertions.assertEquals("${sampleInstant.epochSecond}.${sampleInstant.micros()}", timestamp)
     }
 
