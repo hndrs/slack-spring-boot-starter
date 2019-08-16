@@ -56,7 +56,7 @@ class DefaultChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun replies(authToken: String): ChannelsRepliesMethod {
-        return DefaultChannelRepliesMethod(authToken)
+        return DefaultChannelsRepliesMethod(authToken)
     }
 
     override fun setPurpose(authToken: String): ChannelsSetPurposeMethod {

@@ -3,7 +3,8 @@ package com.kreait.slack.api.contract.jackson.group.channels
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.InstantToString
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
@@ -12,30 +13,31 @@ import java.time.Instant
         visible = true)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelRepliesResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelRepliesResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulChannelsRepliesResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorChannelsRepliesResponse::class, name = "false")
 )
 
 @JacksonDataClass
-sealed class ChannelRepliesResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ChannelsRepliesResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulChannelRepliesResponse constructor(override val ok: Boolean,
-                                                        @JsonProperty("messages") val channel: List<Message>,
-                                                        @JsonProperty("has_more") val hasMore: Boolean = false)
-    : ChannelRepliesResponse(ok) {
+data class SuccessfulChannelsRepliesResponse constructor(override val ok: Boolean,
+                                                         @JsonProperty("messages") val channel: List<Message>,
+                                                         @JsonProperty("has_more") val hasMore: Boolean = false)
+    : ChannelsRepliesResponse(ok) {
     companion object {}
 
 
+    //TODO this seems to be a common object
     data class Message(
-            @JsonProperty("last_read") val lastRead: String?,
+            @InstantToString @JsonProperty("last_read") val lastReadAt: Instant?,
             @JsonProperty("parent_user_id") val parentUserId: String?,
             @JsonProperty("replies") val replies: List<Reply?>?,
             @JsonProperty("reply_count") val replyCount: Int?,
             @JsonProperty("subscribed") val subscribed: Boolean?,
             @JsonProperty("text") val text: String?,
-            @JsonProperty("thread_ts") val threadTs: String?,
-            @JsonProperty("ts") val ts: String?,
+            @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant?,
+            @InstantToString @JsonProperty("ts") val timestamp: Instant?,
             @JsonProperty("type") val type: String?,
             @JsonProperty("unread_count") val unreadCount: Int?,
             @JsonProperty("user") val user: String?
@@ -44,7 +46,7 @@ data class SuccessfulChannelRepliesResponse constructor(override val ok: Boolean
     }
 
     data class Reply(
-            @JsonProperty("ts") val ts: String?,
+            @InstantToString @JsonProperty("ts") val timestamp: Instant?,
             @JsonProperty("user") val user: String?
     ) {
         companion object
@@ -53,19 +55,19 @@ data class SuccessfulChannelRepliesResponse constructor(override val ok: Boolean
 
 
 @JacksonDataClass
-data class ErrorChannelRepliesResponse constructor(override val ok: Boolean,
-                                                   @JsonProperty("error") val error: String,
-                                                   @JsonProperty("detail") val detail: String)
-    : ChannelRepliesResponse(ok) {
+data class ErrorChannelsRepliesResponse constructor(override val ok: Boolean,
+                                                    @JsonProperty("error") val error: String,
+                                                    @JsonProperty("detail") val detail: String)
+    : ChannelsRepliesResponse(ok) {
     companion object
 }
 
 
 @JacksonDataClass
-data class ChannelRepliesRequest constructor(@JsonProperty("channel") val channel: String,
-                                             @JsonProperty("thread_ts") val threadTimestamp: Instant) {
+data class ChannelsRepliesRequest constructor(@JsonProperty("channel") val channelId: String,
+                                              @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant) {
 
     companion object {}
 
-    fun toRequestMap() = mapOf("channel" to channel, "thread_ts" to threadTimestamp.toString())
+    fun toRequestMap() = mapOf("channel" to channelId, "thread_ts" to threadTimestamp.toString())
 }
