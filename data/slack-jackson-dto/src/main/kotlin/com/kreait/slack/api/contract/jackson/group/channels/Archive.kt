@@ -11,28 +11,28 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
         visible = true)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelUnarchiveResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelUnarchiveResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulChannelArchiveResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorChannelArchiveResponse::class, name = "false")
 )
 
 @JacksonDataClass
-sealed class ChannelUnarchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ChannelArchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulChannelUnarchiveResponse constructor(override val ok: Boolean)
-    : ChannelUnarchiveResponse(ok) {
+data class SuccessfulChannelArchiveResponse constructor(override val ok: Boolean)
+    : ChannelArchiveResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorChannelUnarchiveResponse constructor(override val ok: Boolean,
-                                                     @JsonProperty("error") val error: String)
-    : ChannelUnarchiveResponse(ok) {
+data class ErrorChannelArchiveResponse constructor(override val ok: Boolean,
+                                                   @JsonProperty("error") val error: String)
+    : ChannelArchiveResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ChannelsUnarchiveRequest constructor(@JsonProperty("channel") val channel: String) {
+data class ChannelsArchiveRequest constructor(@JsonProperty("channel") val channel: String) {
 
     companion object
 }
