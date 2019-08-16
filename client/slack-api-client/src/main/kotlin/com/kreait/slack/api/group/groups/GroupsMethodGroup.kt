@@ -5,80 +5,80 @@ interface GroupsMethodGroup {
     /**
      * Archives a private channel.
      */
-    fun archive()
+    fun archive(authToken: String): GroupsArchiveMethod
 
     /**
      *Creates a private channel.
      */
-    fun create()
+    fun create(authToken: String)
 
     /**
      *Clones and archives a private channel.
      */
-    fun createChild()
+    fun createChild(authToken: String)
 
     /**
      *Fetches history of messages and events from a private channel.
      */
-    fun history()
+    fun history(authToken: String)
 
     /**
      *Gets information about a private channel.
      */
-    fun info()
+    fun info(authToken: String)
 
     /**
      *Invites a user to a private channel.
      */
-    fun invite()
+    fun invite(authToken: String)
 
     /**
      *Removes a user from a private channel.
      */
-    fun kick()
+    fun kick(authToken: String)
 
     /**
      * Leaves a private channel.
      */
-    fun leave()
+    fun leave(authToken: String)
 
     /**
      * Lists private channels that the calling user has access to.
      */
-    fun list()
+    fun list(authToken: String)
 
     /**
      * Sets the read cursor in a private channel.
      */
-    fun mark()
+    fun mark(authToken: String)
 
     /**
      * Opens a private channel.
      */
-    fun open()
+    fun open(authToken: String)
 
     /**
      * Renames a private channel.
      */
-    fun rename()
+    fun rename(authToken: String)
 
     /**
      * Retrieve a thread of messages posted to a private channel
      */
-    fun replies()
+    fun replies(authToken: String)
 
     /**
      *  Sets the purpose for a private channel.
      */
-    fun setPurpose()
+    fun setPurpose(authToken: String)
 
     /**
      * Sets the topic for a private channel.
      */
-    fun setTopic()
+    fun setTopic(authToken: String)
 
     /**
      * Unarchives a private channel.
      */
-    fun unarchive()
+    fun unarchive(authToken: String)
 }
