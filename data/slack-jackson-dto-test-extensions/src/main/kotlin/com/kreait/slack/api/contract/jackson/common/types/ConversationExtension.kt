@@ -1,6 +1,7 @@
 package com.kreait.slack.api.contract.jackson.common.types
 
 import com.kreait.slack.api.contract.jackson.common.InstantSample
+import com.kreait.slack.api.contract.jackson.group.channels.sample
 
 fun Conversation.Companion.sample() = Conversation(
         id = "",
@@ -24,8 +25,8 @@ fun Conversation.Companion.sample() = Conversation(
         isMember = true,
         isPrivate = false,
         isMpim = false,
-        topic = Conversation.Topic.sample(),
-        purpose = Conversation.Purpose.sample(),
+        topic = Topic.sample(),
+        purpose = Purpose.sample(),
         previousNames = listOf(),
         numMembers = 30,
         lastReadAt = InstantSample.sample(),
@@ -33,16 +34,4 @@ fun Conversation.Companion.sample() = Conversation(
         priority = 1,
         user = "",
         isUserDeleted = false
-)
-
-fun Conversation.Topic.Companion.sample() = Conversation.Topic(
-        value = "",
-        createdBy = "",
-        lastUpdatedAt = InstantSample.sample()
-)
-
-fun Conversation.Purpose.Companion.sample() = Conversation.Purpose(
-        value = "",
-        createdBy = "",
-        lastUpdatedAt = InstantSample.sample()
 )

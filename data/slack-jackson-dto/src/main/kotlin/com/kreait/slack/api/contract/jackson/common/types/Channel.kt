@@ -38,20 +38,6 @@ data class Channel(
         @JsonProperty("priority") val priority: Double? = 0.0) {
     companion object
 
-    @JacksonDataClass
-    data class Purpose(@JsonProperty("value") val value: String,
-                       @JsonProperty("creator") val creator: String,
-                       @InstantToInt @JsonProperty("last_set") val lastModifiedAt: Instant) {
-
-        companion object
-    }
-
-    @JacksonDataClass
-    data class Topic(@JsonProperty("value") val value: String,
-                     @JsonProperty("creator") val creator: String,
-                     @InstantToInt @JsonProperty("last_set") val lastModifiedAt: Instant) {
-        companion object
-    }
 }
 
 

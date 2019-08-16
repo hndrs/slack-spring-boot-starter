@@ -4,6 +4,9 @@ import com.kreait.slack.api.contract.jackson.common.InstantSample
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.sample
 import com.kreait.slack.api.contract.jackson.common.types.Channel
+import com.kreait.slack.api.contract.jackson.common.types.Purpose
+import com.kreait.slack.api.contract.jackson.common.types.Topic
+import com.kreait.slack.api.contract.jackson.common.types.sample
 import com.kreait.slack.api.contract.jackson.group.chat.Message
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 
@@ -31,13 +34,9 @@ fun Channel.Companion.sample(): Channel = Channel(
         unreadCount = 0,
         unreadCountDisplay = 0,
         members = listOf(),
-        topic = Channel.Topic.sample(),
-        purpose = Channel.Purpose.sample(),
+        topic = Topic.sample(),
+        purpose = Purpose.sample(),
         previousNames = listOf(),
         numMembers = 1
 )
 
-
-fun Channel.Topic.Companion.sample(): Channel.Topic = Channel.Topic("", "", InstantSample.sample())
-
-fun Channel.Purpose.Companion.sample(): Channel.Purpose = Channel.Purpose("", "", InstantSample.sample())
