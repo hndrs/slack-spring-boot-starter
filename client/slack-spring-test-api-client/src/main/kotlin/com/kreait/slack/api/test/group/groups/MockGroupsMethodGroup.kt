@@ -25,7 +25,7 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
     }
 
     override fun create(authToken: String): GroupsCreateMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return MockGroupsCreateMethod()
     }
 
     override fun createChild(authToken: String): GroupsCreateChildMethod {
