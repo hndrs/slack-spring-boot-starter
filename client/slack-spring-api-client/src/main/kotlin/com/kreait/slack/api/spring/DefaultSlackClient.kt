@@ -6,6 +6,7 @@ import com.kreait.slack.api.group.auth.AuthGroup
 import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
 import com.kreait.slack.api.group.respond.RespondMethodGroup
@@ -17,6 +18,7 @@ import com.kreait.slack.api.spring.group.channels.DefaultChannelsMethodGroup
 import com.kreait.slack.api.spring.group.chat.DefaultChatMethodGroup
 import com.kreait.slack.api.spring.group.conversations.DefaultConversationsMethodGroup
 import com.kreait.slack.api.spring.group.dialog.DefaultDialogMethodGroup
+import com.kreait.slack.api.spring.group.groups.DefaultGroupsMethodGroup
 import com.kreait.slack.api.spring.group.im.DefaultImMethodGroup
 import com.kreait.slack.api.spring.group.oauth.DefaultOauthMethodGroup
 import com.kreait.slack.api.spring.group.respond.DefaultRespondMethodGroup
@@ -132,6 +134,17 @@ class DefaultSlackClient : SlackClient {
     override fun usergroups(): UsergroupsMethodGroup {
         return DefaultUsergroupMethodGroup()
     }
+
+
+    /**
+     * Convenience function to apply slack api Usergroups method grouping
+     *
+     * [Slack Api Documentation](https://api.slack.com/methods)
+     */
+    override fun groups(): GroupsMethodGroup {
+        return DefaultGroupsMethodGroup()
+    }
+
 
     /**
      * [DefaultSlackClient] configuration class that contains slack configuration options
