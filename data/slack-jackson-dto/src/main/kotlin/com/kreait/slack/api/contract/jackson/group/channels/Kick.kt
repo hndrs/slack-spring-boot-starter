@@ -3,7 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.channels
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -32,10 +32,10 @@ data class ErrorChannelKickResponse constructor(override val ok: Boolean,
 }
 
 @JacksonDataClass
-data class ChannelsKickRequest constructor(@JsonProperty("channel") val channel: String,
-                                           @JsonProperty("user") val user: String) {
+data class ChannelsKickRequest constructor(@JsonProperty("channel") val channelId: String,
+                                           @JsonProperty("user") val userId: String) {
     companion object {}
 
-    fun toRequestMap() = mapOf("channel" to channel, "user" to user)
+    fun toRequestMap() = mapOf("channel" to channelId, "user" to userId)
 
 }
