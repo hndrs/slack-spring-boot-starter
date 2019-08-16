@@ -1,84 +1,70 @@
 package com.kreait.slack.api.spring.group.groups
 
-import com.kreait.slack.api.group.conversations.ConversationsArchiveMethod
-import com.kreait.slack.api.group.conversations.ConversationsCloseMethod
-import com.kreait.slack.api.group.conversations.ConversationsCreateMethod
-import com.kreait.slack.api.group.conversations.ConversationsHistoryMethod
-import com.kreait.slack.api.group.conversations.ConversationsInfoMethod
-import com.kreait.slack.api.group.conversations.ConversationsInviteMethod
-import com.kreait.slack.api.group.conversations.ConversationsJoinMethod
-import com.kreait.slack.api.group.conversations.ConversationsKickMethod
-import com.kreait.slack.api.group.conversations.ConversationsLeaveMethod
-import com.kreait.slack.api.group.conversations.ConversationsRenameMethod
-import com.kreait.slack.api.group.conversations.ConversationsRepliesMethod
-import com.kreait.slack.api.group.conversations.ConversationsSetPurposeMethod
-import com.kreait.slack.api.group.conversations.ConversationsSetTopicMethod
-import com.kreait.slack.api.group.conversations.ConversationsUnarchiveMethod
+import com.kreait.slack.api.group.groups.GroupsArchiveMethod
 import com.kreait.slack.api.group.groups.GroupsMethodGroup
-import org.slf4j.LoggerFactory
 
 class DefaultGroupsMethodGroup : GroupsMethodGroup {
-    override fun archive() {
+    override fun archive(authToken: String): GroupsArchiveMethod {
+        return DefaultGroupsArchiveMethod(authToken)
+    }
+
+    override fun create(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun create() {
+    override fun createChild(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun createChild() {
+    override fun history(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun history() {
+    override fun info(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun info() {
+    override fun invite(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun invite() {
+    override fun kick(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun kick() {
+    override fun leave(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun leave() {
+    override fun list(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun list() {
+    override fun mark(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun mark() {
+    override fun open(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun open() {
+    override fun rename(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun rename() {
+    override fun replies(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun replies() {
+    override fun setPurpose(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setPurpose() {
+    override fun setTopic(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setTopic() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun unarchive() {
+    override fun unarchive(authToken: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

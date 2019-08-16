@@ -9,6 +9,7 @@ import com.kreait.slack.api.test.group.channel.MockChannelsMethodGroup
 import com.kreait.slack.api.test.group.chat.MockChatMethodGroup
 import com.kreait.slack.api.test.group.conversation.MockConversationMethodGroup
 import com.kreait.slack.api.test.group.dialog.MockDialogMethodGroup
+import com.kreait.slack.api.test.group.groups.MockGroupsMethodGroup
 import com.kreait.slack.api.test.group.im.MockImMethodGroup
 import com.kreait.slack.api.test.group.oauth.MockOauthMethodGroup
 import com.kreait.slack.api.test.group.respond.MockRespondMethodGroup
@@ -28,6 +29,7 @@ class MockSlackClient : SlackClient {
     private val mockRespondMethodGroup = MockRespondMethodGroup()
     private val mockTeamMethodGroup = MockTeamMethodGroup()
     private val mockUsergroupsMethodGroup = MockUsergroupsMethodGroup()
+    private val mockGroupsMethodGroup = MockGroupsMethodGroup()
 
     override fun auth(): MockAuthGroup {
         return mockAuthGroup
@@ -74,6 +76,6 @@ class MockSlackClient : SlackClient {
     }
 
     override fun groups(): GroupsMethodGroup {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mockGroupsMethodGroup
     }
 }
