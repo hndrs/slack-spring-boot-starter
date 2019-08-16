@@ -42,23 +42,6 @@ data class Conversation(
 
     companion object
 
-    @JacksonDataClass
-    data class Purpose(
-            @JsonProperty("value") val value: String,
-            @JsonProperty("creator") val createdBy: String,
-            @InstantToInt @JsonProperty("last_set") val lastUpdatedAt: Instant
-    ) {
-        companion object
-    }
-
-    @JacksonDataClass
-    data class Topic(
-            @JsonProperty("value") val value: String,
-            @JsonProperty("creator") val createdBy: String,
-            @InstantToInt @JsonProperty("last_set") val lastUpdatedAt: Instant
-    ) {
-        companion object
-    }
 }
 
 

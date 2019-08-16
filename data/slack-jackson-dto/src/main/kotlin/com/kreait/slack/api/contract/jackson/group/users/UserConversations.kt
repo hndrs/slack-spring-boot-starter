@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.ChannelType
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
+import com.kreait.slack.api.contract.jackson.common.types.Purpose
+import com.kreait.slack.api.contract.jackson.common.types.Topic
 import com.kreait.slack.api.contract.jackson.util.InstantToInt
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
@@ -61,16 +63,6 @@ data class Channel(
         @JsonProperty("user") val user: String?,
         @JsonProperty("is_user_deleted") val isUserDeleted: Boolean?
 )
-
-data class Purpose(
-        @JsonProperty("value") val value: String?,
-        @JsonProperty("creator") val creator: String?,
-        @InstantToInt @JsonProperty("last_set") val lastModifiedAt: Instant)
-
-data class Topic(
-        @JsonProperty("value") val value: String?,
-        @JsonProperty("creator") val creator: String?,
-        @InstantToInt @JsonProperty("last_set") val lastModifiedAt: Instant)
 
 /**
  * DataClass that represents arguments as defined here https://api.slack.com/methods/users.conversations
