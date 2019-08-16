@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.common.types
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JacksonDataClass
 data class Identity(

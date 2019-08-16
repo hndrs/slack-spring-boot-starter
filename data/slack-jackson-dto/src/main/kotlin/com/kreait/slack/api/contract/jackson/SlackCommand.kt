@@ -1,6 +1,7 @@
 package com.kreait.slack.api.contract.jackson
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JacksonDataClass
 data class SlackCommand constructor(@JsonProperty(TOKEN_PROPERTY_NAME) val token: String,

@@ -3,7 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.oauth
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 
 data class AccessRequest(val clientId: String, val client_secret: String, val code: String) {

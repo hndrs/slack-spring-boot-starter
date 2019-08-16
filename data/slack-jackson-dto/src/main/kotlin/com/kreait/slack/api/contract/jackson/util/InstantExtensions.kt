@@ -1,4 +1,4 @@
-package com.kreait.slack.api.contract.jackson.common
+package com.kreait.slack.api.contract.jackson.util
 
 import java.time.Instant
 

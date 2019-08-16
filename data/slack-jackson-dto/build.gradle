@@ -14,5 +14,6 @@ dependencies {
     implementation(group: "org.jetbrains.kotlin", name: "kotlin-stdlib-jdk8")
     implementation(group: "org.jetbrains.kotlin", name: "kotlin-reflect")
 
-    compile(group: "org.springframework.boot", name: "spring-boot-starter-web")
+    testImplementation(group: "com.jayway.jsonpath", name: "json-path", version: "2.4.0")
+    testImplementation(group: "org.springframework.boot", name: "spring-boot-starter-web")
 }

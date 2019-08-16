@@ -3,9 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.users
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
-import org.springframework.core.io.FileSystemResource
-import org.springframework.util.LinkedMultiValueMap
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.io.File
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
@@ -37,12 +35,12 @@ data class SetPhotoRequest(val image: File,
                            val cropY: Int? = null) {
     companion object {}
 
-    fun toMultiValueMap(): LinkedMultiValueMap<String, Any> {
-        val request: LinkedMultiValueMap<String, Any> = LinkedMultiValueMap()
-        request.add("image", FileSystemResource(image))
-        cropW?.let { request.add("crop_w", it.toString()) }
-        cropX?.let { request.add("crop_x", it.toString()) }
-        cropY?.let { request.add("crop_y", it.toString()) }
+    fun toMultiValueMap(): Map<String, Any> {
+        val request = mutableMapOf<String, Any>()
+        request["image"] = image
+        cropW?.let { request["crop_w"] = it.toString() }
+        cropX?.let { request["crop_x"] = it.toString() }
+        cropY?.let { request["crop_y"] = it.toString() }
 
         return request
     }
