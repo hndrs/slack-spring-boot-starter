@@ -1,6 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.groups
 
-import java.security.acl.Group
+import com.kreait.slack.api.contract.jackson.common.types.Group
+import com.kreait.slack.api.contract.jackson.common.types.sample
 
 fun GroupsCreateChildRequest.Companion.sample(): GroupsCreateChildRequest {
     return GroupsCreateChildRequest("")
