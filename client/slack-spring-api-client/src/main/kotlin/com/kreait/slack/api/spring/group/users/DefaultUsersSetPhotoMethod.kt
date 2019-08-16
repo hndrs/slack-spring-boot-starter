@@ -1,12 +1,13 @@
 package com.kreait.slack.api.spring.group.users
 
 import com.kreait.slack.api.contract.jackson.group.users.ErrorSetPhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetPhotoResponse
 import com.kreait.slack.api.contract.jackson.group.users.SetPhotoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetPhotoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersSetPhotoMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
+import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.client.RestTemplate
 
 
@@ -18,8 +19,10 @@ class DefaultUsersSetPhotoMethod(private val authToken: String, private val rest
 
     override fun request(): ApiCallResult<SuccessfulSetPhotoResponse, ErrorSetPhotoResponse> {
 
+
+
         val response = SlackRequestBuilder<SetPhotoResponse>(authToken, restTemplate)
-                .with(this.params.toMultiValueMap())
+                .with(LinkedMultiValueMap(this.params.toMap()))
                 .toMethod("users.setPhoto")
                 .returnAsType(SetPhotoResponse::class.java)
                 .postMultipartFormdata()
