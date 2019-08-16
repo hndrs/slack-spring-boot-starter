@@ -11,7 +11,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("Groups.archive Method")
-class MockGroupssArchiveUnitTests {
+class MockGroupsArchiveUnitTest {
 
     @DisplayName("Mocking Success")
     @Test
