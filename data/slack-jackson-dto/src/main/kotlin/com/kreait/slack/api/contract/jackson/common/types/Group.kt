@@ -1,12 +1,16 @@
 package com.kreait.slack.api.contract.jackson.common.types
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.kreait.slack.api.contract.jackson.util.InstantToInt
+import com.kreait.slack.api.contract.jackson.util.InstantToString
+import java.time.Instant
 
 data class Group(
+        @InstantToInt
         @JsonProperty("created")
-        val created: Int?,
+        val createdAt: Instant,
         @JsonProperty("creator")
-        val creator: String?,
+        val createdBy: String?,
         @JsonProperty("id")
         val id: String?,
         @JsonProperty("is_archived")
@@ -15,12 +19,13 @@ data class Group(
         val isGroup: Boolean = true,
         @JsonProperty("is_open")
         val isOpen: Boolean,
+        @InstantToString
         @JsonProperty("last_read")
-        val lastRead: String?,
+        val lastReadAt: Instant?,
         @JsonProperty("latest")
         val latest: Any?,
         @JsonProperty("members")
-        val members: List<String?>?,
+        val members: List<String>?,
         @JsonProperty("name")
         val name: String?,
         @JsonProperty("purpose")
@@ -31,22 +36,6 @@ data class Group(
         val unreadCount: Int?,
         @JsonProperty("unread_count_display")
         val unreadCountDisplay: Int?
-) {
-    companion object
-}
-
-data class Topic(
-        @JsonProperty("creator") val creator: String?,
-        @JsonProperty("last_set") val lastSet: Int?,
-        @JsonProperty("value") val value: String?
-) {
-    companion object
-}
-
-data class Purpose(
-        @JsonProperty("creator") val creator: String?,
-        @JsonProperty("last_set") val lastSet: Int?,
-        @JsonProperty("value") val value: String?
 ) {
     companion object
 }
