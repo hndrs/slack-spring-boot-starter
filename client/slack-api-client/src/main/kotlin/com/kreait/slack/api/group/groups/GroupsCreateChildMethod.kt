@@ -1,9 +1,9 @@
 package com.kreait.slack.api.group.groups
 
-import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsArchiveResponse
-import com.kreait.slack.api.contract.jackson.group.groups.GroupsArchiveRequest
-import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsArchiveResponse
+import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsCreateChildResponse
+import com.kreait.slack.api.contract.jackson.group.groups.GroupsCreateChildRequest
+import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsCreateChildResponse
 import com.kreait.slack.api.group.ApiCallMethod
 
-abstract class GroupsCreateChildMethod : ApiCallMethod<GroupsArchiveMethod, SuccessfulGroupsArchiveResponse, ErrorGroupsArchiveResponse, GroupsArchiveRequest>()
+abstract class GroupsCreateChildMethod : ApiCallMethod<GroupsCreateChildMethod, SuccessfulGroupsCreateChildResponse, ErrorGroupsCreateChildResponse, GroupsCreateChildRequest>()
 
