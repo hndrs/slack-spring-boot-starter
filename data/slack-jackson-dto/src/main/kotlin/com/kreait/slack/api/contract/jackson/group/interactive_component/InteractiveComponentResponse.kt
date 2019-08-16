@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.interactive_component
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JacksonDataClass
 data class InteractiveComponentMessageResponse(@JsonProperty("title") val token: String? = null,

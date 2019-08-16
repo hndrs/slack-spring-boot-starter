@@ -1,4 +1,4 @@
-package com.kreait.slack.api.contract.jackson
+package com.kreait.slack.api.contract.jackson.util
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside
 import com.fasterxml.jackson.annotation.JsonAutoDetect

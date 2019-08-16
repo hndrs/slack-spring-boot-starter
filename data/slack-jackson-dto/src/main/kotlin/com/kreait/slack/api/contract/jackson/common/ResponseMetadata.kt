@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.common
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JacksonDataClass
 data class ResponseMetadata(@JsonProperty("next_cursor") val nextCursor: String? = null,

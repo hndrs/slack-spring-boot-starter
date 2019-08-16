@@ -3,7 +3,7 @@ package com.kreait.slack.broker.store
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import java.io.File

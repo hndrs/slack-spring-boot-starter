@@ -3,7 +3,8 @@ package com.kreait.slack.api.contract.jackson.group.im
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.InstantToInt
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
@@ -33,7 +34,7 @@ data class ErrorImListResponse constructor(override val ok: Boolean,
     companion object
 }
 
-data class Im(@JsonProperty("created") val createdAt: Instant,
+data class Im(@InstantToInt @JsonProperty("created") val createdAt: Instant,
               @JsonProperty("id") val id: String,
               @JsonProperty("is_im") val isIm: Boolean,
               @JsonProperty("is_org_shared") val isOrgShared: Boolean,

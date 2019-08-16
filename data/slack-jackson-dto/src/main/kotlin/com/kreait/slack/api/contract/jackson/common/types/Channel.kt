@@ -1,8 +1,10 @@
 package com.kreait.slack.api.contract.jackson.common.types
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.group.chat.Message
+import com.kreait.slack.api.contract.jackson.util.InstantToInt
+import com.kreait.slack.api.contract.jackson.util.InstantToString
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
 @JacksonDataClass
@@ -10,7 +12,7 @@ data class Channel(
         @JsonProperty("id") val id: String,
         @JsonProperty("name") val name: String,
         @JsonProperty("is_channel") val isChannel: Boolean,
-        @JsonProperty("created") val createdAt: Instant,
+        @InstantToInt @JsonProperty("created") val createdAt: Instant,
         @JsonProperty("creator") val createdBy: String,
         @JsonProperty("is_archived") val isArchived: Boolean,
         @JsonProperty("is_general") val isGeneral: Boolean,
@@ -21,7 +23,7 @@ data class Channel(
         @JsonProperty("is_member") val isMember: Boolean,
         @JsonProperty("is_private") val isPrivate: Boolean,
         @JsonProperty("is_mpim") val isMpim: Boolean,
-        @JsonProperty("last_read") val lastReadAt: Instant?,
+        @InstantToString @JsonProperty("last_read") val lastReadAt: Instant?,
         @JsonProperty("latest") val latest: Message? = null,
         @JsonProperty("unread_count") val unreadCount: Int,
         @JsonProperty("unread_count_display") val unreadCountDisplay: Int,
@@ -39,7 +41,7 @@ data class Channel(
     @JacksonDataClass
     data class Purpose(@JsonProperty("value") val value: String,
                        @JsonProperty("creator") val creator: String,
-                       @JsonProperty("last_set") val lastModifiedAt: Instant) {
+                       @InstantToInt @JsonProperty("last_set") val lastModifiedAt: Instant) {
 
         companion object
     }
@@ -47,7 +49,7 @@ data class Channel(
     @JacksonDataClass
     data class Topic(@JsonProperty("value") val value: String,
                      @JsonProperty("creator") val creator: String,
-                     @JsonProperty("last_set") val lastModifiedAt: Instant) {
+                     @InstantToInt @JsonProperty("last_set") val lastModifiedAt: Instant) {
         companion object
     }
 }

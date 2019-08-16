@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.ChannelType
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
+import com.kreait.slack.api.contract.jackson.util.InstantToInt
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
 
@@ -40,7 +41,7 @@ data class Channel(
         @JsonProperty("is_channel") val isChannel: Boolean?,
         @JsonProperty("is_group") val isGroup: Boolean?,
         @JsonProperty("is_im") val isIm: Boolean?,
-        @JsonProperty("created") val createdAt: Instant,
+        @InstantToInt @JsonProperty("created") val createdAt: Instant,
         @JsonProperty("creator") val creator: String = "",
         @JsonProperty("is_archived") val isArchived: Boolean?,
         @JsonProperty("is_general") val isGeneral: Boolean?,
@@ -64,12 +65,12 @@ data class Channel(
 data class Purpose(
         @JsonProperty("value") val value: String?,
         @JsonProperty("creator") val creator: String?,
-        @JsonProperty("last_set") val lastSet: Int?)
+        @InstantToInt @JsonProperty("last_set") val lastModifiedAt: Instant)
 
 data class Topic(
         @JsonProperty("value") val value: String?,
         @JsonProperty("creator") val creator: String?,
-        @JsonProperty("last_set") val lastSet: Int?)
+        @InstantToInt @JsonProperty("last_set") val lastModifiedAt: Instant)
 
 /**
  * DataClass that represents arguments as defined here https://api.slack.com/methods/users.conversations

@@ -3,8 +3,9 @@ package com.kreait.slack.api.contract.jackson.group.conversations
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
+import com.kreait.slack.api.contract.jackson.util.InstantToString
 import java.time.Instant
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
@@ -40,7 +41,7 @@ data class Message(
         @JsonProperty("type") val type: String,
         @JsonProperty("user") val user: String,
         @JsonProperty("text") val text: String,
-        @JsonProperty("ts") val timestamp: Instant,
+        @InstantToString @JsonProperty("ts") val timestamp: Instant,
         @JsonProperty("attachments") val attachments: List<Attachment>) {
     companion object {}
 

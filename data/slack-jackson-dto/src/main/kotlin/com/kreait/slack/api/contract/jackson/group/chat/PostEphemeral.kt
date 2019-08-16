@@ -3,7 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.chat
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.messaging.Attachment
 import com.kreait.slack.api.contract.jackson.common.messaging.Block
 
