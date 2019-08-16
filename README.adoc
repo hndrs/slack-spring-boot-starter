@@ -7,7 +7,7 @@
 image:https://travis-ci.com/kreait/slack-spring-boot-starter.svg?branch=master[link="https://travis-ci.com/kreait/slack-spring-boot-starter"]
 image:https://sonarcloud.io/api/project_badges/measure?project=com.kreait.slack-spring-boot-starter&metric=alert_status&metric=alert_status[link="https://sonarcloud.io/dashboard?id=com.kreait.slack-spring-boot-starter"]
 image:https://img.shields.io/badge/version-{version}-fffff.svg[]
-image:https://sonarcloud.io/api/project_badges/measure?project=com.kreait.slack-spring-boot-starter&metric=coverage[link="https://sonarcloud.io/dashboard?id=com.kreait.slack"]
+image:https://sonarcloud.io/api/project_badges/measure?project=com.kreait.slack-spring-boot-starter&metric=coverage[link="https://sonarcloud.io/dashboard?id=com.kreait.slack-spring-boot-starter"]
 image:https://img.shields.io/discord/523866370778333184.svg[link="https://discord.gg/fXfQmdJ"]
 image:http://img.shields.io/badge/stackoverflow-slack-informational.svg[link="https://meta.stackoverflow.com/questions/tagged/slack"]
 

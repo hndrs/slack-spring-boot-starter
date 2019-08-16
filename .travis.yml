@@ -52,7 +52,7 @@ jobs:
     - stage: publish
       name: "Generate Reference Documentation"
       script: ./gradlew asciidoctor
-      if: branch = master
+      if: branch = master type != pull_request
 
 
 
