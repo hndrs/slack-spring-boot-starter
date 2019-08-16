@@ -6,6 +6,7 @@ import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.dialog.DialogMethodGroup
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
 import com.kreait.slack.api.group.respond.RespondMethodGroup
@@ -58,6 +59,8 @@ class SlackApiClientAutoConfigurationTests {
     }
 
     class TestSlackClient : SlackClient {
+        override fun groups(): GroupsMethodGroup = throw UnsupportedOperationException()
+
         override fun auth(): AuthGroup = throw UnsupportedOperationException()
 
         override fun chat(): ChatMethodGroup = throw UnsupportedOperationException()
