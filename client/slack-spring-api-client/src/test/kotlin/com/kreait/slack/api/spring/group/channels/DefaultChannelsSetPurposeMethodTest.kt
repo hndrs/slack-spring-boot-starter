@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestTemplate
 
-class DefaultChannelSetPurposeMethodTest {
+class DefaultChannelsSetPurposeMethodTest {
 
     private lateinit var mockTemplate: RestTemplate
 
@@ -28,7 +28,7 @@ class DefaultChannelSetPurposeMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.setPurpose", response)
         val verifier = Verifier(response)
 
-        DefaultChannelSetPurposeMethod("", mockTemplate)
+        DefaultChannelsSetPurposeMethod("", mockTemplate)
                 .with(ChannelsSetPurposeRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
@@ -43,7 +43,7 @@ class DefaultChannelSetPurposeMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.setPurpose", response)
         val verifier = Verifier(response)
 
-        DefaultChannelSetPurposeMethod("", mockTemplate)
+        DefaultChannelsSetPurposeMethod("", mockTemplate)
                 .with(ChannelsSetPurposeRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()

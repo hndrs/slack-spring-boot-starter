@@ -3,7 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.channels
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
@@ -12,31 +12,31 @@ import java.time.Instant
         visible = true)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelMarkResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelMarkResponse::class, name = "false")
+        JsonSubTypes.Type(value = SuccessfulChannelsMarkResponse::class, name = "true"),
+        JsonSubTypes.Type(value = ErrorChannelsMarkResponse::class, name = "false")
 )
 
 @JacksonDataClass
-sealed class ChannelMarkResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class ChannelsMarkResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 @JacksonDataClass
-data class SuccessfulChannelMarkResponse constructor(override val ok: Boolean)
-    : ChannelMarkResponse(ok) {
+data class SuccessfulChannelsMarkResponse constructor(override val ok: Boolean)
+    : ChannelsMarkResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorChannelMarkResponse constructor(override val ok: Boolean,
-                                                @JsonProperty("error") val error: String,
-                                                @JsonProperty("detail") val detail: String)
-    : ChannelMarkResponse(ok) {
+data class ErrorChannelsMarkResponse constructor(override val ok: Boolean,
+                                                 @JsonProperty("error") val error: String,
+                                                 @JsonProperty("detail") val detail: String)
+    : ChannelsMarkResponse(ok) {
     companion object
 }
 
 
 @JacksonDataClass
-data class ChannelMarkRequest constructor(@JsonProperty("channel") val channel: String,
-                                          @JsonProperty("ts") val timestamp: Instant) {
+data class ChannelsMarkRequest constructor(@JsonProperty("channel") val channelId: String,
+                                           @JsonProperty("ts") val timestamp: Instant) {
 
     companion object
 }

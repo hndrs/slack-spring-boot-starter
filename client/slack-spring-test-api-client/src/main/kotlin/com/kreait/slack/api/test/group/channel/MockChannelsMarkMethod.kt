@@ -1,22 +1,22 @@
 package com.kreait.slack.api.test.group.channel
 
-import com.kreait.slack.api.contract.jackson.group.channels.ChannelMarkRequest
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelMarkResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelMarkResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ChannelsMarkRequest
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsMarkResponse
+import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsMarkResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsMarkMethod
 import com.kreait.slack.api.test.MockMethod
 
-class MockChannelsMarkMethod : ChannelsMarkMethod(), MockMethod<SuccessfulChannelMarkResponse, ErrorChannelMarkResponse, ChannelMarkRequest> {
+class MockChannelsMarkMethod : ChannelsMarkMethod(), MockMethod<SuccessfulChannelsMarkResponse, ErrorChannelsMarkResponse, ChannelsMarkRequest> {
 
-    override fun params(): ChannelMarkRequest {
+    override fun params(): ChannelsMarkRequest {
         return params
     }
 
-    override var successResponse: SuccessfulChannelMarkResponse? = null
-    override var failureResponse: ErrorChannelMarkResponse? = null
+    override var successResponse: SuccessfulChannelsMarkResponse? = null
+    override var failureResponse: ErrorChannelsMarkResponse? = null
 
-    override fun request(): ApiCallResult<SuccessfulChannelMarkResponse, ErrorChannelMarkResponse> {
+    override fun request(): ApiCallResult<SuccessfulChannelsMarkResponse, ErrorChannelsMarkResponse> {
 
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }

@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultChannelJoinMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsJoinMethod() {
+class DefaultsChannelJoinMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsJoinMethod() {
 
     override fun request(): ApiCallResult<SuccessfulChannelsJoinResponse, ErrorChannelsJoinResponse> {
         val response = SlackRequestBuilder<ChannelsJoinResponse>(authToken, restTemplate)

@@ -28,7 +28,7 @@ data class SuccessfulChannelsSetPurposeResponse constructor(override val ok: Boo
 @JacksonDataClass
 data class ErrorChannelsSetPurposeResponse constructor(override val ok: Boolean,
                                                        @JsonProperty("error") val error: String)
-    : Channelsclient/slack-spring-test-api-client/src/main/kotlin/com/kreait/slack/api/test/group/channel/MockChannelsMethodGroup.ktSetPurposeResponse(ok) {
+    : ChannelsSetPurposeResponse(ok) {
     companion object
 }
 

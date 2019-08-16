@@ -48,7 +48,7 @@ class DefaultChannelMethodGroup : ChannelsMethodGroup {
     }
 
     override fun mark(authToken: String): ChannelsMarkMethod {
-        return DefaultChannelMarkMethod(authToken)
+        return DefaultChannelsMarkMethod(authToken)
     }
 
     override fun rename(authToken: String): ChannelsRenameMethod {
