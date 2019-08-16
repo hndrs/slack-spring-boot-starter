@@ -7,8 +7,10 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersSetPhotoMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
+import org.springframework.core.io.FileSystemResource
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.client.RestTemplate
+import java.io.File
 
 
 /**
@@ -18,11 +20,8 @@ import org.springframework.web.client.RestTemplate
 class DefaultUsersSetPhotoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersSetPhotoMethod() {
 
     override fun request(): ApiCallResult<SuccessfulSetPhotoResponse, ErrorSetPhotoResponse> {
-
-
-
         val response = SlackRequestBuilder<SetPhotoResponse>(authToken, restTemplate)
-                .with(LinkedMultiValueMap(this.params.toMap()))
+                .with(LinkedMultiValueMap(convertParams()))
                 .toMethod("users.setPhoto")
                 .returnAsType(SetPhotoResponse::class.java)
                 .postMultipartFormdata()
@@ -38,6 +37,20 @@ class DefaultUsersSetPhotoMethod(private val authToken: String, private val rest
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }
+        }
+    }
+
+    /**
+     * Converts the file list to FileSystemResource-List to handle resources correctly
+     */
+    private fun convertParams(): Map<String, List<Any>> {
+        return this.params.toMap().mapValues {
+            if (it.value.all { value -> value is File }) {
+                val sysResList = it.value.map {
+                    FileSystemResource(it as File)
+                }
+                sysResList
+            } else it.value
         }
     }
 }

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.io.File
-import java.nio.file.Files
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
@@ -38,7 +37,7 @@ data class SetPhotoRequest(val image: File,
 
     fun toMap(): Map<String, List<Any>> {
         val request = mutableMapOf<String, List<Any>>()
-        request["image"] = listOf(Files.readAllBytes(image.toPath()))
+        request["image"] = listOf(image)
         cropW?.let { request["crop_w"] = listOf(it.toString()) }
         cropX?.let { request["crop_x"] = listOf(it.toString()) }
         cropY?.let { request["crop_y"] = listOf(it.toString()) }
