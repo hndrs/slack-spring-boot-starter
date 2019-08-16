@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultChannelSetPurposeMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsSetPurposeMethod() {
+class DefaultChannelsSetPurposeMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsSetPurposeMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelsSetPurposeResponse, ErrorChannelsSetPurposeResponse> {
 
         val response = SlackRequestBuilder<ChannelsSetPurposeResponse>(authToken, restTemplate)

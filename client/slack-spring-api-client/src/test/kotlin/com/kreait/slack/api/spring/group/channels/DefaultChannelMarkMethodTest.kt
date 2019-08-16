@@ -28,7 +28,7 @@ class DefaultChannelMarkMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.mark", response)
         val verifier = Verifier(response)
 
-        DefaultChannelMarkMethod("", mockTemplate)
+        DefaultChannelsMarkMethod("", mockTemplate)
                 .with(ChannelsMarkRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
@@ -43,7 +43,7 @@ class DefaultChannelMarkMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.mark", response)
         val verifier = Verifier(response)
 
-        DefaultChannelMarkMethod("", mockTemplate)
+        DefaultChannelsMarkMethod("", mockTemplate)
                 .with(ChannelsMarkRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()

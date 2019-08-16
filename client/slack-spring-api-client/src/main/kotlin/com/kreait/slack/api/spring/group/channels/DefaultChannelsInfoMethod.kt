@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultGetChannelInfoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsInfoMethod() {
+class DefaultChannelsInfoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsInfoMethod() {
 
     override fun request(): ApiCallResult<SuccessfulChannelInfoResponse, ErrorChannelInfoResponse> {
         val response = SlackRequestBuilder<ChannelInfoResponse>(authToken, restTemplate)

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestTemplate
 
-class DefaultsChannelsInviteMethodTest {
+class DefaultChannelsInviteMethodTest {
 
     private lateinit var mockTemplate: RestTemplate
 
@@ -28,7 +28,7 @@ class DefaultsChannelsInviteMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.invite", response)
         val verifier = Verifier(response)
 
-        DefaultsChannelsInviteMethod("", mockTemplate)
+        DefaultChannelsInviteMethod("", mockTemplate)
                 .with(ChannelInviteRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
@@ -43,7 +43,7 @@ class DefaultsChannelsInviteMethodTest {
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.invite", response)
         val verifier = Verifier(response)
 
-        DefaultsChannelsInviteMethod("", mockTemplate)
+        DefaultChannelsInviteMethod("", mockTemplate)
                 .with(ChannelInviteRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()
