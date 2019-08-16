@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate
 
 
 @Suppress("UNCHECKED_CAST")
-class DefaultChannelRenameMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsRenameMethod() {
+class DefaultChannelsRenameMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsRenameMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelRenameResponse, ErrorChannelRenameResponse> {
 
         val response = SlackRequestBuilder<ChannelRenameResponse>(authToken, restTemplate)
