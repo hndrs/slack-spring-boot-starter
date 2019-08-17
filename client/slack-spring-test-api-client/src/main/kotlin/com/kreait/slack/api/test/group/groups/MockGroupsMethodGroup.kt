@@ -21,6 +21,7 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
     private val mockArchiveMethod = MockGroupsArchiveMethod()
     private val mockCreateMethod = MockGroupsCreateMethod()
     private val mockCreateChildMethod = MockGroupsCreateChildMethod()
+    private val mockInviteMethod = MockGroupsInviteMethod()
 
     override fun archive(authToken: String): MockGroupsArchiveMethod {
         return mockArchiveMethod
@@ -42,9 +43,7 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun invite(authToken: String): GroupsInviteMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun invite(authToken: String): GroupsInviteMethod = mockInviteMethod
 
     override fun kick(authToken: String): GroupsKickMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

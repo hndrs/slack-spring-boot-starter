@@ -13,7 +13,6 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
         JsonSubTypes.Type(value = SuccessfulGroupsArchiveResponse::class, name = "true"),
         JsonSubTypes.Type(value = ErrorGroupsArchiveResponse::class, name = "false")
 )
-
 @JacksonDataClass
 sealed class GroupsArchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
