@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.channels
 
 import com.kreait.slack.api.contract.jackson.group.channels.ChannelsHistoryRequest
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelHistoryResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelHistoryResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsHistoryResponse
+import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsHistoryResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.spring.MockServerHelper
 import com.kreait.slack.api.spring.Verifier
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestTemplate
 
-class DefaultChannelHistoryMethodTest {
+class DefaultChannelsHistoryMethodTest {
 
     private lateinit var mockTemplate: RestTemplate
 
@@ -24,11 +24,11 @@ class DefaultChannelHistoryMethodTest {
     @Test
     @DisplayName("channels.history Failure")
     fun channelHistoryFailure() {
-        val response = ErrorChannelHistoryResponse.sample()
+        val response = ErrorChannelsHistoryResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.history", response)
         val verifier = Verifier(response)
 
-        DefaultChannelHistoryMethod("", mockTemplate)
+        DefaultChannelsHistoryMethod("", mockTemplate)
                 .with(ChannelsHistoryRequest.sample())
                 .onFailure { verifier.set(it) }
                 .invoke()
@@ -39,11 +39,11 @@ class DefaultChannelHistoryMethodTest {
     @Test
     @DisplayName("channels.history Success")
     fun channelHistorySuccess() {
-        val response = SuccessfulChannelHistoryResponse.sample()
+        val response = SuccessfulChannelsHistoryResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "channels.history", response)
         val verifier = Verifier(response)
 
-        DefaultChannelHistoryMethod("", mockTemplate)
+        DefaultChannelsHistoryMethod("", mockTemplate)
                 .with(ChannelsHistoryRequest.sample())
                 .onSuccess { verifier.set(it) }
                 .invoke()

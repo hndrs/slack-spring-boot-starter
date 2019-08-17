@@ -4,19 +4,19 @@ import java.time.Instant
 
 fun ChannelsHistoryRequest.Companion.sample(): ChannelsHistoryRequest = ChannelsHistoryRequest("")
 
-fun SuccessfulChannelHistoryResponse.Companion.sample(): SuccessfulChannelHistoryResponse =
-        SuccessfulChannelHistoryResponse(true, listOf(SuccessfulChannelHistoryResponse.Message.sample()),
+fun SuccessfulChannelsHistoryResponse.Companion.sample(): SuccessfulChannelsHistoryResponse =
+        SuccessfulChannelsHistoryResponse(true, listOf(SuccessfulChannelsHistoryResponse.Message.sample()),
                 Instant.ofEpochSecond(10000), false)
 
-fun ErrorChannelHistoryResponse.Companion.sample(): ErrorChannelHistoryResponse = ErrorChannelHistoryResponse(false, "")
+fun ErrorChannelsHistoryResponse.Companion.sample(): ErrorChannelsHistoryResponse = ErrorChannelsHistoryResponse(false, "")
 
-fun SuccessfulChannelHistoryResponse.Message.Companion.sample(): SuccessfulChannelHistoryResponse.Message =
-        SuccessfulChannelHistoryResponse.Message(listOf(SuccessfulChannelHistoryResponse.Attachment.sample()), "", false,
-                listOf(SuccessfulChannelHistoryResponse.Reaction.sample()), "", "", Instant.ofEpochSecond(10000),
+fun SuccessfulChannelsHistoryResponse.Message.Companion.sample(): SuccessfulChannelsHistoryResponse.Message =
+        SuccessfulChannelsHistoryResponse.Message(listOf(SuccessfulChannelsHistoryResponse.Attachment.sample()), "", false,
+                listOf(SuccessfulChannelsHistoryResponse.Reaction.sample()), "", "", Instant.ofEpochSecond(10000),
                 "", "", "")
 
-fun SuccessfulChannelHistoryResponse.Reaction.Companion.sample(): SuccessfulChannelHistoryResponse.Reaction =
-        SuccessfulChannelHistoryResponse.Reaction(1, "", listOf(""))
+fun SuccessfulChannelsHistoryResponse.Reaction.Companion.sample(): SuccessfulChannelsHistoryResponse.Reaction =
+        SuccessfulChannelsHistoryResponse.Reaction(1, "", listOf(""))
 
-fun SuccessfulChannelHistoryResponse.Attachment.Companion.sample(): SuccessfulChannelHistoryResponse.Attachment =
-        SuccessfulChannelHistoryResponse.Attachment("", 0, "")
+fun SuccessfulChannelsHistoryResponse.Attachment.Companion.sample(): SuccessfulChannelsHistoryResponse.Attachment =
+        SuccessfulChannelsHistoryResponse.Attachment("", 0, "")

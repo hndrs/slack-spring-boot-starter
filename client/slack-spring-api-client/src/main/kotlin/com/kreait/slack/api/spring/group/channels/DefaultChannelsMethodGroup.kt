@@ -28,7 +28,7 @@ class DefaultChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun history(authToken: String): ChannelsHistoryMethod {
-        return DefaultChannelHistoryMethod(authToken)
+        return DefaultChannelsHistoryMethod(authToken)
     }
 
     override fun invite(authToken: String): ChannelsInviteMethod {
