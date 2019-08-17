@@ -1,5 +1,2 @@
-<<<<<<< HEAD
 1.0.0.M4
-=======
-1.0.0.M4-1
->>>>>>> added group method group
+
