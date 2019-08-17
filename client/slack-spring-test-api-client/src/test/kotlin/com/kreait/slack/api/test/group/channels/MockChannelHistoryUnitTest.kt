@@ -1,8 +1,8 @@
 package com.kreait.slack.api.test.group.channels
 
 import com.kreait.slack.api.contract.jackson.group.channels.ChannelsHistoryRequest
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelHistoryResponse
-import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelHistoryResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsHistoryResponse
+import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsHistoryResponse
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.test.MockMethodTestHelper
 import com.kreait.slack.api.test.MockSlackClient
@@ -16,13 +16,13 @@ class MockChannelHistoryUnitTest {
     @DisplayName("Mocking Successful")
     @Test
     fun testMockMethod() {
-        val successFunction: (SuccessfulChannelHistoryResponse?) -> Any = mock { }
-        val failureFunction: (ErrorChannelHistoryResponse?) -> Any = mock { }
+        val successFunction: (SuccessfulChannelsHistoryResponse?) -> Any = mock { }
+        val failureFunction: (ErrorChannelsHistoryResponse?) -> Any = mock { }
         val mockSlackClient = MockSlackClient()
 
         MockMethodTestHelper.verify({ mockSlackClient.channel().history("") },
-                successFunction, SuccessfulChannelHistoryResponse.sample(),
-                failureFunction, ErrorChannelHistoryResponse.sample(),
+                successFunction, SuccessfulChannelsHistoryResponse.sample(),
+                failureFunction, ErrorChannelsHistoryResponse.sample(),
                 ChannelsHistoryRequest.sample())
     }
 }
