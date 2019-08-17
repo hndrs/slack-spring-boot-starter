@@ -23,7 +23,7 @@ class GroupsArchiveTest {
 
     @Test
     @DisplayName("groups.archive Failure")
-    fun GroupsCloseFailure() {
+    fun groupsArchiveFailure() {
         val response = ErrorGroupsArchiveResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "groups.archive", response)
         val verifier = Verifier(response)
@@ -38,7 +38,7 @@ class GroupsArchiveTest {
 
     @Test
     @DisplayName("groups.archive Success")
-    fun GroupsCloseSuccess() {
+    fun groupsArchiveSuccess() {
         val response = SuccessfulGroupsArchiveResponse.sample()
         val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "groups.archive", response)
         val verifier = Verifier(response)
