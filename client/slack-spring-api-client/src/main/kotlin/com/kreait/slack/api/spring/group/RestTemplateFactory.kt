@@ -6,6 +6,7 @@ import com.kreait.slack.api.spring.group.respond.SlackResponseErrorHandler
 import org.apache.http.HttpHost
 import org.apache.http.conn.ssl.NoopHostnameVerifier
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory
+import org.apache.http.impl.client.HttpClientBuilder
 import org.apache.http.impl.client.HttpClients
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
 import org.springframework.http.converter.FormHttpMessageConverter
@@ -20,10 +21,10 @@ import java.security.cert.X509Certificate
  */
 object RestTemplateFactory {
 
-    private const val PROXY_PROPERTY_NAME = "slack.development.proxyHost"
+    private const val PROXY_PROPERTY_NAME = "slack.proxyHost"
     private const val SSL_PROPERTY_NAME = "slack.development.ssl.accept-self-signed"
-    private val slackApiRestTemplate = RestTemplate(clientFactory())
-    private val slackResponseRestTemplate = RestTemplate()
+    private val slackApiRestTemplate = RestTemplate(clientFactory(HttpClients.custom()))
+    private val slackResponseRestTemplate = RestTemplate(clientFactory(HttpClients.custom()))
 
     init {
 
@@ -41,23 +42,25 @@ object RestTemplateFactory {
     /**
      *
      */
-    private fun clientFactory(): HttpComponentsClientHttpRequestFactory {
-        val builder = HttpClients.custom()
+    internal fun clientFactory(builder: HttpClientBuilder): HttpComponentsClientHttpRequestFactory {
 
         System.getProperty(PROXY_PROPERTY_NAME)?.let {
             builder.setProxy(HttpHost.create(it))
         }
 
-        (System.getProperty(SSL_PROPERTY_NAME) as Boolean?)?.let {
-            val acceptingTrustStrategy = { chain: Array<X509Certificate>, authType: String -> true }
+        (System.getProperty(SSL_PROPERTY_NAME)?.toBoolean())?.let { allowUnsafeCertificates ->
+            if (allowUnsafeCertificates) {
 
-            val sslContext = org.apache.http.ssl.SSLContexts.custom()
-                    .loadTrustMaterial(null, acceptingTrustStrategy)
-                    .build()
+                val acceptingTrustStrategy = { _: Array<X509Certificate>, _: String -> true }
 
-            val csf = SSLConnectionSocketFactory(sslContext)
-            builder.setSSLSocketFactory(csf)
-                    .setSSLHostnameVerifier(NoopHostnameVerifier())
+                val sslContext = org.apache.http.ssl.SSLContexts.custom()
+                        .loadTrustMaterial(null, acceptingTrustStrategy)
+                        .build()
+
+                val csf = SSLConnectionSocketFactory(sslContext)
+                builder.setSSLSocketFactory(csf)
+                builder.setSSLHostnameVerifier(NoopHostnameVerifier())
+            }
         }
 
         return HttpComponentsClientHttpRequestFactory(builder.build())
