@@ -3,8 +3,8 @@ package com.kreait.slack.api.contract.jackson.group.groups
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.types.Group
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -40,6 +40,6 @@ data class ErrorGroupsCreateChildResponse constructor(
 /**
  * [SlackDoc](https://api.slack.com/methods/groups.CreateChild)
  */
-data class GroupsCreateChildRequest(@JsonProperty("channel") val channel: String) {
+data class GroupsCreateChildRequest(@JsonProperty("channel") val channelId: String) {
     companion object
 }
