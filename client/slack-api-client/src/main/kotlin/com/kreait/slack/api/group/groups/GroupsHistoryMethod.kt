@@ -1,8 +1,8 @@
 package com.kreait.slack.api.group.groups
 
-import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsArchiveResponse
-import com.kreait.slack.api.contract.jackson.group.groups.GroupsArchiveRequest
-import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsArchiveResponse
+import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsHistoryResponse
+import com.kreait.slack.api.contract.jackson.group.groups.GroupsHistoryRequest
+import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsHistoryResponse
 import com.kreait.slack.api.group.ApiCallMethod
 
-abstract class GroupsHistoryMethod
+abstract class GroupsHistoryMethod : ApiCallMethod<GroupsHistoryMethod, SuccessfulGroupsHistoryResponse, ErrorGroupsHistoryResponse, GroupsHistoryRequest>()
