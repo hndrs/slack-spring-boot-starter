@@ -1,10 +1,7 @@
 package com.kreait.slack.api.test.group.groups
 
-import com.kreait.slack.api.group.groups.GroupsCreateChildMethod
-import com.kreait.slack.api.group.groups.GroupsCreateMethod
 import com.kreait.slack.api.group.groups.GroupsHistoryMethod
 import com.kreait.slack.api.group.groups.GroupsInfoMethod
-import com.kreait.slack.api.group.groups.GroupsInviteMethod
 import com.kreait.slack.api.group.groups.GroupsKickMethod
 import com.kreait.slack.api.group.groups.GroupsLeaveMethod
 import com.kreait.slack.api.group.groups.GroupsListMethod
@@ -27,11 +24,11 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
         return mockArchiveMethod
     }
 
-    override fun create(authToken: String): GroupsCreateMethod {
+    override fun create(authToken: String): MockGroupsCreateMethod {
         return mockCreateMethod
     }
 
-    override fun createChild(authToken: String): GroupsCreateChildMethod {
+    override fun createChild(authToken: String): MockGroupsCreateChildMethod {
         return mockCreateChildMethod
     }
 
@@ -43,7 +40,7 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun invite(authToken: String): GroupsInviteMethod = mockInviteMethod
+    override fun invite(authToken: String): MockGroupsInviteMethod = mockInviteMethod
 
     override fun kick(authToken: String): GroupsKickMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
