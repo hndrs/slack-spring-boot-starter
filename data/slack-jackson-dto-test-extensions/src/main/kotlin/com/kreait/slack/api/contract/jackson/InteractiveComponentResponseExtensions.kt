@@ -1,7 +1,9 @@
 package com.kreait.slack.api.contract.jackson
 
+import com.kreait.slack.api.contract.jackson.common.InstantSample
+
 fun InteractiveComponentResponse.Companion.sample(): InteractiveComponentResponse {
-    return InteractiveComponentResponse("type", "token", "", "",
+    return InteractiveComponentResponse("type", "token", InstantSample.sample(), InstantSample.sample(),
             InteractiveComponentResponse.Team.sample(), InteractiveComponentResponse.User.sample(), "",
             InteractiveComponentResponse.Channel.sample(), null, null, null, listOf(), "")
 }

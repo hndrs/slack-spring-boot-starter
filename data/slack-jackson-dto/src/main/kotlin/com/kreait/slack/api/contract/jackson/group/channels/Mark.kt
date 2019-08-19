@@ -3,6 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.channels
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
@@ -36,7 +37,7 @@ data class ErrorChannelsMarkResponse constructor(override val ok: Boolean,
 
 @JacksonDataClass
 data class ChannelsMarkRequest constructor(@JsonProperty("channel") val channelId: String,
-                                           @JsonProperty("ts") val timestamp: Instant) {
+                                           @InstantToString @JsonProperty("ts") val timestamp: Instant) {
 
     companion object
 }

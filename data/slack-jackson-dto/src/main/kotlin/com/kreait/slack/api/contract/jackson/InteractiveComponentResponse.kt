@@ -3,7 +3,9 @@ package com.kreait.slack.api.contract.jackson
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.kreait.slack.api.contract.jackson.common.Action
+import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
+import java.time.Instant
 
 @JacksonDataClass
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,9 +14,9 @@ data class InteractiveComponentResponse(
         @JsonProperty("type") val type: String?,
         @JsonProperty("token") val token: String?,
         //TODO can this really be optional?
-        @JsonProperty("action_ts") val actionTs: String?,
+        @InstantToString @JsonProperty("action_ts") val actionTimestamp: Instant?,
         //TODO can this really be optional?
-        @JsonProperty("message_ts") val messageTs: String?,
+        @InstantToString @JsonProperty("message_ts") val timestamp: Instant,
         @JsonProperty("team") val team: Team,
         @JsonProperty("user") val user: User,
         @JsonProperty("state") val state: String? = "",
