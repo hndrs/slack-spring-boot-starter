@@ -67,15 +67,15 @@ class MockSlackClient : SlackClient {
         return mockRespondMethodGroup;
     }
 
-    override fun team(): TeamMethodGroup {
+    override fun team(): MockTeamMethodGroup {
         return mockTeamMethodGroup
     }
 
-    override fun usergroups(): UsergroupsMethodGroup {
+    override fun usergroups(): MockUsergroupsMethodGroup {
         return mockUsergroupsMethodGroup
     }
 
-    override fun groups(): GroupsMethodGroup {
+    override fun groups(): MockGroupsMethodGroup {
         return mockGroupsMethodGroup
     }
 }
