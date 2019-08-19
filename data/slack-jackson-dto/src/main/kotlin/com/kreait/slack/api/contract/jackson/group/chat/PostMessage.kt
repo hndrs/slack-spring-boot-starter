@@ -58,7 +58,7 @@ data class PostMessageRequest constructor(@JsonProperty("text") val text: String
                                           @JsonProperty("mrkdwn") val markDown: Boolean = true,
                                           @JsonProperty("parse") val parse: String? = null,
                                           @JsonProperty("reply_broadcast") val replyBroadcast: Boolean = false,
-                                          @JsonProperty("thread_ts") val threadTs: String? = null,
+                                          @InstantToString @JsonProperty("thread_ts") val threadTs: Instant? = null,
                                           @JsonProperty("unfurl_links") val unfurlLinks: Boolean = false,
                                           @JsonProperty("unfurl_media") val unfurlMedia: Boolean = true) {
     companion object

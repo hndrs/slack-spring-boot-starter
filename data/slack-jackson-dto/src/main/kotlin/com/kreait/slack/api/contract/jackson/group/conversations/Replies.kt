@@ -3,9 +3,9 @@ package com.kreait.slack.api.contract.jackson.group.conversations
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.util.InstantToString
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
@@ -36,7 +36,7 @@ data class SuccessfulConversationRepliesResponse constructor(override val ok: Bo
             @InstantToString @JsonProperty("ts") val timestamp: Instant,
             @JsonProperty("user") val user: String,
             @JsonProperty("text") val text: String,
-            @JsonProperty("thread_ts") val threadTimestamp: String? = null,
+            @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant? = null,
             @JsonProperty("parent_user_id") val parentUserId: String? = null,
             @JsonProperty("subscribed") val subscribed: Boolean? = null,
             @JsonProperty("last_read") val lastRead: String? = null,
