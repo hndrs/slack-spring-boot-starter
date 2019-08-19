@@ -160,6 +160,17 @@ SlashCommandReceiver {
 
 --
 
+== Proxying requests
+
+to setup a proxy e.g. with charles you have to set the following properties:
+[source]
+--
+-Dslack.proxyHost=http://localhost:8888
+-Dslack.development.ssl.accept-self-signed=true
+--
+
+this enables you to log outgoing requests for better understanding on how the body is sent to slack.
+
 == Contributing
 
 To contribute to the project, please read the https://github.com/kreait/slack-spring-boot-starter/blob/master/CONTRIBUTING.adoc[Contribution Guidelines]
