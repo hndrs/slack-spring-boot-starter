@@ -25,17 +25,17 @@ sealed class GroupsHistoryResponse constructor(@JsonProperty("ok") open val ok: 
 data class SuccessfulGroupsHistoryResponse(
         override val ok: Boolean,
         @InstantToString @JsonProperty("latest") val latestTimestamp: Instant,
-        @JsonProperty("group") val group: List<Message>,
-        @JsonProperty("has_more") val hasMore: Boolean = false
+        @JsonProperty("messages") val messages: List<Message>,
+        @JsonProperty("has_more") val hasMore: Boolean? = null
 ) : GroupsHistoryResponse(ok) {
     companion object {}
 
     data class Message(
-            @JsonProperty("is_starred") val isStarred: Boolean = false,
-            @JsonProperty("text") val text: String?,
+            @field:JsonProperty("is_starred") @param:JsonProperty("is_starred") val isStarred: Boolean? = null,
+            @JsonProperty("text") val text: String? = null,
             @InstantToString @JsonProperty("ts") val timestamp: Instant?,
-            @JsonProperty("type") val type: String?,
-            @JsonProperty("user") val user: String?
+            @JsonProperty("type") val type: String? = null,
+            @JsonProperty("user") val user: String? = null
     ) {
         companion object
     }
