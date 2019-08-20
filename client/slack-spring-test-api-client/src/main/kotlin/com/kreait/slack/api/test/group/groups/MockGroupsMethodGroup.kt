@@ -3,7 +3,6 @@ package com.kreait.slack.api.test.group.groups
 import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.groups.GroupsOpenMethod
 import com.kreait.slack.api.group.groups.GroupsRepliesMethod
-import com.kreait.slack.api.group.groups.GroupsSetTopicMethod
 
 class MockGroupsMethodGroup : GroupsMethodGroup {
 
@@ -20,22 +19,15 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
     private val mockListMethod = MockGroupsListMethod()
     private val mockSetPurposeMethod = MockGroupsSetPurposeMethod()
     private val mockRenameMethod = MockGroupsRenameMethod()
+    private val mockSetTopicMethod = MockGroupsSetTopicMethod()
 
-    override fun archive(authToken: String): MockGroupsArchiveMethod {
-        return mockArchiveMethod
-    }
+    override fun archive(authToken: String): MockGroupsArchiveMethod = mockArchiveMethod
 
-    override fun create(authToken: String): MockGroupsCreateMethod {
-        return mockCreateMethod
-    }
+    override fun create(authToken: String): MockGroupsCreateMethod = mockCreateMethod
 
-    override fun createChild(authToken: String): MockGroupsCreateChildMethod {
-        return mockCreateChildMethod
-    }
+    override fun createChild(authToken: String): MockGroupsCreateChildMethod = mockCreateChildMethod
 
-    override fun history(authToken: String): MockGroupsHistoryMethod {
-        return mockHistoryMethod
-    }
+    override fun history(authToken: String): MockGroupsHistoryMethod = mockHistoryMethod
 
     override fun info(authToken: String): MockGroupsInfoMethod = mockInfoMethod
 
@@ -61,13 +53,9 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
 
     override fun setPurpose(authToken: String): MockGroupsSetPurposeMethod = mockSetPurposeMethod
 
-    override fun setTopic(authToken: String): GroupsSetTopicMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun setTopic(authToken: String): MockGroupsSetTopicMethod = mockSetTopicMethod
 
-    override fun unarchive(authToken: String): MockGroupsUnarchiveMethod {
-        return mockUnarchiveMethod
-    }
+    override fun unarchive(authToken: String): MockGroupsUnarchiveMethod = mockUnarchiveMethod
 
 
 }
