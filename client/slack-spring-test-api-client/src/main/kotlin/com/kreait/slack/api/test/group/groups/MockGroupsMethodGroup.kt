@@ -1,7 +1,6 @@
 package com.kreait.slack.api.test.group.groups
 
 import com.kreait.slack.api.group.groups.GroupsKickMethod
-import com.kreait.slack.api.group.groups.GroupsLeaveMethod
 import com.kreait.slack.api.group.groups.GroupsListMethod
 import com.kreait.slack.api.group.groups.GroupsMarkMethod
 import com.kreait.slack.api.group.groups.GroupsMethodGroup
@@ -20,7 +19,8 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
     private val mockHistoryMethod = MockGroupsHistoryMethod()
     private val mockUnarchiveMethod = MockGroupsUnarchiveMethod()
     private val mockInfoMethod = MockGroupsInfoMethod()
-
+    private val mockLeaveMethod = MockGroupsLeaveMethod()
+    
     override fun archive(authToken: String): MockGroupsArchiveMethod {
         return mockArchiveMethod
     }
@@ -45,9 +45,7 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun leave(authToken: String): GroupsLeaveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun leave(authToken: String): MockGroupsLeaveMethod = mockLeaveMethod
 
     override fun list(authToken: String): GroupsListMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
