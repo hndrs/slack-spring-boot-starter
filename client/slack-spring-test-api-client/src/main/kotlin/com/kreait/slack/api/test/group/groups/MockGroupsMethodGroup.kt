@@ -2,7 +2,6 @@ package com.kreait.slack.api.test.group.groups
 
 import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.groups.GroupsOpenMethod
-import com.kreait.slack.api.group.groups.GroupsRenameMethod
 import com.kreait.slack.api.group.groups.GroupsRepliesMethod
 import com.kreait.slack.api.group.groups.GroupsSetTopicMethod
 
@@ -20,6 +19,7 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
     private val mockMarkMethod = MockGroupsMarkMethod()
     private val mockListMethod = MockGroupsListMethod()
     private val mockSetPurposeMethod = MockGroupsSetPurposeMethod()
+    private val mockRenameMethod = MockGroupsRenameMethod()
 
     override fun archive(authToken: String): MockGroupsArchiveMethod {
         return mockArchiveMethod
@@ -53,9 +53,7 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun rename(authToken: String): GroupsRenameMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun rename(authToken: String): MockGroupsRenameMethod = mockRenameMethod
 
     override fun replies(authToken: String): GroupsRepliesMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
