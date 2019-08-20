@@ -22,7 +22,7 @@ sealed class PostEphemeralResponse constructor(@JsonProperty("ok") open val ok: 
 
 @JacksonDataClass
 data class SuccessfulPostEphemeralResponse constructor(override val ok: Boolean,
-                                                       @InstantToString @JsonProperty("message_ts") val timestamp: Instant)
+                                                       @InstantToString @JsonProperty("message_ts") val messageTimestamp: Instant)
     : PostEphemeralResponse(ok) {
     companion object
 }
