@@ -1,0 +1,27 @@
+{
+  "name": "Slack Bot",
+  "description": "A Slack Bot using the Spring Boot Starter",
+  "website": "https://kreait.com",
+  "repository": "https://github.com/olaph-io/slack-spring-boot-starter/tree/heroku-deployment-button",
+  "logo": "https://abload.de/img/logod4k3l.png",
+  "success_url": "/",
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "keywords": [
+    "Slack",
+    "Spring",
+    "spring-boot",
+    "spring-boot-starter",
+    "Slack Bot",
+    "Slack App",
+    "JVM",
+    "Java",
+    "Kotlin",
+    "Productivity",
+    "Agile"
+  ]
+}
