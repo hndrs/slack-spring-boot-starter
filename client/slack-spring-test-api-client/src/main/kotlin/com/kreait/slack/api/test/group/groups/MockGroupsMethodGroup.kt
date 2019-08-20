@@ -11,14 +11,15 @@ import com.kreait.slack.api.group.groups.GroupsRenameMethod
 import com.kreait.slack.api.group.groups.GroupsRepliesMethod
 import com.kreait.slack.api.group.groups.GroupsSetPurposeMethod
 import com.kreait.slack.api.group.groups.GroupsSetTopicMethod
-import com.kreait.slack.api.group.groups.GroupsUnarchiveMethod
 
 class MockGroupsMethodGroup : GroupsMethodGroup {
+
     private val mockArchiveMethod = MockGroupsArchiveMethod()
     private val mockCreateMethod = MockGroupsCreateMethod()
     private val mockCreateChildMethod = MockGroupsCreateChildMethod()
     private val mockInviteMethod = MockGroupsInviteMethod()
     private val mockHistoryMethod = MockGroupsHistoryMethod()
+    private val mockUnarchiveMethod = MockGroupsUnarchiveMethod()
 
     override fun archive(authToken: String): MockGroupsArchiveMethod {
         return mockArchiveMethod
@@ -78,8 +79,8 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun unarchive(authToken: String): GroupsUnarchiveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun unarchive(authToken: String): MockGroupsUnarchiveMethod {
+        return mockUnarchiveMethod
     }
 
 
