@@ -50,18 +50,19 @@ data class PostMessageRequest constructor(@JsonProperty("text") val text: String
                                           @JsonProperty("channel") val channel: String,
                                           @JsonProperty("attachments") val attachments: List<Attachment>? = null,
                                           @JsonProperty("blocks") val blocks: List<Block>? = null,
-                                          @JsonProperty("as_user") val asUser: Boolean? = false,
+                                          @JsonProperty("as_user") val asUser: Boolean? = null,
                                           @JsonProperty("username") val username: String? = null,
                                           @JsonProperty("icon_emoji") val iconEmoji: String? = null,
                                           @JsonProperty("icon_url") val iconUrl: String? = null,
-                                          @JsonProperty("link_names") val linkNames: Boolean = true,
-                                          @JsonProperty("mrkdwn") val markDown: Boolean = true,
-                                          @JsonProperty("parse") val parse: String? = null,
-                                          @JsonProperty("reply_broadcast") val replyBroadcast: Boolean = false,
+                                          @JsonProperty("link_names") val linkNames: Boolean? = null,
+                                          @JsonProperty("mrkdwn") val markDown: Boolean? = null,
+                                          @JsonProperty("parse") val parse: ParseType? = null,
+                                          @JsonProperty("reply_broadcast") val replyBroadcast: Boolean? = null,
                                           @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant? = null,
-                                          @JsonProperty("unfurl_links") val unfurlLinks: Boolean = false,
-                                          @JsonProperty("unfurl_media") val unfurlMedia: Boolean = true) {
+                                          @JsonProperty("unfurl_links") val unfurlLinks: Boolean? = null,
+                                          @JsonProperty("unfurl_media") val unfurlMedia: Boolean? = null) {
     companion object
+
 }
 
 

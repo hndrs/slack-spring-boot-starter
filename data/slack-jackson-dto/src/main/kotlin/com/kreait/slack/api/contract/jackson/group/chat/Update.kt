@@ -15,7 +15,7 @@ data class ChatUpdateRequest constructor(@JsonProperty("channel") val channel: S
                                          @JsonProperty("as_user") val asUser: Boolean? = true,
                                          @JsonProperty("attachments") val attachments: List<UpdateAttachment>? = null,
                                          @JsonProperty("link_names") val linkNames: Boolean? = true,
-                                         @JsonProperty("parse") val parse: String? = "client") {
+                                         @JsonProperty("parse") val parse: ParseType? = null) {
     companion object
 }
 
