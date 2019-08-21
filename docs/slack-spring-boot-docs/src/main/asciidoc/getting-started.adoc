@@ -3,7 +3,35 @@
 
 == Requirements
 
+- Slack App
+- spring boot starter application
+
 == Setting up Slack
+
+1. under https://api.slack.com/apps[Apps] click on New App
+2. enter the name of your application
+3. select your development workspace and click on *Create*
+
+=== Create a Slash-Command
+
+- Click on "*Slash commands*" on the left side of the navigation menu
+- Click on "*Create New Command*"
+- enter the url of your application (to work on a local machine, use a tunneling tool like ngrok or forward a port to your local maching) with the endpoint */commands* and click on *save*
+
+=== Receive Events
+
+- Click on "*Events*" on the left side of the navigation menu
+- click on "*enable events*" on the top right
+- Start your Slack Spring Boot Application.
+The https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/broker/EventBroker.kt[EventBroker] takes care of the verification we need in the following step
+- enter the url of your service with the endpoint /events
+- slack sends now a challenge token to verify that the service is properly set up
+- Scroll down to "*Subscribe to Bot Events*" and add your events
+
+=== Receiver Interactive Components
+
+- Click on "*Interactive Components*" on the left side of the navigation menu
+- enter the url of your service with the endpoint /interactive-components
 
 == Developing your first Slack App
 
