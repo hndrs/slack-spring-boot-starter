@@ -14,3 +14,5 @@ fun SuccessfulSetProfileResponse.Profile.Companion.sample(): SuccessfulSetProfil
 fun ErrorSetProfileResponse.Companion.sample(): ErrorSetProfileResponse {
     return ErrorSetProfileResponse(false, "")
 }
+
+fun SetProfileRequest.Companion.sample() = SetProfileRequest("", mapOf(), "", "")
