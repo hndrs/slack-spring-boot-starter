@@ -12,6 +12,7 @@ import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsListRespons
 import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsMarkResponse
 import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsOpenResponse
 import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsRenameResponse
+import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsRepliesResponse
 import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsSetPurposeResponse
 import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsSetTopicResponse
 import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsUnarchiveResponse
@@ -27,6 +28,7 @@ import com.kreait.slack.api.contract.jackson.group.groups.GroupsListRequest
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsMarkRequest
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsOpenRequest
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsRenameRequest
+import com.kreait.slack.api.contract.jackson.group.groups.GroupsRepliesRequest
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsSetTopicRequest
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsUnarchiveRequest
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsArchiveResponse
@@ -41,6 +43,7 @@ import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsListRe
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsMarkResponse
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsOpenResponse
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsRenameResponse
+import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsRepliesResponse
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsSetPurposeResponse
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsSetTopicResponse
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsUnarchiveResponse
@@ -81,6 +84,7 @@ class DefaultGroupsMethodGroupTest() {
             MetaInfo("groups.list", SuccessfulGroupsListResponse.sample(), ErrorGroupsListResponse.sample(), GroupsListRequest.sample(), DefaultGroupsListMethod("", mockTemplate)),
             MetaInfo("groups.mark", SuccessfulGroupsMarkResponse.sample(), ErrorGroupsMarkResponse.sample(), GroupsMarkRequest.sample(), DefaultGroupsMarkMethod("", mockTemplate)),
             MetaInfo("groups.rename", SuccessfulGroupsRenameResponse.sample(), ErrorGroupsRenameResponse.sample(), GroupsRenameRequest.sample(), DefaultGroupsRenameMethod("", mockTemplate)),
+            MetaInfo("groups.replies", SuccessfulGroupsRepliesResponse.sample(), ErrorGroupsRepliesResponse.sample(), GroupsRepliesRequest.sample(), DefaultGroupsRepliesMethod("", mockTemplate)),
             MetaInfo("groups.setPurpose", SuccessfulGroupsSetPurposeResponse.sample(), ErrorGroupsSetPurposeResponse.sample(), GetPresenceRequest.sample(), DefaultGroupsSetPurposeMethod("", mockTemplate)),
             MetaInfo("groups.setTopic", SuccessfulGroupsSetTopicResponse.sample(), ErrorGroupsSetTopicResponse.sample(), GroupsSetTopicRequest.sample(), DefaultGroupsSetTopicMethod("", mockTemplate)),
             MetaInfo("groups.unarchive", SuccessfulGroupsUnarchiveResponse.sample(), ErrorGroupsUnarchiveResponse.sample(), GroupsUnarchiveRequest.sample(), DefaultGroupsUnarchiveMethod("", mockTemplate))
