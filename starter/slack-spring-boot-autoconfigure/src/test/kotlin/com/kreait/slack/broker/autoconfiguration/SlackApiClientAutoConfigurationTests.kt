@@ -9,6 +9,7 @@ import com.kreait.slack.api.group.dialog.DialogMethodGroup
 import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
+import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 import com.kreait.slack.api.group.respond.RespondMethodGroup
 import com.kreait.slack.api.group.team.TeamMethodGroup
 import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
@@ -59,6 +60,8 @@ class SlackApiClientAutoConfigurationTests {
     }
 
     class TestSlackClient : SlackClient {
+        override fun reminders(): RemindersMethodGroup = throw UnsupportedOperationException()
+
         override fun groups(): GroupsMethodGroup = throw UnsupportedOperationException()
 
         override fun auth(): AuthGroup = throw UnsupportedOperationException()

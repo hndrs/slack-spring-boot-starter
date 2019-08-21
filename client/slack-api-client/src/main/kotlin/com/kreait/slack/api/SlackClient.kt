@@ -8,6 +8,7 @@ import com.kreait.slack.api.group.dialog.DialogMethodGroup
 import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
+import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 import com.kreait.slack.api.group.respond.RespondMethodGroup
 import com.kreait.slack.api.group.team.TeamMethodGroup
 import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
@@ -95,5 +96,12 @@ interface SlackClient {
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
     fun groups(): GroupsMethodGroup
+
+    /**
+     * Convenience function to apply slack api reminders method grouping
+     *
+     * [Slack Api Documentation](https://api.slack.com/methods)
+     */
+    fun reminders(): RemindersMethodGroup
 
 }
