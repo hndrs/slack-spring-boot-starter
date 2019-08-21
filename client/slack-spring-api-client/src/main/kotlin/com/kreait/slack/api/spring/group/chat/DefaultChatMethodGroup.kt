@@ -1,27 +1,21 @@
 package com.kreait.slack.api.spring.group.chat
 
-import com.kreait.slack.api.group.chat.ChatGetPermalinkMethod
-import com.kreait.slack.api.group.chat.ChatMeMessageMethod
 import com.kreait.slack.api.group.chat.ChatMethodGroup
-import com.kreait.slack.api.group.chat.ChatUnfurlMethod
-import org.slf4j.LoggerFactory
 
 class DefaultChatMethodGroup : ChatMethodGroup {
-    override fun getPermalink(authToken: String): ChatGetPermalinkMethod {
+
+    override fun getPermalink(authToken: String): DefaultGetPermalinkMethod {
         return DefaultGetPermalinkMethod(authToken)
     }
 
-    override fun meMessage(authToken: String): ChatMeMessageMethod {
+    override fun meMessage(authToken: String): DefaultMeMessageMethod {
         return DefaultMeMessageMethod(authToken)
     }
 
-    override fun unfurl(authToken: String): ChatUnfurlMethod {
+    override fun unfurl(authToken: String): DefaultUnfurlMethod {
         return DefaultUnfurlMethod(authToken)
     }
 
-    companion object {
-        val LOG = LoggerFactory.getLogger(DefaultChatMethodGroup::class.java)
-    }
 
     override fun delete(authToken: String): DefaultDeleteMethod {
         return DefaultDeleteMethod(authToken)
