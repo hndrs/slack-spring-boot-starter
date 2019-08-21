@@ -43,7 +43,7 @@ class DefaultConversationsMethodGroup : ConversationsMethodGroup {
     }
 
     override fun kick(authToken: String): ConversationsKickMethod {
-        return DefaultConverstationsKickMethod(authToken)
+        return DefaultConversationsKickMethod(authToken)
     }
 
     override fun leave(authToken: String): ConversationsLeaveMethod {
