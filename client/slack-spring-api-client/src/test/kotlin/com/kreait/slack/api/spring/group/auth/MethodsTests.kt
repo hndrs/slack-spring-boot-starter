@@ -16,7 +16,7 @@ import org.junit.jupiter.api.TestFactory
 import org.springframework.web.client.RestTemplate
 
 @DisplayName("Auth Methods Tests")
-class DefaultAuthMethodsTests {
+class MethodsTests {
 
     private lateinit var mockTemplate: RestTemplate
 
