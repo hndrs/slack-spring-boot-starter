@@ -9,6 +9,7 @@ import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
+import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 import com.kreait.slack.api.group.respond.RespondMethodGroup
 import com.kreait.slack.api.group.team.TeamMethodGroup
 import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
@@ -25,6 +26,7 @@ import com.kreait.slack.api.spring.group.respond.DefaultRespondMethodGroup
 import com.kreait.slack.api.spring.group.team.DefaultTeamMethodGroup
 import com.kreait.slack.api.spring.group.usergroups.DefaultUsergroupMethodGroup
 import com.kreait.slack.api.spring.group.users.DefaultUserMethodGroup
+import com.kreait.slack.api.spring.reminders.DefaultRemindersMethodGroup
 
 /**
  * Api Client to interact with the slack api
@@ -145,6 +147,14 @@ class DefaultSlackClient : SlackClient {
         return DefaultGroupsMethodGroup()
     }
 
+    /**
+     * Convenience function to apply slack api Usergroups method grouping
+     *
+     * [Slack Api Documentation](https://api.slack.com/methods)
+     */
+    override fun reminders(): RemindersMethodGroup {
+        return DefaultRemindersMethodGroup()
+    }
 
     /**
      * [DefaultSlackClient] configuration class that contains slack configuration options
