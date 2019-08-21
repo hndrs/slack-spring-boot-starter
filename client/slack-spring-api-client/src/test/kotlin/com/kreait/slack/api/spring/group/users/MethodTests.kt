@@ -42,7 +42,7 @@ import org.junit.jupiter.api.TestFactory
 import org.springframework.web.client.RestTemplate
 
 @DisplayName("Users Tests")
-class DefaultUsersMethodsTests {
+class MethodTests {
 
     private lateinit var mockTemplate: RestTemplate
 
@@ -52,7 +52,8 @@ class DefaultUsersMethodsTests {
     }
 
     @TestFactory
-    fun `methodInvocations`(): List<DynamicTest> = DynamicGroupTests.methodInvocations(testCases = testCases(), mockTemplate = mockTemplate)
+    @DisplayName("Method Invocation Tests")
+    fun methodInvocations(): List<DynamicTest> = DynamicGroupTests.methodInvocations(testCases = testCases(), mockTemplate = mockTemplate)
 
     private fun testCases() = listOf(
             MetaInfo("users.conversations", SuccessfulConversationsResponse.sample(), ErrorConversationsResponse.sample(), ConversationsRequest.sample(), DefaultUserConversationsMethod("", mockTemplate)),

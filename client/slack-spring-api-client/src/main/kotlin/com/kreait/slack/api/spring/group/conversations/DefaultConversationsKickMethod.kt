@@ -10,7 +10,7 @@ import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 @Suppress("UNCHECKED_CAST")
-class DefaultConverstationsKickMethod (private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsKickMethod() {
+class DefaultConversationsKickMethod (private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsKickMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationKickResponse, ErrorConversationKickResponse> {
         val response = SlackRequestBuilder<ConversationsKickResponse>(authToken, restTemplate)
