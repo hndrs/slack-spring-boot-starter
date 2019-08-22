@@ -26,7 +26,7 @@ import com.kreait.slack.api.spring.group.respond.DefaultRespondMethodGroup
 import com.kreait.slack.api.spring.group.team.DefaultTeamMethodGroup
 import com.kreait.slack.api.spring.group.usergroups.DefaultUsergroupMethodGroup
 import com.kreait.slack.api.spring.group.users.DefaultUserMethodGroup
-import com.kreait.slack.api.spring.reminders.DefaultRemindersMethodGroup
+import com.kreait.slack.api.spring.group.reminders.DefaultRemindersMethodGroup
 
 /**
  * Api Client to interact with the slack api
