@@ -22,7 +22,7 @@ sealed class GroupsOpenResponse constructor(@JsonProperty("ok") open val ok: Boo
  */
 data class SuccessfulGroupsOpenResponse(override val ok: Boolean,
                                         @JsonProperty("no_op") val noOp: Boolean? = null,
-                                        @JsonProperty("already_open") val alreadyOpen: Boolean? = null) : GroupsOpenResponse(ok) {
+                                        @JsonProperty("already_open") val isAlreadyOpen: Boolean? = null) : GroupsOpenResponse(ok) {
     companion object
 }
 
