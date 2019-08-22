@@ -1,4 +1,4 @@
-package com.kreait.slack.api.spring.reminders
+package com.kreait.slack.api.spring.group.reminders
 
 import com.kreait.slack.api.contract.jackson.group.reminders.ErrorRemindersDeleteResponse
 import com.kreait.slack.api.contract.jackson.group.reminders.RemindersDeleteResponse
