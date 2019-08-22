@@ -1,11 +1,5 @@
 package com.kreait.slack.api.spring.group.reminders
 
-import com.kreait.slack.api.spring.reminders.DefaultRemindersAddMethod
-import com.kreait.slack.api.spring.reminders.DefaultRemindersCompleteMethod
-import com.kreait.slack.api.spring.reminders.DefaultRemindersDeleteMethod
-import com.kreait.slack.api.spring.reminders.DefaultRemindersInfoMethod
-import com.kreait.slack.api.spring.reminders.DefaultRemindersListMethod
-import com.kreait.slack.api.spring.reminders.DefaultRemindersMethodGroup
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
