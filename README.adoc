@@ -1,6 +1,6 @@
 :source-highlighter: prettify
 
-:version: 1.0.0.M5
+:version: 1.0.0.M6
 
 = Slack Spring Boot
 
@@ -163,9 +163,11 @@ SlashCommandReceiver {
 == Proxying requests
 
 to setup a proxy e.g. with charles you have to set the following properties:
+
 [source]
 --
 -Dslack.proxyHost=http://localhost:8888
+
 -Dslack.development.ssl.accept-self-signed=true
 --
 
