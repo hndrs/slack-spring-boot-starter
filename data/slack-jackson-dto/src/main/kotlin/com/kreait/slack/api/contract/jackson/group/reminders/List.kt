@@ -3,6 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.reminders
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.kreait.slack.api.contract.jackson.group.reminders.common.Reminder
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
@@ -36,14 +37,3 @@ data class ErrorRemindersListResponse constructor(
     companion object
 }
 
-data class Reminder(
-        @JsonProperty("complete_ts") val completeTimestamp: Int?,
-        @JsonProperty("creator") val creator: String?,
-        @JsonProperty("id") val id: String?,
-        @JsonProperty("recurring") val recurring: Boolean?,
-        @JsonProperty("text") val text: String?,
-        @JsonProperty("time") val time: Int?,
-        @JsonProperty("user") val userId: String?
-) {
-    companion object
-}
