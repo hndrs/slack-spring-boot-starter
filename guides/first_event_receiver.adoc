@@ -1,0 +1,15 @@
+= First Event Receiver
+
+:excerpt: This short guide will show you how to set up a Event receiver
+:title: First Event Receiver
+:order: 4
+:source-highlighter: highlightjs
+
+To write your first event receiver you write a component that implements the link:https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/io/olaph/slack/broker/receiver/EventReceiver.kt[EventReceiver] interface you can use the  link:client/slack-api-client/src/main/kotlin/io/olaph/slack/client/SlackClient.kt[SlackClient] that is automatically registered with the starter
+
+Example EventReceiver which sends a message when a channel is renamed (channel_rename permission required)
+
+[source,kotlin]
+--
+include::../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/DialogWorkflow.kt[lines=18..38]]
+--
