@@ -16,7 +16,7 @@ import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatDeleteResp
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatGetPermalinkResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatMeMessageResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatUnfurlResponse
-import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostMessageResponse
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
@@ -34,7 +34,7 @@ class DynamicMockChatTests {
             MockMetaInfo(MockChatDelete(), mock { }, SuccessfulChatDeleteResponse.sample(), mock { }, ErrorChatDeleteResponse.sample(), ChatDeleteRequest.sample()),
             MockMetaInfo(MockChatGetPermalink(), mock { }, SuccessfulChatGetPermalinkResponse.sample(), mock { }, ErrorChatGetPermalinkResponse.sample(), ChatGetPermalinkRequest.sample()),
             MockMetaInfo(MockChatMeMessage(), mock { }, SuccessfulChatMeMessageResponse.sample(), mock { }, ErrorChatMeMessageResponse.sample(), ChatMeMessageRequest.sample()),
-            MockMetaInfo(MockChatPostEphemeral(), mock { }, SuccessfulChatUpdateResponse.sample(), mock { }, ErrorPostEphemeralResponse.sample(), PostEphemeralRequest.sample()),
+            MockMetaInfo(MockChatPostEphemeral(), mock { }, SuccessfulPostEphemeralResponse.sample(), mock { }, ErrorPostEphemeralResponse.sample(), PostEphemeralRequest.sample()),
             MockMetaInfo(MockChatPostMessage(), mock { }, SuccessfulPostMessageResponse.sample(), mock { }, ErrorPostMessageResponse.sample(), PostMessageRequest.sample()),
             MockMetaInfo(MockChatUnfurl(), mock { }, SuccessfulChatUnfurlResponse.sample(), mock { }, ErrorChatUnfurlResponse.sample(), ChatUnfurlRequest.sample())
     )

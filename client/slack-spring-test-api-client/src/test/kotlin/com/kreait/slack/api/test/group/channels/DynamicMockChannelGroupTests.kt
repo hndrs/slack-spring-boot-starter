@@ -33,6 +33,7 @@ import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelInf
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelInviteResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelKickResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelRenameResponse
+import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelUnarchiveResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsCreateResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsHistoryResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsJoinResponse
@@ -86,6 +87,6 @@ class DynamicMockChannelGroupTests {
             MockMetaInfo(MockChannelsRepliesMethod(), mock { }, SuccessfulChannelsRepliesResponse.sample(), mock { }, ErrorChannelsRepliesResponse.sample(), ChannelsRepliesRequest.sample()),
             MockMetaInfo(MockChannelsSetPurposeMethod(), mock { }, SuccessfulChannelsSetPurposeResponse.sample(), mock { }, ErrorChannelsSetPurposeResponse.sample(), ChannelsSetPurposeRequest.sample()),
             MockMetaInfo(MockChannelsSetTopicMethod(), mock { }, SuccessfulChannelsSetTopicResponse.sample(), mock { }, ErrorChannelsSetTopicResponse.sample(), ChannelsSetTopicRequest.sample()),
-            MockMetaInfo(MockChannelsUnarchiveMethod(), mock { }, SuccessfulChannelsHistoryResponse.sample(), mock { }, ErrorChannelUnarchiveResponse.sample(), ChannelsUnarchiveRequest.sample())
+            MockMetaInfo(MockChannelsUnarchiveMethod(), mock { }, SuccessfulChannelUnarchiveResponse.sample(), mock { }, ErrorChannelUnarchiveResponse.sample(), ChannelsUnarchiveRequest.sample())
     )
 }
