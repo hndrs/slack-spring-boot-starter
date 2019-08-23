@@ -1,0 +1,18 @@
+= First Interactive Component Receiver
+
+:excerpt: This short guide will show you how to set up a Interactive Component receiver
+:title: First Interactive Component Receiver
+:order: 3
+
+To write your first command receiver you write a component that implements the link:starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/InteractiveComponentReceiver.kt[InteractiveComponentReceiver] interface you can use the  link:client/slack-api-client/src/main/kotlin/io/olaph/slack/client/SlackClient.kt[SlackClient] that is automatically registered with the starter
+
+Example Ping Receiver that answers with a pong
+
+[source,kotlin]
+--
+include::../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/DialogWorkflow.kt[lines=18..38]]
+--
+
+This Receiver overrides the `supportsInteractiveMessage(`-method to ensure that it is only invoked when the correct component is received
+
+the https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/broker/InteractiveComponentBroker.kt[InteractiveComponentBroker] takes care of receiving the component and forwards it to the right Receiver
