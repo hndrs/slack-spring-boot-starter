@@ -6,9 +6,9 @@ import com.kreait.slack.api.group.reminders.RemindersDeleteMethod
 import com.kreait.slack.api.group.reminders.RemindersInfoMethod
 import com.kreait.slack.api.group.reminders.RemindersListMethod
 import com.kreait.slack.api.group.reminders.RemindersMethodGroup
-import org.slf4j.LoggerFactory
 
 class DefaultRemindersMethodGroup : RemindersMethodGroup {
+
     override fun delete(authToken: String): RemindersDeleteMethod {
         return DefaultRemindersDeleteMethod(authToken)
     }
@@ -29,7 +29,4 @@ class DefaultRemindersMethodGroup : RemindersMethodGroup {
         return DefaultRemindersAddMethod(authToken)
     }
 
-    companion object {
-        val LOG = LoggerFactory.getLogger(DefaultRemindersMethodGroup::class.java)
-    }
 }
