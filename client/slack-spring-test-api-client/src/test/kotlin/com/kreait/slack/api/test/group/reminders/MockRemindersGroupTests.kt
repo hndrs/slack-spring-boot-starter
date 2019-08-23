@@ -1,7 +1,10 @@
 package com.kreait.slack.api.test.group.reminders
 
 import com.kreait.slack.api.contract.jackson.group.reminders.ErrorRemindersDeleteResponse
+import com.kreait.slack.api.contract.jackson.group.reminders.ErrorRemindersInfoResponse
+import com.kreait.slack.api.contract.jackson.group.reminders.RemindersInfoRequest
 import com.kreait.slack.api.contract.jackson.group.reminders.SuccessfulRemindersDeleteResponse
+import com.kreait.slack.api.contract.jackson.group.reminders.SuccessfulRemindersInfoResponse
 import com.kreait.slack.api.contract.jackson.group.reminders.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
 import com.kreait.slack.api.test.MockMetaInfo
@@ -19,6 +22,12 @@ class MockRemindersGroupTests {
                     SuccessfulRemindersDeleteResponse.sample(),
                     mock { },
                     ErrorRemindersDeleteResponse.sample(),
-                    Unit)
+                    Unit),
+            MockMetaInfo(MockRemindersInfoMethod(),
+                    mock { },
+                    SuccessfulRemindersInfoResponse.sample(),
+                    mock { },
+                    ErrorRemindersInfoResponse.sample(),
+                    RemindersInfoRequest.sample())
     )
 }
