@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
-import java.io.InputStream
+import java.io.File
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
@@ -29,7 +29,7 @@ data class ErrorSetPhotoResponse constructor(override val ok: Boolean,
 }
 
 @JacksonDataClass
-data class SetPhotoRequest(val image: InputStream,
+data class SetPhotoRequest(val image: File,
                            val cropW: Int? = null,
                            val cropX: Int? = null,
                            val cropY: Int? = null) {
