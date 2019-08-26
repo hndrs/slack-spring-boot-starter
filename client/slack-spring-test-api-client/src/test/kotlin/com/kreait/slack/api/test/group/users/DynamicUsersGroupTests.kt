@@ -39,6 +39,7 @@ import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 
 class DynamicUsersGroupTests {
+
     @TestFactory
     fun methodInvocations(): List<DynamicTest> = DynamicMockGroupTests.methodInvocations(testCases = testCases())
 
