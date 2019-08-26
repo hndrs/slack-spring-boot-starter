@@ -51,7 +51,7 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
 
     internal fun postMultipartFormdata(): ResponseEntity<T> {
         restTemplate.messageConverters.add(FormHttpMessageConverter())
-        val requestEntity = HttpEntity(this.body, slackHeaders(listOf(MediaType.MULTIPART_FORM_DATA_VALUE)))
+        val requestEntity = HttpEntity(this.body, slackHeaders(listOf(MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.IMAGE_PNG_VALUE)))
 
         return restTemplate.exchange(
                 uri, HttpMethod.POST, requestEntity,
@@ -60,7 +60,6 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
 
     private fun slackHeaders(contentType: List<String>): LinkedMultiValueMap<String, String> {
         val httpHeaders = LinkedMultiValueMap<String, String>()
-
         //set token if available
         token?.let { httpHeaders[HttpHeaders.AUTHORIZATION] = listOf("Bearer $it") }
 
