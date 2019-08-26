@@ -6,8 +6,6 @@ import org.junit.jupiter.api.DynamicTest
 object DynamicMockGroupTests {
 
     fun methodInvocations(testCases: List<MockMetaInfo>): List<DynamicTest> {
-        val mockClient = MockSlackClient()
-
         return testCases.flatMap {
             listOf(
                     DynamicTest.dynamicTest("Test ${it.methodProvider.javaClass.canonicalName}") {
