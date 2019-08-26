@@ -8,9 +8,10 @@ import com.kreait.slack.api.group.users.UsersSetPhotoMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.core.io.FileSystemResource
+import org.springframework.core.io.InputStreamResource
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.client.RestTemplate
-import java.io.File
+import java.io.InputStream
 
 
 /**
@@ -45,9 +46,9 @@ class DefaultUsersSetPhotoMethod(private val authToken: String, private val rest
      */
     private fun convertParams(): Map<String, List<Any>> {
         return this.params.toMap().mapValues {
-            if (it.value.all { value -> value is File }) {
+            if (it.value.all { value -> value is InputStream }) {
                 val sysResList = it.value.map {
-                    FileSystemResource(it as File)
+                    InputStreamResource((it as InputStream))
                 }
                 sysResList
             } else it.value
