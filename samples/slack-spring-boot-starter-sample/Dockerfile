@@ -1,5 +1,5 @@
 FROM openjdk:8-jre-alpine
-COPY slack-spring-boot-starter-sample/build/libs/*.jar sample-application.jar
+COPY build/libs/*.jar sample-application.jar
 CMD java -jar \
          -Dserver.port=$PORT \
          -Dslack.token=$SLACK_TOKEN \
