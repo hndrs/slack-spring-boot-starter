@@ -40,5 +40,6 @@
       "description": "The Signing-Secret of your App",
       "required": true
     }
-  }
+  },
+  "stack": "container"
 }
