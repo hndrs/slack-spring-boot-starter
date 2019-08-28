@@ -19,7 +19,7 @@ class PingCommandReceiver @Autowired constructor(private val slackClient: SlackC
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
         this.slackClient.chat().postMessage(team.bot.accessToken)
                 .with(PostMessageRequest(
-                        text = "Pong",
+                        text = "Pong!",
                         channel = slackCommand.channelId,
                         parse = FULL
                 )).onSuccess {
