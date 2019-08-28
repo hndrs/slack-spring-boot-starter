@@ -23,6 +23,11 @@ jdk:
 os:
   - linux
 
+env:
+  global:
+    - DOCKER_IMAGE_BASE_TAG=andakawa/slack-spring-boot-starter
+    - DOCKERFILE_PATH=samples/slack-spring-boot-starter-sample
+
 branches:
   only:
     - master
@@ -55,9 +60,10 @@ jobs:
     - stage: publish
       name: "Publish Docker"
       script:
-        - docker build -t andakawa/slack-spring-boot-starter:$TRAVIS_BUILD_NUMBER
+        - docker build -f $DOCKERFILE_PATH -t $DOCKER_IMAGE_BASE_TAG:$TRAVIS_BUILD_NUMBER .
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push andakawa/slack-spring-boot-starter:$TRAVIS_BUILD_NUMBER
+        - docker push $DOCKER_IMAGE_BASE_TAG:$TRAVIS_BUILD_NUMBER
+        - docker push $DOCKER_IMAGE_BASE_TAG:latest
 
 
 
