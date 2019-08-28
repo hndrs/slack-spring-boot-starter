@@ -69,12 +69,14 @@ class FileTeamStore : TeamStore {
         return Team(
                 teamId = team.teamId,
                 teamName = team.teamName,
-                incomingWebhook = Team.IncomingWebhook(
-                        channel = team.incomingWebhook.channel,
-                        channelId = team.incomingWebhook.channelId,
-                        configurationUrl = team.incomingWebhook.configurationUrl,
-                        url = team.incomingWebhook.url
-                ),
+                incomingWebhook = team.incomingWebhook?.let {
+                    Team.IncomingWebhook(
+                            channel = team.incomingWebhook.channel,
+                            channelId = team.incomingWebhook.channelId,
+                            configurationUrl = team.incomingWebhook.configurationUrl,
+                            url = team.incomingWebhook.url
+                    )
+                },
                 bot = Team.Bot(
                         userId = team.bot.userId,
                         accessToken = team.bot.accessToken
@@ -92,12 +94,13 @@ class FileTeamStore : TeamStore {
         val localTeam = LocalTeam(
                 teamId = team.teamId,
                 teamName = team.teamName,
-                incomingWebhook = LocalTeam.IncomingWebhook(
-                        channel = team.incomingWebhook.channel,
-                        channelId = team.incomingWebhook.channelId,
-                        configurationUrl = team.incomingWebhook.configurationUrl,
-                        url = team.incomingWebhook.url
-                ),
+                incomingWebhook = team.incomingWebhook?.let {
+                    LocalTeam.IncomingWebhook(
+                            channel = team.incomingWebhook.channel,
+                            channelId = team.incomingWebhook.channelId,
+                            configurationUrl = team.incomingWebhook.configurationUrl,
+                            url = team.incomingWebhook.url)
+                },
                 bot = LocalTeam.Bot(
                         userId = team.bot.userId,
                         accessToken = team.bot.accessToken
@@ -131,7 +134,7 @@ class FileTeamStore : TeamStore {
 
                          @field: JsonProperty("incoming_webhook")
                          @param: JsonProperty("incoming_webhook")
-                         val incomingWebhook: IncomingWebhook,
+                         val incomingWebhook: IncomingWebhook?,
 
                          @field: JsonProperty("bot")
                          @param: JsonProperty("bot")
