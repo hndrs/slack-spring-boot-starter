@@ -28,7 +28,7 @@ class TeamNotFoundException(override val message: String?) : RuntimeException(me
  */
 data class Team(val teamId: String,
                 val teamName: String,
-                val incomingWebhook: IncomingWebhook,
+                val incomingWebhook: IncomingWebhook?,
                 val bot: Bot) {
     companion object {}
 
