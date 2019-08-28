@@ -58,7 +58,7 @@ jobs:
         - docker build -t andakawa/slack-spring-boot-starter:$TRAVIS_BUILD_NUMBER
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push andakawa/slack-spring-boot-starter:$TRAVIS_BUILD_NUMBER
-      if: branch = heroku-deploy-button != pull_request
+      if: branch = heroku-deploy-button
 
 
 
