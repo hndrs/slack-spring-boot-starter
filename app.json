@@ -20,10 +20,6 @@
     }
   },
   "env": {
-    "PORT": {
-      "description": "Specifies the Port your App is listening on (Optional)",
-      "required": false
-    },
     "SLACK_TOKEN": {
       "description": "The OAuth Token of your App",
       "required": true
