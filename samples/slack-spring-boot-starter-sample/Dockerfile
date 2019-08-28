@@ -1,6 +1,7 @@
 FROM openjdk:8-jre-alpine
 COPY build/libs/*.jar sample-application.jar
-CMD java -jar \
+CMD java -XX:+PrintFlagsFinal -XX:+UseContainerSupport \
+         -jar \
          -Dserver.port=$PORT \
          -Dslack.token=$SLACK_TOKEN \
          -Dslack.application.client-id=$SLACK_CLIENT_ID \
