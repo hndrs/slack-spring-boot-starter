@@ -9,7 +9,14 @@ To write your first event receiver you write a component that implements the lin
 
 Example EventReceiver which sends a message when a channel is renamed (channel_rename permission required)
 
+
+
+This Receiver overrides the `supportsEvent()`-method to ensure that it is only invoked when the correct event is received.
+The https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/broker/EventBroker.kt[EventReceiver] takes care of receiving the event and forwards it to the right Receiver.
+In this example, we receive the channel_rename event and send a message to the renamed channel.
+To receive the event, you have to subscribe to channel_rename in the https://api.slack.com/apps[Slack App Console]
+
 [source,kotlin]
 --
-include::../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/DialogWorkflow.kt[lines=18..38]]
+include::../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ChannelRenamedEventReceiver.kt[lines=12..-1]]
 --
