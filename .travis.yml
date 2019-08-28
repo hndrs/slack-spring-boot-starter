@@ -60,10 +60,11 @@ jobs:
         - DOCKER_IMAGE_BASE_TAG=andakawa/slack-spring-boot-starter
         - SAMPLE_PATH=samples/slack-spring-boot-starter-sample
       script:
+        - VERSION=($(cat version.txt))
         - cd $SAMPLE_PATH
-        - docker build -t $DOCKER_IMAGE_BASE_TAG:$TRAVIS_BUILD_NUMBER -t $DOCKER_IMAGE_BASE_TAG:latest .
+        - docker build -t $DOCKER_IMAGE_BASE_TAG:$VERSION -t $DOCKER_IMAGE_BASE_TAG:latest .
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push $DOCKER_IMAGE_BASE_TAG:$TRAVIS_BUILD_NUMBER
+        - docker push $DOCKER_IMAGE_BASE_TAG:$VERSION
         - docker push $DOCKER_IMAGE_BASE_TAG:latest
 
 
