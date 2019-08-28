@@ -5,7 +5,7 @@
 :order: 3
 :source-highlighter: highlightjs
 
-To write your first command receiver you write a component that implements the link:https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/SlashCommandReceiver.kt[SlashCommandReceiver] interface you can use the  link:https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-api-client/src/main/kotlin/com/kreait/slack/api/SlackClient.kt[SlackClient] that is automatically registered with the starter
+To write your first command receiver you need to write a component that implements the link:https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/SlashCommandReceiver.kt[SlashCommandReceiver] interface, you can use the  link:https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-api-client/src/main/kotlin/com/kreait/slack/api/SlackClient.kt[SlackClient] that is automatically registered with the starter
 
 Example Ping Receiver that answers with a pong an immediately updates the response to "pong"
 

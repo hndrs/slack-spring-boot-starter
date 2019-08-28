@@ -16,7 +16,7 @@
 
 - Click on "*Slash commands*" on the left side of the navigation menu
 - Click on "*Create New Command*"
-- enter the url of your application (to work on a local machine, use a tunneling tool like ngrok or forward a port to your local maching) with the endpoint */commands* and click on *save*
+- enter the url of your application (to work on a local machine, use a tunneling tool like ngrok or forward a port to your local machine) with the endpoint */commands* and click on *save*
 
 === Receive Events
 
@@ -25,7 +25,7 @@
 - Start your Slack Spring Boot Application.
 The https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/broker/EventBroker.kt[EventBroker] takes care of the verification we need in the following step
 - enter the url of your service with the endpoint /events
-- slack sends now a challenge token to verify that the service is properly set up
+- slack will send a challenge token to your /events endpoint to verify that the service is properly set up
 - Scroll down to "*Subscribe to Bot Events*" and add your events
 
 === Receiver Interactive Components
