@@ -15,6 +15,8 @@ bootRun {
 
 dependencies {
     implementation(project(":slack-spring-boot-starter"))
+    implementation(project(":slack-spring-test-api-client"))
+    testImplementation(project(":slack-jackson-dto-test"))
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
