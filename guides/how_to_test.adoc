@@ -29,6 +29,6 @@ include::../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/
 
 In this example, we test our https://github.com/kreait/slack-spring-boot-starter/blob/master/samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ResponseCommandReceiver.kt[ResponseCommandReceiver] which receives the /response command.
 It posts a message to the response url of the slash command.
-We use the MockSlackClient to set the correct response for our testcase, in `testSuccess()` we create a sample-`SuccessfulPostMessageResponse` object with our `.sample()` method as the response.
+We use the MockSlackClient to set the correct response for our testcase, since the respond().message() doesn't has a return value, we just set Unit in our `testSuccess()` method.
 After we invoke the `onReceiveSlashCommand()` we verify, that only the successResponse-method of the ResponseHandler is invoked, but not the failureResponse-method.
 We do all this vice versa for the failure response.
