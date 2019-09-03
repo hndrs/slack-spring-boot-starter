@@ -5,9 +5,10 @@ import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.common.messaging.Block
 import com.kreait.slack.api.contract.jackson.common.messaging.Element
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
-import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
+import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.Team
+import com.kreait.slack.sample.rock_paper_scissors.data.WEAPONS
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
@@ -20,8 +21,9 @@ class RockPaperScissorsCommandReceiver @Autowired constructor(private val slackC
     }
 
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
-        this.slackClient.chat().postMessage(team.bot.accessToken)
-                .with(PostMessageRequest("Choose your weapon",
+        this.slackClient.chat().postEphemeral(team.bot.accessToken)
+                .with(PostEphemeralRequest("Choose your weapon",
+                        user = slackCommand.userId,
                         blocks = listOf(
                                 Block.Section(text = Text(Text.Type.PLAIN_TEXT, "choose your weapon")),
                                 Block.Action(blockId = RPS_BLOCK_ID,
@@ -42,10 +44,4 @@ class RockPaperScissorsCommandReceiver @Autowired constructor(private val slackC
     override fun supportsCommand(slackCommand: SlackCommand): Boolean {
         return slackCommand.command.startsWith("/rock-paper-scissors")
     }
-}
-
-enum class WEAPONS(val weaponName: String, val actionId: String) {
-    ROCK("Rock", "ROCK_ACTION"),
-    PAPER("Paper", "PAPER_ACTION"),
-    SCISSORS("Scissors", "SCISSORS_ACTION")
 }
