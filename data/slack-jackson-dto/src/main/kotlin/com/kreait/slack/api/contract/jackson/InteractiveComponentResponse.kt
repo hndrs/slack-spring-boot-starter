@@ -41,7 +41,7 @@ data class InteractiveComponentResponse(
     @JacksonDataClass
     data class User(@JsonProperty("id") val id: String,
                     @JsonProperty("name") val name: String,
-                    @JsonProperty("username") val username: String,
+                    @JsonProperty("username") val username: String? = null,
             //TODO can this really be optional?
                     @JsonProperty("team_id") val teamId: String?) {
         companion object
