@@ -11,14 +11,14 @@ class ResponseHandler @Autowired constructor(private val slackClient: SlackClien
     fun successResponse(channelId: String, authToken: String) {
         slackClient.chat()
                 .postEphemeral(authToken)
-                .with(PostEphemeralRequest(text = "successfully responded", channel = channelId))
+                .with(PostEphemeralRequest(text = "successfully responded", channel = channelId, user = ""))
                 .invoke()
     }
 
     fun failureResponse(channelId: String, authToken: String) {
         slackClient.chat()
                 .postEphemeral(authToken)
-                .with(PostEphemeralRequest(text = "Oh no, something went wrong", channel = channelId))
+                .with(PostEphemeralRequest(text = "Oh no, something went wrong", channel = channelId, user = ""))
                 .invoke()
     }
 
