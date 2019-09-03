@@ -38,7 +38,8 @@ data class Attachment(
         @JsonProperty("callback_id") val callbackId: String? = null,
         @JsonProperty("actions") val actions: List<Action>? = listOf(),
         @JsonProperty("text") val text: String? = null,
-        @JsonProperty("author_name") val authorName: String? = null) {
+        @JsonProperty("author_name") val authorName: String? = null,
+        @JsonProperty("blocks") val blocks: List<Block>?) {
     companion object
 }
 
@@ -107,4 +108,5 @@ data class UpdateAttachment(
         @JsonProperty("callback_id") val callbackId: String? = null,
         @JsonProperty("actions") val actions: List<Action>? = listOf(),
         @JsonProperty("author_name") val authorName: String? = null,
-        @JsonProperty("fallback") val fallback: String)
+        @JsonProperty("fallback") val fallback: String,
+        @JsonProperty("blocks") val blocks: List<Block>?)
