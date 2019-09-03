@@ -2,9 +2,8 @@ package com.kreait.slack.sample.rock_paper_scissors
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.common.messaging.Action
+import com.kreait.slack.api.contract.jackson.common.messaging.Block
 import com.kreait.slack.api.contract.jackson.common.messaging.Element
-import com.kreait.slack.api.contract.jackson.common.messaging.Section
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
 import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
@@ -24,8 +23,8 @@ class RockPaperScissorsCommandReceiver @Autowired constructor(private val slackC
         this.slackClient.chat().postMessage(team.bot.accessToken)
                 .with(PostMessageRequest("Choose your weapon",
                         blocks = listOf(
-                                Section(text = Text(Text.Type.PLAIN_TEXT, "choose your weapon")),
-                                Action(blockId = RPS_BLOCK_ID,
+                                Block.Section(text = Text(Text.Type.PLAIN_TEXT, "choose your weapon")),
+                                Block.Action(blockId = RPS_BLOCK_ID,
                                         elements = listOf(
                                                 Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.ROCK.weaponName), actionId = WEAPONS.ROCK.actionId),
                                                 Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.PAPER.weaponName), actionId = WEAPONS.PAPER.actionId),
