@@ -74,6 +74,6 @@ data class GroupsHistoryRequest(@JsonProperty("channel") val channelId: String,
                                 @JsonProperty("inclusive") val inclusive: Boolean = false,
                                 @InstantToString @JsonProperty("latest") val latestTimestamp: Instant? = null,
                                 @InstantToString @JsonProperty("oldest") val oldestTimestamp: Instant? = null,
-                                @JsonProperty("unreads") val unreads: Boolean = false) {
+                                @JsonProperty("unreads") val includeUnreads: Boolean = false) {
     companion object
 }

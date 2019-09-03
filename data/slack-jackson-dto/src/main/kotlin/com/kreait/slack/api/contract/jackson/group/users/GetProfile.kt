@@ -28,13 +28,13 @@ data class ErrorGetProfileResponse constructor(override val ok: Boolean,
     companion object
 }
 
-data class GetProfileRequest(private val include_labels: Boolean? = false, private val user: String? = "") {
+data class GetProfileRequest(private val includeLabels: Boolean? = false, private val user: String? = "") {
 
     companion object {}
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()
-        include_labels?.let { requestMap.put("include_labels", it.toString()) }
+        includeLabels?.let { requestMap.put("include_labels", it.toString()) }
         user?.let { requestMap.put("user", it) }
         return requestMap
     }

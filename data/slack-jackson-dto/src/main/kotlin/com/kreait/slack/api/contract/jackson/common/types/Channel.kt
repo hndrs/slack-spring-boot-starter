@@ -62,7 +62,7 @@ data class Channel(
         @JsonProperty("is_private") val isPrivate: Boolean,
         @JsonProperty("is_mpim") val isMpim: Boolean,
         @InstantToString @JsonProperty("last_read") val lastReadAt: Instant?,
-        @JsonProperty("latest") val latest: Message? = null,
+        @JsonProperty("latest") val latestMessage: Message? = null,
         @JsonProperty("unread_count") val unreadCount: Int,
         @JsonProperty("unread_count_display") val unreadCountDisplay: Int,
         @JsonProperty("members") val members: List<String>? = null,
