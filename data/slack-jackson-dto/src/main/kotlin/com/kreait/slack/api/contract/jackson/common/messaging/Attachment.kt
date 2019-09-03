@@ -39,7 +39,7 @@ data class Attachment(
         @JsonProperty("actions") val actions: List<Action>? = listOf(),
         @JsonProperty("text") val text: String? = null,
         @JsonProperty("author_name") val authorName: String? = null,
-        @JsonProperty("blocks") val blocks: List<Block>?) {
+        @JsonProperty("blocks") val blocks: List<Block>? = null) {
     companion object
 }
 
