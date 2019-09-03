@@ -21,7 +21,7 @@ sealed class GetPresenceResponse constructor(@JsonProperty("ok") open val ok: Bo
 @JacksonDataClass
 data class SuccessfulGetPresenceResponse constructor(override val ok: Boolean,
                                                      @JsonProperty("presence") val presence: UserPresence,
-                                                     @JsonProperty("online") val online: Boolean?,
+                                                     @JsonProperty("online") val isOnline: Boolean?,
                                                      @JsonProperty("auto_away") val autoAway: Boolean?,
                                                      @JsonProperty("manual_away") val manualAway: Boolean?,
                                                      @JsonProperty("connection_count") val connectionCount: Int?,

@@ -18,7 +18,7 @@ sealed class ProfileResponse(
 @JacksonDataClass
 data class SuccessfulProfileResponse(
         override val ok: Boolean,
-        @JsonProperty("profile") val members: TeamProfile) : ProfileResponse(ok) {
+        @JsonProperty("profile") val teamProfile: TeamProfile) : ProfileResponse(ok) {
     companion object
 }
 

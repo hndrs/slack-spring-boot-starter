@@ -43,7 +43,7 @@ data class Group(
         @JsonProperty("last_read")
         val lastReadAt: Instant?,
         @JsonProperty("latest")
-        val latest: Any?,
+        val latestMessage: Any?,
         @JsonProperty("members")
         val members: List<String>?,
         @JsonProperty("name")

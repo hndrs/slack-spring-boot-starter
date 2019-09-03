@@ -36,7 +36,7 @@ data class Member(
         @JsonProperty("id") val id: String,
         @JsonProperty("team_id") val teamId: String,
         @JsonProperty("name") val name: String,
-        @JsonProperty("deleted") val deleted: Boolean,
+        @JsonProperty("deleted") val isDeleted: Boolean,
         @JsonProperty("color") val color: String?,
         @JsonProperty("real_name") val realName: String?,
         @JsonProperty("tz") val timezone: String?,
