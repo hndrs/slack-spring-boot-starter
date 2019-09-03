@@ -40,7 +40,7 @@ data class PostEphemeralRequest constructor(@JsonProperty("text") val text: Stri
                                             @JsonProperty("blocks") val blocks: List<Block>? = null,
                                             @JsonProperty("channel") val channel: String,
                                             @JsonProperty("as_user") val asUser: Boolean = false,
-                                            @JsonProperty("user") val user: String? = null,
+                                            @JsonProperty("user") val user: String,
                                             @JsonProperty("link_names") val linkNames: Boolean = true,
                                             @JsonProperty("parse") val parse: String? = null,
                                             @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant? = null) {

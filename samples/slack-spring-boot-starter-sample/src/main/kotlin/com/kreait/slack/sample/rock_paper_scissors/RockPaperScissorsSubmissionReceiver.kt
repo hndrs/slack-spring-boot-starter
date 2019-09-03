@@ -2,14 +2,17 @@ package com.kreait.slack.sample.rock_paper_scissors
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
-import com.kreait.slack.api.contract.jackson.group.chat.ChatDeleteRequest
-import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
+import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
+import com.kreait.slack.api.contract.jackson.group.respond.ResponseType
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
 import com.kreait.slack.broker.store.Team
+import com.kreait.slack.sample.rock_paper_scissors.data.WEAPONS
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
+import org.springframework.stereotype.Component
 
-class RockPaperScissorsSubmissionReceiver @Autowired constructor(private val slackClient: SlackClient) : InteractiveComponentReceiver {
+@Component
+class RockPaperScissorsSubmissionReceiver @Autowired constructor(private val slackClient: SlackClient, private val rpsGameHandler: RPSGameHandler) : InteractiveComponentReceiver {
     override fun supportsInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse): Boolean {
         return interactiveComponentResponse.actions?.let {
             return (it.first().blockId == RockPaperScissorsCommandReceiver.RPS_BLOCK_ID) && interactiveComponentResponse.type == "block_actions"
@@ -18,15 +21,29 @@ class RockPaperScissorsSubmissionReceiver @Autowired constructor(private val sla
 
     override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
         val selection = interactiveComponentResponse.actions?.first()?.text?.text
-        this.slackClient.chat().delete(team.bot.accessToken)
-                .with(ChatDeleteRequest(channel = interactiveComponentResponse.channel.id, timestamp = interactiveComponentResponse.message!!.timestamp))
-                .onSuccess { println("deleted mesage $it") }
-                .onFailure { println(it) }
-                .invoke()
-        this.slackClient.chat().postMessage(team.bot.accessToken)
-                .with(PostMessageRequest(text = "you chose $selection", channel = interactiveComponentResponse.channel.id))
-                .onSuccess { println(it) }
-                .onFailure { println(it) }
-                .invoke()
+        selection?.let { userSelection ->
+            val gameResult = rpsGameHandler.play(WEAPONS.valueOf(userSelection.toUpperCase()))
+            if (gameResult.userWon) {
+                this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
+                        .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*\n$selection beats ${gameResult.botWeapon} \n*you won* this time :tada: :white_check_mark:  ", responseType = ResponseType.EPHEMERAL))
+                        .onSuccess { println(it) }
+                        .onFailure { println(it) }
+                        .invoke()
+            } else {
+                if (gameResult.draw) {
+                    this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
+                            .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*,\n this one is a *tie*, try again", responseType = ResponseType.EPHEMERAL))
+                            .onSuccess { println(it) }
+                            .onFailure { println(it) }
+                            .invoke()
+                } else {
+                    this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
+                            .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*,\n ${gameResult.botWeapon} beats $selection,  \n*You lost* :x: ", responseType = ResponseType.EPHEMERAL))
+                            .onSuccess { println(it) }
+                            .onFailure { println(it) }
+                            .invoke()
+                }
+            }
+        }
     }
 }
