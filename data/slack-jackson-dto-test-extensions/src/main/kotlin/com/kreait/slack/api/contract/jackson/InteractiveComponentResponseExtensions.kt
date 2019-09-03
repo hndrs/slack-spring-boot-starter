@@ -5,7 +5,7 @@ import com.kreait.slack.api.contract.jackson.common.InstantSample
 fun InteractiveComponentResponse.Companion.sample(): InteractiveComponentResponse {
     return InteractiveComponentResponse("type", "token", InstantSample.sample(), InstantSample.sample(),
             InteractiveComponentResponse.Team.sample(), InteractiveComponentResponse.User.sample(), "",
-            InteractiveComponentResponse.Channel.sample(), null, null, null, listOf(), "")
+            InteractiveComponentResponse.Channel.sample(), null, null, null, listOf(), listOf(), null, "", null)
 }
 
 fun InteractiveComponentResponse.Channel.Companion.sample(): InteractiveComponentResponse.Channel {
@@ -17,5 +17,5 @@ fun InteractiveComponentResponse.Team.Companion.sample(): InteractiveComponentRe
 }
 
 fun InteractiveComponentResponse.User.Companion.sample(): InteractiveComponentResponse.User {
-    return InteractiveComponentResponse.User("UserId", "Username", null)
+    return InteractiveComponentResponse.User("UserId", "name", "Username", null)
 }
