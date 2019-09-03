@@ -28,6 +28,7 @@ data class SuccessfulPostMessageResponse constructor(override val ok: Boolean,
     companion object
 }
 
+@JacksonDataClass
 data class Message(
         @JsonProperty("type") val type: String? = null,
         @JsonProperty("subtype") val subtype: String? = null,
@@ -35,6 +36,7 @@ data class Message(
         @InstantToString @JsonProperty("ts") val timestamp: Instant,
         @JsonProperty("username") val username: String? = null,
         @JsonProperty("attachments") val attachments: List<Attachment>? = listOf(),
+        @JsonProperty("blocks") val blocks: List<Block>? = listOf(),
         @JsonProperty("bot_id") val botId: String? = null) {
     companion object
 }

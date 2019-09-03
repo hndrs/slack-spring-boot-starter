@@ -2,8 +2,9 @@ package com.kreait.slack.sample.rock_paper_scissors
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.common.messaging.Block
+import com.kreait.slack.api.contract.jackson.common.messaging.Action
 import com.kreait.slack.api.contract.jackson.common.messaging.Element
+import com.kreait.slack.api.contract.jackson.common.messaging.Section
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
 import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
@@ -14,15 +15,21 @@ import org.springframework.stereotype.Component
 
 @Component
 class RockPaperScissorsCommandReceiver @Autowired constructor(private val slackClient: SlackClient) : SlashCommandReceiver {
+
+    companion object {
+        const val RPS_BLOCK_ID = "RPS_BLOCK"
+    }
+
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
         this.slackClient.chat().postMessage(team.bot.accessToken)
                 .with(PostMessageRequest("Choose your weapon",
                         blocks = listOf(
-                                Block.Action(blockId = "testBlock",
+                                Section(text = Text(Text.Type.PLAIN_TEXT, "choose your weapon")),
+                                Action(blockId = RPS_BLOCK_ID,
                                         elements = listOf(
-                                                Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.ROCK.weaponName), actionId = "1"),
-                                                Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.ROCK.weaponName), actionId = "2"),
-                                                Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.SCISSORS.weaponName), actionId = "3")
+                                                Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.ROCK.weaponName), actionId = WEAPONS.ROCK.actionId),
+                                                Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.PAPER.weaponName), actionId = WEAPONS.PAPER.actionId),
+                                                Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.SCISSORS.weaponName), actionId = WEAPONS.SCISSORS.actionId)
                                         ))),
                         channel = slackCommand.channelId))
                 .onSuccess {
@@ -38,8 +45,8 @@ class RockPaperScissorsCommandReceiver @Autowired constructor(private val slackC
     }
 }
 
-enum class WEAPONS(val weaponName: String, val value: String, val actionId: String) {
-    ROCK("Rock", "rock", "ROCK_ACTION"),
-    PAPER("Paper", "paper", "PAPER_ACTION"),
-    SCISSORS("Scissors", "scissors", "SCISSORS_ACTION")
+enum class WEAPONS(val weaponName: String, val actionId: String) {
+    ROCK("Rock", "ROCK_ACTION"),
+    PAPER("Paper", "PAPER_ACTION"),
+    SCISSORS("Scissors", "SCISSORS_ACTION")
 }

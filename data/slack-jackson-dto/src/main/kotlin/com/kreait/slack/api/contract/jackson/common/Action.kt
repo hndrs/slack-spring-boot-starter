@@ -42,7 +42,7 @@ data class Action(
 
         class Deserializer : JsonDeserializer<ActionType>() {
             override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): ActionType {
-                return ActionType.valueOf(p.text.toUpperCase())
+                return valueOf(p.text.toUpperCase())
             }
         }
     }
