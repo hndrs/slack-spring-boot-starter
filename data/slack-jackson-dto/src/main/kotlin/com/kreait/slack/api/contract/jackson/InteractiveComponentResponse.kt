@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.kreait.slack.api.contract.jackson.common.Action
 import com.kreait.slack.api.contract.jackson.common.messaging.Block
+import com.kreait.slack.api.contract.jackson.group.chat.Message
 import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
@@ -26,7 +27,8 @@ data class InteractiveComponentResponse(
         @JsonProperty("actions") val actions: List<Action>? = listOf(),
         @JsonProperty("blocks") val blocks: List<Block>? = listOf(),
         @JsonProperty("container") val container: Container? = null,
-        @JsonProperty("trigger_id") val triggerId: String?) {
+        @JsonProperty("trigger_id") val triggerId: String?,
+        @JsonProperty("message") val message: Message?) {
 
     companion object
 

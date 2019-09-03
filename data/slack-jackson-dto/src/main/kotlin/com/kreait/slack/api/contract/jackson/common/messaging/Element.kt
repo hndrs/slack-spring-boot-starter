@@ -2,8 +2,12 @@ package com.kreait.slack.api.contract.jackson.common.messaging
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Confirmation
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Option
@@ -14,6 +18,7 @@ import java.time.LocalDate
 sealed class Element(@JsonProperty("type") val type: Type) {
 
     @JsonSerialize(using = Type.Serializer::class)
+    @JsonDeserialize(using = Type.Deserializer::class)
     enum class Type(private val typeString: String) {
         IMAGE("image"),
         BUTTON("button"),
@@ -29,6 +34,14 @@ sealed class Element(@JsonProperty("type") val type: Type) {
             override fun serialize(value: Type, gen: JsonGenerator?, serializers: SerializerProvider?) {
                 gen?.writeString(value.typeString)
             }
+        }
+
+        class Deserializer : JsonDeserializer<Type>() {
+            override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): Type {
+                println(p.text)
+                return BUTTON
+            }
+
         }
     }
 
