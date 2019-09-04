@@ -29,7 +29,7 @@ import java.time.Instant
 @JacksonDataClass
 abstract class InteractiveComponentResponse(
         @JsonProperty("type") val type: Type?,
-        @JsonProperty("team") open val team: Team) {
+        open val team: Team) {
 
     @JsonSerialize(using = Type.Serializer::class)
     @JsonDeserialize(using = Type.Deserializer::class)
