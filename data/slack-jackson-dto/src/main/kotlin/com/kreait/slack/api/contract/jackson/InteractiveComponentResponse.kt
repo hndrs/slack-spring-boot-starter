@@ -26,7 +26,8 @@ import java.time.Instant
         visible = true)
 @JsonSubTypes(
         JsonSubTypes.Type(value = InteractiveMessage::class, name = "interactive_message"),
-        JsonSubTypes.Type(value = BlockActions::class, name = "block_actions"))
+        JsonSubTypes.Type(value = BlockActions::class, name = "block_actions"),
+        JsonSubTypes.Type(value = InteractiveMessage::class, name = "dialog_submission"))
 @JacksonDataClass
 abstract class InteractiveComponentResponse(
         @JsonProperty("type") val type: Type?,
@@ -36,7 +37,8 @@ abstract class InteractiveComponentResponse(
     @JsonDeserialize(using = Type.Deserializer::class)
     enum class Type(internal val typeString: String) {
         INTERACTIVE_MESSAGE("interactive_message"),
-        BLOCK_ACTIONS("block_actions");
+        BLOCK_ACTIONS("block_actions"),
+        DIALOG_SUBMISSION("interactive_message");
 
         class Serializer : JsonSerializer<Type>() {
             override fun serialize(value: Type?, gen: JsonGenerator?, provider: SerializerProvider?) {
@@ -76,7 +78,9 @@ data class InteractiveMessage(
         @JsonProperty("blocks") val blocks: List<Block>? = listOf(),
         @JsonProperty("container") val container: Container? = null,
         @JsonProperty("trigger_id") val triggerId: String?,
-        @JsonProperty("message") val message: Message?) : InteractiveComponentResponse(Type.INTERACTIVE_MESSAGE, team) {
+        @JsonProperty("message") val message: Message?,
+        @JsonProperty("is_app_unfurl") val isAppUnfurl: String? = null,
+        @JsonProperty("attachment_id") val attachmentId: String? = null) : InteractiveComponentResponse(Type.INTERACTIVE_MESSAGE, team) {
     companion object
 }
 
