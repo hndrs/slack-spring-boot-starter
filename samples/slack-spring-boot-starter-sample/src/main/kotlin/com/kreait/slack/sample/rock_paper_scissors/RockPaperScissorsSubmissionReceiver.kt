@@ -20,7 +20,7 @@ class RockPaperScissorsSubmissionReceiver @Autowired constructor(private val sla
     }
 
     override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
-        val selection = interactiveComponentResponse.actions?.first()?.text?.text
+        val selection = interactiveComponentResponse.actions?.first()?.text
         selection?.let { userSelection ->
             val gameResult = rpsGameHandler.play(WEAPONS.valueOf(userSelection.toUpperCase()))
             if (gameResult.userWon) {
