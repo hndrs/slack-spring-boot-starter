@@ -1,7 +1,7 @@
 package com.kreait.slack.broker.exception
 
 import com.fasterxml.jackson.databind.JsonMappingException
-import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
+import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.group.dialog.DialogErrorResponse
 import com.kreait.slack.api.contract.jackson.sample
@@ -205,7 +205,7 @@ internal class SlackExceptionHandlerTests {
         }
 
         private fun interactiveComponentBroker(exception: Exception): InteractiveComponentBroker {
-            return InteractiveComponentBroker(listOf(ErrorInteractiveResponse(exception)), inMemoryTeamStore)
+            return InteractiveComponentBroker(listOf(), listOf(ErrorInteractiveResponse(exception)), inMemoryTeamStore)
         }
 
 
@@ -216,8 +216,8 @@ internal class SlackExceptionHandlerTests {
             }
         }
 
-        class ErrorInteractiveResponse(private val exception: Exception) : InteractiveComponentReceiver {
-            override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+        class ErrorInteractiveResponse(private val exception: Exception) : InteractiveComponentReceiver<InteractiveMessage> {
+            override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
                 throw exception
             }
 

@@ -1,6 +1,7 @@
 package com.kreait.slack.broker.configuration
 
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
+import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.broker.RequestTestUtils
 import com.kreait.slack.broker.RequestTestUtils.jsonBody
@@ -28,7 +29,7 @@ internal class InteractiveResponseArgumentResolverTest {
     @Test
     fun internalResolveArgument() {
         //setup
-        val interactiveComponentResponse = InteractiveComponentResponse.sample()
+        val interactiveComponentResponse = InteractiveMessage.sample()
         val signingSecret = "mySecret"
         val timestamp = Instant.now()
 
