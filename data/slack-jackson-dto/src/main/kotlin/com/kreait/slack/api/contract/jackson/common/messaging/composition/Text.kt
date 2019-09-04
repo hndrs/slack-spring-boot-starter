@@ -10,8 +10,17 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 
+
 /**
- * https://api.slack.com/reference/messaging/composition-objects#text
+ * An object containing text with formatting (either Markdown or Plain-Text)
+ *
+ * @property type Specifies the formatting
+ * @property text The text to display
+ * @property escapeEmojis Indicates if emojis should be escaped into the colon emoji format. Only usable when type is plain_text.
+ * @property verbatim Converts URLS, conversations namens and certian mentions into links when set to false. Skips pre-processing when true.
+ *
+ * @see [Type]
+ * @see [Slack API Documentation](https://api.slack.com/reference/messaging/composition-objects#text)
  */
 data class Text(@JsonProperty("type") val type: Type,
                 @JsonProperty("text") val text: String,
@@ -34,10 +43,7 @@ data class Text(@JsonProperty("type") val type: Type,
                 return Type.valueOf(p.text.toUpperCase())
 
             }
-
         }
     }
-
     companion object
-
 }

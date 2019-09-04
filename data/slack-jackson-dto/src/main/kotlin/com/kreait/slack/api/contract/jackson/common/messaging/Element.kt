@@ -20,6 +20,11 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 import java.time.LocalDate
 
+/**
+ * Used to determine the Type of the Element.
+ *
+ * @property type Specifies the type of the Element you want to use.
+ */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "type",
@@ -64,9 +69,13 @@ sealed class Element(@JsonProperty("type") open val type: Type,
         }
     }
 
-
     /**
-     * https://api.slack.com/reference/messaging/block-elements#image
+     * Represents an image that can be used in sections and context blocks only.
+     *
+     * @property imageUrl The URL of the image displayed.
+     * @property altText A plain text describing the image.
+     *
+     * @see [Slack API Documentation](https://api.slack.com/reference/messaging/block-elements#image)
      */
     @JacksonDataClass
     data class Image constructor(@JsonProperty("block_id") override val blockId: String? = null,
@@ -76,7 +85,17 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     }
 
     /**
-     * https://api.slack.com/reference/messaging/block-elements#button
+     * Represents an interactive element that acts as a button.
+     *
+     * @property text A [Text] objects that defines the button's text.
+     * @property actionId Generated if not specified. Used to identify the Button's source of action when using interactions. Should be unique, even on iterations. (Max length 255 chars).
+     * @property url A URL that will be loaded in the users browser when the button is clicked.
+     * @property value A value that can be sent along with the interaction payload. (Max length 2000 chars).
+     * @property confirmation A [Confirmation] object that defines an optional confirmation dialog when the button is clicked.
+     *
+     * @see [Text]
+     * @see [Confirmation]
+     * @see [Slack API Documentation](https://api.slack.com/reference/messaging/block-elements#button)
      */
     @JacksonDataClass
     data class Button constructor(@JsonProperty("block_id") override val blockId: String? = null,
@@ -90,7 +109,20 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     }
 
     /**
-     * https://api.slack.com/reference/messaging/block-elements#select
+     * A select menu with a static List of [Option]s.
+     *
+     * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
+     * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
+     * @property options A List of [Option]s. (Max 100 [Option]s).
+     * @property optionGroups A List of [OptionGroup] objects. (Max 100 [OptionGroup]s).
+     * @property initialOption A single [Option] that is displayed as the default option when the menu initially loads. Must match one of the [Option]s in options or optionGroups.
+     * @property confirmation A [Confirmation] object that defines an optional confirmation dialog after the menu item is selected.
+     *
+     * @see [Text]
+     * @see [Option]
+     * @see [OptionGroup]
+     * @see [Confirmation]
+     * @see [Slack API Documentation](https://api.slack.com/reference/messaging/block-elements#select)
      */
     @JacksonDataClass
     data class StaticSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
@@ -103,9 +135,22 @@ sealed class Element(@JsonProperty("type") open val type: Type,
         companion object
     }
 
-
     /**
-     * https://api.slack.com/reference/messaging/block-elements#external-select
+     * A select menu with an external data source, enabling the usage of a dynamic list of [Option]s.
+     *
+     * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
+     * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
+     * @property options A List of [Option]s. (Max 100 [Option]s).
+     * @property optionGroups A List of [OptionGroup] objects. (Max 100 [OptionGroup]s).
+     * @property initialOption A single [Option] that is displayed as a pre-selected option when the menu initially loads. Must match one of the [Option]s in options or optionGroups.
+     * @property minQueryLength Specifies the fewest number of typed characters before dispatching to the typeahead field to limit requests. If not used, each character will be dispatched.
+     * @property confirmation A [Confirmation] object that defines an optional confirmation dialog after the menu item is selected.
+     *
+     * @see [Text]
+     * @see [Option]
+     * @see [OptionGroup]
+     * @see [Confirmation]
+     * @see [Slack API Documentation](https://api.slack.com/reference/messaging/block-elements#external-select)
      */
     @JacksonDataClass
     data class ExternalSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
@@ -119,8 +164,20 @@ sealed class Element(@JsonProperty("type") open val type: Type,
         companion object
     }
 
+
     /**
-     * https://api.slack.com/reference/messaging/block-elements#users-select
+     * A select menu with a user list.
+     * This select menu will populate its options based on the Slack users visibile to the current user
+     * in the active workspace.
+     *
+     * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
+     * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
+     * @property initialUserId Displays the user with that user-id as a pre-selected option when the menu initially loads.
+     * @property confirmation A [Confirmation] object that defines an optional confirmation dialog after the menu item is selected.
+     *
+     * @see [Text]
+     * @see [Confirmation]
+     * @see [Slack API Documentation](https://api.slack.com/reference/messaging/block-elements#users-select)
      */
     @JacksonDataClass
     data class UsersSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
@@ -136,7 +193,18 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     }
 
     /**
-     * https://api.slack.com/reference/messaging/block-elements#conversation-select
+     * A select menu with a conversation list.
+     * This select menu will populate with a list of public and private channels, direct-messages and multi-party instant messages
+     * that are visible to the current user in the active workspace.
+     *
+     * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
+     * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
+     * @property initialConversationId Displays the conversation with that conversation-id as a pre-selected option when the menu initially loads.
+     * @property confirmation A [Confirmation] object that defines an optional confirmation dialog after the menu item is selected.
+     *
+     * @see [Text]
+     * @see [Confirmation]
+     * @see [Slack API Documentation](https://api.slack.com/reference/messaging/block-elements#conversation-select)
      */
     @JacksonDataClass
     data class ConversationsSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
@@ -150,7 +218,17 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     }
 
     /**
-     * https://api.slack.com/reference/messaging/block-elements#channel-select
+     * A select menu with a channel list.
+     * This select menu will populate with a list of public that are visible to the current user in the active workspace.
+     *
+     * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
+     * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
+     * @property initialChannelsId Displays the channel with that channel-id as a pre-selected option when the menu initially loads.
+     * @property confirmation A [Confirmation] object that defines an optional confirmation dialog after the menu item is selected.
+     *
+     * @see [Text]
+     * @see [Confirmation]
+     * @see [Slack API Documentation](https://api.slack.com/reference/messaging/block-elements#channel-select)
      */
     @JacksonDataClass
     data class ChannelsSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
@@ -164,7 +242,18 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     }
 
     /**
-     * https://api.slack.com/reference/messaging/block-elements#overflow
+     * A overflow button that presents a List of [Option]s when clicking.
+     * This button appears in the form of '(...)' and has offers no typeahead field and no customizable text.
+     *
+     * It is generally used for compact layouts or to supply a list of less visually important actions after a e.g. a row of buttons etc.
+     *
+     * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
+     * @property options A List of [Option]s that is displayed in the menu. (Max 5 and Min 2 [Option]s).
+     * @property confirmation A [Confirmation] object that defines an optional confirmation dialog after the menu item is selected.
+     *
+     * @see [Option]
+     * @see [Confirmation]
+     * @see [Slack API Documentation](https://api.slack.com/reference/messaging/block-elements#overflow)
      */
     @JacksonDataClass
     data class Overflow constructor(@JsonProperty("block_id") override val blockId: String? = null,
@@ -175,7 +264,18 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     }
 
     /**
-     * https://api.slack.com/reference/messaging/block-elements#datepicker
+     * An element that is used to select a date from a calendar style UI.
+     * Date picker elements can be used inside of section and action blocks.
+     *
+     * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
+     * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
+     * @property initialDateId Displays the date with with the format of YYYY-MM-DD as a pre-selected option when the menu initially loads.
+     * @property confirmation A [Confirmation] object that defines an optional confirmation dialog after the menu item is selected.
+     *
+     * @see [Text]
+     * @see [LocalDate]
+     * @see [Confirmation]
+     * @see [Slack API Documentation](https://api.slack.com/reference/messaging/block-elements#datepicker)
      */
     @JacksonDataClass
     data class DatePicker constructor(@JsonProperty("block_id") override val blockId: String? = null,
