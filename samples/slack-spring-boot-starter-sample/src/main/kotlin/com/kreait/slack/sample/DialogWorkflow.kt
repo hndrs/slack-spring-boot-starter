@@ -1,7 +1,7 @@
 package com.kreait.slack.sample
 
 import com.kreait.slack.api.SlackClient
-import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
+import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.Dialog
@@ -16,17 +16,17 @@ import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 
 @Component
-class DialogSubmissionReceiver @Autowired constructor(private val slackClient: SlackClient) : InteractiveComponentReceiver {
+class DialogSubmissionReceiver @Autowired constructor(private val slackClient: SlackClient) : InteractiveComponentReceiver<InteractiveMessage> {
 
     companion object {
         const val CALL_BACK_ID = "unique_callback_id"
     }
 
-    override fun supportsInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse): Boolean {
+    override fun supportsInteractiveMessage(interactiveComponentResponse: InteractiveMessage): Boolean {
         return interactiveComponentResponse.callbackId == CALL_BACK_ID
     }
 
-    override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+    override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
 
         this.slackClient.chat().postMessage(team.bot.accessToken)
                 .with(PostMessageRequest(

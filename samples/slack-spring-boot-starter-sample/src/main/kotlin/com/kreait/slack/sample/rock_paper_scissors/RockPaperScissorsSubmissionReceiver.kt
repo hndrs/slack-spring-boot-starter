@@ -1,6 +1,7 @@
 package com.kreait.slack.sample.rock_paper_scissors
 
 import com.kreait.slack.api.SlackClient
+import com.kreait.slack.api.contract.jackson.BlockActions
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
 import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.ResponseType
@@ -12,15 +13,16 @@ import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 
 @Component
-class RockPaperScissorsSubmissionReceiver @Autowired constructor(private val slackClient: SlackClient, private val rpsGameHandler: RPSGameHandler) : InteractiveComponentReceiver {
-    override fun supportsInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse): Boolean {
+class RockPaperScissorsSubmissionReceiver @Autowired constructor(private val slackClient: SlackClient, private val rpsGameHandler: RPSGameHandler) : InteractiveComponentReceiver<BlockActions> {
+    override fun supportsInteractiveMessage(interactiveComponentResponse: BlockActions): Boolean {
+
         return interactiveComponentResponse.actions?.let {
-            return (it.first().blockId == RockPaperScissorsCommandReceiver.RPS_BLOCK_ID) && interactiveComponentResponse.type == "block_actions"
+            return (it.first().blockId == RockPaperScissorsCommandReceiver.RPS_BLOCK_ID) && interactiveComponentResponse.type == InteractiveComponentResponse.Type.BLOCK_ACTIONS
         } ?: false
     }
 
-    override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
-        val selection = interactiveComponentResponse.actions?.first()?.text
+    override fun onReceiveInteractiveMessage(interactiveComponentResponse: BlockActions, headers: HttpHeaders, team: Team) {
+        val selection = interactiveComponentResponse.actions?.first()?.text?.text
         selection?.let { userSelection ->
             val gameResult = rpsGameHandler.play(WEAPONS.valueOf(userSelection.toUpperCase()))
             if (gameResult.userWon) {

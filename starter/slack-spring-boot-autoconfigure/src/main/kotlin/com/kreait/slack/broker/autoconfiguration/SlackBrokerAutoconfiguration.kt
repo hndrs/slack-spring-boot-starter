@@ -1,6 +1,8 @@
 package com.kreait.slack.broker.autoconfiguration
 
 import com.kreait.slack.api.SlackClient
+import com.kreait.slack.api.contract.jackson.BlockActions
+import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.spring.DefaultSlackClient
 import com.kreait.slack.broker.autoconfiguration.credentials.CredentialsProvider
 import com.kreait.slack.broker.autoconfiguration.credentials.DefaultCredentialsProviderChain
@@ -82,8 +84,8 @@ open class SlackBrokerAutoConfiguration(private val configuration: com.kreait.sl
         }
 
         @Bean
-        open fun componentBroker(slackEventReceivers: List<InteractiveComponentReceiver>, teamStore: TeamStore, metricsCollector: InteractiveComponentMetricsCollector?): InteractiveComponentBroker {
-            return InteractiveComponentBroker(slackEventReceivers, teamStore, metricsCollector)
+        open fun componentBroker(slackInteractiveMessageReceivers: List<InteractiveComponentReceiver<InteractiveMessage>>, slackBlockActionReceivers: List<InteractiveComponentReceiver<BlockActions>>, teamStore: TeamStore, metricsCollector: InteractiveComponentMetricsCollector?): InteractiveComponentBroker {
+            return InteractiveComponentBroker(slackBlockActionReceivers, slackInteractiveMessageReceivers, teamStore, metricsCollector)
         }
 
         override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {

@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
 
-class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InteractiveComponentReceiver, InstallationReceiver {
+class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InteractiveComponentReceiver<InteractiveComponentResponse>, InstallationReceiver {
     override fun order(): Int = Ordered.HIGHEST_PRECEDENCE
 
     override fun shouldThrowException(exception: Exception): Boolean = false

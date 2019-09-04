@@ -1,6 +1,8 @@
 package com.kreait.slack.broker.broker
 
+import com.kreait.slack.api.contract.jackson.BlockActions
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
+import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.group.interactive_component.InteractiveComponentMessageResponse
 import com.kreait.slack.broker.configuration.InteractiveResponse
 import com.kreait.slack.broker.metrics.InteractiveComponentMetricsCollector
@@ -16,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class InteractiveComponentBroker constructor(private val slackInteractiveComponentReceivers: List<InteractiveComponentReceiver>,
+class InteractiveComponentBroker constructor(private val slackBlockActionReceivers: List<InteractiveComponentReceiver<BlockActions>>,
+                                             private val slackInteractiveMessageReceivers: List<InteractiveComponentReceiver<InteractiveMessage>>,
                                              private val teamStore: TeamStore,
                                              private val metricsCollector: InteractiveComponentMetricsCollector? = null) {
 
@@ -27,24 +30,40 @@ class InteractiveComponentBroker constructor(private val slackInteractiveCompone
     @PostMapping("/interactive-components", consumes = ["application/x-www-form-urlencoded"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun receiveEvents(@InteractiveResponse interactiveComponentResponse: InteractiveComponentResponse, @RequestHeader headers: HttpHeaders): ResponseEntity<InteractiveComponentMessageResponse> {
         this.metricsCollector?.responseReceived()
-
         val team = this.teamStore.findById(interactiveComponentResponse.team.id)
-        slackInteractiveComponentReceivers
-                .filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
-                .sortedBy { it.order() }
-                .forEach { receiver ->
-                    try {
-                        this.metricsCollector?.receiverExecuted()
-                        receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
-                    } catch (e: Exception) {
-                        this.metricsCollector?.receiverExecutionError()
-                        if (receiver.shouldThrowException(e)) {
-                            throw e
+        when (interactiveComponentResponse) {
+            is InteractiveMessage -> {
+                slackInteractiveMessageReceivers.filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
+                        .sortedBy { it.order() }
+                        .forEach { receiver ->
+                            try {
+                                this.metricsCollector?.receiverExecuted()
+                                receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
+                            } catch (e: Exception) {
+                                this.metricsCollector?.receiverExecutionError()
+                                if (receiver.shouldThrowException(e)) {
+                                    throw e
+                                }
+                            }
                         }
-                    }
-                }
-
-        return if (interactiveComponentResponse.type == "interactive_message") {
+            }
+            is BlockActions -> {
+                slackBlockActionReceivers.filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
+                        .sortedBy { it.order() }
+                        .forEach { receiver ->
+                            try {
+                                this.metricsCollector?.receiverExecuted()
+                                receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
+                            } catch (e: Exception) {
+                                this.metricsCollector?.receiverExecutionError()
+                                if (receiver.shouldThrowException(e)) {
+                                    throw e
+                                }
+                            }
+                        }
+            }
+        }
+        return if (interactiveComponentResponse.type == InteractiveComponentResponse.Type.INTERACTIVE_MESSAGE) {
             ResponseEntity(InteractiveComponentMessageResponse(deleteOriginal = true), HttpStatus.OK)
         } else {
             ResponseEntity(HttpStatus.OK)

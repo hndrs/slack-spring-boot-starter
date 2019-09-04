@@ -12,6 +12,7 @@ class InteractiveResponseArgumentResolver(signingSecret: String) : VerificationM
 
     override fun internalResolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, request: ContentCachingRequestWrapper, binderFactory: WebDataBinderFactory?): Any? {
         val associateMap = request.parameterMap.entries.associate { it.key to it.value[0] }
+        println(associateMap)
         return objectMapper.readValue(associateMap["payload"], InteractiveComponentResponse::class.java)
     }
 

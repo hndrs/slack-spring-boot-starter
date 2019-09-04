@@ -5,13 +5,13 @@ import com.kreait.slack.broker.store.Team
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
 
-interface InteractiveComponentReceiver {
+interface InteractiveComponentReceiver<Type :InteractiveComponentResponse> {
 
-    fun supportsInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse): Boolean = true
+    fun supportsInteractiveMessage(interactiveComponentResponse: Type): Boolean = true
 
-    fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team)
+    fun onReceiveInteractiveMessage(interactiveComponentResponse: Type, headers: HttpHeaders, team: Team)
 
-    fun shouldThrowException(exception:Exception): Boolean = false
+    fun shouldThrowException(exception: Exception): Boolean = false
 
     fun order(): Int = Ordered.HIGHEST_PRECEDENCE
 }
