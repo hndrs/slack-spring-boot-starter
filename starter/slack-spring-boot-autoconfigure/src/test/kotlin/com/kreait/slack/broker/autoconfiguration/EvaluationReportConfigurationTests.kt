@@ -1,6 +1,6 @@
 package com.kreait.slack.broker.autoconfiguration
 
-import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
+import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.SlackEvent
 import com.kreait.slack.broker.receiver.EventReceiver
@@ -87,8 +87,8 @@ class EvaluationReportConfigurationTests {
         }
 
         @Bean
-        open fun testInteractiveComponentReceiver(): InteractiveComponentReceiver = object : InteractiveComponentReceiver {
-            override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {}
+        open fun testInteractiveComponentReceiver(): InteractiveComponentReceiver<InteractiveMessage> = object : InteractiveComponentReceiver<InteractiveMessage> {
+            override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {}
         }
 
         @Bean

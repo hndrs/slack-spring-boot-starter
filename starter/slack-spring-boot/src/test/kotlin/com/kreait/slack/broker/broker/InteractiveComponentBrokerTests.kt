@@ -1,6 +1,7 @@
 package com.kreait.slack.broker.broker
 
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
+import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.metrics.InteractiveComponentMetrics
@@ -21,18 +22,18 @@ class InteractiveComponentBrokerTests {
     fun shouldThrow() {
         val teamStore = InMemoryTeamStore()
         teamStore.put(Team.sample().copy(teamId = "TestId"))
-        val sampleEvent = InteractiveComponentResponse.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
+        val sampleEvent = InteractiveMessage.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
         Assertions.assertThrows(Exception::class.java) {
-            InteractiveComponentBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
+            InteractiveComponentBroker(listOf(), listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
         }
     }
 
-    class ShouldThrowReceiver : InteractiveComponentReceiver {
+    class ShouldThrowReceiver : InteractiveComponentReceiver<InteractiveMessage> {
         override fun shouldThrowException(exception: Exception): Boolean {
             return true
         }
 
-        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
             throw Exception()
         }
     }
@@ -53,9 +54,9 @@ class InteractiveComponentBrokerTests {
         val successReceiver = SuccessReceiver()
         val errorReceiver = ErrorReceiver()
 
-        val componentResponse = InteractiveComponentResponse.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
+        val componentResponse = InteractiveMessage.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
 
-        InteractiveComponentBroker(listOf(successReceiver, errorReceiver), teamStore, metrics).receiveEvents(componentResponse, HttpHeaders.EMPTY)
+        InteractiveComponentBroker(listOf(), listOf(successReceiver, errorReceiver), teamStore, metrics).receiveEvents(componentResponse, HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
@@ -77,9 +78,9 @@ class InteractiveComponentBrokerTests {
         val successReceiver = SuccessReceiver()
         val errorReceiver = ErrorReceiver()
 
-        val componentResponse = InteractiveComponentResponse.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
+        val componentResponse = InteractiveMessage.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
 
-        InteractiveComponentBroker(listOf(successReceiver, errorReceiver), teamStore).receiveEvents(componentResponse, HttpHeaders.EMPTY)
+        InteractiveComponentBroker(listOf(), listOf(successReceiver, errorReceiver), teamStore).receiveEvents(componentResponse, HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
@@ -92,12 +93,12 @@ class InteractiveComponentBrokerTests {
         val first = FirstComponentReceiver(atomic)
         val second = SecondComponentReceiver(atomic)
         val third = ThirdComponentReceiver(atomic)
-        val event = InteractiveComponentResponse.sample()
+        val event = InteractiveMessage.sample().copy(team = InteractiveComponentResponse.Team.sample())
                 .copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestTeamId"))
         val store = InMemoryTeamStore()
         store.put(Team.sample().copy(teamId = "TestTeamId"))
 
-        InteractiveComponentBroker(listOf(third, second, first), store)
+        InteractiveComponentBroker(listOf(), listOf(third, second, first), store)
                 .receiveEvents(event, HttpHeaders.EMPTY)
 
         Assertions.assertEquals(0, first.currentOrder)
@@ -105,53 +106,53 @@ class InteractiveComponentBrokerTests {
         Assertions.assertEquals(2, third.currentOrder)
     }
 
-    class FirstComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver {
+    class FirstComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver<InteractiveMessage> {
         var currentOrder: Int? = null
 
         override fun order(): Int {
             return 1
         }
 
-        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
             currentOrder = current.getAndIncrement()
         }
     }
 
-    class SecondComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver {
+    class SecondComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver<InteractiveMessage> {
         var currentOrder: Int? = null
         override fun order(): Int {
             return 2
         }
 
-        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
             currentOrder = current.getAndIncrement()
         }
     }
 
-    class ThirdComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver {
+    class ThirdComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver<InteractiveMessage> {
         var currentOrder: Int? = null
         override fun order(): Int {
             return 3
         }
 
-        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
             currentOrder = current.getAndIncrement()
         }
     }
 
 
-    class SuccessReceiver : InteractiveComponentReceiver {
+    class SuccessReceiver : InteractiveComponentReceiver<InteractiveMessage> {
         var executed: Boolean = false
 
-        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
             executed = true
         }
     }
 
-    class ErrorReceiver : InteractiveComponentReceiver {
+    class ErrorReceiver : InteractiveComponentReceiver<InteractiveMessage> {
         var executed: Boolean = false
 
-        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
             executed = true
             throw IllegalStateException("Failing Test Case")
         }

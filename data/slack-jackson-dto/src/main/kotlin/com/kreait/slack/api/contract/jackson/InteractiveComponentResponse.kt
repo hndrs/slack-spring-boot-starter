@@ -31,7 +31,7 @@ import java.time.Instant
 abstract class InteractiveComponentResponse(
         @JsonProperty("type") val type: Type?,
         open val team: Team) {
-
+    companion object {}
     @JsonSerialize(using = Type.Serializer::class)
     @JsonDeserialize(using = Type.Deserializer::class)
     enum class Type(internal val typeString: String) {
@@ -49,6 +49,14 @@ abstract class InteractiveComponentResponse(
                 return valueOf(p.text.toUpperCase())
             }
         }
+    }
+
+    @JacksonDataClass
+    data class Team(@JsonProperty("id") val id: String,
+                    @JsonProperty("domain") val domain: String,
+                    @JsonProperty("enterprise_id") val enterpriseId: String?,
+                    @JsonProperty("enterprise_name") val enterpriseName: String?) {
+        companion object
     }
 }
 
@@ -99,13 +107,6 @@ data class User(@JsonProperty("id") val id: String,
     companion object
 }
 
-@JacksonDataClass
-data class Team(@JsonProperty("id") val id: String,
-                @JsonProperty("domain") val domain: String,
-                @JsonProperty("enterprise_id") val enterpriseId: String?,
-                @JsonProperty("enterprise_name") val enterpriseName: String?) {
-    companion object
-}
 
 data class Container(
         @JsonProperty("channel_id") val channelId: String?,
