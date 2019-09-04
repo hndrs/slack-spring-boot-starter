@@ -28,7 +28,7 @@ class InteractiveComponentBroker constructor(private val slackBlockActionReceive
     }
 
     @PostMapping("/interactive-components", consumes = ["application/x-www-form-urlencoded"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun receiveEvents(@InteractiveResponse interactiveComponentResponse: InteractiveComponentResponse, @RequestHeader headers: HttpHeaders): ResponseEntity<InteractiveComponentMessageResponse> {
+    fun receiveComponent(@InteractiveResponse interactiveComponentResponse: InteractiveComponentResponse, @RequestHeader headers: HttpHeaders): ResponseEntity<InteractiveComponentMessageResponse> {
         this.metricsCollector?.responseReceived()
         val team = this.teamStore.findById(interactiveComponentResponse.team.id)
         when (interactiveComponentResponse) {

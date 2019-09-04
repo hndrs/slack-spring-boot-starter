@@ -25,7 +25,7 @@ class InteractiveComponentBrokerTests {
         teamStore.put(Team.sample().copy(teamId = "TestId"))
         val sampleEvent = InteractiveMessage.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
         Assertions.assertThrows(Exception::class.java) {
-            InteractiveComponentBroker(listOf(), listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
+            InteractiveComponentBroker(listOf(), listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore).receiveComponent(sampleEvent, HttpHeaders.EMPTY)
         }
     }
 
@@ -41,7 +41,7 @@ class InteractiveComponentBrokerTests {
 
     @Test
     @DisplayName("Broker Test")
-    fun brokerTest() {
+    fun interactiveMessagebrokerTest() {
 
         val teamStore = InMemoryTeamStore()
 
@@ -57,10 +57,38 @@ class InteractiveComponentBrokerTests {
 
         val componentResponse = InteractiveMessage.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
 
-        InteractiveComponentBroker(listOf(), listOf(successReceiver, errorReceiver), teamStore, metrics).receiveEvents(componentResponse, HttpHeaders.EMPTY)
+        InteractiveComponentBroker(listOf(), listOf(successReceiver, errorReceiver), teamStore, metrics).receiveComponent(componentResponse, HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
+
+        Assertions.assertEquals(1.0, meterRegistry.get("slack.interactive.received").counter().count())
+        Assertions.assertEquals(2.0, meterRegistry.get("slack.interactive.receiver.executions").counter().count())
+        Assertions.assertEquals(1.0, meterRegistry.get("slack.interactive.receiver.errors").counter().count())
+    }
+
+    @Test
+    @DisplayName("BlockAction Broker Test")
+    fun BlockActionbrokerTest() {
+
+        val teamStore = InMemoryTeamStore()
+
+        teamStore.put(Team.sample().copy(teamId = "TestId"))
+
+        val metrics = InteractiveComponentMetrics()
+
+        val meterRegistry = SimpleMeterRegistry()
+        metrics.bindTo(meterRegistry)
+
+        val successBlockReceiver = SuccessBlockReceiver()
+        val errorBlockReceiver = ErrorBlockReceiver()
+
+        val componentResponse = BlockActions.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
+
+        InteractiveComponentBroker(listOf(successBlockReceiver, errorBlockReceiver), listOf(), teamStore, metrics).receiveComponent(componentResponse, HttpHeaders.EMPTY)
+
+        Assertions.assertTrue(successBlockReceiver.executed)
+        Assertions.assertTrue(errorBlockReceiver.executed)
 
         Assertions.assertEquals(1.0, meterRegistry.get("slack.interactive.received").counter().count())
         Assertions.assertEquals(2.0, meterRegistry.get("slack.interactive.receiver.executions").counter().count())
@@ -81,14 +109,14 @@ class InteractiveComponentBrokerTests {
 
         val componentResponse = InteractiveMessage.sample().copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestId"))
 
-        InteractiveComponentBroker(listOf(), listOf(successReceiver, errorReceiver), teamStore).receiveEvents(componentResponse, HttpHeaders.EMPTY)
+        InteractiveComponentBroker(listOf(), listOf(successReceiver, errorReceiver), teamStore).receiveComponent(componentResponse, HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
     }
 
     @Test
-    @DisplayName("Test InteractiveComponentReceiver order")
+    @DisplayName("Test BlockActionReceiver order")
     fun testComponentReceiverExecutionOrder() {
         val atomic = AtomicInteger(0)
         val first = FirstComponentReceiver(atomic)
@@ -100,7 +128,7 @@ class InteractiveComponentBrokerTests {
         store.put(Team.sample().copy(teamId = "TestTeamId"))
 
         InteractiveComponentBroker(listOf(), listOf(third, second, first), store)
-                .receiveEvents(event, HttpHeaders.EMPTY)
+                .receiveComponent(event, HttpHeaders.EMPTY)
 
         Assertions.assertEquals(0, first.currentOrder)
         Assertions.assertEquals(1, second.currentOrder)
@@ -120,7 +148,7 @@ class InteractiveComponentBrokerTests {
         store.put(Team.sample().copy(teamId = "TestTeamId"))
 
         InteractiveComponentBroker(listOf(third, second, first), listOf(), store)
-                .receiveEvents(event, HttpHeaders.EMPTY)
+                .receiveComponent(event, HttpHeaders.EMPTY)
 
         Assertions.assertEquals(0, first.currentOrder)
         Assertions.assertEquals(1, second.currentOrder)
@@ -209,6 +237,23 @@ class InteractiveComponentBrokerTests {
         var executed: Boolean = false
 
         override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
+            executed = true
+            throw IllegalStateException("Failing Test Case")
+        }
+    }
+
+    class SuccessBlockReceiver : InteractiveComponentReceiver<BlockActions> {
+        var executed: Boolean = false
+
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: BlockActions, headers: HttpHeaders, team: Team) {
+            executed = true
+        }
+    }
+
+    class ErrorBlockReceiver : InteractiveComponentReceiver<BlockActions> {
+        var executed: Boolean = false
+
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: BlockActions, headers: HttpHeaders, team: Team) {
             executed = true
             throw IllegalStateException("Failing Test Case")
         }
