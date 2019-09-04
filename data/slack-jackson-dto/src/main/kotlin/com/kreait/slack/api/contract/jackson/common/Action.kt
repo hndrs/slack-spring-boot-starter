@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
 import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
@@ -20,7 +19,7 @@ data class Action(
         @InstantToString @JsonProperty("action_ts") val actionTimestamp: Instant? = null,
         @JsonProperty("block_id") val blockId: String? = null,
         @JsonProperty("name") val name: String? = null,
-        @JsonProperty("text") val text: Text? = null,
+        @JsonProperty("text") val text: String? = null,
         @JsonProperty("style") val style: Style? = null,
         @JsonProperty("type") val type: ActionType,
         @JsonProperty("value") val value: String? = null,
