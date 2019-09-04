@@ -28,9 +28,10 @@ class RockPaperScissorsCommandReceiver @Autowired constructor(private val slackC
                                 Block.Section(text = Text(Text.Type.PLAIN_TEXT, "choose your weapon")),
                                 Block.Action(blockId = RPS_BLOCK_ID,
                                         elements = listOf(
-                                                Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.ROCK.weaponName), actionId = WEAPONS.ROCK.actionId),
-                                                Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.PAPER.weaponName), actionId = WEAPONS.PAPER.actionId),
-                                                Element.Button(Text(Text.Type.PLAIN_TEXT, WEAPONS.SCISSORS.weaponName), actionId = WEAPONS.SCISSORS.actionId)
+                                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.ROCK.weaponName), actionId = WEAPONS.ROCK.actionId),
+                                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.PAPER.weaponName), actionId = WEAPONS.PAPER.actionId),
+                                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.SCISSORS.weaponName), actionId = WEAPONS.SCISSORS.actionId),
+                                                Element.UsersSelect(placeholderText = Text(Text.Type.PLAIN_TEXT, "weapons"), actionId = "select")
                                         ))),
                         channel = slackCommand.channelId))
                 .onSuccess {

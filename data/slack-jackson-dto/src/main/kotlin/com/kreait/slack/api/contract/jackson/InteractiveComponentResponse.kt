@@ -1,5 +1,6 @@
 package com.kreait.slack.api.contract.jackson
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
@@ -13,7 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.kreait.slack.api.contract.jackson.common.Action
 import com.kreait.slack.api.contract.jackson.common.messaging.Block
-import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
+import com.kreait.slack.api.contract.jackson.common.messaging.Element
 import com.kreait.slack.api.contract.jackson.group.chat.Message
 import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
@@ -72,6 +73,7 @@ data class InteractiveMessage(
 }
 
 @JacksonDataClass
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class BlockActions(@JsonProperty("team") override val team: Team,
                         @JsonProperty("user") val user: User,
                         @JsonProperty("token") val token: String?,
@@ -80,7 +82,7 @@ data class BlockActions(@JsonProperty("team") override val team: Team,
                         @JsonProperty("trigger_id") val triggerId: String?,
                         @JsonProperty("channel") val channel: Channel,
                         @JsonProperty("response_url") val responseUrl: String?,
-                        @JsonProperty("actions") val actions: List<BlockAction>? = listOf()) : InteractiveComponentResponse(Type.BLOCK_ACTIONS, team)
+                        @JsonProperty("actions") val actions: List<Element>? = listOf()) : InteractiveComponentResponse(Type.BLOCK_ACTIONS, team)
 
 @JacksonDataClass
 data class Channel(@JsonProperty("id") val id: String,
@@ -111,14 +113,3 @@ data class Container(
         @JsonProperty("message_ts") val messageTs: String?,
         @JsonProperty("type") val type: String?
 )
-
-
-@JacksonDataClass
-data class BlockAction(
-        @JsonProperty("action_id") val actionId: String?,
-        @JsonProperty("action_ts") val actionTs: String?,
-        @JsonProperty("block_id") val blockId: String?,
-        @JsonProperty("text") val text: Text?,
-        @JsonProperty("type") val type: String?
-)
-
