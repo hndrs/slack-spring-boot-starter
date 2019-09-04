@@ -143,6 +143,8 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     data class ConversationsSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
                                                @JsonProperty("placeholder") val placeholderText: Text?,
                                                @JsonProperty("action_id") val actionId: String,
+                                               @JsonProperty("selected_conversation") val selectedUser: String? = null,
+                                               @InstantToString @JsonProperty("action_ts") val actionTimestamp: Instant? = null,
                                                @JsonProperty("initial_conversation") val initialConversationId: String? = null,
                                                @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.CONVERSATIONS_SELECT, blockId) {
         companion object
@@ -155,6 +157,8 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     data class ChannelsSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
                                           @JsonProperty("placeholder") val placeholderText: Text?,
                                           @JsonProperty("action_id") val actionId: String,
+                                          @JsonProperty("selected_channel") val selectedUser: String? = null,
+                                          @InstantToString @JsonProperty("action_ts") val actionTimestamp: Instant? = null,
                                           @JsonProperty("initial_channels") val initialChannelsId: String? = null,
                                           @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.CHANNELS_SELECT, blockId) {
         companion object
