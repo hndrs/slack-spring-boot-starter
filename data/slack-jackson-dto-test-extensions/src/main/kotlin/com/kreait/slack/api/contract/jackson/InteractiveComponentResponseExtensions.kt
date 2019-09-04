@@ -8,6 +8,12 @@ fun InteractiveMessage.Companion.sample(): InteractiveMessage {
             Channel.sample(), mapOf(), "", "", listOf(), listOf(), null, "", null)
 }
 
+
+fun BlockActions.Companion.sample(): BlockActions {
+    return BlockActions(InteractiveComponentResponse.Team.sample(), User.sample(), "token", "", null, "",
+            Channel.sample(), "", listOf())
+}
+
 fun Channel.Companion.sample(): Channel {
     return Channel("ChannelId", "ChannelName")
 }

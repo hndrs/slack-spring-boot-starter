@@ -1,5 +1,6 @@
 package com.kreait.slack.broker.broker
 
+import com.kreait.slack.api.contract.jackson.BlockActions
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
 import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.sample
@@ -106,6 +107,26 @@ class InteractiveComponentBrokerTests {
         Assertions.assertEquals(2, third.currentOrder)
     }
 
+    @Test
+    @DisplayName("Test InteractiveComponentReceiver order")
+    fun testBlockActionsReceiverExecutionOrder() {
+        val atomic = AtomicInteger(0)
+        val first = FirstBlockReceiver(atomic)
+        val second = SecondBlockReceiver(atomic)
+        val third = ThirdBlockReceiver(atomic)
+        val event = BlockActions.sample().copy(team = InteractiveComponentResponse.Team.sample())
+                .copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestTeamId"))
+        val store = InMemoryTeamStore()
+        store.put(Team.sample().copy(teamId = "TestTeamId"))
+
+        InteractiveComponentBroker(listOf(third, second, first), listOf(), store)
+                .receiveEvents(event, HttpHeaders.EMPTY)
+
+        Assertions.assertEquals(0, first.currentOrder)
+        Assertions.assertEquals(1, second.currentOrder)
+        Assertions.assertEquals(2, third.currentOrder)
+    }
+
     class FirstComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver<InteractiveMessage> {
         var currentOrder: Int? = null
 
@@ -136,6 +157,41 @@ class InteractiveComponentBrokerTests {
         }
 
         override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
+
+    class FirstBlockReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver<BlockActions> {
+        var currentOrder: Int? = null
+
+        override fun order(): Int {
+            return 1
+        }
+
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: BlockActions, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
+    class SecondBlockReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver<BlockActions> {
+        var currentOrder: Int? = null
+        override fun order(): Int {
+            return 2
+        }
+
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: BlockActions, headers: HttpHeaders, team: Team) {
+            currentOrder = current.getAndIncrement()
+        }
+    }
+
+    class ThirdBlockReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver<BlockActions> {
+        var currentOrder: Int? = null
+        override fun order(): Int {
+            return 3
+        }
+
+        override fun onReceiveInteractiveMessage(interactiveComponentResponse: BlockActions, headers: HttpHeaders, team: Team) {
             currentOrder = current.getAndIncrement()
         }
     }

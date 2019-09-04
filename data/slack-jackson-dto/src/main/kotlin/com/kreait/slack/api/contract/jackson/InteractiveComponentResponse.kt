@@ -90,7 +90,9 @@ data class BlockActions(@JsonProperty("team") override val team: Team,
                         @JsonProperty("trigger_id") val triggerId: String?,
                         @JsonProperty("channel") val channel: Channel,
                         @JsonProperty("response_url") val responseUrl: String?,
-                        @JsonProperty("actions") val actions: List<Element>? = listOf()) : InteractiveComponentResponse(Type.BLOCK_ACTIONS, team)
+                        @JsonProperty("actions") val actions: List<Element>? = listOf()) : InteractiveComponentResponse(Type.BLOCK_ACTIONS, team) {
+    companion object
+}
 
 @JacksonDataClass
 data class Channel(@JsonProperty("id") val id: String,
