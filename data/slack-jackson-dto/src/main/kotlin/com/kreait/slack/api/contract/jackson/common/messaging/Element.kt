@@ -15,7 +15,9 @@ import com.kreait.slack.api.contract.jackson.common.messaging.composition.Confir
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Option
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.OptionGroup
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
+import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
+import java.time.Instant
 import java.time.LocalDate
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
@@ -34,7 +36,8 @@ import java.time.LocalDate
         JsonSubTypes.Type(value = Element.Overflow::class, name = "overflow")
 )
 @JacksonDataClass
-sealed class Element(@JsonProperty("type") open val type: Type) {
+sealed class Element(@JsonProperty("type") open val type: Type,
+                     open val blockId: String?) {
 
     @JsonSerialize(using = Type.Serializer::class)
     @JsonDeserialize(using = Type.Deserializer::class)
@@ -67,8 +70,9 @@ sealed class Element(@JsonProperty("type") open val type: Type) {
      * https://api.slack.com/reference/messaging/block-elements#image
      */
     @JacksonDataClass
-    data class Image constructor(@JsonProperty("image_url") val imageUrl: String,
-                                 @JsonProperty("alt_text") val altText: String) : Element(Type.IMAGE) {
+    data class Image constructor(@JsonProperty("block_id") override val blockId: String? = null,
+                                 @JsonProperty("image_url") val imageUrl: String,
+                                 @JsonProperty("alt_text") val altText: String) : Element(Type.IMAGE, blockId) {
         companion object
     }
 
@@ -76,11 +80,13 @@ sealed class Element(@JsonProperty("type") open val type: Type) {
      * https://api.slack.com/reference/messaging/block-elements#button
      */
     @JacksonDataClass
-    data class Button constructor(@JsonProperty("text") val text: Text,
+    data class Button constructor(@JsonProperty("block_id") override val blockId: String? = null,
+                                  @JsonProperty("text") val text: Text,
                                   @JsonProperty("action_id") val actionId: String,
+                                  @InstantToString @JsonProperty("action_ts") val actionTimestamp: Instant? = null,
                                   @JsonProperty("url") val url: String? = null,
                                   @JsonProperty("value") val value: String? = null,
-                                  @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.BUTTON) {
+                                  @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.BUTTON, blockId) {
         companion object
     }
 
@@ -88,12 +94,13 @@ sealed class Element(@JsonProperty("type") open val type: Type) {
      * https://api.slack.com/reference/messaging/block-elements#select
      */
     @JacksonDataClass
-    data class StaticSelect constructor(@JsonProperty("placeholder") val placeholderText: Text,
+    data class StaticSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
+                                        @JsonProperty("placeholder") val placeholderText: Text,
                                         @JsonProperty("action_id") val actionId: String,
                                         @JsonProperty("options") val options: List<Option>,
                                         @JsonProperty("option_groups") val optionGroups: List<OptionGroup>? = null,
                                         @JsonProperty("initial_option") val initialOption: Option? = null,
-                                        @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.STATIC_SELECT) {
+                                        @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.STATIC_SELECT, blockId) {
         companion object
     }
 
@@ -102,13 +109,14 @@ sealed class Element(@JsonProperty("type") open val type: Type) {
      * https://api.slack.com/reference/messaging/block-elements#external-select
      */
     @JacksonDataClass
-    data class ExternalSelect constructor(@JsonProperty("placeholder") val placeholderText: Text,
+    data class ExternalSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
+                                          @JsonProperty("placeholder") val placeholderText: Text?,
                                           @JsonProperty("action_id") val actionId: String,
                                           @JsonProperty("options") val options: List<Option>,
                                           @JsonProperty("option_groups") val optionGroups: List<OptionGroup>? = null,
                                           @JsonProperty("initial_option") val initialOption: Option? = null,
                                           @JsonProperty("min_query_length") val minQueryLength: Int? = null,
-                                          @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.EXTERNAL_SELECT) {
+                                          @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.EXTERNAL_SELECT, blockId) {
         companion object
     }
 
@@ -116,10 +124,15 @@ sealed class Element(@JsonProperty("type") open val type: Type) {
      * https://api.slack.com/reference/messaging/block-elements#users-select
      */
     @JacksonDataClass
-    data class UsersSelect constructor(@JsonProperty("placeholder") val placeholderText: Text,
+    data class UsersSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
+                                       @JsonProperty("placeholder") val placeholderText: Text?,
                                        @JsonProperty("action_id") val actionId: String,
-                                       @JsonProperty("initial_user") val initialUserId: String? = null,
-                                       @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.USERS_SELECT) {
+                                       @JsonProperty("selected_user") val selectedUser: String? = null,
+                                       @InstantToString @JsonProperty("action_ts") val actionTimestamp: Instant? = null,
+                                       @JsonProperty("initial_user")
+                                       val initialUserId: String? = null,
+                                       @JsonProperty("confirm")
+                                       val confirmation: Confirmation? = null) : Element(Type.USERS_SELECT, blockId) {
         companion object
     }
 
@@ -127,10 +140,11 @@ sealed class Element(@JsonProperty("type") open val type: Type) {
      * https://api.slack.com/reference/messaging/block-elements#conversation-select
      */
     @JacksonDataClass
-    data class ConversationsSelect constructor(@JsonProperty("placeholder") val placeholderText: Text,
+    data class ConversationsSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
+                                               @JsonProperty("placeholder") val placeholderText: Text?,
                                                @JsonProperty("action_id") val actionId: String,
                                                @JsonProperty("initial_conversation") val initialConversationId: String? = null,
-                                               @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.CONVERSATIONS_SELECT) {
+                                               @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.CONVERSATIONS_SELECT, blockId) {
         companion object
     }
 
@@ -138,10 +152,11 @@ sealed class Element(@JsonProperty("type") open val type: Type) {
      * https://api.slack.com/reference/messaging/block-elements#channel-select
      */
     @JacksonDataClass
-    data class ChannelsSelect constructor(@JsonProperty("placeholder") val placeholderText: Text,
+    data class ChannelsSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
+                                          @JsonProperty("placeholder") val placeholderText: Text?,
                                           @JsonProperty("action_id") val actionId: String,
                                           @JsonProperty("initial_channels") val initialChannelsId: String? = null,
-                                          @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.CHANNELS_SELECT) {
+                                          @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.CHANNELS_SELECT, blockId) {
         companion object
     }
 
@@ -149,9 +164,10 @@ sealed class Element(@JsonProperty("type") open val type: Type) {
      * https://api.slack.com/reference/messaging/block-elements#overflow
      */
     @JacksonDataClass
-    data class Overflow constructor(@JsonProperty("action_id") val actionId: String,
+    data class Overflow constructor(@JsonProperty("block_id") override val blockId: String? = null,
+                                    @JsonProperty("action_id") val actionId: String,
                                     @JsonProperty("options") val options: List<Option>,
-                                    @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.OVERFLOW) {
+                                    @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.OVERFLOW, blockId) {
         companion object
     }
 
@@ -159,10 +175,11 @@ sealed class Element(@JsonProperty("type") open val type: Type) {
      * https://api.slack.com/reference/messaging/block-elements#datepicker
      */
     @JacksonDataClass
-    data class DatePicker constructor(@JsonProperty("action_id") val actionId: String,
+    data class DatePicker constructor(@JsonProperty("block_id") override val blockId: String? = null,
+                                      @JsonProperty("action_id") val actionId: String,
                                       @JsonProperty("placeholder") val placeholderText: Text? = null,
                                       @JsonProperty("initial_date") val initialChannelsId: LocalDate? = null,
-                                      @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.OVERFLOW) {
+                                      @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.DATE_PICKER, blockId) {
         companion object
     }
 }
