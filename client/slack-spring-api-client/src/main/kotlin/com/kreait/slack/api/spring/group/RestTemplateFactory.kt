@@ -2,7 +2,6 @@ package com.kreait.slack.api.spring.group
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.kreait.slack.api.spring.group.respond.SlackResponseErrorHandler
 import org.apache.http.HttpHost
 import org.apache.http.conn.ssl.NoopHostnameVerifier
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory
@@ -24,7 +23,6 @@ object RestTemplateFactory {
     private const val PROXY_PROPERTY_NAME = "slack.proxyHost"
     private const val SSL_PROPERTY_NAME = "slack.development.ssl.accept-self-signed"
     private val slackApiRestTemplate = RestTemplate(clientFactory(HttpClients.custom()))
-    private val slackResponseRestTemplate = RestTemplate(clientFactory(HttpClients.custom()))
 
     init {
 
@@ -35,8 +33,6 @@ object RestTemplateFactory {
                 .build<ObjectMapper>()
 
         slackApiRestTemplate.messageConverters = listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
-
-        slackResponseRestTemplate.errorHandler = SlackResponseErrorHandler()
     }
 
     /**
@@ -71,11 +67,5 @@ object RestTemplateFactory {
      * gets a slack compliant slackApiRestTemplate
      */
     fun slackTemplate() = slackApiRestTemplate
-
-    /**
-     *  gets a slackApiRestTemplate which logs errors without interrupting
-     */
-    fun slackResponseTemplate() = slackResponseRestTemplate
-
 
 }

@@ -33,8 +33,7 @@ import java.time.LocalDate
         JsonSubTypes.Type(value = Element.ConversationsSelect::class, name = "conversations_select"),
         JsonSubTypes.Type(value = Element.ChannelsSelect::class, name = "channels_select"),
         JsonSubTypes.Type(value = Element.DatePicker::class, name = "datepicker"),
-        JsonSubTypes.Type(value = Element.Overflow::class, name = "overflow")
-)
+        JsonSubTypes.Type(value = Element.Overflow::class, name = "overflow"))
 @JacksonDataClass
 sealed class Element(@JsonProperty("type") open val type: Type,
                      open val blockId: String?) {
@@ -97,7 +96,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     data class StaticSelect constructor(@JsonProperty("block_id") override val blockId: String? = null,
                                         @JsonProperty("placeholder") val placeholderText: Text,
                                         @JsonProperty("action_id") val actionId: String,
-                                        @JsonProperty("options") val options: List<Option>,
+                                        @JsonProperty("options") val options: List<Option>?,
                                         @JsonProperty("option_groups") val optionGroups: List<OptionGroup>? = null,
                                         @JsonProperty("initial_option") val initialOption: Option? = null,
                                         @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.STATIC_SELECT, blockId) {
@@ -182,7 +181,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     data class DatePicker constructor(@JsonProperty("block_id") override val blockId: String? = null,
                                       @JsonProperty("action_id") val actionId: String,
                                       @JsonProperty("placeholder") val placeholderText: Text? = null,
-                                      @JsonProperty("initial_date") val initialChannelsId: LocalDate? = null,
+                                      @JsonProperty("initial_date") val initialDate: LocalDate? = null,
                                       @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.DATE_PICKER, blockId) {
         companion object
     }

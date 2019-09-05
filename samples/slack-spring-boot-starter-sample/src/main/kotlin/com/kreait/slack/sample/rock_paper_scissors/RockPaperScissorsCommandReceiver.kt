@@ -10,8 +10,12 @@ import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.Team
 import com.kreait.slack.sample.rock_paper_scissors.data.WEAPONS
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
+import org.springframework.web.filter.CommonsRequestLoggingFilter
+
+
 
 @Component
 class RockPaperScissorsCommandReceiver @Autowired constructor(private val slackClient: SlackClient) : SlashCommandReceiver {
@@ -25,14 +29,15 @@ class RockPaperScissorsCommandReceiver @Autowired constructor(private val slackC
                 .with(PostEphemeralRequest("Choose your weapon",
                         user = slackCommand.userId,
                         blocks = listOf(
-                                Block.Section(text = Text(Text.Type.PLAIN_TEXT, "choose your weapon")),
+                                Block.Section(text = Text(Text.Type.PLAIN_TEXT, "choose your weapon"), blockId = "weapons_block"),
                                 Block.Action(blockId = RPS_BLOCK_ID,
                                         elements = listOf(
                                                 Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.ROCK.weaponName), actionId = WEAPONS.ROCK.actionId),
                                                 Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.PAPER.weaponName), actionId = WEAPONS.PAPER.actionId),
-                                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.SCISSORS.weaponName), actionId = WEAPONS.SCISSORS.actionId),
-                                                Element.UsersSelect(placeholderText = Text(Text.Type.PLAIN_TEXT, "weapons"), actionId = "select")
-                                        ))),
+                                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.SCISSORS.weaponName), actionId = WEAPONS.SCISSORS.actionId)
+                                        )
+                                )
+                        ),
                         channel = slackCommand.channelId))
                 .onSuccess {
                     println(it)
