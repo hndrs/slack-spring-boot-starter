@@ -75,6 +75,7 @@ data class InteractiveMessage(
         @JsonProperty("callback_id") val callbackId: String?,
         @JsonProperty("response_url") val responseUrl: String?,
         @JsonProperty("actions") val actions: List<Action>? = listOf(),
+        @JsonProperty("original_message") val originalMessage: Message? = null,
         @JsonProperty("blocks") val blocks: List<Block>? = listOf(),
         @JsonProperty("container") val container: Container? = null,
         @JsonProperty("trigger_id") val triggerId: String?,

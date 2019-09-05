@@ -62,7 +62,7 @@ sealed class Block(@JsonProperty("type") val type: Type) {
      */
     @JacksonDataClass
     data class Section(@JsonProperty("text") val text: Text,
-                       @JsonProperty("block_id") val blockId: String? = null,
+                       @get:JsonProperty("block_id") val blockId: String,
                        @JsonProperty("fields") val fields: List<Text>? = null,
                        @JsonProperty("accessory") val accessory: Element? = null) : Block(Type.SECTION) {
         companion object
@@ -75,7 +75,7 @@ sealed class Block(@JsonProperty("type") val type: Type) {
     data class Image(@JsonProperty("image_url") val imageUrl: String,
                      @JsonProperty("alt_text") val altText: String,
                      @JsonProperty("title") val title: String? = null,
-                     @JsonProperty("block_id") val blockId: String? = null) : Block(Type.IMAGE) {
+                     @get:JsonProperty("block_id") val blockId: String) : Block(Type.IMAGE) {
         companion object
     }
 
@@ -84,16 +84,17 @@ sealed class Block(@JsonProperty("type") val type: Type) {
      */
     @JacksonDataClass
     data class Action(@JsonProperty("elements") val elements: List<Element>,
-                      @JsonProperty("block_id") val blockId: String? = null) : Block(Type.ACTIONS) {
+                      @get:JsonProperty("block_id") val blockId: String) : Block(Type.ACTIONS) {
         companion object
     }
 
     /**
      * https://api.slack.com/reference/messaging/blocks#context
+     * Displays message context, which can include both *images* and *text*.
      */
     @JacksonDataClass
-    data class Context(@JsonProperty("elements") val elements: List<Element>,
-                       @JsonProperty("block_id") val blockId: String? = null) : Block(Type.CONTEXT) {
+    data class Context(@JsonProperty("elements") val elements: List<Any>,
+                       @get:JsonProperty("block_id") val blockId: String) : Block(Type.CONTEXT) {
         companion object
     }
 }
