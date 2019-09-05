@@ -59,10 +59,10 @@ data class Color(val code: String?) {
      * @property NEUTRAL Translates to a grey tone.
      */
     companion object {
-        private val GOOD = Color(code = "good")
-        private val WARNING = Color(code = "warning")
-        private val DANGER = Color(code = "danger")
-        private val NEUTRAL = Color(code = "neutral")
+        val GOOD = Color(code = "good")
+        val WARNING = Color(code = "warning")
+        val DANGER = Color(code = "danger")
+        val NEUTRAL = Color(code = "neutral")
 
         fun ofHex(hexCode: String): Color {
             //TODO validation
