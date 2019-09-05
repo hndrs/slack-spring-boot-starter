@@ -1,11 +1,13 @@
 package com.kreait.slack.api.contract.jackson
 
 import com.kreait.slack.api.contract.jackson.common.InstantSample
+import com.kreait.slack.api.contract.jackson.group.chat.Message
+import com.kreait.slack.api.contract.jackson.group.chat.sample
 
 fun InteractiveMessage.Companion.sample(): InteractiveMessage {
     return InteractiveMessage(InteractiveComponentResponse.Team.sample(), "token", InstantSample.sample(), InstantSample.sample(),
             User.sample(), "",
-            Channel.sample(), mapOf(), "", "", listOf(), listOf(), null, "", null)
+            Channel.sample(), mapOf(), "", "", listOf(), Message.sample(), listOf(), null, "", null)
 }
 
 

@@ -21,8 +21,8 @@ import org.springframework.stereotype.Service
 @Service
 class BlockTests @Autowired constructor(private val slackClient: SlackClient) : SlashCommandReceiver {
 
-    private val IMAGE_URL = "http://lorempixel.com/640/480/"
-    private val ALT_TEXT = "Kreait Logo"
+    private val IMAGE_URL = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"
+    private val ALT_TEXT = "Logo"
 
     override fun supportsCommand(slackCommand: SlackCommand): Boolean {
         return slackCommand.command.startsWith("/blocks")
@@ -46,7 +46,7 @@ class BlockTests @Autowired constructor(private val slackClient: SlackClient) : 
         val actions = Block.Action(assembleElements(), blockId = "Action")
         val context = Block.Context(blockId = "context", elements = listOf(
                 Element.Image(imageUrl = IMAGE_URL, altText = ALT_TEXT),
-                Text(Text.Type.PLAIN_TEXT, "Kreait Logo")
+                Text(Text.Type.PLAIN_TEXT, "Logo")
         ))
 
         val request = RespondMessageRequest(responseType = ResponseType.EPHEMERAL, text = "test",
