@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 data class Option(@JsonProperty("text") val text: Text,
                   @JsonProperty("value") val value: String,
-                  @JsonProperty("url") val url: String?) {
+                  @JsonProperty("url") val url: String? = "") {
     companion object
 }
 

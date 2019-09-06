@@ -22,10 +22,10 @@ import java.time.Instant
  * @property name the name of this action
  * @property text the displayed text of this action
  * @property style the style
- * @property type
- * @property value
- * @property options
- * @property selectedOptions
+ * @property type The type of this action
+ * @property value the value of this interaction
+ * @property options the options for a select-action
+ * @property selectedOptions the selected option
  */
 @JacksonDataClass
 data class Action(
