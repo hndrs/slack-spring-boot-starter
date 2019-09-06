@@ -13,6 +13,20 @@ import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
+/**
+ * An Action Item that can be used in Interactive Messages and Attachments
+ *
+ * @property actionId the id of this action
+ * @property actionTimestamp the timestamp when the action was sent
+ * @property blockId
+ * @property name the name of this action
+ * @property text the displayed text of this action
+ * @property style the style
+ * @property type
+ * @property value
+ * @property options
+ * @property selectedOptions
+ */
 @JacksonDataClass
 data class Action(
         @JsonProperty("action_id") val actionId: String? = null,
