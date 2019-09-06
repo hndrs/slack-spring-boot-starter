@@ -22,7 +22,7 @@ import java.time.LocalDate
 
 /**
  * Used to determine the Type of the Element.
- *
+ * @property blockId the id of the according block
  * @property type Specifies the type of the Element you want to use.
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
@@ -72,6 +72,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     /**
      * Represents an image that can be used in sections and context blocks only.
      *
+     * @property blockId The id of the according block
      * @property imageUrl The URL of the image displayed.
      * @property altText A plain text describing the image.
      *
@@ -111,6 +112,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     /**
      * A select menu with a static List of [Option]s.
      *
+     * @property blockId The id of the according block
      * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
      * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
      * @property options A List of [Option]s. (Max 100 [Option]s).
@@ -138,6 +140,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
     /**
      * A select menu with an external data source, enabling the usage of a dynamic list of [Option]s.
      *
+     * @property blockId The id of the according block
      * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
      * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
      * @property options A List of [Option]s. (Max 100 [Option]s).
@@ -170,6 +173,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
      * This select menu will populate its options based on the Slack users visibile to the current user
      * in the active workspace.
      *
+     * @property blockId The id of the according block
      * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
      * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
      * @property initialUserId Displays the user with that user-id as a pre-selected option when the menu initially loads.
@@ -197,6 +201,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
      * This select menu will populate with a list of public and private channels, direct-messages and multi-party instant messages
      * that are visible to the current user in the active workspace.
      *
+     * @property blockId The id of the according block
      * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
      * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
      * @property initialConversationId Displays the conversation with that conversation-id as a pre-selected option when the menu initially loads.
@@ -221,6 +226,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
      * A select menu with a channel list.
      * This select menu will populate with a list of public that are visible to the current user in the active workspace.
      *
+     * @property blockId The id of the according block
      * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
      * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
      * @property initialChannelsId Displays the channel with that channel-id as a pre-selected option when the menu initially loads.
@@ -243,10 +249,11 @@ sealed class Element(@JsonProperty("type") open val type: Type,
 
     /**
      * A overflow button that presents a List of [Option]s when clicking.
-     * This button appears in the form of '(...)' and has offers no typeahead field and no customizable text.
+     * This button appears in the form of '(...)' and offers no type-field and no customizable text.
      *
      * It is generally used for compact layouts or to supply a list of less visually important actions after a e.g. a row of buttons etc.
      *
+     * @property blockId The id of the according block
      * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
      * @property options A List of [Option]s that is displayed in the menu. (Max 5 and Min 2 [Option]s).
      * @property confirmation A [Confirmation] object that defines an optional confirmation dialog after the menu item is selected.
@@ -267,6 +274,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
      * An element that is used to select a date from a calendar style UI.
      * Date picker elements can be used inside of section and action blocks.
      *
+     * @property blockId The id of the according block
      * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
      * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
      * @property initialDateId Displays the date with with the format of YYYY-MM-DD as a pre-selected option when the menu initially loads.
