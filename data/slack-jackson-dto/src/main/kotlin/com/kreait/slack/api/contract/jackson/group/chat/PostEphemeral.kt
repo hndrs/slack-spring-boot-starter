@@ -20,6 +20,12 @@ import java.time.Instant
 @JacksonDataClass
 sealed class PostEphemeralResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property messageTimestamp the message-timestamp of the posted message
+ */
 @JacksonDataClass
 data class SuccessfulPostEphemeralResponse constructor(override val ok: Boolean,
                                                        @InstantToString @JsonProperty("message_ts") val messageTimestamp: Instant)
@@ -27,6 +33,12 @@ data class SuccessfulPostEphemeralResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorPostEphemeralResponse constructor(override val ok: Boolean,
                                                   @JsonProperty("error") val error: String)
@@ -34,6 +46,20 @@ data class ErrorPostEphemeralResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Sends an ephemeral message to a user in a channel.
+ * Ephemeral Messages are not persisted in the database and can thus not be modified or deleted
+ *
+ * @property text the text of the message
+ * @property attachments secondary attachments
+ * @property blocks secondary block items
+ * @property channel the channel in which the ephemeral-message should be shown
+ * @property asUser Pass true to post the message as the authed user. Defaults to true if the chat:write:bot scope is not included. Otherwise, defaults to false.
+ * @property user the user-id that should receive the ephemeral message
+ * @property linkNames Find and link channel names and usernames.
+ * @property parse the parse-type for this message
+ * @property threadTimestamp Provide another message's ts value to post this message in a thread. Avoid using a reply's ts value; use its parent's value instead. Ephemeral messages in threads are only shown if there is already an active thread.
+ */
 @JacksonDataClass
 data class PostEphemeralRequest constructor(@JsonProperty("text") val text: String? = null,
                                             @JsonProperty("attachments") val attachments: List<Attachment>? = null,

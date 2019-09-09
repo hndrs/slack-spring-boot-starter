@@ -3,8 +3,8 @@ package com.kreait.slack.api.contract.jackson.group.channels
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.types.Channel
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -19,6 +19,12 @@ import com.kreait.slack.api.contract.jackson.common.types.Channel
 @JacksonDataClass
 sealed class ChannelsSetTopicResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property channel the channel object with the changed topic
+ */
 @JacksonDataClass
 data class SuccessfulChannelsSetTopicResponse constructor(override val ok: Boolean,
                                                           @JsonProperty("channel") val channel: Channel)
@@ -26,6 +32,12 @@ data class SuccessfulChannelsSetTopicResponse constructor(override val ok: Boole
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorChannelsSetTopicResponse constructor(override val ok: Boolean,
                                                      @JsonProperty("error") val error: String,
@@ -34,7 +46,12 @@ data class ErrorChannelsSetTopicResponse constructor(override val ok: Boolean,
     companion object
 }
 
-
+/**
+ * Sets the topic for a channel.
+ *
+ * @property channelId Channel to set the topic of
+ * @property topic the topic you want to set
+ */
 @JacksonDataClass
 data class ChannelsSetTopicRequest constructor(@JsonProperty("channel") val channelId: String,
                                                @JsonProperty("topic") val topic: String) {

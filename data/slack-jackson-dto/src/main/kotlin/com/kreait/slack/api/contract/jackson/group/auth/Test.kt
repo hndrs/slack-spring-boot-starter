@@ -17,6 +17,16 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class AuthTestResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property url url to the slack-workspace
+ * @property team the team-name in which the requesting user is
+ * @property user the username of the requesting user
+ * @property teamId the teamId in which the requesting user is
+ * @property userId the user-id of the requesting user
+ */
 @JacksonDataClass
 data class SuccessfulAuthTestResponse constructor(
         override val ok: Boolean,
@@ -29,6 +39,13 @@ data class SuccessfulAuthTestResponse constructor(
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ * @see [Slack Api Method](https://api.slack.com/methods/auth.test)
+ */
 @JacksonDataClass
 data class ErrorAuthTestResponse constructor(
         override val ok: Boolean,

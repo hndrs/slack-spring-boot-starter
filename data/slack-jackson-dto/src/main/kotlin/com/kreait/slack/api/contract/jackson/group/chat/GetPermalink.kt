@@ -7,12 +7,6 @@ import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
-@JacksonDataClass
-data class ChatGetPermalinkRequest constructor(@JsonProperty("channel") val channel: String,
-                                               @InstantToString @JsonProperty("message_ts") val timestamp: Instant) {
-    companion object
-}
-
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "ok",
@@ -24,6 +18,13 @@ data class ChatGetPermalinkRequest constructor(@JsonProperty("channel") val chan
 @JacksonDataClass
 sealed class ChatGetPermalinkResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property channelId the channel-id of the message
+ * @property permalink the requested permalink
+ */
 @JacksonDataClass
 data class SuccessfulChatGetPermalinkResponse constructor(override val ok: Boolean,
                                                           @JsonProperty("channel") val channelId: String,
@@ -31,6 +32,12 @@ data class SuccessfulChatGetPermalinkResponse constructor(override val ok: Boole
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorChatGetPermalinkResponse constructor(override val ok: Boolean,
                                                      @JsonProperty("error") val error: String)
@@ -38,4 +45,14 @@ data class ErrorChatGetPermalinkResponse constructor(override val ok: Boolean,
     companion object
 }
 
-
+/**
+ * Retrieve a permalink URL for a specific extant message
+ *
+ * @property channel the channel-id of the message
+ * @property timestamp the timestamp of the message
+ */
+@JacksonDataClass
+data class ChatGetPermalinkRequest constructor(@JsonProperty("channel") val channel: String,
+                                               @InstantToString @JsonProperty("message_ts") val timestamp: Instant) {
+    companion object
+}

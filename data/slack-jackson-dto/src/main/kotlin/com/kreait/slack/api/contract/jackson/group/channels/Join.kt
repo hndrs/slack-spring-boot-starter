@@ -17,6 +17,13 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class ChannelsJoinResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property channel the channel object which the user joined
+ * @property alreadyInChannel true if the user was already in the channel
+ */
 @JacksonDataClass
 data class SuccessfulChannelsJoinResponse constructor(override val ok: Boolean,
                                                       @JsonProperty("channel") val channel: Channel,
@@ -26,6 +33,12 @@ data class SuccessfulChannelsJoinResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorChannelsJoinResponse constructor(override val ok: Boolean,
                                                  @JsonProperty("error") val error: String)
@@ -33,6 +46,13 @@ data class ErrorChannelsJoinResponse constructor(override val ok: Boolean,
 
     companion object
 }
+
+/**
+ * Joins a channel, creating it if needed.
+ *
+ * @property name Name of channel to join
+ * @property validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
+ */
 
 @JacksonDataClass
 data class ChannelsJoinRequest constructor(@JsonProperty("name") val name: String,

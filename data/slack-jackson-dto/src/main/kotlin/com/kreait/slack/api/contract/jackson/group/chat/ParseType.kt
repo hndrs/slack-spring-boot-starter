@@ -9,10 +9,23 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 
+/**
+ * They ParseType for messages
+ * @property value the valueString
+ * @see [Slack Formatting Guide](https://api.slack.com/docs/message-formatting)
+ */
 @JsonSerialize(using = ParseType.Serializer::class)
 @JsonDeserialize(using = ParseType.Deserializer::class)
 enum class ParseType(private val value: String) {
-    FULL("full"), NONE("none"), CLIENT("client");
+    /**
+     * will ignore any markup formatting you added to your message
+     */
+    FULL("full"),
+    /**
+     * If you want Slack to treat your message as completely unformatted, pass parse=full. This will ignore any markup formatting you added to your message.
+     */
+    NONE("none"),
+    CLIENT("client");
 
     class Serializer : JsonSerializer<ParseType>() {
         override fun serialize(parseType: ParseType, gen: JsonGenerator?, serializers: SerializerProvider?) {

@@ -20,9 +20,16 @@ import java.time.Instant
 @JacksonDataClass
 sealed class ChannelsRepliesResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property messages the messages of the thread
+ * @property hasMore determines if more messages exist
+ */
 @JacksonDataClass
 data class SuccessfulChannelsRepliesResponse constructor(override val ok: Boolean,
-                                                         @JsonProperty("messages") val channel: List<Message>,
+                                                         @JsonProperty("messages") val messages: List<Message>,
                                                          @JsonProperty("has_more") val hasMore: Boolean = false)
     : ChannelsRepliesResponse(ok) {
     companion object {}
@@ -53,7 +60,12 @@ data class SuccessfulChannelsRepliesResponse constructor(override val ok: Boolea
     }
 }
 
-
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorChannelsRepliesResponse constructor(override val ok: Boolean,
                                                     @JsonProperty("error") val error: String,
@@ -62,7 +74,12 @@ data class ErrorChannelsRepliesResponse constructor(override val ok: Boolean,
     companion object
 }
 
-
+/**
+ * Retrieve a thread of messages posted to a channel
+ *
+ * @property channelId Channel to fetch thread from
+ * @property threadTimestamp Unique identifier of a thread's parent message
+ */
 @JacksonDataClass
 data class ChannelsRepliesRequest constructor(@JsonProperty("channel") val channelId: String,
                                               @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant) {

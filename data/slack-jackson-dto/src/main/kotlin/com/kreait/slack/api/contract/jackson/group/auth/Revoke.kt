@@ -17,6 +17,12 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class AuthRevokeResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property isRevoked true if token was revoked
+ */
 @JacksonDataClass
 data class SuccessfulAuthRevokeResponse constructor(
         override val ok: Boolean,
@@ -25,6 +31,12 @@ data class SuccessfulAuthRevokeResponse constructor(
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorAuthRevokeResponse constructor(
         override val ok: Boolean,
@@ -34,6 +46,12 @@ data class ErrorAuthRevokeResponse constructor(
 }
 
 
+/**
+ * Revokes a token.
+ *
+ * @property test setting test = true triggers a testing mode where the specified token will not actually be revoked
+ * @see [Slack Api Method](https://api.slack.com/methods/auth.revoke)
+ */
 data class AuthRevokeRequest constructor(private val test: Boolean?) {
 
     companion object
