@@ -18,7 +18,9 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class ConversationCloseResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.close)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulConversationCloseResponse(
         override val ok: Boolean,
@@ -29,7 +31,10 @@ data class SuccessfulConversationCloseResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.close)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorConversationCloseResponse constructor(
         override val ok: Boolean,
@@ -39,7 +44,9 @@ data class ErrorConversationCloseResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.close)
+ * Closes a direct message or multi-person direct message.
+ *
+ * @property channel the channel-id you want to close
  */
 data class ConversationCloseRequest(@JsonProperty("channel") val channel: String) {
     companion object

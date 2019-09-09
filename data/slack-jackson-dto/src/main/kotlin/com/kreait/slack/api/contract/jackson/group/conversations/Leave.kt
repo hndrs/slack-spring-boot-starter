@@ -17,7 +17,9 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class ConversationsLeaveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.leave)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulConversationLeaveResponse(
         override val ok: Boolean,
@@ -26,7 +28,10 @@ data class SuccessfulConversationLeaveResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.leave)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 @JacksonDataClass
 data class ErrorConversationLeaveResponse constructor(override val ok: Boolean,
@@ -36,7 +41,9 @@ data class ErrorConversationLeaveResponse constructor(override val ok: Boolean,
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.leave)
+ * Leaves a conversation
+ *
+ * @property channel the channelId of the channel you want to leve
  */
 data class ConversationsLeaveRequest(@JsonProperty("channel") val channel: String) {
     companion object
