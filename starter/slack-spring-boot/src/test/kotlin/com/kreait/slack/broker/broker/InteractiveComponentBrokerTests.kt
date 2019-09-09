@@ -122,23 +122,27 @@ class InteractiveComponentBrokerTests {
         val first = FirstComponentReceiver(atomic)
         val second = SecondComponentReceiver(atomic)
         val third = ThirdComponentReceiver(atomic)
+        val firstBlock = FirstBlockReceiver(atomic)
+
         val event = InteractiveMessage.sample().copy(team = InteractiveComponentResponse.Team.sample())
                 .copy(team = InteractiveComponentResponse.Team.sample().copy(id = "TestTeamId"))
         val store = InMemoryTeamStore()
         store.put(Team.sample().copy(teamId = "TestTeamId"))
 
-        InteractiveComponentBroker(listOf(), listOf(third, second, first), store)
+        InteractiveComponentBroker(listOf(firstBlock), listOf(third, second, first), store)
                 .receiveComponent(event, HttpHeaders.EMPTY)
 
         Assertions.assertEquals(0, first.currentOrder)
         Assertions.assertEquals(1, second.currentOrder)
         Assertions.assertEquals(2, third.currentOrder)
+        Assertions.assertEquals(null, firstBlock.currentOrder)
     }
 
     @Test
     @DisplayName("Test InteractiveComponentReceiver order")
     fun testBlockActionsReceiverExecutionOrder() {
         val atomic = AtomicInteger(0)
+        val firstMessage = FirstComponentReceiver(atomic)
         val first = FirstBlockReceiver(atomic)
         val second = SecondBlockReceiver(atomic)
         val third = ThirdBlockReceiver(atomic)
@@ -147,12 +151,14 @@ class InteractiveComponentBrokerTests {
         val store = InMemoryTeamStore()
         store.put(Team.sample().copy(teamId = "TestTeamId"))
 
-        InteractiveComponentBroker(listOf(third, second, first), listOf(), store)
+        InteractiveComponentBroker(listOf(third, second, first), listOf(firstMessage), store)
                 .receiveComponent(event, HttpHeaders.EMPTY)
 
         Assertions.assertEquals(0, first.currentOrder)
         Assertions.assertEquals(1, second.currentOrder)
         Assertions.assertEquals(2, third.currentOrder)
+        Assertions.assertEquals(null, firstMessage.currentOrder)
+
     }
 
     class FirstComponentReceiver(private val current: AtomicInteger) : InteractiveComponentReceiver<InteractiveMessage> {

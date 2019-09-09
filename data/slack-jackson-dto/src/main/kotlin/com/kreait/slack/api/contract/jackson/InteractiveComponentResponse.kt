@@ -29,7 +29,7 @@ import java.time.Instant
         JsonSubTypes.Type(value = BlockActions::class, name = "block_actions"),
         JsonSubTypes.Type(value = InteractiveMessage::class, name = "dialog_submission"))
 @JacksonDataClass
-abstract class InteractiveComponentResponse(
+sealed class InteractiveComponentResponse(
         @JsonProperty("type") val type: Type?,
         open val team: Team) {
     companion object {}
@@ -86,7 +86,6 @@ data class InteractiveMessage(
 }
 
 @JacksonDataClass
-@JsonIgnoreProperties(ignoreUnknown = true)
 data class BlockActions(@JsonProperty("team") override val team: Team,
                         @JsonProperty("user") val user: User,
                         @JsonProperty("token") val token: String?,
