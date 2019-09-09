@@ -21,6 +21,11 @@ sealed class ConversationRepliesResponse constructor(@JsonProperty("ok") open va
     companion object
 }
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 @JacksonDataClass
 data class SuccessfulConversationRepliesResponse constructor(override val ok: Boolean,
                                                              @JsonProperty("messages") val messages: List<Message>,
@@ -51,12 +56,29 @@ data class SuccessfulConversationRepliesResponse constructor(override val ok: Bo
                      @InstantToString @JsonProperty("ts") val timestamp: Instant)
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorConversationRepliesResponse constructor(override val ok: Boolean, @JsonProperty("error") val error: String)
     : ConversationRepliesResponse(ok) {
     companion object
 }
 
+/**
+ * Retrieve a thread of messages posted to a conversation
+ *
+ * @property channelId the channel-id of the channel that contains the thread
+ * @property timestamp the timestamp of the message
+ * @property cursor Paginate through collections of data by setting the cursor parameter to a next_cursor attribute returned by a previous request's response_metadata. Default value fetches the first "page" of the collection.
+ * @property inclusive Include messages with latest or oldest timestamp in results only when either timestamp is specified.
+ * @property latest End of time range of messages to include in results.
+ * @property limit The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.
+ * @property oldest Start of time range of messages to include in results.
+ */
 data class ConversationsRepliesRequest constructor(val channelId: String,
                                                    val timestamp: String,
                                                    val cursor: String? = null,

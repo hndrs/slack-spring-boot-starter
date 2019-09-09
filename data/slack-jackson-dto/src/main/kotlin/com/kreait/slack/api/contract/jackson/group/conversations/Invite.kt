@@ -3,8 +3,8 @@ package com.kreait.slack.api.contract.jackson.group.conversations
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.types.Channel
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -18,7 +18,9 @@ import com.kreait.slack.api.contract.jackson.common.types.Channel
 sealed class ConversationInviteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.invite)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 @JacksonDataClass
 data class SuccessfulConversationInviteResponse(
@@ -29,7 +31,10 @@ data class SuccessfulConversationInviteResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.invite)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 @JacksonDataClass
 data class ErrorConversationInviteResponse constructor(override val ok: Boolean,
@@ -39,7 +44,10 @@ data class ErrorConversationInviteResponse constructor(override val ok: Boolean,
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.invite)
+ * Adds a user to the Conversation
+ *
+ * @property channel the channel-id you want to add the user to
+ * @property users the user-id which you want to add to the channel
  */
 data class ConversationsInviteRequest(@JsonProperty("channel") val channel: String,
                                       @JsonProperty("users") val users: List<String>) {

@@ -17,7 +17,9 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class ConversationsKickResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.kick)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulConversationKickResponse(
         override val ok: Boolean) : ConversationsKickResponse(ok) {
@@ -25,17 +27,23 @@ data class SuccessfulConversationKickResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.kick)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 @JacksonDataClass
 data class ErrorConversationKickResponse constructor(override val ok: Boolean,
-                                                      @JsonProperty("error") val error: String)
+                                                     @JsonProperty("error") val error: String)
     : ConversationsKickResponse(ok) {
     companion object
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.kick)
+ * Removes a user from a conversation
+ *
+ * @property channel the channel-id of the channel you want to remove the user from
+ * @property user the user-id of the user you want to remove
  */
 data class ConversationsKickRequest(@JsonProperty("channel") val channel: String,
                                     @JsonProperty("user") val user: String) {

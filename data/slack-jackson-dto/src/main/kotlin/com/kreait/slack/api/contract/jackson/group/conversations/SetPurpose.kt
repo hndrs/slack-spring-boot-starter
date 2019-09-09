@@ -17,6 +17,11 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class ConversationSetPurposeResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 data class SuccessfulConversationSetPurposeResponse(
         override val ok: Boolean,
         @JsonProperty("purpose") val purpose: String
@@ -24,6 +29,12 @@ data class SuccessfulConversationSetPurposeResponse(
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorConversationSetPurposeResponse constructor(
         override val ok: Boolean,
@@ -33,7 +44,10 @@ data class ErrorConversationSetPurposeResponse constructor(
 }
 
 /**
- * Data Class that represents arguments as defined in https://api.slack.com/methods/conversations.setPurpose
+ * Sets the Purpose for a conversation.
+ *
+ * @property channel the channel-id of the channel you want to set the Purpose for
+ * @property purpose the purpose you want to set
  */
 data class ConversationsSetPurposeRequest(private val channel: String,
                                           private val purpose: String) {

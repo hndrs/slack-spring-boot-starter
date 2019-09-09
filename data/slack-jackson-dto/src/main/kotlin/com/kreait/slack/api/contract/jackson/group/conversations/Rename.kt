@@ -3,9 +3,9 @@ package com.kreait.slack.api.contract.jackson.group.conversations
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.types.Channel
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -19,7 +19,9 @@ import com.kreait.slack.api.contract.jackson.common.types.Channel
 sealed class ConversationsRenameResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.rename)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulConversationsRenameResponse(
         override val ok: Boolean,
@@ -30,7 +32,10 @@ data class SuccessfulConversationsRenameResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.rename)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 @JacksonDataClass
 data class ErrorConversationsRenameResponse constructor(override val ok: Boolean,
@@ -40,7 +45,10 @@ data class ErrorConversationsRenameResponse constructor(override val ok: Boolean
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.rename)
+ * Renames a conversation.
+ *
+ * @property channel the channel-id of the channel you want to rename
+ * @property name the new name for the channel
  */
 data class ConversationsRenameRequest(@JsonProperty("channel") val channel: String,
                                       @JsonProperty("name") val name: String) {

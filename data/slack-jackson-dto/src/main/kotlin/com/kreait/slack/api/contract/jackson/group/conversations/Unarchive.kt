@@ -16,8 +16,11 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class ConversationUnarchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.archive)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulConversationUnarchiveResponse(
         override val ok: Boolean) : ConversationUnarchiveResponse(ok) {
@@ -25,7 +28,10 @@ data class SuccessfulConversationUnarchiveResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.archive)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorConversationUnarchiveResponse constructor(
         override val ok: Boolean,
@@ -35,7 +41,9 @@ data class ErrorConversationUnarchiveResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.archive)
+ * Reverses conversation archival.
+ *
+ * @property channel the channel-id for the channel you want to unarchive
  */
 data class ConversationUnarchiveRequest(@JsonProperty("channel") val channel: String) {
     companion object

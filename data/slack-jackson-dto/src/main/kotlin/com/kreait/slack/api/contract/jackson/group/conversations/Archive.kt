@@ -18,7 +18,9 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class ConversationArchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.archive)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulConversationArchiveResponse(
         override val ok: Boolean) : ConversationArchiveResponse(ok) {
@@ -26,7 +28,10 @@ data class SuccessfulConversationArchiveResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.archive)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorConversationArchiveResponse constructor(
         override val ok: Boolean,
@@ -36,7 +41,9 @@ data class ErrorConversationArchiveResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.archive)
+ * This method archives a conversation. Not all types of conversations can be archived.
+ *
+ * @property channel the channel id you want to archive
  */
 data class ConversationArchiveRequest(@JsonProperty("channel") val channel: String) {
     companion object

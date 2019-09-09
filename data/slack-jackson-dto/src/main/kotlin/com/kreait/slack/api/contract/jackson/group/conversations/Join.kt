@@ -3,8 +3,8 @@ package com.kreait.slack.api.contract.jackson.group.conversations
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -19,7 +19,9 @@ import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 sealed class ConversationJoinResponse(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.join)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulConversationJoinResponse(override val ok: Boolean,
                                               @JsonProperty("channel") val channel: Channel,
@@ -36,7 +38,10 @@ data class SuccessfulConversationJoinResponse(override val ok: Boolean,
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.join)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 @JacksonDataClass
 data class ErrorConversationJoinResponse constructor(override val ok: Boolean,
@@ -46,7 +51,9 @@ data class ErrorConversationJoinResponse constructor(override val ok: Boolean,
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.join)
+ * Joins a channel
+ *
+ * @property channel the channel-id you want to join
  */
 data class ConversationJoinRequest(@JsonProperty("channel") val channel: String) {
     companion object

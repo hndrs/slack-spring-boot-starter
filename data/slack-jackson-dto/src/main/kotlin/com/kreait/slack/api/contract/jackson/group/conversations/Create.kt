@@ -3,8 +3,8 @@ package com.kreait.slack.api.contract.jackson.group.conversations
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.types.Channel
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -18,7 +18,9 @@ import com.kreait.slack.api.contract.jackson.common.types.Channel
 sealed class ConversationCreateResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.create)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulConversationCreateResponse(
         override val ok: Boolean,
@@ -28,7 +30,10 @@ data class SuccessfulConversationCreateResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.create)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 @JacksonDataClass
 data class ErrorConversationCreateResponse constructor(override val ok: Boolean,
@@ -38,7 +43,10 @@ data class ErrorConversationCreateResponse constructor(override val ok: Boolean,
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/conversations.create)
+ * Initiates a public or private channel-based conversation
+ *
+ * @property name the channel name for the channel you want to create
+ * @property isPrivate true if you want to create a private channel
  */
 data class ConversationCreateRequest(@JsonProperty("name") val name: String,
                                      @JsonProperty("is_private") val isPrivate: Boolean? = null) {
