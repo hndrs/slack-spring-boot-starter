@@ -29,6 +29,7 @@ import java.time.Instant
  */
 @JacksonDataClass
 data class Action(
+        @JsonProperty("id") val id: String? = null,
         @JsonProperty("action_id") val actionId: String? = null,
         @InstantToString @JsonProperty("action_ts") val actionTimestamp: Instant? = null,
         @JsonProperty("block_id") val blockId: String? = null,

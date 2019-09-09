@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.Action
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 /**
  * Attachments are used to add secondary content to messages.
@@ -29,6 +29,7 @@ import com.kreait.slack.api.contract.jackson.common.Action
  */
 @JacksonDataClass
 data class Attachment(
+        @JsonProperty("id") val id: String? = null,
         @JsonProperty("title") val title: String? = null,
         @JsonProperty("fallback") val fallback: String? = null,
         @JsonProperty("pretext") val pretext: String? = null,
