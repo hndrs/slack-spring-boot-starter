@@ -15,6 +15,11 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
         JsonSubTypes.Type(value = ErrorChannelsLeaveResponse::class, name = "false")
 )
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 @JacksonDataClass
 sealed class ChannelsLeaveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
@@ -24,6 +29,12 @@ data class SuccessfulChannelsLeaveResponse constructor(override val ok: Boolean)
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorChannelsLeaveResponse constructor(override val ok: Boolean,
                                                   @JsonProperty("error") val error: String,
@@ -32,7 +43,11 @@ data class ErrorChannelsLeaveResponse constructor(override val ok: Boolean,
     companion object
 }
 
-
+/**
+ * Leaves a channel
+ *
+ * @property channelId id of the channel you want to leave
+ */
 @JacksonDataClass
 data class ChannelsLeaveRequest constructor(@JsonProperty("channel") val channelId: String) {
 

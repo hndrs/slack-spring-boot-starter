@@ -19,6 +19,12 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class ChannelsCreateResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property channel the channel object that was created
+ */
 @JacksonDataClass
 data class SuccessfulChannelsCreateResponse constructor(override val ok: Boolean,
                                                         @JsonProperty("channel") val channel: Channel)
@@ -26,6 +32,12 @@ data class SuccessfulChannelsCreateResponse constructor(override val ok: Boolean
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorChannelsCreateResponse constructor(override val ok: Boolean,
                                                    @JsonProperty("error") val error: String,
@@ -35,6 +47,13 @@ data class ErrorChannelsCreateResponse constructor(override val ok: Boolean,
 }
 
 
+/**
+ * Creates a channel.
+ *
+ * @property name the name of the channel you want to create
+ * @property validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
+ * @see [Slack Api Method](https://api.slack.com/methods/channels.create)
+ */
 @JacksonDataClass
 data class ChannelsCreateRequest constructor(@JsonProperty("name") val name: String,
                                              @JsonProperty("validate") val validate: Boolean?) {

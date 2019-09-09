@@ -18,12 +18,24 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class ChannelArchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 @JacksonDataClass
 data class SuccessfulChannelArchiveResponse constructor(override val ok: Boolean)
     : ChannelArchiveResponse(ok) {
     companion object
 }
 
+
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorChannelArchiveResponse constructor(override val ok: Boolean,
                                                    @JsonProperty("error") val error: String)
@@ -31,6 +43,12 @@ data class ErrorChannelArchiveResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Archives a channel.
+ *
+ * @property channel the channel-id you want to archive
+ * @see [Slack Api Method](https://api.slack.com/methods/channels.archive)
+ */
 @JacksonDataClass
 data class ChannelsArchiveRequest constructor(@JsonProperty("channel") val channel: String) {
 

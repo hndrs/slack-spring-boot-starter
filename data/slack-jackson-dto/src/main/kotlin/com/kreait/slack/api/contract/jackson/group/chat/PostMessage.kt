@@ -20,6 +20,14 @@ import java.time.Instant
 @JacksonDataClass
 sealed class PostMessageResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property channel the channel in which the message was posted
+ * @property timestamp the timestamp of the posted message
+ * @property message the posted message
+ */
 @JacksonDataClass
 data class SuccessfulPostMessageResponse constructor(override val ok: Boolean,
                                                      @JsonProperty("channel") val channel: String,
@@ -41,12 +49,39 @@ data class Message(
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorPostMessageResponse constructor(override val ok: Boolean,
                                                 @JsonProperty("error") val error: String) : PostMessageResponse(ok) {
     companion object
 }
 
+/**
+ * Posts a public Message to a Channel
+ *
+ * @property text the text of the message
+ * @property channel the channel in which the message should be posted
+ * @property attachments secondary attachments of the message
+ * @property blocks secondary block items of the message
+ * @property asUser Pass true to post the message as the authed user, instead of as a bot. Defaults to false.
+ * @property username Set your bot's user name. Must be used in conjunction with as_user set to false, otherwise ignored.
+ * @property iconEmoji Emoji to use as the icon for this message. Overrides icon_url. Must be used in conjunction with as_user set to false, otherwise ignored. See authorship below.
+ * @property iconUrl URL to an image to use as the icon for this message. Must be used in conjunction with as_user set to false, otherwise ignored. See authorship below.
+ * @property linkNames Find and link channel names and usernames.
+ * @property markDown Disable Slack markup parsing by setting to false. Enabled by default.
+ * @property parse the parse-mode
+ * @property replyBroadcast Used in conjunction with thread_ts and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to false.
+ * @property threadTimestamp Provide another message's ts value to make this message a reply. Avoid using a reply's ts value; use its parent instead.
+ * @property unfurlLinks Pass true to enable unfurling of primarily text-based content.
+ * @property unfurlMedia Pass false to disable unfurling of media content.
+ *
+ * @see [Slack Authorship guide](https://api.slack.com/methods/chat.postMessage#authorship)
+ */
 @JacksonDataClass
 data class PostMessageRequest constructor(@JsonProperty("text") val text: String,
                                           @JsonProperty("channel") val channel: String,

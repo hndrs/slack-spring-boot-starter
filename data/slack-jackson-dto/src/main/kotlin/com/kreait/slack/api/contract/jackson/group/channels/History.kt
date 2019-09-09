@@ -18,6 +18,14 @@ import java.time.Instant
 @JacksonDataClass
 sealed class ChannelsHistoryResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property messages list of history-messages
+ * @property latestTimestamp timestamp of the latest message
+ * @property hasMore boolean that determines if more messages are available
+ */
 @JacksonDataClass
 data class SuccessfulChannelsHistoryResponse constructor(override val ok: Boolean,
                                                          @JsonProperty("messages") val messages: List<Message>?,
@@ -59,6 +67,12 @@ data class SuccessfulChannelsHistoryResponse constructor(override val ok: Boolea
 }
 
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorChannelsHistoryResponse constructor(override val ok: Boolean,
                                                     @JsonProperty("error") val error: String)
@@ -67,6 +81,17 @@ data class ErrorChannelsHistoryResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Fetches history of messages and events from a channel.
+ *
+ * @property channelId Channel to fetch history for.
+ * @property count Number of messages to return, between 1 and 1000.
+ * @property inclusive Include messages with latest or oldest timestamp in results.
+ * @property latestTimestamp End of time range of messages to include in results.
+ * @property oldestTimestamp Start of time range of messages to include in results.
+ * @property unreads true if the response should contain unread_count_display
+ * @see [Slack Api Method](https://api.slack.com/methods/channels.history)
+ */
 @JacksonDataClass
 data class ChannelsHistoryRequest constructor(@JsonProperty("channel") val channelId: String,
                                               @JsonProperty("count") val count: Int? = null,

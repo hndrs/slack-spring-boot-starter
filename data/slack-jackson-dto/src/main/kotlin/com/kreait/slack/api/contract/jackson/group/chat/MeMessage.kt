@@ -18,6 +18,11 @@ import java.time.Instant
 @JacksonDataClass
 sealed class ChatMeMessageResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 @JacksonDataClass
 data class SuccessfulChatMeMessageResponse constructor(override val ok: Boolean,
                                                        @JsonProperty("channel") val channelId: String,
@@ -27,6 +32,12 @@ data class SuccessfulChatMeMessageResponse constructor(override val ok: Boolean,
 }
 
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorChatMeMessageResponse constructor(override val ok: Boolean,
                                                   @JsonProperty("error") val error: String)
@@ -34,7 +45,12 @@ data class ErrorChatMeMessageResponse constructor(override val ok: Boolean,
     companion object
 }
 
-
+/**
+ * Sends a me message to a channel from the calling user.
+ *
+ * @property channelId Channel to send message to. Can be a public channel, private group or IM channel. Can be an encoded ID, or a name.
+ * @property text The message-text
+ */
 @JacksonDataClass
 data class ChatMeMessageRequest constructor(@JsonProperty("channel") val channelId: String,
                                             @JsonProperty("text") val text: String) {

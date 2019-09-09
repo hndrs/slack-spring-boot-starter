@@ -17,6 +17,11 @@ import java.time.Instant
         JsonSubTypes.Type(value = ErrorChannelsMarkResponse::class, name = "false")
 )
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 @JacksonDataClass
 sealed class ChannelsMarkResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
@@ -26,6 +31,12 @@ data class SuccessfulChannelsMarkResponse constructor(override val ok: Boolean)
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorChannelsMarkResponse constructor(override val ok: Boolean,
                                                  @JsonProperty("error") val error: String,
@@ -34,7 +45,12 @@ data class ErrorChannelsMarkResponse constructor(override val ok: Boolean,
     companion object
 }
 
-
+/**
+ * Sets the read cursor in a channel.
+ *
+ * @property channelId the channel-id on which the read cursor should be set
+ * @property timestamp Timestamp of the most recently seen message.
+ */
 @JacksonDataClass
 data class ChannelsMarkRequest constructor(@JsonProperty("channel") val channelId: String,
                                            @InstantToString @JsonProperty("ts") val timestamp: Instant) {
