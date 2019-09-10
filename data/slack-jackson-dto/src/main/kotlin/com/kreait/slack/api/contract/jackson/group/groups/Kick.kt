@@ -18,14 +18,19 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsKickResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.kick)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulGroupsKickResponse(override val ok: Boolean) : GroupsKickResponse(ok) {
     companion object
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.kick)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsKickResponse constructor(
         override val ok: Boolean,
@@ -35,7 +40,10 @@ data class ErrorGroupsKickResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.kick)
+ * Removes a user from a group
+ *
+ * @property channelId the channel id of the channel you want to remove the user from
+ * @property userId the user id you want to remove
  */
 data class GroupsKickRequest(@JsonProperty("channel") val channelId: String,
                              @JsonProperty("user") val userId: Boolean = true) {

@@ -9,6 +9,8 @@ import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+
+@Deprecated("Don't use this legacy method", replaceWith = ReplaceWith("conversations.list"))
 class DefaultGroupsListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : GroupsListMethod() {
 
     override fun request(): ApiCallResult<SuccessfulGroupsListResponse, ErrorGroupsListResponse> {

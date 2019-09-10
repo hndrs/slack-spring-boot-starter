@@ -20,16 +20,22 @@ import java.time.Instant
 sealed class GroupsRepliesResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.replies)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property messages list of thread messages
  */
 data class SuccessfulGroupsRepliesResponse(
         override val ok: Boolean,
-        @JsonProperty("messages") val group: List<SuccessfulGroupsHistoryResponse.Message>) : GroupsRepliesResponse(ok) {
+        @JsonProperty("messages") val messages: List<SuccessfulGroupsHistoryResponse.Message>) : GroupsRepliesResponse(ok) {
     companion object
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.replies)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsRepliesResponse constructor(
         override val ok: Boolean,
@@ -39,7 +45,10 @@ data class ErrorGroupsRepliesResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.replies)
+ * Returns the thread-messages of a thread in a group
+ *
+ * @property channel the channel-id of the channel that contains the thread
+ * @property threadTimestamp the timestamp of the thread
  */
 data class GroupsRepliesRequest(@JsonProperty("channel") val channel: String,
                                 @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant) {

@@ -19,7 +19,10 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsSetTopicResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.setTopic)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property topic the new topic
  */
 data class SuccessfulGroupsSetTopicResponse(
         override val ok: Boolean,
@@ -28,7 +31,10 @@ data class SuccessfulGroupsSetTopicResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.setTopic)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsSetTopicResponse constructor(
         override val ok: Boolean,
@@ -38,7 +44,10 @@ data class ErrorGroupsSetTopicResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.setTopic)
+ * Sets the topic for a group
+ *
+ * @property channelId the channel-id of the group you want to set the topic for
+ * @property topic the new topic
  */
 data class GroupsSetTopicRequest(@JsonProperty("channel") val channelId: String,
                                  @JsonProperty("topic") val topic: Topic) {

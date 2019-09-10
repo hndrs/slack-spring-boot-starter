@@ -18,7 +18,10 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsSetPurposeResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.setPurpose)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property newPurpose the new purpose
  */
 data class SuccessfulGroupsSetPurposeResponse(
         override val ok: Boolean,
@@ -27,7 +30,10 @@ data class SuccessfulGroupsSetPurposeResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.setPurpose)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsSetPurposeResponse constructor(
         override val ok: Boolean,
@@ -37,7 +43,10 @@ data class ErrorGroupsSetPurposeResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.setPurpose)
+ * Sets the purpose of a Group
+ *
+ * @property channelId the channel-id of the group you want to set the purpose for
+ * @property purpose the new purpose
  */
 data class GroupsSetPurposeRequest(@JsonProperty("channel") val channelId: String,
                                    @JsonProperty("purpose") val purpose: String) {

@@ -19,7 +19,10 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsRenameResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.rename)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property group the renamed group object
  */
 data class SuccessfulGroupsRenameResponse(
         override val ok: Boolean,
@@ -28,7 +31,10 @@ data class SuccessfulGroupsRenameResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.rename)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsRenameResponse constructor(
         override val ok: Boolean,
@@ -38,7 +44,11 @@ data class ErrorGroupsRenameResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.rename)
+ * Renames a group
+ *
+ * @property channelId the channel-id of the group you want to rename
+ * @property newName the new name for the group
+ * @property validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
  */
 data class GroupsRenameRequest(@JsonProperty("channel") val channelId: String,
                                @JsonProperty("name") val newName: String,
