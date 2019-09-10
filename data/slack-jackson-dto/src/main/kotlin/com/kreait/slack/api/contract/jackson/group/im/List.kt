@@ -20,6 +20,13 @@ import java.time.Instant
 @JacksonDataClass
 sealed class ImListResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property ims list of direct message channels
+ * @property responseMetadata metadata used for paging
+ */
 @JacksonDataClass
 data class SuccessfulImListResponse constructor(override val ok: Boolean,
                                                 @JsonProperty("ims") val ims: List<Im>,
@@ -47,6 +54,12 @@ data class ResponseMetadata(@JsonProperty("next_cursor") val nextCursor: String)
     companion object
 }
 
+/**
+ * Lists all available Im-Channels
+ *
+ * @property cursor paging cursor
+ * @property limit the limit of im-channels to fetch
+ */
 data class ImListRequest constructor(val cursor: String?,
                                      val limit: String?) {
     companion object {}

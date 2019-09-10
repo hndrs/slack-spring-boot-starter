@@ -21,6 +21,12 @@ import java.time.Instant
 @JacksonDataClass
 sealed class ImRepliesResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property messages list of thread-messages
+ */
 @JacksonDataClass
 data class SuccessfulImRepliesResponse constructor(override val ok: Boolean,
                                                    @JsonProperty(value = "messages") val messages: List<Message>)
@@ -38,6 +44,12 @@ data class SuccessfulImRepliesResponse constructor(override val ok: Boolean,
     }
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorImRepliesResponse constructor(override val ok: Boolean,
                                               @JsonProperty(value = "error") val error: String)
@@ -46,7 +58,10 @@ data class ErrorImRepliesResponse constructor(override val ok: Boolean,
 }
 
 /**
- * DataClass that represents arguments as defined in https://api.slack.com/methods/im.replies
+ * Fetches thread-messages of a message in a direct-message channel
+ *
+ * @property channel the channel-id of the direct-message channel that contains the thread
+ * @property thread_ts the timestamp of the thread
  */
 data class ImRepliesRequest(private val channel: String,
                             private val thread_ts: String) {

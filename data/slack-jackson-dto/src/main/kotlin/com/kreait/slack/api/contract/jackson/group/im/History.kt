@@ -19,6 +19,15 @@ import java.time.Instant
 @JacksonDataClass
 sealed class ImHistoryResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property latest the timestamp of the latest message
+ * @property messages list of past messages
+ * @property hasMore determines if more messages are available
+ * @property isLimited only included for free teams that have reached the free message limit
+ */
 @JacksonDataClass
 data class SuccessfulImHistoryResponse constructor(override val ok: Boolean,
                                                    val latest: String,
@@ -38,6 +47,12 @@ data class SuccessfulImHistoryResponse constructor(override val ok: Boolean,
     }
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorImHistoryResponse constructor(override val ok: Boolean,
                                               val error: String)
@@ -45,6 +60,16 @@ data class ErrorImHistoryResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Fetches history messages of an im-channel
+ *
+ * @property channel the channel id of the channel you want to fetch history-messages from
+ * @property count the amoutn of messages to fetch
+ * @property inclusive Include messages with latest or oldest timestamp in results.
+ * @property latest End of time range of messages to include in results.
+ * @property oldest Start of time range of messages to include in results.
+ * @property unreadsInclude determines if unread_count_display should be included in the output
+ */
 data class ImHistoryRequest(private val channel: String,
                             private val count: Int? = null,
                             private val inclusive: Boolean? = false,
