@@ -28,6 +28,7 @@ os:
 branches:
   only:
     - master
+    - doc-deploy
 
 cache:
   directories:
@@ -36,13 +37,14 @@ cache:
 stages:
   - test
   - publish
+  - deploy_api_docs
 
 jobs:
   include:
     - stage: test
       name: "PullRequest Quality Check and Tests"
       script: ./gradlew check jacocoTestReport sonarqube -Dslack.test.integration.token=$TEST_SLACK_SPACE_TOKEN -Dslack.test.integration.build=$TRAVIS_BUILD_NUMBER -Dslack.security.signing-secret=$TEST_SLACK_SPACE_SIGNING --info --scan
-      if: type = pull_request
+      if: type != pull_request
 
     - stage: test
       name: "Quality Check and Tests"
@@ -79,3 +81,4 @@ jobs:
         skip_cleanup: true
         local_dir: build/docs
         upload-dir: docs/($(cat version.txt))/api
+      if: branch = doc-deploy
