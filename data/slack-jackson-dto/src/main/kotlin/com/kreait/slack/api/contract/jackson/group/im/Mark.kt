@@ -20,12 +20,23 @@ import java.time.Instant
 @JacksonDataClass
 sealed class ImMarkResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 @JacksonDataClass
 data class SuccessfulImMarkResponse constructor(override val ok: Boolean)
     : ImMarkResponse(ok) {
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorImMarkResponse constructor(override val ok: Boolean,
                                            @JsonProperty("error") val error: String)
@@ -33,6 +44,12 @@ data class ErrorImMarkResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Sets the read cursor in a direct message channel.
+ *
+ * @property channel the channel-id on which the read-cursor should be set
+ * @property timestamp the timestamp of the message you want to set the read cursor to
+ */
 @JacksonDataClass
 data class ImMarkRequest constructor(@JsonProperty("channel") val channel: String,
                                      @InstantToString @JsonProperty("ts") val timestamp: Instant) {

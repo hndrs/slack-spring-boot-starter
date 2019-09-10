@@ -18,22 +18,40 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class ImCloseResponse constructor(@JsonProperty(value = "ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property noOp  true if the Im-Channel is already closed
+ * @property alreadyClosed true if the Im-Channel is already closed
+ */
 @JacksonDataClass
 data class SuccessfulImCloseResponse constructor(override val ok: Boolean,
                                                  @JsonProperty(value = "no_op") val noOp: Boolean?,
                                                  @JsonProperty(value = "already_closed") val alreadyClosed: Boolean?)
-    : ImCloseResponse(ok){
+    : ImCloseResponse(ok) {
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorImCloseResponse constructor(override val ok: Boolean,
                                             @JsonProperty(value = "error") val error: String)
-    : ImCloseResponse(ok){
+    : ImCloseResponse(ok) {
     companion object
 }
 
+/**
+ * Closes a im-channel
+ *
+ * @property channelId the channel of the im-channel you want to close
+ */
 @JacksonDataClass
-data class ImCloseRequest constructor(@JsonProperty(value = "channel") val channelId: String){
+data class ImCloseRequest constructor(@JsonProperty(value = "channel") val channelId: String) {
     companion object
 }

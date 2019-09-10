@@ -16,6 +16,12 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class ImOpenResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property channel the opened direct-message channel
+ */
 @JacksonDataClass
 data class SuccessfulImOpenResponse constructor(override val ok: Boolean,
                                                 @JsonProperty("channel") val channel: Channel)
@@ -27,12 +33,25 @@ data class SuccessfulImOpenResponse constructor(override val ok: Boolean,
     }
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorImOpenResponse constructor(override val ok: Boolean, @JsonProperty("error") val error: String)
     : ImOpenResponse(ok) {
     companion object
 }
 
+/**
+ * Opens a direct message channel.
+ *
+ * @property user User to open a direct message channel with.
+ * @property includeLocale determines if the locale should be included in the response
+ * @property returnIm Boolean, indicates you want the full IM channel definition in the response.
+ */
 @JacksonDataClass
 data class ImOpenRequest constructor(@JsonProperty("user") val user: String,
                                      @JsonProperty("include_locale") val includeLocale: Boolean? = null,
