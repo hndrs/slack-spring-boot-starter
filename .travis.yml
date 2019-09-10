@@ -68,5 +68,14 @@ jobs:
         - docker push $DOCKER_IMAGE_BASE_TAG:latest
       if: branch = master AND type != pull_request
 
-
-
+    - stage: publish
+      name: "Publish Api Documentation"
+      script: ./gradlew dokka
+      deploy:
+        provider: s3
+        access_key_id: $AWS_ACCESS_KEY_ID
+        secret_access_key: $AWS_SECRET_ACCESS_KEY
+        bucket: $AWS_DOC_BUCKET
+        skip_cleanup: true
+        local_dir: build/docs
+        upload-dir: docs/($(cat version.txt))/api
