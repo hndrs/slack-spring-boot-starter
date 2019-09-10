@@ -1,3 +1,4 @@
+import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -8,6 +9,7 @@ buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.41")
         classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.9.18")
     }
 }
 
@@ -81,6 +83,14 @@ subprojects {
         plugin("jacoco")
         plugin("maven-publish")
         plugin("propdeps")
+        plugin("org.jetbrains.dokka")
+
+    }
+
+    val dokka by tasks.getting(DokkaTask::class) {
+        moduleName = project.name
+        outputFormat = "html"
+        outputDirectory = "${rootProject.buildDir}/docs/$version/api"
     }
 
     configure<PublishingExtension> {
@@ -148,6 +158,7 @@ subprojects {
 
     repositories {
         mavenCentral()
+        jcenter()
     }
 
     dependencies {
