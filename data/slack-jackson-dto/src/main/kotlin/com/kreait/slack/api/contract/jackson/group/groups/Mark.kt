@@ -18,14 +18,19 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsMarkResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.mark)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulGroupsMarkResponse(override val ok: Boolean) : GroupsMarkResponse(ok) {
     companion object
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.mark)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsMarkResponse constructor(
         override val ok: Boolean,
@@ -35,7 +40,10 @@ data class ErrorGroupsMarkResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.mark)
+ * Sets the read cursor in a private channel.
+ *
+ * @property channelId the channel-id of the channel you want to mark
+ * @property timestamp the timestamp of the message, where the read cursor should point to
  */
 data class GroupsMarkRequest(@JsonProperty("channel") val channelId: String,
                              @JsonProperty("ts") val timestamp: Boolean = true) {

@@ -17,7 +17,9 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsArchiveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.archive)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulGroupsArchiveResponse(
         override val ok: Boolean) : GroupsArchiveResponse(ok) {
@@ -25,7 +27,10 @@ data class SuccessfulGroupsArchiveResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.archive)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsArchiveResponse constructor(
         override val ok: Boolean,
@@ -35,7 +40,9 @@ data class ErrorGroupsArchiveResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.archive)
+ * Archives a group
+ *
+ * @property channelId the channel-id of the group you want to archive
  */
 data class GroupsArchiveRequest(@JsonProperty("channel") val channelId: String) {
     companion object

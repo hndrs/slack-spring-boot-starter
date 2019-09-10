@@ -18,14 +18,19 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsLeaveResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.leave)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulGroupsLeaveResponse(override val ok: Boolean) : GroupsLeaveResponse(ok) {
     companion object
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.leave)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsLeaveResponse constructor(
         override val ok: Boolean,
@@ -35,7 +40,9 @@ data class ErrorGroupsLeaveResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.leave)
+ * Leaves a Group
+ *
+ * @property channelId the channel-id of the group you want to leave
  */
 data class GroupsLeaveRequest(@JsonProperty("channel") val channelId: String) {
     companion object

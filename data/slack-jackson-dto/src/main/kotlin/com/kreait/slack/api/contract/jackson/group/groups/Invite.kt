@@ -21,7 +21,11 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsInviteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.invite)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property group the new group object with the invited user
+ * @property userAlreadyInGroup determines if the user is already in the group
  */
 data class SuccessfulGroupsInviteResponse(override val ok: Boolean,
                                           @JsonProperty("group") val group: Group,
@@ -30,7 +34,10 @@ data class SuccessfulGroupsInviteResponse(override val ok: Boolean,
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.invite)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsInviteResponse(override val ok: Boolean,
                                      @JsonProperty("error") val error: String) : GroupsInviteResponse(ok) {
@@ -38,7 +45,10 @@ data class ErrorGroupsInviteResponse(override val ok: Boolean,
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.invite)
+ * Adds a user to a group
+ *
+ * @property channelId the channel id of the channel to which you want to add the user
+ * @property userId the user you want to add
  */
 data class GroupsInviteRequest(@JsonProperty("channel") val channelId: String,
                                @JsonProperty("user") val userId: String) {

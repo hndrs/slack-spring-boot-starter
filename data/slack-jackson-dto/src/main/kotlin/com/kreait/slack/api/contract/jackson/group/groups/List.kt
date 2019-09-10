@@ -20,7 +20,11 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.list)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property group list of available groups
+ * @property responseMetadata metadata used for paging
  */
 data class SuccessfulGroupsListResponse(
         override val ok: Boolean,
@@ -30,7 +34,10 @@ data class SuccessfulGroupsListResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.list)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsListResponse constructor(
         override val ok: Boolean,
@@ -40,7 +47,12 @@ data class ErrorGroupsListResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.list)
+ * Lists private channels that the calling user has access to.
+ *
+ * @property cursor Parameter for pagination. Set cursor equal to the next_cursor attribute returned by the previous request's response_metadata. This parameter is optional, but pagination is mandatory: the default value simply fetches the first "page" of the collection.
+ * @property excludeArchived determines if archived groups should be excluded
+ * @property excludeMembers determines if members should be excluded
+ * @property limit the max-count of groups you want to request
  */
 data class GroupsListRequest(@JsonProperty("cursor") val cursor: String,
                              @JsonProperty("exclude_archived") val excludeArchived: Boolean? = null,

@@ -19,7 +19,10 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsCreateChildResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.CreateChild)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property group the created child-group object
  */
 data class SuccessfulGroupsCreateChildResponse(
         override val ok: Boolean,
@@ -28,7 +31,10 @@ data class SuccessfulGroupsCreateChildResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.CreateChild)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsCreateChildResponse constructor(
         override val ok: Boolean,
@@ -38,7 +44,13 @@ data class ErrorGroupsCreateChildResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.CreateChild)
+ * This method takes an existing private channel and performs the following steps:
+ * - Renames the existing private channel (from "example" to "example-archived").
+ * - Archives the existing private channel.
+ * - Creates a new private channel with the name of the existing private channel.
+ * -  Adds all members of the existing private channel to the new private channel.
+ *
+ * @property channelId the channel-id of the group you want to re-create
  */
 data class GroupsCreateChildRequest(@JsonProperty("channel") val channelId: String) {
     companion object

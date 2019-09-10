@@ -18,7 +18,11 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsOpenResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.open)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property noOp true if the channel is already open
+ * @property isAlreadyOpen true if the channel is already open
  */
 data class SuccessfulGroupsOpenResponse(override val ok: Boolean,
                                         @JsonProperty("no_op") val noOp: Boolean? = null,
@@ -27,7 +31,10 @@ data class SuccessfulGroupsOpenResponse(override val ok: Boolean,
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.open)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsOpenResponse constructor(
         override val ok: Boolean,
@@ -37,7 +44,9 @@ data class ErrorGroupsOpenResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.open)
+ * Opens a private channel.
+ *
+ * @property channelId the channel-id of the group you want to open
  */
 data class GroupsOpenRequest(@JsonProperty("channel") val channelId: String) {
     companion object

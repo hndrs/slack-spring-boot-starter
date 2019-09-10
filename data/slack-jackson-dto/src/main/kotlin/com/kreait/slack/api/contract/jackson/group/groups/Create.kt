@@ -19,7 +19,10 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsCreateResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.Create)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property group the created group object
  */
 data class SuccessfulGroupsCreateResponse(
         override val ok: Boolean,
@@ -28,7 +31,10 @@ data class SuccessfulGroupsCreateResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.Create)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsCreateResponse constructor(
         override val ok: Boolean,
@@ -38,7 +44,10 @@ data class ErrorGroupsCreateResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.Create)
+ * Creates a group
+ *
+ * @property name the name of the group you want to create
+ * @property validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
  */
 data class GroupsCreateRequest(@JsonProperty("name") val name: String,
                                @JsonProperty("validate") val validate: Boolean = true) {

@@ -19,7 +19,10 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class GroupsInfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.info)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property group the information about the group
  */
 data class SuccessfulGroupsInfoResponse(
         override val ok: Boolean,
@@ -28,7 +31,10 @@ data class SuccessfulGroupsInfoResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.info)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorGroupsInfoResponse constructor(
         override val ok: Boolean,
@@ -38,7 +44,10 @@ data class ErrorGroupsInfoResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/groups.info)
+ * Gets information about the group
+ *
+ * @property channelId the channel of which you want to request information about
+ * @property includeLocale determines if the locale of the group should be included
  */
 data class GroupsInfoRequest(@JsonProperty("channel") val channelId: String,
                              @JsonProperty("include_locale") val includeLocale: Boolean? = null) {
