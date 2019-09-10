@@ -21,6 +21,7 @@ sealed class ConversationSetPurposeResponse constructor(@JsonProperty("ok") open
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property purpose the new purpose
  */
 data class SuccessfulConversationSetPurposeResponse(
         override val ok: Boolean,

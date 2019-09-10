@@ -21,6 +21,7 @@ sealed class ConversationCloseResponse constructor(@JsonProperty("ok") open val 
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property alreadyClosed true if the conversation was already closed
  */
 data class SuccessfulConversationCloseResponse(
         override val ok: Boolean,

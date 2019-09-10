@@ -22,6 +22,8 @@ sealed class ConversationMembersResponse constructor(@JsonProperty("ok") open va
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property memberIds the member-ids of the channel
+ * @property responseMetadata metadata used for paging
  */
 @JacksonDataClass
 data class SuccessfulConversationMembersResponse constructor(override val ok: Boolean,

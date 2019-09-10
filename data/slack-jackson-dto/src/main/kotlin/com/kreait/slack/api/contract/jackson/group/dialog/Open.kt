@@ -17,12 +17,24 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class SlackOpenDialogResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 @JacksonDataClass
 data class SuccessfulOpenDialogResponse constructor(override val ok: Boolean)
     : SlackOpenDialogResponse(ok) {
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ * @property metadata additional information about the error
+ */
 @JacksonDataClass
 data class ErrorOpenDialogResponse constructor(override val ok: Boolean,
                                                @JsonProperty("error") val error: String,
@@ -33,6 +45,12 @@ data class ErrorOpenDialogResponse constructor(override val ok: Boolean,
 @JacksonDataClass
 data class MetaData constructor(@JsonProperty("messages") val messages: List<String>?)
 
+/**
+ * Open a dialog with a user
+ *
+ * @property dialog the dialog you want to open
+ * @property trigger_id the triggerId you receive by invoking a slashcommand or interactive component
+ */
 @JacksonDataClass
 data class SlackOpenDialogRequest constructor(@JsonProperty("dialog") val dialog: Dialog,
                                               @JsonProperty("trigger_id") val trigger_id: String) {

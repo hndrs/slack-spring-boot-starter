@@ -22,6 +22,7 @@ sealed class ConversationsInfoResponse constructor(@JsonProperty("ok") open val 
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property channel the channel information
  */
 @JacksonDataClass
 data class SuccessfulConversationsInfoResponse constructor(override val ok: Boolean,

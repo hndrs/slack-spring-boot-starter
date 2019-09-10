@@ -21,6 +21,7 @@ sealed class ConversationCreateResponse constructor(@JsonProperty("ok") open val
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property channel the new channel object you created
  */
 data class SuccessfulConversationCreateResponse(
         override val ok: Boolean,

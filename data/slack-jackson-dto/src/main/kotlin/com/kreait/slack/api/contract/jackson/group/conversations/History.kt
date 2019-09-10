@@ -23,6 +23,10 @@ sealed class ConversationHistoryResponse constructor(@JsonProperty("ok") open va
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property messages the history-messages
+ * @property hasMore determines if more messages are available
+ * @property pinCount number of pinned messages
+ * @property responseMetadata additional information about the response
  */
 data class SuccessfulConversationHistoryResponse(
         override val ok: Boolean,

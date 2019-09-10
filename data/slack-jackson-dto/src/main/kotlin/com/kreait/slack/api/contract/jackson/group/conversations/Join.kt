@@ -22,6 +22,9 @@ sealed class ConversationJoinResponse(@JsonProperty("ok") open val ok: Boolean)
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property channel the channel-object after joining it
+ * @property warning additional non-fatal warnings
+ * @property responseMetadata responseMetadata, used for paging
  */
 data class SuccessfulConversationJoinResponse(override val ok: Boolean,
                                               @JsonProperty("channel") val channel: Channel,

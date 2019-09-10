@@ -22,6 +22,7 @@ sealed class ConversationsRenameResponse constructor(@JsonProperty("ok") open va
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property channel the renamed channel object
  */
 data class SuccessfulConversationsRenameResponse(
         override val ok: Boolean,
