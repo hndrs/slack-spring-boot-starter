@@ -21,6 +21,7 @@ sealed class ConversationInviteResponse constructor(@JsonProperty("ok") open val
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property channel the channel after adding the user
  */
 @JacksonDataClass
 data class SuccessfulConversationInviteResponse(

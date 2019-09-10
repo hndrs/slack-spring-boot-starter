@@ -25,6 +25,9 @@ sealed class ConversationRepliesResponse constructor(@JsonProperty("ok") open va
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property messages the messages of the requested thread
+ * @property hasMore determines if more messages are available
+ * @property responseMetadata contains additional information, used for paging
  */
 @JacksonDataClass
 data class SuccessfulConversationRepliesResponse constructor(override val ok: Boolean,

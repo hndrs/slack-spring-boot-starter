@@ -21,6 +21,7 @@ sealed class ConversationSetTopicResponse constructor(@JsonProperty("ok") open v
  * Success-response of this request.
  *
  * @property ok will be true
+ * @property topic the new topic
  */
 data class SuccessfulConversationSetTopicResponse(
         override val ok: Boolean,
