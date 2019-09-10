@@ -10,11 +10,8 @@ import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.Team
 import com.kreait.slack.sample.rock_paper_scissors.data.WEAPONS
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Bean
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
-import org.springframework.web.filter.CommonsRequestLoggingFilter
-
 
 
 @Component
