@@ -80,5 +80,8 @@ jobs:
         bucket: $AWS_DOC_BUCKET
         skip_cleanup: true
         local_dir: build/docs
-        upload-dir: docs/($(cat version.txt))/api
+        upload-dir: docs
+        region: $AWS_BUCKET_REGION
+        on:
+          branch: doc-deploy
       if: branch = doc-deploy
