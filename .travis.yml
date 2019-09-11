@@ -57,7 +57,7 @@ jobs:
     - stage: publish
       name: "Publish Docker"
       env:
-        - DOCKER_IMAGE_BASE_TAG=andakawa/slack-spring-boot-starter
+        - DOCKER_IMAGE_BASE_TAG=kreait/slack-spring-boot-starter
         - SAMPLE_PATH=samples/slack-spring-boot-starter-sample
       script:
         - VERSION=($(cat version.txt))
