@@ -1,6 +1,11 @@
 package com.kreait.slack.sample.rock_paper_scissors
 
+import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.SlackEvent
+import com.kreait.slack.api.contract.jackson.common.messaging.Block
+import com.kreait.slack.api.contract.jackson.common.messaging.Element
+import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
+import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.store.Team
 import com.kreait.slack.sample.rock_paper_scissors.data.WEAPONS
@@ -9,30 +14,46 @@ import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Service
 
 @Service
-class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGameHandler: RPSGameHandler) : EventReceiver {
+class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGameHandler: RPSGameHandler,
+                                                              private val slackClient: SlackClient) : EventReceiver {
 
     override fun supportsEvent(slackEvent: SlackEvent): Boolean {
         return slackEvent.event["type"] == "message"
     }
 
     override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
-        println("Event was ${slackEvent.event["type"]}")
-
         val eventMessage = slackEvent.event["text"] as String
 
-        if (eventMessage.toLowerCase().contains("rock")) {
-            println("It's a rock!")
-            rpsGameHandler.dmHandler(eventMessage, team, slackEvent)
+        if (eventMessage.startsWith("rock")) {
+            rpsGameHandler.dmHandler(WEAPONS.ROCK, team, slackEvent)
         }
-        if (eventMessage.toLowerCase().contains("paper")) {
-            println("It's paper!")
-            rpsGameHandler.dmHandler(eventMessage, team, slackEvent)
+        if (eventMessage.startsWith("paper")) {
+            rpsGameHandler.dmHandler(WEAPONS.PAPER, team, slackEvent)
         }
-        if (eventMessage.toLowerCase().contains("scissors")) {
-            println("It's scissors!")
-            rpsGameHandler.dmHandler(eventMessage, team, slackEvent)
+        if (eventMessage.startsWith("scissors")) {
+            rpsGameHandler.dmHandler(WEAPONS.SCISSORS, team, slackEvent)
         }
-
-        println("EventMessage was $eventMessage")
+        if (eventMessage.startsWith("play rock paper scissors")) {
+            this.slackClient.chat().postEphemeral(team.bot.accessToken)
+                    .with(PostEphemeralRequest("Choose your weapon!",
+                            user = slackEvent.event["user"].toString(),
+                            blocks = listOf(
+                                    Block.Section(text = Text(Text.Type.PLAIN_TEXT, "choose your weapon"), blockId = "weapons_block"),
+                                    Block.Action(blockId = RockPaperScissorsCommandReceiver.RPS_BLOCK_ID,
+                                            elements = listOf(
+                                                    Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.ROCK.weaponName), actionId = WEAPONS.ROCK.actionId),
+                                                    Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.PAPER.weaponName), actionId = WEAPONS.PAPER.actionId),
+                                                    Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.SCISSORS.weaponName), actionId = WEAPONS.SCISSORS.actionId)
+                                            )
+                                    )
+                            ),
+                            channel = slackEvent.event["channel"].toString()))
+                    .onSuccess {
+                        println(it)
+                    }
+                    .onFailure {
+                        println(it)
+                    }.invoke()
+        }
     }
 }
