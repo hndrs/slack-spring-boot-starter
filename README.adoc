@@ -27,7 +27,22 @@ This short guide will guide you through a quick setup
 === Create a Slack App
 
 Now you will need to set-up your App on the Slack API page.
-Go to https://api.slack.com/apps Under "Your Apps" create a new Slack App, give it a name and select the slack workspace you want to develop with (you can't change this workspace later)
+Go to https://api.slack.com/apps Under "Your Apps" create a new Slack App, give it a name and select the slack workspace you want to develop with (you can't change this workspace later).
+You might want to write down the following information of your newly created Slack App in order to use the Heroku Deployment Button:
+
+* The OAuth Token of your App
+* The Client-ID of your App
+* The Client-Secret of your App
+* The Signing-Secret of your App
+
+Since you will be prompted to enter these while deploying on Heroku.
+
+==== Deploy to Heroku
+++++
+<a href="https://heroku.com/deploy">
+<img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
+</a>
+++++
 
 === Create a Spring Boot Application
 
