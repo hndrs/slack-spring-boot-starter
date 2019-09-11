@@ -41,7 +41,6 @@ class RPSGameHandler @Autowired constructor(private val slackClient: SlackClient
     }
 
     fun selectionHandler(interactiveComponentResponse: BlockActions) {
-
         val selection = (interactiveComponentResponse.actions?.first() as Element.Button).text.text
         selection.let { userSelection ->
 
@@ -74,35 +73,30 @@ class RPSGameHandler @Autowired constructor(private val slackClient: SlackClient
         }
     }
 
-    fun dmHandler(weapon: String, team: Team, slackEvent: SlackEvent) {
+    fun dmHandler(weapon: WEAPONS, team: Team, slackEvent: SlackEvent) {
+        val channelId = slackEvent.event["channel"] as String
+        val result = play(weapon)
 
-        println("Weapon-String was $weapon")
-        val channelId = (slackEvent.event["channel"] as Map<*, *>)["id"] as String
-        val result = play(WEAPONS.valueOf(weapon.toUpperCase()))
-        println("Result was $result")
-
-        if (result.userWon) {
-            this.slackClient.chat().postMessage(team.bot.accessToken).with(
+        when {
+            result.userWon -> this.slackClient.chat().postMessage(team.bot.accessToken).with(
                     PostMessageRequest(
-                            text = "I choose ${result.botWeapon}.\n$weapon beats ${result.botWeapon}!\n*You won! :white_check_mark:",
+                            text = "I choose ${result.botWeapon}.\n$weapon beats ${result.botWeapon}!\n*You won!* :trophy:",
                             channel = channelId
                     ))
                     .onSuccess { println(it) }
                     .onFailure { println(it) }
                     .invoke()
-        } else if (result.draw) {
-            this.slackClient.chat().postMessage(team.bot.accessToken).with(
+            result.draw -> this.slackClient.chat().postMessage(team.bot.accessToken).with(
                     PostMessageRequest(
-                            text = "I choose ${result.botWeapon}.*It's a tie!",
+                            text = "I choose ${result.botWeapon}.\n*It's a tie!* :necktie:",
                             channel = channelId
                     ))
                     .onSuccess { println(it) }
                     .onFailure { println(it) }
                     .invoke()
-        } else {
-            this.slackClient.chat().postMessage(team.bot.accessToken).with(
+            else -> this.slackClient.chat().postMessage(team.bot.accessToken).with(
                     PostMessageRequest(
-                            text = "I choose ${result.botWeapon}.\n$weapon beats ${result.botWeapon}!\n*You lost! :poop:",
+                            text = "I choose ${result.botWeapon}.\n$weapon beats ${result.botWeapon}!\n*You lost!* :poop:",
                             channel = channelId
                     ))
                     .onSuccess { println(it) }

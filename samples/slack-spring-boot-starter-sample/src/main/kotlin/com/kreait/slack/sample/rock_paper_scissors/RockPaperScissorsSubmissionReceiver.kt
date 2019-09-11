@@ -1,14 +1,9 @@
 package com.kreait.slack.sample.rock_paper_scissors
 
-import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.BlockActions
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
-import com.kreait.slack.api.contract.jackson.common.messaging.Element
-import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
-import com.kreait.slack.api.contract.jackson.group.respond.ResponseType
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
 import com.kreait.slack.broker.store.Team
-import com.kreait.slack.sample.rock_paper_scissors.data.WEAPONS
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
