@@ -25,16 +25,7 @@ class RockPaperScissorsCommandReceiver @Autowired constructor(private val slackC
         this.slackClient.chat().postEphemeral(team.bot.accessToken)
                 .with(PostEphemeralRequest("Choose your weapon",
                         user = slackCommand.userId,
-                        blocks = listOf(
-                                Block.Section(text = Text(Text.Type.PLAIN_TEXT, "choose your weapon"), blockId = "weapons_block"),
-                                Block.Action(blockId = RPS_BLOCK_ID,
-                                        elements = listOf(
-                                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.ROCK.weaponName), actionId = WEAPONS.ROCK.actionId),
-                                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.PAPER.weaponName), actionId = WEAPONS.PAPER.actionId),
-                                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.SCISSORS.weaponName), actionId = WEAPONS.SCISSORS.actionId)
-                                        )
-                                )
-                        ),
+                        blocks = RPSGameHandler.blocks,
                         channel = slackCommand.channelId))
                 .onSuccess {
                     println(it)

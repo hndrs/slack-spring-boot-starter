@@ -3,7 +3,9 @@ package com.kreait.slack.sample.rock_paper_scissors
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.BlockActions
 import com.kreait.slack.api.contract.jackson.SlackEvent
+import com.kreait.slack.api.contract.jackson.common.messaging.Block
 import com.kreait.slack.api.contract.jackson.common.messaging.Element
+import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
 import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.ResponseType
@@ -16,6 +18,19 @@ import kotlin.system.measureTimeMillis
 
 @Component
 class RPSGameHandler @Autowired constructor(private val slackClient: SlackClient) {
+
+    companion object {
+        val blocks = listOf(
+                Block.Section(text = Text(Text.Type.PLAIN_TEXT, "choose your weapon"), blockId = "weapons_block"),
+                Block.Action(blockId = RockPaperScissorsCommandReceiver.RPS_BLOCK_ID,
+                        elements = listOf(
+                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.ROCK.weaponName), actionId = WEAPONS.ROCK.actionId),
+                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.PAPER.weaponName), actionId = WEAPONS.PAPER.actionId),
+                                Element.Button(text = Text(Text.Type.PLAIN_TEXT, WEAPONS.SCISSORS.weaponName), actionId = WEAPONS.SCISSORS.actionId)
+                        )
+                )
+        )
+    }
 
     fun play(weapon: WEAPONS): Result {
         val against = listOf(WEAPONS.ROCK, WEAPONS.PAPER, WEAPONS.SCISSORS).random()
