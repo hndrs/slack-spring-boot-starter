@@ -109,4 +109,4 @@ data class UpdateAttachment(
         @JsonProperty("actions") val actions: List<Action>? = listOf(),
         @JsonProperty("author_name") val authorName: String? = null,
         @JsonProperty("fallback") val fallback: String,
-        @JsonProperty("blocks") val blocks: List<Block>?)
+        @JsonProperty("blocks") val blocks: List<Block>? = null)
