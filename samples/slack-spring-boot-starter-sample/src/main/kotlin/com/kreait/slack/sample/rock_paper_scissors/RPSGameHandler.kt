@@ -12,6 +12,7 @@ import com.kreait.slack.sample.rock_paper_scissors.data.Result
 import com.kreait.slack.sample.rock_paper_scissors.data.WEAPONS
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import kotlin.system.measureTimeMillis
 
 @Component
 class RPSGameHandler @Autowired constructor(private val slackClient: SlackClient) {
@@ -44,31 +45,31 @@ class RPSGameHandler @Autowired constructor(private val slackClient: SlackClient
         val selection = (interactiveComponentResponse.actions?.first() as Element.Button).text.text
         selection.let { userSelection ->
 
-            val gameResult = play(WEAPONS.valueOf(userSelection.toUpperCase()))
+                val gameResult = play(WEAPONS.valueOf(userSelection.toUpperCase()))
 
-            if (gameResult.userWon) {
-                this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
-                        .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*\n$selection beats ${gameResult.botWeapon}\n*you won* this time :tada: :white_check_mark:",
-                                responseType = ResponseType.EPHEMERAL))
-                        .onSuccess { println(it) }
-                        .onFailure { println(it) }
-                        .invoke()
-            } else {
-                if (gameResult.draw) {
+                if (gameResult.userWon) {
                     this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
-                            .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*,\n this one is a *tie*, try again",
+                            .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*\n$selection beats ${gameResult.botWeapon}\n*you won* this time :tada: :white_check_mark:",
                                     responseType = ResponseType.EPHEMERAL))
                             .onSuccess { println(it) }
                             .onFailure { println(it) }
                             .invoke()
                 } else {
-                    this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
-                            .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*,\n ${gameResult.botWeapon} beats $selection,\n*You lost* :x: ",
-                                    responseType = ResponseType.EPHEMERAL))
-                            .onSuccess { println(it) }
-                            .onFailure { println(it) }
-                            .invoke()
-                }
+                    if (gameResult.draw) {
+                        this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
+                                .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*,\n this one is a *tie*, try again",
+                                        responseType = ResponseType.EPHEMERAL))
+                                .onSuccess { println(it) }
+                                .onFailure { println(it) }
+                                .invoke()
+                    } else {
+                        this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
+                                .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*,\n ${gameResult.botWeapon} beats $selection,\n*You lost* :x: ",
+                                        responseType = ResponseType.EPHEMERAL))
+                                .onSuccess { println(it) }
+                                .onFailure { println(it) }
+                                .invoke()
+                    }
             }
         }
     }
