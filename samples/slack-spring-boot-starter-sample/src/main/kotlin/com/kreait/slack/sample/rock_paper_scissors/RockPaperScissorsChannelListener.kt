@@ -18,22 +18,26 @@ class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGam
                                                               private val slackClient: SlackClient) : EventReceiver {
 
     override fun supportsEvent(slackEvent: SlackEvent): Boolean {
-        return slackEvent.event["type"] == "message"
+        return (slackEvent.event["type"] == "message"
+                && ((slackEvent.event["text"] == "rock")
+                || (slackEvent.event["text"] == "paper")
+                || (slackEvent.event["text"] == "scissors")
+                || (slackEvent.event["text"] == "rock paper scissors")))
     }
 
     override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
         val eventMessage = slackEvent.event["text"] as String
 
-        if (eventMessage.startsWith("rock")) {
+        if (eventMessage =="rock") {
             rpsGameHandler.dmHandler(WEAPONS.ROCK, team, slackEvent)
         }
-        if (eventMessage.startsWith("paper")) {
+        if (eventMessage == "paper") {
             rpsGameHandler.dmHandler(WEAPONS.PAPER, team, slackEvent)
         }
-        if (eventMessage.startsWith("scissors")) {
+        if (eventMessage == "scissors") {
             rpsGameHandler.dmHandler(WEAPONS.SCISSORS, team, slackEvent)
         }
-        if (eventMessage.startsWith("play rock paper scissors")) {
+        if (eventMessage =="rock paper scissors") {
             this.slackClient.chat().postEphemeral(team.bot.accessToken)
                     .with(PostEphemeralRequest("Choose your weapon!",
                             user = slackEvent.event["user"].toString(),

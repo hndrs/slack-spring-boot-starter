@@ -36,6 +36,7 @@ cache:
 stages:
   - test
   - publish
+  - publish_docker
 
 jobs:
   include:
@@ -54,7 +55,7 @@ jobs:
       script: ./gradlew publish
       if: branch = master AND type != pull_request
 
-    - stage: publish
+    - stage: publish_docker
       name: "Publish Docker"
       env:
         - DOCKER_IMAGE_BASE_TAG=kreait/slack-spring-boot-starter
