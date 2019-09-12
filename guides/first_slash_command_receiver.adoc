@@ -1,5 +1,4 @@
 = First Command Receiver
-
 :excerpt: This short guide will show you how to set up a slashcommand receiver
 :title: First Slashcommand Receiver
 :order: 3

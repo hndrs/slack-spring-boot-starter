@@ -1,5 +1,4 @@
 = First Interactive Component Receiver
-
 :excerpt: This short guide will show you how to set up a Interactive Component receiver
 :title: First Interactive Component Receiver
 :order: 4

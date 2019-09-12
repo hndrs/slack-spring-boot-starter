@@ -1,5 +1,4 @@
 = Testing
-
 :excerpt: This short guide will show you how you can use the MockSlackClient to write tests
 :title: How to test
 :order: 9
