@@ -1,5 +1,4 @@
 = Installation Features
-
 :excerpt: This Short guide will show you how easy it is to install your bot, to start developing
 :title: Installation Features
 :order: 2

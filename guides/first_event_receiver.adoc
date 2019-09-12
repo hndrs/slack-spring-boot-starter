@@ -1,5 +1,4 @@
 = First Event Receiver
-
 :excerpt: This short guide will show you how to set up a Event receiver
 :title: First Event Receiver
 :order: 5

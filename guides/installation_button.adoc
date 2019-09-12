@@ -1,5 +1,4 @@
 = Installation Button
-
 :excerpt: This Short guide will show you how to setup your Installation Button
 :title: Installation Button
 :order: 3
