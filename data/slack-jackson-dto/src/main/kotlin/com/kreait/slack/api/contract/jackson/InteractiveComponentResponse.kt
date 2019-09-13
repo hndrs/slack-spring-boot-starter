@@ -1,6 +1,5 @@
 package com.kreait.slack.api.contract.jackson
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
@@ -15,7 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.kreait.slack.api.contract.jackson.common.Action
 import com.kreait.slack.api.contract.jackson.common.messaging.Block
 import com.kreait.slack.api.contract.jackson.common.messaging.Element
-import com.kreait.slack.api.contract.jackson.group.chat.Message
+import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant

@@ -1,7 +1,6 @@
 package com.kreait.slack.api.contract.jackson.common.types
 
 import com.kreait.slack.api.contract.jackson.common.InstantSample
-import com.kreait.slack.api.contract.jackson.group.chat.Message
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 
 fun Channel.Companion.sample(): Channel = Channel(

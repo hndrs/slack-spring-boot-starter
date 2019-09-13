@@ -1,7 +1,6 @@
 package com.kreait.slack.api.contract.jackson.common.types
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.kreait.slack.api.contract.jackson.group.chat.Message
 import com.kreait.slack.api.contract.jackson.util.InstantToInt
 import com.kreait.slack.api.contract.jackson.util.InstantToString
 import java.time.Instant
