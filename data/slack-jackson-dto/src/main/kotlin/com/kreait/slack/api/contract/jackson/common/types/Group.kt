@@ -1,6 +1,7 @@
 package com.kreait.slack.api.contract.jackson.common.types
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.kreait.slack.api.contract.jackson.group.chat.Message
 import com.kreait.slack.api.contract.jackson.util.InstantToInt
 import com.kreait.slack.api.contract.jackson.util.InstantToString
 import java.time.Instant
@@ -43,7 +44,7 @@ data class Group(
         @JsonProperty("last_read")
         val lastReadAt: Instant?,
         @JsonProperty("latest")
-        val latestMessage: Any?,
+        val latestMessage: Message?,
         @JsonProperty("members")
         val members: List<String>?,
         @JsonProperty("name")
