@@ -12,5 +12,5 @@ fun ErrorListResponse.Companion.sample(): ErrorListResponse {
 }
 
 fun ListRequest.Companion.sample(): ListRequest {
-    return ListRequest(false, 0, false, "test")
+    return ListRequest(false, 0, null)
 }

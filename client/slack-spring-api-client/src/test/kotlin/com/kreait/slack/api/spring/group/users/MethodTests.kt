@@ -58,7 +58,6 @@ class MethodTests {
     private fun testCases() = listOf(
             MetaInfo("users.conversations", SuccessfulConversationsResponse.sample(), ErrorConversationsResponse.sample(), ConversationsRequest.sample(), DefaultUserConversationsMethod("", mockTemplate)),
             MetaInfo("users.list", SuccessfulListResponse.sample(), ErrorListResponse.sample(), ListRequest.sample(), DefaultUserListMethod("", mockTemplate)),
-            MetaInfo("users.list", SuccessfulListResponse.sample(), ErrorListResponse.sample(), ListRequest.sample(), DefaultUserListMethodPaging("", mockTemplate)),
             MetaInfo("users.deletePhoto", SuccessfulDeletePhotoResponse.sample(), ErrorDeletePhotoResponse.sample(), "", DefaultUsersDeletePhotoMethod("", mockTemplate)),
             MetaInfo("users.getPresence", SuccessfulGetPresenceResponse.sample(), ErrorGetPresenceResponse.sample(), GetPresenceRequest.sample(), DefaultUsersGetPresenceMethod("", mockTemplate)),
             MetaInfo("users.profile.get", SuccessfulGetProfileResponse.sample(), ErrorGetProfileResponse.sample(), GetProfileRequest.sample(), DefaultUsersGetProfileMethod("", mockTemplate)),

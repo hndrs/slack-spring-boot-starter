@@ -3,8 +3,10 @@ package com.kreait.slack.api.test.group.users
 import com.kreait.slack.api.group.users.UsersMethodGroup
 
 class MockUsersMethodGroup : UsersMethodGroup {
+
     private val mockUsersInfoMethod = MockUsersInfoMethod()
     private val mockUserListMethod = MockUserListMethod()
+    private val mockUserListAllMethod = MockUserListAllMethod()
     private val mockUserConversationsMethod = MockUserConversationsMethod()
     private val mockUsersDeletePhotoMethod = MockUsersDeletePhotoMethod()
     private val mockUsersIdentityMethod = MockUsersIdentityMethod()
@@ -22,6 +24,8 @@ class MockUsersMethodGroup : UsersMethodGroup {
     override fun list(authToken: String): MockUserListMethod {
         return mockUserListMethod
     }
+
+    override fun listAll(authToken: String): MockUserListAllMethod = mockUserListAllMethod
 
     override fun conversations(authToken: String): MockUserConversationsMethod {
         return mockUserConversationsMethod
