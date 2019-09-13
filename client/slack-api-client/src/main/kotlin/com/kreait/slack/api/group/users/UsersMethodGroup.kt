@@ -6,6 +6,8 @@ interface UsersMethodGroup {
 
     fun list(authToken: String): UserListMethod
 
+    fun listAll(authToken: String): UserListAllMethod
+
     fun conversations(authToken: String): UserConversationsMethod
 
     fun deletePhoto(authToken: String): UsersDeletePhotoMethod

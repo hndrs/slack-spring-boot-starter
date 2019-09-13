@@ -1,5 +1,6 @@
 package com.kreait.slack.api.spring.group.users
 
+import com.kreait.slack.api.group.users.UserListAllMethod
 import com.kreait.slack.api.group.users.UserListMethod
 import com.kreait.slack.api.group.users.UsersDeletePhotoMethod
 import com.kreait.slack.api.group.users.UsersGetPresenceMethod
@@ -24,6 +25,10 @@ class DefaultUserMethodGroup : UsersMethodGroup {
 
     override fun list(authToken: String): UserListMethod {
         return DefaultUserListMethod(authToken)
+    }
+
+    override fun listAll(authToken: String): UserListAllMethod {
+        return DefaultUserListAllMethod(authToken)
     }
 
     override fun conversations(authToken: String): DefaultUserConversationsMethod {

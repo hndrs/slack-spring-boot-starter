@@ -1,5 +1,6 @@
 package com.kreait.slack.api.spring.group.users
 
+import com.kreait.slack.api.contract.jackson.common.types.Member
 import com.kreait.slack.api.contract.jackson.group.users.ErrorListResponse
 import com.kreait.slack.api.contract.jackson.group.users.ListResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListResponse
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate
 
 @Suppress("UNCHECKED_CAST")
 class DefaultUserListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UserListMethod() {
+
 
     override fun request(): ApiCallResult<SuccessfulListResponse, ErrorListResponse> {
         val response = SlackRequestBuilder<ListResponse>(authToken, restTemplate)

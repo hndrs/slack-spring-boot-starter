@@ -56,7 +56,6 @@ data class ErrorListResponse constructor(override val ok: Boolean,
  */
 data class ListRequest(private val includeLocale: Boolean? = null,
                        private val limit: Int? = null,
-                       private val includePresence: Boolean? = null,
                        private val cursor: String? = null) {
 
     fun toRequestMap(): MutableMap<String, String> {
@@ -67,6 +66,7 @@ data class ListRequest(private val includeLocale: Boolean? = null,
         limit?.let { requestMap.put("limit", it.toString()) }
         return requestMap
     }
+
 
     companion object
 }

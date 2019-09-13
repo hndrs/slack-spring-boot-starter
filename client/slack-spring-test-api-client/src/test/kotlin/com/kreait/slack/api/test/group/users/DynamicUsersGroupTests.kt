@@ -7,6 +7,7 @@ import com.kreait.slack.api.contract.jackson.group.users.ErrorGetPresenceRespons
 import com.kreait.slack.api.contract.jackson.group.users.ErrorGetProfileResponse
 import com.kreait.slack.api.contract.jackson.group.users.ErrorIdentityResponse
 import com.kreait.slack.api.contract.jackson.group.users.ErrorInfoResponse
+import com.kreait.slack.api.contract.jackson.group.users.ErrorListAllResponse
 import com.kreait.slack.api.contract.jackson.group.users.ErrorListResponse
 import com.kreait.slack.api.contract.jackson.group.users.ErrorLookupByEmailResponse
 import com.kreait.slack.api.contract.jackson.group.users.ErrorSetPhotoResponse
@@ -15,6 +16,7 @@ import com.kreait.slack.api.contract.jackson.group.users.ErrorSetProfileResponse
 import com.kreait.slack.api.contract.jackson.group.users.GetPresenceRequest
 import com.kreait.slack.api.contract.jackson.group.users.GetProfileRequest
 import com.kreait.slack.api.contract.jackson.group.users.InfoRequest
+import com.kreait.slack.api.contract.jackson.group.users.ListAllRequest
 import com.kreait.slack.api.contract.jackson.group.users.ListRequest
 import com.kreait.slack.api.contract.jackson.group.users.LookupByEmailRequest
 import com.kreait.slack.api.contract.jackson.group.users.SetPhotoRequest
@@ -26,6 +28,7 @@ import com.kreait.slack.api.contract.jackson.group.users.SuccessfulGetPresenceRe
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulGetProfileResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulIdentityResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulInfoResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListAllResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulLookupByEmailResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetPhotoResponse
@@ -51,6 +54,7 @@ class DynamicUsersGroupTests {
             MockMetaInfo(MockUsersIdentityMethod(), mock { }, SuccessfulIdentityResponse.sample(), mock { }, ErrorIdentityResponse.sample(), Unit),
             MockMetaInfo(MockUsersInfoMethod(), mock { }, SuccessfulInfoResponse.sample(), mock { }, ErrorInfoResponse.sample(), InfoRequest.sample()),
             MockMetaInfo(MockUserListMethod(), mock { }, SuccessfulListResponse.sample(), mock { }, ErrorListResponse.sample(), ListRequest.sample()),
+            MockMetaInfo(MockUserListAllMethod(), mock { }, SuccessfulListAllResponse.sample(), mock { }, ErrorListAllResponse.sample(), ListAllRequest.sample()),
             MockMetaInfo(MockUsersLookupByEmailMethod(), mock { }, SuccessfulLookupByEmailResponse.sample(), mock { }, ErrorLookupByEmailResponse.sample(), LookupByEmailRequest.sample()),
             MockMetaInfo(MockUsersSetPhotoMethod(), mock { }, SuccessfulSetPhotoResponse.sample(), mock { }, ErrorSetPhotoResponse.sample(), SetPhotoRequest.sample()),
             MockMetaInfo(MockUsersSetPresenceMethod(), mock { }, SuccessfulSetPresenceResponse.sample(), mock { }, ErrorSetPresenceResponse.sample(), SetPresenceRequest.sample()),
