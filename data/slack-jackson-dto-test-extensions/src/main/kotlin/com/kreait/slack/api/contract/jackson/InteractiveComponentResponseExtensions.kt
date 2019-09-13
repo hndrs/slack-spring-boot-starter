@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson
 
 import com.kreait.slack.api.contract.jackson.common.InstantSample
-import com.kreait.slack.api.contract.jackson.group.chat.Message
+import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 
 fun InteractiveMessage.Companion.sample(): InteractiveMessage {
