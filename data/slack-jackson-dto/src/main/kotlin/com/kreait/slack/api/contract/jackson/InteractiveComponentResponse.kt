@@ -116,6 +116,6 @@ data class User(@JsonProperty("id") val id: String,
 data class Container(
         @JsonProperty("channel_id") val channelId: String?,
         @JsonProperty("is_ephemeral") val isEphemeral: Boolean?,
-        @JsonProperty("message_ts") val messageTs: String?,
+        @InstantToString @JsonProperty("message_ts") val messageTimestamp: Instant?,
         @JsonProperty("type") val type: String?
 )
