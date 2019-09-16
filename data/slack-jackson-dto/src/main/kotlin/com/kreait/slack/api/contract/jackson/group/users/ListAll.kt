@@ -15,7 +15,7 @@ data class ErrorListAllResponse constructor(val error: String) {
 /**
  * DataClass that represents arguments as defined here https://api.slack.com/methods/users.list
  */
-data class ListAllRequest(val includeLocale: Boolean? = null) {
+data class ListAllRequest(val includeLocale: Boolean? = null, val packageSize: Int? = null) {
 
     companion object
 }
