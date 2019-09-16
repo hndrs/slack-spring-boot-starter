@@ -1,6 +1,6 @@
 :source-highlighter: prettify
 
-:version: 1.0.0.M6
+:version: 1.0.0.RC1
 
 = Slack Spring Boot
 
@@ -35,15 +35,8 @@ You might want to write down the following information of your newly created Sla
 * The Client-Secret of your App
 * The Signing-Secret of your App
 
-Since you will be prompted to enter these while deploying on Heroku.
-
-Additionally you'll need to have the following settings in your Slack-App Configuration:
-
-* Event Subscriptions: channel.message
-* Slash Commands: /rock-paper-scissors with ```{ngrok_host}/commands```
-* OAuth Scope: channels:read and channels:write
-
 === Deploy to Heroku
+
 ++++
 <a href="https://heroku.com/deploy">
 <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">

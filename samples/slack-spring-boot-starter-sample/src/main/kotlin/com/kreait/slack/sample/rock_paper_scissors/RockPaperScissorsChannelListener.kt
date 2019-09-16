@@ -2,9 +2,6 @@ package com.kreait.slack.sample.rock_paper_scissors
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.SlackEvent
-import com.kreait.slack.api.contract.jackson.common.messaging.Block
-import com.kreait.slack.api.contract.jackson.common.messaging.Element
-import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
 import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.store.Team
@@ -26,9 +23,9 @@ class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGam
     }
 
     override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
-        val eventMessage = slackEvent.event["text"] as String
+        val eventMessage = (slackEvent.event["text"] as String).trim()
 
-        if (eventMessage =="rock") {
+        if (eventMessage == "rock") {
             rpsGameHandler.dmHandler(WEAPONS.ROCK, team, slackEvent)
         }
         if (eventMessage == "paper") {
@@ -37,7 +34,7 @@ class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGam
         if (eventMessage == "scissors") {
             rpsGameHandler.dmHandler(WEAPONS.SCISSORS, team, slackEvent)
         }
-        if (eventMessage =="rock paper scissors") {
+        if (eventMessage == "rock paper scissors") {
             this.slackClient.chat().postEphemeral(team.bot.accessToken)
                     .with(PostEphemeralRequest("Choose your weapon!",
                             user = slackEvent.event["user"].toString(),
