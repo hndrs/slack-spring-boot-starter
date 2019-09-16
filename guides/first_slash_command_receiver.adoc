@@ -10,7 +10,7 @@ Example Ping Receiver that answers with a pong an immediately updates the respon
 
 [source,kotlin]
 --
-include::../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/PingCommandReceiver.kt[lines=14..-1]]
+include::../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/SetPhotoCommandReceiver.kt[lines=14..-1]]
 --
 
 This Receiver overrides the `supportsCommand(`-method to ensure that it is only invoked when /ping is executed
