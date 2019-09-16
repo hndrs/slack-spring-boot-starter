@@ -37,7 +37,6 @@ cache:
 stages:
   - test
   - publish
-  - deploy_api_docs
 
 jobs:
   include:
