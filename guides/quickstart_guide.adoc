@@ -1,5 +1,4 @@
 = Getting Started
-
 :excerpt: Getting started is easy, lets find out how
 :title: Getting Started
 :order: 1

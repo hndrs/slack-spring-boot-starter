@@ -17,5 +17,5 @@ To receive the event, you have to subscribe to channel_rename in the https://api
 
 [source,kotlin]
 --
-include::../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ChannelRenamedEventReceiver.kt[lines=12..-1]]
+include::../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/rock_paper_scissors/RockPaperScissorsChannelListener.kt[lines=12..-1]]
 --
