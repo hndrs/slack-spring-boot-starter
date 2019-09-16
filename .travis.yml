@@ -58,7 +58,7 @@ jobs:
       name: "Publish Api Documentation"
       script:
         - ./gradlew dokka
-        - cp -R build/docs/$(cat version.txt)/build/docs/latest
+        - cp -R build/docs/$(cat version.txt) /build/docs/latest
       deploy:
         provider: s3
         access_key_id: $AWS_ACCESS_KEY_ID
