@@ -7,7 +7,7 @@
 
 == Setup
 
-The SDK consists of 6 modules:
+The SDK consists of 3 main-modules:
 
 current-version =
 [source,text]
