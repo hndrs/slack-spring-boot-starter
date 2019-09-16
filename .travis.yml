@@ -44,7 +44,7 @@ jobs:
     - stage: test
       name: "PullRequest Quality Check and Tests"
       script: ./gradlew check jacocoTestReport sonarqube -Dslack.test.integration.token=$TEST_SLACK_SPACE_TOKEN -Dslack.test.integration.build=$TRAVIS_BUILD_NUMBER -Dslack.security.signing-secret=$TEST_SLACK_SPACE_SIGNING --info --scan
-      if: type != pull_request
+      if: type = pull_request
 
     - stage: test
       name: "Quality Check and Tests"
@@ -71,10 +71,11 @@ jobs:
       if: branch = master AND type != pull_request
 
     - stage: publish
+
       name: "Publish Api Documentation"
       script:
-      - ./gradlew dokka
-      - cp -R build/docs/$(cat version.txt)/ build/docs/latest
+        - ./gradlew dokka
+        - cp -R build/docs/$(cat version.txt)/build/docs/latest
       deploy:
         provider: s3
         access_key_id: $AWS_ACCESS_KEY_ID
@@ -84,6 +85,4 @@ jobs:
         local_dir: build/docs
         upload-dir: docs
         region: $AWS_BUCKET_REGION
-        on:
-          branch: doc-deploy
-      if: branch = doc-deploy
+      if: branch = master AND type != pull_request
