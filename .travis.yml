@@ -28,7 +28,6 @@ os:
 branches:
   only:
     - master
-    - doc-deploy
 
 cache:
   directories:
@@ -70,7 +69,6 @@ jobs:
         upload-dir: docs
         region: $AWS_BUCKET_REGION
       if: branch = master AND type != pull_request
-
 
     - stage: publish
       name: "Publish Docker"
