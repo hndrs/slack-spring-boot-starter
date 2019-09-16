@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.web.client.RestTemplate
 
 @Suppress("UNCHECKED_CAST")
-class DefaultUserListAllMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UserListAllMethod() {
+class DefaultUserListAllMethod(authToken: String, restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UserListAllMethod() {
 
     companion object {
         val LOG = LoggerFactory.getLogger(DefaultUserListAllMethod::class.java)
@@ -27,23 +27,22 @@ class DefaultUserListAllMethod(private val authToken: String, private val restTe
 
         do {
 
-            val request = ListRequest(includeLocale = this.params.includeLocale, cursor = nextCursor)
+            val request = ListRequest(includeLocale = this.params.includeLocale, cursor = nextCursor, limit = this.params.packageSize)
             val result = defaultUserListMethod.with(request)
                     .onFailure { LOG.debug("Error while fetching all users, {}", it) }
                     .onSuccess { LOG.debug("Fetching users with {}\n{}", request, it) }
                     .invoke()
 
             if (result.wasSuccess()) {
-                result.success?.members?.let { members.addAll(it) }
+                result.success?.members?.let {
+                    members.addAll(it)
+                }
                 nextCursor = result.success?.responseMetadata?.nextCursor
             } else {
                 nextCursor = null
                 error = result.failure?.error
             }
-
-
         } while (!nextCursor.isNullOrBlank() && error == null)
-
 
         return if (error != null) {
             val errorListAllResponse = ErrorListAllResponse(error)
