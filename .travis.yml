@@ -74,10 +74,8 @@ jobs:
       name: "Publish Reference Documentation"
       script:
         - ./gradlew asciidoctor
-        - mkdir docs/slack-spring-boot-docs/build/docs/$(cat version.txt)/reference
-        - mkdir docs/slack-spring-boot-docs/build/docs/latest/reference
-        - cp -R docs/slack-spring-boot-docs/build/generated-docs/html5/* docs/slack-spring-boot-docs/build/docs/$(cat version.txt)/reference
-        - cp -R docs/slack-spring-boot-docs/build/generated-docs/html5/* docs/slack-spring-boot-docs/build/docs/latest/reference
+        - cp -R docs/slack-spring-boot-docs/build/generated-docs/html5 build/docs/$(cat version.txt)/reference
+        - cp -R docs/slack-spring-boot-docs/build/generated-docs/html5 build/docs/latest/reference
       deploy:
         provider: s3
         access_key_id: $AWS_ACCESS_KEY_ID
