@@ -18,7 +18,9 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class RemindersDeleteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.delete)
+ * Success-response of this request.
+ *
+ * @property ok will be true
  */
 data class SuccessfulRemindersDeleteResponse(
         override val ok: Boolean) : RemindersDeleteResponse(ok) {
@@ -26,7 +28,10 @@ data class SuccessfulRemindersDeleteResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.delete)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorRemindersDeleteResponse constructor(
         override val ok: Boolean,
@@ -36,7 +41,9 @@ data class ErrorRemindersDeleteResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.delete)
+ * Removes a Reminder
+ *
+ * @property reminderId the reminder-Id of the reminder that should be removed
  */
 data class RemindersDeleteRequest(@JsonProperty("reminder") val reminderId: String) {
     companion object

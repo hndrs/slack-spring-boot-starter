@@ -3,6 +3,23 @@ package com.kreait.slack.api.contract.jackson
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
+/**
+ * A slash-command that was invoked
+ *
+ * @property token the token that can be used for further actions
+ * @property teamId the team id
+ * @property teamDomain the domain name of the team
+ * @property channelId the channel id in which the slashcommand was invoked
+ * @property channelName the channel id in which the slashcommand was invoked
+ * @property userId the user id of the user that invoked the command
+ * @property userName the name of the user that invoked the command
+ * @property command the command that was invoked, starting with a "/"
+ * @property text the text that was written after the command e.g. /test abc
+ * @property responseUrl the response url that can be used to respond to the action
+ * @property triggerId the trigger id which is used to open a dialog
+ * @property enterpriseId the enterprise id which is only present, when the workspace is contained in the enterprise grid
+ * @property enterpriseName the enterprise name which is only present, when the workspace is contained in the enterprise grid
+ */
 @JacksonDataClass
 data class SlackCommand constructor(@JsonProperty(TOKEN_PROPERTY_NAME) val token: String,
                                     @JsonProperty(TEAM_ID_PROPERTY_NAME) val teamId: String,

@@ -19,7 +19,10 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class RemindersListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.List)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property reminders the list of reminders
  */
 data class SuccessfulRemindersListResponse(
         override val ok: Boolean,
@@ -28,7 +31,10 @@ data class SuccessfulRemindersListResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.List)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorRemindersListResponse constructor(
         override val ok: Boolean,

@@ -15,12 +15,22 @@ import java.io.File
 @JacksonDataClass
 sealed class SetPhotoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
-@JacksonDataClass
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 data class SuccessfulSetPhotoResponse constructor(override val ok: Boolean)
     : SetPhotoResponse(ok) {
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorSetPhotoResponse constructor(override val ok: Boolean,
                                              val error: String)
@@ -28,6 +38,15 @@ data class ErrorSetPhotoResponse constructor(override val ok: Boolean,
     companion object
 }
 
+
+/**
+ * sets the photo of the calling user
+ *
+ * @property image the image as a file you want to set
+ * @property cropW Width/height of crop box (always square)
+ * @property cropX X coordinate of top-left corner of crop box
+ * @property cropY Y coordinate of top-left corner of crop box
+ */
 @JacksonDataClass
 data class SetPhotoRequest(val image: File,
                            val cropW: Int? = null,

@@ -3,8 +3,8 @@ package com.kreait.slack.api.contract.jackson.group.users
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.UserPresence
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 /**
  * https://api.slack.com/methods/users.getPresence
@@ -18,7 +18,17 @@ import com.kreait.slack.api.contract.jackson.UserPresence
 @JacksonDataClass
 sealed class GetPresenceResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
-@JacksonDataClass
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property presence the presence information of the user
+ * @property isOnline true when the user is currently online
+ * @property autoAway auto_away will be true if slacks servers haven't detected any activity from the user in the last 30 minutes.
+ * @property manualAway will be true if the user has manually set their presence to away.
+ * @property connectionCount gives a count of total connections.
+ * @property lastActivity indicates the last activity seen by our servers. If a user has no connected clients then this property will be absent
+ */
 data class SuccessfulGetPresenceResponse constructor(override val ok: Boolean,
                                                      @JsonProperty("presence") val presence: UserPresence,
                                                      @JsonProperty("online") val isOnline: Boolean?,
@@ -30,6 +40,12 @@ data class SuccessfulGetPresenceResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorGetPresenceResponse constructor(override val ok: Boolean,
                                                 @JsonProperty("error") val error: String)
@@ -37,6 +53,11 @@ data class ErrorGetPresenceResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Gets user presence information.
+ *
+ * @property user User to get presence info on. Defaults to the authed user.
+ */
 data class GetPresenceRequest(@JsonProperty("user") val user: String) {
     companion object
 

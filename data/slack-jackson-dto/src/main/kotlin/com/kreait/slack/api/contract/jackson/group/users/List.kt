@@ -3,9 +3,9 @@ package com.kreait.slack.api.contract.jackson.group.users
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.types.Member
+import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
@@ -16,7 +16,14 @@ import com.kreait.slack.api.contract.jackson.common.types.Member
 @JacksonDataClass
 sealed class ListResponse(@JsonProperty("ok") open val ok: Boolean)
 
-@JacksonDataClass
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property members the list of users
+ * @property cacheTs
+ * @property responseMetadata metadata used for paging
+ */
 data class SuccessfulListResponse(
         override val ok: Boolean,
         @JsonProperty("members") val members: List<Member>,
@@ -26,6 +33,12 @@ data class SuccessfulListResponse(
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorListResponse constructor(override val ok: Boolean,
                                          @JsonProperty("error") val error: String)
@@ -34,7 +47,12 @@ data class ErrorListResponse constructor(override val ok: Boolean,
 }
 
 /**
- * DataClass that represents arguments as defined here https://api.slack.com/methods/users.list
+ * Requests all users of the workspace
+ *
+ * @property includeLocale determines if the locale should be included in the response
+ * @property limit the limit of users you want to retrieve
+ * @property includePresence determines if the users presence should be included in the response
+ * @property cursor the cursor used for paging
  */
 data class ListRequest(private val includeLocale: Boolean? = null,
                        private val limit: Int? = null,

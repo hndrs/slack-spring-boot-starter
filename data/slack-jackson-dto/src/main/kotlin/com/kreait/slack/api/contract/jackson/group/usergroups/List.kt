@@ -17,6 +17,11 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class ListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 @JacksonDataClass
 data class SuccessfulListResponse constructor(override val ok: Boolean,
                                               @JsonProperty("usergroups") val userGroups: List<UserGroup>)
@@ -24,6 +29,12 @@ data class SuccessfulListResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorListResponse constructor(override val ok: Boolean,
                                          @JsonProperty("error") val error: String)
@@ -31,6 +42,13 @@ data class ErrorListResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * List all User Groups for a team
+ *
+ * @property includeCount Include the number of users in each User Group.
+ * @property includeDisabled Include disabled User Groups.
+ * @property includeUsers Include the list of users for each User Group.
+ */
 data class ListRequest(private val includeCount: Boolean?,
                        private val includeDisabled: Boolean?,
                        private val includeUsers: Boolean?) {
