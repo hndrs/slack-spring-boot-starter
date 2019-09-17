@@ -6,5 +6,4 @@ import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelUna
 import com.kreait.slack.api.group.ApiCallMethod
 
 
-abstract class ChannelsUnarchiveMethod : ApiCallMethod<ChannelsUnarchiveMethod, SuccessfulChannelUnarchiveResponse, ErrorChannelUnarchiveResponse, ChannelsUnarchiveRequest>() {
-}
+abstract class ChannelsUnarchiveMethod : ApiCallMethod<ChannelsUnarchiveMethod, SuccessfulChannelUnarchiveResponse, ErrorChannelUnarchiveResponse, ChannelsUnarchiveRequest>()

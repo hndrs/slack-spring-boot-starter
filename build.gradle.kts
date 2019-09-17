@@ -1,8 +1,10 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
         maven("http://repo.spring.io/plugins-release")
     }
@@ -10,6 +12,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.41")
         classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
         classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.9.18")
+        classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.0.1")
     }
 }
 
@@ -84,6 +87,7 @@ subprojects {
         plugin("maven-publish")
         plugin("propdeps")
         plugin("org.jetbrains.dokka")
+        plugin("io.gitlab.arturbosch.detekt")
 
     }
 
@@ -122,9 +126,9 @@ subprojects {
         val sonarModuleKey = "${rootProject.group}:${rootProject.name}:$projectKey"
         properties {
             property("sonar.moduleKey", sonarModuleKey)
+            property("sonar.kotlin.detekt.reportPaths", "${project.buildDir}/reports/detekt/detekt.xml")
         }
     }
-
 
     tasks.withType<KotlinCompile>() {
         kotlinOptions {
@@ -154,6 +158,11 @@ subprojects {
     tasks.withType<Test>().configureEach {
         systemProperties(System.getenv())
         systemProperties["user.dir"] = workingDir
+    }
+
+    tasks.withType<Detekt>().configureEach {
+        config = files("${rootProject.rootDir}/detekt.yml")
+        // setSource(files("**/src/main/java", "**/src/main/kotlin"))
     }
 
     repositories {
