@@ -21,7 +21,10 @@ import java.time.Instant
 sealed class RemindersAddResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.Add)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property reminder the added reminder
  */
 data class SuccessfulRemindersAddResponse(
         override val ok: Boolean,
@@ -30,7 +33,10 @@ data class SuccessfulRemindersAddResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.Add)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorRemindersAddResponse constructor(
         override val ok: Boolean,
@@ -40,7 +46,11 @@ data class ErrorRemindersAddResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.Add)
+ * Adds a Reminder
+ *
+ * @property text the reminder-text
+ * @property triggerTimestamp the timestamp when the reminder should trigger
+ * @property userId the user-id of the user that should be reminded
  */
 data class RemindersAddRequest(@JsonProperty("text") val text: String,
                                @InstantToInt @JsonProperty("time") val triggerTimestamp: Instant, //time when the reminder should trigger

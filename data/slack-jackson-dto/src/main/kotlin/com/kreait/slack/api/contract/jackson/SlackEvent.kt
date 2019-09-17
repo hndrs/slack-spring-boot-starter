@@ -5,6 +5,12 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
+
+/**
+ * An event that triggered
+ * @property type the type of the event
+ * @property token the token that can be used for further actions
+ */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
         property = "type",
@@ -17,6 +23,9 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 abstract class EventRequest constructor(@JsonProperty("type") open val type: String,
                                         @JsonProperty("token") open val token: String)
 
+/**
+ * The challenge parameter which is only used to verify the events endpoint
+ */
 @JacksonDataClass
 data class SlackChallenge constructor(
         override val type: String,
@@ -24,6 +33,19 @@ data class SlackChallenge constructor(
         @JsonProperty("challenge") val challenge: String)
     : EventRequest(type, token)
 
+/**
+ *
+ * An event that triggered
+ *
+ * @property type the type of the event
+ * @property token the token that can be used for further actions
+ * @property teamId the id of the team
+ * @property apiAppId the id of the app
+ * @property authedUsers the
+ * @property eventId the id of that event
+ * @property eventTime the time of the event
+ * @property event the event information
+ */
 @JacksonDataClass
 data class SlackEvent constructor(
         override val type: String,

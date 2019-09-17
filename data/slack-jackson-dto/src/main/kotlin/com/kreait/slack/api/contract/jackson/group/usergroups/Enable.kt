@@ -17,6 +17,11 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class EnableResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 @JacksonDataClass
 data class SuccessfulEnableResponse constructor(override val ok: Boolean,
                                                 @JsonProperty("usergroup") val userGroup: UserGroup)
@@ -24,6 +29,12 @@ data class SuccessfulEnableResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorEnableResponse constructor(override val ok: Boolean,
                                            @JsonProperty("error") val error: String)
@@ -31,6 +42,12 @@ data class ErrorEnableResponse constructor(override val ok: Boolean,
     companion object
 }
 
+/**
+ * Enable a User Group
+ *
+ * @property usergroupId The encoded ID of the User Group to enable.
+ * @property includeCount Include the number of users in the User Group.
+ */
 @JacksonDataClass
 data class EnableRequest constructor(@JsonProperty("usergroup") val usergroupId: String,
                                      @JsonProperty("include_count") val includeCount: Boolean?) {

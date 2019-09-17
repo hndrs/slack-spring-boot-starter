@@ -13,7 +13,12 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class SetProfileResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
-@JacksonDataClass
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property user the requested userprofile
+ */
 data class SuccessfulSetProfileResponse constructor(override val ok: Boolean,
                                                     @JsonProperty("user") val user: Profile) : SetProfileResponse(ok) {
     companion object {}
@@ -45,6 +50,12 @@ data class SuccessfulSetProfileResponse constructor(override val ok: Boolean,
     }
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorSetProfileResponse constructor(override val ok: Boolean,
                                                @JsonProperty("error") val error: String)
@@ -52,7 +63,14 @@ data class ErrorSetProfileResponse constructor(override val ok: Boolean,
     companion object
 }
 
-//TODO Unused?
+/**
+ * Set the profile information for a user.
+ *
+ * @property name Name of a single key to set. Usable only if profile is not passed.
+ * @property profile Collection of key:value pairs presented as a URL-encoded JSON hash. At most 50 fields may be set. Each field name is limited to 255 characters.
+ * @property user ID of user to change. This argument may only be specified by team admins on paid teams.
+ * @property value Value to set a single key to. Usable only if profile is not passed.
+ */
 @JacksonDataClass
 data class SetProfileRequest(@JsonProperty("name") val name: String?,
                              @JsonProperty("profile") val profile: Map<String, String>?,

@@ -14,12 +14,22 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 sealed class DeletePhotoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
-@JacksonDataClass
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ */
 data class SuccessfulDeletePhotoResponse constructor(override val ok: Boolean)
     : DeletePhotoResponse(ok) {
     companion object
 }
 
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 @JacksonDataClass
 data class ErrorDeletePhotoResponse constructor(override val ok: Boolean,
                                                 @JsonProperty("error") val error: String)

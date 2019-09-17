@@ -15,6 +15,12 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class ProfileResponse(
         @JsonProperty("ok") open val ok: Boolean)
 
+/**
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property profile the team-profile
+ */
 @JacksonDataClass
 data class SuccessfulProfileResponse(
         override val ok: Boolean,
@@ -41,13 +47,23 @@ data class TeamProfile(
 }
 
 
-@JacksonDataClass
+/**
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
+ */
 data class ErrorProfileResponse constructor(override val ok: Boolean,
                                             @JsonProperty("error") val error: String)
     : ProfileResponse(ok) {
     companion object
 }
 
+/**
+ * requests the team profile
+ *
+ * @property visibility Filter by visibility.
+ */
 @JacksonDataClass
 data class ProfileRequest(@JsonProperty("visibility") val visibility: TeamVisibility?) {
 

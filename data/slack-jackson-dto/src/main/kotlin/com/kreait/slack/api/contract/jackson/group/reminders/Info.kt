@@ -19,7 +19,10 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 sealed class RemindersInfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.Info)
+ * Success-response of this request.
+ *
+ * @property ok will be true
+ * @property error
  */
 data class SuccessfulRemindersInfoResponse(
         override val ok: Boolean,
@@ -28,7 +31,10 @@ data class SuccessfulRemindersInfoResponse(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.Info)
+ * Failure-response of this request
+ *
+ * @property ok will be false
+ * @property error contains the error description
  */
 data class ErrorRemindersInfoResponse constructor(
         override val ok: Boolean,
@@ -38,7 +44,9 @@ data class ErrorRemindersInfoResponse constructor(
 }
 
 /**
- * [SlackDoc](https://api.slack.com/methods/reminders.Info)
+ * Gets information about a reminder
+ *
+ * @property reminderId the id of the reminder you want to request detailled information for
  */
 data class RemindersInfoRequest(@JsonProperty("reminder") val reminderId: String) {
     companion object
