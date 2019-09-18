@@ -9,11 +9,11 @@ import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
 import com.kreait.slack.broker.receiver.MismatchCommandReciever
 import com.kreait.slack.broker.receiver.SL4JLoggingReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
-import com.kreait.slack.broker.store.EventStore
-import com.kreait.slack.broker.store.InMemoryEventStore
-import com.kreait.slack.broker.store.InMemoryTeamStore
-import com.kreait.slack.broker.store.Team
-import com.kreait.slack.broker.store.TeamStore
+import com.kreait.slack.broker.store.event.EventStore
+import com.kreait.slack.broker.store.event.InMemoryEventStore
+import com.kreait.slack.broker.store.team.InMemoryTeamStore
+import com.kreait.slack.broker.store.team.Team
+import com.kreait.slack.broker.store.team.TeamStore
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Assertions

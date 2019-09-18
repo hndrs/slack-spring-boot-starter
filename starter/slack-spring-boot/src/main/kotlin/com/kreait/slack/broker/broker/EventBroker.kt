@@ -6,9 +6,9 @@ import com.kreait.slack.api.contract.jackson.SlackEvent
 import com.kreait.slack.broker.configuration.Event
 import com.kreait.slack.broker.metrics.EventMetricsCollector
 import com.kreait.slack.broker.receiver.EventReceiver
-import com.kreait.slack.broker.store.EventStore
-import com.kreait.slack.broker.store.Team
-import com.kreait.slack.broker.store.TeamStore
+import com.kreait.slack.broker.store.event.EventStore
+import com.kreait.slack.broker.store.team.Team
+import com.kreait.slack.broker.store.team.TeamStore
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus

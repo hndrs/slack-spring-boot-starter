@@ -9,12 +9,11 @@ import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
 import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.ResponseType
-import com.kreait.slack.broker.store.Team
+import com.kreait.slack.broker.store.team.Team
 import com.kreait.slack.sample.rock_paper_scissors.data.Result
 import com.kreait.slack.sample.rock_paper_scissors.data.WEAPONS
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import kotlin.system.measureTimeMillis
 
 @Component
 class RPSGameHandler @Autowired constructor(private val slackClient: SlackClient) {

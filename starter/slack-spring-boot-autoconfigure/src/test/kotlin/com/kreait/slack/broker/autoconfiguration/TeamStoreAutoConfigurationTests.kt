@@ -1,9 +1,9 @@
 package com.kreait.slack.broker.autoconfiguration
 
-import com.kreait.slack.broker.store.FileTeamStore
-import com.kreait.slack.broker.store.InMemoryTeamStore
-import com.kreait.slack.broker.store.Team
-import com.kreait.slack.broker.store.TeamStore
+import com.kreait.slack.broker.store.team.FileTeamStore
+import com.kreait.slack.broker.store.team.InMemoryTeamStore
+import com.kreait.slack.broker.store.team.Team
+import com.kreait.slack.broker.store.team.TeamStore
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

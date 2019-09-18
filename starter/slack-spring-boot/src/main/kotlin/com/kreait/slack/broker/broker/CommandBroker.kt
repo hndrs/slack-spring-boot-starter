@@ -5,7 +5,7 @@ import com.kreait.slack.broker.configuration.Command
 import com.kreait.slack.broker.metrics.CommandMetricsCollector
 import com.kreait.slack.broker.receiver.MismatchCommandReciever
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
-import com.kreait.slack.broker.store.TeamStore
+import com.kreait.slack.broker.store.team.TeamStore
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus

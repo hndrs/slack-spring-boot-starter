@@ -4,7 +4,7 @@ import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
-import com.kreait.slack.broker.store.Team
+import com.kreait.slack.broker.store.team.Team
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Service

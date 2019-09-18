@@ -7,7 +7,7 @@ import com.kreait.slack.api.contract.jackson.group.interactive_component.Interac
 import com.kreait.slack.broker.configuration.InteractiveResponse
 import com.kreait.slack.broker.metrics.InteractiveComponentMetricsCollector
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
-import com.kreait.slack.broker.store.TeamStore
+import com.kreait.slack.broker.store.team.TeamStore
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus

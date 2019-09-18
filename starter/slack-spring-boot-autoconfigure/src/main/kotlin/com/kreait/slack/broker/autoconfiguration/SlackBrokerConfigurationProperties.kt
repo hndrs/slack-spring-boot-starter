@@ -13,7 +13,9 @@ open class SlackBrokerConfigurationProperties {
         const val LOGGING_PROPERTY_PREFIX = "$PROPERTY_PREFIX.logging"
         const val COMMANDS_PROPERTY_PREFIX = "$PROPERTY_PREFIX.commands"
         const val MISMATCH_PROPERTY_PREFIX = "$COMMANDS_PROPERTY_PREFIX.mismatch"
-        const val TEAM_STORE = "$PROPERTY_PREFIX.store"
+        const val STORE_PREFIX = "$PROPERTY_PREFIX.store"
+        const val TEAM_STORE = "$STORE_PREFIX.team"
+        const val USER_STORE = "$STORE_PREFIX.user"
     }
 
     /**

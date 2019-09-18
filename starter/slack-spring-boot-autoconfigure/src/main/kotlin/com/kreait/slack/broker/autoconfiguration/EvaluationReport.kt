@@ -5,10 +5,10 @@ import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
 import com.kreait.slack.broker.receiver.MismatchCommandReciever
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
-import com.kreait.slack.broker.store.EventStore
-import com.kreait.slack.broker.store.InMemoryEventStore
-import com.kreait.slack.broker.store.InMemoryTeamStore
-import com.kreait.slack.broker.store.TeamStore
+import com.kreait.slack.broker.store.event.EventStore
+import com.kreait.slack.broker.store.event.InMemoryEventStore
+import com.kreait.slack.broker.store.team.InMemoryTeamStore
+import com.kreait.slack.broker.store.team.TeamStore
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationListener
 import org.springframework.context.event.ContextRefreshedEvent

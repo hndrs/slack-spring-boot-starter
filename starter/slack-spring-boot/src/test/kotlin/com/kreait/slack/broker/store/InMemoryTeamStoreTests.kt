@@ -1,6 +1,9 @@
 package com.kreait.slack.broker.store
 
 import com.kreait.slack.broker.extensions.sample
+import com.kreait.slack.broker.store.team.InMemoryTeamStore
+import com.kreait.slack.broker.store.team.Team
+import com.kreait.slack.broker.store.team.TeamNotFoundException
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows

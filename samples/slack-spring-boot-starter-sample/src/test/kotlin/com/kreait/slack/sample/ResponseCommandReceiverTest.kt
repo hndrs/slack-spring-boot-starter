@@ -3,7 +3,7 @@ package com.kreait.slack.sample
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.api.test.MockSlackClient
-import com.kreait.slack.broker.store.Team
+import com.kreait.slack.broker.store.team.Team
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify

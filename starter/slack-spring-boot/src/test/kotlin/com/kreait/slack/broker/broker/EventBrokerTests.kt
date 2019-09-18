@@ -5,9 +5,9 @@ import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.metrics.EventMetrics
 import com.kreait.slack.broker.receiver.EventReceiver
-import com.kreait.slack.broker.store.InMemoryEventStore
-import com.kreait.slack.broker.store.InMemoryTeamStore
-import com.kreait.slack.broker.store.Team
+import com.kreait.slack.broker.store.event.InMemoryEventStore
+import com.kreait.slack.broker.store.team.InMemoryTeamStore
+import com.kreait.slack.broker.store.team.Team
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName

@@ -14,8 +14,8 @@ import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.security.VerificationException
-import com.kreait.slack.broker.store.InMemoryTeamStore
-import com.kreait.slack.broker.store.Team
+import com.kreait.slack.broker.store.team.InMemoryTeamStore
+import com.kreait.slack.broker.store.team.Team
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested

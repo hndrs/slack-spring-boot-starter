@@ -1,7 +1,7 @@
 package com.kreait.slack.broker.receiver
 
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
-import com.kreait.slack.broker.store.Team
+import com.kreait.slack.broker.store.team.Team
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
 

@@ -1,4 +1,4 @@
-package com.kreait.slack.broker.store
+package com.kreait.slack.broker.store.team
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -27,7 +27,7 @@ class FileTeamStore : TeamStore {
          * Methods to set up the directory and the storage file
          */
         private fun homeDirectory(): String = System.getProperty("user.home")
-                ?: throw Exception("Unable to load credentials:'user.home' System property is not set.")
+                ?: throw Exception("Unable to load team-file:'user.home' System property is not set.")
 
         private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
 
@@ -39,7 +39,7 @@ class FileTeamStore : TeamStore {
      */
     init {
         if (!dataFile().exists()) {
-            LOG.info("Did not find credentials file under ${dataFile().absolutePath}. Attempting to create it")
+            LOG.info("Did not find team-file under ${dataFile().absolutePath}. Attempting to create it")
             dataFile().parentFile.mkdirs()
             dataFile().createNewFile()
             objectMapper.writeValue(dataFile(), listOf<LocalTeam>())

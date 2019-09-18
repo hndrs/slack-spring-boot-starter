@@ -29,29 +29,36 @@ import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
 import com.kreait.slack.broker.receiver.MismatchCommandReciever
 import com.kreait.slack.broker.receiver.SL4JLoggingReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
-import com.kreait.slack.broker.store.EventStore
-import com.kreait.slack.broker.store.FileTeamStore
-import com.kreait.slack.broker.store.InMemoryEventStore
-import com.kreait.slack.broker.store.InMemoryTeamStore
-import com.kreait.slack.broker.store.TeamStore
+import com.kreait.slack.broker.store.event.EventStore
+import com.kreait.slack.broker.store.event.InMemoryEventStore
+import com.kreait.slack.broker.store.team.FileTeamStore
+import com.kreait.slack.broker.store.team.InMemoryTeamStore
+import com.kreait.slack.broker.store.team.TeamStore
+import com.kreait.slack.broker.store.user.FileUserStore
+import com.kreait.slack.broker.store.user.InMemoryUserStore
+import com.kreait.slack.broker.store.user.UserManager
+import com.kreait.slack.broker.store.user.UserStore
 import io.micrometer.core.instrument.MeterRegistry
+import org.springframework.beans.factory.NoSuchBeanDefinitionException
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
-@EnableConfigurationProperties(com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties::class)
+@EnableConfigurationProperties(SlackBrokerConfigurationProperties::class)
 @Configuration
-open class SlackBrokerAutoConfiguration(private val configuration: com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties) {
+open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties) {
 
     @Configuration
-    open class BrokerAutoConfiguration(private val configuration: com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties, private val credentialsProvider: CredentialsProvider) : WebMvcConfigurer {
+    open class BrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties, private val credentialsProvider: CredentialsProvider) : WebMvcConfigurer {
 
         @ConditionalOnMissingBean
         @Bean
@@ -59,19 +66,47 @@ open class SlackBrokerAutoConfiguration(private val configuration: com.kreait.sl
             return InMemoryEventStore()
         }
 
-        @ConditionalOnProperty(prefix = com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties.Companion.TEAM_STORE, name = ["type"], havingValue = "memory", matchIfMissing = true)
+        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "memory", matchIfMissing = true)
         @ConditionalOnMissingBean
         @Bean
         open fun teamStore(): TeamStore {
             return InMemoryTeamStore()
         }
 
-        @ConditionalOnProperty(prefix = com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties.Companion.TEAM_STORE, name = ["type"], havingValue = "file")
+        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "file")
         @ConditionalOnMissingBean
         @Bean
         open fun localTeamStore(): TeamStore {
             return FileTeamStore()
         }
+
+        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.USER_STORE, name = ["type"], havingValue = "memory")
+        @ConditionalOnMissingBean
+        @Bean
+        open fun userStore(): UserStore {
+            return InMemoryUserStore()
+        }
+
+        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.USER_STORE, name = ["type"], havingValue = "file")
+        @ConditionalOnMissingBean
+        @Bean
+        open fun localUserStore(): UserStore {
+            return FileUserStore()
+        }
+
+        @ConditionalOnBean(UserStore::class)
+        @Bean
+        open fun userManager(applicationContext: ApplicationContext, slackClient: SlackClient, userStore: UserStore): UserManager? {
+            try {
+                applicationContext.getBean(UserStore::class.java)
+            } catch (e: NoSuchBeanDefinitionException) {
+                println("Bean Userstore not found")
+                return null
+            }
+            return UserManager(slackClient, userStore)
+        }
+        //TODO REGISTER EVENTRECEIVERS TO UPDATE USERS
+
 
         @Bean
         open fun eventBroker(slackEventReceivers: List<EventReceiver>, teamStore: TeamStore, eventStore: EventStore, metricsCollector: EventMetricsCollector?): EventBroker {
@@ -96,14 +131,14 @@ open class SlackBrokerAutoConfiguration(private val configuration: com.kreait.sl
             resolvers.add(EventArgumentResolver(signingSecret))
         }
 
-        @ConditionalOnProperty(prefix = com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties.Companion.LOGGING_PROPERTY_PREFIX, name = ["enabled"], havingValue = "true", matchIfMissing = true)
+        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.Companion.LOGGING_PROPERTY_PREFIX, name = ["enabled"], havingValue = "true", matchIfMissing = true)
         @Bean
         open fun sL4JLoggingReceiver(): SL4JLoggingReceiver {
             return SL4JLoggingReceiver()
         }
 
         @ConditionalOnMissingBean
-        @ConditionalOnProperty(prefix = com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties.Companion.MISMATCH_PROPERTY_PREFIX, name = ["enabled"], havingValue = "true", matchIfMissing = true)
+        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.Companion.MISMATCH_PROPERTY_PREFIX, name = ["enabled"], havingValue = "true", matchIfMissing = true)
         @Bean
         open fun commandNotFoundMismatchReceiver(slackClient: SlackClient): MismatchCommandReciever {
             return CommandNotFoundReceiver(slackClient, configuration.commands.mismatch.text)
@@ -113,11 +148,12 @@ open class SlackBrokerAutoConfiguration(private val configuration: com.kreait.sl
     @Configuration
     open class InstallationAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties) {
 
-        @ConditionalOnProperty(prefix = com.kreait.slack.broker.autoconfiguration.SlackBrokerConfigurationProperties.Companion.INSTALLATION_PROPERTY_PREFIX,
+        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.Companion.INSTALLATION_PROPERTY_PREFIX,
                 name = ["error-redirect-url", "success-redirect-url"])
         @Bean
         open fun installationBroker(installationReceivers: List<InstallationReceiver>,
                                     teamStore: TeamStore,
+                                    userManager: UserManager?,
                                     slackClient: SlackClient,
                                     credentialsProvider: CredentialsProvider,
                                     metricsCollector: InstallationMetricsCollector?): InstallationBroker {
@@ -129,13 +165,14 @@ open class SlackBrokerAutoConfiguration(private val configuration: com.kreait.sl
                     installationReceivers,
                     metricsCollector,
                     teamStore,
+                    userManager,
                     slackClient,
                     InstallationBroker.Config(applicationCredentials.clientId, applicationCredentials.clientSecret, installation.successRedirectUrl, installation.errorRedirectUrl)
             )
         }
     }
 
-    @AutoConfigureBefore(com.kreait.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration.InstallationAutoConfiguration::class, com.kreait.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration.BrokerAutoConfiguration::class)
+    @AutoConfigureBefore(InstallationAutoConfiguration::class, BrokerAutoConfiguration::class)
     @ConditionalOnClass(MeterRegistry::class)
     @Configuration
     open class SlackBrokerMetricsAutoConfiguration {

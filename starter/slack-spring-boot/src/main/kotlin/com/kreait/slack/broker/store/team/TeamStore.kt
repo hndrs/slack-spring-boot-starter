@@ -1,4 +1,4 @@
-package com.kreait.slack.broker.store
+package com.kreait.slack.broker.store.team
 
 /**
  * Used to handle App-installations
