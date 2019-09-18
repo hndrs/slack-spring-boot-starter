@@ -28,7 +28,7 @@ class TeamStoreAutoConfigurationTests {
         TestApplicationContext.base()
                 .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .withUserConfiguration(TestConfiguration::class.java)
-                .withPropertyValues("slack.store.type:memory")
+                .withPropertyValues("slack.store.team.type:memory")
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
                     Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
@@ -37,7 +37,7 @@ class TeamStoreAutoConfigurationTests {
         TestApplicationContext.base()
                 .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .withUserConfiguration(TestConfiguration::class.java)
-                .withPropertyValues("slack.store.type:file")
+                .withPropertyValues("slack.store.team.type:file")
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
                     Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
@@ -49,7 +49,7 @@ class TeamStoreAutoConfigurationTests {
     fun teamStoreRegistration() {
         TestApplicationContext.base()
                 .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withPropertyValues("slack.store.type:memory")
+                .withPropertyValues("slack.store.team.type:memory")
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
                     Assertions.assertTrue(it.getBean(TeamStore::class.java) is InMemoryTeamStore)
@@ -61,7 +61,7 @@ class TeamStoreAutoConfigurationTests {
     fun fileTeamStoreRegistration() {
         TestApplicationContext.base()
                 .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withPropertyValues("slack.store.type:file")
+                .withPropertyValues("slack.store.team.type:file")
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(FileTeamStore::class.java) }
                     Assertions.assertTrue(it.getBean(TeamStore::class.java) is FileTeamStore)

@@ -53,6 +53,7 @@ data class User(val id: String,
                 val isAppUser: Boolean,
                 val has2fa: Boolean,
                 val locale: String?) {
+    companion object {}
 
     data class UserProfile(
             val title: String?,
