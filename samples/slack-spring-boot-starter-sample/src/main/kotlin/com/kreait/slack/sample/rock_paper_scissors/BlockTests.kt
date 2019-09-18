@@ -11,7 +11,7 @@ import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
 import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.ResponseType
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
-import com.kreait.slack.broker.store.Team
+import com.kreait.slack.broker.store.team.Team
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder

@@ -1,4 +1,4 @@
-package com.kreait.slack.broker.store
+package com.kreait.slack.broker.store.event
 
 import com.kreait.slack.api.contract.jackson.EventRequest
 

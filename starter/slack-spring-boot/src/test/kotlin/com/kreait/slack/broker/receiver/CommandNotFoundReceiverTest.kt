@@ -8,7 +8,7 @@ import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.api.test.MockSlackClient
 import com.kreait.slack.broker.extensions.sample
-import com.kreait.slack.broker.store.Team
+import com.kreait.slack.broker.store.team.Team
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

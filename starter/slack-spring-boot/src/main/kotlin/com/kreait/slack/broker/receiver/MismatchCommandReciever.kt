@@ -3,7 +3,7 @@ package com.kreait.slack.broker.receiver
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
-import com.kreait.slack.broker.store.Team
+import com.kreait.slack.broker.store.team.Team
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 

@@ -10,7 +10,7 @@ import com.kreait.slack.api.contract.jackson.group.dialog.TextElement
 import com.kreait.slack.api.contract.jackson.group.dialog.Type
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
-import com.kreait.slack.broker.store.Team
+import com.kreait.slack.broker.store.team.Team
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
