@@ -32,7 +32,6 @@ import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.event.EventStore
 import com.kreait.slack.broker.store.event.InMemoryEventStore
 import com.kreait.slack.broker.store.team.TeamStore
-import com.kreait.slack.broker.store.user.UserManager
 import io.micrometer.core.instrument.MeterRegistry
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
@@ -103,7 +102,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         @Bean
         open fun installationBroker(installationReceivers: List<InstallationReceiver>,
                                     teamStore: TeamStore,
-                                    userManager: UserManager?,
                                     slackClient: SlackClient,
                                     credentialsProvider: CredentialsProvider,
                                     metricsCollector: InstallationMetricsCollector?): InstallationBroker {
@@ -115,14 +113,13 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
                     installationReceivers,
                     metricsCollector,
                     teamStore,
-                    userManager,
                     slackClient,
                     InstallationBroker.Config(applicationCredentials.clientId, applicationCredentials.clientSecret, installation.successRedirectUrl, installation.errorRedirectUrl)
             )
         }
     }
 
-    @AutoConfigureBefore(InstallationAutoConfiguration::class, BrokerAutoConfiguration::class)
+    @AutoConfigureBefore(InstallationAutoConfiguration::class, UserStoreAutoConfiguration::class, TeamStoreAutoconfiguration::class, BrokerAutoConfiguration::class)
     @ConditionalOnClass(MeterRegistry::class)
     @Configuration
     open class SlackBrokerMetricsAutoConfiguration {

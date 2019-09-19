@@ -30,7 +30,7 @@ class SlackApiClientAutoConfigurationTests {
     @Test
     fun slackClientRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(SlackClient::class.java) }
                     Assertions.assertTrue(it.getBean(SlackClient::class.java) is DefaultSlackClient)
@@ -41,7 +41,7 @@ class SlackApiClientAutoConfigurationTests {
     @Test
     fun customSlackClientRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .withUserConfiguration(TestConfiguration::class.java)
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(SlackClient::class.java) }

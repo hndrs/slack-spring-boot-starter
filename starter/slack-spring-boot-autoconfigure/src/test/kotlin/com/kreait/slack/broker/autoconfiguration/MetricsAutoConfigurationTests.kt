@@ -34,7 +34,7 @@ class MetricsAutoConfigurationTests {
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
                             "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
                         Assertions.assertDoesNotThrow { it.getBean(InstallationMetrics::class.java) }
                     }
@@ -49,7 +49,7 @@ class MetricsAutoConfigurationTests {
                             "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withClassLoader(FilteredClassLoader(MeterRegistry::class.java))
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
                         Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(InstallationMetrics::class.java) }
                         Assertions.assertDoesNotThrow { it.getBean(InstallationBroker::class.java) }
@@ -70,7 +70,7 @@ class MetricsAutoConfigurationTests {
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
                             "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
                         Assertions.assertDoesNotThrow { it.getBean(EventMetricsCollector::class.java) }
                     }
@@ -85,7 +85,7 @@ class MetricsAutoConfigurationTests {
                             "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withClassLoader(FilteredClassLoader(MeterRegistry::class.java))
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
                         Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(EventMetricsCollector::class.java) }
                         Assertions.assertDoesNotThrow { it.getBean(EventBroker::class.java) }
@@ -106,7 +106,7 @@ class MetricsAutoConfigurationTests {
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
                             "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
                         Assertions.assertDoesNotThrow { it.getBean(CommandMetricsCollector::class.java) }
                     }
@@ -121,7 +121,7 @@ class MetricsAutoConfigurationTests {
                             "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withClassLoader(FilteredClassLoader(MeterRegistry::class.java))
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
                         Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(CommandMetricsCollector::class.java) }
                         Assertions.assertDoesNotThrow { it.getBean(CommandBroker::class.java) }
@@ -142,7 +142,7 @@ class MetricsAutoConfigurationTests {
                             "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
                             "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
                         Assertions.assertDoesNotThrow { it.getBean(CommandMetricsCollector::class.java) }
                     }
@@ -157,7 +157,7 @@ class MetricsAutoConfigurationTests {
                             "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
                     )
                     .withClassLoader(FilteredClassLoader(MeterRegistry::class.java))
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                     .run {
                         Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(InteractiveComponentMetricsCollector::class.java) }
                         Assertions.assertDoesNotThrow { it.getBean(InteractiveComponentBroker::class.java) }

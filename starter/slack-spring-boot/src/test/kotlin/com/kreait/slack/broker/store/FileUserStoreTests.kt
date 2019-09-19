@@ -14,9 +14,10 @@ import com.kreait.slack.broker.store.team.Team
 import com.kreait.slack.broker.store.user.FileUserStore
 import com.kreait.slack.broker.store.user.User
 import com.kreait.slack.broker.store.user.UserChangedEventReceiver
+import com.kreait.slack.broker.store.user.UserInstallationReceiver
 import com.kreait.slack.broker.store.user.UserJoinedEventReceiver
-import com.kreait.slack.broker.store.user.UserManager
 import com.kreait.slack.broker.store.user.UserNotFoundException
+import com.kreait.slack.broker.store.user.userOfMember
 import org.apache.commons.io.FileUtils
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
@@ -182,16 +183,16 @@ internal class FileUserStoreTests {
         }
 
 
-        @DisplayName("Test Add and Remove")
+        @DisplayName("Test Update")
         @Test
-        fun removeUser() {
+        fun testUpdate() {
             createFile()
-            FileUserStore().put(User.sample())
+            FileUserStore().put(User.sample().copy(id = "test", name = "tester"))
 
             // test
-            FileUserStore().removeById(User.sample().id)
+            FileUserStore().update(User.sample().copy(id = "test", name = "tester123"))
 
-            Assertions.assertThrows(UserNotFoundException::class.java) { FileUserStore().findById(User.sample().id) }
+            Assertions.assertEquals("tester123", FileUserStore().findById("test"))
 
             //cleanup
             deleteFile()
@@ -213,7 +214,7 @@ internal class FileUserStoreTests {
             fun testReceive() {
                 val store = FileUserStore()
                 val member = Member.sample().copy(id = "testuser1", teamId = "team1", name = "test")
-                store.put(UserManager.userOfMember(member))
+                store.put(userOfMember(member))
                 val receiver = UserChangedEventReceiver(store)
                 val newUser = jacksonObjectMapper().convertValue(member.copy(name = "testNew"), Map::class.java)
 
@@ -236,10 +237,10 @@ internal class FileUserStoreTests {
                         Member.sample().copy(id = "testUser", name = "testName")
                 ))
                 val store = FileUserStore()
-                val manager = UserManager(client, store)
+                val manager = UserInstallationReceiver(client, store)
                 val team = Team.sample().copy("testTeam")
-                manager.downloadUsers(team)
-                Assertions.assertEquals(UserManager.userOfMember(Member.sample().copy(id = "testUser", name = "testName")),
+                manager.onReceiveInstallation("", "", team)
+                Assertions.assertEquals(userOfMember(Member.sample().copy(id = "testUser", name = "testName")),
                         store.findById("testUser"))
                 deleteFile()
             }
@@ -277,7 +278,7 @@ internal class FileUserStoreTests {
             val localUserStore = FileUserStore()
 
             //test
-            Assertions.assertDoesNotThrow { localUserStore.removeById("missingUserID") }
+            Assertions.assertDoesNotThrow { localUserStore.update(User.sample().copy(id = "missingUserID")) }
 
             //cleanup
             deleteFile()

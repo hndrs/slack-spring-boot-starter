@@ -5,7 +5,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.kreait.slack.api.contract.jackson.util.InstantToInt
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
-import com.kreait.slack.broker.store.user.UserManager.Companion.userOfLocalUser
 import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -70,10 +69,10 @@ class FileUserStore : UserStore {
         return userOfLocalUser(localUser)
     }
 
-    override fun findByTeam(teamId: String): List<User> {
+    override fun findByTeam(teamId: String, includeDeleted: Boolean): List<User> {
         val localUsers: List<LocalUser> = objectMapper.readValue(dataFile())
         //filter users by team id
-        return localUsers.filter { it.teamId == teamId }.map { userOfLocalUser(it) }
+        return localUsers.filter { it.teamId == teamId && !it.isDeleted }.map { userOfLocalUser(it) }
     }
 
     override fun put(vararg users: User) {
@@ -90,11 +89,12 @@ class FileUserStore : UserStore {
         FileUtils.write(file, objectMapper.writeValueAsString(result), Charset.forName("UTF-8"))
     }
 
-    override fun removeById(id: String) {
+    override fun update(newUser: User) {
         val origin: List<LocalUser> = objectMapper.readValue(dataFile())
-        val userToRemove = origin.find { it.id == id }
+        val userToRemove = origin.find { it.id == newUser.id }
         userToRemove?.let {
             objectMapper.writeValue(dataFile(), origin.minus(it))
+            objectMapper.writeValue(dataFile(), origin.plus(newUser))
         }
     }
 

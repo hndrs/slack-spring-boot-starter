@@ -3,10 +3,8 @@ package com.kreait.slack.broker.store
 import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.store.user.InMemoryUserStore
 import com.kreait.slack.broker.store.user.User
-import com.kreait.slack.broker.store.user.UserNotFoundException
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -23,8 +21,8 @@ class InMemoryUserStoreTests {
 
         assertEquals(User.sample().copy(id = "TestUserId"), inMemoryUserStore.findById("TestUserId"))
 
-        inMemoryUserStore.removeById("TestUserId")
-        assertThrows(UserNotFoundException::class.java) { inMemoryUserStore.findById("TestUserId") }
+        inMemoryUserStore.update(User.sample().copy(id = "TestUserId", name = "test"))
+        assertEquals("test", inMemoryUserStore.findById("TestUserId").name)
     }
 
 
@@ -38,11 +36,11 @@ class InMemoryUserStoreTests {
         assertEquals(1, inMemoryUserStore.findByTeam("TestTeamId1").size)
     }
 
-    @DisplayName("Remove Non Existent")
+    @DisplayName("Update Non Existent")
     @Test
-    fun removeNonExistent() {
+    fun updateNonExistent() {
         val inMemoryUserStore = InMemoryUserStore()
-        assertDoesNotThrow { inMemoryUserStore.removeById("NonExistentUserId") }
+        assertDoesNotThrow { inMemoryUserStore.update(User.sample().copy("NonExistentUserId")) }
 
     }
 }
