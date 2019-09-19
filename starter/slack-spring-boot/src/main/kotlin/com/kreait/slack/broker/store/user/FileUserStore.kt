@@ -91,15 +91,11 @@ class FileUserStore : UserStore {
     }
 
     override fun removeById(id: String) {
-        LOG.debug("removing user $id")
         val origin: List<LocalUser> = objectMapper.readValue(dataFile())
-        LOG.debug("users:$origin")
         val userToRemove = origin.find { it.id == id }
-        LOG.debug("user to remove: $userToRemove")
         userToRemove?.let {
             objectMapper.writeValue(dataFile(), origin.minus(it))
         }
-
     }
 
     data class LocalUser(@field:JsonProperty("id")
