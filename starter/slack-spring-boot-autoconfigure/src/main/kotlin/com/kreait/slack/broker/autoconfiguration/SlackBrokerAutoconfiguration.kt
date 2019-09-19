@@ -31,24 +31,15 @@ import com.kreait.slack.broker.receiver.SL4JLoggingReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.event.EventStore
 import com.kreait.slack.broker.store.event.InMemoryEventStore
-import com.kreait.slack.broker.store.team.FileTeamStore
-import com.kreait.slack.broker.store.team.InMemoryTeamStore
 import com.kreait.slack.broker.store.team.TeamStore
-import com.kreait.slack.broker.store.user.FileUserStore
-import com.kreait.slack.broker.store.user.InMemoryUserStore
-import com.kreait.slack.broker.store.user.UserChangedEventReceiver
-import com.kreait.slack.broker.store.user.UserJoinedEventReceiver
 import com.kreait.slack.broker.store.user.UserManager
-import com.kreait.slack.broker.store.user.UserStore
 import io.micrometer.core.instrument.MeterRegistry
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
-import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
@@ -65,52 +56,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         @Bean
         open fun eventStore(): EventStore {
             return InMemoryEventStore()
-        }
-
-        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "memory", matchIfMissing = true)
-        @ConditionalOnMissingBean
-        @Bean
-        open fun teamStore(): TeamStore {
-            return InMemoryTeamStore()
-        }
-
-        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "file")
-        @ConditionalOnMissingBean
-        @Bean
-        open fun localTeamStore(): TeamStore {
-            return FileTeamStore()
-        }
-
-        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.USER_STORE, name = ["type"], havingValue = "memory")
-        @ConditionalOnMissingBean
-        @Bean
-        open fun userStore(): UserStore {
-            return InMemoryUserStore()
-        }
-
-        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.USER_STORE, name = ["type"], havingValue = "file")
-        @ConditionalOnMissingBean
-        @Bean
-        open fun localUserStore(): UserStore {
-            return FileUserStore()
-        }
-
-        @ConditionalOnBean(UserStore::class)
-        @Bean
-        open fun userManager(applicationContext: ApplicationContext, slackClient: SlackClient, userStore: UserStore): UserManager? {
-            return UserManager(slackClient, userStore)
-        }
-
-        @ConditionalOnBean(UserStore::class)
-        @Bean
-        open fun userJoinedReceiver(userStore: UserStore): UserJoinedEventReceiver {
-            return UserJoinedEventReceiver(userStore)
-        }
-
-        @ConditionalOnBean(UserStore::class)
-        @Bean
-        open fun userChangedReceiver(userStore: UserStore): UserChangedEventReceiver {
-            return UserChangedEventReceiver(userStore)
         }
 
         @Bean
