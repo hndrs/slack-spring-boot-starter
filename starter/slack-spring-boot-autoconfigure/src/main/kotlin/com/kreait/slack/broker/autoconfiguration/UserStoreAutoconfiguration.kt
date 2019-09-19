@@ -4,8 +4,8 @@ import com.kreait.slack.api.SlackClient
 import com.kreait.slack.broker.store.user.FileUserStore
 import com.kreait.slack.broker.store.user.InMemoryUserStore
 import com.kreait.slack.broker.store.user.UserChangedEventReceiver
+import com.kreait.slack.broker.store.user.UserInstallationReceiver
 import com.kreait.slack.broker.store.user.UserJoinedEventReceiver
-import com.kreait.slack.broker.store.user.UserManager
 import com.kreait.slack.broker.store.user.UserStore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
@@ -14,10 +14,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @EnableConfigurationProperties(SlackBrokerConfigurationProperties::class)
 @Configuration
-open class UserStoreAutoconfiguration {
+open class UserStoreAutoConfiguration : WebMvcConfigurer {
 
     @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.USER_STORE, name = ["type"], havingValue = "memory")
     @ConditionalOnMissingBean
@@ -35,8 +36,8 @@ open class UserStoreAutoconfiguration {
 
     @ConditionalOnBean(UserStore::class)
     @Bean
-    open fun userManager(applicationContext: ApplicationContext, slackClient: SlackClient, userStore: UserStore): UserManager? {
-        return UserManager(slackClient, userStore)
+    open fun userManager(applicationContext: ApplicationContext, slackClient: SlackClient, userStore: UserStore): UserInstallationReceiver? {
+        return UserInstallationReceiver(slackClient, userStore)
     }
 
     @ConditionalOnBean(UserStore::class)

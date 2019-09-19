@@ -1,9 +1,11 @@
 package com.kreait.slack.broker.autoconfiguration
 
+import com.kreait.slack.api.SlackClient
+import com.kreait.slack.api.spring.DefaultSlackClient
 import com.kreait.slack.broker.store.user.FileUserStore
 import com.kreait.slack.broker.store.user.InMemoryUserStore
 import com.kreait.slack.broker.store.user.User
-import com.kreait.slack.broker.store.user.UserManager
+import com.kreait.slack.broker.store.user.UserInstallationReceiver
 import com.kreait.slack.broker.store.user.UserStore
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
@@ -20,7 +22,7 @@ class UserStoreAutoConfigurationTests {
     @Test
     fun userCustomStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .withUserConfiguration(TestConfiguration::class.java)
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
@@ -28,7 +30,7 @@ class UserStoreAutoConfigurationTests {
                 }
 
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .withUserConfiguration(TestConfiguration::class.java)
                 .withPropertyValues("slack.store.user.type:memory")
                 .run {
@@ -37,11 +39,11 @@ class UserStoreAutoConfigurationTests {
                 }
 
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .withUserConfiguration(TestConfiguration::class.java)
                 .withPropertyValues("slack.store.user.type:file")
                 .run {
-                    Assertions.assertDoesNotThrow { it.getBean(UserManager::class.java) }
+                    Assertions.assertDoesNotThrow { it.getBean(UserInstallationReceiver::class.java) }
                     Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
                     Assertions.assertTrue(it.getBean(UserStore::class.java) is TestUserStore)
                 }
@@ -51,10 +53,10 @@ class UserStoreAutoConfigurationTests {
     @Test
     fun userManagerRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .run {
                     Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserStore::class.java) }
-                    Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserManager::class.java) }
+                    Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserInstallationReceiver::class.java) }
                 }
     }
 
@@ -62,7 +64,7 @@ class UserStoreAutoConfigurationTests {
     @Test
     fun userStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .withPropertyValues("slack.store.user.type:memory")
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
@@ -74,14 +76,13 @@ class UserStoreAutoConfigurationTests {
     @Test
     fun fileUserStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, WebMvcAutoConfiguration::class.java))
+                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .withPropertyValues("slack.store.user.type:file")
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(FileUserStore::class.java) }
                     Assertions.assertTrue(it.getBean(UserStore::class.java) is FileUserStore)
                 }
     }
-
 
     @Configuration
     open class TestConfiguration {
@@ -90,15 +91,22 @@ class UserStoreAutoConfigurationTests {
         open fun testUserStore(): UserStore = TestUserStore()
     }
 
-    class TestUserStore : UserStore {
-        override fun findByTeam(teamId: String): List<User> = throw NotImplementedError()
+    @Configuration
+    open class SlackConfiguration {
+        @Bean
+        open fun slackClient(): SlackClient {
+            return DefaultSlackClient()
+        }
+    }
 
+    class TestUserStore : UserStore {
+        override fun findByTeam(teamId: String, includeDeleted: Boolean): List<User> = throw NotImplementedError()
 
         override fun findById(id: String): User = throw NotImplementedError()
 
         override fun put(vararg users: User) {}
 
-        override fun removeById(id: String) {}
+        override fun update(newUser: User) {}
 
     }
 

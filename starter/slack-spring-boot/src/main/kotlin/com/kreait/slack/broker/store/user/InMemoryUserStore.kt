@@ -5,8 +5,8 @@ package com.kreait.slack.broker.store.user
  * This Default implementation should not be used on production environments
  */
 class InMemoryUserStore(private val inMemoryUsers: MutableMap<String, User> = mutableMapOf()) : UserStore {
-    override fun findByTeam(teamId: String): List<User> {
-        return inMemoryUsers.filterValues { it.teamId == teamId }.values.toList()
+    override fun findByTeam(teamId: String, includeDeleted: Boolean): List<User> {
+        return inMemoryUsers.filterValues { it.teamId == teamId && !it.isDeleted }.values.toList()
     }
 
     override fun findById(id: String): User {
@@ -20,7 +20,7 @@ class InMemoryUserStore(private val inMemoryUsers: MutableMap<String, User> = mu
 
     }
 
-    override fun removeById(id: String) {
-        inMemoryUsers.remove(id)
+    override fun update(newUser: User) {
+        inMemoryUsers.replace(newUser.id, newUser)
     }
 }

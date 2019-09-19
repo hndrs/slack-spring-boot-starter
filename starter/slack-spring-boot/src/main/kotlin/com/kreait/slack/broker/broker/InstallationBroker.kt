@@ -6,7 +6,6 @@ import com.kreait.slack.broker.metrics.InstallationMetricsCollector
 import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.store.team.Team
 import com.kreait.slack.broker.store.team.TeamStore
-import com.kreait.slack.broker.store.user.UserManager
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -28,7 +27,6 @@ class InstallationBroker constructor(
         private val installationReceivers: List<InstallationReceiver>,
         private val metricsCollector: InstallationMetricsCollector?,
         private val teamStore: TeamStore,
-        private val userManager: UserManager?,
         private val slackClient: SlackClient,
         private val config: Config) {
 
@@ -48,7 +46,6 @@ class InstallationBroker constructor(
 
             val team = obtainOauthAccess(code)
             this.teamStore.put(team)
-            userManager?.downloadUsers(team)
             this.metricsCollector?.successfulInstallation()
             this.installationReceivers
                     .forEach { receiver ->

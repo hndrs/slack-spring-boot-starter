@@ -17,9 +17,9 @@ class UserChangedEventReceiver @Autowired constructor(private val userStore: Use
 
     override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
         val json = jacksonObjectMapper().writeValueAsString(slackEvent.event["user"] as Map<*, *>)
-        val user = jacksonObjectMapper().readValue(json, Member::class.java)
-        userStore.removeById(user.id)
-        userStore.put(UserManager.userOfMember(user))
+        val user = userOfMember(jacksonObjectMapper().readValue(json, Member::class.java))
+        userStore.update(user)
+        userStore.put(user)
     }
 }
 
