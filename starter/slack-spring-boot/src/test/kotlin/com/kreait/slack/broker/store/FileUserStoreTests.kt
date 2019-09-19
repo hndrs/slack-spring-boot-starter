@@ -187,12 +187,13 @@ internal class FileUserStoreTests {
         @Test
         fun testUpdate() {
             createFile()
-            FileUserStore().put(User.sample().copy(id = "test", name = "tester"))
+            val store = FileUserStore()
+            store.put(User.sample().copy(id = "test", name = "tester"))
 
             // test
-            FileUserStore().update(User.sample().copy(id = "test", name = "tester123"))
+            store.update(User.sample().copy(id = "test", name = "tester123"))
 
-            Assertions.assertEquals("tester123", FileUserStore().findById("test"))
+            Assertions.assertEquals("tester123", store.findById("test").name)
 
             //cleanup
             deleteFile()
