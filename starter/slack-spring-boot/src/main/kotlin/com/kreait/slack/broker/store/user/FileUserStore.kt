@@ -26,7 +26,7 @@ class FileUserStore : UserStore {
         private val objectMapper = jacksonObjectMapper()
 
         /**
-         * Methods to set up the directory and the storage file
+         * Methods to set up the directory and the user-storage file
          */
         private fun homeDirectory(): String = System.getProperty("user.home")
                 ?: throw Exception("Unable to load users-file:'user.home' System property is not set.")
@@ -37,7 +37,7 @@ class FileUserStore : UserStore {
 
     /**
      * File should be already present.
-     * Creates the file in case it is missing
+     * Creates the user-store file in case it is missing
      */
     init {
         if (!dataFile().exists()) {
@@ -49,11 +49,11 @@ class FileUserStore : UserStore {
         } else if (dataFile().exists() && dataFile().isFile) {
             LOG.info("$fileName found")
             if (dataFile().length() == 0L) {
-                LOG.info("File is empty, initializing with emtpty array")
+                LOG.info("UserStore-file is empty, initializing with emtpty array")
                 objectMapper.writeValue(dataFile(), listOf<LocalUser>())
             }
         } else {
-            LOG.error("Could not create file")
+            LOG.error("Could not create UserStore-file")
             throw IllegalStateException("$fileName seems to be a directory")
         }
     }
@@ -202,7 +202,7 @@ class FileUserStore : UserStore {
                 val alwaysActive: Boolean,
                 @field:JsonProperty("image_original")
                 @get:JsonProperty("image_original")
-                val image_original: String?,
+                val imageOriginal: String?,
                 @field:JsonProperty("email")
                 @get:JsonProperty("email")
                 val email: String?,
@@ -232,7 +232,7 @@ class FileUserStore : UserStore {
                 val image512: String?,
                 @field:JsonProperty("image_1024")
                 @get:JsonProperty("image_1024")
-                val image_1024: String?,
+                val image1024: String?,
                 @field:JsonProperty("status_text_canonical")
                 @get:JsonProperty("status_text_canonical")
                 val statusTextCanonical: String,
