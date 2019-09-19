@@ -39,10 +39,10 @@ class InstallationBrokerTests {
 
         mockSlackClient.oauth().access().successResponse = SuccessfullAccessResponse.sample()
 
-        InstallationBroker(listOf(successReceiver, errorReceiver), metrics, teamStore, null, mockSlackClient, InstallationBroker.Config("someClientId", "", "", ""))
+        InstallationBroker(listOf(successReceiver, errorReceiver), metrics, teamStore, mockSlackClient, InstallationBroker.Config("someClientId", "", "", ""))
                 .onInstall("code", "state")
 
-        InstallationBroker(listOf(successReceiver, errorReceiver), null, teamStore, null, mockSlackClient, InstallationBroker.Config("someClientId", "", "", ""))
+        InstallationBroker(listOf(successReceiver, errorReceiver), null, teamStore, mockSlackClient, InstallationBroker.Config("someClientId", "", "", ""))
                 .onInstall("code", "state")
 
         Assertions.assertTrue(successReceiver.executed)
@@ -77,10 +77,10 @@ class InstallationBrokerTests {
 
         mockSlackClient.oauth().access().failureResponse = ErrorAccessResponse.sample()
 
-        InstallationBroker(listOf(successReceiver, errorReceiver), metrics, teamStore, null, mockSlackClient, InstallationBroker.Config("someClientId", "", "", ""))
+        InstallationBroker(listOf(successReceiver, errorReceiver), metrics, teamStore, mockSlackClient, InstallationBroker.Config("someClientId", "", "", ""))
                 .onInstall("code", "state")
 
-        InstallationBroker(listOf(successReceiver, errorReceiver), null, teamStore, null, mockSlackClient, InstallationBroker.Config("someClientId", "", "", ""))
+        InstallationBroker(listOf(successReceiver, errorReceiver), null, teamStore, mockSlackClient, InstallationBroker.Config("someClientId", "", "", ""))
                 .onInstall("code", "state")
 
         Assertions.assertFalse(successReceiver.executed)
