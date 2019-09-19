@@ -49,12 +49,12 @@ data class User(val id: String,
                 val isRestricted: Boolean,
                 val isUltraRestricted: Boolean,
                 val isBot: Boolean,
-                val lastModifiedAt: Instant,
+                val lastModifiedAt: Instant? = null,
                 val isAppUser: Boolean,
                 val has2fa: Boolean,
                 val locale: String?) {
-    companion object {}
 
+    companion object {}
     data class UserProfile(
             val title: String?,
             val phone: String?,
@@ -63,7 +63,7 @@ data class User(val id: String,
             val realNameNormalized: String?,
             val displayName: String,
             val displayNameNormalized: String,
-            val fields: Map<String, String>?,
+            val fields: Map<Any, Any>?,
             val statusText: String,
             val statusEmoji: String,
             val statusExpiration: Int,

@@ -1,9 +1,11 @@
 package com.kreait.slack.broker.store.user
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.kreait.slack.api.contract.jackson.util.InstantToInt
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
+import com.kreait.slack.broker.store.user.UserManager.Companion.userOfLocalUser
 import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -21,7 +23,7 @@ class FileUserStore : UserStore {
         private val LOG = LoggerFactory.getLogger(FileUserStore::class.java)
 
         private const val fileName = "user-store.json"
-        private val objectMapper = ObjectMapper()
+        private val objectMapper = jacksonObjectMapper()
 
         /**
          * Methods to set up the directory and the storage file
@@ -56,13 +58,6 @@ class FileUserStore : UserStore {
         }
     }
 
-
-    override fun findByTeam(teamId: String): List<User> {
-        val localUsers: List<LocalUser> = objectMapper.readValue(dataFile())
-        //filter users by team id
-        return localUsers.filter { it.teamId == teamId }.map { userOfLocalUser(it) }
-    }
-
     /**
      * Operations on the local file
      */
@@ -75,15 +70,10 @@ class FileUserStore : UserStore {
         return userOfLocalUser(localUser)
     }
 
-
-    private fun userOfLocalUser(localUser: LocalUser): User {
-        return User(localUser.id, localUser.teamId, localUser.name, localUser.isDeleted, localUser.color, localUser.realName,
-                localUser.timezone, localUser.timezoneLabel, localUser.timezoneOffset,
-                User.UserProfile(localUser.profile.title, localUser.profile.phone, localUser.profile.skype, localUser.profile.realName, localUser.profile.realNameNormalized, localUser.profile.displayName, localUser.profile.displayNameNormalized, localUser.profile.fields, localUser.profile.statusText, localUser.profile.statusEmoji, localUser.profile.statusExpiration, localUser.profile.avatarHash, localUser.profile.alwaysActive, localUser.profile.image_original, localUser.profile.email, localUser.profile.firstName, localUser.profile.lastName,
-                        localUser.profile.image24, localUser.profile.image32, localUser.profile.image48, localUser.profile.image72, localUser.profile.image192, localUser.profile.image512, localUser.profile.image_1024, localUser.profile.statusTextCanonical, localUser.profile.team)
-                , localUser.isAdmin,
-                localUser.isOwner, localUser.isPrimaryOwner, localUser.isRestricted, localUser.isUltraRestricted, localUser.isBot,
-                localUser.lastModifiedAt, localUser.isAppUser, localUser.has2fa, localUser.locale)
+    override fun findByTeam(teamId: String): List<User> {
+        val localUsers: List<LocalUser> = objectMapper.readValue(dataFile())
+        //filter users by team id
+        return localUsers.filter { it.teamId == teamId }.map { userOfLocalUser(it) }
     }
 
     override fun put(vararg users: User) {
@@ -101,11 +91,11 @@ class FileUserStore : UserStore {
     }
 
     override fun removeById(id: String) {
-
+        LOG.debug("removing user $id")
         val origin: List<LocalUser> = objectMapper.readValue(dataFile())
-
+        LOG.debug("users:$origin")
         val userToRemove = origin.find { it.id == id }
-
+        LOG.debug("user to remove: $userToRemove")
         userToRemove?.let {
             objectMapper.writeValue(dataFile(), origin.minus(it))
         }
@@ -160,9 +150,9 @@ class FileUserStore : UserStore {
                          @field:JsonProperty("is_bot")
                          @get:JsonProperty("is_bot")
                          val isBot: Boolean,
-                         @field:JsonProperty("updated")
+                         @InstantToInt @field:JsonProperty("updated")
                          @get:JsonProperty("updated")
-                         val lastModifiedAt: Instant,
+                         val lastModifiedAt: Instant? = null,
                          @field:JsonProperty("is_app_user")
                          @get:JsonProperty("is_app_user")
                          val isAppUser: Boolean,
@@ -172,6 +162,7 @@ class FileUserStore : UserStore {
                          @field:JsonProperty("locale")
                          @get:JsonProperty("locale")
                          val locale: String?) {
+
         @JacksonDataClass
         data class UserProfile(
                 @field:JsonProperty("title")
@@ -197,7 +188,7 @@ class FileUserStore : UserStore {
                 val displayNameNormalized: String,
                 @field:JsonProperty("fields")
                 @get:JsonProperty("fields")
-                val fields: Map<String, String>?,
+                val fields: Map<Any, Any>?,
                 @field:JsonProperty("status_text")
                 @get:JsonProperty("status_text")
                 val statusText: String,

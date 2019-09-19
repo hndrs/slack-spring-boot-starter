@@ -36,6 +36,8 @@ import com.kreait.slack.broker.store.team.InMemoryTeamStore
 import com.kreait.slack.broker.store.team.TeamStore
 import com.kreait.slack.broker.store.user.FileUserStore
 import com.kreait.slack.broker.store.user.InMemoryUserStore
+import com.kreait.slack.broker.store.user.UserChangedEventReceiver
+import com.kreait.slack.broker.store.user.UserJoinedEventReceiver
 import com.kreait.slack.broker.store.user.UserManager
 import com.kreait.slack.broker.store.user.UserStore
 import io.micrometer.core.instrument.MeterRegistry
@@ -100,13 +102,22 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             try {
                 applicationContext.getBean(UserStore::class.java)
             } catch (e: NoSuchBeanDefinitionException) {
-                println("Bean Userstore not found")
                 return null
             }
             return UserManager(slackClient, userStore)
         }
-        //TODO REGISTER EVENTRECEIVERS TO UPDATE USERS
 
+        @ConditionalOnBean(UserStore::class)
+        @Bean
+        open fun userJoinedReceiver(userStore: UserStore): UserJoinedEventReceiver {
+            return UserJoinedEventReceiver(userStore)
+        }
+
+        @ConditionalOnBean(UserStore::class)
+        @Bean
+        open fun userChangedReceiver(userStore: UserStore): UserChangedEventReceiver {
+            return UserChangedEventReceiver(userStore)
+        }
 
         @Bean
         open fun eventBroker(slackEventReceivers: List<EventReceiver>, teamStore: TeamStore, eventStore: EventStore, metricsCollector: EventMetricsCollector?): EventBroker {

@@ -9,6 +9,7 @@ import com.kreait.slack.broker.store.event.EventStore
 import com.kreait.slack.broker.store.event.InMemoryEventStore
 import com.kreait.slack.broker.store.team.InMemoryTeamStore
 import com.kreait.slack.broker.store.team.TeamStore
+import com.kreait.slack.broker.store.user.UserStore
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationListener
 import org.springframework.context.event.ContextRefreshedEvent
@@ -35,6 +36,7 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         addComponent(sb, "Slash Command Receivers", ctx.getBeanNamesForType(SlashCommandReceiver::class.java));
         addComponent(sb, "Mismatch Command Receivers", ctx.getBeanNamesForType(MismatchCommandReciever::class.java));
         addComponent(sb, "Team Store", ctx.getBeanNamesForType(TeamStore::class.java));
+        addComponent(sb, "User Store", ctx.getBeanNamesForType(UserStore::class.java));
         addComponent(sb, "Event Store", ctx.getBeanNamesForType(TeamStore::class.java));
 
         defaultChecks(ctx, sb, Pair(TeamStore::class, InMemoryTeamStore::class), Pair(EventStore::class, InMemoryEventStore::class))
