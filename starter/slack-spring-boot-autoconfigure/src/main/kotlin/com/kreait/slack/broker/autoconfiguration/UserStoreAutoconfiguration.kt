@@ -1,0 +1,53 @@
+package com.kreait.slack.broker.autoconfiguration
+
+import com.kreait.slack.api.SlackClient
+import com.kreait.slack.broker.store.user.FileUserStore
+import com.kreait.slack.broker.store.user.InMemoryUserStore
+import com.kreait.slack.broker.store.user.UserChangedEventReceiver
+import com.kreait.slack.broker.store.user.UserJoinedEventReceiver
+import com.kreait.slack.broker.store.user.UserManager
+import com.kreait.slack.broker.store.user.UserStore
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
+import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.context.ApplicationContext
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+
+@EnableConfigurationProperties(SlackBrokerConfigurationProperties::class)
+@Configuration
+open class UserStoreAutoconfiguration {
+
+    @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.USER_STORE, name = ["type"], havingValue = "memory")
+    @ConditionalOnMissingBean
+    @Bean
+    open fun userStore(): UserStore {
+        return InMemoryUserStore()
+    }
+
+    @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.USER_STORE, name = ["type"], havingValue = "file")
+    @ConditionalOnMissingBean
+    @Bean
+    open fun localUserStore(): UserStore {
+        return FileUserStore()
+    }
+
+    @ConditionalOnBean(UserStore::class)
+    @Bean
+    open fun userManager(applicationContext: ApplicationContext, slackClient: SlackClient, userStore: UserStore): UserManager? {
+        return UserManager(slackClient, userStore)
+    }
+
+    @ConditionalOnBean(UserStore::class)
+    @Bean
+    open fun userJoinedReceiver(userStore: UserStore): UserJoinedEventReceiver {
+        return UserJoinedEventReceiver(userStore)
+    }
+
+    @ConditionalOnBean(UserStore::class)
+    @Bean
+    open fun userChangedReceiver(userStore: UserStore): UserChangedEventReceiver {
+        return UserChangedEventReceiver(userStore)
+    }
+}
