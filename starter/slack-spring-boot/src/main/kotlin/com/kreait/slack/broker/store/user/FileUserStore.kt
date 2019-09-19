@@ -94,6 +94,7 @@ class FileUserStore : UserStore {
         val userToRemove = origin.find { it.id == newUser.id }
         userToRemove?.let {
             objectMapper.writeValue(dataFile(), origin.minus(it))
+            objectMapper.writeValue(dataFile(), origin.plus(newUser))
         }
         put(newUser)
     }
