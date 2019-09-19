@@ -41,7 +41,6 @@ import com.kreait.slack.broker.store.user.UserJoinedEventReceiver
 import com.kreait.slack.broker.store.user.UserManager
 import com.kreait.slack.broker.store.user.UserStore
 import io.micrometer.core.instrument.MeterRegistry
-import org.springframework.beans.factory.NoSuchBeanDefinitionException
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
@@ -99,11 +98,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         @ConditionalOnBean(UserStore::class)
         @Bean
         open fun userManager(applicationContext: ApplicationContext, slackClient: SlackClient, userStore: UserStore): UserManager? {
-            try {
-                applicationContext.getBean(UserStore::class.java)
-            } catch (e: NoSuchBeanDefinitionException) {
-                return null
-            }
             return UserManager(slackClient, userStore)
         }
 
