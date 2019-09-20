@@ -16,6 +16,10 @@ import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.core.Ordered
 import kotlin.reflect.KClass
 
+/**
+ * Class that lists all the auto-registered components
+ *
+ */
 class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
 
     override fun getOrder() = Ordered.LOWEST_PRECEDENCE
@@ -24,6 +28,9 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         println(buildEvaluationReport(event.applicationContext))
     }
 
+    /**
+     * Prints the Evaluation Report to the log
+     */
     fun buildEvaluationReport(ctx: ApplicationContext): String {
         val sb = StringBuilder()
         sb.appendln("+------------------------------------+")
