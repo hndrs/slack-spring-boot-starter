@@ -2,7 +2,9 @@ package com.kreait.slack.broker.autoconfiguration
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 
-
+/**
+ * Configuration properties with which you can customise the auto-configuration
+ */
 @ConfigurationProperties(prefix = SlackBrokerConfigurationProperties.PROPERTY_PREFIX)
 open class SlackBrokerConfigurationProperties {
 
@@ -33,7 +35,9 @@ open class SlackBrokerConfigurationProperties {
 
     var store: Store = Store()
 
-
+    /**
+     * Installation-properties containing the redirect-urls after an installation
+     */
     open class Installation {
 
         /**
@@ -48,14 +52,20 @@ open class SlackBrokerConfigurationProperties {
 
     }
 
+    /**
+     * Application properties
+     */
     open class Application {
 
         /**
-        Enables Logging receiver [com.kreait.slack.broker.receiver.SL4JLoggingReceiver]
+         * Contains the response which is sent when an error occurs
          */
         var errorResponse: String = "Sorry i am having troubles right now"
     }
 
+    /**
+     * Logging properties which are used to customise the logging receiver
+     */
     open class Logging {
 
         /**
@@ -64,6 +74,9 @@ open class SlackBrokerConfigurationProperties {
         lateinit var enabled: String
     }
 
+    /**
+     * Command properties which are used to customise command-behaviour
+     */
     open class Commands {
 
         var mismatch: Mismatch = Mismatch()
@@ -79,6 +92,9 @@ open class SlackBrokerConfigurationProperties {
         }
     }
 
+    /**
+     * Store properties which are used to customise the stores
+     */
     open class Store {
 
         lateinit var type: Type

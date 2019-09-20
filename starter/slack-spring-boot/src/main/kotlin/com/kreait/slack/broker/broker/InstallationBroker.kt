@@ -81,6 +81,9 @@ class InstallationBroker constructor(
         } ?: throw IllegalStateException("Could not obtain access-token: ${response.failure}")
     }
 
+    /**
+     * Configuration that is needed to install the app
+     */
     data class Config(val clientId: String, val clientSecret: String, val successRedirectUrl: String, val errorRedirectUrl: String)
 
 
