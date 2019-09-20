@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * CommandBroker that forwards incoming [SlackCommand]s to all [SlashCommandReceiver]s
+ */
 @RestController
 class CommandBroker constructor(private val slackCommandReceivers: List<SlashCommandReceiver>,
                                 private val teamStore: TeamStore,
@@ -25,6 +28,9 @@ class CommandBroker constructor(private val slackCommandReceivers: List<SlashCom
         private val LOG = LoggerFactory.getLogger(CommandBroker::class.java)
     }
 
+    /**
+     * Endpoint that receives the commands
+     */
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/commands", consumes = ["application/x-www-form-urlencoded"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun receiveCommand(@Command slackCommand: SlackCommand, @RequestHeader headers: HttpHeaders) {

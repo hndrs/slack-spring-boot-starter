@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * Component broker that forwards all [InteractiveComponentResponse]s to all [InteractiveComponentReceiver]s
+ */
 @RestController
 class InteractiveComponentBroker constructor(private val slackBlockActionReceivers: List<InteractiveComponentReceiver<BlockActions>>,
                                              private val slackInteractiveMessageReceivers: List<InteractiveComponentReceiver<InteractiveMessage>>,
@@ -27,6 +30,9 @@ class InteractiveComponentBroker constructor(private val slackBlockActionReceive
         val LOG = LoggerFactory.getLogger(InteractiveComponentBroker::class.java)
     }
 
+    /**
+     * Endpoint that receives the components
+     */
     @PostMapping("/interactive-components", consumes = ["application/x-www-form-urlencoded"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun receiveComponent(@InteractiveResponse interactiveComponentResponse: InteractiveComponentResponse, @RequestHeader headers: HttpHeaders): ResponseEntity<InteractiveComponentMessageResponse> {
         this.metricsCollector?.responseReceived()

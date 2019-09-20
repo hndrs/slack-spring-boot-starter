@@ -18,6 +18,14 @@ import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * EventBroker that forwards all incoming [SlackEvent]s to the [EventReceiver]s
+ *
+ * @property slackEventReceivers
+ * @property teamStore
+ * @property eventStore
+ * @property metricsCollector
+ */
 @RestController
 class EventBroker constructor(private val slackEventReceivers: List<EventReceiver>,
                               private val teamStore: TeamStore,
@@ -28,6 +36,9 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
         val LOG = LoggerFactory.getLogger(EventBroker::class.java)
     }
 
+    /**
+     * Endpoint that receives the events
+     */
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/events", consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun receiveEvents(@Event event: EventRequest, @RequestHeader headers: HttpHeaders): Map<String, String> {
