@@ -224,6 +224,12 @@ subprojects {
         }
     }
 
+    tasks.withType<Sign>().configureEach {
+        onlyIf {
+            extra.has("isRelease") && extra["isRelease"] as Boolean
+        }
+    }
+
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
         systemProperties(System.getenv())
