@@ -1,19 +1,7 @@
 plugins { id("java-library") }
 
-
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.value("sources")
-    from(sourceSets.main.get().allSource)
-}
-
-publishing {
-    publications {
-        register("slackBrokerSpringBootStarter", MavenPublication::class) {
-            from(components["java"])
-            artifact(sourcesJar.get())
-        }
-    }
-}
+extra["displayName"] = "Slack Spring Boot Starter"
+description = "Spring Boot Starter package that aggregates and autoconfigures a slack application"
 
 dependencies {
     api(project(":slack-spring-boot-autoconfigure"))

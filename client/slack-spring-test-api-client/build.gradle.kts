@@ -2,24 +2,12 @@ plugins {
     "java-library"
 }
 
-
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.value("sources")
-    from(sourceSets.main.get().allSource)
-}
-
-publishing {
-    publications {
-        register("slackSpringTestApi", MavenPublication::class) {
-            from(components["java"])
-            artifact(sourcesJar.get())
-        }
-    }
-}
-
 repositories {
     mavenCentral()
 }
+
+extra["displayName"] = "Slack Test Api Client"
+description = "Test Implementation of an Slack Api Client with mocking features to allow unit testing"
 
 dependencies {
     api(project(":slack-jackson-dto"))

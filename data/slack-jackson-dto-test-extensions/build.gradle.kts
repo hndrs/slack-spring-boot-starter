@@ -1,23 +1,11 @@
 plugins { "java-library" }
 
-
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.value("sources")
-    from(sourceSets.main.get().allSource)
-}
-
-publishing {
-    publications {
-        register("slackJacksonDtoTestExtension", MavenPublication::class) {
-            from(components["java"])
-            artifact(sourcesJar.get())
-        }
-    }
-}
-
 repositories {
     mavenCentral()
 }
+
+extra["displayName"] = "Slack Jackson Objects Extensions"
+description = "Contains extension functions that allow convenient object creation in tests"
 
 dependencies {
     api(project(":slack-jackson-dto"))

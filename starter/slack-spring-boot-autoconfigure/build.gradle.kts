@@ -4,20 +4,9 @@ apply {
 
 }
 
+extra["displayName"] = "Slack Spring Boot Autoconfigure"
+description = "Contains autoconfiguration strategies for Slack Spring Boot"
 
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.value("sources")
-    from(sourceSets.main.get().allSource)
-}
-
-publishing {
-    publications {
-        register("slackBrokerSpringBootAutoconfigure", MavenPublication::class) {
-            from(components["java"])
-            artifact(sourcesJar.get())
-        }
-    }
-}
 dependencies {
     api(project(":slack-spring-boot"))
 
