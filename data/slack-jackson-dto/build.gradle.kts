@@ -1,18 +1,5 @@
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.value("sources")
-    from(sourceSets.main.get().allSource)
-}
-
-publishing {
-    publications {
-        register("slackJacksonDto", MavenPublication::class) {
-            from(components["java"])
-            artifact(sourcesJar.get())
-        }
-    }
-}
-
-
+extra["displayName"] = "Slack Jackson Objects"
+description = "Contains jackson implementation of slack api objects"
 
 dependencies {
     compileOnly("com.fasterxml.jackson.core:jackson-annotations")

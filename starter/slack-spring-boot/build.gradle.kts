@@ -1,19 +1,7 @@
 plugins { "java-library" }
 
-
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.value("sources")
-    from(sourceSets.main.get().allSource)
-}
-
-publishing {
-    publications {
-        register("slackBrokerSpringBoot", MavenPublication::class) {
-            from(components["java"])
-            artifact(sourcesJar.get())
-        }
-    }
-}
+extra["displayName"] = "Slack Spring Boot"
+description = "Spring Boot integration for Slack applications"
 
 dependencies {
     api(project(":slack-jackson-dto"))

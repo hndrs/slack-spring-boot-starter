@@ -2,20 +2,8 @@ plugins {
     "java-library"
 }
 
-
-val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.value("sources")
-    from(sourceSets.main.get().allSource)
-}
-
-publishing {
-    publications {
-        register("slackApiClient", MavenPublication::class) {
-            from(components["java"])
-            artifact(sourcesJar.get())
-        }
-    }
-}
+extra["displayName"] = "Slack Api Client"
+description = "Slack Api Client definition"
 
 repositories {
     mavenCentral()

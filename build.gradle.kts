@@ -1,3 +1,8 @@
+import com.kreait.publish.meta.Contributor
+import com.kreait.publish.meta.Developer
+import com.kreait.publish.meta.License
+import com.kreait.publish.meta.Organization
+import com.kreait.publish.meta.Scm
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -21,6 +26,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.7.RELEASE"
     id("org.jetbrains.kotlin.jvm") version "1.3.41" apply false
     id("com.gradle.build-scan") version "2.2.1"
+    signing
 }
 
 sonarqube {
@@ -45,6 +51,10 @@ extensions.findByName("buildScan")?.withGroovyBuilder {
 
 allprojects {
 
+    apply {
+        from("${rootProject.rootDir}/publish-meta.gradle.kts")
+    }
+
     group = "com.kreait.slack"
     version = rootProject.file("version.txt").readText().trim()
 
@@ -57,13 +67,12 @@ allprojects {
     }
 
     tasks.withType<Wrapper> {
-        gradleVersion = "5.2.1"
+        gradleVersion = "5.4.1"
         // anything else
     }
 
     apply {
         plugin("io.spring.dependency-management")
-
     }
 
 
@@ -88,6 +97,7 @@ subprojects {
         plugin("propdeps")
         plugin("org.jetbrains.dokka")
         plugin("io.gitlab.arturbosch.detekt")
+        plugin("signing")
 
     }
 
@@ -98,6 +108,7 @@ subprojects {
     }
 
     configure<PublishingExtension> {
+
         repositories {
             maven {
                 url = uri("s3://libs.olaph.io")
@@ -106,15 +117,73 @@ subprojects {
                     secretKey = System.getenv("AWS_SECRET_ACCESS_KEY")
                 }
             }
-
         }
-    }
+        if (project != project(":slack-spring-boot-starter-sample")) {
+            publications {
+                val sourcesJar by tasks.registering(Jar::class) {
+                    archiveClassifier.value("sources")
+                    from(project.the<SourceSetContainer>()["main"].allSource)
+                }
+                create(project.name, MavenPublication::class) {
+                    from(components["java"])
+                    artifact(sourcesJar.get())
+                    pom {
+                        if (project.extra.has("displayName")) {
+                            name.set(project.extra["displayName"] as? String)
+                        }
+                        description.set(project.description)
+                        pom {
+                            url.set("http://www.example.com/library2")
+                            (extra["organization"] as Organization).let {
+                                this.organization {
+                                    name.set(it.name)
+                                    url.set(it.url)
+                                }
+                            }
 
-    tasks {
-        // Use the built-in JUnit support of Gradle.
-        "test"(Test::class) {
-            useJUnitPlatform()
+                            licenses {
+                                (extra["license"] as License).let {
+                                    this.license {
+                                        name.set(it.name)
+                                        url.set(it.url)
+                                    }
+                                }
+                            }
+                            developers {
+                                (extra["developers"] as List<Developer>).forEach {
+                                    this.developer {
+                                        id.set(it.id)
+                                        name.set(it.name)
+                                        email.set(it.email)
+                                    }
+                                }
+                            }
+                            contributors {
+                                (extra["contributors"] as List<Contributor>).forEach {
+                                    this.contributor {
+                                        name.set(it.name)
+                                        email.set(it.email)
+                                    }
+                                }
+                            }
+                            (extra["scm"] as Scm).let {
+                                this.scm {
+                                    connection.set(it.connection)
+                                    url.set(it.url)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            signing {
+                val signingKey: String? by project
+                val signingPassword: String? by project
+                useInMemoryPgpKeys(signingKey, signingPassword)
+                sign(publications[project.name])
+            }
         }
+
     }
 
     /**
@@ -156,6 +225,7 @@ subprojects {
     }
 
     tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
         systemProperties(System.getenv())
         systemProperties["user.dir"] = workingDir
     }
@@ -174,7 +244,6 @@ subprojects {
         "testImplementation"("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
         "testImplementation"(group = "org.junit.jupiter", name = "junit-jupiter", version = "${extra["junitJupiterVersion"]}")
     }
-
 }
 
 configurations.all {
