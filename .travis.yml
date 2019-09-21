@@ -50,9 +50,16 @@ jobs:
       if: branch = master AND type != pull_request
 
     - stage: publish
-      name: "Publish Library"
+      name: "Publish Snapshot"
       script: ./gradlew publish
       if: branch = master AND type != pull_request
+
+    - stage: publish
+      name: "Publish Release"
+      script: echo test
+      on:
+        tags: true
+        condition: "$TRAVIS_TAG =~ ^v.*$"
 
     - stage: publish
       name: "Publish Api & Reference Documentation"
