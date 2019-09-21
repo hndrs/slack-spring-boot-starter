@@ -59,6 +59,8 @@ jobs:
       name: "Publish Release"
       script: echo test
       if: tag IS present AND env(TRAVIS_TAG) =~ ^v.*$
+      on:
+        tags: true
 
     - stage: publish
       name: "Publish Api & Reference Documentation"
