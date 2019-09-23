@@ -7,6 +7,7 @@ import com.kreait.slack.api.contract.jackson.group.interactive_component.Interac
 import com.kreait.slack.broker.configuration.InteractiveResponse
 import com.kreait.slack.broker.metrics.InteractiveComponentMetricsCollector
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
+import com.kreait.slack.broker.store.team.Team
 import com.kreait.slack.broker.store.team.TeamStore
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
@@ -39,34 +40,10 @@ class InteractiveComponentBroker constructor(private val slackBlockActionReceive
         val team = this.teamStore.findById(interactiveComponentResponse.team.id)
         when (interactiveComponentResponse) {
             is InteractiveMessage -> {
-                slackInteractiveMessageReceivers.filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
-                        .sortedBy { it.order() }
-                        .forEach { receiver ->
-                            try {
-                                this.metricsCollector?.receiverExecuted()
-                                receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
-                            } catch (e: Exception) {
-                                this.metricsCollector?.receiverExecutionError()
-                                if (receiver.shouldThrowException(e)) {
-                                    throw e
-                                }
-                            }
-                        }
+                invokeInteractiveMessages(interactiveComponentResponse, headers, team)
             }
             is BlockActions -> {
-                slackBlockActionReceivers.filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
-                        .sortedBy { it.order() }
-                        .forEach { receiver ->
-                            try {
-                                this.metricsCollector?.receiverExecuted()
-                                receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
-                            } catch (e: Exception) {
-                                this.metricsCollector?.receiverExecutionError()
-                                if (receiver.shouldThrowException(e)) {
-                                    throw e
-                                }
-                            }
-                        }
+                invokeBlockMessages(interactiveComponentResponse, headers, team)
             }
         }
         return if (interactiveComponentResponse.type == InteractiveComponentResponse.Type.INTERACTIVE_MESSAGE) {
@@ -74,5 +51,37 @@ class InteractiveComponentBroker constructor(private val slackBlockActionReceive
         } else {
             ResponseEntity(HttpStatus.OK)
         }
+    }
+
+    private fun invokeBlockMessages(interactiveComponentResponse: BlockActions, headers: HttpHeaders, team: Team) {
+        slackBlockActionReceivers.filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
+                .sortedBy { it.order() }
+                .forEach { receiver ->
+                    try {
+                        this.metricsCollector?.receiverExecuted()
+                        receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
+                    } catch (e: Exception) {
+                        this.metricsCollector?.receiverExecutionError()
+                        if (receiver.shouldThrowException(e)) {
+                            throw e
+                        }
+                    }
+                }
+    }
+
+    private fun invokeInteractiveMessages(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
+        slackInteractiveMessageReceivers.filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
+                .sortedBy { it.order() }
+                .forEach { receiver ->
+                    try {
+                        this.metricsCollector?.receiverExecuted()
+                        receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
+                    } catch (e: Exception) {
+                        this.metricsCollector?.receiverExecutionError()
+                        if (receiver.shouldThrowException(e)) {
+                            throw e
+                        }
+                    }
+                }
     }
 }
