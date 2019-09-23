@@ -3,6 +3,7 @@ import com.kreait.publish.meta.Developer
 import com.kreait.publish.meta.License
 import com.kreait.publish.meta.Organization
 import com.kreait.publish.meta.Scm
+import groovy.json.StringEscapeUtils
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -51,12 +52,17 @@ extensions.findByName("buildScan")?.withGroovyBuilder {
 
 allprojects {
 
+    val isRelease: String? by project
+
     apply {
         from("${rootProject.rootDir}/publish-meta.gradle.kts")
     }
 
+
+
     group = "com.kreait.slack"
     version = rootProject.file("version.txt").readText().trim()
+            .plus(if (isRelease?.toBoolean() == true) "" else "-${System.getenv("TRAVIS_BUILD_NUMBER") ?: ""}")
 
     project.ext {
         set("junitJupiterVersion", "5.4.2")
@@ -88,6 +94,9 @@ allprojects {
 
 subprojects {
 
+    val isRelease: String? by project
+
+
     apply {
         plugin("eclipse")
         plugin("idea")
@@ -98,7 +107,6 @@ subprojects {
         plugin("org.jetbrains.dokka")
         plugin("io.gitlab.arturbosch.detekt")
         plugin("signing")
-
     }
 
     val dokka by tasks.getting(DokkaTask::class) {
@@ -107,18 +115,31 @@ subprojects {
         outputDirectory = "${rootProject.buildDir}/docs/$version/api"
     }
 
-    configure<PublishingExtension> {
 
+    configure<PublishingExtension> {
+        val projectsNotToPublish = listOf<Project>(project(":slack-spring-boot-starter-sample"), project(":slack-spring-boot-docs"))
         repositories {
             maven {
-                url = uri("s3://libs.olaph.io")
-                credentials(AwsCredentials::class) {
-                    accessKey = System.getenv("AWS_ACCESS_KEY_ID")
-                    secretKey = System.getenv("AWS_SECRET_ACCESS_KEY")
+                name = "snapshot"
+                url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+                credentials {
+                    username = System.getenv("SONATYPE_JIRA_USERNAME")
+                    password = System.getenv("SONATYPE_JIRA_PASSWORD")
+                }
+            }
+            maven {
+                // this is just for testing
+                name = "release"
+                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+                credentials {
+                    username = System.getenv("SONATYPE_JIRA_USERNAME")
+                    password = System.getenv("SONATYPE_JIRA_PASSWORD")
                 }
             }
         }
-        if (project != project(":slack-spring-boot-starter-sample")) {
+
+        // only create publications for relevant projects
+        if (!projectsNotToPublish.contains(project)) {
             publications {
                 val sourcesJar by tasks.registering(Jar::class) {
                     archiveClassifier.value("sources")
@@ -133,7 +154,7 @@ subprojects {
                         }
                         description.set(project.description)
                         pom {
-                            url.set("http://www.example.com/library2")
+                            url.set("https://slack-spring-boot.kreait.dev")
                             (extra["organization"] as Organization).let {
                                 this.organization {
                                     name.set(it.name)
@@ -179,7 +200,7 @@ subprojects {
             signing {
                 val signingKey: String? by project
                 val signingPassword: String? by project
-                useInMemoryPgpKeys(signingKey, signingPassword)
+                useInMemoryPgpKeys(StringEscapeUtils.unescapeJava(signingKey), signingPassword)
                 sign(publications[project.name])
             }
         }
@@ -224,11 +245,21 @@ subprojects {
         }
     }
 
+    //region Release settings
     tasks.withType<Sign>().configureEach {
         onlyIf {
-            extra.has("isRelease") && extra["isRelease"] as Boolean
+            isRelease?.toBoolean() ?: false
         }
     }
+
+    tasks.withType<PublishToMavenRepository>().configureEach {
+        onlyIf {
+            (repository.name == "snapshot")
+                    ||
+                    (repository.name == "release" && isRelease?.toBoolean() ?: false)
+        }
+    }
+    //endregion
 
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
@@ -238,7 +269,6 @@ subprojects {
 
     tasks.withType<Detekt>().configureEach {
         config = files("${rootProject.rootDir}/detekt.yml")
-        // setSource(files("**/src/main/java", "**/src/main/kotlin"))
     }
 
     repositories {
