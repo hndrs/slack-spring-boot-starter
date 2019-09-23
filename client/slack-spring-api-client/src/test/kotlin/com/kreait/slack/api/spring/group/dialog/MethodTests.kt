@@ -33,7 +33,7 @@ class MethodInvocationTest {
     }
 
     private fun testCases() = listOf(
-            MetaInfo("dialog.open", SuccessfulOpenDialogResponse.sample(), ErrorOpenDialogResponse.sample(), ChatDeleteRequest.sample(), DefaultDialogOpenMethod("", mockTemplate))
+            MetaInfo("dialog.open", SuccessfulOpenDialogResponse.sample(), ErrorOpenDialogResponse.sample(), ChatDeleteRequest.sample(), SpringDialogOpenMethod("", mockTemplate))
     )
 
 

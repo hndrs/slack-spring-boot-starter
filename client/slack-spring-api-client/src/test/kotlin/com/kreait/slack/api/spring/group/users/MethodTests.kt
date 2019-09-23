@@ -56,16 +56,16 @@ class MethodTests {
     fun methodInvocations(): List<DynamicTest> = DynamicGroupTests.methodInvocations(testCases = testCases(), mockTemplate = mockTemplate)
 
     private fun testCases() = listOf(
-            MetaInfo("users.conversations", SuccessfulConversationsResponse.sample(), ErrorConversationsResponse.sample(), ConversationsRequest.sample(), DefaultUserConversationsMethod("", mockTemplate)),
-            MetaInfo("users.list", SuccessfulListResponse.sample(), ErrorListResponse.sample(), ListRequest.sample(), DefaultUserListMethod("", mockTemplate)),
-            MetaInfo("users.deletePhoto", SuccessfulDeletePhotoResponse.sample(), ErrorDeletePhotoResponse.sample(), "", DefaultUsersDeletePhotoMethod("", mockTemplate)),
-            MetaInfo("users.getPresence", SuccessfulGetPresenceResponse.sample(), ErrorGetPresenceResponse.sample(), GetPresenceRequest.sample(), DefaultUsersGetPresenceMethod("", mockTemplate)),
-            MetaInfo("users.profile.get", SuccessfulGetProfileResponse.sample(), ErrorGetProfileResponse.sample(), GetProfileRequest.sample(), DefaultUsersGetProfileMethod("", mockTemplate)),
-            MetaInfo("users.identity", SuccessfulIdentityResponse.sample(), ErrorIdentityResponse.sample(), "", DefaultUsersIdentityMethod("", mockTemplate)),
-            MetaInfo("users.info", SuccessfulInfoResponse.sample(), ErrorInfoResponse.sample(), InfoRequest.sample(), DefaultUsersInfoMethod("", mockTemplate)),
-            MetaInfo("users.lookupByEmail", SuccessfulLookupByEmailResponse.sample(), ErrorLookupByEmailResponse.sample(), LookupByEmailRequest.sample(), DefaultUsersLookupByEmailMethod("", mockTemplate)),
-            MetaInfo("users.setPhoto", SuccessfulSetPhotoResponse.sample(), ErrorSetPhotoResponse.sample(), SetPhotoRequest.sample(), DefaultUsersSetPhotoMethod("", mockTemplate)),
-            MetaInfo("users.setPresence", SuccessfulSetPresenceResponse.sample(), ErrorSetPresenceResponse.sample(), SetPresenceRequest.sample(), DefaultUsersSetPresenceMethod("", mockTemplate)),
-            MetaInfo("users.profile.set", SuccessfulSetProfileResponse.sample(), ErrorSetProfileResponse.sample(), SetProfileRequest.sample(), DefaultUsersSetProfileMethod("", mockTemplate))
+            MetaInfo("users.conversations", SuccessfulConversationsResponse.sample(), ErrorConversationsResponse.sample(), ConversationsRequest.sample(), SpringUserConversationsMethod("", mockTemplate)),
+            MetaInfo("users.list", SuccessfulListResponse.sample(), ErrorListResponse.sample(), ListRequest.sample(), SpringUserListMethod("", mockTemplate)),
+            MetaInfo("users.deletePhoto", SuccessfulDeletePhotoResponse.sample(), ErrorDeletePhotoResponse.sample(), "", SpringUsersDeletePhotoMethod("", mockTemplate)),
+            MetaInfo("users.getPresence", SuccessfulGetPresenceResponse.sample(), ErrorGetPresenceResponse.sample(), GetPresenceRequest.sample(), SpringUsersGetPresenceMethod("", mockTemplate)),
+            MetaInfo("users.profile.get", SuccessfulGetProfileResponse.sample(), ErrorGetProfileResponse.sample(), GetProfileRequest.sample(), SpringUsersGetProfileMethod("", mockTemplate)),
+            MetaInfo("users.identity", SuccessfulIdentityResponse.sample(), ErrorIdentityResponse.sample(), "", SpringUsersIdentityMethod("", mockTemplate)),
+            MetaInfo("users.info", SuccessfulInfoResponse.sample(), ErrorInfoResponse.sample(), InfoRequest.sample(), SpringUsersInfoMethod("", mockTemplate)),
+            MetaInfo("users.lookupByEmail", SuccessfulLookupByEmailResponse.sample(), ErrorLookupByEmailResponse.sample(), LookupByEmailRequest.sample(), SpringUsersLookupByEmailMethod("", mockTemplate)),
+            MetaInfo("users.setPhoto", SuccessfulSetPhotoResponse.sample(), ErrorSetPhotoResponse.sample(), SetPhotoRequest.sample(), SpringUsersSetPhotoMethod("", mockTemplate)),
+            MetaInfo("users.setPresence", SuccessfulSetPresenceResponse.sample(), ErrorSetPresenceResponse.sample(), SetPresenceRequest.sample(), SpringUsersSetPresenceMethod("", mockTemplate)),
+            MetaInfo("users.profile.set", SuccessfulSetProfileResponse.sample(), ErrorSetProfileResponse.sample(), SetProfileRequest.sample(), SpringUsersSetProfileMethod("", mockTemplate))
     )
 }

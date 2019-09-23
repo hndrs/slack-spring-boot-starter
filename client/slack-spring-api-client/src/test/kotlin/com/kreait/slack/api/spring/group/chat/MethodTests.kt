@@ -50,13 +50,13 @@ class MethodInvocationTest {
     }
 
     private fun testCases() = listOf(
-            MetaInfo("chat.delete", SuccessfulChatDeleteResponse.sample(), ErrorChatDeleteResponse.sample(), ChatDeleteRequest.sample(), DefaultDeleteMethod("", mockTemplate)),
-            MetaInfo("chat.getPermalink", SuccessfulChatGetPermalinkResponse.sample(), ErrorChatGetPermalinkResponse.sample(), ChatGetPermalinkRequest.sample(), DefaultGetPermalinkMethod("", mockTemplate)),
-            MetaInfo("chat.meMessage", SuccessfulChatMeMessageResponse.sample(), ErrorChatMeMessageResponse.sample(), ChatMeMessageRequest.sample(), DefaultMeMessageMethod("", mockTemplate)),
-            MetaInfo("chat.postEphemeral", SuccessfulPostEphemeralResponse.sample(), ErrorPostEphemeralResponse.sample(), PostEphemeralRequest.sample(), DefaultPostEphemeralMethod("", mockTemplate)),
-            MetaInfo("chat.postMessage", SuccessfulPostMessageResponse.sample(), ErrorPostMessageResponse.sample(), PostMessageRequest.sample(), DefaultPostMessageMethod("", mockTemplate)),
-            MetaInfo("chat.unfurl", SuccessfulChatUnfurlResponse.sample(), ErrorChatUnfurlResponse.sample(), ChatUnfurlRequest.sample(), DefaultUnfurlMethod("", mockTemplate)),
-            MetaInfo("chat.update", SuccessfulChatUpdateResponse.sample(), ErrorChatUpdateResponse.sample(), ChatUpdateRequest.sample(), DefaultUpdateMethod("", mockTemplate))
+            MetaInfo("chat.delete", SuccessfulChatDeleteResponse.sample(), ErrorChatDeleteResponse.sample(), ChatDeleteRequest.sample(), SpringDeleteMethod("", mockTemplate)),
+            MetaInfo("chat.getPermalink", SuccessfulChatGetPermalinkResponse.sample(), ErrorChatGetPermalinkResponse.sample(), ChatGetPermalinkRequest.sample(), SpringGetPermalinkMethod("", mockTemplate)),
+            MetaInfo("chat.meMessage", SuccessfulChatMeMessageResponse.sample(), ErrorChatMeMessageResponse.sample(), ChatMeMessageRequest.sample(), SpringMeMessageMethod("", mockTemplate)),
+            MetaInfo("chat.postEphemeral", SuccessfulPostEphemeralResponse.sample(), ErrorPostEphemeralResponse.sample(), PostEphemeralRequest.sample(), SpringPostEphemeralMethod("", mockTemplate)),
+            MetaInfo("chat.postMessage", SuccessfulPostMessageResponse.sample(), ErrorPostMessageResponse.sample(), PostMessageRequest.sample(), SpringPostMessageMethod("", mockTemplate)),
+            MetaInfo("chat.unfurl", SuccessfulChatUnfurlResponse.sample(), ErrorChatUnfurlResponse.sample(), ChatUnfurlRequest.sample(), SpringUnfurlMethod("", mockTemplate)),
+            MetaInfo("chat.update", SuccessfulChatUpdateResponse.sample(), ErrorChatUpdateResponse.sample(), ChatUpdateRequest.sample(), SpringUpdateMethod("", mockTemplate))
     )
 
 

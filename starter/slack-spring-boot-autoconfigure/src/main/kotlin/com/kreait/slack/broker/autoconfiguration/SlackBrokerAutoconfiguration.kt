@@ -3,7 +3,7 @@ package com.kreait.slack.broker.autoconfiguration
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.BlockActions
 import com.kreait.slack.api.contract.jackson.InteractiveMessage
-import com.kreait.slack.api.spring.DefaultSlackClient
+import com.kreait.slack.api.spring.SpringSlackClient
 import com.kreait.slack.broker.autoconfiguration.credentials.CredentialsProvider
 import com.kreait.slack.broker.autoconfiguration.credentials.DefaultCredentialsProviderChain
 import com.kreait.slack.broker.broker.CommandBroker
@@ -210,12 +210,12 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
 
 
     /**
-     * Registers a [DefaultSlackClient] if no different client is registered
+     * Registers a [SpringSlackClient] if no different client is registered
      */
     @ConditionalOnMissingBean
     @Bean
     open fun slackClient(): SlackClient {
-        return DefaultSlackClient()
+        return SpringSlackClient()
     }
 
     /**

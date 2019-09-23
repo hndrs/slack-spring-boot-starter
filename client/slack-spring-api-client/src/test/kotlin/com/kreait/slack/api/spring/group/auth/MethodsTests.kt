@@ -29,7 +29,7 @@ class MethodsTests {
     fun `methodInvocations`(): List<DynamicTest> = DynamicGroupTests.methodInvocations(testCases = testCases(), mockTemplate = mockTemplate)
 
     private fun testCases() = listOf(
-            MetaInfo("auth.revoke", SuccessfulAuthRevokeResponse.sample(), ErrorAuthRevokeResponse.sample(), AuthRevokeRequest.sample(), DefaultRevokeMethod("", mockTemplate)),
-            MetaInfo("auth.test", SuccessfulAuthTestResponse.sample(), ErrorAuthTestResponse.sample(), "", DefaultTestMethod("", mockTemplate))
+            MetaInfo("auth.revoke", SuccessfulAuthRevokeResponse.sample(), ErrorAuthRevokeResponse.sample(), AuthRevokeRequest.sample(), SpringRevokeMethod("", mockTemplate)),
+            MetaInfo("auth.test", SuccessfulAuthTestResponse.sample(), ErrorAuthTestResponse.sample(), "", SpringTestMethod("", mockTemplate))
     )
 }
