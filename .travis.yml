@@ -57,7 +57,7 @@ jobs:
 
     - stage: publish
       name: "Publish Release"
-      script: echo test
+      script: ./gradlew publish -PisRelease=true
       if: tag IS present AND tag =~ ^v.*$
       on:
         tags: true
