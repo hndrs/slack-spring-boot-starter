@@ -6,17 +6,20 @@ package com.kreait.slack.broker.store.team
 interface TeamStore {
 
     /**
-     * returns a Team by its Id
+     * returns a [Team] by its Id
+     * @param id the teamId you want to find a [Team] for
      */
     fun findById(id: String): Team
 
     /**
-     * Adds a Team to the Database
+     * Adds a [Team] to the Database
+     * @param team the [Team] you want to add
      */
     fun put(team: Team)
 
     /**
-     * removes a Team by its Id
+     * removes a [Team] by its Id
+     * @id the id of the [Team] you want to remove
      */
     fun removeById(id: String)
 }

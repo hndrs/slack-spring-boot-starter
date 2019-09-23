@@ -9,22 +9,29 @@ import java.time.Instant
 interface UserStore {
 
     /**
-     * returns a User by its Id
+     * returns a [User] by its Id
+     * @param id the userId you want to find a [User] for
      */
     fun findById(id: String): User
 
     /**
-     * Adds a User to the Database
+     * Adds a [User] to the Database
+     *
+     * @param users the [User]s you want to add
      */
     fun put(vararg users: User)
 
     /**
-     * returns all users of a Workspace/Team
+     * returns all [User]s of a Workspace/Team
+     * @param teamId the teamId you want to find [User]s for
+     * @param includeDeleted determines whether deleted [User]s should be included
+     * defaults to [false]
      */
     fun findByTeam(teamId: String, includeDeleted: Boolean = false): List<User>
 
     /**
-     * updates a User
+     * updates a [User]
+     * @param newUser the updated [User]
      */
     fun update(newUser: User)
 }

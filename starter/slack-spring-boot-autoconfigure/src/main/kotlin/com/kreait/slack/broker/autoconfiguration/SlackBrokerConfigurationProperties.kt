@@ -103,10 +103,16 @@ open class SlackBrokerConfigurationProperties {
         var team = Team()
         var user = User()
 
+        /**
+         * Team-store property
+         */
         open class Team {
             lateinit var type: Type
         }
 
+        /**
+         * User-store property
+         */
         open class User {
             lateinit var type: Type
         }
