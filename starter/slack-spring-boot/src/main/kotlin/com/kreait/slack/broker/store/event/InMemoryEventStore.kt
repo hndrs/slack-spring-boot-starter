@@ -3,6 +3,11 @@ package com.kreait.slack.broker.store.event
 import com.kreait.slack.api.contract.jackson.EventRequest
 import com.kreait.slack.api.contract.jackson.SlackEvent
 
+/**
+ * Default implementation for the [EventStore]
+ *
+ * @property events
+ */
 class InMemoryEventStore(private val events: MutableMap<String, SlackEvent> = mutableMapOf()) : EventStore {
 
     override fun put(event: EventRequest) {

@@ -11,12 +11,19 @@ import org.springframework.http.HttpHeaders
  * Command Receiver that is invoked when no other commands are matching
  */
 interface MismatchCommandReciever {
-
+    /**
+     * MismatchReceiver that responds with a default error message when no command was found
+     *
+     * @param slackCommand the received slack-command
+     * @param team the team according to that slash-command
+     */
     fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team)
 
 }
 
-
+/**
+ * The Receiver that is invoked when an unknown command was entered
+ */
 class CommandNotFoundReceiver(private val slackClient: SlackClient, private val text: String) : MismatchCommandReciever {
 
     companion object {

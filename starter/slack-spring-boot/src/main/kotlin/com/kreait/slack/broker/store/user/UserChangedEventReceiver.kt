@@ -8,7 +8,9 @@ import com.kreait.slack.broker.store.team.Team
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 
-
+/**
+ * Eventreceiver that updates a user in the registered store when it changes
+ */
 class UserChangedEventReceiver @Autowired constructor(private val userStore: UserStore) : EventReceiver {
 
     override fun supportsEvent(slackEvent: SlackEvent): Boolean {
@@ -21,4 +23,3 @@ class UserChangedEventReceiver @Autowired constructor(private val userStore: Use
         userStore.update(user)
     }
 }
-

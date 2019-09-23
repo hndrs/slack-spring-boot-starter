@@ -29,6 +29,9 @@ interface UserStore {
     fun update(newUser: User)
 }
 
+/**
+ * creates a [User] object out of a [Member]
+ */
 fun userOfMember(member: Member): User {
     return User(member.id, member.teamId, member.name, member.isDeleted, member.color, member.realName,
             member.timezone, member.timezoneLabel, member.timezoneOffset,
@@ -44,6 +47,12 @@ fun userOfMember(member: Member): User {
             member.lastModifiedAt, member.isAppUser, member.has2fa, member.locale)
 }
 
+/**
+ * creates a [User] object out of a [FileUserStore.LocalUser]
+ *
+ * @param localUser
+ * @return
+ */
 fun userOfLocalUser(localUser: FileUserStore.LocalUser): User {
     return User(localUser.id, localUser.teamId, localUser.name, localUser.isDeleted, localUser.color, localUser.realName,
             localUser.timezone, localUser.timezoneLabel, localUser.timezoneOffset,
@@ -60,6 +69,11 @@ fun userOfLocalUser(localUser: FileUserStore.LocalUser): User {
             localUser.lastModifiedAt, localUser.isAppUser, localUser.has2fa, localUser.locale)
 }
 
+/**
+ * Exception that is thrown when the requested user does not exist
+ *
+ * @property message detailed error description
+ */
 class UserNotFoundException(override val message: String?) : RuntimeException(message)
 
 /**
@@ -87,6 +101,9 @@ data class User(val id: String,
                 val locale: String?) {
 
     companion object {}
+    /**
+     * describes the profile of a user
+     */
     data class UserProfile(
             val title: String?,
             val phone: String?,
@@ -101,7 +118,7 @@ data class User(val id: String,
             val statusExpiration: Int,
             val avatarHash: String?,
             val alwaysActive: Boolean,
-            val image_original: String?,
+            val imageOriginal: String?,
             val email: String?,
             val firstName: String?,
             val lastName: String?,
@@ -111,7 +128,7 @@ data class User(val id: String,
             val image72: String?,
             val image192: String?,
             val image512: String?,
-            val image_1024: String?,
+            val image1024: String?,
             val statusTextCanonical: String,
             val team: String
     ) {
