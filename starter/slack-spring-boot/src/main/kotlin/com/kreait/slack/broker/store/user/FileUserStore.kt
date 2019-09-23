@@ -5,7 +5,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.kreait.slack.api.contract.jackson.util.InstantToInt
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
-import com.sun.javaws.exceptions.InvalidArgumentException
 import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -29,7 +28,7 @@ class FileUserStore : UserStore {
          * Methods to set up the directory and the user-storage file
          */
         private fun homeDirectory(): String = System.getProperty("user.home")
-                ?: throw InvalidArgumentException(arrayOf("Unable to load users-file:'user.home' System property is not set."))
+                ?: throw IllegalArgumentException("Unable to load users-file:'user.home' System property is not set.")
 
         private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
 
