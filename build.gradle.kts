@@ -62,7 +62,7 @@ allprojects {
 
     group = "com.kreait.slack"
     version = rootProject.file("version.txt").readText().trim()
-            .plus(if (isRelease?.toBoolean() == true) "" else "-${System.getenv("TRAVIS_BUILD_NUMBER") ?: ""}")
+            .plus(if (isRelease?.toBoolean() == true) "" else "-${System.getenv("TRAVIS_BUILD_NUMBER") ?: ""}-SNAPSHOT")
 
     project.ext {
         set("junitJupiterVersion", "5.4.2")
