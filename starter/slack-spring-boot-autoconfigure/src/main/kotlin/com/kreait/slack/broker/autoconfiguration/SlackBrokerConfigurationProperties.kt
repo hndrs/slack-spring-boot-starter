@@ -100,8 +100,17 @@ open class SlackBrokerConfigurationProperties {
      * Store properties which are used to customise the stores
      */
     open class Store {
+        var team = Team()
+        var user = User()
 
-        lateinit var type: Type
+        open class Team {
+            lateinit var type: Type
+        }
+
+        open class User {
+            lateinit var type: Type
+        }
+
 
         /**
          * StorageType of a Store
@@ -111,4 +120,6 @@ open class SlackBrokerConfigurationProperties {
         }
 
     }
+
+
 }

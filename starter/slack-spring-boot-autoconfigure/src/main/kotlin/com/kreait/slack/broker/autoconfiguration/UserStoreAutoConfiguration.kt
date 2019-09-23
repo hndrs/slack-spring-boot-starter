@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  */
 @EnableConfigurationProperties(SlackBrokerConfigurationProperties::class)
 @Configuration
-open class UserStoreAutoConfiguration : WebMvcConfigurer {
+open class UserStoreAutoConfiguration {
 
     /**
      * Registers the [InMemoryUserStore] if no other is defined and the property [SlackBrokerConfigurationProperties.USER_STORE].type is set to memory
@@ -48,7 +48,7 @@ open class UserStoreAutoConfiguration : WebMvcConfigurer {
      */
     @ConditionalOnBean(UserStore::class)
     @Bean
-    open fun userManager(applicationContext: ApplicationContext, slackClient: SlackClient, userStore: UserStore): UserInstallationReceiver? {
+    open fun userInstallationReceiver(applicationContext: ApplicationContext, slackClient: SlackClient, userStore: UserStore): UserInstallationReceiver? {
         return UserInstallationReceiver(slackClient, userStore)
     }
 
