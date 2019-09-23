@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.kreait.slack.api.contract.jackson.util.InstantToInt
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
+import com.sun.javaws.exceptions.InvalidArgumentException
 import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -28,7 +29,7 @@ class FileUserStore : UserStore {
          * Methods to set up the directory and the user-storage file
          */
         private fun homeDirectory(): String = System.getProperty("user.home")
-                ?: throw Exception("Unable to load users-file:'user.home' System property is not set.")
+                ?: throw InvalidArgumentException(arrayOf("Unable to load users-file:'user.home' System property is not set."))
 
         private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
 
@@ -98,6 +99,9 @@ class FileUserStore : UserStore {
         put(newUser)
     }
 
+    /**
+     * The user-object that is saved to the file
+     */
     data class LocalUser(@field:JsonProperty("id")
                          @get:JsonProperty("id")
                          val id: String,
@@ -159,6 +163,9 @@ class FileUserStore : UserStore {
                          @get:JsonProperty("locale")
                          val locale: String?) {
 
+        /**
+         * The UserProfile that is saved to the file
+         */
         @JacksonDataClass
         data class UserProfile(
                 @field:JsonProperty("title")
@@ -241,14 +248,20 @@ class FileUserStore : UserStore {
                 val team: String
         ) {
             companion object {
+                /**
+                 * creates a [LocalUser.UserProfile] out of an [User.UserProfile]
+                 */
                 fun of(userProfile: User.UserProfile): UserProfile {
-                    return UserProfile(userProfile.title, userProfile.phone, userProfile.skype, userProfile.realName, userProfile.realNameNormalized, userProfile.displayName, userProfile.displayNameNormalized, userProfile.fields, userProfile.statusText, userProfile.statusEmoji, userProfile.statusExpiration, userProfile.avatarHash, userProfile.alwaysActive, userProfile.image_original, userProfile.email, userProfile.firstName, userProfile.lastName,
-                            userProfile.image24, userProfile.image32, userProfile.image48, userProfile.image72, userProfile.image192, userProfile.image512, userProfile.image_1024, userProfile.statusTextCanonical, userProfile.team)
+                    return UserProfile(userProfile.title, userProfile.phone, userProfile.skype, userProfile.realName, userProfile.realNameNormalized, userProfile.displayName, userProfile.displayNameNormalized, userProfile.fields, userProfile.statusText, userProfile.statusEmoji, userProfile.statusExpiration, userProfile.avatarHash, userProfile.alwaysActive, userProfile.imageOriginal, userProfile.email, userProfile.firstName, userProfile.lastName,
+                            userProfile.image24, userProfile.image32, userProfile.image48, userProfile.image72, userProfile.image192, userProfile.image512, userProfile.image1024, userProfile.statusTextCanonical, userProfile.team)
                 }
             }
         }
 
         companion object {
+            /**
+             * creates a [LocalUser] out of an [User]
+             */
             fun of(user: User): LocalUser {
                 return LocalUser(user.id, user.teamId, user.name, user.isDeleted, user.color, user.realName,
                         user.timezone, user.timezoneLabel, user.timezoneOffset, UserProfile.of(user.profile), user.isAdmin,

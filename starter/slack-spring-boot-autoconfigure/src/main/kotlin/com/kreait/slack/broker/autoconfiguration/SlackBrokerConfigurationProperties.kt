@@ -81,6 +81,10 @@ open class SlackBrokerConfigurationProperties {
 
         var mismatch: Mismatch = Mismatch()
 
+        /**
+         * MismatchReceiver that responds with a default error message when no Command was found
+         *
+         */
         open class Mismatch {
 
             /**
@@ -99,6 +103,9 @@ open class SlackBrokerConfigurationProperties {
 
         lateinit var type: Type
 
+        /**
+         * StorageType of a Store
+         */
         enum class Type {
             MEMORY, FILE
         }

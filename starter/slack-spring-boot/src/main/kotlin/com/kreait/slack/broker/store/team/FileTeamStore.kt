@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
+import com.sun.javaws.exceptions.InvalidArgumentException
 import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -27,7 +28,7 @@ class FileTeamStore : TeamStore {
          * Methods to set up the directory and the storage file
          */
         private fun homeDirectory(): String = System.getProperty("user.home")
-                ?: throw Exception("Unable to load team-file:'user.home' System property is not set.")
+                ?: throw InvalidArgumentException(arrayOf("Unable to load team-file:'user.home' System property is not set."))
 
         private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
 
@@ -123,6 +124,9 @@ class FileTeamStore : TeamStore {
 
     }
 
+    /**
+     * Team that is saved to the file
+     */
     @JacksonDataClass
     data class LocalTeam(@field: JsonProperty("team_id")
                          @param: JsonProperty("team_id")
@@ -141,6 +145,9 @@ class FileTeamStore : TeamStore {
                          val bot: Bot) {
         companion object {}
 
+        /**
+         * Bot-object that contains relevant bot-information
+         */
         @JacksonDataClass
         data class Bot(
                 @field: JsonProperty("user_id")
@@ -153,6 +160,9 @@ class FileTeamStore : TeamStore {
             companion object
         }
 
+        /**
+         * Incoming-webhook object that can be used to post messages to a channel without user-interaction
+         */
         @JacksonDataClass
         data class IncomingWebhook(
                 @field:JsonProperty("channel")

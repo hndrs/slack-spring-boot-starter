@@ -8,6 +8,9 @@ import com.kreait.slack.broker.store.team.Team
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 
+/**
+ * EventReceiver that adds a user to the registered store when a new user joins the team
+ */
 class UserJoinedEventReceiver @Autowired constructor(private val userStore: UserStore) : EventReceiver {
 
     override fun supportsEvent(slackEvent: SlackEvent): Boolean {

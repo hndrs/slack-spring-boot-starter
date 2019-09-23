@@ -5,6 +5,9 @@ import com.kreait.slack.broker.store.team.Team
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
 
+/**
+ * Interface which is used to receive slash-commands
+ */
 interface SlashCommandReceiver {
     /**
      * Determines if the implementing receiver should handle the incoming command
