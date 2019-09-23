@@ -66,20 +66,20 @@ class MethodsTests {
     fun methodInvocations(): List<DynamicTest> = DynamicGroupTests.methodInvocations(testCases = testCases(), mockTemplate = mockTemplate)
 
     private fun testCases() = listOf(
-            MetaInfo("channels.kick", SuccessfulChannelKickResponse.sample(), ErrorChannelKickResponse.sample(), ChannelsKickRequest.sample(), DefaultChannelsKickMethod("", mockTemplate)),
-            MetaInfo("channels.mark", SuccessfulChannelsMarkResponse.sample(), ErrorChannelsMarkResponse.sample(), ChannelsMarkRequest.sample(), DefaultChannelsMarkMethod("", mockTemplate)),
-            MetaInfo("channels.archive", SuccessfulChannelArchiveResponse.sample(), ErrorChannelArchiveResponse.sample(), ChannelsArchiveRequest.sample(), DefaultChannelsArchiveMethod("", mockTemplate)),
-            MetaInfo("channels.create", SuccessfulChannelsCreateResponse.sample(), ErrorChannelsCreateResponse.sample(), ChannelsCreateRequest.sample(), DefaultChannelsCreateMethod("", mockTemplate)),
-            MetaInfo("channels.history", SuccessfulChannelsHistoryResponse.sample(), ErrorChannelsHistoryResponse.sample(), ChannelsHistoryRequest.sample(), DefaultChannelsHistoryMethod("", mockTemplate)),
-            MetaInfo("channels.history", SuccessfulChannelsHistoryResponse.sample(), ErrorChannelsHistoryResponse.sample(), ChannelsHistoryRequest.sample(), DefaultChannelsHistoryMethod("", mockTemplate)),
-            MetaInfo("channels.info", SuccessfulChannelInfoResponse.sample(), ErrorChannelInfoResponse.sample(), ChannelsInfoRequest.sample(), DefaultChannelsInfoMethod("", mockTemplate)),
-            MetaInfo("channels.invite", SuccessfulChannelInviteResponse.sample(), ErrorChannelInviteResponse.sample(), ChannelInviteRequest.sample(), DefaultChannelsInviteMethod("", mockTemplate)),
-            MetaInfo("channels.join", SuccessfulChannelsJoinResponse.sample(), ErrorChannelsJoinResponse.sample(), ChannelsJoinRequest.sample(), DefaultChannelsJoinMethod("", mockTemplate)),
-            MetaInfo("channels.leave", SuccessfulChannelsLeaveResponse.sample(), ErrorChannelsLeaveResponse.sample(), ChannelsLeaveRequest.sample(), DefaultChannelsLeaveMethod("", mockTemplate)),
-            MetaInfo("channels.rename", SuccessfulChannelRenameResponse.sample(), ErrorChannelRenameResponse.sample(), ChannelRenameRequest.sample(), DefaultChannelsRenameMethod("", mockTemplate)),
-            MetaInfo("channels.replies", SuccessfulChannelsRepliesResponse.sample(), ErrorChannelsRepliesResponse.sample(), ChannelsRepliesRequest.sample(), DefaultChannelsRepliesMethod("", mockTemplate)),
-            MetaInfo("channels.setPurpose", SuccessfulChannelsSetPurposeResponse.sample(), ErrorChannelsSetPurposeResponse.sample(), ChannelsSetPurposeRequest.sample(), DefaultChannelsSetPurposeMethod("", mockTemplate)),
-            MetaInfo("channels.setTopic", SuccessfulChannelsSetTopicResponse.sample(), ErrorChannelsSetTopicResponse.sample(), ChannelsSetTopicRequest.sample(), DefaultChannelsSetTopicMethod("", mockTemplate)),
-            MetaInfo("channels.unarchive", SuccessfulChannelUnarchiveResponse.sample(), ErrorChannelUnarchiveResponse.sample(), ChannelsUnarchiveRequest.sample(), DefaultChannelsUnarchiveMethod("", mockTemplate))
+            MetaInfo("channels.kick", SuccessfulChannelKickResponse.sample(), ErrorChannelKickResponse.sample(), ChannelsKickRequest.sample(), SpringChannelsKickMethod("", mockTemplate)),
+            MetaInfo("channels.mark", SuccessfulChannelsMarkResponse.sample(), ErrorChannelsMarkResponse.sample(), ChannelsMarkRequest.sample(), SpringChannelsMarkMethod("", mockTemplate)),
+            MetaInfo("channels.archive", SuccessfulChannelArchiveResponse.sample(), ErrorChannelArchiveResponse.sample(), ChannelsArchiveRequest.sample(), SpringChannelsArchiveMethod("", mockTemplate)),
+            MetaInfo("channels.create", SuccessfulChannelsCreateResponse.sample(), ErrorChannelsCreateResponse.sample(), ChannelsCreateRequest.sample(), SpringChannelsCreateMethod("", mockTemplate)),
+            MetaInfo("channels.history", SuccessfulChannelsHistoryResponse.sample(), ErrorChannelsHistoryResponse.sample(), ChannelsHistoryRequest.sample(), SpringChannelsHistoryMethod("", mockTemplate)),
+            MetaInfo("channels.history", SuccessfulChannelsHistoryResponse.sample(), ErrorChannelsHistoryResponse.sample(), ChannelsHistoryRequest.sample(), SpringChannelsHistoryMethod("", mockTemplate)),
+            MetaInfo("channels.info", SuccessfulChannelInfoResponse.sample(), ErrorChannelInfoResponse.sample(), ChannelsInfoRequest.sample(), SpringChannelsInfoMethod("", mockTemplate)),
+            MetaInfo("channels.invite", SuccessfulChannelInviteResponse.sample(), ErrorChannelInviteResponse.sample(), ChannelInviteRequest.sample(), SpringChannelsInviteMethod("", mockTemplate)),
+            MetaInfo("channels.join", SuccessfulChannelsJoinResponse.sample(), ErrorChannelsJoinResponse.sample(), ChannelsJoinRequest.sample(), SpringChannelsJoinMethod("", mockTemplate)),
+            MetaInfo("channels.leave", SuccessfulChannelsLeaveResponse.sample(), ErrorChannelsLeaveResponse.sample(), ChannelsLeaveRequest.sample(), SpringChannelsLeaveMethod("", mockTemplate)),
+            MetaInfo("channels.rename", SuccessfulChannelRenameResponse.sample(), ErrorChannelRenameResponse.sample(), ChannelRenameRequest.sample(), SpringChannelsRenameMethod("", mockTemplate)),
+            MetaInfo("channels.replies", SuccessfulChannelsRepliesResponse.sample(), ErrorChannelsRepliesResponse.sample(), ChannelsRepliesRequest.sample(), SpringChannelsRepliesMethod("", mockTemplate)),
+            MetaInfo("channels.setPurpose", SuccessfulChannelsSetPurposeResponse.sample(), ErrorChannelsSetPurposeResponse.sample(), ChannelsSetPurposeRequest.sample(), SpringChannelsSetPurposeMethod("", mockTemplate)),
+            MetaInfo("channels.setTopic", SuccessfulChannelsSetTopicResponse.sample(), ErrorChannelsSetTopicResponse.sample(), ChannelsSetTopicRequest.sample(), SpringChannelsSetTopicMethod("", mockTemplate)),
+            MetaInfo("channels.unarchive", SuccessfulChannelUnarchiveResponse.sample(), ErrorChannelUnarchiveResponse.sample(), ChannelsUnarchiveRequest.sample(), SpringChannelsUnarchiveMethod("", mockTemplate))
     )
 }

@@ -10,11 +10,11 @@ class RemindersMethodGroupUnitTest() {
 
     @Test
     fun test() {
-        val defaultRemindersMethodGroup = DefaultRemindersMethodGroup()
-        Assertions.assertTrue(defaultRemindersMethodGroup.delete("") is DefaultRemindersDeleteMethod)
-        Assertions.assertTrue(defaultRemindersMethodGroup.list("") is DefaultRemindersListMethod)
-        Assertions.assertTrue(defaultRemindersMethodGroup.info("") is DefaultRemindersInfoMethod)
-        Assertions.assertTrue(defaultRemindersMethodGroup.complete("") is DefaultRemindersCompleteMethod)
-        Assertions.assertTrue(defaultRemindersMethodGroup.add("") is DefaultRemindersAddMethod)
+        val defaultRemindersMethodGroup = SpringRemindersMethodGroup()
+        Assertions.assertTrue(defaultRemindersMethodGroup.delete("") is SpringRemindersDeleteMethod)
+        Assertions.assertTrue(defaultRemindersMethodGroup.list("") is SpringRemindersListMethod)
+        Assertions.assertTrue(defaultRemindersMethodGroup.info("") is SpringRemindersInfoMethod)
+        Assertions.assertTrue(defaultRemindersMethodGroup.complete("") is SpringRemindersCompleteMethod)
+        Assertions.assertTrue(defaultRemindersMethodGroup.add("") is SpringRemindersAddMethod)
     }
 }

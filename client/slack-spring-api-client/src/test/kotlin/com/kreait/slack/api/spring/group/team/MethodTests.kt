@@ -28,6 +28,6 @@ class MethodTests {
     fun methodInvocations(): List<DynamicTest> = DynamicGroupTests.methodInvocations(testCases = testCases(), mockTemplate = mockTemplate)
 
     private fun testCases() = listOf(
-            MetaInfo("team.profile.get", SuccessfulProfileResponse.sample(), ErrorProfileResponse.sample(), ProfileRequest.sample(), DefaultTeamGetProfileMethod("", mockTemplate))
+            MetaInfo("team.profile.get", SuccessfulProfileResponse.sample(), ErrorProfileResponse.sample(), ProfileRequest.sample(), SpringTeamGetProfileMethod("", mockTemplate))
     )
 }

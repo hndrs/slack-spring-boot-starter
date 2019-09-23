@@ -32,10 +32,10 @@ internal class DefaultReminderGroupTest {
     fun methodInvocations(): List<DynamicTest> = DynamicGroupTests.methodInvocations(testCases = testCases(), mockTemplate = mockTemplate)
 
     private fun testCases() = listOf(
-            MetaInfo("reminders.delete", SuccessfulRemindersDeleteResponse.sample(), ErrorRemindersDeleteResponse.sample(), RemindersDeleteRequest.sample(), DefaultRemindersDeleteMethod("", mockTemplate)),
-            MetaInfo("reminders.list", SuccessfulRemindersListResponse.sample(), ErrorRemindersListResponse.sample(), Unit, DefaultRemindersListMethod("", mockTemplate)),
-            MetaInfo("reminders.info", SuccessfulRemindersInfoResponse.sample(), ErrorRemindersInfoResponse.sample(), Unit, DefaultRemindersInfoMethod("", mockTemplate)),
-            MetaInfo("reminders.complete", SuccessfulRemindersCompleteResponse.sample(), ErrorRemindersCompleteResponse.sample(), Unit, DefaultRemindersCompleteMethod("", mockTemplate)),
-            MetaInfo("reminders.add", SuccessfulRemindersAddResponse.sample(), ErrorRemindersAddResponse.sample(), Unit, DefaultRemindersAddMethod("", mockTemplate))
+            MetaInfo("reminders.delete", SuccessfulRemindersDeleteResponse.sample(), ErrorRemindersDeleteResponse.sample(), RemindersDeleteRequest.sample(), SpringRemindersDeleteMethod("", mockTemplate)),
+            MetaInfo("reminders.list", SuccessfulRemindersListResponse.sample(), ErrorRemindersListResponse.sample(), Unit, SpringRemindersListMethod("", mockTemplate)),
+            MetaInfo("reminders.info", SuccessfulRemindersInfoResponse.sample(), ErrorRemindersInfoResponse.sample(), Unit, SpringRemindersInfoMethod("", mockTemplate)),
+            MetaInfo("reminders.complete", SuccessfulRemindersCompleteResponse.sample(), ErrorRemindersCompleteResponse.sample(), Unit, SpringRemindersCompleteMethod("", mockTemplate)),
+            MetaInfo("reminders.add", SuccessfulRemindersAddResponse.sample(), ErrorRemindersAddResponse.sample(), Unit, SpringRemindersAddMethod("", mockTemplate))
     )
 }

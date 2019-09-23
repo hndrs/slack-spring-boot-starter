@@ -26,8 +26,8 @@ import com.kreait.slack.api.contract.jackson.group.usergroups.users.sample
 import com.kreait.slack.api.spring.DynamicGroupTests
 import com.kreait.slack.api.spring.MetaInfo
 import com.kreait.slack.api.spring.group.RestTemplateFactory
-import com.kreait.slack.api.spring.group.usergroups.users.DefaultUsergroupsUsersListMethod
-import com.kreait.slack.api.spring.group.usergroups.users.DefaultUsergroupsUsersUpdateMethod
+import com.kreait.slack.api.spring.group.usergroups.users.SpringUsergroupsUsersListMethod
+import com.kreait.slack.api.spring.group.usergroups.users.SpringUsergroupsUsersUpdateMethod
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.DynamicTest
@@ -48,12 +48,12 @@ class MethodsTests {
     fun methodInvocations(): List<DynamicTest> = DynamicGroupTests.methodInvocations(testCases = testCases(), mockTemplate = mockTemplate)
 
     private fun testCases() = listOf(
-            MetaInfo("usergroups.create", SuccessfulCreateResponse.sample(), ErrorCreateResponse.sample(), CreateRequest.sample(), DefaultUsergroupsCreateMethod("", mockTemplate)),
-            MetaInfo("usergroups.disable", SuccessfulDisableResponse.sample(), ErrorDisableResponse.sample(), DisableRequest.sample(), DefaultUsergroupsDisableMethod("", mockTemplate)),
-            MetaInfo("usergroups.enable", SuccessfulEnableResponse.sample(), ErrorEnableResponse.sample(), EnableRequest.sample(), DefaultUsergroupsEnableMethod("", mockTemplate)),
-            MetaInfo("usergroups.list", SuccessfulListResponse.sample(), ErrorListResponse.sample(), ListRequest.sample(), DefaultUsergroupsListMethod("", mockTemplate)),
-            MetaInfo("usergroups.update", SuccessfulUpdateResponse.sample(), ErrorUpdateResponse.sample(), UpdateRequest.sample(), DefaultUsergroupsUpdateMethod("", mockTemplate)),
-            MetaInfo("usergroups.users.list", SuccessfulUsergroupsUsersListResponse.sample(), ErrorUsergroupsUsersListResponse.sample(), UsergroupsUsersListRequest.sample(), DefaultUsergroupsUsersListMethod("", mockTemplate)),
-            MetaInfo("usergroups.users.update", SuccessfulUsergroupUsersUpdateResponse.sample(), ErrorUsergroupUsersUpdateResponse.sample(), UsergroupUsersUpdateRequest.sample(), DefaultUsergroupsUsersUpdateMethod("", mockTemplate))
+            MetaInfo("usergroups.create", SuccessfulCreateResponse.sample(), ErrorCreateResponse.sample(), CreateRequest.sample(), SpringUsergroupsCreateMethod("", mockTemplate)),
+            MetaInfo("usergroups.disable", SuccessfulDisableResponse.sample(), ErrorDisableResponse.sample(), DisableRequest.sample(), SpringUsergroupsDisableMethod("", mockTemplate)),
+            MetaInfo("usergroups.enable", SuccessfulEnableResponse.sample(), ErrorEnableResponse.sample(), EnableRequest.sample(), SpringUsergroupsEnableMethod("", mockTemplate)),
+            MetaInfo("usergroups.list", SuccessfulListResponse.sample(), ErrorListResponse.sample(), ListRequest.sample(), SpringUsergroupsListMethod("", mockTemplate)),
+            MetaInfo("usergroups.update", SuccessfulUpdateResponse.sample(), ErrorUpdateResponse.sample(), UpdateRequest.sample(), SpringUsergroupsUpdateMethod("", mockTemplate)),
+            MetaInfo("usergroups.users.list", SuccessfulUsergroupsUsersListResponse.sample(), ErrorUsergroupsUsersListResponse.sample(), UsergroupsUsersListRequest.sample(), SpringUsergroupsUsersListMethod("", mockTemplate)),
+            MetaInfo("usergroups.users.update", SuccessfulUsergroupUsersUpdateResponse.sample(), ErrorUsergroupUsersUpdateResponse.sample(), UsergroupUsersUpdateRequest.sample(), SpringUsergroupsUsersUpdateMethod("", mockTemplate))
     )
 }

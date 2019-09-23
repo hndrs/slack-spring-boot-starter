@@ -14,7 +14,7 @@ import com.kreait.slack.api.group.respond.RespondMethodGroup
 import com.kreait.slack.api.group.team.TeamMethodGroup
 import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.group.users.UsersMethodGroup
-import com.kreait.slack.api.spring.DefaultSlackClient
+import com.kreait.slack.api.spring.SpringSlackClient
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -33,7 +33,7 @@ class SlackApiClientAutoConfigurationTests {
                 .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
                 .run {
                     Assertions.assertDoesNotThrow { it.getBean(SlackClient::class.java) }
-                    Assertions.assertTrue(it.getBean(SlackClient::class.java) is DefaultSlackClient)
+                    Assertions.assertTrue(it.getBean(SlackClient::class.java) is SpringSlackClient)
                 }
     }
 

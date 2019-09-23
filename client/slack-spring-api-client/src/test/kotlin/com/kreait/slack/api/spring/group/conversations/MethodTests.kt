@@ -79,23 +79,23 @@ class MethodInvocationTest {
     }
 
     private fun testCases() = listOf(
-            MetaInfo("conversations.archive", SuccessfulConversationArchiveResponse.sample(), ErrorConversationArchiveResponse.sample(), ConversationArchiveRequest.sample(), DefaultConversationsArchiveMethod("", mockTemplate)),
-            MetaInfo("conversations.close", SuccessfulConversationCloseResponse.sample(), ErrorConversationCloseResponse.sample(), ConversationCloseRequest.sample(), DefaultConversationsCloseMethod("", mockTemplate)),
-            MetaInfo("conversations.create", SuccessfulConversationCreateResponse.sample(), ErrorConversationCreateResponse.sample(), ConversationCreateRequest.sample(), DefaultConversationsCreateMethod("", mockTemplate)),
-            MetaInfo("conversations.history", SuccessfulConversationHistoryResponse.sample(), ErrorConversationHistoryResponse.sample(), ConversationsHistoryRequest.sample(), DefaultConversationsHistoryMethod("", mockTemplate)),
-            MetaInfo("conversations.leave", SuccessfulConversationLeaveResponse.sample(), ErrorConversationLeaveResponse.sample(), ConversationsLeaveRequest.sample(), DefaultConversationsLeaveMethod("", mockTemplate)),
-            MetaInfo("conversations.list", SuccessfulConversationListResponse.sample(), ErrorConversationListResponse.sample(), ConversationsListRequest.sample(), DefaultConversationsListMethod("", mockTemplate)),
-            MetaInfo("conversations.members", SuccessfulConversationMembersResponse.sample(), ErrorConversationMembersResponse.sample(), ConversationMembersRequest.sample(), DefaultConversationsMembersMethod("", mockTemplate)),
-            MetaInfo("conversations.open", SuccessfulConversationOpenResponse.sample(), ErrorConversationOpenResponse.sample(), ConversationsOpenRequest.sample(), DefaultConversationsOpenMethod("", mockTemplate)),
-            MetaInfo("conversations.rename", SuccessfulConversationsRenameResponse.sample(), ErrorConversationsRenameResponse.sample(), ConversationsRenameRequest.sample(), DefaultConversationsRenameMethod("", mockTemplate)),
-            MetaInfo("conversations.replies", SuccessfulConversationRepliesResponse.sample(), ErrorConversationRepliesResponse.sample(), ConversationsRepliesRequest.sample(), DefaultConversationsRepliesMethod("", mockTemplate)),
-            MetaInfo("conversations.setPurpose", SuccessfulConversationSetPurposeResponse.sample(), ErrorConversationSetPurposeResponse.sample(), ConversationsSetPurposeRequest.sample(), DefaultConversationsSetPurposeMethod("", mockTemplate)),
-            MetaInfo("conversations.setTopic", SuccessfulConversationSetTopicResponse.sample(), ErrorConversationSetTopicResponse.sample(), ConversationsSetTopicRequest.sample(), DefaultConversationsSetTopicMethod("", mockTemplate)),
-            MetaInfo("conversations.info", SuccessfulConversationsInfoResponse.sample(), ErrorConversationsInfoResponse.sample(), ConversationsInfoRequest.sample(), DefaultConversationsInfoMethod("", mockTemplate)),
-            MetaInfo("conversations.invite", SuccessfulConversationInviteResponse.sample(), ErrorConversationInviteResponse.sample(), ConversationsInviteRequest.sample(), DefaultConversationsInviteMethod("", mockTemplate)),
-            MetaInfo("conversations.join", SuccessfulConversationJoinResponse.sample(), ErrorConversationJoinResponse.sample(), ConversationJoinRequest.sample(), DefaultConversationsJoinMethod("", mockTemplate)),
-            MetaInfo("conversations.kick", SuccessfulConversationKickResponse.sample(), ErrorConversationKickResponse.sample(), ConversationsKickRequest.sample(), DefaultConversationsKickMethod("", mockTemplate)),
-            MetaInfo("conversations.unarchive", SuccessfulConversationUnarchiveResponse.sample(), ErrorConversationUnarchiveResponse.sample(), ConversationArchiveRequest.sample(), DefaultConversationsUnarchiveMethod("", mockTemplate))
+            MetaInfo("conversations.archive", SuccessfulConversationArchiveResponse.sample(), ErrorConversationArchiveResponse.sample(), ConversationArchiveRequest.sample(), SpringConversationsArchiveMethod("", mockTemplate)),
+            MetaInfo("conversations.close", SuccessfulConversationCloseResponse.sample(), ErrorConversationCloseResponse.sample(), ConversationCloseRequest.sample(), SpringConversationsCloseMethod("", mockTemplate)),
+            MetaInfo("conversations.create", SuccessfulConversationCreateResponse.sample(), ErrorConversationCreateResponse.sample(), ConversationCreateRequest.sample(), SpringConversationsCreateMethod("", mockTemplate)),
+            MetaInfo("conversations.history", SuccessfulConversationHistoryResponse.sample(), ErrorConversationHistoryResponse.sample(), ConversationsHistoryRequest.sample(), SpringConversationsHistoryMethod("", mockTemplate)),
+            MetaInfo("conversations.leave", SuccessfulConversationLeaveResponse.sample(), ErrorConversationLeaveResponse.sample(), ConversationsLeaveRequest.sample(), SpringConversationsLeaveMethod("", mockTemplate)),
+            MetaInfo("conversations.list", SuccessfulConversationListResponse.sample(), ErrorConversationListResponse.sample(), ConversationsListRequest.sample(), SpringConversationsListMethod("", mockTemplate)),
+            MetaInfo("conversations.members", SuccessfulConversationMembersResponse.sample(), ErrorConversationMembersResponse.sample(), ConversationMembersRequest.sample(), SpringConversationsMembersMethod("", mockTemplate)),
+            MetaInfo("conversations.open", SuccessfulConversationOpenResponse.sample(), ErrorConversationOpenResponse.sample(), ConversationsOpenRequest.sample(), SpringConversationsOpenMethod("", mockTemplate)),
+            MetaInfo("conversations.rename", SuccessfulConversationsRenameResponse.sample(), ErrorConversationsRenameResponse.sample(), ConversationsRenameRequest.sample(), SpringConversationsRenameMethod("", mockTemplate)),
+            MetaInfo("conversations.replies", SuccessfulConversationRepliesResponse.sample(), ErrorConversationRepliesResponse.sample(), ConversationsRepliesRequest.sample(), SpringConversationsRepliesMethod("", mockTemplate)),
+            MetaInfo("conversations.setPurpose", SuccessfulConversationSetPurposeResponse.sample(), ErrorConversationSetPurposeResponse.sample(), ConversationsSetPurposeRequest.sample(), SpringConversationsSetPurposeMethod("", mockTemplate)),
+            MetaInfo("conversations.setTopic", SuccessfulConversationSetTopicResponse.sample(), ErrorConversationSetTopicResponse.sample(), ConversationsSetTopicRequest.sample(), SpringConversationsSetTopicMethod("", mockTemplate)),
+            MetaInfo("conversations.info", SuccessfulConversationsInfoResponse.sample(), ErrorConversationsInfoResponse.sample(), ConversationsInfoRequest.sample(), SpringConversationsInfoMethod("", mockTemplate)),
+            MetaInfo("conversations.invite", SuccessfulConversationInviteResponse.sample(), ErrorConversationInviteResponse.sample(), ConversationsInviteRequest.sample(), SpringConversationsInviteMethod("", mockTemplate)),
+            MetaInfo("conversations.join", SuccessfulConversationJoinResponse.sample(), ErrorConversationJoinResponse.sample(), ConversationJoinRequest.sample(), SpringConversationsJoinMethod("", mockTemplate)),
+            MetaInfo("conversations.kick", SuccessfulConversationKickResponse.sample(), ErrorConversationKickResponse.sample(), ConversationsKickRequest.sample(), SpringConversationsKickMethod("", mockTemplate)),
+            MetaInfo("conversations.unarchive", SuccessfulConversationUnarchiveResponse.sample(), ErrorConversationUnarchiveResponse.sample(), ConversationArchiveRequest.sample(), SpringConversationsUnarchiveMethod("", mockTemplate))
     )
 
 

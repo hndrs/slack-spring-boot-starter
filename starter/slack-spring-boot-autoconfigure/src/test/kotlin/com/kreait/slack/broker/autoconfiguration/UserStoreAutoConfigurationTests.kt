@@ -1,7 +1,7 @@
 package com.kreait.slack.broker.autoconfiguration
 
 import com.kreait.slack.api.SlackClient
-import com.kreait.slack.api.spring.DefaultSlackClient
+import com.kreait.slack.api.spring.SpringSlackClient
 import com.kreait.slack.broker.store.user.FileUserStore
 import com.kreait.slack.broker.store.user.InMemoryUserStore
 import com.kreait.slack.broker.store.user.User
@@ -95,7 +95,7 @@ class UserStoreAutoConfigurationTests {
     open class SlackConfiguration {
         @Bean
         open fun slackClient(): SlackClient {
-            return DefaultSlackClient()
+            return SpringSlackClient()
         }
     }
 
