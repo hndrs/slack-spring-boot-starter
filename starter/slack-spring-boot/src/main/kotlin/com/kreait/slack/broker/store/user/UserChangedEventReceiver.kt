@@ -19,7 +19,6 @@ class UserChangedEventReceiver @Autowired constructor(private val userStore: Use
         val json = jacksonObjectMapper().writeValueAsString(slackEvent.event["user"] as Map<*, *>)
         val user = userOfMember(jacksonObjectMapper().readValue(json, Member::class.java))
         userStore.update(user)
-        userStore.put(user)
     }
 }
 

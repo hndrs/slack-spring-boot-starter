@@ -24,7 +24,7 @@ interface UserStore {
     fun findByTeam(teamId: String, includeDeleted: Boolean = false): List<User>
 
     /**
-     * removes a User by its Id
+     * updates a User
      */
     fun update(newUser: User)
 }
