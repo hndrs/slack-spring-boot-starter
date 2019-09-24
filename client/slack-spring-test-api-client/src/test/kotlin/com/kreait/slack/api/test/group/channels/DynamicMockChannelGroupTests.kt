@@ -45,20 +45,7 @@ import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsSe
 import com.kreait.slack.api.contract.jackson.group.channels.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
 import com.kreait.slack.api.test.MockMetaInfo
-import com.kreait.slack.api.test.group.channel.MockChannelHistoryMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsArchiveMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsCreateMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsInfoMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsInviteMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsJoinMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsKickMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsLeaveMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsMarkMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsRenameMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsRepliesMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsSetPurposeMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsSetTopicMethod
-import com.kreait.slack.api.test.group.channel.MockChannelsUnarchiveMethod
+import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DynamicTest
@@ -73,20 +60,22 @@ class DynamicMockChannelGroupTests {
     @TestFactory
     fun methodInvocations(): List<DynamicTest> = DynamicMockGroupTests.methodInvocations(testCases = testCases())
 
+    private val client = MockSlackClient()
+
     private fun testCases() = listOf(
-            MockMetaInfo(MockChannelHistoryMethod(), mock { }, SuccessfulChannelsHistoryResponse.sample(), mock { }, ErrorChannelsHistoryResponse.sample(), ChannelsHistoryRequest.sample()),
-            MockMetaInfo(MockChannelsJoinMethod(), mock { }, SuccessfulChannelsJoinResponse.sample(), mock { }, ErrorChannelsJoinResponse.sample(), ChannelsJoinRequest.sample()),
-            MockMetaInfo(MockChannelsKickMethod(), mock { }, SuccessfulChannelKickResponse.sample(), mock { }, ErrorChannelKickResponse.sample(), ChannelsKickRequest.sample()),
-            MockMetaInfo(MockChannelsLeaveMethod(), mock { }, SuccessfulChannelsLeaveResponse.sample(), mock { }, ErrorChannelsLeaveResponse.sample(), ChannelsLeaveRequest.sample()),
-            MockMetaInfo(MockChannelsArchiveMethod(), mock { }, SuccessfulChannelArchiveResponse.sample(), mock { }, ErrorChannelArchiveResponse.sample(), ChannelsArchiveRequest.sample()),
-            MockMetaInfo(MockChannelsCreateMethod(), mock { }, SuccessfulChannelsCreateResponse.sample(), mock { }, ErrorChannelsCreateResponse.sample(), ChannelsCreateRequest.sample()),
-            MockMetaInfo(MockChannelsInfoMethod(), mock { }, SuccessfulChannelInfoResponse.sample(), mock { }, ErrorChannelInfoResponse.sample(), ChannelsInfoRequest.sample()),
-            MockMetaInfo(MockChannelsInviteMethod(), mock { }, SuccessfulChannelInviteResponse.sample(), mock { }, ErrorChannelInviteResponse.sample(), ChannelInviteRequest.sample()),
-            MockMetaInfo(MockChannelsMarkMethod(), mock { }, SuccessfulChannelsMarkResponse.sample(), mock { }, ErrorChannelsMarkResponse.sample(), ChannelsMarkRequest.sample()),
-            MockMetaInfo(MockChannelsRenameMethod(), mock { }, SuccessfulChannelRenameResponse.sample(), mock { }, ErrorChannelRenameResponse.sample(), ChannelRenameRequest.sample()),
-            MockMetaInfo(MockChannelsRepliesMethod(), mock { }, SuccessfulChannelsRepliesResponse.sample(), mock { }, ErrorChannelsRepliesResponse.sample(), ChannelsRepliesRequest.sample()),
-            MockMetaInfo(MockChannelsSetPurposeMethod(), mock { }, SuccessfulChannelsSetPurposeResponse.sample(), mock { }, ErrorChannelsSetPurposeResponse.sample(), ChannelsSetPurposeRequest.sample()),
-            MockMetaInfo(MockChannelsSetTopicMethod(), mock { }, SuccessfulChannelsSetTopicResponse.sample(), mock { }, ErrorChannelsSetTopicResponse.sample(), ChannelsSetTopicRequest.sample()),
-            MockMetaInfo(MockChannelsUnarchiveMethod(), mock { }, SuccessfulChannelUnarchiveResponse.sample(), mock { }, ErrorChannelUnarchiveResponse.sample(), ChannelsUnarchiveRequest.sample())
+            MockMetaInfo({ client.channel().history("") }, mock { }, SuccessfulChannelsHistoryResponse.sample(), mock { }, ErrorChannelsHistoryResponse.sample(), ChannelsHistoryRequest.sample()),
+            MockMetaInfo({ client.channel().join("") }, mock { }, SuccessfulChannelsJoinResponse.sample(), mock { }, ErrorChannelsJoinResponse.sample(), ChannelsJoinRequest.sample()),
+            MockMetaInfo({ client.channel().kick("") }, mock { }, SuccessfulChannelKickResponse.sample(), mock { }, ErrorChannelKickResponse.sample(), ChannelsKickRequest.sample()),
+            MockMetaInfo({ client.channel().leave("") }, mock { }, SuccessfulChannelsLeaveResponse.sample(), mock { }, ErrorChannelsLeaveResponse.sample(), ChannelsLeaveRequest.sample()),
+            MockMetaInfo({ client.channel().archive("") }, mock { }, SuccessfulChannelArchiveResponse.sample(), mock { }, ErrorChannelArchiveResponse.sample(), ChannelsArchiveRequest.sample()),
+            MockMetaInfo({ client.channel().create("") }, mock { }, SuccessfulChannelsCreateResponse.sample(), mock { }, ErrorChannelsCreateResponse.sample(), ChannelsCreateRequest.sample()),
+            MockMetaInfo({ client.channel().info("") }, mock { }, SuccessfulChannelInfoResponse.sample(), mock { }, ErrorChannelInfoResponse.sample(), ChannelsInfoRequest.sample()),
+            MockMetaInfo({ client.channel().invite("") }, mock { }, SuccessfulChannelInviteResponse.sample(), mock { }, ErrorChannelInviteResponse.sample(), ChannelInviteRequest.sample()),
+            MockMetaInfo({ client.channel().mark("") }, mock { }, SuccessfulChannelsMarkResponse.sample(), mock { }, ErrorChannelsMarkResponse.sample(), ChannelsMarkRequest.sample()),
+            MockMetaInfo({ client.channel().rename("") }, mock { }, SuccessfulChannelRenameResponse.sample(), mock { }, ErrorChannelRenameResponse.sample(), ChannelRenameRequest.sample()),
+            MockMetaInfo({ client.channel().replies("") }, mock { }, SuccessfulChannelsRepliesResponse.sample(), mock { }, ErrorChannelsRepliesResponse.sample(), ChannelsRepliesRequest.sample()),
+            MockMetaInfo({ client.channel().setPurpose("") }, mock { }, SuccessfulChannelsSetPurposeResponse.sample(), mock { }, ErrorChannelsSetPurposeResponse.sample(), ChannelsSetPurposeRequest.sample()),
+            MockMetaInfo({ client.channel().setTopic("") }, mock { }, SuccessfulChannelsSetTopicResponse.sample(), mock { }, ErrorChannelsSetTopicResponse.sample(), ChannelsSetTopicRequest.sample()),
+            MockMetaInfo({ client.channel().unarchive("") }, mock { }, SuccessfulChannelUnarchiveResponse.sample(), mock { }, ErrorChannelUnarchiveResponse.sample(), ChannelsUnarchiveRequest.sample())
     )
 }

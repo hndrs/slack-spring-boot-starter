@@ -51,6 +51,7 @@ import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsUnarch
 import com.kreait.slack.api.contract.jackson.group.groups.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
 import com.kreait.slack.api.test.MockMetaInfo
+import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -61,22 +62,24 @@ class DynamicMockGroupTests() {
     @TestFactory
     fun methodInvocations(): List<DynamicTest> = DynamicMockGroupTests.methodInvocations(testCases = testCases())
 
+    private val client = MockSlackClient()
+
     private fun testCases() = listOf(
-            MockMetaInfo(MockGroupsArchiveMethod(), mock { }, SuccessfulGroupsArchiveResponse.sample(), mock { }, ErrorGroupsArchiveResponse.sample(), GroupsArchiveRequest.sample()),
-            MockMetaInfo(MockGroupsHistoryMethod(), mock { }, SuccessfulGroupsHistoryResponse.sample(), mock { }, ErrorGroupsHistoryResponse.sample(), GroupsHistoryRequest.sample()),
-            MockMetaInfo(MockGroupsInfoMethod(), mock { }, SuccessfulGroupsInfoResponse.sample(), mock { }, ErrorGroupsInfoResponse.sample(), GroupsInfoRequest.sample()),
-            MockMetaInfo(MockGroupsInviteMethod(), mock { }, SuccessfulGroupsInviteResponse.sample(), mock { }, ErrorGroupsInviteResponse.sample(), GroupsInviteRequest.sample()),
-            MockMetaInfo(MockGroupsLeaveMethod(), mock { }, SuccessfulGroupsLeaveResponse.sample(), mock { }, ErrorGroupsLeaveResponse.sample(), GroupsLeaveRequest.sample()),
-            MockMetaInfo(MockGroupsOpenMethod(), mock { }, SuccessfulGroupsOpenResponse.sample(), mock { }, ErrorGroupsOpenResponse.sample(), GroupsOpenRequest.sample()),
-            MockMetaInfo(MockGroupsRenameMethod(), mock { }, SuccessfulGroupsRenameResponse.sample(), mock { }, ErrorGroupsRenameResponse.sample(), GroupsRenameRequest.sample()),
-            MockMetaInfo(MockGroupsSetPurposeMethod(), mock { }, SuccessfulGroupsSetPurposeResponse.sample(), mock { }, ErrorGroupsSetPurposeResponse.sample(), GroupsSetPurposeRequest.sample()),
-            MockMetaInfo(MockGroupsSetTopicMethod(), mock { }, SuccessfulGroupsSetTopicResponse.sample(), mock { }, ErrorGroupsSetTopicResponse.sample(), GroupsSetTopicRequest.sample()),
-            MockMetaInfo(MockGroupsCreateMethod(), mock { }, SuccessfulGroupsCreateResponse.sample(), mock { }, ErrorGroupsCreateResponse.sample(), GroupsCreateRequest.sample()),
-            MockMetaInfo(MockGroupsCreateChildMethod(), mock { }, SuccessfulGroupsCreateChildResponse.sample(), mock { }, ErrorGroupsCreateChildResponse.sample(), GroupsCreateChildRequest.sample()),
-            MockMetaInfo(MockGroupsKickMethod(), mock { }, SuccessfulGroupsKickResponse.sample(), mock { }, ErrorGroupsKickResponse.sample(), GroupsKickRequest.sample()),
-            MockMetaInfo(MockGroupsListMethod(), mock { }, SuccessfulGroupsListResponse.sample(), mock { }, ErrorGroupsListResponse.sample(), GroupsListRequest.sample()),
-            MockMetaInfo(MockGroupsRepliesMethod(), mock { }, SuccessfulGroupsRepliesResponse.sample(), mock { }, ErrorGroupsRepliesResponse.sample(), GroupsRepliesRequest.sample()),
-            MockMetaInfo(MockGroupsMarkMethod(), mock { }, SuccessfulGroupsMarkResponse.sample(), mock { }, ErrorGroupsMarkResponse.sample(), GroupsMarkRequest.sample()),
-            MockMetaInfo(MockGroupsUnarchiveMethod(), mock { }, SuccessfulGroupsUnarchiveResponse.sample(), mock { }, ErrorGroupsUnarchiveResponse.sample(), GroupsUnarchiveRequest.sample())
+            MockMetaInfo({ client.groups().archive("") }, mock { }, SuccessfulGroupsArchiveResponse.sample(), mock { }, ErrorGroupsArchiveResponse.sample(), GroupsArchiveRequest.sample()),
+            MockMetaInfo({ client.groups().history("") }, mock { }, SuccessfulGroupsHistoryResponse.sample(), mock { }, ErrorGroupsHistoryResponse.sample(), GroupsHistoryRequest.sample()),
+            MockMetaInfo({ client.groups().info("") }, mock { }, SuccessfulGroupsInfoResponse.sample(), mock { }, ErrorGroupsInfoResponse.sample(), GroupsInfoRequest.sample()),
+            MockMetaInfo({ client.groups().invite("") }, mock { }, SuccessfulGroupsInviteResponse.sample(), mock { }, ErrorGroupsInviteResponse.sample(), GroupsInviteRequest.sample()),
+            MockMetaInfo({ client.groups().leave("") }, mock { }, SuccessfulGroupsLeaveResponse.sample(), mock { }, ErrorGroupsLeaveResponse.sample(), GroupsLeaveRequest.sample()),
+            MockMetaInfo({ client.groups().open("") }, mock { }, SuccessfulGroupsOpenResponse.sample(), mock { }, ErrorGroupsOpenResponse.sample(), GroupsOpenRequest.sample()),
+            MockMetaInfo({ client.groups().rename("") }, mock { }, SuccessfulGroupsRenameResponse.sample(), mock { }, ErrorGroupsRenameResponse.sample(), GroupsRenameRequest.sample()),
+            MockMetaInfo({ client.groups().setPurpose("") }, mock { }, SuccessfulGroupsSetPurposeResponse.sample(), mock { }, ErrorGroupsSetPurposeResponse.sample(), GroupsSetPurposeRequest.sample()),
+            MockMetaInfo({ client.groups().setTopic("") }, mock { }, SuccessfulGroupsSetTopicResponse.sample(), mock { }, ErrorGroupsSetTopicResponse.sample(), GroupsSetTopicRequest.sample()),
+            MockMetaInfo({ client.groups().create("") }, mock { }, SuccessfulGroupsCreateResponse.sample(), mock { }, ErrorGroupsCreateResponse.sample(), GroupsCreateRequest.sample()),
+            MockMetaInfo({ client.groups().createChild("") }, mock { }, SuccessfulGroupsCreateChildResponse.sample(), mock { }, ErrorGroupsCreateChildResponse.sample(), GroupsCreateChildRequest.sample()),
+            MockMetaInfo({ client.groups().kick("") }, mock { }, SuccessfulGroupsKickResponse.sample(), mock { }, ErrorGroupsKickResponse.sample(), GroupsKickRequest.sample()),
+            MockMetaInfo({ client.groups().list("") }, mock { }, SuccessfulGroupsListResponse.sample(), mock { }, ErrorGroupsListResponse.sample(), GroupsListRequest.sample()),
+            MockMetaInfo({ client.groups().replies("") }, mock { }, SuccessfulGroupsRepliesResponse.sample(), mock { }, ErrorGroupsRepliesResponse.sample(), GroupsRepliesRequest.sample()),
+            MockMetaInfo({ client.groups().mark("") }, mock { }, SuccessfulGroupsMarkResponse.sample(), mock { }, ErrorGroupsMarkResponse.sample(), GroupsMarkRequest.sample()),
+            MockMetaInfo({ client.groups().unarchive("") }, mock { }, SuccessfulGroupsUnarchiveResponse.sample(), mock { }, ErrorGroupsUnarchiveResponse.sample(), GroupsUnarchiveRequest.sample())
     )
 }

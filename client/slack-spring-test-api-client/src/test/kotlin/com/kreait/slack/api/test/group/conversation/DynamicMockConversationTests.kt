@@ -54,6 +54,7 @@ import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConve
 import com.kreait.slack.api.contract.jackson.group.conversations.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
 import com.kreait.slack.api.test.MockMetaInfo
+import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -64,23 +65,25 @@ class DynamicMockConversationTests() {
     @TestFactory
     fun methodInvocations(): List<DynamicTest> = DynamicMockGroupTests.methodInvocations(testCases = testCases())
 
+    private val client = MockSlackClient()
+
     private fun testCases() = listOf(
-            MockMetaInfo(MockConversationsArchiveMethod(), mock { }, SuccessfulConversationArchiveResponse.sample(), mock { }, ErrorConversationArchiveResponse.sample(), ConversationArchiveRequest.sample()),
-            MockMetaInfo(MockConversationsClose(), mock { }, SuccessfulConversationCloseResponse.sample(), mock { }, ErrorConversationCloseResponse.sample(), ConversationCloseRequest.sample()),
-            MockMetaInfo(MockConversationsHistoryMethod(), mock { }, SuccessfulConversationHistoryResponse.sample(), mock { }, ErrorConversationHistoryResponse.sample(), ConversationsHistoryRequest.sample()),
-            MockMetaInfo(MockConversationsInfoMethod(), mock { }, SuccessfulConversationsInfoResponse.sample(), mock { }, ErrorConversationsInfoResponse.sample(), ConversationsInfoRequest.sample()),
-            MockMetaInfo(MockConversationsInviteMethod(), mock { }, SuccessfulConversationInviteResponse.sample(), mock { }, ErrorConversationInviteResponse.sample(), ConversationsInviteRequest.sample()),
-            MockMetaInfo(MockConversationsJoinMethod(), mock { }, SuccessfulConversationJoinResponse.sample(), mock { }, ErrorConversationJoinResponse.sample(), ConversationJoinRequest.sample()),
-            MockMetaInfo(MockConversationsLeaveMethod(), mock { }, SuccessfulConversationLeaveResponse.sample(), mock { }, ErrorConversationLeaveResponse.sample(), ConversationsLeaveRequest.sample()),
-            MockMetaInfo(MockConversationsOpenMethod(), mock { }, SuccessfulConversationOpenResponse.sample(), mock { }, ErrorConversationOpenResponse.sample(), ConversationsOpenRequest.sample()),
-            MockMetaInfo(MockConversationsRenameMethod(), mock { }, SuccessfulConversationsRenameResponse.sample(), mock { }, ErrorConversationsRenameResponse.sample(), ConversationsRenameRequest.sample()),
-            MockMetaInfo(MockConversationsSetPurposeMethod(), mock { }, SuccessfulConversationSetPurposeResponse.sample(), mock { }, ErrorConversationSetPurposeResponse.sample(), ConversationsSetPurposeRequest.sample()),
-            MockMetaInfo(MockConversationsSetTopicMethod(), mock { }, SuccessfulConversationSetTopicResponse.sample(), mock { }, ErrorConversationSetTopicResponse.sample(), ConversationsSetTopicRequest.sample()),
-            MockMetaInfo(MockConversationsCreate(), mock { }, SuccessfulConversationCreateResponse.sample(), mock { }, ErrorConversationCreateResponse.sample(), ConversationCreateRequest.sample()),
-            MockMetaInfo(MockConversationsKickMethod(), mock { }, SuccessfulConversationKickResponse.sample(), mock { }, ErrorConversationKickResponse.sample(), ConversationsKickRequest.sample()),
-            MockMetaInfo(MockConversationsListMethod(), mock { }, SuccessfulConversationListResponse.sample(), mock { }, ErrorConversationListResponse.sample(), ConversationsListRequest.sample()),
-            MockMetaInfo(MockConversationsMembersMethod(), mock { }, SuccessfulConversationMembersResponse.sample(), mock { }, ErrorConversationMembersResponse.sample(), ConversationMembersRequest.sample()),
-            MockMetaInfo(MockConversationsRepliesMethod(), mock { }, SuccessfulConversationRepliesResponse.sample(), mock { }, ErrorConversationRepliesResponse.sample(), ConversationsRepliesRequest.sample()),
-            MockMetaInfo(MockConversationsUnarchiveMethod(), mock { }, SuccessfulConversationUnarchiveResponse.sample(), mock { }, ErrorConversationUnarchiveResponse.sample(), ConversationUnarchiveRequest.sample())
+            MockMetaInfo({ client.conversation().archive("") }, mock { }, SuccessfulConversationArchiveResponse.sample(), mock { }, ErrorConversationArchiveResponse.sample(), ConversationArchiveRequest.sample()),
+            MockMetaInfo({ client.conversation().close("") }, mock { }, SuccessfulConversationCloseResponse.sample(), mock { }, ErrorConversationCloseResponse.sample(), ConversationCloseRequest.sample()),
+            MockMetaInfo({ client.conversation().history("") }, mock { }, SuccessfulConversationHistoryResponse.sample(), mock { }, ErrorConversationHistoryResponse.sample(), ConversationsHistoryRequest.sample()),
+            MockMetaInfo({ client.conversation().info("") }, mock { }, SuccessfulConversationsInfoResponse.sample(), mock { }, ErrorConversationsInfoResponse.sample(), ConversationsInfoRequest.sample()),
+            MockMetaInfo({ client.conversation().invite("") }, mock { }, SuccessfulConversationInviteResponse.sample(), mock { }, ErrorConversationInviteResponse.sample(), ConversationsInviteRequest.sample()),
+            MockMetaInfo({ client.conversation().join("") }, mock { }, SuccessfulConversationJoinResponse.sample(), mock { }, ErrorConversationJoinResponse.sample(), ConversationJoinRequest.sample()),
+            MockMetaInfo({ client.conversation().leave("") }, mock { }, SuccessfulConversationLeaveResponse.sample(), mock { }, ErrorConversationLeaveResponse.sample(), ConversationsLeaveRequest.sample()),
+            MockMetaInfo({ client.conversation().open("") }, mock { }, SuccessfulConversationOpenResponse.sample(), mock { }, ErrorConversationOpenResponse.sample(), ConversationsOpenRequest.sample()),
+            MockMetaInfo({ client.conversation().rename("") }, mock { }, SuccessfulConversationsRenameResponse.sample(), mock { }, ErrorConversationsRenameResponse.sample(), ConversationsRenameRequest.sample()),
+            MockMetaInfo({ client.conversation().setPurpose("") }, mock { }, SuccessfulConversationSetPurposeResponse.sample(), mock { }, ErrorConversationSetPurposeResponse.sample(), ConversationsSetPurposeRequest.sample()),
+            MockMetaInfo({ client.conversation().setTopic("") }, mock { }, SuccessfulConversationSetTopicResponse.sample(), mock { }, ErrorConversationSetTopicResponse.sample(), ConversationsSetTopicRequest.sample()),
+            MockMetaInfo({ client.conversation().create("") }, mock { }, SuccessfulConversationCreateResponse.sample(), mock { }, ErrorConversationCreateResponse.sample(), ConversationCreateRequest.sample()),
+            MockMetaInfo({ client.conversation().kick("") }, mock { }, SuccessfulConversationKickResponse.sample(), mock { }, ErrorConversationKickResponse.sample(), ConversationsKickRequest.sample()),
+            MockMetaInfo({ client.conversation().list("") }, mock { }, SuccessfulConversationListResponse.sample(), mock { }, ErrorConversationListResponse.sample(), ConversationsListRequest.sample()),
+            MockMetaInfo({ client.conversation().members("") }, mock { }, SuccessfulConversationMembersResponse.sample(), mock { }, ErrorConversationMembersResponse.sample(), ConversationMembersRequest.sample()),
+            MockMetaInfo({ client.conversation().replies("") }, mock { }, SuccessfulConversationRepliesResponse.sample(), mock { }, ErrorConversationRepliesResponse.sample(), ConversationsRepliesRequest.sample()),
+            MockMetaInfo({ client.conversation().unarchive("") }, mock { }, SuccessfulConversationUnarchiveResponse.sample(), mock { }, ErrorConversationUnarchiveResponse.sample(), ConversationUnarchiveRequest.sample())
     )
 }

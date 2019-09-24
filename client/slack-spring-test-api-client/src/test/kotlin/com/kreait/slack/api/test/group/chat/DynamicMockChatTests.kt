@@ -21,6 +21,7 @@ import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostMessageRes
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
 import com.kreait.slack.api.test.MockMetaInfo
+import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -30,12 +31,14 @@ class DynamicMockChatTests {
     @TestFactory
     fun methodInvocations(): List<DynamicTest> = DynamicMockGroupTests.methodInvocations(testCases = testCases())
 
+    private val client = MockSlackClient()
+
     private fun testCases() = listOf(
-            MockMetaInfo(MockChatDelete(), mock { }, SuccessfulChatDeleteResponse.sample(), mock { }, ErrorChatDeleteResponse.sample(), ChatDeleteRequest.sample()),
-            MockMetaInfo(MockChatGetPermalink(), mock { }, SuccessfulChatGetPermalinkResponse.sample(), mock { }, ErrorChatGetPermalinkResponse.sample(), ChatGetPermalinkRequest.sample()),
-            MockMetaInfo(MockChatMeMessage(), mock { }, SuccessfulChatMeMessageResponse.sample(), mock { }, ErrorChatMeMessageResponse.sample(), ChatMeMessageRequest.sample()),
-            MockMetaInfo(MockChatPostEphemeral(), mock { }, SuccessfulPostEphemeralResponse.sample(), mock { }, ErrorPostEphemeralResponse.sample(), PostEphemeralRequest.sample()),
-            MockMetaInfo(MockChatPostMessage(), mock { }, SuccessfulPostMessageResponse.sample(), mock { }, ErrorPostMessageResponse.sample(), PostMessageRequest.sample()),
-            MockMetaInfo(MockChatUnfurl(), mock { }, SuccessfulChatUnfurlResponse.sample(), mock { }, ErrorChatUnfurlResponse.sample(), ChatUnfurlRequest.sample())
+            MockMetaInfo({ client.chat().delete("") }, mock { }, SuccessfulChatDeleteResponse.sample(), mock { }, ErrorChatDeleteResponse.sample(), ChatDeleteRequest.sample()),
+            MockMetaInfo({ client.chat().getPermalink("") }, mock { }, SuccessfulChatGetPermalinkResponse.sample(), mock { }, ErrorChatGetPermalinkResponse.sample(), ChatGetPermalinkRequest.sample()),
+            MockMetaInfo({ client.chat().meMessage("") }, mock { }, SuccessfulChatMeMessageResponse.sample(), mock { }, ErrorChatMeMessageResponse.sample(), ChatMeMessageRequest.sample()),
+            MockMetaInfo({ client.chat().postEphemeral("") }, mock { }, SuccessfulPostEphemeralResponse.sample(), mock { }, ErrorPostEphemeralResponse.sample(), PostEphemeralRequest.sample()),
+            MockMetaInfo({ client.chat().postMessage("") }, mock { }, SuccessfulPostMessageResponse.sample(), mock { }, ErrorPostMessageResponse.sample(), PostMessageRequest.sample()),
+            MockMetaInfo({ client.chat().unfurl("") }, mock { }, SuccessfulChatUnfurlResponse.sample(), mock { }, ErrorChatUnfurlResponse.sample(), ChatUnfurlRequest.sample())
     )
 }

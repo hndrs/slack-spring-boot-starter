@@ -17,11 +17,11 @@ object DynamicMockGroupTests {
 
 
     private fun test(it: MockMetaInfo) {
-        MockMethodTestHelper.verify({ it.methodProvider as ApiCallMethod<Any?, Any?, Any?, Any> }, it.successFunction, it.successResponse, it.failureFunction, it.failureResponse, it.params)
+        MockMethodTestHelper.verify(it.methodProvider as () -> ApiCallMethod<Any,Any,Any,Any>, it.successFunction, it.successResponse, it.failureFunction, it.failureResponse, it.params)
 
     }
 }
 
 
-data class MockMetaInfo(val methodProvider: Any, val successFunction: (Any?) -> Any, val successResponse: Any, val failureFunction: (Any?) -> Any,
+data class MockMetaInfo(val methodProvider: () -> Any, val successFunction: (Any?) -> Any, val successResponse: Any, val failureFunction: (Any?) -> Any,
                         val failureResponse: Any, val params: Any)
