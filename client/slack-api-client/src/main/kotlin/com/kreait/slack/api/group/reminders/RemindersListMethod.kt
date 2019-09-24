@@ -4,4 +4,8 @@ import com.kreait.slack.api.contract.jackson.group.reminders.ErrorRemindersListR
 import com.kreait.slack.api.contract.jackson.group.reminders.SuccessfulRemindersListResponse
 import com.kreait.slack.api.group.ApiCallMethod
 
+/**
+ * Abstract representation of an slack api operation
+ * https://api.slack.com/methods/reminders.info
+ */
 abstract class RemindersListMethod : ApiCallMethod<RemindersListMethod, SuccessfulRemindersListResponse, ErrorRemindersListResponse, Unit>()

@@ -1,5 +1,10 @@
 package com.kreait.slack.api.group.reminders
 
+/**
+ * Convenience class to handle the reminder operations
+ *
+ *  [Slack Api Documentation](https://api.slack.com/methods)
+ */
 interface RemindersMethodGroup {
 
     /**Deletes a reminder.*/
