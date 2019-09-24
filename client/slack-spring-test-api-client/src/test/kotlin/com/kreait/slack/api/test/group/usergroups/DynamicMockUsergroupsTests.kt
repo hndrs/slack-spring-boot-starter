@@ -25,8 +25,7 @@ import com.kreait.slack.api.contract.jackson.group.usergroups.users.UsergroupsUs
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
 import com.kreait.slack.api.test.MockMetaInfo
-import com.kreait.slack.api.test.group.usergroups.users.MockUsergroupsUsersListMethod
-import com.kreait.slack.api.test.group.usergroups.users.MockUsergroupsUsersUpdateMethod
+import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -36,13 +35,16 @@ class DynamicMockUsergroupsTests {
     @TestFactory
     fun methodInvocations(): List<DynamicTest> = DynamicMockGroupTests.methodInvocations(testCases = testCases())
 
+    private val client = MockSlackClient()
+
+
     private fun testCases() = listOf(
-            MockMetaInfo(MockUsergroupsCreateMethod(), mock {}, SuccessfulCreateResponse.sample(), mock {}, ErrorCreateResponse.sample(), CreateRequest.sample()),
-            MockMetaInfo(MockUsergroupsDisableMethod(), mock {}, SuccessfulDisableResponse.sample(), mock {}, ErrorDisableResponse.sample(), DisableRequest.sample()),
-            MockMetaInfo(MockUsergroupsEnableMethod(), mock {}, SuccessfulEnableResponse.sample(), mock {}, ErrorEnableResponse.sample(), EnableRequest.sample()),
-            MockMetaInfo(MockUsergroupsListMethod(), mock {}, SuccessfulListResponse.sample(), mock {}, ErrorListResponse.sample(), ListRequest.sample()),
-            MockMetaInfo(MockUsergroupsUpdateMethod(), mock {}, SuccessfulUpdateResponse.sample(), mock {}, ErrorUpdateResponse.sample(), UpdateRequest.sample()),
-            MockMetaInfo(MockUsergroupsUsersListMethod(), mock {}, SuccessfulUsergroupsUsersListResponse.sample(), mock {}, ErrorUsergroupsUsersListResponse.sample(), UsergroupsUsersListRequest.sample()),
-            MockMetaInfo(MockUsergroupsUsersUpdateMethod(), mock {}, SuccessfulUsergroupUsersUpdateResponse.sample(), mock {}, ErrorUsergroupUsersUpdateResponse.sample(), UsergroupUsersUpdateRequest.sample())
+            MockMetaInfo({ client.usergroups().create("") }, mock {}, SuccessfulCreateResponse.sample(), mock {}, ErrorCreateResponse.sample(), CreateRequest.sample()),
+            MockMetaInfo({ client.usergroups().disable("") }, mock {}, SuccessfulDisableResponse.sample(), mock {}, ErrorDisableResponse.sample(), DisableRequest.sample()),
+            MockMetaInfo({ client.usergroups().enable("") }, mock {}, SuccessfulEnableResponse.sample(), mock {}, ErrorEnableResponse.sample(), EnableRequest.sample()),
+            MockMetaInfo({ client.usergroups().list("") }, mock {}, SuccessfulListResponse.sample(), mock {}, ErrorListResponse.sample(), ListRequest.sample()),
+            MockMetaInfo({ client.usergroups().update("") }, mock {}, SuccessfulUpdateResponse.sample(), mock {}, ErrorUpdateResponse.sample(), UpdateRequest.sample()),
+            MockMetaInfo({ client.usergroups().listAllUsers("") }, mock {}, SuccessfulUsergroupsUsersListResponse.sample(), mock {}, ErrorUsergroupsUsersListResponse.sample(), UsergroupsUsersListRequest.sample()),
+            MockMetaInfo({ client.usergroups().updateUsers("") }, mock {}, SuccessfulUsergroupUsersUpdateResponse.sample(), mock {}, ErrorUsergroupUsersUpdateResponse.sample(), UsergroupUsersUpdateRequest.sample())
     )
 }

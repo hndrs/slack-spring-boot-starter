@@ -8,6 +8,7 @@ import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthTestRespon
 import com.kreait.slack.api.contract.jackson.group.auth.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
 import com.kreait.slack.api.test.MockMetaInfo
+import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -17,8 +18,10 @@ class DynamicMockTests {
     @TestFactory
     fun methodInvocations(): List<DynamicTest> = DynamicMockGroupTests.methodInvocations(testCases = testCases())
 
+    private val client = MockSlackClient()
+
     private fun testCases() = listOf(
-            MockMetaInfo(MockAuthTestMethod(), mock { }, SuccessfulAuthTestResponse.sample(), mock { }, ErrorAuthTestResponse.sample(), Unit),
-            MockMetaInfo(MockAuthRevokeMethod(), mock { }, SuccessfulAuthRevokeResponse.sample(), mock { }, ErrorAuthRevokeResponse.sample(), AuthRevokeRequest.sample())
+            MockMetaInfo({ client.auth().test("") }, mock { }, SuccessfulAuthTestResponse.sample(), mock { }, ErrorAuthTestResponse.sample(), Unit),
+            MockMetaInfo({ client.auth().revoke("") }, mock { }, SuccessfulAuthRevokeResponse.sample(), mock { }, ErrorAuthRevokeResponse.sample(), AuthRevokeRequest.sample())
     )
 }

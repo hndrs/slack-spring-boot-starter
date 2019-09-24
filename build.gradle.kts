@@ -58,8 +58,6 @@ allprojects {
         from("${rootProject.rootDir}/publish-meta.gradle.kts")
     }
 
-
-
     group = "com.kreait.slack"
     version = rootProject.file("version.txt").readText().trim()
             .plus(if (isRelease?.toBoolean() == true) "" else "-${System.getenv("TRAVIS_BUILD_NUMBER") ?: ""}-SNAPSHOT")
@@ -95,7 +93,7 @@ allprojects {
 subprojects {
 
     val isRelease: String? by project
-
+    val rawVersion = rootProject.file("version.txt").readText().trim()
 
     apply {
         plugin("eclipse")
@@ -112,7 +110,7 @@ subprojects {
     val dokka by tasks.getting(DokkaTask::class) {
         moduleName = project.name
         outputFormat = "html"
-        outputDirectory = "${rootProject.buildDir}/docs/$version/api"
+        outputDirectory = "${rootProject.buildDir}/docs/$rawVersion/api"
     }
 
 

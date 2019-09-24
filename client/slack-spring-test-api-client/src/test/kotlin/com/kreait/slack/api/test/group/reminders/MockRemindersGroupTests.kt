@@ -17,6 +17,7 @@ import com.kreait.slack.api.contract.jackson.group.reminders.SuccessfulReminders
 import com.kreait.slack.api.contract.jackson.group.reminders.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
 import com.kreait.slack.api.test.MockMetaInfo
+import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -26,12 +27,14 @@ class MockRemindersGroupTests {
     @TestFactory
     fun methodInvocations(): List<DynamicTest> = DynamicMockGroupTests.methodInvocations(testCases = testCases())
 
+    private val client = MockSlackClient()
+
     private fun testCases() = listOf(
-            MockMetaInfo(MockRemindersDeleteMethod(), mock { }, SuccessfulRemindersDeleteResponse.sample(), mock { }, ErrorRemindersDeleteResponse.sample(), RemindersDeleteRequest.sample()),
-            MockMetaInfo(MockRemindersListMethod(), mock {}, SuccessfulRemindersListResponse.sample(), mock {}, ErrorRemindersListResponse.sample(), Unit),
-            MockMetaInfo(MockRemindersInfoMethod(), mock {}, SuccessfulRemindersInfoResponse.sample(), mock {}, ErrorRemindersInfoResponse.sample(), RemindersInfoRequest.sample()),
-            MockMetaInfo(MockRemindersCompleteMethod(), mock {}, SuccessfulRemindersCompleteResponse.sample(), mock {}, ErrorRemindersCompleteResponse.sample(), RemindersCompleteRequest.sample()),
-            MockMetaInfo(MockRemindersDeleteMethod(), mock { }, SuccessfulRemindersDeleteResponse.sample(), mock { }, ErrorRemindersDeleteResponse.sample(), RemindersDeleteRequest.sample()),
-            MockMetaInfo(MockRemindersAddMethod(), mock { }, SuccessfulRemindersAddResponse.sample(), mock { }, ErrorRemindersAddResponse.sample(), RemindersAddRequest.sample())
+            MockMetaInfo({ client.reminders().delete("") }, mock { }, SuccessfulRemindersDeleteResponse.sample(), mock { }, ErrorRemindersDeleteResponse.sample(), RemindersDeleteRequest.sample()),
+            MockMetaInfo({ client.reminders().list("") }, mock {}, SuccessfulRemindersListResponse.sample(), mock {}, ErrorRemindersListResponse.sample(), Unit),
+            MockMetaInfo({ client.reminders().info("") }, mock {}, SuccessfulRemindersInfoResponse.sample(), mock {}, ErrorRemindersInfoResponse.sample(), RemindersInfoRequest.sample()),
+            MockMetaInfo({ client.reminders().complete("") }, mock {}, SuccessfulRemindersCompleteResponse.sample(), mock {}, ErrorRemindersCompleteResponse.sample(), RemindersCompleteRequest.sample()),
+            MockMetaInfo({ client.reminders().delete("") }, mock { }, SuccessfulRemindersDeleteResponse.sample(), mock { }, ErrorRemindersDeleteResponse.sample(), RemindersDeleteRequest.sample()),
+            MockMetaInfo({ client.reminders().add("") }, mock { }, SuccessfulRemindersAddResponse.sample(), mock { }, ErrorRemindersAddResponse.sample(), RemindersAddRequest.sample())
     )
 }

@@ -37,6 +37,7 @@ import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetProfileRes
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
 import com.kreait.slack.api.test.MockMetaInfo
+import com.kreait.slack.api.test.MockSlackClient
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -46,18 +47,20 @@ class DynamicUsersGroupTests {
     @TestFactory
     fun methodInvocations(): List<DynamicTest> = DynamicMockGroupTests.methodInvocations(testCases = testCases())
 
+    private val client = MockSlackClient()
+
     private fun testCases() = listOf(
-            MockMetaInfo(MockUserConversationsMethod(), mock { }, SuccessfulConversationsResponse.sample(), mock { }, ErrorConversationsResponse.sample(), ConversationsRequest.sample()),
-            MockMetaInfo(MockUsersDeletePhotoMethod(), mock { }, SuccessfulDeletePhotoResponse.sample(), mock { }, ErrorDeletePhotoResponse.sample(), Unit),
-            MockMetaInfo(MockUsersGetPresenceMethod(), mock { }, SuccessfulGetPresenceResponse.sample(), mock { }, ErrorGetPresenceResponse.sample(), GetPresenceRequest.sample()),
-            MockMetaInfo(MockUsersGetProfileMethod(), mock { }, SuccessfulGetProfileResponse.sample(), mock { }, ErrorGetProfileResponse.sample(), GetProfileRequest.sample()),
-            MockMetaInfo(MockUsersIdentityMethod(), mock { }, SuccessfulIdentityResponse.sample(), mock { }, ErrorIdentityResponse.sample(), Unit),
-            MockMetaInfo(MockUsersInfoMethod(), mock { }, SuccessfulInfoResponse.sample(), mock { }, ErrorInfoResponse.sample(), InfoRequest.sample()),
-            MockMetaInfo(MockUserListMethod(), mock { }, SuccessfulListResponse.sample(), mock { }, ErrorListResponse.sample(), ListRequest.sample()),
-            MockMetaInfo(MockUserListAllMethod(), mock { }, SuccessfulListAllResponse.sample(), mock { }, ErrorListAllResponse.sample(), ListAllRequest.sample()),
-            MockMetaInfo(MockUsersLookupByEmailMethod(), mock { }, SuccessfulLookupByEmailResponse.sample(), mock { }, ErrorLookupByEmailResponse.sample(), LookupByEmailRequest.sample()),
-            MockMetaInfo(MockUsersSetPhotoMethod(), mock { }, SuccessfulSetPhotoResponse.sample(), mock { }, ErrorSetPhotoResponse.sample(), SetPhotoRequest.sample()),
-            MockMetaInfo(MockUsersSetPresenceMethod(), mock { }, SuccessfulSetPresenceResponse.sample(), mock { }, ErrorSetPresenceResponse.sample(), SetPresenceRequest.sample()),
-            MockMetaInfo(MockUsersSetProfileMethod(), mock { }, SuccessfulSetProfileResponse.sample(), mock { }, ErrorSetProfileResponse.sample(), SetProfileRequest.sample())
+            MockMetaInfo({ client.users().conversations("") }, mock { }, SuccessfulConversationsResponse.sample(), mock { }, ErrorConversationsResponse.sample(), ConversationsRequest.sample()),
+            MockMetaInfo({ client.users().deletePhoto("") }, mock { }, SuccessfulDeletePhotoResponse.sample(), mock { }, ErrorDeletePhotoResponse.sample(), Unit),
+            MockMetaInfo({ client.users().getPresence("") }, mock { }, SuccessfulGetPresenceResponse.sample(), mock { }, ErrorGetPresenceResponse.sample(), GetPresenceRequest.sample()),
+            MockMetaInfo({ client.users().getProfile("") }, mock { }, SuccessfulGetProfileResponse.sample(), mock { }, ErrorGetProfileResponse.sample(), GetProfileRequest.sample()),
+            MockMetaInfo({ client.users().identity("") }, mock { }, SuccessfulIdentityResponse.sample(), mock { }, ErrorIdentityResponse.sample(), Unit),
+            MockMetaInfo({ client.users().info("") }, mock { }, SuccessfulInfoResponse.sample(), mock { }, ErrorInfoResponse.sample(), InfoRequest.sample()),
+            MockMetaInfo({ client.users().list("") }, mock { }, SuccessfulListResponse.sample(), mock { }, ErrorListResponse.sample(), ListRequest.sample()),
+            MockMetaInfo({ client.users().listAll("") }, mock { }, SuccessfulListAllResponse.sample(), mock { }, ErrorListAllResponse.sample(), ListAllRequest.sample()),
+            MockMetaInfo({ client.users().lookupByEmail("") }, mock { }, SuccessfulLookupByEmailResponse.sample(), mock { }, ErrorLookupByEmailResponse.sample(), LookupByEmailRequest.sample()),
+            MockMetaInfo({ client.users().setPhoto("") }, mock { }, SuccessfulSetPhotoResponse.sample(), mock { }, ErrorSetPhotoResponse.sample(), SetPhotoRequest.sample()),
+            MockMetaInfo({ client.users().setPresence("") }, mock { }, SuccessfulSetPresenceResponse.sample(), mock { }, ErrorSetPresenceResponse.sample(), SetPresenceRequest.sample()),
+            MockMetaInfo({ client.users().setProfile("") }, mock { }, SuccessfulSetProfileResponse.sample(), mock { }, ErrorSetProfileResponse.sample(), SetProfileRequest.sample())
     )
 }
