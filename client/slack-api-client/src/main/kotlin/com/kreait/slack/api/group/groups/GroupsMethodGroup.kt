@@ -1,5 +1,10 @@
 package com.kreait.slack.api.group.groups
 
+/**
+ * Convenience class to handle the groups operations
+ *
+ *  [Slack Api Documentation](https://api.slack.com/methods)
+ */
 interface GroupsMethodGroup {
 
     /**

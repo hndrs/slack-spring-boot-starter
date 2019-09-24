@@ -5,5 +5,9 @@ import com.kreait.slack.api.contract.jackson.group.groups.GroupsCreateChildReque
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsCreateChildResponse
 import com.kreait.slack.api.group.ApiCallMethod
 
+/**
+ * Abstract representation of an slack api operation
+ * https://api.slack.com/methods/groups.createChild
+ */
 abstract class GroupsCreateChildMethod : ApiCallMethod<GroupsCreateChildMethod, SuccessfulGroupsCreateChildResponse, ErrorGroupsCreateChildResponse, GroupsCreateChildRequest>()
 
