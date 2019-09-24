@@ -1,5 +1,10 @@
 package com.kreait.slack.api.group.chat
 
+/**
+ * Convenience class to handle the chat operations
+ *
+ *  [Slack Api Documentation](https://api.slack.com/methods)
+ */
 interface ChatMethodGroup {
 
     /**
