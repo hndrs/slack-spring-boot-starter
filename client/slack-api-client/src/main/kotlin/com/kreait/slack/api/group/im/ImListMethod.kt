@@ -5,4 +5,8 @@ import com.kreait.slack.api.contract.jackson.group.im.ImListRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImListResponse
 import com.kreait.slack.api.group.ApiCallMethod
 
+/**
+ * Abstract representation of an slack api operation
+ * https://api.slack.com/methods/im.list
+ */
 abstract class ImListMethod : ApiCallMethod<ImListMethod, SuccessfulImListResponse, ErrorImListResponse, ImListRequest>()
