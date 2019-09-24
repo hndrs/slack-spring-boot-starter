@@ -5,6 +5,11 @@ import com.kreait.slack.api.group.oauth.OauthTokenMethod
 import com.kreait.slack.api.spring.group.users.SpringUserMethodGroup
 import org.slf4j.LoggerFactory
 
+/**
+ * Convenience function to apply slack api oauth method grouping
+ *
+ * [Slack Api Documentation](https://api.slack.com/methods)
+ */
 class SpringOauthMethodGroup : OauthMethodGroup {
     override fun token(authToken: String): OauthTokenMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

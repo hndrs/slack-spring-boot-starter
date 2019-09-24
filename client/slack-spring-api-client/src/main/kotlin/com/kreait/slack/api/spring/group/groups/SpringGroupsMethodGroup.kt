@@ -18,6 +18,11 @@ import com.kreait.slack.api.group.groups.GroupsSetPurposeMethod
 import com.kreait.slack.api.group.groups.GroupsSetTopicMethod
 import com.kreait.slack.api.group.groups.GroupsUnarchiveMethod
 
+/**
+ * Convenience function to apply slack api groups method grouping
+ *
+ * [Slack Api Documentation](https://api.slack.com/methods)
+ */
 class SpringGroupsMethodGroup : GroupsMethodGroup {
     override fun archive(authToken: String): GroupsArchiveMethod {
         return SpringGroupsArchiveMethod(authToken)

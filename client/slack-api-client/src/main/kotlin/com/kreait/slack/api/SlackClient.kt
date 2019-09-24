@@ -49,7 +49,6 @@ interface SlackClient {
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-
     fun channel(): ChannelsMethodGroup
 
     /**
@@ -59,6 +58,11 @@ interface SlackClient {
      */
     fun im(): ImMethodGroup
 
+    /**
+     * Convenience function to apply slack api Users method grouping
+     *
+     * [Slack Api Documentation](https://api.slack.com/methods)
+     */
     fun users(): UsersMethodGroup
 
     /**

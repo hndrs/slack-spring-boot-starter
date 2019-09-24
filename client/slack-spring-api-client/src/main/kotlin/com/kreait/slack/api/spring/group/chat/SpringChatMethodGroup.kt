@@ -2,6 +2,11 @@ package com.kreait.slack.api.spring.group.chat
 
 import com.kreait.slack.api.group.chat.ChatMethodGroup
 
+/**
+ * Convenience function to apply slack api chat method grouping
+ *
+ *  [Slack Api Documentation](https://api.slack.com/methods)
+ */
 class SpringChatMethodGroup : ChatMethodGroup {
 
     override fun getPermalink(authToken: String): SpringGetPermalinkMethod {
