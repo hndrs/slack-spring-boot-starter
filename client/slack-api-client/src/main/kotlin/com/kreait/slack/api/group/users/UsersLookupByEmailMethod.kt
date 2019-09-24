@@ -6,7 +6,9 @@ import com.kreait.slack.api.contract.jackson.group.users.SuccessfulLookupByEmail
 import com.kreait.slack.api.group.ApiCallMethod
 
 /**
- * https://api.slack.com/methods/users.lookupByEmail
+ *
+ * Abstract representation of an slack api operation
+ * https://api.slack.com/methods/users.setPhoto
  */
 @Suppress("UNCHECKED_CAST")
 abstract class UsersLookupByEmailMethod : ApiCallMethod<UsersLookupByEmailMethod, SuccessfulLookupByEmailResponse, ErrorLookupByEmailResponse, LookupByEmailRequest>()
