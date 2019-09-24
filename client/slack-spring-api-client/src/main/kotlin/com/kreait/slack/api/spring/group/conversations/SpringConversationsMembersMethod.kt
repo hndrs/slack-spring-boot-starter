@@ -1,17 +1,21 @@
 package com.kreait.slack.api.spring.group.conversations
 
+
+/**
+ * https://api.slack.com/methods/conversations.members
+ */
 import com.kreait.slack.api.contract.jackson.group.conversations.ConversationMembersResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationMembersResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationMembersResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsMembersMethod
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
 /**
- * https://api.slack.com/methods/conversations.members
+ * Spring based implementation of [ConversationsMethodGroup.members]
  */
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsMembersMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsMembersMethod() {

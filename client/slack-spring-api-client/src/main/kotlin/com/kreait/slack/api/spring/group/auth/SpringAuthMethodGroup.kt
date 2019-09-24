@@ -5,6 +5,11 @@ import com.kreait.slack.api.group.auth.AuthRevokeMethod
 import com.kreait.slack.api.group.auth.AuthTestMethod
 import org.slf4j.LoggerFactory
 
+/**
+ * Convenience function to handle the authentication token
+ *
+ *  [Slack Api Documentation](https://api.slack.com/methods)
+ */
 class SpringAuthMethodGroup : AuthGroup {
 
     companion object {

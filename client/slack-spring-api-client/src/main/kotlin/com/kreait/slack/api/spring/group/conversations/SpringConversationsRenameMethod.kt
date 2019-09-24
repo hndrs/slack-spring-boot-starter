@@ -5,12 +5,15 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsRe
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationsRenameResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationsRenameResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsRenameMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Spring based implementation of [ConversationsMethodGroup.rename]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsRenameMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsRenameMethod() {
 

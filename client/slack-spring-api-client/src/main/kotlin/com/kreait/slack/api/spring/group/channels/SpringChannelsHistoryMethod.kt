@@ -10,7 +10,9 @@ import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Spring based implementation of [ChannelsMethodGroup.history]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringChannelsHistoryMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsHistoryMethod() {
 

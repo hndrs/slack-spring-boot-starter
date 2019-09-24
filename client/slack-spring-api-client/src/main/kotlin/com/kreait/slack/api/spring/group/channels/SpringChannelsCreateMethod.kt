@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.channels
 
 
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsCreateResponse
 import com.kreait.slack.api.contract.jackson.group.channels.ChannelsCreateResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsCreateResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsCreateResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsCreateMethod
@@ -10,7 +10,9 @@ import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Spring based implementation of [ChannelsMethodGroup.create]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringChannelsCreateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsCreateMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelsCreateResponse, ErrorChannelsCreateResponse> {

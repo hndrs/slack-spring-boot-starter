@@ -8,8 +8,13 @@ import com.kreait.slack.api.group.groups.GroupsListMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 
 
+
+/**
+ * Spring based implementation of [GroupsMethodGroup.list]
+ */
 @Deprecated("Don't use this legacy method", replaceWith = ReplaceWith("conversations.list"))
 class SpringGroupsListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : GroupsListMethod() {
 

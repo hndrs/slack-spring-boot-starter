@@ -9,6 +9,11 @@ import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
+
+/**
+ * Spring based implementation of [GroupsMethodGroup.invite]
+ */
 class SpringGroupsInviteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : GroupsInviteMethod() {
 
     override fun request(): ApiCallResult<SuccessfulGroupsInviteResponse, ErrorGroupsInviteResponse> {

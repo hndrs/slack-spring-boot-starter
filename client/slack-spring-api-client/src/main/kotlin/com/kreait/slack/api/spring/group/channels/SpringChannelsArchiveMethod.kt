@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.channels
 
 
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelArchiveResponse
 import com.kreait.slack.api.contract.jackson.group.channels.ChannelArchiveResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelArchiveResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelArchiveResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsArchiveMethod
@@ -10,7 +10,9 @@ import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Spring based implementation of [ChannelsMethodGroup.archive]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringChannelsArchiveMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsArchiveMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelArchiveResponse, ErrorChannelArchiveResponse> {

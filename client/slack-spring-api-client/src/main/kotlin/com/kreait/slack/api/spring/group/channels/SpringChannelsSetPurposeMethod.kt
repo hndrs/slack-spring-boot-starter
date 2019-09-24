@@ -11,6 +11,9 @@ import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
+/**
+ * Spring based implementation of [ChannelsMethodGroup.setPurpose]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringChannelsSetPurposeMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsSetPurposeMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelsSetPurposeResponse, ErrorChannelsSetPurposeResponse> {

@@ -5,16 +5,14 @@ import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralRespon
 import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.chat.ChatPostEphemeralMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
 /**
- * Posts a Ephemeral message to a channel which is only visible to a specific user
- * @param config the configuration of the Slackclient
- * @return the API Call Method containing the ResponseEntities
+ * Spring based implementation of [ChatMethodGroup.postEphemeral]
  */
 @Suppress("UNCHECKED_CAST")
 class SpringPostEphemeralMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatPostEphemeralMethod() {

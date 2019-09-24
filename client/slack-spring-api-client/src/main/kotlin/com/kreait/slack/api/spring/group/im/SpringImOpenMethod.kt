@@ -1,10 +1,10 @@
 package com.kreait.slack.api.spring.group.im
 
-
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImOpenResponse
 import com.kreait.slack.api.contract.jackson.group.im.ImOpenResponse
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImOpenResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.im.ImOpenMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate
 
 
 /**
- * https://api.slack.com/methods/im.open
+ * Spring based implementation of [ImMethodGroup.open]
  */
 @Suppress("UNCHECKED_CAST")
 class SpringImOpenMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ImOpenMethod() {

@@ -8,8 +8,11 @@ import com.kreait.slack.api.group.groups.GroupsArchiveMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 
-@Suppress("UNCHECKED_CAST")
+/**
+ * Spring based implementation of [GroupsMethodGroup.archive]
+ */
 class SpringGroupsArchiveMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : GroupsArchiveMethod() {
 
     override fun request(): ApiCallResult<SuccessfulGroupsArchiveResponse, ErrorGroupsArchiveResponse> {

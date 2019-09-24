@@ -9,6 +9,11 @@ import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
+
+/**
+ * Spring based implementation of [GroupsMethodGroup.setPurpose]
+ */
 class SpringGroupsSetPurposeMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : GroupsSetPurposeMethod() {
 
     override fun request(): ApiCallResult<SuccessfulGroupsSetPurposeResponse, ErrorGroupsSetPurposeResponse> {

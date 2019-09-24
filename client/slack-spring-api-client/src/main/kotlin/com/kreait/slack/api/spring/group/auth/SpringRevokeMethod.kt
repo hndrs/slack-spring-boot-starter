@@ -1,17 +1,19 @@
 package com.kreait.slack.api.spring.group.auth
 
 
-import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthRevokeResponse
 import com.kreait.slack.api.contract.jackson.group.auth.AuthRevokeResponse
+import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthRevokeResponse
 import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthRevokeResponse
-import com.kreait.slack.api.contract.jackson.group.chat.ParseType
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.auth.AuthRevokeMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Revokes a token.
+ * https://api.slack.com/methods/auth.revoke
+ */
 class SpringRevokeMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : AuthRevokeMethod() {
 
     override fun request(): ApiCallResult<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse> {

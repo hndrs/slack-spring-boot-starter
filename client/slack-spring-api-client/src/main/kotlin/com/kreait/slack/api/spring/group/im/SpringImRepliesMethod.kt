@@ -1,10 +1,10 @@
 package com.kreait.slack.api.spring.group.im
 
-
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImRepliesResponse
 import com.kreait.slack.api.contract.jackson.group.im.ImRepliesResponse
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImRepliesResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.im.ImRepliesMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
@@ -12,9 +12,8 @@ import org.springframework.web.client.RestTemplate
 
 
 /**
- * https://api.slack.com/methods/im.replies
+ * Spring based implementation of [ImMethodGroup.replies]
  */
-
 @Suppress("UNCHECKED_CAST")
 class SpringImRepliesMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ImRepliesMethod() {
     override fun request(): ApiCallResult<SuccessfulImRepliesResponse, ErrorImRepliesResponse> {

@@ -4,11 +4,15 @@ import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsUnarchiveRe
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsUnarchiveResponse
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsUnarchiveResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.groups.GroupsUnarchiveMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+/**
+ * Spring based implementation of [GroupsMethodGroup.unarchive]
+ */
 class SpringGroupsUnarchiveMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : GroupsUnarchiveMethod() {
 
     override fun request(): ApiCallResult<SuccessfulGroupsUnarchiveResponse, ErrorGroupsUnarchiveResponse> {

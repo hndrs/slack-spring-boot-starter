@@ -5,12 +5,15 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ConversationRep
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationRepliesResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationRepliesResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsRepliesMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Spring based implementation of [ConversationsMethodGroup.replies]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsRepliesMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsRepliesMethod() {
 
