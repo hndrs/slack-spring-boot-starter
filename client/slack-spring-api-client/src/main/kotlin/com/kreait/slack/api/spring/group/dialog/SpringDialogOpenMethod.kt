@@ -9,8 +9,11 @@ import com.kreait.slack.api.group.dialog.DialogOpenMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
+import com.kreait.slack.api.group.dialog.DialogMethodGroup
 
-
+/**
+ * Spring based implementation of [DialogMethodGroup.open]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringDialogOpenMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : DialogOpenMethod() {
 

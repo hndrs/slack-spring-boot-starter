@@ -9,10 +9,11 @@ import com.kreait.slack.api.group.im.ImCloseMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
+import com.kreait.slack.api.group.im.ImMethodGroup
 
 
 /**
- * https://api.slack.com/methods/im.close
+ * Spring based implementation of [ImMethodGroup.close]
  */
 @Suppress("UNCHECKED_CAST")
 class SpringImCloseMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ImCloseMethod() {

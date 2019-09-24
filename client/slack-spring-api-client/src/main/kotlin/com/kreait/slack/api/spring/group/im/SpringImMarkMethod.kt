@@ -1,20 +1,19 @@
 package com.kreait.slack.api.spring.group.im
 
-
 import com.kreait.slack.api.contract.jackson.group.im.ErrorImMarkResponse
 import com.kreait.slack.api.contract.jackson.group.im.ImMarkResponse
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImMarkResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImMarkMethod
+import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
 /**
- * https://api.slack.com/methods/im.mark
+ * Spring based implementation of [ImMethodGroup.mark]
  */
-
 @Suppress("UNCHECKED_CAST")
 class SpringImMarkMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ImMarkMethod() {
 

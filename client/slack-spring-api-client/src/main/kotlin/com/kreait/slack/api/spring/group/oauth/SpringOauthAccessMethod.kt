@@ -1,16 +1,19 @@
 package com.kreait.slack.api.spring.group.oauth
 
 
-import com.kreait.slack.api.contract.jackson.group.oauth.ErrorAccessResponse
 import com.kreait.slack.api.contract.jackson.group.oauth.AccessResponse
+import com.kreait.slack.api.contract.jackson.group.oauth.ErrorAccessResponse
 import com.kreait.slack.api.contract.jackson.group.oauth.SuccessfullAccessResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.oauth.OauthAccessMethod
+import com.kreait.slack.api.group.oauth.OauthMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Spring based implementation of [OauthMethodGroup.access]
+*/
 @Suppress("UNCHECKED_CAST")
 class SpringOauthAccessMethod(private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : OauthAccessMethod() {
 

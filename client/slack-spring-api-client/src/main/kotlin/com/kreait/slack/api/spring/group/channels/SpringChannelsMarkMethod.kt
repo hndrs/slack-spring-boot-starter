@@ -11,6 +11,9 @@ import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
+/**
+ * Spring based implementation of [ChannelsMethodGroup.mark]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringChannelsMarkMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsMarkMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelsMarkResponse, ErrorChannelsMarkResponse> {

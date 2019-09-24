@@ -10,7 +10,10 @@ import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Checks authentication & identity.
+ * https://api.slack.com/methods/auth.test
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringTestMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : AuthTestMethod() {
 

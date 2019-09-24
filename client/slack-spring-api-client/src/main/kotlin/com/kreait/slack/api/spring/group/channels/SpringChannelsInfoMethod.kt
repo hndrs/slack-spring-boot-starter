@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.channels
 
 
-import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelInfoResponse
 import com.kreait.slack.api.contract.jackson.group.channels.ChannelInfoResponse
+import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelInfoResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelInfoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsInfoMethod
@@ -10,7 +10,9 @@ import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Spring based implementation of [ChannelsMethodGroup.info]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringChannelsInfoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsInfoMethod() {
 

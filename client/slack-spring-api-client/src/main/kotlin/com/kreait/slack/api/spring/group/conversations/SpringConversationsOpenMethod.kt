@@ -5,12 +5,15 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ConversationOpe
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationOpenResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationOpenResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsOpenMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Spring based implementation of [ConversationsMethodGroup.open]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsOpenMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsOpenMethod() {
 

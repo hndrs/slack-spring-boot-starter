@@ -5,11 +5,15 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ConversationUna
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationUnarchiveResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationUnarchiveResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsUnarchiveMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+/**
+ * Spring based implementation of [ConversationsMethodGroup.unarchive]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsUnarchiveMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsUnarchiveMethod() {
 

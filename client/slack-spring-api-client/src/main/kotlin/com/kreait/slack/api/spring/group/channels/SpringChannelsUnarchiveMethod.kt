@@ -11,6 +11,9 @@ import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
+/**
+ * Spring based implementation of [ChannelsMethodGroup.unarchive]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringChannelsUnarchiveMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsUnarchiveMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelUnarchiveResponse, ErrorChannelUnarchiveResponse> {

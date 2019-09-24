@@ -1,16 +1,19 @@
 package com.kreait.slack.api.spring.group.chat
 
 
-import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatDeleteResponse
 import com.kreait.slack.api.contract.jackson.group.chat.ChatDeleteResponse
+import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatDeleteResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatDeleteResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatDeleteMethod
+import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Spring based implementation of [ChatMethodGroup.delete]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringDeleteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatDeleteMethod() {
 

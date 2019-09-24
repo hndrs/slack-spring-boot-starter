@@ -6,11 +6,15 @@ import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatMeMessageRespon
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatMeMessageResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatMeMessageMethod
+import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
+/**
+ * Spring based implementation of [ChatMethodGroup.meMessage]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringMeMessageMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatMeMessageMethod() {
 

@@ -1,16 +1,20 @@
 package com.kreait.slack.api.spring.group.chat
 
 
-import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatUpdateResponse
 import com.kreait.slack.api.contract.jackson.group.chat.ChatUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatUpdateResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatUpdateResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.chat.ChatUpdateMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
+/**
+ * Spring based implementation of [ChatMethodGroup.update]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringUpdateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatUpdateMethod() {
 

@@ -11,6 +11,9 @@ import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
+/**
+ * Spring based implementation of [ChannelsMethodGroup.replies]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringChannelsRepliesMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChannelsRepliesMethod() {
     override fun request(): ApiCallResult<SuccessfulChannelsRepliesResponse, ErrorChannelsRepliesResponse> {

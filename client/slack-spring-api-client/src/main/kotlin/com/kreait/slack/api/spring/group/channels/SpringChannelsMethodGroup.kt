@@ -72,7 +72,7 @@ class SpringChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     companion object {
-        val LOG = LoggerFactory.getLogger(SpringChannelsMethodGroup::class.java)
+        val LOG = LoggerFactory.getLogger(ChannelsMethodGroup::class.java)
     }
 
     override fun info(authToken: String): ChannelsInfoMethod {

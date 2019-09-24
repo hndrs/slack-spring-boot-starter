@@ -4,11 +4,15 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ConversationSet
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationSetTopicResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationSetTopicResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsSetTopicMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+/**
+ * Spring based implementation of [ConversationsMethodGroup.setTopic]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsSetTopicMethod(private val authToken: String,
                                         private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate())

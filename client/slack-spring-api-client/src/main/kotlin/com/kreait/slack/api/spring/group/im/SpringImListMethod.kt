@@ -6,13 +6,14 @@ import com.kreait.slack.api.contract.jackson.group.im.ImListResponse
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImListResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImListMethod
+import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
 /**
- * https://api.slack.com/methods/im.List
+ * Spring based implementation of [ImMethodGroup.list]
  */
 @Suppress("UNCHECKED_CAST")
 class SpringImListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ImListMethod() {

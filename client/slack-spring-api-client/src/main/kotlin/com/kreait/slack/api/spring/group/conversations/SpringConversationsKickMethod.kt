@@ -5,12 +5,16 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversati
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationKickResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsKickMethod
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+/**
+ * Spring based implementation of [ConversationsMethodGroup.kick]
+ */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsKickMethod (private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsKickMethod() {
+class SpringConversationsKickMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsKickMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationKickResponse, ErrorConversationKickResponse> {
         val response = SlackRequestBuilder<ConversationsKickResponse>(authToken, restTemplate)
