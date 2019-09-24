@@ -1,7 +1,11 @@
 package com.kreait.slack.api.group.channels
 
+/**
+ * Convenience class to handle the channel operations
+ *
+ *  [Slack Api Documentation](https://api.slack.com/methods)
+ */
 interface ChannelsMethodGroup {
-
 
     /**Archives a channel.*/
     fun archive(authToken: String): ChannelsArchiveMethod
