@@ -16,7 +16,7 @@ class SpringUsergroupMethodGroup : UsergroupsMethodGroup {
         val LOG = LoggerFactory.getLogger(SpringUsergroupMethodGroup::class.java)
     }
 
-    override fun usersUpdate(authToken: String) = SpringUsergroupsUsersUpdateMethod(authToken)
+    override fun updateUsers(authToken: String) = SpringUsergroupsUsersUpdateMethod(authToken)
 
     override fun create(authToken: String) = SpringUsergroupsCreateMethod(authToken)
 
@@ -26,7 +26,7 @@ class SpringUsergroupMethodGroup : UsergroupsMethodGroup {
 
     override fun disable(authToken: String) = SpringUsergroupsDisableMethod(authToken)
 
-    override fun usersList(authToken: String) = SpringUsergroupsUsersListMethod(authToken)
+    override fun listAllUsers(authToken: String) = SpringUsergroupsUsersListMethod(authToken)
 
     override fun enable(authToken: String) = SpringUsergroupsEnableMethod(authToken)
 }
