@@ -15,6 +15,6 @@ internal class ApiCallResultTest {
     @Test
     fun wasFailure() {
         assertTrue(ApiCallResult<String, String>(failure = "").wasFailure())
-        assertFalse(ApiCallResult<String, String>(success = "").wasSuccess())
+        assertFalse(ApiCallResult<String, String>(failure = "").wasSuccess())
     }
 }
