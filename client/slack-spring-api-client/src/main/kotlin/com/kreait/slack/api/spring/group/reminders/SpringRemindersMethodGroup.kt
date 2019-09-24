@@ -7,6 +7,11 @@ import com.kreait.slack.api.group.reminders.RemindersInfoMethod
 import com.kreait.slack.api.group.reminders.RemindersListMethod
 import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 
+/**
+ * Convenience function to apply slack api reminders method grouping
+ *
+ * [Slack Api Documentation](https://api.slack.com/methods)
+ */
 class SpringRemindersMethodGroup : RemindersMethodGroup {
 
     override fun delete(authToken: String): RemindersDeleteMethod {

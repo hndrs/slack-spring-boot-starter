@@ -8,6 +8,11 @@ import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.im.ImRepliesMethod
 import org.slf4j.LoggerFactory
 
+/**
+ * Convenience function to apply slack api im method grouping
+ *
+ * [Slack Api Documentation](https://api.slack.com/methods)
+ */
 class SpringImMethodGroup : ImMethodGroup {
 
     companion object {

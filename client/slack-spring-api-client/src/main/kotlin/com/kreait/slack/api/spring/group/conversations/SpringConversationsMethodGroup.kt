@@ -17,6 +17,11 @@ import com.kreait.slack.api.group.conversations.ConversationsSetTopicMethod
 import com.kreait.slack.api.group.conversations.ConversationsUnarchiveMethod
 import org.slf4j.LoggerFactory
 
+/**
+ * Convenience function to apply slack api conversation method grouping
+ *
+ * [Slack Api Documentation](https://api.slack.com/methods)
+ */
 class SpringConversationsMethodGroup : ConversationsMethodGroup {
     override fun close(authToken: String): ConversationsCloseMethod {
         return SpringConversationsCloseMethod(authToken)

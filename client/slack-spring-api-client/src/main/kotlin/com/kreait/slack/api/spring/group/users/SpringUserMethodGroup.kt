@@ -13,6 +13,11 @@ import com.kreait.slack.api.group.users.UsersSetPresenceMethod
 import com.kreait.slack.api.group.users.UsersSetProfileMethod
 import org.slf4j.LoggerFactory
 
+/**
+ * Convenience function to apply slack api Users method grouping
+ *
+ * [Slack Api Documentation](https://api.slack.com/methods)
+ */
 class SpringUserMethodGroup : UsersMethodGroup {
 
     companion object {

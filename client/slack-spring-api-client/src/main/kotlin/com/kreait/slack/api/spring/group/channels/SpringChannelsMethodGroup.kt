@@ -17,6 +17,11 @@ import com.kreait.slack.api.group.channels.ChannelsSetTopicMethod
 import com.kreait.slack.api.group.channels.ChannelsUnarchiveMethod
 import org.slf4j.LoggerFactory
 
+/**
+ * Convenience function to apply slack api channel method grouping
+ *
+ * [Slack Api Documentation](https://api.slack.com/methods)
+ */
 class SpringChannelsMethodGroup : ChannelsMethodGroup {
 
     override fun archive(authToken: String): ChannelsArchiveMethod {
@@ -36,7 +41,7 @@ class SpringChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun join(authToken: String): ChannelsJoinMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO(NOT_IMPLEMENTED) //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun kick(authToken: String): ChannelsKickMethod {
@@ -52,7 +57,7 @@ class SpringChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun rename(authToken: String): ChannelsRenameMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO(NOT_IMPLEMENTED) //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun replies(authToken: String): ChannelsRepliesMethod {
@@ -68,11 +73,12 @@ class SpringChannelsMethodGroup : ChannelsMethodGroup {
     }
 
     override fun unarchive(authToken: String): ChannelsUnarchiveMethod {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO(NOT_IMPLEMENTED) //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object {
         val LOG = LoggerFactory.getLogger(ChannelsMethodGroup::class.java)
+        private const val NOT_IMPLEMENTED = "not implemented"
     }
 
     override fun info(authToken: String): ChannelsInfoMethod {

@@ -5,6 +5,11 @@ import com.kreait.slack.api.spring.group.usergroups.users.SpringUsergroupsUsersL
 import com.kreait.slack.api.spring.group.usergroups.users.SpringUsergroupsUsersUpdateMethod
 import org.slf4j.LoggerFactory
 
+/**
+ * Convenience function to apply slack api Usergroups method grouping
+ *
+ * [Slack Api Documentation](https://api.slack.com/methods)
+ */
 class SpringUsergroupMethodGroup : UsergroupsMethodGroup {
 
     companion object {
