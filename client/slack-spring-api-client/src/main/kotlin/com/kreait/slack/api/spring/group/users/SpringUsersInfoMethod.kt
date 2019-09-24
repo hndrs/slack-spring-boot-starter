@@ -6,11 +6,15 @@ import com.kreait.slack.api.contract.jackson.group.users.InfoResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulInfoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersInfoMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
+/**
+ * Spring based implementation of [UsersMethodGroup.info]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringUsersInfoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersInfoMethod() {
 

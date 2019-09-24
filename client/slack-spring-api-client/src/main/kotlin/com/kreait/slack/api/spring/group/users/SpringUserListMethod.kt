@@ -9,6 +9,12 @@ import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+import com.kreait.slack.api.group.users.UsersMethodGroup
+
+
+/**
+ * Spring based implementation of [UsersMethodGroup.list]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringUserListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UserListMethod() {
 

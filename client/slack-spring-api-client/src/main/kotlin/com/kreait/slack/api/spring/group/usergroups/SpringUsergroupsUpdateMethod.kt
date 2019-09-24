@@ -4,13 +4,20 @@ import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorUpdateRespons
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulUpdateResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.UpdateResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.group.usergroups.UsergroupsUpdateMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 /**
- * https://api.slack.com/methods/usergroups.update
+ * Spring based implementation of [UsergroupsMethodGroup.update]
+ */
+import com.kreait.slack.api.group.users.UsersMethodGroup
+
+
+/**
+ * Spring based implementation of [UsersMethodGroup.conversations]
  */
 @Suppress("UNCHECKED_CAST")
 class SpringUsergroupsUpdateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsergroupsUpdateMethod() {

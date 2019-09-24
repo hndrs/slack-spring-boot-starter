@@ -1,16 +1,19 @@
 package com.kreait.slack.api.spring.group.users
 
 
+import com.kreait.slack.api.contract.jackson.group.users.ConversationsResponse
 import com.kreait.slack.api.contract.jackson.group.users.ErrorConversationsResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulConversationsResponse
-import com.kreait.slack.api.contract.jackson.group.users.ConversationsResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UserConversationsMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
-
+/**
+ * Spring based implementation of [UsersMethodGroup.conversations]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringUserConversationsMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UserConversationsMethod() {
 

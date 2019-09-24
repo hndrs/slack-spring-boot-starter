@@ -1,9 +1,14 @@
 package com.kreait.slack.api.spring.group.users
 
+
+/**
+ * https://api.slack.com/methods/users.setPhoto
+ */
 import com.kreait.slack.api.contract.jackson.group.users.ErrorSetPhotoResponse
 import com.kreait.slack.api.contract.jackson.group.users.SetPhotoResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulSetPhotoResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.group.users.UsersSetPhotoMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
@@ -14,7 +19,7 @@ import java.io.File
 
 
 /**
- * https://api.slack.com/methods/users.setPhoto
+ * Spring based implementation of [UsersMethodGroup.setPhoto]
  */
 @Suppress("UNCHECKED_CAST")
 class SpringUsersSetPhotoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersSetPhotoMethod() {

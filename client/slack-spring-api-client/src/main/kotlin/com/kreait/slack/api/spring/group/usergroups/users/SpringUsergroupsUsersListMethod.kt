@@ -4,11 +4,23 @@ import com.kreait.slack.api.contract.jackson.group.usergroups.users.ErrorUsergro
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.SuccessfulUsergroupsUsersListResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.UsergroupsUsersListResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.group.usergroups.users.UsergroupsUsersListMethod
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+
+/**
+ * Spring based implementation of [UsergroupsMethodGroup.usersList]
+ */
+import com.kreait.slack.api.group.users.UsersMethodGroup
+
+
+/**
+ * Spring based implementation of [UsersMethodGroup.conversations]
+ */
+@Suppress("UNCHECKED_CAST")
 class SpringUsergroupsUsersListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsergroupsUsersListMethod() {
 
     override fun request(): ApiCallResult<SuccessfulUsergroupsUsersListResponse, ErrorUsergroupsUsersListResponse> {
