@@ -1,5 +1,8 @@
 package com.kreait.slack.api.group
 
+/**
+ * Abstract Class that represents an api interaction with the slack api
+ */
 @Suppress("UNCHECKED_CAST")
 abstract class ApiCallMethod<Builder, Success, Failure, Params : Any> {
 

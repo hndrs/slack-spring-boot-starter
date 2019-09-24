@@ -14,6 +14,9 @@ import com.kreait.slack.api.group.team.TeamMethodGroup
 import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.group.users.UsersMethodGroup
 
+/**
+ * Slack client specification to interact with the slack api
+ */
 interface SlackClient {
 
     /**

@@ -5,6 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsSetPurp
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsSetPurposeResponse
 import com.kreait.slack.api.group.ApiCallMethod
 
+/**
+ * Abstract representation of an slack api operation
+ * Sets the purpose for a channel.
+ * https://api.slack.com/methods/channels.setPurpose
+ */
 abstract class ChannelsSetPurposeMethod : ApiCallMethod<ChannelsSetPurposeMethod, SuccessfulChannelsSetPurposeResponse, ErrorChannelsSetPurposeResponse, ChannelsSetPurposeRequest>() {
 
 }
