@@ -1,5 +1,10 @@
 package com.kreait.slack.api.group.auth
 
+/**
+ * Convenience function to handle the authentication token
+ *
+ *  [Slack Api Documentation](https://api.slack.com/methods)
+ */
 interface AuthGroup {
 
     /**
