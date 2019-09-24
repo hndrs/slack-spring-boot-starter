@@ -7,7 +7,7 @@ internal class SpringUsergroupMethodGroupTest {
 
     @Test
     fun usersUpdate() {
-        assertDoesNotThrow { SpringUsergroupMethodGroup().usersUpdate("") }
+        assertDoesNotThrow { SpringUsergroupMethodGroup().updateUsers("") }
     }
 
     @Test
@@ -32,7 +32,7 @@ internal class SpringUsergroupMethodGroupTest {
 
     @Test
     fun usersList() {
-        assertDoesNotThrow { SpringUsergroupMethodGroup().usersList("") }
+        assertDoesNotThrow { SpringUsergroupMethodGroup().listAllUsers("") }
     }
 
     @Test
