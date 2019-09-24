@@ -1,5 +1,10 @@
 package com.kreait.slack.api.group.im
 
+/**
+ * Convenience class to handle the im operations
+ *
+ *  [Slack Api Documentation](https://api.slack.com/methods)
+ */
 interface ImMethodGroup {
 
     /**Close a direct message channel.*/
