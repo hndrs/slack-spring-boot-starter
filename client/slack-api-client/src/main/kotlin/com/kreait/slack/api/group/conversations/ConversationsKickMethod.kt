@@ -5,4 +5,8 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversati
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationKickResponse
 import com.kreait.slack.api.group.ApiCallMethod
 
+/**
+ * Abstract representation of an slack api operation
+ * https://api.slack.com/methods/conversations.kick
+ */
 abstract class ConversationsKickMethod : ApiCallMethod<ConversationsKickMethod, SuccessfulConversationKickResponse, ErrorConversationKickResponse, ConversationsKickRequest>()
