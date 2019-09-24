@@ -1,16 +1,20 @@
 package com.kreait.slack.api.spring.group.users
 
 
+import com.kreait.slack.api.contract.jackson.group.users.DeletePhotoResponse
 import com.kreait.slack.api.contract.jackson.group.users.ErrorDeletePhotoResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulDeletePhotoResponse
-import com.kreait.slack.api.contract.jackson.group.users.DeletePhotoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersDeletePhotoMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
+/**
+ * Spring based implementation of [UsersMethodGroup.deletePhoto]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringUsersDeletePhotoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersDeletePhotoMethod() {
 

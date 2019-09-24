@@ -5,10 +5,15 @@ import com.kreait.slack.api.contract.jackson.group.reminders.RemindersCompleteRe
 import com.kreait.slack.api.contract.jackson.group.reminders.SuccessfulRemindersCompleteResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.reminders.RemindersCompleteMethod
+import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+
+/**
+ * Spring based implementation of [RemindersMethodGroup.complete]
+ */
 class SpringRemindersCompleteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : RemindersCompleteMethod() {
     override fun request(): ApiCallResult<SuccessfulRemindersCompleteResponse, ErrorRemindersCompleteResponse> {
 

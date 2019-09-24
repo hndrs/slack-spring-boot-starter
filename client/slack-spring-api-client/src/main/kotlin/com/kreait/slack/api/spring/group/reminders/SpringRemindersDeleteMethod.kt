@@ -9,6 +9,12 @@ import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+import com.kreait.slack.api.group.reminders.RemindersMethodGroup
+
+
+/**
+ * Spring based implementation of [RemindersMethodGroup.delete]
+ */
 class SpringRemindersDeleteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : RemindersDeleteMethod() {
     override fun request(): ApiCallResult<SuccessfulRemindersDeleteResponse, ErrorRemindersDeleteResponse> {
 

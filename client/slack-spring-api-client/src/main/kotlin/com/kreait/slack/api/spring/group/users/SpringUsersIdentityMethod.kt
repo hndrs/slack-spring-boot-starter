@@ -2,15 +2,19 @@ package com.kreait.slack.api.spring.group.users
 
 
 import com.kreait.slack.api.contract.jackson.group.users.ErrorIdentityResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulIdentityResponse
 import com.kreait.slack.api.contract.jackson.group.users.IdentityResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulIdentityResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersIdentityMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 
+/**
+ * Spring based implementation of [UsersMethodGroup.identity]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringUsersIdentityMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersIdentityMethod() {
 

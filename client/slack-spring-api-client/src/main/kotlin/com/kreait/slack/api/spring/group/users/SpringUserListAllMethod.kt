@@ -6,10 +6,15 @@ import com.kreait.slack.api.contract.jackson.group.users.ListRequest
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListAllResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UserListAllMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import org.slf4j.LoggerFactory
 import org.springframework.web.client.RestTemplate
 
+
+/**
+ * Spring based implementation of [UsersMethodGroup.listAll]
+ */
 @Suppress("UNCHECKED_CAST")
 class SpringUserListAllMethod(authToken: String, restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UserListAllMethod() {
 

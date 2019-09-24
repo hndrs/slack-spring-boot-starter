@@ -1,17 +1,20 @@
 package com.kreait.slack.api.spring.group.users
 
 import com.kreait.slack.api.contract.jackson.group.users.ErrorGetPresenceResponse
-import com.kreait.slack.api.contract.jackson.group.users.SuccessfulGetPresenceResponse
 import com.kreait.slack.api.contract.jackson.group.users.GetPresenceResponse
+import com.kreait.slack.api.contract.jackson.group.users.SuccessfulGetPresenceResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersGetPresenceMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+
 /**
- * https://api.slack.com/methods/users.getPresence
+ * Spring based implementation of [UsersMethodGroup.getPresence]
  */
+@Suppress("UNCHECKED_CAST")
 class SpringUsersGetPresenceMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersGetPresenceMethod() {
 
     override fun request(): ApiCallResult<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse> {

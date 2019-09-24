@@ -1,16 +1,23 @@
 package com.kreait.slack.api.spring.group.usergroups
 
+import com.kreait.slack.api.contract.jackson.group.usergroups.CreateResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorCreateResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulCreateResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.CreateResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsCreateMethod
+import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
 /**
- * https://api.slack.com/methods/usergroups.create
+ * Spring based implementation of [UsergroupsMethodGroup.create]
+ */
+import com.kreait.slack.api.group.users.UsersMethodGroup
+
+
+/**
+ * Spring based implementation of [UsersMethodGroup.conversations]
  */
 @Suppress("UNCHECKED_CAST")
 class SpringUsergroupsCreateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsergroupsCreateMethod() {

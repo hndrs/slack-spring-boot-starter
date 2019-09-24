@@ -1,17 +1,26 @@
 package com.kreait.slack.api.spring.group.usergroups
 
+import com.kreait.slack.api.contract.jackson.group.usergroups.DisableResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorDisableResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulDisableResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.DisableResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsDisableMethod
+import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
 
+
 /**
- * https://api.slack.com/methods/usergroups.disable
+ * Spring based implementation of [UsergroupsMethodGroup.disable]
  */
+import com.kreait.slack.api.group.users.UsersMethodGroup
+
+
+/**
+ * Spring based implementation of [UsersMethodGroup.conversations]
+ */
+@Suppress("UNCHECKED_CAST")
 class SpringUsergroupsDisableMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsergroupsDisableMethod() {
 
     override fun request(): ApiCallResult<SuccessfulDisableResponse, ErrorDisableResponse> {
