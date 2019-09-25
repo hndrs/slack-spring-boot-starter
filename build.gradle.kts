@@ -108,10 +108,10 @@ subprojects {
         plugin("signing")
     }
 
-    val dokka by tasks.getting(DokkaTask::class) {
+    tasks.withType<DokkaTask> {
         moduleName = project.name
         outputFormat = "html"
-        outputDirectory = "${rootProject.buildDir}/docs/$rawVersion/api"
+        outputDirectory = "${rootProject.buildDir}/generated-docs/api"
     }
 
 
