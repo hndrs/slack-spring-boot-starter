@@ -11,7 +11,7 @@ import com.kreait.slack.api.group.usergroups.users.UsergroupsUsersUpdateMethod
 interface UsergroupsMethodGroup {
 
     /**
-     * Update the listGroups of users for a User Group
+     * Update the list of users for a User Group
      */
     fun replaceUsers(authToken: String): UsergroupsUsersUpdateMethod
 

@@ -46,7 +46,7 @@ class SpringUsersSetPhotoMethod(private val authToken: String, private val restT
     }
 
     /**
-     * Converts the file listGroups to FileSystemResource-List to handle resources correctly
+     * Converts the file list to FileSystemResource-List to handle resources correctly
      */
     private fun convertParams(): Map<String, List<Any>> {
         return this.params.toMap().mapValues {

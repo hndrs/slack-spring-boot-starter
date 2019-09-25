@@ -20,7 +20,7 @@ class SpringConversationsListMethod(private val authToken: String, private val r
     override fun request(): ApiCallResult<SuccessfulConversationListResponse, ErrorConversationListResponse> {
         val response = SlackRequestBuilder<ConversationListResponse>(authToken, restTemplate)
                 .with(this.params)
-                .toMethod("conversations.listGroups")
+                .toMethod("conversations.list")
                 .returnAsType(ConversationListResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 

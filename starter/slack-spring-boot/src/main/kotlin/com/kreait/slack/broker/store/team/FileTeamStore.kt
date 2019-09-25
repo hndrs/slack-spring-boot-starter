@@ -63,7 +63,7 @@ class FileTeamStore : TeamStore {
     override fun findById(id: String): Team {
         val localTeams: List<LocalTeam> = objectMapper.readValue(dataFile())
 
-        // Find the team with the given id in the listGroups that was retrieved from the file
+        // Find the team with the given id in the list that was retrieved from the file
         val team = localTeams.find { it.teamId == id } ?: throw TeamNotFoundException("Team $id not found.")
 
         return Team(

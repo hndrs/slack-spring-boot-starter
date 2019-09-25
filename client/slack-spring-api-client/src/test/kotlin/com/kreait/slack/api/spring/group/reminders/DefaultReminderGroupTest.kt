@@ -33,7 +33,7 @@ internal class DefaultReminderGroupTest {
 
     private fun testCases() = listOf(
             MetaInfo("reminders.delete", SuccessfulRemindersDeleteResponse.sample(), ErrorRemindersDeleteResponse.sample(), RemindersDeleteRequest.sample(), SpringRemindersDeleteMethod("", mockTemplate)),
-            MetaInfo("reminders.listGroups", SuccessfulRemindersListResponse.sample(), ErrorRemindersListResponse.sample(), Unit, SpringRemindersListMethod("", mockTemplate)),
+            MetaInfo("reminders.list", SuccessfulRemindersListResponse.sample(), ErrorRemindersListResponse.sample(), Unit, SpringRemindersListMethod("", mockTemplate)),
             MetaInfo("reminders.info", SuccessfulRemindersInfoResponse.sample(), ErrorRemindersInfoResponse.sample(), Unit, SpringRemindersInfoMethod("", mockTemplate)),
             MetaInfo("reminders.complete", SuccessfulRemindersCompleteResponse.sample(), ErrorRemindersCompleteResponse.sample(), Unit, SpringRemindersCompleteMethod("", mockTemplate)),
             MetaInfo("reminders.add", SuccessfulRemindersAddResponse.sample(), ErrorRemindersAddResponse.sample(), Unit, SpringRemindersAddMethod("", mockTemplate))

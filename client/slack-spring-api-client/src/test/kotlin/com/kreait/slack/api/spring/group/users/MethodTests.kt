@@ -57,7 +57,7 @@ class MethodTests {
 
     private fun testCases() = listOf(
             MetaInfo("users.conversations", SuccessfulConversationsResponse.sample(), ErrorConversationsResponse.sample(), ConversationsRequest.sample(), SpringUserConversationsMethod("", mockTemplate)),
-            MetaInfo("users.listGroups", SuccessfulListResponse.sample(), ErrorListResponse.sample(), ListRequest.sample(), SpringUserListMethod("", mockTemplate)),
+            MetaInfo("users.list", SuccessfulListResponse.sample(), ErrorListResponse.sample(), ListRequest.sample(), SpringUserListMethod("", mockTemplate)),
             MetaInfo("users.deletePhoto", SuccessfulDeletePhotoResponse.sample(), ErrorDeletePhotoResponse.sample(), "", SpringUsersDeletePhotoMethod("", mockTemplate)),
             MetaInfo("users.getPresence", SuccessfulGetPresenceResponse.sample(), ErrorGetPresenceResponse.sample(), GetPresenceRequest.sample(), SpringUsersGetPresenceMethod("", mockTemplate)),
             MetaInfo("users.profile.get", SuccessfulGetProfileResponse.sample(), ErrorGetProfileResponse.sample(), GetProfileRequest.sample(), SpringUsersGetProfileMethod("", mockTemplate)),

@@ -20,7 +20,7 @@ class SpringImListMethod(private val authToken: String, private val restTemplate
 
     override fun request(): ApiCallResult<SuccessfulImListResponse, ErrorImListResponse> {
         val response = SlackRequestBuilder<ImListResponse>(authToken, restTemplate)
-                .toMethod("im.listGroups")
+                .toMethod("im.list")
                 .returnAsType(ImListResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 
