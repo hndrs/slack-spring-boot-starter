@@ -7,12 +7,8 @@ import org.junit.jupiter.api.assertThrows
 internal class SpringOauthMethodGroupTest {
 
     @Test
-    fun token() {
-        assertThrows<NotImplementedError> { SpringOauthMethodGroup().token("") }
-    }
-
-    @Test
     fun access() {
         assertDoesNotThrow { SpringOauthMethodGroup().access() }
     }
+
 }
