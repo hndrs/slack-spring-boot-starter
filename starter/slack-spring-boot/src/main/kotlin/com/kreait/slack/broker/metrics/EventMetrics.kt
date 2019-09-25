@@ -4,6 +4,9 @@ import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.MeterRegistry
 import io.micrometer.core.instrument.binder.MeterBinder
 
+/**
+ * Collects metrics for incoming events
+ */
 interface EventMetricsCollector {
 
     /**
@@ -22,6 +25,9 @@ interface EventMetricsCollector {
     fun eventsReceived()
 }
 
+/**
+ * Increments metrics for events
+ */
 class EventMetrics : MeterBinder, EventMetricsCollector {
 
     private lateinit var eventReceiverExecutionErrors: Counter

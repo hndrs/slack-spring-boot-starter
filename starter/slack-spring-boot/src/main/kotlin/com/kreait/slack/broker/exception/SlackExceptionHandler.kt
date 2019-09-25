@@ -12,7 +12,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
-
+/**
+ * Handles
+ *
+ * @property errorResponse
+ */
 @ControllerAdvice(assignableTypes = [CommandBroker::class, InteractiveComponentBroker::class, EventBroker::class])
 class SlackExceptionHandler(private val errorResponse: String) {
 

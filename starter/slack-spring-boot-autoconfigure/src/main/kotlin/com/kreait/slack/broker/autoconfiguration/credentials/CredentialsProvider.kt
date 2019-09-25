@@ -4,16 +4,30 @@ import java.io.File
 import java.io.FileInputStream
 import java.util.Properties
 
-
+/**
+ * Provider interface for slack credentials
+ *
+ */
 interface CredentialsProvider {
 
     fun applicationCredentials(): ApplicationCredentials
 
 }
 
+/**
+ * Default implementation of a [CredentialsProviderChain]
+ * Default-order:
+ *  - [CredentialsFileCredentialsProvider]
+ *  - [SystemPropertyCredentialsProvider]
+ *  - [EnvironmentVariableCredentialsProvider]
+ */
 class DefaultCredentialsProviderChain
     : CredentialsProviderChain(listOf(CredentialsFileCredentialsProvider(), SystemPropertyCredentialsProvider(), EnvironmentVariableCredentialsProvider()))
 
+/**
+ * Checks if registered [CredentialsProvider]s contain the credentials and returns them
+ * @property credentialsProviders a list of [CredentialsProvider]s that will be checked
+ */
 abstract class CredentialsProviderChain(private val credentialsProviders: List<CredentialsProvider>) : CredentialsProvider {
 
     override fun applicationCredentials(): ApplicationCredentials {
@@ -30,7 +44,9 @@ abstract class CredentialsProviderChain(private val credentialsProviders: List<C
     }
 }
 
-
+/**
+ * [CredentialsProvider] that fetches the Credentials from the system properties
+ */
 class SystemPropertyCredentialsProvider : CredentialsProvider {
 
     companion object {
@@ -50,6 +66,9 @@ class SystemPropertyCredentialsProvider : CredentialsProvider {
 
 }
 
+/**
+ * [CredentialsProvider] that fetches the Credentials from the environment variables
+ */
 class EnvironmentVariableCredentialsProvider : CredentialsProvider {
 
     companion object {
@@ -74,6 +93,9 @@ class EnvironmentVariableCredentialsProvider : CredentialsProvider {
 
 }
 
+/**
+ * [CredentialsProvider] that fetches the Credentials from a file
+ */
 class CredentialsFileCredentialsProvider : CredentialsProvider {
 
     companion object {
@@ -110,6 +132,12 @@ class CredentialsFileCredentialsProvider : CredentialsProvider {
     }
 }
 
+/**
+ * Data class that holds the slack-credentials
+ */
 data class ApplicationCredentials(val clientId: String, val clientSecret: String, val signingSecret: String)
 
+/**
+ * Exception that is thrown when an error occurs while retrieving the credentials
+ */
 class ApplicationCredentialsException(message: String) : RuntimeException(message)

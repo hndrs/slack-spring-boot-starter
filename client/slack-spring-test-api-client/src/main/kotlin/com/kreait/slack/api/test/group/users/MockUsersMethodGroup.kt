@@ -2,6 +2,9 @@ package com.kreait.slack.api.test.group.users
 
 import com.kreait.slack.api.group.users.UsersMethodGroup
 
+/**
+ * Testable implementation of [UsersMethodGroup]
+ */
 class MockUsersMethodGroup : UsersMethodGroup {
 
     private val mockUsersInfoMethod = MockUsersInfoMethod()

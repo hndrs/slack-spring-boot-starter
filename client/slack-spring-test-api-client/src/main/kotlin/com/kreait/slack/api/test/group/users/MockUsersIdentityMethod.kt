@@ -4,8 +4,12 @@ import com.kreait.slack.api.contract.jackson.group.users.ErrorIdentityResponse
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulIdentityResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersIdentityMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [UsersMethodGroup.identity]
+ */
 class MockUsersIdentityMethod : UsersIdentityMethod(), MockMethod<SuccessfulIdentityResponse, ErrorIdentityResponse, Unit> {
     override fun params(): Unit {
         return params

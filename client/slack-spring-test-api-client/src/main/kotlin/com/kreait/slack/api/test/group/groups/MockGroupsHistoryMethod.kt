@@ -5,10 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.groups.GroupsHistoryRequest
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsHistoryResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.groups.GroupsHistoryMethod
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Testable implementation of [GroupsMethodGroup.history]
  */
 open class MockGroupsHistoryMethod : GroupsHistoryMethod(), MockMethod<SuccessfulGroupsHistoryResponse, ErrorGroupsHistoryResponse, GroupsHistoryRequest> {
 

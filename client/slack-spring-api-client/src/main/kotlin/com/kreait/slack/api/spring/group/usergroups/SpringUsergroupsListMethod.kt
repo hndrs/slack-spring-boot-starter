@@ -24,7 +24,7 @@ class SpringUsergroupsListMethod(private val authToken: String, private val rest
 
     override fun request(): ApiCallResult<SuccessfulListResponse, ErrorListResponse> {
         val response = SlackRequestBuilder<ListResponse>(authToken, restTemplate)
-                .toMethod("usergroups.list")
+                .toMethod("usergroups.listGroups")
                 .returnAsType(ListResponse::class.java)
                 .postUrlEncoded(this.params.toRequestMap())
 

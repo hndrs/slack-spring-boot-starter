@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.im.ImCloseRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImCloseResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImCloseMethod
+import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ImMethodGroup.close]
+ */
 class MockImCloseMethod : ImCloseMethod(), MockMethod<SuccessfulImCloseResponse, ErrorImCloseResponse, ImCloseRequest> {
 
     override fun params() = params

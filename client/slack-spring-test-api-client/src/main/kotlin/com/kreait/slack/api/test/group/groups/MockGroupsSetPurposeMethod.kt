@@ -4,11 +4,12 @@ import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsSetPurposeR
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsSetPurposeRequest
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsSetPurposeResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.groups.GroupsSetPurposeMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Testable implementation of [GroupsMethodGroup.setPurpose]
  */
 open class MockGroupsSetPurposeMethod : GroupsSetPurposeMethod(), MockMethod<SuccessfulGroupsSetPurposeResponse, ErrorGroupsSetPurposeResponse, GroupsSetPurposeRequest> {
 

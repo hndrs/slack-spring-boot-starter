@@ -15,13 +15,13 @@ import com.kreait.slack.api.group.groups.GroupsMethodGroup
 /**
  * Spring based implementation of [GroupsMethodGroup.list]
  */
-@Deprecated("Don't use this legacy method", replaceWith = ReplaceWith("conversations.list"))
+@Deprecated("Don't use this legacy method", replaceWith = ReplaceWith("conversations.listGroups"))
 class SpringGroupsListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : GroupsListMethod() {
 
     override fun request(): ApiCallResult<SuccessfulGroupsListResponse, ErrorGroupsListResponse> {
         val response = SlackRequestBuilder<GroupsListResponse>(authToken, restTemplate)
                 .with(this.params)
-                .toMethod("groups.list")
+                .toMethod("groups.listGroups")
                 .returnAsType(GroupsListResponse::class.java)
                 .postWithJsonBody()
 

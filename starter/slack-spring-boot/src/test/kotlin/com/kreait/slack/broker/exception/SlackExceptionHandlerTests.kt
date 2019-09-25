@@ -30,6 +30,10 @@ import org.springframework.util.LinkedMultiValueMap
 import java.io.Closeable
 import java.time.Instant
 
+/**
+ * handles slack-specific exceptions
+ *
+ */
 @DisplayName("SlackExceptionHandler")
 internal class SlackExceptionHandlerTests {
 

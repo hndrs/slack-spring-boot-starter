@@ -1,9 +1,11 @@
 package com.kreait.slack.api.test.group.reminders
 
-import com.kreait.slack.api.group.reminders.RemindersAddMethod
+
 import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 
-
+/**
+ * Testable implementation of [RemindersMethodGroup]
+ */
 class MockRemindersMethodGroup : RemindersMethodGroup {
     private val mockRemindersDeleteMethod = MockRemindersDeleteMethod()
     private val mockRemindersAddMethod = MockRemindersAddMethod()

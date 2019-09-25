@@ -8,6 +8,11 @@ import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.util.ContentCachingRequestWrapper
 
+/**
+ * Argument resolver that resolves incoming interactive-components
+ *
+ * @param signingSecret the signing secret to verify the request
+ */
 class InteractiveResponseArgumentResolver(signingSecret: String) : VerificationMethodArgumentResolver(signingSecret) {
 
     override fun internalResolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, request: ContentCachingRequestWrapper, binderFactory: WebDataBinderFactory?): Any? {
@@ -23,6 +28,9 @@ class InteractiveResponseArgumentResolver(signingSecret: String) : VerificationM
 
 }
 
+/**
+ * used to annotate incoming interactive components
+ */
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class InteractiveResponse

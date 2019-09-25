@@ -8,6 +8,11 @@ import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.util.ContentCachingRequestWrapper
 
+/**
+ * Argument resolver that resolves incoming commands
+ *
+ * @param signingSecret the signing secret to verify the request
+ */
 class SlackCommandArgumentResolver(signingSecret: String) : VerificationMethodArgumentResolver(signingSecret) {
 
     private val objectMapper = ObjectMapper()
@@ -22,7 +27,9 @@ class SlackCommandArgumentResolver(signingSecret: String) : VerificationMethodAr
     }
 }
 
-
+/**
+ * used to annotate incoming commands
+ */
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Command

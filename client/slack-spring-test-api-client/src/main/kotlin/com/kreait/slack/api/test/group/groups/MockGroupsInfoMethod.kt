@@ -5,10 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.groups.GroupsInfoRequest
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsInfoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.groups.GroupsInfoMethod
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Testable implementation of [GroupsMethodGroup.info]
  */
 open class MockGroupsInfoMethod : GroupsInfoMethod(), MockMethod<SuccessfulGroupsInfoResponse, ErrorGroupsInfoResponse, GroupsInfoRequest> {
 

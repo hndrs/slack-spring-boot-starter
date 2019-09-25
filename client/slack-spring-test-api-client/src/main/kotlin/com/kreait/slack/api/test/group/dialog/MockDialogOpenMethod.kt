@@ -4,9 +4,13 @@ import com.kreait.slack.api.contract.jackson.group.dialog.ErrorOpenDialogRespons
 import com.kreait.slack.api.contract.jackson.group.dialog.SlackOpenDialogRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.SuccessfulOpenDialogResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.dialog.DialogMethodGroup
 import com.kreait.slack.api.group.dialog.DialogOpenMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [DialogMethodGroup.open]
+ */
 class MockDialogOpenMethod : DialogOpenMethod(), MockMethod<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse, SlackOpenDialogRequest> {
 
     override fun params(): SlackOpenDialogRequest {

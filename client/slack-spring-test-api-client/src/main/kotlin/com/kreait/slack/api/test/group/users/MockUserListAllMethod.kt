@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.users.ListAllRequest
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListAllResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UserListAllMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [UsersMethodGroup.listAll]
+ */
 class MockUserListAllMethod : UserListAllMethod(), MockMethod<SuccessfulListAllResponse, ErrorListAllResponse, ListAllRequest> {
 
     override fun params(): ListAllRequest {

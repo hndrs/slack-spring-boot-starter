@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 /**
  * CommandBroker that forwards incoming [SlackCommand]s to all [SlashCommandReceiver]s
  */
+@SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
 class CommandBroker constructor(private val slackCommandReceivers: List<SlashCommandReceiver>,
                                 private val teamStore: TeamStore,

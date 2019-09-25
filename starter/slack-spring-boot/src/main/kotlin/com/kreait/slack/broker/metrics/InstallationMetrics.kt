@@ -4,7 +4,9 @@ import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.MeterRegistry
 import io.micrometer.core.instrument.binder.MeterBinder
 
-
+/**
+ * Collects metrics for incoming installations
+ */
 interface InstallationMetricsCollector {
     /**
      * Increments successful installation metric
@@ -33,6 +35,9 @@ interface InstallationMetricsCollector {
     fun receiverExecutionError()
 }
 
+/**
+ * Increments metrics for installations
+ */
 class InstallationMetrics : MeterBinder, InstallationMetricsCollector {
 
     private lateinit var installationSuccessCounter: Counter

@@ -4,6 +4,9 @@ import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.MeterRegistry
 import io.micrometer.core.instrument.binder.MeterBinder
 
+/**
+ * Collects metrics for incoming interactive components
+ */
 interface InteractiveComponentMetricsCollector {
 
     /**
@@ -22,6 +25,9 @@ interface InteractiveComponentMetricsCollector {
     fun responseReceived()
 }
 
+/**
+ * Increments metrics for interactive-components
+ */
 class InteractiveComponentMetrics : MeterBinder, InteractiveComponentMetricsCollector {
 
     private lateinit var responseReceiverExecutionErrors: Counter

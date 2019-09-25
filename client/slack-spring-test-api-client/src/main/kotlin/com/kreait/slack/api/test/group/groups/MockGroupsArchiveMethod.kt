@@ -6,9 +6,10 @@ import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsArchiv
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.groups.GroupsArchiveMethod
 import com.kreait.slack.api.test.MockMethod
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Testable implementation of [GroupsMethodGroup.archive]
  */
 open class MockGroupsArchiveMethod : GroupsArchiveMethod(), MockMethod<SuccessfulGroupsArchiveResponse, ErrorGroupsArchiveResponse, GroupsArchiveRequest> {
 

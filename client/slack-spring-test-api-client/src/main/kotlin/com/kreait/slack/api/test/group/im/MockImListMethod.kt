@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.im.ImListRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImListResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImListMethod
+import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ImMethodGroup.list]
+ */
 class MockImListMethod : ImListMethod(), MockMethod<SuccessfulImListResponse, ErrorImListResponse, ImListRequest> {
 
     override fun params() = params

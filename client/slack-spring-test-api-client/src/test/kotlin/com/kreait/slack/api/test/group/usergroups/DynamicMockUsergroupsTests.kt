@@ -42,9 +42,9 @@ class DynamicMockUsergroupsTests {
             MockMetaInfo({ client.usergroups().create("") }, mock {}, SuccessfulCreateResponse.sample(), mock {}, ErrorCreateResponse.sample(), CreateRequest.sample()),
             MockMetaInfo({ client.usergroups().disable("") }, mock {}, SuccessfulDisableResponse.sample(), mock {}, ErrorDisableResponse.sample(), DisableRequest.sample()),
             MockMetaInfo({ client.usergroups().enable("") }, mock {}, SuccessfulEnableResponse.sample(), mock {}, ErrorEnableResponse.sample(), EnableRequest.sample()),
-            MockMetaInfo({ client.usergroups().list("") }, mock {}, SuccessfulListResponse.sample(), mock {}, ErrorListResponse.sample(), ListRequest.sample()),
+            MockMetaInfo({ client.usergroups().listGroups("") }, mock {}, SuccessfulListResponse.sample(), mock {}, ErrorListResponse.sample(), ListRequest.sample()),
             MockMetaInfo({ client.usergroups().update("") }, mock {}, SuccessfulUpdateResponse.sample(), mock {}, ErrorUpdateResponse.sample(), UpdateRequest.sample()),
-            MockMetaInfo({ client.usergroups().listAllUsers("") }, mock {}, SuccessfulUsergroupsUsersListResponse.sample(), mock {}, ErrorUsergroupsUsersListResponse.sample(), UsergroupsUsersListRequest.sample()),
-            MockMetaInfo({ client.usergroups().updateUsers("") }, mock {}, SuccessfulUsergroupUsersUpdateResponse.sample(), mock {}, ErrorUsergroupUsersUpdateResponse.sample(), UsergroupUsersUpdateRequest.sample())
+            MockMetaInfo({ client.usergroups().listUsers("") }, mock {}, SuccessfulUsergroupsUsersListResponse.sample(), mock {}, ErrorUsergroupsUsersListResponse.sample(), UsergroupsUsersListRequest.sample()),
+            MockMetaInfo({ client.usergroups().replaceUsers("") }, mock {}, SuccessfulUsergroupUsersUpdateResponse.sample(), mock {}, ErrorUsergroupUsersUpdateResponse.sample(), UsergroupUsersUpdateRequest.sample())
     )
 }

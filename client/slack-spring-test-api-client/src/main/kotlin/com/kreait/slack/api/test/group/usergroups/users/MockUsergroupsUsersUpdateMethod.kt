@@ -1,12 +1,16 @@
 package com.kreait.slack.api.test.group.usergroups.users
 
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.ErrorUsergroupUsersUpdateResponse
-import com.kreait.slack.api.contract.jackson.group.usergroups.users.UsergroupUsersUpdateRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.users.SuccessfulUsergroupUsersUpdateResponse
+import com.kreait.slack.api.contract.jackson.group.usergroups.users.UsergroupUsersUpdateRequest
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.group.usergroups.users.UsergroupsUsersUpdateMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [UsergroupsMethodGroup.replaceUsers]
+ */
 class MockUsergroupsUsersUpdateMethod : UsergroupsUsersUpdateMethod(), MockMethod<SuccessfulUsergroupUsersUpdateResponse, ErrorUsergroupUsersUpdateResponse, UsergroupUsersUpdateRequest> {
 
     override fun params(): UsergroupUsersUpdateRequest = params

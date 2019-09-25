@@ -5,10 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.groups.GroupsLeaveRequest
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsLeaveResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.groups.GroupsLeaveMethod
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Testable implementation of [GroupsMethodGroup.leave]
  */
 open class MockGroupsLeaveMethod : GroupsLeaveMethod(), MockMethod<SuccessfulGroupsLeaveResponse, ErrorGroupsLeaveResponse, GroupsLeaveRequest> {
 
