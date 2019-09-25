@@ -2,6 +2,9 @@ package com.kreait.slack.api.test.group.conversation
 
 import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 
+/**
+ * Testable implementation of [ConversationsMethodGroup]
+ */
 class MockConversationMethodGroup : ConversationsMethodGroup {
 
     private val mockConversationsCreate = MockConversationsCreate()
