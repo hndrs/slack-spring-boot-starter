@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.groups.GroupsSetPurposeMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Mock implementation of [GroupsSetPurposeMethod]
  */
 open class MockGroupsSetPurposeMethod : GroupsSetPurposeMethod(), MockMethod<SuccessfulGroupsSetPurposeResponse, ErrorGroupsSetPurposeResponse, GroupsSetPurposeRequest> {
 

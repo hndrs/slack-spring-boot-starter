@@ -7,6 +7,9 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersSetPresenceMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [UsersSetPresenceMethod]
+ */
 class MockUsersSetPresenceMethod : UsersSetPresenceMethod(), MockMethod<SuccessfulSetPresenceResponse, ErrorSetPresenceResponse, SetPresenceRequest> {
 
     override fun params() = params

@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.groups.GroupsHistoryMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Mock implementation of [GroupsHistoryMethod]
  */
 open class MockGroupsHistoryMethod : GroupsHistoryMethod(), MockMethod<SuccessfulGroupsHistoryResponse, ErrorGroupsHistoryResponse, GroupsHistoryRequest> {
 

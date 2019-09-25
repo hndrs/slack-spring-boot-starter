@@ -7,11 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UserListAllMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [UserListAllMethod]
+ */
 class MockUserListAllMethod : UserListAllMethod(), MockMethod<SuccessfulListAllResponse, ErrorListAllResponse, ListAllRequest> {
 
-    override fun params(): ListAllRequest {
-        return params
-    }
+    override fun params(): ListAllRequest = params
 
     override var successResponse: SuccessfulListAllResponse? = null
     override var failureResponse: ErrorListAllResponse? = null

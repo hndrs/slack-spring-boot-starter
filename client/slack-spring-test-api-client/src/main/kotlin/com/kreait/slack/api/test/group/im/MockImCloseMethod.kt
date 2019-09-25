@@ -7,6 +7,9 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImCloseMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ImCloseMethod]
+ */
 class MockImCloseMethod : ImCloseMethod(), MockMethod<SuccessfulImCloseResponse, ErrorImCloseResponse, ImCloseRequest> {
 
     override fun params() = params

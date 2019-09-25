@@ -7,11 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsHistoryMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ConversationsHistoryMethod]
+ */
 open class MockConversationsHistoryMethod : ConversationsHistoryMethod(), MockMethod<SuccessfulConversationHistoryResponse, ErrorConversationHistoryResponse, ConversationsHistoryRequest> {
 
-    override fun params(): ConversationsHistoryRequest {
-        return params;
-    }
+    override fun params(): ConversationsHistoryRequest = params
 
     override var successResponse: SuccessfulConversationHistoryResponse? = null
     override var failureResponse: ErrorConversationHistoryResponse? = null

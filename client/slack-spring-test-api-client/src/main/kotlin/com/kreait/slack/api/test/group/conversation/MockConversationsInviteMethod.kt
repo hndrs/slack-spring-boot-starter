@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.conversations.ConversationsInviteMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link ConversationsInviteMethod
+ * Mock implementation of [ConversationsInviteMethod]
  */
 open class MockConversationsInviteMethod : ConversationsInviteMethod(), MockMethod<SuccessfulConversationInviteResponse, ErrorConversationInviteResponse, ConversationsInviteRequest> {
 

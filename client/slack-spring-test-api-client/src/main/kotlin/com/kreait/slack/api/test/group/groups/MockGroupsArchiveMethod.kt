@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.groups.GroupsArchiveMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Mock implementation of [GroupsArchiveMethod]
  */
 open class MockGroupsArchiveMethod : GroupsArchiveMethod(), MockMethod<SuccessfulGroupsArchiveResponse, ErrorGroupsArchiveResponse, GroupsArchiveRequest> {
 

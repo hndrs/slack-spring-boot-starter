@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.conversations.ConversationsUnarchiveMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link ConversationsUnarchiveMethod
+ * Mock implementation of [ConversationsUnarchiveMethod]
  */
 open class MockConversationsUnarchiveMethod : ConversationsUnarchiveMethod(), MockMethod<SuccessfulConversationUnarchiveResponse, ErrorConversationUnarchiveResponse, ConversationUnarchiveRequest> {
 

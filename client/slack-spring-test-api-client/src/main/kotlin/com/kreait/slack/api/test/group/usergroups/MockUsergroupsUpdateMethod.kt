@@ -7,9 +7,13 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsUpdateMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [UsergroupsUpdateMethod]
+ */
 class MockUsergroupsUpdateMethod : UsergroupsUpdateMethod(), MockMethod<SuccessfulUpdateResponse, ErrorUpdateResponse, UpdateRequest> {
 
     override fun params(): UpdateRequest = params
+
     override var successResponse: SuccessfulUpdateResponse? = null
     override var failureResponse: ErrorUpdateResponse? = null
 

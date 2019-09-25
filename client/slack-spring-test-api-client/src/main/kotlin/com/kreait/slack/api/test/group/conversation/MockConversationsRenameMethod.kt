@@ -7,11 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsRenameMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ConversationsRenameMethod]
+ */
 open class MockConversationsRenameMethod : ConversationsRenameMethod(), MockMethod<SuccessfulConversationsRenameResponse, ErrorConversationsRenameResponse, ConversationsRenameRequest> {
 
-    override fun params(): ConversationsRenameRequest {
-        return params;
-    }
+    override fun params(): ConversationsRenameRequest = params
 
     override var successResponse: SuccessfulConversationsRenameResponse? = null
     override var failureResponse: ErrorConversationsRenameResponse? = null

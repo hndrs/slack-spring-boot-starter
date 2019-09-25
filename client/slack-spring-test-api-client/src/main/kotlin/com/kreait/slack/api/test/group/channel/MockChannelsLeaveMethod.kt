@@ -7,11 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsLeaveMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ChannelsLeaveMethod]
+ */
 class MockChannelsLeaveMethod : ChannelsLeaveMethod(), MockMethod<SuccessfulChannelsLeaveResponse, ErrorChannelsLeaveResponse, ChannelsLeaveRequest> {
 
-    override fun params(): ChannelsLeaveRequest {
-        return params
-    }
+    override fun params(): ChannelsLeaveRequest = params
 
     override var successResponse: SuccessfulChannelsLeaveResponse? = null
     override var failureResponse: ErrorChannelsLeaveResponse? = null

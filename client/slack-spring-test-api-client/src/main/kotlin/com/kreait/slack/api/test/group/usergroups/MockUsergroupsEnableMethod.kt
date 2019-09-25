@@ -7,9 +7,13 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsEnableMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [UsergroupsEnableMethod]
+ */
 class MockUsergroupsEnableMethod : UsergroupsEnableMethod(), MockMethod<SuccessfulEnableResponse, ErrorEnableResponse, EnableRequest> {
 
     override fun params(): EnableRequest = params
+
     override var successResponse: SuccessfulEnableResponse? = null
     override var failureResponse: ErrorEnableResponse? = null
 

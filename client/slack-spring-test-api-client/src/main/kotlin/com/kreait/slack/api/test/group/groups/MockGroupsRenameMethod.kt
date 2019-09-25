@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.groups.GroupsRenameMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Mock implementation of [GroupsRenameMethod]
  */
 open class MockGroupsRenameMethod : GroupsRenameMethod(), MockMethod<SuccessfulGroupsRenameResponse, ErrorGroupsRenameResponse, GroupsRenameRequest> {
 

@@ -7,6 +7,9 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsSetPurposeMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ConversationsSetPurposeMethod]
+ */
 class MockConversationsSetPurposeMethod : ConversationsSetPurposeMethod(), MockMethod<SuccessfulConversationSetPurposeResponse, ErrorConversationSetPurposeResponse, ConversationsSetPurposeRequest> {
 
     override fun params(): ConversationsSetPurposeRequest = params

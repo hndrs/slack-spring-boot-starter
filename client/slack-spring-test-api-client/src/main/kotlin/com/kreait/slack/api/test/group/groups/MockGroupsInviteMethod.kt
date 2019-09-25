@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.groups.GroupsInviteMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link Groups InviteMethod
+ * Mock implementation of [GroupsInviteMethod]
  */
 open class MockGroupsInviteMethod : GroupsInviteMethod(), MockMethod<SuccessfulGroupsInviteResponse, ErrorGroupsInviteResponse, GroupsInviteRequest> {
 

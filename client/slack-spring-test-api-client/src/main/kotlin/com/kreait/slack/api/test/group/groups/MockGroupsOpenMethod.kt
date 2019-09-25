@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.groups.GroupsOpenMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupsOpenMethod
+ * Mock implementation of [GroupsOpenMethod]
  */
 open class MockGroupsOpenMethod : GroupsOpenMethod(), MockMethod<SuccessfulGroupsOpenResponse, ErrorGroupsOpenResponse, GroupsOpenRequest> {
 

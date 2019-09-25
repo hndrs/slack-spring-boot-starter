@@ -7,6 +7,9 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.reminders.RemindersAddMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [RemindersAddMethod]
+ */
 class MockRemindersAddMethod : RemindersAddMethod(), MockMethod<SuccessfulRemindersAddResponse, ErrorRemindersAddResponse, RemindersAddRequest> {
 
     override fun params() = params

@@ -7,11 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.dialog.DialogOpenMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [DialogOpenMethod]
+ */
 class MockDialogOpenMethod : DialogOpenMethod(), MockMethod<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse, SlackOpenDialogRequest> {
 
-    override fun params(): SlackOpenDialogRequest {
-        return params
-    }
+    override fun params(): SlackOpenDialogRequest = params
 
     override var successResponse: SuccessfulOpenDialogResponse? = null
     override var failureResponse: ErrorOpenDialogResponse? = null

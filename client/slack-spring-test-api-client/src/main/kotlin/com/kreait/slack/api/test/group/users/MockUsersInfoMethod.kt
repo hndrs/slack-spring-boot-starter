@@ -7,10 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersInfoMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [UsersInfoMethod]
+ */
 class MockUsersInfoMethod : UsersInfoMethod(), MockMethod<SuccessfulInfoResponse, ErrorInfoResponse, InfoRequest> {
-    override fun params(): InfoRequest {
-        return params
-    }
+
+    override fun params(): InfoRequest = params
 
     override var successResponse: SuccessfulInfoResponse? = null
     override var failureResponse: ErrorInfoResponse? = null

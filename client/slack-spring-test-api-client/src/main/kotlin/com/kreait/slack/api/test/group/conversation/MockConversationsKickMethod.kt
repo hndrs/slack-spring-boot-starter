@@ -7,9 +7,13 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsKickMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ConversationsKickMethod]
+ */
 open class MockConversationsKickMethod : ConversationsKickMethod(), MockMethod<SuccessfulConversationKickResponse, ErrorConversationKickResponse, ConversationsKickRequest> {
 
     override fun params(): ConversationsKickRequest = params
+
     override var successResponse: SuccessfulConversationKickResponse? = null
     override var failureResponse: ErrorConversationKickResponse? = null
 

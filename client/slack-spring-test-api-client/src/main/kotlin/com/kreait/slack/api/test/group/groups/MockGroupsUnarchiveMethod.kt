@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.groups.GroupsUnarchiveMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Mock implementation of [GroupsUnarchiveMethod]
  */
 open class MockGroupsUnarchiveMethod : GroupsUnarchiveMethod(), MockMethod<SuccessfulGroupsUnarchiveResponse, ErrorGroupsUnarchiveResponse, GroupsUnarchiveRequest> {
 

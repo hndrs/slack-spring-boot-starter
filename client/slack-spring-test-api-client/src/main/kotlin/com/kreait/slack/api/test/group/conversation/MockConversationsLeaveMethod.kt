@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.conversations.ConversationsLeaveMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link ConversationsLeaveMethod
+ * Mock implementation of [ConversationsLeaveMethod]
  */
 open class MockConversationsLeaveMethod : ConversationsLeaveMethod(), MockMethod<SuccessfulConversationLeaveResponse, ErrorConversationLeaveResponse, ConversationsLeaveRequest> {
 

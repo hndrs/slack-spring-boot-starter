@@ -7,14 +7,16 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsKickMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ChannelsKickMethod]
+ */
 class MockChannelsKickMethod : ChannelsKickMethod(), MockMethod<SuccessfulChannelKickResponse, ErrorChannelKickResponse, ChannelsKickRequest> {
+
+    override fun params(): ChannelsKickRequest = params
 
     override var successResponse: SuccessfulChannelKickResponse? = null
     override var failureResponse: ErrorChannelKickResponse? = null
 
-    override fun params(): ChannelsKickRequest {
-        return params
-    }
 
     override fun request(): ApiCallResult<SuccessfulChannelKickResponse, ErrorChannelKickResponse> {
         this.successResponse?.let { this.onSuccess?.invoke(it) }

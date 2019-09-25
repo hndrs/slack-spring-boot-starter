@@ -17,49 +17,16 @@ class MockUsersMethodGroup : UsersMethodGroup {
     private val mockUsersGetPresenceMethod = MockUsersGetPresenceMethod()
     private val mockUsersLookupByEmailMethod = MockUsersLookupByEmailMethod()
 
-    override fun info(authToken: String): MockUsersInfoMethod {
-        return mockUsersInfoMethod
-    }
-
-    override fun list(authToken: String): MockUserListMethod {
-        return mockUserListMethod
-    }
-
-    override fun listAll(authToken: String): MockUserListAllMethod = mockUserListAllMethod
-
-    override fun conversations(authToken: String): MockUserConversationsMethod {
-        return mockUserConversationsMethod
-    }
-
-    override fun deletePhoto(authToken: String): MockUsersDeletePhotoMethod {
-        return mockUsersDeletePhotoMethod
-    }
-
-    override fun identity(authToken: String): MockUsersIdentityMethod {
-        return mockUsersIdentityMethod
-    }
-
-    override fun getProfile(authToken: String): MockUsersGetProfileMethod {
-        return mockUsersGetProfileMethod
-    }
-
-    override fun setProfile(authToken: String): MockUsersSetProfileMethod {
-        return mockUsersSetProfileMethod
-    }
-
-    override fun setPresence(authToken: String): MockUsersSetPresenceMethod {
-        return mockUsersSetPresenceMethod
-    }
-
-    override fun setPhoto(authToken: String): MockUsersSetPhotoMethod {
-        return mockUsersSetPhotoMethod
-    }
-
-    override fun getPresence(authToken: String): MockUsersGetPresenceMethod {
-        return mockUsersGetPresenceMethod
-    }
-
-    override fun lookupByEmail(authToken: String): MockUsersLookupByEmailMethod {
-        return mockUsersLookupByEmailMethod
-    }
+    override fun info(authToken: String) = mockUsersInfoMethod
+    override fun list(authToken: String) = mockUserListMethod
+    override fun listAll(authToken: String) = mockUserListAllMethod
+    override fun conversations(authToken: String) = mockUserConversationsMethod
+    override fun deletePhoto(authToken: String) = mockUsersDeletePhotoMethod
+    override fun identity(authToken: String) = mockUsersIdentityMethod
+    override fun getProfile(authToken: String) = mockUsersGetProfileMethod
+    override fun setProfile(authToken: String) = mockUsersSetProfileMethod
+    override fun setPresence(authToken: String) = mockUsersSetPresenceMethod
+    override fun setPhoto(authToken: String) = mockUsersSetPhotoMethod
+    override fun getPresence(authToken: String) = mockUsersGetPresenceMethod
+    override fun lookupByEmail(authToken: String) = mockUsersLookupByEmailMethod
 }

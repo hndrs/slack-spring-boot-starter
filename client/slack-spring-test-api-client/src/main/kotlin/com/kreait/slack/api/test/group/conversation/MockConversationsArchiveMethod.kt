@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.conversations.ConversationsArchiveMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link ConversationsCloseMethod
+ * Mock implementation of [ConversationsArchiveMethod]
  */
 open class MockConversationsArchiveMethod : ConversationsArchiveMethod(), MockMethod<SuccessfulConversationArchiveResponse, ErrorConversationArchiveResponse, ConversationArchiveRequest> {
 

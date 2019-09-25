@@ -6,10 +6,13 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.auth.AuthTestMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [AuthTestMethod]
+ */
 class MockAuthTestMethod : AuthTestMethod(), MockMethod<SuccessfulAuthTestResponse, ErrorAuthTestResponse, Unit> {
 
     override fun params() {
-        // since this method has not params the body is empty
+        // This method has no params thus this body is empty
     }
 
     override var successResponse: SuccessfulAuthTestResponse? = null

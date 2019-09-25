@@ -22,36 +22,19 @@ class MockGroupsMethodGroup : GroupsMethodGroup {
     private val mockRepliesMethod = MockGroupsRepliesMethod()
 
     override fun archive(authToken: String): MockGroupsArchiveMethod = mockArchiveMethod
-
     override fun create(authToken: String): MockGroupsCreateMethod = mockCreateMethod
-
     override fun createChild(authToken: String): MockGroupsCreateChildMethod = mockCreateChildMethod
-
     override fun history(authToken: String): MockGroupsHistoryMethod = mockHistoryMethod
-
     override fun info(authToken: String): MockGroupsInfoMethod = mockInfoMethod
-
     override fun invite(authToken: String): MockGroupsInviteMethod = mockInviteMethod
-
     override fun kick(authToken: String): MockGroupsKickMethod = mockKickMethod
-
     override fun leave(authToken: String): MockGroupsLeaveMethod = mockLeaveMethod
-
     override fun list(authToken: String): MockGroupsListMethod = mockListMethod
-
     override fun mark(authToken: String): MockGroupsMarkMethod = mockMarkMethod
-
     override fun open(authToken: String): MockGroupsOpenMethod = mockOpenMethod
-
     override fun rename(authToken: String): MockGroupsRenameMethod = mockRenameMethod
-
     override fun replies(authToken: String): MockGroupsRepliesMethod = mockRepliesMethod
-
     override fun setPurpose(authToken: String): MockGroupsSetPurposeMethod = mockSetPurposeMethod
-
     override fun setTopic(authToken: String): MockGroupsSetTopicMethod = mockSetTopicMethod
-
     override fun unarchive(authToken: String): MockGroupsUnarchiveMethod = mockUnarchiveMethod
-
-
 }

@@ -11,28 +11,10 @@ class MockImMethodGroup : ImMethodGroup {
     private val mockImHistoryMethod = MockImHistoryMethod()
     private val mockImCloseMethod = MockImCloseMethod()
 
-
-    override fun close(authToken: String): MockImCloseMethod {
-        return mockImCloseMethod
-    }
-
-    override fun history(authToken: String): MockImHistoryMethod {
-        return mockImHistoryMethod
-    }
-
-    override fun list(authToken: String): MockImListMethod {
-        return mockImListMethod
-    }
-
-    override fun mark(authToken: String): MockImMarkMethod {
-        return mockImMarkMethod
-    }
-
-    override fun open(authToken: String): MockImOpenMethod {
-        return mockImOpenMethod
-    }
-
-    override fun replies(authToken: String): MockImRepliesMethod {
-        return mockImRepliesMethod
-    }
+    override fun close(authToken: String) = mockImCloseMethod
+    override fun history(authToken: String) = mockImHistoryMethod
+    override fun list(authToken: String) = mockImListMethod
+    override fun mark(authToken: String) = mockImMarkMethod
+    override fun open(authToken: String) = mockImOpenMethod
+    override fun replies(authToken: String) = mockImRepliesMethod
 }

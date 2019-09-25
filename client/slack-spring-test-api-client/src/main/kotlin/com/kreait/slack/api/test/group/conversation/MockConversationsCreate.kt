@@ -8,13 +8,11 @@ import com.kreait.slack.api.group.conversations.ConversationsCreateMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link ConversationsCreateMethod
+ * Mock implementation of [ConversationsCreateMethod]
  */
 open class MockConversationsCreate : ConversationsCreateMethod(), MockMethod<SuccessfulConversationCreateResponse, ErrorConversationCreateResponse, ConversationCreateRequest> {
 
-    override fun params(): ConversationCreateRequest {
-        return params;
-    }
+    override fun params(): ConversationCreateRequest = params
 
     override var successResponse: SuccessfulConversationCreateResponse? = null
     override var failureResponse: ErrorConversationCreateResponse? = null

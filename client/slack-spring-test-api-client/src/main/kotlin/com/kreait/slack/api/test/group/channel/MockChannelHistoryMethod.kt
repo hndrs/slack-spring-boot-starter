@@ -7,14 +7,15 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsHistoryMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ChannelsHistoryMethod]
+ */
 class MockChannelHistoryMethod : ChannelsHistoryMethod(), MockMethod<SuccessfulChannelsHistoryResponse, ErrorChannelsHistoryResponse, ChannelsHistoryRequest> {
+
+    override fun params(): ChannelsHistoryRequest = params
 
     override var successResponse: SuccessfulChannelsHistoryResponse? = null
     override var failureResponse: ErrorChannelsHistoryResponse? = null
-
-    override fun params(): ChannelsHistoryRequest {
-        return params
-    }
 
     override fun request(): ApiCallResult<SuccessfulChannelsHistoryResponse, ErrorChannelsHistoryResponse> {
         this.successResponse?.let { this.onSuccess?.invoke(it) }

@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.conversations.ConversationsCloseMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
-* Mock implementation of @link ConversationsCloseMethod
+* Mock implementation of [ConversationsCloseMethod]
 */
 open class MockConversationsClose : ConversationsCloseMethod(), MockMethod<SuccessfulConversationCloseResponse, ErrorConversationCloseResponse, ConversationCloseRequest> {
 

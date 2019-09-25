@@ -7,14 +7,15 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsJoinMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ChannelsJoinMethod]
+ */
 class MockChannelsJoinMethod : ChannelsJoinMethod(), MockMethod<SuccessfulChannelsJoinResponse, ErrorChannelsJoinResponse, ChannelsJoinRequest> {
+
+    override fun params(): ChannelsJoinRequest = params
 
     override var successResponse: SuccessfulChannelsJoinResponse? = null
     override var failureResponse: ErrorChannelsJoinResponse? = null
-
-    override fun params(): ChannelsJoinRequest {
-        return params
-    }
 
     override fun request(): ApiCallResult<SuccessfulChannelsJoinResponse, ErrorChannelsJoinResponse> {
         this.successResponse?.let { this.onSuccess?.invoke(it) }

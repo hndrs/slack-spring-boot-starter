@@ -7,6 +7,9 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersSetPhotoMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [UsersSetPhotoMethod]
+ */
 class MockUsersSetPhotoMethod : UsersSetPhotoMethod(), MockMethod<SuccessfulSetPhotoResponse, ErrorSetPhotoResponse, SetPhotoRequest> {
 
     override fun params() = params

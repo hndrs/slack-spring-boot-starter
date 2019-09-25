@@ -5,11 +5,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.respond.RespondMessageMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [RespondMessageMethod]
+ */
 class MockRespondMessageMethod : RespondMessageMethod(), MockMethod<Unit, Unit, RespondMessageRequest> {
 
-    override fun params(): RespondMessageRequest {
-        return params
-    }
+    override fun params(): RespondMessageRequest = params
 
     override var successResponse: Unit? = null
     override var failureResponse: Unit? = null

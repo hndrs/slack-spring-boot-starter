@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.groups.GroupsInfoMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Mock implementation of [GroupsInfoMethod]
  */
 open class MockGroupsInfoMethod : GroupsInfoMethod(), MockMethod<SuccessfulGroupsInfoResponse, ErrorGroupsInfoResponse, GroupsInfoRequest> {
 

@@ -7,11 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsArchiveMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ChannelsArchiveMethod]
+ */
 class MockChannelsArchiveMethod : ChannelsArchiveMethod(), MockMethod<SuccessfulChannelArchiveResponse, ErrorChannelArchiveResponse, ChannelsArchiveRequest> {
 
-    override fun params(): ChannelsArchiveRequest {
-        return params
-    }
+    override fun params(): ChannelsArchiveRequest = params
 
     override var successResponse: SuccessfulChannelArchiveResponse? = null
     override var failureResponse: ErrorChannelArchiveResponse? = null

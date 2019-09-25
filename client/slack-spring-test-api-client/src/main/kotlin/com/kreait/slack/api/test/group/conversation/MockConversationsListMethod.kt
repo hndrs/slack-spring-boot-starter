@@ -7,11 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsListMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ConversationsListMethod]
+ */
 open class MockConversationsListMethod : ConversationsListMethod(), MockMethod<SuccessfulConversationListResponse, ErrorConversationListResponse, ConversationsListRequest> {
 
-    override fun params(): ConversationsListRequest {
-        return params;
-    }
+    override fun params(): ConversationsListRequest = params
 
     override var successResponse: SuccessfulConversationListResponse? = null
     override var failureResponse: ErrorConversationListResponse? = null

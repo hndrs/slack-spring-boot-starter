@@ -6,9 +6,13 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersDeletePhotoMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [UsersDeletePhotoMethod]
+ */
 class MockUsersDeletePhotoMethod : UsersDeletePhotoMethod(), MockMethod<SuccessfulDeletePhotoResponse, ErrorDeletePhotoResponse, Unit> {
-    override fun params(): Unit {
-        return params
+
+    override fun params() {
+        // This method has no params thus this body is empty
     }
 
     override var successResponse: SuccessfulDeletePhotoResponse? = null

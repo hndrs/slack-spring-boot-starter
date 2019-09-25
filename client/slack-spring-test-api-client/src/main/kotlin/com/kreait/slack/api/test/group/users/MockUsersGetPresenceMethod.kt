@@ -7,6 +7,9 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersGetPresenceMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [UsersGetPresenceMethod]
+ */
 class MockUsersGetPresenceMethod : UsersGetPresenceMethod(), MockMethod<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse, GetPresenceRequest> {
 
     override fun params() = params
@@ -15,7 +18,6 @@ class MockUsersGetPresenceMethod : UsersGetPresenceMethod(), MockMethod<Successf
     override var failureResponse: ErrorGetPresenceResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse> {
-
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

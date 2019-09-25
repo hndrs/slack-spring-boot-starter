@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.groups.GroupsLeaveMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Mock implementation of [GroupsLeaveMethod]
  */
 open class MockGroupsLeaveMethod : GroupsLeaveMethod(), MockMethod<SuccessfulGroupsLeaveResponse, ErrorGroupsLeaveResponse, GroupsLeaveRequest> {
 

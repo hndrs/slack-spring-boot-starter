@@ -7,11 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsMarkMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ChannelsMarkMethod]
+ */
 class MockChannelsMarkMethod : ChannelsMarkMethod(), MockMethod<SuccessfulChannelsMarkResponse, ErrorChannelsMarkResponse, ChannelsMarkRequest> {
 
-    override fun params(): ChannelsMarkRequest {
-        return params
-    }
+    override fun params(): ChannelsMarkRequest = params
 
     override var successResponse: SuccessfulChannelsMarkResponse? = null
     override var failureResponse: ErrorChannelsMarkResponse? = null

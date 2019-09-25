@@ -7,11 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsUnarchiveMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ChannelsUnarchiveMethod]
+ */
 class MockChannelsUnarchiveMethod : ChannelsUnarchiveMethod(), MockMethod<SuccessfulChannelUnarchiveResponse, ErrorChannelUnarchiveResponse, ChannelsUnarchiveRequest> {
 
-    override fun params(): ChannelsUnarchiveRequest {
-        return params
-    }
+    override fun params(): ChannelsUnarchiveRequest = params
 
     override var successResponse: SuccessfulChannelUnarchiveResponse? = null
     override var failureResponse: ErrorChannelUnarchiveResponse? = null

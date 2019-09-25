@@ -7,11 +7,12 @@ import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsSetPurposeMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Mock implementation of [ChannelsSetPurposeMethod]
+ */
 class MockChannelsSetPurposeMethod : ChannelsSetPurposeMethod(), MockMethod<SuccessfulChannelsSetPurposeResponse, ErrorChannelsSetPurposeResponse, ChannelsSetPurposeRequest> {
 
-    override fun params(): ChannelsSetPurposeRequest {
-        return params
-    }
+    override fun params(): ChannelsSetPurposeRequest = params
 
     override var successResponse: SuccessfulChannelsSetPurposeResponse? = null
     override var failureResponse: ErrorChannelsSetPurposeResponse? = null

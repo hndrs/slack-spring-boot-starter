@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.groups.GroupsCreateChildMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Mock implementation of [GroupsCreateChildMethod]
  */
 open class MockGroupsCreateChildMethod : GroupsCreateChildMethod(), MockMethod<SuccessfulGroupsCreateChildResponse, ErrorGroupsCreateChildResponse, GroupsCreateChildRequest> {
 

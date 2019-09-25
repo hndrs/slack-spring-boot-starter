@@ -8,7 +8,7 @@ import com.kreait.slack.api.group.conversations.ConversationsRepliesMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link ConversationsRepliesMethod
+ * Mock implementation of [ConversationsRepliesMethod]
  */
 open class MockConversationsRepliesMethod : ConversationsRepliesMethod(), MockMethod<SuccessfulConversationRepliesResponse, ErrorConversationRepliesResponse, ConversationsRepliesRequest> {
 
