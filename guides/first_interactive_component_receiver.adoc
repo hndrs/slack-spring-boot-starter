@@ -1,7 +1,7 @@
 = First Interactive Component Receiver
 :excerpt: This short guide will show you how to set up a Interactive Component receiver
 :title: First Interactive Component Receiver
-:order: 4
+:order: 5
 
 To write your first command receiver you need to write a component that implements the link:starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/InteractiveComponentReceiver.kt[InteractiveComponentReceiver] interface, you can use the  link:client/slack-api-client/src/main/kotlin/io/olaph/slack/client/SlackClient.kt[SlackClient] that is automatically registered with the starter
 
