@@ -4,11 +4,12 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ConversationUna
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationUnarchiveResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationUnarchiveResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsUnarchiveMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link ConversationsUnarchiveMethod
+ * Testable implementation of [ConversationsMethodGroup.unarchive]
  */
 open class MockConversationsUnarchiveMethod : ConversationsUnarchiveMethod(), MockMethod<SuccessfulConversationUnarchiveResponse, ErrorConversationUnarchiveResponse, ConversationUnarchiveRequest> {
 

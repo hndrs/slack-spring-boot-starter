@@ -5,6 +5,9 @@ import com.kreait.slack.api.group.channels.ChannelsLeaveMethod
 import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.channels.ChannelsSetPurposeMethod
 
+/**
+ * Testable implementation of [ChannelsMethodGroup]
+ */
 class MockChannelsMethodGroup : ChannelsMethodGroup {
 
     private val mockChannelsInfoMethod = MockChannelsInfoMethod()

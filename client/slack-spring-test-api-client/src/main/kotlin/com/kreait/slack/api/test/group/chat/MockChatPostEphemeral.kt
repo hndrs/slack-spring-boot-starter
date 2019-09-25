@@ -4,9 +4,13 @@ import com.kreait.slack.api.contract.jackson.group.chat.ErrorPostEphemeralRespon
 import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.chat.ChatPostEphemeralMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChatMethodGroup.postEphemeral]
+ */
 open class MockChatPostEphemeral : ChatPostEphemeralMethod(), MockMethod<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse, PostEphemeralRequest> {
 
     override fun params(): PostEphemeralRequest {

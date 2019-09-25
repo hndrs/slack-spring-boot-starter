@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsHistory
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsHistoryResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsHistoryMethod
+import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChannelsMethodGroup.history]
+ */
 class MockChannelHistoryMethod : ChannelsHistoryMethod(), MockMethod<SuccessfulChannelsHistoryResponse, ErrorChannelsHistoryResponse, ChannelsHistoryRequest> {
 
     override var successResponse: SuccessfulChannelsHistoryResponse? = null

@@ -41,6 +41,7 @@ sonarqube {
         property("sonar.exclusions", "**/slack-jackson-dto-test-extensions/**," +
                 "**/slack-jackson-dto/**," +
                 "**/samples/**, " +
+                "**/slack-api-client/**, " +
                 "**/SL4JLoggingReceiver.kt")
     }
 }

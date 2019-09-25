@@ -5,10 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversati
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationLeaveResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsLeaveMethod
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link ConversationsLeaveMethod
+ * Testable implementation of [ConversationsMethodGroup.leave]
  */
 open class MockConversationsLeaveMethod : ConversationsLeaveMethod(), MockMethod<SuccessfulConversationLeaveResponse, ErrorConversationLeaveResponse, ConversationsLeaveRequest> {
 

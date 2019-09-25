@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversati
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationHistoryResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsHistoryMethod
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ConversationsMethodGroup.history]
+ */
 open class MockConversationsHistoryMethod : ConversationsHistoryMethod(), MockMethod<SuccessfulConversationHistoryResponse, ErrorConversationHistoryResponse, ConversationsHistoryRequest> {
 
     override fun params(): ConversationsHistoryRequest {

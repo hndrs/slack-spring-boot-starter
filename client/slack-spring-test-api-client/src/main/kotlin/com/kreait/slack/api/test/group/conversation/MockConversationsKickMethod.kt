@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversati
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationKickResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsKickMethod
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ConversationsMethodGroup.kick]
+ */
 open class MockConversationsKickMethod : ConversationsKickMethod(), MockMethod<SuccessfulConversationKickResponse, ErrorConversationKickResponse, ConversationsKickRequest> {
 
     override fun params(): ConversationsKickRequest = params

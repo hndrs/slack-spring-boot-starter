@@ -12,7 +12,13 @@ import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
 import java.net.URI
 
-
+/**
+ * Builds slack-api compliant requests
+ *
+ * @param T the response type
+ * @property token authorization token
+ * @property restTemplate template which is used to make requests
+ */
 class SlackRequestBuilder<T>(private val token: String? = null, private val restTemplate: RestTemplate) {
 
     var body: Any? = null
@@ -27,11 +33,17 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
         return this
     }
 
+    /**
+     * creates the api-method URI
+     */
     fun toMethod(methodName: String): SlackRequestBuilder<T> {
         this.uri = URI.create("https://slack.com/api/$methodName")
         return this
     }
 
+    /**
+     * sets the return-type
+     */
     fun returnAsType(responseType: Class<T>): SlackRequestBuilder<T> {
         this.responseType = responseType
         return this

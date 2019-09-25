@@ -4,9 +4,13 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsRe
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationsRenameResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationsRenameResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsRenameMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ConversationsMethodGroup.rename]
+ */
 open class MockConversationsRenameMethod : ConversationsRenameMethod(), MockMethod<SuccessfulConversationsRenameResponse, ErrorConversationsRenameResponse, ConversationsRenameRequest> {
 
     override fun params(): ConversationsRenameRequest {

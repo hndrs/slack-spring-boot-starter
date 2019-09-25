@@ -5,10 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversati
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationInviteResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsInviteMethod
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link ConversationsInviteMethod
+ * Testable implementation of [ConversationsMethodGroup.invite]
  */
 open class MockConversationsInviteMethod : ConversationsInviteMethod(), MockMethod<SuccessfulConversationInviteResponse, ErrorConversationInviteResponse, ConversationsInviteRequest> {
 
