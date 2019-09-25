@@ -12,13 +12,11 @@ import com.kreait.slack.api.test.MockMethod
  * Testable implementation of [ImMethodGroup.replies]
  */
 class MockImRepliesMethod : ImRepliesMethod(), MockMethod<SuccessfulImRepliesResponse, ErrorImRepliesResponse, ImRepliesRequest> {
+
+    override fun params(): ImRepliesRequest = params
+
     override var successResponse: SuccessfulImRepliesResponse? = null
-
     override var failureResponse: ErrorImRepliesResponse? = null
-
-    override fun params(): ImRepliesRequest {
-        return params
-    }
 
     override fun request(): ApiCallResult<SuccessfulImRepliesResponse, ErrorImRepliesResponse> {
 

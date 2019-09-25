@@ -12,14 +12,14 @@ import com.kreait.slack.api.test.MockMethod
  * Testable implementation of [UsersMethodGroup.setProfile]
  */
 class MockUsersSetProfileMethod : UsersSetProfileMethod(), MockMethod<SuccessfulSetProfileResponse, ErrorSetProfileResponse, SetProfileRequest> {
-    override fun params(): SetProfileRequest {
-        return params
-    }
+
+    override fun params(): SetProfileRequest = params
 
     override var successResponse: SuccessfulSetProfileResponse? = null
     override var failureResponse: ErrorSetProfileResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulSetProfileResponse, ErrorSetProfileResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

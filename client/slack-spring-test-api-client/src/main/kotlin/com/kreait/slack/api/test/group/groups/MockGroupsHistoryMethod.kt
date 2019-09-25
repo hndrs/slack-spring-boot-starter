@@ -19,6 +19,7 @@ open class MockGroupsHistoryMethod : GroupsHistoryMethod(), MockMethod<Successfu
     override var failureResponse: ErrorGroupsHistoryResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulGroupsHistoryResponse, ErrorGroupsHistoryResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

@@ -19,6 +19,7 @@ class MockConversationsSetPurposeMethod : ConversationsSetPurposeMethod(), MockM
     override var failureResponse: ErrorConversationSetPurposeResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulConversationSetPurposeResponse, ErrorConversationSetPurposeResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

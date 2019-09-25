@@ -19,6 +19,7 @@ open class MockConversationsUnarchiveMethod : ConversationsUnarchiveMethod(), Mo
     override var failureResponse: ErrorConversationUnarchiveResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulConversationUnarchiveResponse, ErrorConversationUnarchiveResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

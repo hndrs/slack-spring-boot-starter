@@ -19,6 +19,7 @@ open class MockGroupsRenameMethod : GroupsRenameMethod(), MockMethod<SuccessfulG
     override var failureResponse: ErrorGroupsRenameResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulGroupsRenameResponse, ErrorGroupsRenameResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

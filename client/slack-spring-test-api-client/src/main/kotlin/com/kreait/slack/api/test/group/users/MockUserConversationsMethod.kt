@@ -12,14 +12,14 @@ import com.kreait.slack.api.test.MockMethod
  * Testable implementation of [UsersMethodGroup.conversations]
  */
 class MockUserConversationsMethod : UserConversationsMethod(), MockMethod<SuccessfulConversationsResponse, ErrorConversationsResponse, ConversationsRequest> {
-    override fun params(): ConversationsRequest {
-        return params
-    }
+
+    override fun params(): ConversationsRequest = params
 
     override var successResponse: SuccessfulConversationsResponse? = null
     override var failureResponse: ErrorConversationsResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulConversationsResponse, ErrorConversationsResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

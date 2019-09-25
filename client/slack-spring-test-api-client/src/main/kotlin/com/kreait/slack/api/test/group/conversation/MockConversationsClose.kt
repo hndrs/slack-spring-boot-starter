@@ -19,6 +19,7 @@ open class MockConversationsClose : ConversationsCloseMethod(), MockMethod<Succe
     override var failureResponse: ErrorConversationCloseResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulConversationCloseResponse, ErrorConversationCloseResponse> {
+        
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

@@ -12,13 +12,11 @@ import com.kreait.slack.api.test.MockMethod
  * Testable implementation of [ImMethodGroup.open]
  */
 class MockImOpenMethod : ImOpenMethod(), MockMethod<SuccessfulImOpenResponse, ErrorImOpenResponse, ImOpenRequest> {
+
+    override fun params(): ImOpenRequest = params
+
     override var successResponse: SuccessfulImOpenResponse? = null
-
     override var failureResponse: ErrorImOpenResponse? = null
-
-    override fun params(): ImOpenRequest {
-        return params
-    }
 
     override fun request(): ApiCallResult<SuccessfulImOpenResponse, ErrorImOpenResponse> {
 

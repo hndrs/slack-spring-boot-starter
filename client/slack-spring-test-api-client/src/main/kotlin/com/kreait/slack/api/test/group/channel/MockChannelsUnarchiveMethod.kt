@@ -13,9 +13,7 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockChannelsUnarchiveMethod : ChannelsUnarchiveMethod(), MockMethod<SuccessfulChannelUnarchiveResponse, ErrorChannelUnarchiveResponse, ChannelsUnarchiveRequest> {
 
-    override fun params(): ChannelsUnarchiveRequest {
-        return params
-    }
+    override fun params(): ChannelsUnarchiveRequest = params
 
     override var successResponse: SuccessfulChannelUnarchiveResponse? = null
     override var failureResponse: ErrorChannelUnarchiveResponse? = null
@@ -24,6 +22,7 @@ class MockChannelsUnarchiveMethod : ChannelsUnarchiveMethod(), MockMethod<Succes
 
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
+
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
 }

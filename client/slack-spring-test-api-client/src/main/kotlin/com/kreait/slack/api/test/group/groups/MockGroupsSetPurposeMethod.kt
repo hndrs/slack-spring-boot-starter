@@ -19,6 +19,7 @@ open class MockGroupsSetPurposeMethod : GroupsSetPurposeMethod(), MockMethod<Suc
     override var failureResponse: ErrorGroupsSetPurposeResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulGroupsSetPurposeResponse, ErrorGroupsSetPurposeResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

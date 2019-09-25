@@ -13,9 +13,7 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockChannelsRepliesMethod : ChannelsRepliesMethod(), MockMethod<SuccessfulChannelsRepliesResponse, ErrorChannelsRepliesResponse, ChannelsRepliesRequest> {
 
-    override fun params(): ChannelsRepliesRequest {
-        return params
-    }
+    override fun params(): ChannelsRepliesRequest = params
 
     override var successResponse: SuccessfulChannelsRepliesResponse? = null
     override var failureResponse: ErrorChannelsRepliesResponse? = null
@@ -24,6 +22,7 @@ class MockChannelsRepliesMethod : ChannelsRepliesMethod(), MockMethod<Successful
 
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
+
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
 }

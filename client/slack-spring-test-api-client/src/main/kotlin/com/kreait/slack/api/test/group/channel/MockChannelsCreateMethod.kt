@@ -13,9 +13,7 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockChannelsCreateMethod : ChannelsCreateMethod(), MockMethod<SuccessfulChannelsCreateResponse, ErrorChannelsCreateResponse, ChannelsCreateRequest> {
 
-    override fun params(): ChannelsCreateRequest {
-        return params
-    }
+    override fun params(): ChannelsCreateRequest = params
 
     override var successResponse: SuccessfulChannelsCreateResponse? = null
     override var failureResponse: ErrorChannelsCreateResponse? = null

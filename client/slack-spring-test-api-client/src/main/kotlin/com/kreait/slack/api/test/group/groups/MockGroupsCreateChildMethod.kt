@@ -19,6 +19,7 @@ open class MockGroupsCreateChildMethod : GroupsCreateChildMethod(), MockMethod<S
     override var failureResponse: ErrorGroupsCreateChildResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulGroupsCreateChildResponse, ErrorGroupsCreateChildResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

@@ -13,9 +13,7 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockAuthRevokeMethod : AuthRevokeMethod(), MockMethod<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse, AuthRevokeRequest> {
 
-    override fun params(): AuthRevokeRequest {
-        return params
-    }
+    override fun params(): AuthRevokeRequest = params
 
     override var successResponse: SuccessfulAuthRevokeResponse? = null
     override var failureResponse: ErrorAuthRevokeResponse? = null

@@ -13,14 +13,13 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockDialogOpenMethod : DialogOpenMethod(), MockMethod<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse, SlackOpenDialogRequest> {
 
-    override fun params(): SlackOpenDialogRequest {
-        return params
-    }
+    override fun params(): SlackOpenDialogRequest = params
 
     override var successResponse: SuccessfulOpenDialogResponse? = null
     override var failureResponse: ErrorOpenDialogResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

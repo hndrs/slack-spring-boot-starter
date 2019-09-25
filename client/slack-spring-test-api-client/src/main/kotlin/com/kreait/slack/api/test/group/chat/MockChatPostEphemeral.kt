@@ -13,14 +13,13 @@ import com.kreait.slack.api.test.MockMethod
  */
 open class MockChatPostEphemeral : ChatPostEphemeralMethod(), MockMethod<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse, PostEphemeralRequest> {
 
-    override fun params(): PostEphemeralRequest {
-        return params;
-    }
+    override fun params(): PostEphemeralRequest = params
 
     override var successResponse: SuccessfulPostEphemeralResponse? = null
     override var failureResponse: ErrorPostEphemeralResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

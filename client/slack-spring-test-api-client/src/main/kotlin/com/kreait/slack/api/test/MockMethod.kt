@@ -10,7 +10,7 @@ package com.kreait.slack.api.test
 interface MockMethod<Success, Failure, Params> {
 
     /**
-     * set this value to mock a susccess response
+     * set this value to mock a success response
      */
     var successResponse: Success?
 

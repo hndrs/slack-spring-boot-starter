@@ -4,19 +4,13 @@ import com.kreait.slack.api.group.auth.AuthGroup
 
 /**
  * Mockable implementation of [AuthGroup]
- *
  */
 class MockAuthGroup : AuthGroup {
 
-    private val mockAuthMethod = MockAuthTestMethod()
+    private val mockAuthTestMethod = MockAuthTestMethod()
     private val mockAuthRevokeMethod = MockAuthRevokeMethod()
 
-    override fun test(authToken: String): MockAuthTestMethod {
-        return mockAuthMethod
-    }
-
-    override fun revoke(authToken: String): MockAuthRevokeMethod {
-        return mockAuthRevokeMethod
-    }
+    override fun test(authToken: String) = mockAuthTestMethod
+    override fun revoke(authToken: String) = mockAuthRevokeMethod
 
 }

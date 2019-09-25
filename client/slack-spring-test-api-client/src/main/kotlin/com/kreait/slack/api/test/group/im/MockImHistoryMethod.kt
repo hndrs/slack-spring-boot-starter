@@ -19,6 +19,7 @@ class MockImHistoryMethod : ImHistoryMethod(), MockMethod<SuccessfulImHistoryRes
     override var failureResponse: ErrorImHistoryResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulImHistoryResponse, ErrorImHistoryResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

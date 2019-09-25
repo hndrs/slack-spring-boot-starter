@@ -19,6 +19,7 @@ open class MockGroupsArchiveMethod : GroupsArchiveMethod(), MockMethod<Successfu
     override var failureResponse: ErrorGroupsArchiveResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulGroupsArchiveResponse, ErrorGroupsArchiveResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

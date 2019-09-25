@@ -19,6 +19,7 @@ class MockUsergroupsListMethod : UsergroupsListMethod(), MockMethod<SuccessfulLi
     override var failureResponse: ErrorListResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulListResponse, ErrorListResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

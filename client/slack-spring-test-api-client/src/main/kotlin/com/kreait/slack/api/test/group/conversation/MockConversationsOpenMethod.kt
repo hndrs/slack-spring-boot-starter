@@ -19,6 +19,7 @@ class MockConversationsOpenMethod : ConversationsOpenMethod(), MockMethod<Succes
     override var failureResponse: ErrorConversationOpenResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulConversationOpenResponse, ErrorConversationOpenResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
         return ApiCallResult(this.successResponse, this.failureResponse)

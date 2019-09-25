@@ -22,70 +22,21 @@ class MockConversationMethodGroup : ConversationsMethodGroup {
     private val mockConversationsHistoryMethod = MockConversationsHistoryMethod()
     private val mockConversationsOpenMethod = MockConversationsOpenMethod()
 
-    override fun close(authToken: String): MockConversationsClose = mockConversationsClose
-
-    override fun create(authToken: String): MockConversationsCreate {
-        return mockConversationsCreate
-    }
-
-    override fun history(authToken: String): MockConversationsHistoryMethod {
-        return mockConversationsHistoryMethod
-    }
-
-    override fun info(authToken: String): MockConversationsInfoMethod {
-        return mockConversationsInfoMethod
-    }
-
-    override fun invite(authToken: String): MockConversationsInviteMethod {
-        return mockConversationsInviteMethod
-    }
-
-    override fun join(authToken: String): MockConversationsJoinMethod {
-        return mockConversationsJoinMethod
-    }
-
-    override fun kick(authToken: String): MockConversationsKickMethod {
-        return mockConversationsKickMethod
-    }
-
-    override fun leave(authToken: String): MockConversationsLeaveMethod {
-        return mockConversationsLeaveMethod
-    }
-
-    override fun list(authToken: String): MockConversationsListMethod {
-        return mockConversationsListMethod
-    }
-
-    override fun members(authToken: String): MockConversationsMembersMethod {
-        return mockConversationsMembersMethod
-    }
-
-    override fun open(authToken: String): MockConversationsOpenMethod {
-        return mockConversationsOpenMethod
-    }
-
-    override fun rename(authToken: String): MockConversationsRenameMethod {
-        return mockConversationsRenameMethod
-    }
-
-    override fun replies(authToken: String): MockConversationsRepliesMethod {
-        return mockConversationsRepliesMethod
-    }
-
-    override fun setPurpose(authToken: String): MockConversationsSetPurposeMethod {
-        return mockConversationsSetPurposeMethod
-    }
-
-    override fun setTopic(authToken: String): MockConversationsSetTopicMethod {
-        return mockConversationsSetTopicMethod
-    }
-
-    override fun unarchive(authToken: String): MockConversationsUnarchiveMethod {
-        return mockConversationsUnarchiveMethod
-    }
-
-    override fun archive(authToken: String): MockConversationsArchiveMethod {
-        return mockConversationsArchiveMethod
-    }
-
+    override fun close(authToken: String) = mockConversationsClose
+    override fun create(authToken: String) = mockConversationsCreate
+    override fun history(authToken: String) = mockConversationsHistoryMethod
+    override fun info(authToken: String) = mockConversationsInfoMethod
+    override fun invite(authToken: String) = mockConversationsInviteMethod
+    override fun join(authToken: String) = mockConversationsJoinMethod
+    override fun kick(authToken: String) = mockConversationsKickMethod
+    override fun leave(authToken: String) = mockConversationsLeaveMethod
+    override fun list(authToken: String) = mockConversationsListMethod
+    override fun members(authToken: String) = mockConversationsMembersMethod
+    override fun open(authToken: String) = mockConversationsOpenMethod
+    override fun rename(authToken: String) = mockConversationsRenameMethod
+    override fun replies(authToken: String) = mockConversationsRepliesMethod
+    override fun setPurpose(authToken: String) = mockConversationsSetPurposeMethod
+    override fun setTopic(authToken: String) = mockConversationsSetTopicMethod
+    override fun unarchive(authToken: String) = mockConversationsUnarchiveMethod
+    override fun archive(authToken: String) = mockConversationsArchiveMethod
 }

@@ -19,6 +19,7 @@ class MockUsersSetPresenceMethod : UsersSetPresenceMethod(), MockMethod<Successf
     override var failureResponse: ErrorSetPresenceResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulSetPresenceResponse, ErrorSetPresenceResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 
