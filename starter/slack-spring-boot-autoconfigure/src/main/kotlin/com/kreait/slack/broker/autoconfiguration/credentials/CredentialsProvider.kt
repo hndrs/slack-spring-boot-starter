@@ -6,10 +6,14 @@ import java.util.Properties
 
 /**
  * Provider interface for slack credentials
- *
  */
 interface CredentialsProvider {
 
+    /**
+     * Holds credentials for the Application
+     *
+     * @return [ApplicationCredentials]
+     */
     fun applicationCredentials(): ApplicationCredentials
 
 }
@@ -28,6 +32,7 @@ class DefaultCredentialsProviderChain
  * Checks if registered [CredentialsProvider]s contain the credentials and returns them
  * @property credentialsProviders a list of [CredentialsProvider]s that will be checked
  */
+@SuppressWarnings("detekt:TooGenericExceptionCaught")
 abstract class CredentialsProviderChain(private val credentialsProviders: List<CredentialsProvider>) : CredentialsProvider {
 
     override fun applicationCredentials(): ApplicationCredentials {

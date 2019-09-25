@@ -22,9 +22,11 @@ class VerificationException(message: String) : RuntimeException(message)
 /**
  * https://api.slack.com/docs/verifying-requests-from-slack
  */
+@SuppressWarnings("detekt:ThrowsCount")
 abstract class VerificationMethodArgumentResolver(private val signingSecret: String) : HandlerMethodArgumentResolver {
 
     companion object {
+
         private const val SLACK_SIGNATURE_HEADER_NAME = "x-slack-signature"
         private const val SLACK_REQUEST_TIMESTAMP_HEADER_NAME = "x-slack-request-timestamp"
         private const val CONTENT_TYPE = "Content-Type"
@@ -44,8 +46,6 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
             }
             return replacedPayload
         }
-
-
     }
 
     final override fun resolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, webRequest: NativeWebRequest, binderFactory: WebDataBinderFactory?): Any? {
@@ -100,6 +100,4 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
             throw VerificationException("Request timestamp older than 5 minutes")
         }
     }
-
-
 }
