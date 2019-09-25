@@ -28,7 +28,7 @@ class SpringUserListAllMethodTest {
         val params = ListAllRequest(true, 1)
 
         val mockServer = MockServerHelper.buildMockRestServer(RestTemplateFactory.slackTemplate(),
-                "users.listGroups", SuccessfulListResponse(true, listOf(member1), 0, ResponseMetadata("test")),
+                "users.list", SuccessfulListResponse(true, listOf(member1), 0, ResponseMetadata("test")),
                 SuccessfulListResponse(true, listOf(member2), 0, ResponseMetadata("")))
 
         method.with(params)
@@ -48,7 +48,7 @@ class SpringUserListAllMethodTest {
         val verifier = Verifier(allResponse)
         val params = ListAllRequest(true, 1)
         val mockServer = MockServerHelper.buildMockRestServer(RestTemplateFactory.slackTemplate(),
-                "users.listGroups", ErrorListResponse.sample())
+                "users.list", ErrorListResponse.sample())
 
         method.with(params)
                 .onFailure {

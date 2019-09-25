@@ -81,7 +81,7 @@ class MethodTests() {
             MetaInfo("groups.invite", SuccessfulGroupsInviteResponse.sample(), ErrorGroupsInviteResponse.sample(), GroupsInviteRequest, SpringGroupsInviteMethod("", mockTemplate)),
             MetaInfo("groups.kick", SuccessfulGroupsKickResponse.sample(), ErrorGroupsKickResponse.sample(), GroupsKickRequest.sample(), SpringGroupsKickMethod("", mockTemplate)),
             MetaInfo("groups.leave", SuccessfulGroupsLeaveResponse.sample(), ErrorGroupsLeaveResponse.sample(), GroupsLeaveRequest.sample(), SpringGroupsLeaveMethod("", mockTemplate)),
-            MetaInfo("groups.listGroups", SuccessfulGroupsListResponse.sample(), ErrorGroupsListResponse.sample(), GroupsListRequest.sample(), SpringGroupsListMethod("", mockTemplate)),
+            MetaInfo("groups.list", SuccessfulGroupsListResponse.sample(), ErrorGroupsListResponse.sample(), GroupsListRequest.sample(), SpringGroupsListMethod("", mockTemplate)),
             MetaInfo("groups.mark", SuccessfulGroupsMarkResponse.sample(), ErrorGroupsMarkResponse.sample(), GroupsMarkRequest.sample(), SpringGroupsMarkMethod("", mockTemplate)),
             MetaInfo("groups.rename", SuccessfulGroupsRenameResponse.sample(), ErrorGroupsRenameResponse.sample(), GroupsRenameRequest.sample(), SpringGroupsRenameMethod("", mockTemplate)),
             MetaInfo("groups.replies", SuccessfulGroupsRepliesResponse.sample(), ErrorGroupsRepliesResponse.sample(), GroupsRepliesRequest.sample(), SpringGroupsRepliesMethod("", mockTemplate)),

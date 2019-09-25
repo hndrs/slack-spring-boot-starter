@@ -19,7 +19,7 @@ class SpringRemindersListMethod(private val authToken: String, private val restT
 
         val response = SlackRequestBuilder<RemindersListResponse>(authToken, restTemplate)
                 .with(this.params)
-                .toMethod("reminders.listGroups")
+                .toMethod("reminders.list")
                 .returnAsType(RemindersListResponse::class.java)
                 .postWithJsonBody()
 
