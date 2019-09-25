@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.usergroups.DisableRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulDisableResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsDisableMethod
+import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [UsergroupsMethodGroup.disable]
+ */
 class MockUsergroupsDisableMethod : UsergroupsDisableMethod(), MockMethod<SuccessfulDisableResponse, ErrorDisableResponse, DisableRequest> {
 
     override fun params(): DisableRequest = params

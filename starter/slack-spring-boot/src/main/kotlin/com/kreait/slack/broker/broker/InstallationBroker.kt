@@ -22,6 +22,7 @@ import org.springframework.web.servlet.view.RedirectView
  * Notes:
  * At this point there is no guarantee on the execution order of the [InstallationReceiver]s
  */
+@SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
 class InstallationBroker constructor(
         private val installationReceivers: List<InstallationReceiver>,

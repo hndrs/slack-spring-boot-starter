@@ -7,6 +7,6 @@ import com.kreait.slack.api.group.ApiCallMethod
 
 /**
  * Abstract representation of an slack api operation
- * https://api.slack.com/methods/im.list
+ * https://api.slack.com/methods/im.listGroups
  */
 abstract class ImListMethod : ApiCallMethod<ImListMethod, SuccessfulImListResponse, ErrorImListResponse, ImListRequest>()

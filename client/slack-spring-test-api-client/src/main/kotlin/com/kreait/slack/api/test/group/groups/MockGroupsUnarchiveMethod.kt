@@ -4,11 +4,12 @@ import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsUnarchiveRe
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsUnarchiveRequest
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsUnarchiveResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.groups.GroupsUnarchiveMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Testable implementation of [GroupsMethodGroup.unarchive]
  */
 open class MockGroupsUnarchiveMethod : GroupsUnarchiveMethod(), MockMethod<SuccessfulGroupsUnarchiveResponse, ErrorGroupsUnarchiveResponse, GroupsUnarchiveRequest> {
 

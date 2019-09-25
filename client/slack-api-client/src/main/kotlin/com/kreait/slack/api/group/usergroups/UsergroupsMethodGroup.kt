@@ -10,11 +10,10 @@ import com.kreait.slack.api.group.usergroups.users.UsergroupsUsersUpdateMethod
  */
 interface UsergroupsMethodGroup {
 
-    //TODO create subgroup
     /**
-     * Update the list of users for a User Group
+     * Update the listGroups of users for a User Group
      */
-    fun updateUsers(authToken: String): UsergroupsUsersUpdateMethod
+    fun replaceUsers(authToken: String): UsergroupsUsersUpdateMethod
 
     /**
      * Create a User Group
@@ -24,7 +23,7 @@ interface UsergroupsMethodGroup {
     /**
      * List all User Groups for a team
      */
-    fun list(authToken: String): UsergroupsListMethod
+    fun listGroups(authToken: String): UsergroupsListMethod
 
     /**
      * Update an existing User Group
@@ -39,7 +38,7 @@ interface UsergroupsMethodGroup {
     /**
      * List all users in a User Group
      */
-    fun listAllUsers(authToken: String): UsergroupsUsersListMethod
+    fun listUsers(authToken: String): UsergroupsUsersListMethod
 
     /**
      * Enable a User Group

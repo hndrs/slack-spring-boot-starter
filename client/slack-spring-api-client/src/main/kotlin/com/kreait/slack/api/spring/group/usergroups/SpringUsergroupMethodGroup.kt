@@ -16,17 +16,17 @@ class SpringUsergroupMethodGroup : UsergroupsMethodGroup {
         val LOG = LoggerFactory.getLogger(SpringUsergroupMethodGroup::class.java)
     }
 
-    override fun updateUsers(authToken: String) = SpringUsergroupsUsersUpdateMethod(authToken)
+    override fun replaceUsers(authToken: String) = SpringUsergroupsUsersUpdateMethod(authToken)
 
     override fun create(authToken: String) = SpringUsergroupsCreateMethod(authToken)
 
-    override fun list(authToken: String) = SpringUsergroupsListMethod(authToken)
+    override fun listGroups(authToken: String) = SpringUsergroupsListMethod(authToken)
 
     override fun update(authToken: String) = SpringUsergroupsUpdateMethod(authToken)
 
     override fun disable(authToken: String) = SpringUsergroupsDisableMethod(authToken)
 
-    override fun listAllUsers(authToken: String) = SpringUsergroupsUsersListMethod(authToken)
+    override fun listUsers(authToken: String) = SpringUsergroupsUsersListMethod(authToken)
 
     override fun enable(authToken: String) = SpringUsergroupsEnableMethod(authToken)
 }

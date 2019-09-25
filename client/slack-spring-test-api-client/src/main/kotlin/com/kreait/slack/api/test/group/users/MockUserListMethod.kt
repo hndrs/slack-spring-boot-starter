@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.users.ListRequest
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UserListMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [UsersMethodGroup.list]
+ */
 class MockUserListMethod : UserListMethod(), MockMethod<SuccessfulListResponse, ErrorListResponse, ListRequest> {
     override fun params(): ListRequest {
         return params

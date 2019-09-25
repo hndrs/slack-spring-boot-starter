@@ -4,6 +4,9 @@ import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.test.group.usergroups.users.MockUsergroupsUsersListMethod
 import com.kreait.slack.api.test.group.usergroups.users.MockUsergroupsUsersUpdateMethod
 
+/**
+ * Testable implementation of [UsergroupsMethodGroup]
+ */
 class MockUsergroupsMethodGroup : UsergroupsMethodGroup {
     private val mockUsergroupsUsersUpdateMethod = MockUsergroupsUsersUpdateMethod()
     private val mockUsergroupsCreateMethod = MockUsergroupsCreateMethod()
@@ -13,17 +16,17 @@ class MockUsergroupsMethodGroup : UsergroupsMethodGroup {
     private val mockUsergroupsUsersListMethod = MockUsergroupsUsersListMethod()
     private val mockUsergroupsEnableMethod = MockUsergroupsEnableMethod()
 
-    override fun updateUsers(authToken: String) = mockUsergroupsUsersUpdateMethod
+    override fun replaceUsers(authToken: String) = mockUsergroupsUsersUpdateMethod
 
     override fun create(authToken: String) = mockUsergroupsCreateMethod
 
-    override fun list(authToken: String) = mockUsergroupsListMethod
+    override fun listGroups(authToken: String) = mockUsergroupsListMethod
 
     override fun update(authToken: String) = mockUsergroupsUpdateMethod
 
     override fun disable(authToken: String) = mockUsergroupsDisableMethod
 
-    override fun listAllUsers(authToken: String) = mockUsergroupsUsersListMethod
+    override fun listUsers(authToken: String) = mockUsergroupsUsersListMethod
 
     override fun enable(authToken: String) = mockUsergroupsEnableMethod
 }

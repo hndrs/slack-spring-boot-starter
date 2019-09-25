@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.im.ImMarkRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImMarkResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImMarkMethod
+import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ImMethodGroup.mark]
+ */
 class MockImMarkMethod : ImMarkMethod(), MockMethod<SuccessfulImMarkResponse, ErrorImMarkResponse, ImMarkRequest> {
     override var successResponse: SuccessfulImMarkResponse? = null
 

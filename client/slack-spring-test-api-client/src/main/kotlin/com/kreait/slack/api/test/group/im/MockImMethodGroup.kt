@@ -2,6 +2,9 @@ package com.kreait.slack.api.test.group.im
 
 import com.kreait.slack.api.group.im.ImMethodGroup
 
+/**
+ * Testable implementation of [ImMethodGroup]
+ */
 class MockImMethodGroup : ImMethodGroup {
 
     private val mockImRepliesMethod = MockImRepliesMethod()

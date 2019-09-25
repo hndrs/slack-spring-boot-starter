@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.im.ImHistoryRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImHistoryResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.im.ImHistoryMethod
+import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ImMethodGroup.history]
+ */
 class MockImHistoryMethod : ImHistoryMethod(), MockMethod<SuccessfulImHistoryResponse, ErrorImHistoryResponse, ImHistoryRequest> {
 
     override fun params() = params

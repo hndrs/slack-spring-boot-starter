@@ -51,9 +51,9 @@ class MethodsTests {
             MetaInfo("usergroups.create", SuccessfulCreateResponse.sample(), ErrorCreateResponse.sample(), CreateRequest.sample(), SpringUsergroupsCreateMethod("", mockTemplate)),
             MetaInfo("usergroups.disable", SuccessfulDisableResponse.sample(), ErrorDisableResponse.sample(), DisableRequest.sample(), SpringUsergroupsDisableMethod("", mockTemplate)),
             MetaInfo("usergroups.enable", SuccessfulEnableResponse.sample(), ErrorEnableResponse.sample(), EnableRequest.sample(), SpringUsergroupsEnableMethod("", mockTemplate)),
-            MetaInfo("usergroups.list", SuccessfulListResponse.sample(), ErrorListResponse.sample(), ListRequest.sample(), SpringUsergroupsListMethod("", mockTemplate)),
+            MetaInfo("usergroups.listGroups", SuccessfulListResponse.sample(), ErrorListResponse.sample(), ListRequest.sample(), SpringUsergroupsListMethod("", mockTemplate)),
             MetaInfo("usergroups.update", SuccessfulUpdateResponse.sample(), ErrorUpdateResponse.sample(), UpdateRequest.sample(), SpringUsergroupsUpdateMethod("", mockTemplate)),
-            MetaInfo("usergroups.users.list", SuccessfulUsergroupsUsersListResponse.sample(), ErrorUsergroupsUsersListResponse.sample(), UsergroupsUsersListRequest.sample(), SpringUsergroupsUsersListMethod("", mockTemplate)),
+            MetaInfo("usergroups.users.listGroups", SuccessfulUsergroupsUsersListResponse.sample(), ErrorUsergroupsUsersListResponse.sample(), UsergroupsUsersListRequest.sample(), SpringUsergroupsUsersListMethod("", mockTemplate)),
             MetaInfo("usergroups.users.update", SuccessfulUsergroupUsersUpdateResponse.sample(), ErrorUsergroupUsersUpdateResponse.sample(), UsergroupUsersUpdateRequest.sample(), SpringUsergroupsUsersUpdateMethod("", mockTemplate))
     )
 }

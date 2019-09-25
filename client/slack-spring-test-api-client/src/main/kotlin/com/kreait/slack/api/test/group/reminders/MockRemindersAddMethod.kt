@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.reminders.RemindersAddRequest
 import com.kreait.slack.api.contract.jackson.group.reminders.SuccessfulRemindersAddResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.reminders.RemindersAddMethod
+import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [RemindersMethodGroup.add]
+ */
 class MockRemindersAddMethod : RemindersAddMethod(), MockMethod<SuccessfulRemindersAddResponse, ErrorRemindersAddResponse, RemindersAddRequest> {
 
     override fun params() = params

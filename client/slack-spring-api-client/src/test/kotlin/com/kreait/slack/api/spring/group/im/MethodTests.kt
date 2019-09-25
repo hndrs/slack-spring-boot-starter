@@ -49,7 +49,7 @@ class MethodInvocationTest {
     private fun testCases() = listOf(
             MetaInfo("im.close", SuccessfulImCloseResponse.sample(), ErrorImCloseResponse.sample(), ImCloseRequest.sample(), SpringImCloseMethod("", mockTemplate)),
             MetaInfo("im.history", SuccessfulImHistoryResponse.sample(), ErrorImHistoryResponse.sample(), ImHistoryRequest.sample(), SpringImHistoryMethod("", mockTemplate)),
-            MetaInfo("im.list", SuccessfulImListResponse.sample(), ErrorImListResponse.sample(), ImListRequest.sample(), SpringImListMethod("", mockTemplate)),
+            MetaInfo("im.listGroups", SuccessfulImListResponse.sample(), ErrorImListResponse.sample(), ImListRequest.sample(), SpringImListMethod("", mockTemplate)),
             MetaInfo("im.mark", SuccessfulImMarkResponse.sample(), ErrorImMarkResponse.sample(), ImMarkRequest.sample(), SpringImMarkMethod("", mockTemplate)),
             MetaInfo("im.open", SuccessfulImOpenResponse.sample(), ErrorImOpenResponse.sample(), ImOpenRequest.sample(), SpringImOpenMethod("", mockTemplate)),
             MetaInfo("im.replies", SuccessfulImRepliesResponse.sample(), ErrorImRepliesResponse.sample(), ImRepliesRequest.sample(), SpringImRepliesMethod("", mockTemplate))

@@ -5,10 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.groups.GroupsInviteRequest
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsInviteResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.groups.GroupsInviteMethod
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link Groups InviteMethod
+ * Testable implementation of [GroupsMethodGroup.invite]
  */
 open class MockGroupsInviteMethod : GroupsInviteMethod(), MockMethod<SuccessfulGroupsInviteResponse, ErrorGroupsInviteResponse, GroupsInviteRequest> {
 

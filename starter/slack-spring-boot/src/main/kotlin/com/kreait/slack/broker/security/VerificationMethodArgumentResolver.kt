@@ -14,6 +14,9 @@ import java.time.Duration
 import java.time.Instant
 import javax.servlet.http.HttpServletRequest
 
+/**
+ * thrown when a request could not be verified
+ */
 class VerificationException(message: String) : RuntimeException(message)
 
 /**
@@ -27,7 +30,7 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
         private const val CONTENT_TYPE = "Content-Type"
         private const val SLACK_SIGNATURE_VERSION = "v0"
         private val specialChars = mapOf("*" to "%2A")
-
+        private const val SLACK_MAX_AGE: Long = 5
         /**
          * since spring decodes unreserved characters automatically
          * we need to replace them with their url escaped value again
@@ -41,6 +44,8 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
             }
             return replacedPayload
         }
+
+
     }
 
     final override fun resolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, webRequest: NativeWebRequest, binderFactory: WebDataBinderFactory?): Any? {
@@ -87,7 +92,7 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
         }
 
         val compareTo = Duration.between(requestTimestamp, currentTime)
-                .compareTo(Duration.ofMinutes(5))
+                .compareTo(Duration.ofMinutes(SLACK_MAX_AGE))
 
         return if (compareTo < 0) {
             slackTimestamp

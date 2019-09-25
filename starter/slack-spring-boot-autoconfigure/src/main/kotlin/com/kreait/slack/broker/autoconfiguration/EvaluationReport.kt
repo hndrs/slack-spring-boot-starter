@@ -10,6 +10,7 @@ import com.kreait.slack.broker.store.event.InMemoryEventStore
 import com.kreait.slack.broker.store.team.InMemoryTeamStore
 import com.kreait.slack.broker.store.team.TeamStore
 import com.kreait.slack.broker.store.user.UserStore
+import org.springframework.beans.BeansException
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationListener
 import org.springframework.context.event.ContextRefreshedEvent
@@ -70,7 +71,7 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
                     if (it.second.isInstance(bean)) {
                         sb.appendln("   - Default version of ${it.second.simpleName} is registered, this is not recommended for production")
                     }
-                } catch (e: Exception) {
+                } catch (e: BeansException) {
                     //do nothing
                 }
             }

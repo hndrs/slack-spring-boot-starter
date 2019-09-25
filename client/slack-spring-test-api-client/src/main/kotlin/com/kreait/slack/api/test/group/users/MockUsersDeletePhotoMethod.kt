@@ -4,8 +4,12 @@ import com.kreait.slack.api.contract.jackson.group.users.ErrorDeletePhotoRespons
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulDeletePhotoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersDeletePhotoMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [UsersMethodGroup.deletePhoto]
+ */
 class MockUsersDeletePhotoMethod : UsersDeletePhotoMethod(), MockMethod<SuccessfulDeletePhotoResponse, ErrorDeletePhotoResponse, Unit> {
     override fun params(): Unit {
         return params

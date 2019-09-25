@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.users.InfoRequest
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulInfoResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.users.UsersInfoMethod
+import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [UsersMethodGroup.info]
+ */
 class MockUsersInfoMethod : UsersInfoMethod(), MockMethod<SuccessfulInfoResponse, ErrorInfoResponse, InfoRequest> {
     override fun params(): InfoRequest {
         return params

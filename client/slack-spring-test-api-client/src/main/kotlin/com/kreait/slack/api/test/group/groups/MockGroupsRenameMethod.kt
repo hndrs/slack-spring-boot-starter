@@ -4,11 +4,12 @@ import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsRenameRespo
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsRenameRequest
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsRenameResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.groups.GroupsRenameMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Testable implementation of [GroupsMethodGroup.rename]
  */
 open class MockGroupsRenameMethod : GroupsRenameMethod(), MockMethod<SuccessfulGroupsRenameResponse, ErrorGroupsRenameResponse, GroupsRenameRequest> {
 

@@ -1,12 +1,16 @@
 package com.kreait.slack.api.test.group.usergroups
 
-import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorEnableResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.EnableRequest
+import com.kreait.slack.api.contract.jackson.group.usergroups.ErrorEnableResponse
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulEnableResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsEnableMethod
+import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [UsergroupsMethodGroup.enable]
+ */
 class MockUsergroupsEnableMethod : UsergroupsEnableMethod(), MockMethod<SuccessfulEnableResponse, ErrorEnableResponse, EnableRequest> {
 
     override fun params(): EnableRequest = params

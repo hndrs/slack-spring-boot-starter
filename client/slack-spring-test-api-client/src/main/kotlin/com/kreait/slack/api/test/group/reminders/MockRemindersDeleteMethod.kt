@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.reminders.RemindersDeleteRequ
 import com.kreait.slack.api.contract.jackson.group.reminders.SuccessfulRemindersDeleteResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.reminders.RemindersDeleteMethod
+import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [RemindersMethodGroup.delete]
+ */
 class MockRemindersDeleteMethod : RemindersDeleteMethod(), MockMethod<SuccessfulRemindersDeleteResponse, ErrorRemindersDeleteResponse, RemindersDeleteRequest> {
 
     override fun params() = params

@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.usergroups.CreateRequest
 import com.kreait.slack.api.contract.jackson.group.usergroups.SuccessfulCreateResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.usergroups.UsergroupsCreateMethod
+import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [UsergroupsMethodGroup.create]
+ */
 class MockUsergroupsCreateMethod : UsergroupsCreateMethod(), MockMethod<SuccessfulCreateResponse, ErrorCreateResponse, CreateRequest> {
 
     override fun params(): CreateRequest = params

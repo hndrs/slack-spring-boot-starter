@@ -4,11 +4,12 @@ import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsOpenRespons
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsOpenRequest
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsOpenResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.groups.GroupsOpenMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupsOpenMethod
+ * Testable implementation of [GroupsMethodGroup.open]
  */
 open class MockGroupsOpenMethod : GroupsOpenMethod(), MockMethod<SuccessfulGroupsOpenResponse, ErrorGroupsOpenResponse, GroupsOpenRequest> {
 

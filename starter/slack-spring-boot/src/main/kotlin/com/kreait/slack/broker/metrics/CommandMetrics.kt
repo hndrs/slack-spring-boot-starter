@@ -4,6 +4,9 @@ import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.MeterRegistry
 import io.micrometer.core.instrument.binder.MeterBinder
 
+/**
+ * Collects metrics for incoming commands
+ */
 interface CommandMetricsCollector {
 
     /**
@@ -27,6 +30,9 @@ interface CommandMetricsCollector {
     fun commandsReceived()
 }
 
+/**
+ * Increments metrics for commands
+ */
 class CommandMetrics : MeterBinder, CommandMetricsCollector {
 
     private lateinit var commandReceiverExecutionErrors: Counter

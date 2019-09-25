@@ -63,7 +63,7 @@ class FileUserStore : UserStore {
     override fun findById(id: String): User {
         val localUsers: List<LocalUser> = objectMapper.readValue(dataFile())
 
-        // Find the user with the given id in the list that was retrieved from the file
+        // Find the user with the given id in the listGroups that was retrieved from the file
         val localUser = localUsers.find { it.id == id } ?: throw UserNotFoundException("User $id not found.")
 
         return userOfLocalUser(localUser)

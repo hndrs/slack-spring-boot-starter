@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 /**
  * Component broker that forwards all [InteractiveComponentResponse]s to all [InteractiveComponentReceiver]s
  */
+@SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
 class InteractiveComponentBroker constructor(private val slackBlockActionReceivers: List<InteractiveComponentReceiver<BlockActions>>,
                                              private val slackInteractiveMessageReceivers: List<InteractiveComponentReceiver<InteractiveMessage>>,

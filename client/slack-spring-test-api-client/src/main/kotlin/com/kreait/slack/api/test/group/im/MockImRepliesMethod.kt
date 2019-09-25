@@ -4,9 +4,13 @@ import com.kreait.slack.api.contract.jackson.group.im.ErrorImRepliesResponse
 import com.kreait.slack.api.contract.jackson.group.im.ImRepliesRequest
 import com.kreait.slack.api.contract.jackson.group.im.SuccessfulImRepliesResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.im.ImRepliesMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ImMethodGroup.replies]
+ */
 class MockImRepliesMethod : ImRepliesMethod(), MockMethod<SuccessfulImRepliesResponse, ErrorImRepliesResponse, ImRepliesRequest> {
     override var successResponse: SuccessfulImRepliesResponse? = null
 

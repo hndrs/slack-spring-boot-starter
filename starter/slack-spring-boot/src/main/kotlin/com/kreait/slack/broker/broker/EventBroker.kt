@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController
  * @property eventStore
  * @property metricsCollector
  */
+@SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
 class EventBroker constructor(private val slackEventReceivers: List<EventReceiver>,
                               private val teamStore: TeamStore,

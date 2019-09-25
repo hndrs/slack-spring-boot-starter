@@ -9,6 +9,11 @@ import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.util.ContentCachingRequestWrapper
 
+/**
+ * Argument resolver that resolves incoming events
+ *
+ * @param signingSecret the signing secret to verify the request
+ */
 class EventArgumentResolver(signingSecret: String) : VerificationMethodArgumentResolver(signingSecret) {
 
     private val objectMapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()
@@ -22,6 +27,9 @@ class EventArgumentResolver(signingSecret: String) : VerificationMethodArgumentR
     }
 }
 
+/**
+ * used to annotate incoming events
+ */
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Event

@@ -4,11 +4,12 @@ import com.kreait.slack.api.contract.jackson.group.groups.ErrorGroupsRepliesResp
 import com.kreait.slack.api.contract.jackson.group.groups.GroupsRepliesRequest
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsRepliesResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.groups.GroupsRepliesMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Testable implementation of [GroupsMethodGroup.replies]
  */
 open class MockGroupsRepliesMethod : GroupsRepliesMethod(), MockMethod<SuccessfulGroupsRepliesResponse, ErrorGroupsRepliesResponse, GroupsRepliesRequest> {
 

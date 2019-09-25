@@ -5,10 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.groups.GroupsCreateChildReque
 import com.kreait.slack.api.contract.jackson.group.groups.SuccessfulGroupsCreateChildResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.groups.GroupsCreateChildMethod
+import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link GroupssCloseMethod
+ * Testable implementation of [GroupsMethodGroup.createChild]
  */
 open class MockGroupsCreateChildMethod : GroupsCreateChildMethod(), MockMethod<SuccessfulGroupsCreateChildResponse, ErrorGroupsCreateChildResponse, GroupsCreateChildRequest> {
 
