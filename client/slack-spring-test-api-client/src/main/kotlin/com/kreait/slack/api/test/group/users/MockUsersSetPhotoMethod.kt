@@ -19,6 +19,7 @@ class MockUsersSetPhotoMethod : UsersSetPhotoMethod(), MockMethod<SuccessfulSetP
     override var failureResponse: ErrorSetPhotoResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulSetPhotoResponse, ErrorSetPhotoResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

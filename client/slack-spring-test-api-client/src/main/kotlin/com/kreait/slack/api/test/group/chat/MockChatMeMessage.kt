@@ -13,14 +13,13 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockChatMeMessage : ChatMeMessageMethod(), MockMethod<SuccessfulChatMeMessageResponse, ErrorChatMeMessageResponse, ChatMeMessageRequest> {
 
-    override fun params(): ChatMeMessageRequest {
-        return params;
-    }
+    override fun params(): ChatMeMessageRequest = params
 
     override var successResponse: SuccessfulChatMeMessageResponse? = null
     override var failureResponse: ErrorChatMeMessageResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulChatMeMessageResponse, ErrorChatMeMessageResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

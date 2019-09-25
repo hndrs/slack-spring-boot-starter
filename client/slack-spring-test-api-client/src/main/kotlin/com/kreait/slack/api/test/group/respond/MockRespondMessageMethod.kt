@@ -11,14 +11,13 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockRespondMessageMethod : RespondMessageMethod(), MockMethod<Unit, Unit, RespondMessageRequest> {
 
-    override fun params(): RespondMessageRequest {
-        return params
-    }
+    override fun params(): RespondMessageRequest = params
 
     override var successResponse: Unit? = null
     override var failureResponse: Unit? = null
 
     override fun request(): ApiCallResult<Unit, Unit> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

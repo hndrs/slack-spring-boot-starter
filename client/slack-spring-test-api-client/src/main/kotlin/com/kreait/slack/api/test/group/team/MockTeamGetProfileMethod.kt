@@ -12,14 +12,14 @@ import com.kreait.slack.api.test.MockMethod
  * Testable implementation of [TeamMethodGroup.getProfile]
  */
 class MockTeamGetProfileMethod : TeamGetProfileMethod(), MockMethod<SuccessfulProfileResponse, ErrorProfileResponse, ProfileRequest> {
-    override fun params(): ProfileRequest {
-        return params
-    }
+
+    override fun params(): ProfileRequest = params
 
     override var successResponse: SuccessfulProfileResponse? = null
     override var failureResponse: ErrorProfileResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulProfileResponse, ErrorProfileResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

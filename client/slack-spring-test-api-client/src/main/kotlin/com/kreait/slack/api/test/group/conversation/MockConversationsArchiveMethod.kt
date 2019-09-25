@@ -19,6 +19,7 @@ open class MockConversationsArchiveMethod : ConversationsArchiveMethod(), MockMe
     override var failureResponse: ErrorConversationArchiveResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulConversationArchiveResponse, ErrorConversationArchiveResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

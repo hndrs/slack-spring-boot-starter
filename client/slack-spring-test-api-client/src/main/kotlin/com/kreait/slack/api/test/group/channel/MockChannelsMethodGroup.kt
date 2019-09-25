@@ -1,9 +1,6 @@
 package com.kreait.slack.api.test.group.channel
 
-import com.kreait.slack.api.group.channels.ChannelsKickMethod
-import com.kreait.slack.api.group.channels.ChannelsLeaveMethod
 import com.kreait.slack.api.group.channels.ChannelsMethodGroup
-import com.kreait.slack.api.group.channels.ChannelsSetPurposeMethod
 
 /**
  * Testable implementation of [ChannelsMethodGroup]
@@ -25,60 +22,18 @@ class MockChannelsMethodGroup : ChannelsMethodGroup {
     private val mockChannelsLeaveMethod = MockChannelsLeaveMethod()
     private val mockChannelsHistoryMethod = MockChannelHistoryMethod()
 
-    override fun archive(authToken: String): MockChannelsArchiveMethod {
-        return mockChannelsArchiveMethod
-    }
-
-    override fun create(authToken: String): MockChannelsCreateMethod {
-        return mockChannelsCreateMethod
-    }
-
-    override fun history(authToken: String): MockChannelHistoryMethod {
-        return mockChannelsHistoryMethod
-    }
-
-    override fun info(authToken: String): MockChannelsInfoMethod {
-        return mockChannelsInfoMethod
-    }
-
-    override fun invite(authToken: String): MockChannelsInviteMethod {
-        return mockChannelsInviteMethod
-    }
-
-    override fun join(authToken: String): MockChannelsJoinMethod {
-        return mockChannelsJoinMethod
-    }
-
-    override fun kick(authToken: String): ChannelsKickMethod {
-        return mockChannelKickMethod
-    }
-
-    override fun leave(authToken: String): ChannelsLeaveMethod {
-        return mockChannelsLeaveMethod
-    }
-
-
-    override fun mark(authToken: String): MockChannelsMarkMethod {
-        return mockChannelsMarkMethod
-    }
-
-    override fun rename(authToken: String): MockChannelsRenameMethod {
-        return mockChannelsRenameMethod
-    }
-
-    override fun replies(authToken: String): MockChannelsRepliesMethod {
-        return mockChannelsRepliesMethod
-    }
-
-    override fun setPurpose(authToken: String): ChannelsSetPurposeMethod {
-        return mockChannelsSetPurposeMethod
-    }
-
-    override fun setTopic(authToken: String): MockChannelsSetTopicMethod {
-        return mockChannelsSetTopicMethod
-    }
-
-    override fun unarchive(authToken: String): MockChannelsUnarchiveMethod {
-        return mockChannelsUnarchiveMethod
-    }
+    override fun archive(authToken: String) = mockChannelsArchiveMethod
+    override fun create(authToken: String) = mockChannelsCreateMethod
+    override fun history(authToken: String) = mockChannelsHistoryMethod
+    override fun info(authToken: String) = mockChannelsInfoMethod
+    override fun invite(authToken: String) = mockChannelsInviteMethod
+    override fun join(authToken: String) = mockChannelsJoinMethod
+    override fun kick(authToken: String) = mockChannelKickMethod
+    override fun leave(authToken: String) = mockChannelsLeaveMethod
+    override fun mark(authToken: String) = mockChannelsMarkMethod
+    override fun rename(authToken: String) = mockChannelsRenameMethod
+    override fun replies(authToken: String) = mockChannelsRepliesMethod
+    override fun setPurpose(authToken: String) = mockChannelsSetPurposeMethod
+    override fun setTopic(authToken: String) = mockChannelsSetTopicMethod
+    override fun unarchive(authToken: String) = mockChannelsUnarchiveMethod
 }

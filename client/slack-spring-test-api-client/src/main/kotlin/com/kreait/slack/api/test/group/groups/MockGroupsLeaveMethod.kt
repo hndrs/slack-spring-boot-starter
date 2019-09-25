@@ -19,6 +19,7 @@ open class MockGroupsLeaveMethod : GroupsLeaveMethod(), MockMethod<SuccessfulGro
     override var failureResponse: ErrorGroupsLeaveResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulGroupsLeaveResponse, ErrorGroupsLeaveResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

@@ -13,19 +13,16 @@ import com.kreait.slack.api.test.MockMethod
  */
 open class MockChatPostMessage : ChatPostMessageMethod(), MockMethod<SuccessfulPostMessageResponse, ErrorPostMessageResponse, PostMessageRequest> {
 
-    override fun params(): PostMessageRequest {
-        return params;
-    }
+    override fun params(): PostMessageRequest = params
 
     override var successResponse: SuccessfulPostMessageResponse? = null
     override var failureResponse: ErrorPostMessageResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulPostMessageResponse, ErrorPostMessageResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
-
-
 }

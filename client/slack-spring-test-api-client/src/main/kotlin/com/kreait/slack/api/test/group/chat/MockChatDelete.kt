@@ -13,14 +13,13 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockChatDelete : ChatDeleteMethod(), MockMethod<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, ChatDeleteRequest> {
 
-    override fun params(): ChatDeleteRequest {
-        return params;
-    }
+    override fun params(): ChatDeleteRequest = params
 
     override var successResponse: SuccessfulChatDeleteResponse? = null
     override var failureResponse: ErrorChatDeleteResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

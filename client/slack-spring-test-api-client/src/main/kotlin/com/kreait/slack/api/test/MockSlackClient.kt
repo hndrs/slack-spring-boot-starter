@@ -21,6 +21,7 @@ import com.kreait.slack.api.test.group.users.MockUsersMethodGroup
  *
  */
 class MockSlackClient : SlackClient {
+
     private val mockRemindersMethodGroup = MockRemindersMethodGroup()
     private val mockChatGroup = MockChatMethodGroup()
     private val mockAuthGroup = MockAuthGroup()
@@ -35,55 +36,17 @@ class MockSlackClient : SlackClient {
     private val mockUsergroupsMethodGroup = MockUsergroupsMethodGroup()
     private val mockGroupsMethodGroup = MockGroupsMethodGroup()
 
-    override fun auth(): MockAuthGroup {
-        return mockAuthGroup
-    }
-
-    override fun chat(): MockChatMethodGroup {
-        return mockChatGroup
-    }
-
-    override fun dialog(): MockDialogMethodGroup {
-        return mockDialogMethodGroup
-    }
-
-    override fun conversation(): MockConversationMethodGroup {
-        return mockConversationsMethodGroup
-    }
-
-    override fun channel(): MockChannelsMethodGroup {
-        return mockChannelsMethodGroup
-    }
-
-    override fun im(): MockImMethodGroup {
-        return mockImMethodGroup
-    }
-
-    override fun users(): MockUsersMethodGroup {
-        return mockUsersMethodGroup
-    }
-
-    override fun oauth(): MockOauthMethodGroup {
-        return mockOauthMethodGroup
-    }
-
-    override fun respond(): MockRespondMethodGroup {
-        return mockRespondMethodGroup;
-    }
-
-    override fun team(): MockTeamMethodGroup {
-        return mockTeamMethodGroup
-    }
-
-    override fun usergroups(): MockUsergroupsMethodGroup {
-        return mockUsergroupsMethodGroup
-    }
-
-    override fun groups(): MockGroupsMethodGroup {
-        return mockGroupsMethodGroup
-    }
-
-    override fun reminders(): RemindersMethodGroup {
-        return mockRemindersMethodGroup
-    }
+    override fun auth() = mockAuthGroup
+    override fun chat() = mockChatGroup
+    override fun dialog() = mockDialogMethodGroup
+    override fun conversation() = mockConversationsMethodGroup
+    override fun channel() = mockChannelsMethodGroup
+    override fun im() = mockImMethodGroup
+    override fun users() = mockUsersMethodGroup
+    override fun oauth() = mockOauthMethodGroup
+    override fun respond() = mockRespondMethodGroup
+    override fun team() = mockTeamMethodGroup
+    override fun usergroups() = mockUsergroupsMethodGroup
+    override fun groups() = mockGroupsMethodGroup
+    override fun reminders() = mockRemindersMethodGroup
 }

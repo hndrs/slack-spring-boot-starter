@@ -13,19 +13,16 @@ import com.kreait.slack.api.test.MockMethod
  */
 open class MockConversationsRenameMethod : ConversationsRenameMethod(), MockMethod<SuccessfulConversationsRenameResponse, ErrorConversationsRenameResponse, ConversationsRenameRequest> {
 
-    override fun params(): ConversationsRenameRequest {
-        return params;
-    }
+    override fun params(): ConversationsRenameRequest = params
 
     override var successResponse: SuccessfulConversationsRenameResponse? = null
     override var failureResponse: ErrorConversationsRenameResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulConversationsRenameResponse, ErrorConversationsRenameResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
-
-
 }

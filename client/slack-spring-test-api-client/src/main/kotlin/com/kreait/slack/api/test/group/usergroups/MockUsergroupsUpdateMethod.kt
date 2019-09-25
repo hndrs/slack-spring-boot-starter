@@ -14,12 +14,15 @@ import com.kreait.slack.api.test.MockMethod
 class MockUsergroupsUpdateMethod : UsergroupsUpdateMethod(), MockMethod<SuccessfulUpdateResponse, ErrorUpdateResponse, UpdateRequest> {
 
     override fun params(): UpdateRequest = params
+
     override var successResponse: SuccessfulUpdateResponse? = null
     override var failureResponse: ErrorUpdateResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulUpdateResponse, ErrorUpdateResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
+
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
 }

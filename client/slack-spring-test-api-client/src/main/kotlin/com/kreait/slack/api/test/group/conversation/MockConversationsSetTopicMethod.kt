@@ -19,6 +19,7 @@ class MockConversationsSetTopicMethod : ConversationsSetTopicMethod(), MockMetho
     override var failureResponse: ErrorConversationSetTopicResponse? = null
 
     override fun request(): ApiCallResult<SuccessfulConversationSetTopicResponse, ErrorConversationSetTopicResponse> {
+
         this.successResponse?.let { this.onSuccess?.invoke(it) }
         this.failureResponse?.let { this.onFailure?.invoke(it) }
 

@@ -9,7 +9,5 @@ class MockTeamMethodGroup : TeamMethodGroup {
 
     private val mockTeamGetProfileMethod = MockTeamGetProfileMethod()
 
-    override fun getProfile(authToken: String): MockTeamGetProfileMethod {
-        return mockTeamGetProfileMethod
-    }
+    override fun getProfile(authToken: String) = mockTeamGetProfileMethod
 }
