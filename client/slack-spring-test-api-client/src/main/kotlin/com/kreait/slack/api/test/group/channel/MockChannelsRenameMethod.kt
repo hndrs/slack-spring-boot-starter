@@ -4,9 +4,13 @@ import com.kreait.slack.api.contract.jackson.group.channels.ChannelRenameRequest
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelRenameResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelRenameResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.channels.ChannelsRenameMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChannelsMethodGroup.rename]
+ */
 class MockChannelsRenameMethod : ChannelsRenameMethod(), MockMethod<SuccessfulChannelRenameResponse, ErrorChannelRenameResponse, ChannelRenameRequest> {
 
     override fun params(): ChannelRenameRequest {

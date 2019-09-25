@@ -16,6 +16,10 @@ import com.kreait.slack.api.test.group.team.MockTeamMethodGroup
 import com.kreait.slack.api.test.group.usergroups.MockUsergroupsMethodGroup
 import com.kreait.slack.api.test.group.users.MockUsersMethodGroup
 
+/**
+ * [SlackClient] implementation for testing purposes
+ *
+ */
 class MockSlackClient : SlackClient {
     private val mockRemindersMethodGroup = MockRemindersMethodGroup()
     private val mockChatGroup = MockChatMethodGroup()

@@ -5,11 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversati
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationCloseResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsCloseMethod
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
-* Mock implementation of @link ConversationsCloseMethod
-*/
+ * Testable implementation of [ConversationsMethodGroup.close]
+ */
 open class MockConversationsClose : ConversationsCloseMethod(), MockMethod<SuccessfulConversationCloseResponse, ErrorConversationCloseResponse, ConversationCloseRequest> {
 
     override fun params(): ConversationCloseRequest = params

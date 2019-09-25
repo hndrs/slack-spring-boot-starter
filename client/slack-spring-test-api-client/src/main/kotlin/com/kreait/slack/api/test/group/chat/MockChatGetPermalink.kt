@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatGetPermalinkRes
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatGetPermalinkResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatGetPermalinkMethod
+import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChatMethodGroup.getPermalink]
+ */
 class MockChatGetPermalink : ChatGetPermalinkMethod(), MockMethod<SuccessfulChatGetPermalinkResponse, ErrorChatGetPermalinkResponse, ChatGetPermalinkRequest> {
 
     override fun params(): ChatGetPermalinkRequest {

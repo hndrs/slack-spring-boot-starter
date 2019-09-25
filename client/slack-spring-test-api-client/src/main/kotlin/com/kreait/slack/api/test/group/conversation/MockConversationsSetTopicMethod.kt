@@ -4,9 +4,13 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsSe
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationSetTopicResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationSetTopicResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsSetTopicMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ConversationsMethodGroup.setTopic]
+ */
 class MockConversationsSetTopicMethod : ConversationsSetTopicMethod(), MockMethod<SuccessfulConversationSetTopicResponse, ErrorConversationSetTopicResponse, ConversationsSetTopicRequest> {
 
     override fun params(): ConversationsSetTopicRequest = params

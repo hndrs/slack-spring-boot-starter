@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelKickResp
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelKickResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsKickMethod
+import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChannelsMethodGroup.kick]
+ */
 class MockChannelsKickMethod : ChannelsKickMethod(), MockMethod<SuccessfulChannelKickResponse, ErrorChannelKickResponse, ChannelsKickRequest> {
 
     override var successResponse: SuccessfulChannelKickResponse? = null

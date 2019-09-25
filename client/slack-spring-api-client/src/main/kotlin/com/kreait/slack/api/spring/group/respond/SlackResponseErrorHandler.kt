@@ -4,6 +4,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.client.ClientHttpResponse
 import org.springframework.web.client.ResponseErrorHandler
 
+/**
+ * Error-handler that logs occurring errors
+ *
+ */
 class SlackResponseErrorHandler : ResponseErrorHandler {
     companion object {
         private val Log = LoggerFactory.getLogger(SlackResponseErrorHandler::class.java)

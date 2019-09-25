@@ -4,9 +4,13 @@ import com.kreait.slack.api.contract.jackson.group.chat.ChatUnfurlRequest
 import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatUnfurlResponse
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatUnfurlResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.chat.ChatUnfurlMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChatMethodGroup.unfurl]
+ */
 class MockChatUnfurl : ChatUnfurlMethod(), MockMethod<SuccessfulChatUnfurlResponse, ErrorChatUnfurlResponse, ChatUnfurlRequest> {
 
     override fun params(): ChatUnfurlRequest {

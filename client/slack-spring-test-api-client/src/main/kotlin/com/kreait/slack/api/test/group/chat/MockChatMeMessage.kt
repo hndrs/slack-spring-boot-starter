@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.chat.ErrorChatMeMessageRespon
 import com.kreait.slack.api.contract.jackson.group.chat.SuccessfulChatMeMessageResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.chat.ChatMeMessageMethod
+import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChatMethodGroup.meMessage]
+ */
 class MockChatMeMessage : ChatMeMessageMethod(), MockMethod<SuccessfulChatMeMessageResponse, ErrorChatMeMessageResponse, ChatMeMessageRequest> {
 
     override fun params(): ChatMeMessageRequest {

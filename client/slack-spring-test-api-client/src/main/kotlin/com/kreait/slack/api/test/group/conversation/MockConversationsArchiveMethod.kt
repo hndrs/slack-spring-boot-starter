@@ -5,10 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversati
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationArchiveResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.conversations.ConversationsArchiveMethod
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Mock implementation of @link ConversationsCloseMethod
+ * Testable implementation of [ConversationsMethodGroup.archive]
  */
 open class MockConversationsArchiveMethod : ConversationsArchiveMethod(), MockMethod<SuccessfulConversationArchiveResponse, ErrorConversationArchiveResponse, ConversationArchiveRequest> {
 

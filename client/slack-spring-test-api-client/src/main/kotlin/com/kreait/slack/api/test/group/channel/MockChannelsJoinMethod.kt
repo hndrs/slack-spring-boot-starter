@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsJoinRes
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsJoinResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsJoinMethod
+import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChannelsMethodGroup.join]
+ */
 class MockChannelsJoinMethod : ChannelsJoinMethod(), MockMethod<SuccessfulChannelsJoinResponse, ErrorChannelsJoinResponse, ChannelsJoinRequest> {
 
     override var successResponse: SuccessfulChannelsJoinResponse? = null

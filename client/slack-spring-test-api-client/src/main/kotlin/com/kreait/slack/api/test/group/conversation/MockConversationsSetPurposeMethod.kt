@@ -4,9 +4,13 @@ import com.kreait.slack.api.contract.jackson.group.conversations.ConversationsSe
 import com.kreait.slack.api.contract.jackson.group.conversations.ErrorConversationSetPurposeResponse
 import com.kreait.slack.api.contract.jackson.group.conversations.SuccessfulConversationSetPurposeResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsSetPurposeMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ConversationsMethodGroup.setPurpose]
+ */
 class MockConversationsSetPurposeMethod : ConversationsSetPurposeMethod(), MockMethod<SuccessfulConversationSetPurposeResponse, ErrorConversationSetPurposeResponse, ConversationsSetPurposeRequest> {
 
     override fun params(): ConversationsSetPurposeRequest = params

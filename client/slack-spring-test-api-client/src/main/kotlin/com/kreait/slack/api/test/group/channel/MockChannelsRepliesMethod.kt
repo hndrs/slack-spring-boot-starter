@@ -4,9 +4,13 @@ import com.kreait.slack.api.contract.jackson.group.channels.ChannelsRepliesReque
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsRepliesResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsRepliesResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.channels.ChannelsRepliesMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChannelsMethodGroup.replies]
+ */
 class MockChannelsRepliesMethod : ChannelsRepliesMethod(), MockMethod<SuccessfulChannelsRepliesResponse, ErrorChannelsRepliesResponse, ChannelsRepliesRequest> {
 
     override fun params(): ChannelsRepliesRequest {

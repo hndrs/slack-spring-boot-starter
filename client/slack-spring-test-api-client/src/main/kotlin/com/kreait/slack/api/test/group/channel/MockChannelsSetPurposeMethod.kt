@@ -4,9 +4,13 @@ import com.kreait.slack.api.contract.jackson.group.channels.ChannelsSetPurposeRe
 import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsSetPurposeResponse
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsSetPurposeResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.channels.ChannelsSetPurposeMethod
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChannelsMethodGroup.setPurpose]
+ */
 class MockChannelsSetPurposeMethod : ChannelsSetPurposeMethod(), MockMethod<SuccessfulChannelsSetPurposeResponse, ErrorChannelsSetPurposeResponse, ChannelsSetPurposeRequest> {
 
     override fun params(): ChannelsSetPurposeRequest {

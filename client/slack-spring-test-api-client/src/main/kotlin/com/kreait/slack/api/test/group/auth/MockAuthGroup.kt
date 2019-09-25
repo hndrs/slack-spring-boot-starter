@@ -2,6 +2,10 @@ package com.kreait.slack.api.test.group.auth
 
 import com.kreait.slack.api.group.auth.AuthGroup
 
+/**
+ * Mockable implementation of [AuthGroup]
+ *
+ */
 class MockAuthGroup : AuthGroup {
 
     private val mockAuthMethod = MockAuthTestMethod()

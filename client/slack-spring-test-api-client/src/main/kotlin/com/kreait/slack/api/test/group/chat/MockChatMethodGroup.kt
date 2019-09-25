@@ -4,6 +4,9 @@ import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.chat.ChatUnfurlMethod
 import com.kreait.slack.api.group.chat.ChatUpdateMethod
 
+/**
+ * Testable implementation of [ChatMethodGroup]
+ */
 class MockChatMethodGroup : ChatMethodGroup {
     private val mockChatPostEphemeralMethod = MockChatPostEphemeral()
     private val mockChatPostMessageMethod = MockChatPostMessage()

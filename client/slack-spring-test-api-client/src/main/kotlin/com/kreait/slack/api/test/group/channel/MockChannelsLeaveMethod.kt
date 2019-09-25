@@ -5,8 +5,12 @@ import com.kreait.slack.api.contract.jackson.group.channels.ErrorChannelsLeaveRe
 import com.kreait.slack.api.contract.jackson.group.channels.SuccessfulChannelsLeaveResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.channels.ChannelsLeaveMethod
+import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
+/**
+ * Testable implementation of [ChannelsMethodGroup.leave]
+ */
 class MockChannelsLeaveMethod : ChannelsLeaveMethod(), MockMethod<SuccessfulChannelsLeaveResponse, ErrorChannelsLeaveResponse, ChannelsLeaveRequest> {
 
     override fun params(): ChannelsLeaveRequest {
