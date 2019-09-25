@@ -56,20 +56,8 @@ jobs:
       if: branch = master AND type != pull_request
 
     - stage: publish
-      name: "Publish Release"
-      script: ./gradlew publish -PisRelease=true
-      if: tag IS present AND tag =~ ^v.*$
-      on:
-        tags: true
-
-    - stage: publish
-      name: "Publish Api & Reference Documentation"
-      script:
-        - ./gradlew dokka
-        - cp -R build/docs/$(cat version.txt)/ build/docs/latest
-        - ./gradlew asciidoctor
-        - cp -R docs/slack-spring-boot-docs/build/generated-docs/html5 build/docs/$(cat version.txt)/reference
-        - cp -R docs/slack-spring-boot-docs/build/generated-docs/html5 build/docs/latest/reference
+      name: "Publish Snapshot Api & Reference Documentation"
+      script: ./buildScripts/generate-snapshot-docs.sh
       deploy:
         provider: s3
         access_key_id: $AWS_ACCESS_KEY_ID
@@ -80,6 +68,30 @@ jobs:
         upload-dir: docs
         region: $AWS_BUCKET_REGION
       if: branch = master AND type != pull_request
+
+    - stage: publish
+      name: "Publish Release"
+      script: ./gradlew publish -PisRelease=true
+      if: tag IS present AND tag =~ ^v.*$
+      on:
+        tags: true
+
+    - stage: publish
+      name: "Publish Snapshot Api & Reference Documentation"
+      script: ./buildScripts/generate-snapshot-docs.sh
+      deploy:
+        provider: s3
+        access_key_id: $AWS_ACCESS_KEY_ID
+        secret_access_key: $AWS_SECRET_ACCESS_KEY
+        bucket: $AWS_DOC_BUCKET
+        skip_cleanup: true
+        local_dir: build/docs
+        upload-dir: docs
+        region: $AWS_BUCKET_REGION
+      if: tag IS present AND tag =~ ^v.*$
+        on:
+          tags: true
+
 
     - stage: publish
       name: "Publish Docker"
