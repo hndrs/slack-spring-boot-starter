@@ -1,2 +1,11 @@
 [[kotlin-sample-extensions]]
 = Kotlin Sample Extensions
+
+We also built an extension package which extends all dto´s with .sample() methods, you can use these methods to create sample-objects for testing.
+
+== Install
+to use the test-extensions, simply include the following in your build.gradle:
+[source]
+--
+testImplementation(project(":slack-jackson-dto-test"))
+--
