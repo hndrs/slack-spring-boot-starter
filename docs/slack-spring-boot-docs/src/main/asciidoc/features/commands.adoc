@@ -1,7 +1,8 @@
 [[commands]]
 = Commands
 
-To use https://api.slack.com/slash-commands[Slash Commands] in your app, you have to implement the https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/SlashCommandReceiver.kt[SlashCommandReceiver interface].
+To use https://api.slack.com/slash-commands[Slash Commands] in your app configure the Slash Command in the slack-app like described in the <<../getting-started.adoc#Create a Slash-Command,Getting Started Guide>>.
+In your Spring Boot application, create a new component that implements the https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/SlashCommandReceiver.kt[SlashCommandReceiver interface].
 The supportsCommand()-method is used to determine that the invoked Slash Command should be handled by this implementation.
 Example:
 
