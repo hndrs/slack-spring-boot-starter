@@ -22,4 +22,4 @@ there are two possibilities to install your application, and trigger the Oauth f
 2. Via Sharable Link
 - if you want to let someone else install your app (probably for debugging/testing purposes you dont want to do on the production system) use the 'Shareable Link' under https://api.slack.com/apps[Slack App Console] - Manage Distribution
 
-image::images/manage_distribution.png[Manage Distribution]
+image::../images/manage_distribution.png[Manage Distribution]
