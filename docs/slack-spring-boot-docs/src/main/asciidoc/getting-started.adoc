@@ -12,6 +12,7 @@
 2. enter the name of your application
 3. select your development workspace and click on *Create*
 
+[[command-guide]]
 === Create a Slash-Command
 
 - Click on "*Slash commands*" on the left side of the navigation menu
@@ -20,6 +21,7 @@
 
 image::images/slashcommands.png[Setting up a SlashCommand]
 
+[[event-guide]]
 === Receive Events
 
 - Click on "*Events*" on the left side of the navigation menu
@@ -34,6 +36,7 @@ image::images/event.png[Setting up Events]
 
 image::images/eventsubs.png[Setting up Events]
 
+[[interactivecomponent-guide]]
 === Receiver Interactive Components
 
 - Click on "*Interactive Components*" on the left side of the navigation menu
@@ -43,6 +46,6 @@ image::images/interactive_components.png[Setting up Interactive Components]
 
 == Developing your first Slack App
 
-To start developing, you have to create your own app-flow, by implementing link:features/commands.adoc[Slash-Commands], link:features/events.adoc[Event-subscriptions] and link:features/interactive-components.adoc[Interactive Components].
+To start developing, you have to create your own app-flow, by implementing <<commands,Slash-Commands>>, <<events,Events>> and <<interactive-components,Interactive Components>> .
 
 == Deploying
