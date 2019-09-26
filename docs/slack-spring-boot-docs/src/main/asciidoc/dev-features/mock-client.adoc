@@ -1,2 +1,31 @@
 [[mock-client]]
 = Mock Client Testing
+
+
+
+Since we cannot create fully automated tests (without writing a whole application, that responds to our bot requests via slack), we dont test against the real slack API, but against our https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-spring-test-api-client/src/main/kotlin/com/kreait/slack/api/test/MockSlackClient.kt[MockSlackClient].
+
+The MockSlackClient is an implementation of the SlackClient interface, with which you can mock your responses.
+By setting the Response you expect and passing it to your Component, you can ensure that the code properly handles requests.
+
+== Installation
+
+to use our testing features, simply add the following lines to your build.gradle:
+
+[source,kotlin]
+--
+include::../../../../../../samples/slack-spring-boot-starter-sample/build.gradle[lines=18..19]
+--
+
+Example:
+
+[source,kotlin]
+--
+include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=18..-1]
+--
+
+In this example, we test our https://github.com/kreait/slack-spring-boot-starter/blob/master/samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ResponseCommandReceiver.kt[ResponseCommandReceiver] which receives the /response command.
+It posts a message to the response url of the slash command.
+We use the MockSlackClient to set the correct response for our testcase, since the respond().message() doesn't has a return value, we just set Unit in our `testSuccess()` method.
+After we invoke the `onReceiveSlashCommand()` we verify, that only the successResponse-method of the ResponseHandler is invoked, but not the failureResponse-method.
+We do all this vice versa for the failure response.
