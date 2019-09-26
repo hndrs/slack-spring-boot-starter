@@ -1,4 +1,5 @@
 = Getting Started
+
 :excerpt: Getting started is easy, lets find out how
 :title: Getting Started
 :order: 1
@@ -8,9 +9,9 @@
 
 The SDK consists of 3 main-modules:
 
-current-version =
 [source,text]
 --
+current-version
 include::../version.txt[]
 --
 
