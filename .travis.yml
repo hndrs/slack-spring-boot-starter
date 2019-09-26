@@ -89,8 +89,8 @@ jobs:
         upload-dir: docs
         region: $AWS_BUCKET_REGION
       if: tag IS present AND tag =~ ^v.*$
-        on:
-          tags: true
+      on:
+        tags: true
 
 
     - stage: publish
