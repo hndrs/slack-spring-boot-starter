@@ -1,4 +1,4 @@
-#[[getting-started]]
+[[getting-started]]
 = Getting Started
 
 == Requirements
@@ -29,15 +29,20 @@ The https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slac
 - enter the url of your service with the endpoint /events
 - slack will send a challenge token to your /events endpoint to verify that the service is properly set up
 - Scroll down to "*Subscribe to Bot Events*" and add your events
+
 image::images/event.png[Setting up Events]
+
 image::images/eventsubs.png[Setting up Events]
 
 === Receiver Interactive Components
 
 - Click on "*Interactive Components*" on the left side of the navigation menu
 - enter the url of your service with the endpoint /interactive-components
-image::images/interactive_components.png.png[Setting up Interactive Components]
+
+image::images/interactive_components.png[Setting up Interactive Components]
 
 == Developing your first Slack App
+
+To start developing, you have to create your own app-flow, by implementing link:features/commands.adoc[Slash-Commands], link:features/events.adoc[Event-subscriptions] and link:features/interactive-components.adoc[Interactive Components].
 
 == Deploying

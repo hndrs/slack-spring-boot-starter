@@ -1,3 +1,14 @@
 [[commands]]
 = Commands
 
+To use https://api.slack.com/slash-commands[Slash Commands] in your app, you have to implement the https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/SlashCommandReceiver.kt[SlashCommandReceiver interface].
+The supportsCommand()-method is used to determine that the invoked Slash Command should be handled by this implementation.
+Example:
+
+[source,kotlin]
+--
+include::../../../../../../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/rock_paper_scissors/RockPaperScissorsCommandReceiver.kt[lines=13..-1]
+--
+
+In this example, we override the supportsCommand()-method to ensure that the invoked command is the /rock-paper-scissors command.
+The onReceiveSlashCommand()-method then posts an ephemeral message containing action blocks to the user.
