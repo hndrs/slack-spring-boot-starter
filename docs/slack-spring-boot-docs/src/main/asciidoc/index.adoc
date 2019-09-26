@@ -1,6 +1,5 @@
 [[slack-spring-boot-reference-guide]]
 = Slack Spring Boot Reference Guide
-
 :idprefix:
 :idseparator: -
 :toc: left
@@ -12,7 +11,9 @@
 :sectnums:
 :icons: font
 :hide-uri-scheme:
-:source-highlighter: prettify :docinfo: shared
+:source-highlighter: prettify
+:docinfo: shared
+
 
 include::license.adoc[leveloffset=+1]
 include::getting-started.adoc[leveloffset=+1]
