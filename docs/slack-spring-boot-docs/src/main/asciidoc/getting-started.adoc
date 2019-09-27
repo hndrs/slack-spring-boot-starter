@@ -20,7 +20,7 @@ There are two ways to get started:
 === 1. Deploy to Heroku
 
 ++++
-<a href="https://heroku.com/deploy">
+<a href="https://heroku.com/deploy?template=https://github.com/kreait/slack-spring-boot-heroku">
 <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a>
 ++++
