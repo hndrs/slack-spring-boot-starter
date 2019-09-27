@@ -4,7 +4,7 @@ import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.metrics.CommandMetrics
-import com.kreait.slack.broker.receiver.MismatchCommandReciever
+import com.kreait.slack.broker.receiver.MismatchCommandReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.team.InMemoryTeamStore
 import com.kreait.slack.broker.store.team.Team
@@ -163,7 +163,7 @@ class CommandBrokerTests {
 
     }
 
-    class Mismatch : MismatchCommandReciever {
+    class Mismatch : MismatchCommandReceiver {
 
         var executed: Boolean = false
         override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {

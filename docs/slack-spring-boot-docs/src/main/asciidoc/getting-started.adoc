@@ -58,18 +58,24 @@ Locate your app credentials under the *Basic Information* menu item on https://a
 1. Create a file $HOME/.slack/credentials
 
 
-    slack_app_client_id=<client_id> slack_app_client_secret=<client_secret> slack_app_signing_secret=<signing secret>
+    slack_app_client_id=<client_id>
+    slack_app_client_secret=<client_secret>
+    slack_app_signing_secret=<signing secret>
 
 
 2. Set Environment Variables
 
 
-    SLACK_APP_CLIENT_ID=<client_id> SLACK_APP_CLIENT_SECRET=<client_secret> SLACK_APP_SIGNING_SECRET=<signing secret>
+    SLACK_APP_CLIENT_ID=<client_id>
+    SLACK_APP_CLIENT_SECRET=<client_secret>
+    SLACK_APP_SIGNING_SECRET=<signing secret>
 
 
 3. Set JVM System Properties
 
-    slack.application.client-id=<client_id> slack.application.client-secret=<client_secret> slack.application.signing=<signing secret>
+    slack.application.client-id=<client_id>
+    slack.application.client-secret=<client_secret>
+    slack.application.signing=<signing secret>
 
 
 If you want to provide your own link:starter/slack-spring-boot-autoconfigure/src/main/kotlin/io/olaph/slack/broker/autoconfiguration/credentials/CredentialsProvider.kt[CredentialsProvider] implement the interface and expose it as a Bean/Component
@@ -93,16 +99,16 @@ At this point you might need to use a service like *ngrok* (which we recommend) 
 
 == Setting up Slack
 
-1. under https://api.slack.com/apps[Apps] click on New App
-2. enter the name of your application
-3. select your development workspace and click on *Create*
+1. Under https://api.slack.com/apps[Apps] click on New App
+2. Enter the name of your application
+3. Select your development workspace and click on *Create*
 
 [[command-guide]]
 === Create a Slash-Command
 
 - Click on "*Slash commands*" on the left side of the navigation menu
 - Click on "*Create New Command*"
-- enter the url of your application (to work on a local machine, use a tunneling tool like ngrok or forward a port to your local machine) with the endpoint */commands* and click on *save*
+- Enter the url of your application (to work on a local machine, use a tunneling tool like ngrok or forward a port to your local machine) with the endpoint */commands* and click on *save*
 
 image::images/slashcommands.png[Setting up a SlashCommand]
 
@@ -110,7 +116,7 @@ image::images/slashcommands.png[Setting up a SlashCommand]
 === Receive Events
 
 - Click on "*Events*" on the left side of the navigation menu
-- click on "*enable events*" on the top right
+- Click on "*enable events*" on the top right
 - Start your Slack Spring Boot Application.
 The https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/broker/EventBroker.kt[EventBroker] takes care of the verification we need in the following step
 - enter the url of your service with the endpoint /events
