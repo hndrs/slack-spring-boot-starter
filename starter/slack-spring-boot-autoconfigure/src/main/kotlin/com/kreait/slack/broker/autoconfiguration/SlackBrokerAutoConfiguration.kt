@@ -26,7 +26,7 @@ import com.kreait.slack.broker.receiver.CommandNotFoundReceiver
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
-import com.kreait.slack.broker.receiver.MismatchCommandReciever
+import com.kreait.slack.broker.receiver.MismatchCommandReceiver
 import com.kreait.slack.broker.receiver.SL4JLoggingReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.event.EventStore
@@ -83,7 +83,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
          * Registers the [CommandBroker] which forwards commands to all [SlashCommandReceiver]s
          */
         @Bean
-        open fun commandBroker(slackEventReceivers: List<SlashCommandReceiver>, teamStore: TeamStore, mismatchCommandReceiver: MismatchCommandReciever?, metricsCollector: CommandMetricsCollector?): CommandBroker {
+        open fun commandBroker(slackEventReceivers: List<SlashCommandReceiver>, teamStore: TeamStore, mismatchCommandReceiver: MismatchCommandReceiver?, metricsCollector: CommandMetricsCollector?): CommandBroker {
             return CommandBroker(slackEventReceivers, teamStore, mismatchCommandReceiver, metricsCollector)
         }
 
@@ -120,12 +120,12 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         }
 
         /**
-         * Registers a [MismatchCommandReciever] that responds to unknown commands
+         * Registers a [MismatchCommandReceiver] that responds to unknown commands
          */
         @ConditionalOnMissingBean
         @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.MISMATCH_PROPERTY_PREFIX, name = ["enabled"], havingValue = "true", matchIfMissing = true)
         @Bean
-        open fun commandNotFoundMismatchReceiver(slackClient: SlackClient): MismatchCommandReciever {
+        open fun commandNotFoundMismatchReceiver(slackClient: SlackClient): MismatchCommandReceiver {
             return CommandNotFoundReceiver(slackClient, configuration.commands.mismatch.text)
         }
     }

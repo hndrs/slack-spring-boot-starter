@@ -3,7 +3,7 @@ package com.kreait.slack.broker.broker
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.broker.configuration.Command
 import com.kreait.slack.broker.metrics.CommandMetricsCollector
-import com.kreait.slack.broker.receiver.MismatchCommandReciever
+import com.kreait.slack.broker.receiver.MismatchCommandReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.team.TeamStore
 import org.slf4j.LoggerFactory
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class CommandBroker constructor(private val slackCommandReceivers: List<SlashCommandReceiver>,
                                 private val teamStore: TeamStore,
-                                private val mismatchCommandReceiver: MismatchCommandReciever? = null,
+                                private val mismatchCommandReceiver: MismatchCommandReceiver? = null,
                                 private val metricsCollector: CommandMetricsCollector? = null) {
 
     companion object {

@@ -3,7 +3,7 @@ package com.kreait.slack.broker.autoconfiguration
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
-import com.kreait.slack.broker.receiver.MismatchCommandReciever
+import com.kreait.slack.broker.receiver.MismatchCommandReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.event.EventStore
 import com.kreait.slack.broker.store.event.InMemoryEventStore
@@ -42,7 +42,7 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         addComponent(sb, "Installation Receivers", ctx.getBeanNamesForType(InstallationReceiver::class.java));
         addComponent(sb, "Interactive Component Receivers", ctx.getBeanNamesForType(InteractiveComponentReceiver::class.java));
         addComponent(sb, "Slash Command Receivers", ctx.getBeanNamesForType(SlashCommandReceiver::class.java));
-        addComponent(sb, "Mismatch Command Receivers", ctx.getBeanNamesForType(MismatchCommandReciever::class.java));
+        addComponent(sb, "Mismatch Command Receivers", ctx.getBeanNamesForType(MismatchCommandReceiver::class.java));
         addComponent(sb, "Team Store", ctx.getBeanNamesForType(TeamStore::class.java));
         addComponent(sb, "User Store", ctx.getBeanNamesForType(UserStore::class.java));
         addComponent(sb, "Event Store", ctx.getBeanNamesForType(TeamStore::class.java));

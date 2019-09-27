@@ -6,7 +6,7 @@ import com.kreait.slack.api.contract.jackson.SlackEvent
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
-import com.kreait.slack.broker.receiver.MismatchCommandReciever
+import com.kreait.slack.broker.receiver.MismatchCommandReceiver
 import com.kreait.slack.broker.receiver.SL4JLoggingReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
 import com.kreait.slack.broker.store.event.EventStore
@@ -100,7 +100,7 @@ class EvaluationReportConfigurationTests {
         open fun testLoggingReceiver() = SL4JLoggingReceiver()
 
         @Bean
-        open fun testMismatchCommandReceiver(): MismatchCommandReciever = object : MismatchCommandReciever {
+        open fun testMismatchCommandReceiver(): MismatchCommandReceiver = object : MismatchCommandReceiver {
             override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {}
         }
     }

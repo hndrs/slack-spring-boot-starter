@@ -10,7 +10,7 @@ import org.springframework.http.HttpHeaders
 /**
  * Command Receiver that is invoked when no other commands are matching
  */
-interface MismatchCommandReciever {
+interface MismatchCommandReceiver {
     /**
      * MismatchReceiver that responds with a default error message when no command was found
      *
@@ -24,7 +24,7 @@ interface MismatchCommandReciever {
 /**
  * The Receiver that is invoked when an unknown command was entered
  */
-class CommandNotFoundReceiver(private val slackClient: SlackClient, private val text: String) : MismatchCommandReciever {
+class CommandNotFoundReceiver(private val slackClient: SlackClient, private val text: String) : MismatchCommandReceiver {
 
     companion object {
         private val LOG = LoggerFactory.getLogger(CommandNotFoundReceiver::class.java)
