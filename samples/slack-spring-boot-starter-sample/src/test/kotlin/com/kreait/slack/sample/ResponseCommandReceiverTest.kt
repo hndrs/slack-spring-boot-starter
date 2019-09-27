@@ -17,13 +17,18 @@ class ResponseCommandReceiverTest() {
     @Test
     @DisplayName("test response command receiver")
     fun testSuccess() {
+        // create mock slack client
         val mockSlackClient = MockSlackClient()
+        // set the successful response for the respond().message() method
         mockSlackClient.respond().message("www.test.com").successResponse = Unit
         val responseHandler = mock<ResponseHandler>()
+        // provide mock client to receiver implementation
         val commandReceiver = ResponseCommandReceiver(mockSlackClient, responseHandler)
+        // call the receiver
         commandReceiver.onReceiveSlashCommand(SlackCommand.sample().copy(command = "/response", channelId = "test-channel", responseUrl = "www.test.com"),
                 HttpHeaders.EMPTY, Team("", "", null,
                 Team.Bot("", "test-token")))
+        // verify logic has been executed as expected
         verify(responseHandler, times(1)).successResponse("test-channel", "test-token")
         verify(responseHandler, times(0)).failureResponse("test-channel", "test-token")
     }
@@ -31,13 +36,18 @@ class ResponseCommandReceiverTest() {
     @Test
     @DisplayName("test response command receiver")
     fun testFailure() {
+        // create mock slack client
         val mockSlackClient = MockSlackClient()
+        // set the failure response for the respond().message() method
         mockSlackClient.respond().message("www.test.com").failureResponse = Unit
         val responseHandler = mock<ResponseHandler>()
+        // provide mock client to receiver implementation
         val commandReceiver = ResponseCommandReceiver(mockSlackClient, responseHandler)
+        // call the receiver
         commandReceiver.onReceiveSlashCommand(SlackCommand.sample().copy(command = "/response", channelId = "test-channel", responseUrl = "www.test.com"),
                 HttpHeaders.EMPTY,
                 Team("", "", null, Team.Bot("", "test-token")))
+        // verify logic has been executed as expected
         verify(responseHandler, times(0)).successResponse("test-channel", "test-token")
         verify(responseHandler, times(1)).failureResponse("test-channel", "test-token")
     }
