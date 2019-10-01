@@ -1,9 +1,23 @@
 [[kotlin-sample-extensions]]
 = Kotlin Sample Extensions
 
-We also built an extension package which extends all DTOs with .sample() methods, you can use these methods to create sample-objects for testing.
+This guide will guide you through the process of building your own Slash Command Receiver class with Slack Spring Boot Starter.
+We will use the extension package which extends all DTOs with .sample() methods, which will come in handy for testing.
 
-== Install
+[NOTE]
+====
+Slack Spring Boot Starter only supports Kotlin
+====
+
+=== What you will need
+
+- An IDE of your choice - preferably IntelliJ IDEA (Community Edition will just be fine)
+- at least JDK 1.8
+- Gradle 5
+
+=== Preparation
+
+First you'll need to have a build.gradle file
 
 To use the test-extensions, simply include the following in your build.gradle:
 
@@ -13,30 +27,29 @@ testImplementation(project(":slack-jackson-dto-test"))
 --
 
 Additionally we want to have have
+
 [source]
 --
 implementation(project(":slack-spring-test-api-client"))
 --
+
 in our build.gradle in order to test the functionality of our example.
 
-== Example
+=== The Slash Command Receiver
 
-[IMPORTANT]
-====
-Slack Spring Boot Starter only supports Kotlin
-====
+The https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/SlashCommandReceiver.kt[Slash Command Receiver] is an interface that is based around handling Slash Commands.
 
-To follow the example please take a look at https://github.com/kreait/slack-spring-boot-starter/blob/master/docs/slack-spring-boot-docs/src/main/asciidoc/getting-started.adoc[Getting Started] first since we redacted the whole Slack specific configuration in this example to simplify matters.
+Let's assume we have the following class that implements the https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/SlashCommandReceiver.kt[Slash Command Receiver]:
 
-Let's assume we have the following class that implements the https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/SlashCommandReceiver.kt[Slash Command Receiver]
-[source, kotlin]
+[source,kotlin]
 --
 include::../../../../../../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ResponseCommandReceiver.kt[]
 --
 
-We provide a https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-api-client/src/main/kotlin/com/kreait/slack/api/SlackClient.kt[SlackClient] and a https://github.com/kreait/slack-spring-boot-starter/blob/master/samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ResponseHandler.kt[ResponseHandler] in the constructor which are essential for the functionality.
-The SlackClient interface basically is the specification for handling Slack API interactions based on the Slack API Design.
-The ResponseHandler is used to tell if the execution of the command either was successful or unsuccessful.
+We provide a https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-api-client/src/main/kotlin/com/kreait/slack/api/SlackClient.kt[SlackClient] and a https://github.com/kreait/slack-spring-boot-starter/blob/master/samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ResponseHandler.kt[ResponseHandler] in the constructor which are essential for the functionality of our class.
+
+The https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-api-client/src/main/kotlin/com/kreait/slack/api/SlackClient.kt[SlackClient] interface basically is the specification for handling Slack API interactions based on the Slack API design.
+The https://github.com/kreait/slack-spring-boot-starter/blob/master/samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ResponseHandler.kt[ResponseHandler] is used to tell if the execution of the command either was successful or unsuccessful.
 
 The key methods are the supportsCommand and onReceiverSlashCommand.
 The ```supportsCommand``` Method returns true if the command provided matches the expression.
@@ -50,7 +63,7 @@ Now with this being set we want to test if our application is working as expecte
 
 === Testing our class
 
-First create a Test class with a good descriptive name.
+First create a test class with a descriptive name.
 In this class we want to verify if the invocation of the command was successfully executed and if there is a reaction if the invocation fails.
 
 We create a method named ```testSuccess``` (or however you want to call it) and annotate it with ```@Test``` and give it a proper display name with the ```@DisplayName("...")``` annotation.
@@ -62,11 +75,11 @@ In this example we override ```fun message()``` and return a ```MockRespondMessa
 
 The MockRespondMethod inherits https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-api-client/src/main/kotlin/com/kreait/slack/api/group/respond/RespondMessageMethod.kt[RespondMessageMethod] and the https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-spring-test-api-client/src/main/kotlin/com/kreait/slack/api/test/MockMethod.kt[MockMethod] and utilizes their methods.
 
-Long story short: this is how our first test method looks like:
+This is how the first method will look like:
 
 [source,kotlin]
 --
-include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=17..29]
+include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=17..34]
 --
 
 Our ```mockSlackClient``` invokes the .respond().message() methods with a payload ("www.test.com") and sets the successResponse value to ```Unit``` since we don't return anything upon successfully posting a response.
@@ -77,36 +90,44 @@ We then mock the https://github.com/kreait/slack-spring-boot-starter/blob/master
 The declaration of the ResponseCommandReceiver is provided with our mockSlackClient and the responseHandler so the actual test can be done.
 
 We call the ```onReceiveSlashCommand``` from our just declared commandReceiver and provide it with the neccessary parameters.
-The first parameter is a sample of a SlackCommand - but here it is completely empty. In combination with the copy-Method we get a duplicate of this sample but can pick the parameters we like to alternate without having to fill in every parameter again.
-In this example we change the ```command```, the ```channelId``` and the ```responseUrl```. Additionally we need to provide HttpHeaders and a Token.
+The first parameter is a sample of a SlackCommand - but here it is completely empty.
+In combination with the copy-Method we get a duplicate of this sample but can pick the parameters we like to alternate without having to fill in every parameter again.
+In this example we change the ```command```, the ```channelId``` and the ```responseUrl```.
+Additionally we need to provide HttpHeaders and a Token.
 
 In this case HTTPHeaders are Empty and the Token is received by the Team in the https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/store/team/TeamStore.kt[TeamStore] we provided.
 
 [NOTE]
 ====
-The TeamStore is used to persist teams after the installation of a Slack App (either file or inMemory) since you'd have to reinstall the app after every start which in fact would be annoying. The starter provides the inMemory-Store on default.
+The TeamStore is used to persist teams after the installation of a Slack App (either file or inMemory) since you'd have to reinstall the app after every start which in fact would be annoying.
+The starter provides the inMemory-Store on default.
+_This is not thought to be used in a production environment._
 ====
-After calling the ```onReceiveSlashCommand``` method we want to verify if the ```ResponseHandler``` methods were at least invoked once.
+
+As our test method is used to verify a success, we first call the receiver:
+
+[source,kotlin]
+--
+include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=28..30]
+--
+
+After calling the ```onReceiveSlashCommand``` method we want to verify if the right ```ResponseHandler``` method was at least invoked once.
 
 [NOTE]
 ====
 Remember that the methods provided by the ResponseHandler are used in the .onSuccess or .onFailure blocks so we want to verify *their* usage and not the usage of the actual onReceiveSlashCommand method.
 ====
 
-As our test method is used to verify a success, we do the following:
+We verify if successResponse is used once and *after* that we verify that the failureResponse is used zero times.
+
 [source,kotlin]
 --
-include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=27..28]
+include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=32..33]
 --
-
-[IMPORTANT]
-====
-We verify if successReponse is used once and *after* that we verify that the failureResponse is used zero times.
-====
 
 Now that we have successful invocation we also want to test the case where it fails.
 
-For that we just set the .failureResponse and switch the verify-statements.
+For that we can just copy the method that we just created, rename it and set the ```failureResponse``` and switch the verify-statements.
 
 [source,kotlin]
 --
@@ -118,4 +139,4 @@ include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kot
 include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=51..52]
 --
 
-And that's it - the class is now tested!
+Now we have tested both cases that can occur during invocation.
