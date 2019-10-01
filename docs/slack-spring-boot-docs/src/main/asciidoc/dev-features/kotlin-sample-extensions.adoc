@@ -1,11 +1,41 @@
 [[kotlin-sample-extensions]]
 = Kotlin Sample Extensions
 
-We also built an extension package which extends all dto´s with .sample() methods, you can use these methods to create sample-objects for testing.
+We also built an extension package which extends all DTOs with .sample() methods, you can use these methods to create sample-objects for testing.
 
 == Install
-to use the test-extensions, simply include the following in your build.gradle:
+
+To use the test-extensions, simply include the following in your build.gradle:
+
 [source]
 --
 testImplementation(project(":slack-jackson-dto-test"))
 --
+
+== Usage
+
+While testing it may be comfortable to not state every parameter an object can hold as there are plenty of DTOs that can have many parameters.
+
+The extension for channel objects looks like this:
+
+[source,kotlin]
+--
+include::../../../../../../data/slack-jackson-dto-test-extensions/src/main/kotlin/com/kreait/slack/api/contract/jackson/common/types/ChannelExtension.kt[]
+--
+
+This is used in several other sample methods which have it's own parameters including a channel object like in the following example:
+
+[source,kotlin]
+--
+include::../../../../../../data/slack-jackson-dto-test-extensions/src/main/kotlin/com/kreait/slack/api/contract/jackson/group/channels/ChannelSetTopic.kt[]
+--
+
+These two snippets in combination are used in testing the request and it's associated responses (success, failure) in the https://github.com/kreait/slack-spring-boot-starter/tree/master/client/slack-spring-api-client/src/test/kotlin/com/kreait/slack/api/spring/group[Slack Spring API Client Groups].
+Since we created the sample methods beforehand we always know what to expect when using them and by that simplify testing using https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-spring-api-client/src/test/kotlin/com/kreait/slack/api/spring/DynamicGroupTests.kt[DynamicGroupTests].
+
+[source,kotlin]
+--
+include::../../../../../../client/slack-spring-api-client/src/test/kotlin/com/kreait/slack/api/spring/group/channels/MethodsTests.kt[lines=82]
+--
+
+You can find the whole test of the channels-group https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-spring-api-client/src/test/kotlin/com/kreait/slack/api/spring/group/channels/MethodsTests.kt[here].

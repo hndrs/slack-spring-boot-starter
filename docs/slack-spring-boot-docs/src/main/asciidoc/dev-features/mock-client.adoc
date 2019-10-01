@@ -10,7 +10,7 @@ By setting the Response you expect and passing it to your Component, you can ens
 
 == Installation
 
-to use our testing features, simply add the following lines to your build.gradle:
+To use our testing features, simply add the following lines to your build.gradle:
 
 [source,kotlin]
 --
