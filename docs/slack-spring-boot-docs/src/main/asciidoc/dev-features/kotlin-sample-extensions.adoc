@@ -146,3 +146,7 @@ Congratulations!
 :-)
 
 ==== See also:
+
+https://github.com/kreait/slack-spring-boot-starter/blob/master/docs/slack-spring-boot-docs/src/main/asciidoc/dev-features/credentials.adoc[Credentials] +
+https://github.com/kreait/slack-spring-boot-starter/blob/master/docs/slack-spring-boot-docs/src/main/asciidoc/dev-features/mock-client.adoc[MockClient] +
+https://github.com/kreait/slack-spring-boot-starter/blob/master/docs/slack-spring-boot-docs/src/main/asciidoc/dev-features/teamstore.adoc[TeamStore]
