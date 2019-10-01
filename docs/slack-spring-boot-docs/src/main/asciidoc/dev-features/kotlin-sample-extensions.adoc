@@ -110,12 +110,12 @@ For that we just set the .failureResponse and switch the verify-statements.
 
 [source,kotlin]
 --
-include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=35]
+include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=42]
 --
 
 [source,kotlin]
 --
-include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=41..42]
+include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=51..52]
 --
 
 And that's it - the class is now tested!
