@@ -139,4 +139,10 @@ include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kot
 include::../../../../../../samples/slack-spring-boot-starter-sample/src/test/kotlin/com/kreait/slack/sample/ResponseCommandReceiverTest.kt[lines=51..52]
 --
 
-Now we have tested both cases that can occur during invocation.
+==== Summary
+
+After completing this guide you gained the power to create your own Slash Command Class including it's tests.
+Congratulations!
+:-)
+
+==== See also:
