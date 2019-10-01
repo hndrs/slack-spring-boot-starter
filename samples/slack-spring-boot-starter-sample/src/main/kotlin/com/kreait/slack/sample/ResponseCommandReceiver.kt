@@ -19,7 +19,7 @@ class ResponseCommandReceiver @Autowired constructor(private val slackClient: Sl
 
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
         this.slackClient.respond().message(slackCommand.responseUrl)
-                .with(RespondMessageRequest(text = "lol", responseType = ResponseType.EPHEMERAL))
+                .with(RespondMessageRequest(text = "Request successfull!", responseType = ResponseType.EPHEMERAL))
                 .onSuccess {
                     responseHandler.successResponse(slackCommand.channelId, team.bot.accessToken)
                 }

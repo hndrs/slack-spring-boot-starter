@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
 
 
-class ResponseCommandReceiverTest() {
+class ResponseCommandReceiverTest {
 
     @Test
     @DisplayName("test response command receiver")
