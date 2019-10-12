@@ -16,6 +16,8 @@ data class Message(
         @JsonProperty("username") val username: String? = null,
         @JsonProperty("attachments") val attachments: List<Attachment>? = listOf(),
         @JsonProperty("blocks") val blocks: List<Block>? = listOf(),
-        @JsonProperty("bot_id") val botId: String? = null) {
+        @JsonProperty("bot_id") val botId: String? = null,
+        @JsonProperty("pinned_to") val pinnedTo: List<String>? = listOf()
+) {
     companion object
 }
