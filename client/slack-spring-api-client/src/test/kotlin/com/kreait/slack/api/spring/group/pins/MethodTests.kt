@@ -31,7 +31,6 @@ class MethodInvocationTest {
     }
 
     @TestFactory
-    @DisplayName("")
     fun methodInvocations(): List<DynamicTest> {
         return DynamicGroupTests.methodInvocations(testCases(), mockTemplate)
     }
