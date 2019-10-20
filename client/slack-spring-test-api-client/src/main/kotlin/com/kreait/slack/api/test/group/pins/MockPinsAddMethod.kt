@@ -5,10 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.pins.PinsAddRequest
 import com.kreait.slack.api.contract.jackson.group.pins.SuccessfulPinsAddResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.pins.PinsAddMethod
+import com.kreait.slack.api.group.pins.PinsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Spring based implementation of [PinsMethodGroup.add]
+ * Testable implementation of [PinsMethodGroup.add]
  */
 class MockPinsAddMethod : PinsAddMethod(), MockMethod<SuccessfulPinsAddResponse, ErrorPinsAddResponse, PinsAddRequest> {
 

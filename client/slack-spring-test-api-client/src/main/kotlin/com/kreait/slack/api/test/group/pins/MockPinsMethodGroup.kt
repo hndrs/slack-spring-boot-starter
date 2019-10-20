@@ -3,7 +3,7 @@ package com.kreait.slack.api.test.group.pins
 import com.kreait.slack.api.group.pins.PinsMethodGroup
 
 /**
- * Convenience function to apply slack api pins method grouping
+ * Testable implementation of [PinsMethodGroup]
  *
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
