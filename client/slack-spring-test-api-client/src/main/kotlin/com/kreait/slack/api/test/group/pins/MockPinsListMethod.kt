@@ -5,10 +5,11 @@ import com.kreait.slack.api.contract.jackson.group.pins.PinsListRequest
 import com.kreait.slack.api.contract.jackson.group.pins.SuccessfulPinsListResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.pins.PinsListMethod
+import com.kreait.slack.api.group.pins.PinsMethodGroup
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Spring based implementation of [PinsMethodGroup.list]
+ * Testable implementation of [PinsMethodGroup.list]
  */
 class MockPinsListMethod : PinsListMethod(), MockMethod<SuccessfulPinsListResponse, ErrorPinsListResponse, PinsListRequest> {
 

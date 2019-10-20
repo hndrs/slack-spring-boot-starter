@@ -4,11 +4,12 @@ import com.kreait.slack.api.contract.jackson.group.pins.ErrorPinsRemoveResponse
 import com.kreait.slack.api.contract.jackson.group.pins.PinsRemoveRequest
 import com.kreait.slack.api.contract.jackson.group.pins.SuccessfulPinsRemoveResponse
 import com.kreait.slack.api.group.ApiCallResult
+import com.kreait.slack.api.group.pins.PinsMethodGroup
 import com.kreait.slack.api.group.pins.PinsRemoveMethod
 import com.kreait.slack.api.test.MockMethod
 
 /**
- * Spring based implementation of [PinsMethodGroup.remove]
+ * Testable implementation of [PinsMethodGroup.remove]
  */
 class MockPinsRemoveMethod : PinsRemoveMethod(), MockMethod<SuccessfulPinsRemoveResponse, ErrorPinsRemoveResponse, PinsRemoveRequest> {
 

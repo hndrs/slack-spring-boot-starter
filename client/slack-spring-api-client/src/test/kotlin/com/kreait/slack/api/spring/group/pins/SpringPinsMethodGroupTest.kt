@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 class SpringPinsMethodGroupTest {
 
     @Test
-    fun history() {
+    fun add() {
         assertDoesNotThrow { SpringPinsMethodGroup().add("") }
     }
 
@@ -16,7 +16,7 @@ class SpringPinsMethodGroupTest {
     }
 
     @Test
-    fun mark() {
+    fun remove() {
         assertDoesNotThrow { SpringPinsMethodGroup().remove("") }
     }
 }
