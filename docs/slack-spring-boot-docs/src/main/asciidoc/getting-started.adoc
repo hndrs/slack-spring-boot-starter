@@ -3,7 +3,7 @@
 
 == Create a Slack App
 
-Now you will need to set-up your App on the Slack API page.
+To get started, you will need to set up your app on the Slack Api page
 Go to https://api.slack.com/apps Under "Your Apps" create a new Slack App, give it a name and select the slack workspace you want to develop with (you can't change this workspace later).
 You might want to write down the following information of your newly created Slack App in order to use the Heroku Deployment Button:
 
@@ -19,6 +19,7 @@ There are two ways to get started:
 
 === 1. Deploy to Heroku
 
+Deploy our sample app to heroku:
 ++++
 <a href="https://heroku.com/deploy?template=https://github.com/kreait/slack-spring-boot-heroku">
 <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
@@ -98,6 +99,7 @@ At this point you might need to use a service like *ngrok* (which we recommend) 
 --
 
 == Setting up Slack
+If not done already:
 
 1. Under https://api.slack.com/apps[Apps] click on New App
 2. Enter the name of your application
