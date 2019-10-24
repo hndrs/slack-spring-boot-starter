@@ -33,6 +33,7 @@ import java.time.LocalDate
         JsonSubTypes.Type(value = Element.Image::class, name = "image"),
         JsonSubTypes.Type(value = Element.Button::class, name = "button"),
         JsonSubTypes.Type(value = Element.StaticSelect::class, name = "static_select"),
+        JsonSubTypes.Type(value = Element.StaticMultiSelect::class, name = "multi_static_select"),
         JsonSubTypes.Type(value = Element.ExternalSelect::class, name = "external_select"),
         JsonSubTypes.Type(value = Element.UsersSelect::class, name = "users_select"),
         JsonSubTypes.Type(value = Element.ConversationsSelect::class, name = "conversations_select"),
@@ -49,6 +50,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
         IMAGE("image"),
         BUTTON("button"),
         STATIC_SELECT("static_select"),
+        MULTI_STATIC_SELECT("multi_static_select"),
         EXTERNAL_SELECT("external_select"),
         USERS_SELECT("users_select"),
         CONVERSATIONS_SELECT("conversations_select"),
@@ -134,6 +136,37 @@ sealed class Element(@JsonProperty("type") open val type: Type,
                                         @JsonProperty("option_groups") val optionGroups: List<OptionGroup>? = null,
                                         @JsonProperty("initial_option") val initialOption: Option? = null,
                                         @JsonProperty("confirm") val confirmation: Confirmation? = null) : Element(Type.STATIC_SELECT, blockId) {
+        companion object
+    }
+
+
+    /**
+     * A multi select menu with a static List of [Option]s.
+     *
+     * @property blockId The id of the according block
+     * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
+     * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
+     * @property options A List of [Option]s. (Max 100 [Option]s).
+     * @property optionGroups A List of [OptionGroup] objects. (Max 100 [OptionGroup]s).
+     * @property initialOptions A List of [Option] that is displayed as the default option when the menu initially loads. Must match [Option]s in options or optionGroups.
+     * @property confirmation A [Confirmation] object that defines an optional confirmation dialog after the menu item is selected.
+     *
+     * @see [Text]
+     * @see [Option]
+     * @see [OptionGroup]
+     * @see [Confirmation]
+     * @see [Slack API Documentation](https://api.slack.com/messaging/interactivity#multi_select_menus)
+     */
+    @JacksonDataClass
+    data class StaticMultiSelect constructor(
+        @JsonProperty("block_id") override val blockId: String? = null,
+        @JsonProperty("placeholder") val placeholderText: Text,
+        @JsonProperty("action_id") val actionId: String,
+        @JsonProperty("options") val options: List<Option>?,
+        @JsonProperty("option_groups") val optionGroups: List<OptionGroup>? = null,
+        @JsonProperty("initial_options") val initialOptions: List<Option>? = null,
+        @JsonProperty("confirm") val confirmation: Confirmation? = null
+    ) : Element(Type.MULTI_STATIC_SELECT, blockId) {
         companion object
     }
 
@@ -277,7 +310,7 @@ sealed class Element(@JsonProperty("type") open val type: Type,
      * @property blockId The id of the according block
      * @property actionId Generated if not specified. An identifier for the action triggered when a menu item is selected which is usable with interactions. Should be unique, even on iterations. (Max length 255 chars).
      * @property placeholderText A plain_text-only [Text] object defining the placeholder text shown on the menu. (Max length 150 chars).
-     * @property initialDateId Displays the date with with the format of YYYY-MM-DD as a pre-selected option when the menu initially loads.
+     * @property initialDate Displays the date with with the format of YYYY-MM-DD as a pre-selected option when the menu initially loads.
      * @property confirmation A [Confirmation] object that defines an optional confirmation dialog after the menu item is selected.
      *
      * @see [Text]
