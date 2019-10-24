@@ -11,6 +11,8 @@ fun Element.Button.Companion.sample(): Element.Button = Element.Button("", Text.
 
 fun Element.StaticSelect.Companion.sample(): Element.StaticSelect = Element.StaticSelect("", Text.plainTextSample(), "actionId", listOf(Option.sample()))
 
+fun Element.StaticMultiSelect.Companion.sample(): Element.StaticMultiSelect = Element.StaticMultiSelect("", Text.plainTextSample(), "actionId", listOf(Option.sample()))
+
 fun Element.ExternalSelect.Companion.sample(): Element.ExternalSelect = Element.ExternalSelect("", Text.plainTextSample(), "actionId", listOf(Option.sample()))
 
 fun Element.UsersSelect.Companion.sample(): Element.UsersSelect = Element.UsersSelect("", Text.plainTextSample(), "actionId")
