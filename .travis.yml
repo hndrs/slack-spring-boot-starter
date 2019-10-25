@@ -72,7 +72,7 @@ jobs:
     - stage: publish
       name: "Publish Release"
       script: ./gradlew publish -PisRelease=true
-      if: tag IS present AND tag =~ ^v.*$
+      if: tag IS present AND tag =~ /^v.*$/
       on:
         tags: true
 
@@ -88,7 +88,9 @@ jobs:
         local_dir: build/docs
         upload-dir: docs
         region: $AWS_BUCKET_REGION
-      if: tag IS present AND tag =~ ^v.*$
+        on:
+          tags: true
+      if: tag IS present AND tag =~ /^v.*$/
       on:
         tags: true
 
