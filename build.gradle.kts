@@ -143,9 +143,14 @@ subprojects {
                     archiveClassifier.value("sources")
                     from(project.the<SourceSetContainer>()["main"].allSource)
                 }
+                val javaDoc by tasks.registering(Jar::class) {
+                    archiveClassifier.value("javadoc")
+                    from(tasks.withType<DokkaTask>())
+                }
                 create(project.name, MavenPublication::class) {
                     from(components["java"])
                     artifact(sourcesJar.get())
+                    artifact(javaDoc.get())
                     pom {
                         if (project.extra.has("displayName")) {
                             name.set(project.extra["displayName"] as? String)
