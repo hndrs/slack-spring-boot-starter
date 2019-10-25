@@ -114,100 +114,101 @@ subprojects {
         outputDirectory = "${rootProject.buildDir}/generated-docs/api"
     }
 
-
-    configure<PublishingExtension> {
-        val projectsNotToPublish = listOf<Project>(project(":slack-spring-boot-starter-sample"), project(":slack-spring-boot-docs"))
-        repositories {
-            maven {
-                name = "snapshot"
-                url = uri("https://oss.sonatype.org/content/repositories/snapshots")
-                credentials {
-                    username = System.getenv("SONATYPE_JIRA_USERNAME")
-                    password = System.getenv("SONATYPE_JIRA_PASSWORD")
+    afterEvaluate {
+        configure<PublishingExtension> {
+            val projectsNotToPublish = listOf<Project>(project(":slack-spring-boot-starter-sample"), project(":slack-spring-boot-docs"))
+            repositories {
+                maven {
+                    name = "snapshot"
+                    url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+                    credentials {
+                        username = System.getenv("SONATYPE_JIRA_USERNAME")
+                        password = System.getenv("SONATYPE_JIRA_PASSWORD")
+                    }
+                }
+                maven {
+                    name = "release"
+                    url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+                    credentials {
+                        username = System.getenv("SONATYPE_JIRA_USERNAME")
+                        password = System.getenv("SONATYPE_JIRA_PASSWORD")
+                    }
                 }
             }
-            maven {
-                name = "release"
-                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
-                credentials {
-                    username = System.getenv("SONATYPE_JIRA_USERNAME")
-                    password = System.getenv("SONATYPE_JIRA_PASSWORD")
-                }
-            }
-        }
 
-        // only create publications for relevant projects
-        if (!projectsNotToPublish.contains(project)) {
-            publications {
-                val sourcesJar by tasks.registering(Jar::class) {
-                    archiveClassifier.value("sources")
-                    from(project.the<SourceSetContainer>()["main"].allSource)
-                }
-                val javaDoc by tasks.registering(Jar::class) {
-                    archiveClassifier.value("javadoc")
-                    from(tasks.withType<DokkaTask>())
-                }
-                create(project.name, MavenPublication::class) {
-                    from(components["java"])
-                    artifact(sourcesJar.get())
-                    artifact(javaDoc.get())
-                    pom {
-                        if (project.extra.has("displayName")) {
-                            name.set(project.extra["displayName"] as? String)
-                        }
-                        description.set(project.description)
+            // only create publications for relevant projects
+            if (!projectsNotToPublish.contains(project)) {
+                publications {
+                    val sourcesJar by tasks.registering(Jar::class) {
+                        archiveClassifier.value("sources")
+                        from(project.the<SourceSetContainer>()["main"].allSource)
+                    }
+                    val javaDoc by tasks.registering(Jar::class) {
+                        archiveClassifier.value("javadoc")
+                        from(tasks.withType<DokkaTask>())
+                    }
+                    create(project.name, MavenPublication::class) {
+                        from(components["java"])
+                        artifact(sourcesJar.get())
+                        artifact(javaDoc.get())
                         pom {
-                            url.set("https://slack-spring-boot.kreait.dev")
-                            (extra["organization"] as Organization).let {
-                                this.organization {
-                                    name.set(it.name)
-                                    url.set(it.url)
-                                }
+                            if (project.extra.has("displayName")) {
+                                name.set(project.extra["displayName"] as? String)
                             }
-
-                            licenses {
-                                (extra["license"] as License).let {
-                                    this.license {
+                            description.set(project.description)
+                            pom {
+                                url.set("https://slack-spring-boot.kreait.dev")
+                                (extra["organization"] as Organization).let {
+                                    this.organization {
                                         name.set(it.name)
                                         url.set(it.url)
                                     }
                                 }
-                            }
-                            developers {
-                                (extra["developers"] as List<Developer>).forEach {
-                                    this.developer {
-                                        id.set(it.id)
-                                        name.set(it.name)
-                                        email.set(it.email)
+
+                                licenses {
+                                    (extra["license"] as License).let {
+                                        this.license {
+                                            name.set(it.name)
+                                            url.set(it.url)
+                                        }
                                     }
                                 }
-                            }
-                            contributors {
-                                (extra["contributors"] as List<Contributor>).forEach {
-                                    this.contributor {
-                                        name.set(it.name)
-                                        email.set(it.email)
+                                developers {
+                                    (extra["developers"] as List<Developer>).forEach {
+                                        this.developer {
+                                            id.set(it.id)
+                                            name.set(it.name)
+                                            email.set(it.email)
+                                        }
                                     }
                                 }
-                            }
-                            (extra["scm"] as Scm).let {
-                                this.scm {
-                                    connection.set(it.connection)
-                                    url.set(it.url)
+                                contributors {
+                                    (extra["contributors"] as List<Contributor>).forEach {
+                                        this.contributor {
+                                            name.set(it.name)
+                                            email.set(it.email)
+                                        }
+                                    }
+                                }
+                                (extra["scm"] as Scm).let {
+                                    this.scm {
+                                        connection.set(it.connection)
+                                        url.set(it.url)
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                signing {
+                    val signingKey: String? by project
+                    val signingPassword: String? by project
+                    useInMemoryPgpKeys(StringEscapeUtils.unescapeJava(signingKey), signingPassword)
+                    sign(publications[project.name])
+                }
             }
-            signing {
-                val signingKey: String? by project
-                val signingPassword: String? by project
-                useInMemoryPgpKeys(StringEscapeUtils.unescapeJava(signingKey), signingPassword)
-                sign(publications[project.name])
-            }
-        }
 
+        }
     }
 
     /**
