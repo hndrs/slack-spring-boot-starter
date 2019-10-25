@@ -27,7 +27,6 @@ plugins {
     id("io.spring.dependency-management") version "1.0.7.RELEASE"
     id("org.jetbrains.kotlin.jvm") version "1.3.41" apply false
     id("com.gradle.build-scan") version "2.2.1"
-    id("de.marcphilipp.nexus-publish") version "0.4.0"
     signing
 }
 
