@@ -251,10 +251,11 @@ subprojects {
     }
 
     tasks.withType<PublishToMavenRepository>().configureEach {
+        val release = isRelease?.toBoolean() ?: false
         onlyIf {
-            (repository.name == "snapshot")
+            (repository.name == "snapshot" && !release)
                     ||
-                    (repository.name == "release" && isRelease?.toBoolean() ?: false)
+                    (repository.name == "release" && release)
         }
     }
     //endregion
