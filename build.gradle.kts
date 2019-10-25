@@ -127,7 +127,6 @@ subprojects {
                 }
             }
             maven {
-                // this is just for testing
                 name = "release"
                 url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
                 credentials {
