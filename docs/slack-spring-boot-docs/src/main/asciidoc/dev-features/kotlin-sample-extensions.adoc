@@ -6,12 +6,12 @@ We will use the extension package which extends all DTOs with .sample() methods,
 
 [NOTE]
 ====
-Slack Spring Boot Starter only supports Kotlin
+Slack Spring Boot Starter is not optimized for java
 ====
 
 === What you will need
 
-- An IDE of your choice - preferably IntelliJ IDEA (Community Edition will just be fine)
+- An IDE of your choice - preferably IntelliJ IDEA
 - at least JDK 1.8
 - Gradle 5
 
@@ -21,16 +21,18 @@ First you'll need to have a build.gradle file
 
 To use the test-extensions, simply include the following in your build.gradle:
 
-[source]
+[source,subs="attributes"]
 --
-testImplementation(project(":slack-jackson-dto-test"))
+testImplementation(group: "com.kreait.slack", name: "slack-jackson-dto-test", version: "{lib-version}")
+
+
 --
 
 Additionally we want to have have
 
-[source]
+[source,subs="attributes"]
 --
-implementation(project(":slack-spring-test-api-client"))
+testImplementation(group: "com.kreait.slack", name: "slack-spring-test-api-client", version: "{lib-version}")
 --
 
 in our build.gradle in order to test the functionality of our example.
@@ -46,7 +48,7 @@ Let's assume we have the following class that implements the https://github.com/
 include::../../../../../../samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ResponseCommandReceiver.kt[]
 --
 
-We provide a https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-api-client/src/main/kotlin/com/kreait/slack/api/SlackClient.kt[SlackClient] and a https://github.com/kreait/slack-spring-boot-starter/blob/master/samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ResponseHandler.kt[ResponseHandler] in the constructor which are essential for the functionality of our class.
+This class uses the https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-api-client/src/main/kotlin/com/kreait/slack/api/SlackClient.kt[SlackClient] and a https://github.com/kreait/slack-spring-boot-starter/blob/master/samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ResponseHandler.kt[ResponseHandler] to interact with slack and to react on the response from slack.
 
 The https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-api-client/src/main/kotlin/com/kreait/slack/api/SlackClient.kt[SlackClient] interface basically is the specification for handling Slack API interactions based on the Slack API design.
 The https://github.com/kreait/slack-spring-boot-starter/blob/master/samples/slack-spring-boot-starter-sample/src/main/kotlin/com/kreait/slack/sample/ResponseHandler.kt[ResponseHandler] is used to tell if the execution of the command either was successful or unsuccessful.
@@ -100,8 +102,7 @@ In this case HTTPHeaders are Empty and the Token is received by the Team in the 
 [NOTE]
 ====
 The TeamStore is used to persist teams after the installation of a Slack App (either file or inMemory) since you'd have to reinstall the app after every start which in fact would be annoying.
-The starter provides the inMemory-Store on default.
-_This is not thought to be used in a production environment._
+The starter configures the InMemoryStore on default.
 ====
 
 As our test method is used to verify a success, we first call the receiver:
@@ -118,7 +119,7 @@ After calling the ```onReceiveSlashCommand``` method we want to verify if the ri
 Remember that the methods provided by the ResponseHandler are used in the .onSuccess or .onFailure blocks so we want to verify *their* usage and not the usage of the actual onReceiveSlashCommand method.
 ====
 
-We verify if successResponse is used once and *after* that we verify that the failureResponse is used zero times.
+We verify that the successResponse-method is invoked once and the failureResponse-method is invoked zero times
 
 [source,kotlin]
 --
