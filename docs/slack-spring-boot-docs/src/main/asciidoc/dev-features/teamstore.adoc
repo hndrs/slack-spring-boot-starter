@@ -1,4 +1,5 @@
 == Team Store
+:google-analytics-account: UA-82654714-4
 
 The TeamStore is an abstraction that will store teams that install the slack app. The store is used to resolve and provide team information to implementations
 of InteractiveComponentReceiver, SlashCommandReceiver, EventReceiver and MismatchCommandReceiver

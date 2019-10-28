@@ -1,5 +1,6 @@
 [[commands]]
 = Commands
+:google-analytics-account: UA-82654714-4
 
 To use https://api.slack.com/slash-commands[Slash Commands] in your app configure the Slash Command in the slack-app like described in the <<getting-started#command-guide,Getting Started Guide>>.
 In your Spring Boot application, create a new component that implements the https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/SlashCommandReceiver.kt[SlashCommandReceiver interface].

@@ -1,2 +1,3 @@
 [[starter]]
 = Slack Spring Boot Starter
+:google-analytics-account: UA-82654714-4
