@@ -22,7 +22,6 @@ Add the following to your *build.gradle* file
 
 [source]
 --
-repositories { maven { url "https://libs.olaph.io" } }
 
 dependencies {
     implementation(group: "com.kreait.slack", name: "slack-spring-boot-starter", version: "{version}")
