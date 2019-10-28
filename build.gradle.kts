@@ -227,15 +227,10 @@ subprojects {
     tasks.withType<KotlinCompile>() {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "1.8"
+            jvmTarget = JavaVersion.VERSION_11.toString()
         }
     }
-    tasks.withType<KotlinCompile>() {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "1.8"
-        }
-    }
+
     configure<JacocoPluginExtension> {
         toolVersion = "0.8.3"
     }
