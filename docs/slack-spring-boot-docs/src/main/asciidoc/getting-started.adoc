@@ -35,11 +35,10 @@ Add the following to your *build.gradle* file
 
 [source]
 --
-repositories { maven { url "https://libs.olaph.io" } }
 
 dependencies {
-//we add changing true because we are working with changing milestone versions at the moment
-implementation(group: "com.kreait.slack", name: "slack-spring-boot-starter", version: "{version}", changing: true) }
+implementation(group: "com.kreait.slack", name: "slack-spring-boot-starter", version: "{version}")
+}
 --
 
 Add the following properties to the *application.properties* file
