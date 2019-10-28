@@ -1,5 +1,6 @@
 [[features]]
 = Features
+:google-analytics-account: UA-82654714-4
 
 include::features/installation.adoc[leveloffset=+1]
 include::features/client.adoc[leveloffset=+1]

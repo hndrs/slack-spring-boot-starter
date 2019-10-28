@@ -16,6 +16,7 @@ plugins {
 
 tasks {
     "asciidoctor"(AsciidoctorTask::class) {
+        requires("./libs/google-analytics.rb")
         sourceDir = file("src/main/asciidoc")
         outputDir = file("build/generated-docs")
     }

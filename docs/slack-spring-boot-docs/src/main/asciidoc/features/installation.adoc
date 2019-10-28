@@ -1,5 +1,6 @@
 [[installation]]
 = Installation
+:google-analytics-account: UA-82654714-4
 
 == App Credentials
 

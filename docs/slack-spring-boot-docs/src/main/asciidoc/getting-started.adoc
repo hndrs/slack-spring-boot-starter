@@ -1,5 +1,6 @@
 [[getting-started]]
 = Getting Started
+:google-analytics-account: UA-82654714-4
 
 == Create a Slack App
 

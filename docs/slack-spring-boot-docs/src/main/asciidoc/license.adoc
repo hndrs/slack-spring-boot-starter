@@ -1,5 +1,6 @@
 [[license]]
 = License
+:google-analytics-account: UA-82654714-4
 
 MIT License
 

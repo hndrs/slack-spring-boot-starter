@@ -13,7 +13,7 @@
 :hide-uri-scheme:
 :source-highlighter: prettify
 :docinfo: shared
-
+:google-analytics-account: UA-82654714-4
 :lib-version: 1.0.0
 
 include::license.adoc[leveloffset=+1]
@@ -21,4 +21,3 @@ include::getting-started.adoc[leveloffset=+1]
 include::features.adoc[leveloffset=+1]
 include::development-features.adoc[leveloffset=+1]
 include::starter.adoc[leveloffset=+1]
-

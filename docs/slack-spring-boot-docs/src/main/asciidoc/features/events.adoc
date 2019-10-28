@@ -1,5 +1,6 @@
 [[events]]
 = Events
+:google-analytics-account: UA-82654714-4
 
 To receive slack-events, you have to configure events on your slack-app like described in the <<getting-started#event-guide,Getting Started Guide>>.
 Then create a Component that implements the https://github.com/kreait/slack-spring-boot-starter/blob/master/starter/slack-spring-boot/src/main/kotlin/com/kreait/slack/broker/receiver/EventReceiver.kt[EventReceiver-interface].

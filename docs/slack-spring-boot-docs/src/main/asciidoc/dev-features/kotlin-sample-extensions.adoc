@@ -1,5 +1,6 @@
 [[kotlin-sample-extensions]]
 = Kotlin Sample Extensions
+:google-analytics-account: UA-82654714-4
 
 This guide will guide you through the process of building your own Slash Command Receiver class with Slack Spring Boot Starter.
 We will use the extension package which extends all DTOs with .sample() methods, which will come in handy for testing.

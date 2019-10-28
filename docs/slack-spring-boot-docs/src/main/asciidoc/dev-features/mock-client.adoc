@@ -1,6 +1,6 @@
 [[mock-client]]
 = Mock Client Testing
-
+:google-analytics-account: UA-82654714-4
 
 
 Since we cannot create fully automated tests (without writing a whole application, that responds to our bot requests via slack), we dont test against the real slack API, but against our https://github.com/kreait/slack-spring-boot-starter/blob/master/client/slack-spring-test-api-client/src/main/kotlin/com/kreait/slack/api/test/MockSlackClient.kt[MockSlackClient].
