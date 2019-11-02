@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
-import com.kreait.slack.api.contract.jackson.util.InstantToString
+import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
-import java.time.Instant
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -30,33 +29,13 @@ sealed class ConversationRepliesResponse constructor(@JsonProperty("ok") open va
  * @property responseMetadata contains additional information, used for paging
  */
 @JacksonDataClass
-data class SuccessfulConversationRepliesResponse constructor(override val ok: Boolean,
-                                                             @JsonProperty("messages") val messages: List<Message>,
-                                                             @JsonProperty("has_more") val hasMore: Boolean,
-                                                             @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
+data class SuccessfulConversationRepliesResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("messages") val messages: List<Message>,
+    @JsonProperty("has_more") val hasMore: Boolean,
+    @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
 ) : ConversationRepliesResponse(ok) {
-
     companion object
-
-    @JacksonDataClass
-    data class Message(
-            @JsonProperty("type") val type: String,
-            @InstantToString @JsonProperty("ts") val timestamp: Instant,
-            @JsonProperty("user") val user: String,
-            @JsonProperty("text") val text: String,
-            @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant? = null,
-            @JsonProperty("parent_user_id") val parentUserId: String? = null,
-            @JsonProperty("subscribed") val subscribed: Boolean? = null,
-            @JsonProperty("last_read") val lastRead: String? = null,
-            @JsonProperty("replies") val replies: Reply? = null,
-
-            @JsonProperty("unread_count") val unreadCount: Int? = null) {
-        companion object
-    }
-
-    @JacksonDataClass
-    data class Reply(@JsonProperty("user") val userId: String,
-                     @InstantToString @JsonProperty("ts") val timestamp: Instant)
 }
 
 /**

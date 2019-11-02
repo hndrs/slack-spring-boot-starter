@@ -3,6 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.groups
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
@@ -27,7 +28,8 @@ sealed class GroupsRepliesResponse constructor(@JsonProperty("ok") open val ok: 
  */
 data class SuccessfulGroupsRepliesResponse(
         override val ok: Boolean,
-        @JsonProperty("messages") val messages: List<SuccessfulGroupsHistoryResponse.Message>) : GroupsRepliesResponse(ok) {
+        @JsonProperty("messages") val messages: List<Message>
+) : GroupsRepliesResponse(ok) {
     companion object
 }
 
