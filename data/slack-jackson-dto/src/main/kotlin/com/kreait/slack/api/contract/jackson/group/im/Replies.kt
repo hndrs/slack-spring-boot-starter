@@ -3,9 +3,8 @@ package com.kreait.slack.api.contract.jackson.group.im
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.kreait.slack.api.contract.jackson.util.InstantToString
+import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
-import java.time.Instant
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -28,20 +27,12 @@ sealed class ImRepliesResponse constructor(@JsonProperty(value = "ok") open val 
  * @property messages list of thread-messages
  */
 @JacksonDataClass
-data class SuccessfulImRepliesResponse constructor(override val ok: Boolean,
-                                                   @JsonProperty(value = "messages") val messages: List<Message>)
-    : ImRepliesResponse(ok) {
+data class SuccessfulImRepliesResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty(value = "messages") val messages: List<Message>
+) : ImRepliesResponse(ok) {
 
-    companion object {}
-
-    data class Message(
-            @JsonProperty("type") val type: String,
-            @InstantToString @JsonProperty("ts") val timestamp: Instant,
-            @JsonProperty("user") val user: String? = null,
-            @JsonProperty("text") val text: String? = null,
-            @JsonProperty("is_starred") val isStarred: Boolean? = false) {
-        companion object
-    }
+    companion object
 }
 
 /**

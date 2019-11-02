@@ -3,6 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.channels
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
@@ -28,36 +29,12 @@ sealed class ChannelsRepliesResponse constructor(@JsonProperty("ok") open val ok
  * @property hasMore determines if more messages exist
  */
 @JacksonDataClass
-data class SuccessfulChannelsRepliesResponse constructor(override val ok: Boolean,
-                                                         @JsonProperty("messages") val messages: List<Message>,
-                                                         @JsonProperty("has_more") val hasMore: Boolean = false)
-    : ChannelsRepliesResponse(ok) {
-    companion object {}
-
-
-    //TODO this seems to be a common object
-    data class Message(
-            @InstantToString @JsonProperty("last_read") val lastReadAt: Instant?,
-            @JsonProperty("parent_user_id") val parentUserId: String?,
-            @JsonProperty("replies") val replies: List<Reply?>?,
-            @JsonProperty("reply_count") val replyCount: Int?,
-            @JsonProperty("subscribed") val subscribed: Boolean?,
-            @JsonProperty("text") val text: String?,
-            @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant?,
-            @InstantToString @JsonProperty("ts") val timestamp: Instant?,
-            @JsonProperty("type") val type: String?,
-            @JsonProperty("unread_count") val unreadCount: Int?,
-            @JsonProperty("user") val user: String?
-    ) {
-        companion object
-    }
-
-    data class Reply(
-            @InstantToString @JsonProperty("ts") val timestamp: Instant?,
-            @JsonProperty("user") val user: String?
-    ) {
-        companion object
-    }
+data class SuccessfulChannelsRepliesResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("messages") val messages: List<Message>,
+    @JsonProperty("has_more") val hasMore: Boolean = false
+)   : ChannelsRepliesResponse(ok) {
+    companion object
 }
 
 /**

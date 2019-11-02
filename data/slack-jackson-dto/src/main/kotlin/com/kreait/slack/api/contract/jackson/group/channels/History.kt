@@ -3,6 +3,7 @@ package com.kreait.slack.api.contract.jackson.group.channels
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
+import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
@@ -27,43 +28,13 @@ sealed class ChannelsHistoryResponse constructor(@JsonProperty("ok") open val ok
  * @property hasMore boolean that determines if more messages are available
  */
 @JacksonDataClass
-data class SuccessfulChannelsHistoryResponse constructor(override val ok: Boolean,
-                                                         @JsonProperty("messages") val messages: List<Message>?,
-                                                         @InstantToString @JsonProperty("latest") val latestTimestamp: Instant?,
-                                                         @JsonProperty("has_more") val hasMore: Boolean?) : ChannelsHistoryResponse(ok) {
-
-    companion object {}
-
-    data class Message(
-            @JsonProperty("attachments") val attachments: List<Attachment?>?,
-            @JsonProperty("bot_id") val botId: String?,
-            @JsonProperty("is_starred") val isStarred: Boolean = false,
-            @JsonProperty("reactions") val reactions: List<Reaction>?,
-            @JsonProperty("subtype") val subtype: String?,
-            @JsonProperty("text") val text: String?,
-            @InstantToString @JsonProperty("ts") val timestamp: Instant?,
-            @JsonProperty("type") val type: String?,
-            @JsonProperty("user") val user: String?,
-            @JsonProperty("username") val username: String?
-    ) {
-        companion object
-    }
-
-    data class Reaction(
-            @JsonProperty("count") val count: Int?,
-            @JsonProperty("name") val name: String?,
-            @JsonProperty("users") val users: List<String>?
-    ) {
-        companion object
-    }
-
-    data class Attachment(
-            @JsonProperty("fallback") val fallback: String?,
-            @JsonProperty("id") val id: Int,
-            @JsonProperty("text") val text: String?
-    ) {
-        companion object
-    }
+data class SuccessfulChannelsHistoryResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("messages") val messages: List<Message>?,
+    @InstantToString @JsonProperty("latest") val latestTimestamp: Instant?,
+    @JsonProperty("has_more") val hasMore: Boolean?
+) : ChannelsHistoryResponse(ok) {
+    companion object
 }
 
 

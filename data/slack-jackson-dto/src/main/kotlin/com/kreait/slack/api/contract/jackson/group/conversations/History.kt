@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
-import com.kreait.slack.api.contract.jackson.util.InstantToString
+import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
-import java.time.Instant
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -29,11 +28,11 @@ sealed class ConversationHistoryResponse constructor(@JsonProperty("ok") open va
  * @property responseMetadata additional information about the response
  */
 data class SuccessfulConversationHistoryResponse(
-        override val ok: Boolean,
-        @JsonProperty("messages") val messages: List<Message>,
-        @JsonProperty("has_more") val hasMore: Boolean,
-        @JsonProperty("pin_count") val pinCount: Int,
-        @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
+    override val ok: Boolean,
+    @JsonProperty("messages") val messages: List<Message>,
+    @JsonProperty("has_more") val hasMore: Boolean,
+    @JsonProperty("pin_count") val pinCount: Int,
+    @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
 ) : ConversationHistoryResponse(ok) {
     companion object
 }
@@ -45,34 +44,12 @@ data class SuccessfulConversationHistoryResponse(
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorConversationHistoryResponse constructor(override val ok: Boolean,
-                                                        @JsonProperty("error") val error: String)
-    : ConversationHistoryResponse(ok) {
+data class ErrorConversationHistoryResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ConversationHistoryResponse(ok) {
     companion object
 }
-
-@JacksonDataClass
-data class Message(
-        @JsonProperty("type") val type: String,
-        @JsonProperty("user") val user: String,
-        @JsonProperty("text") val text: String,
-        @InstantToString @JsonProperty("ts") val timestamp: Instant,
-        @JsonProperty("attachments") val attachments: List<Attachment>) {
-    companion object {}
-
-    @JacksonDataClass
-    data class Attachment(
-            @JsonProperty("service_name") val serviceName: String,
-            @JsonProperty("text") val text: String,
-            @JsonProperty("fallback") val fallback: String,
-            @JsonProperty("thumb_url") val thumbUrl: String? = null,
-            @JsonProperty("thumb_width") val thumbWidth: Int? = null,
-            @JsonProperty("thumb_height") val thumbHeight: Int? = null,
-            @JsonProperty("id") val id: Int) {
-        companion object
-    }
-}
-
 
 /**
  * Fetches a conversation's history of messages and events.
