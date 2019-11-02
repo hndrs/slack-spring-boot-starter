@@ -22,7 +22,7 @@ open class TeamStoreAutoconfiguration {
     @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "memory", matchIfMissing = true)
     @ConditionalOnMissingBean
     @Bean
-    open fun teamStore(): TeamStore {
+    open fun inMemoryTeamStore(): TeamStore {
         return InMemoryTeamStore()
     }
 
