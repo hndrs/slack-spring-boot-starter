@@ -6,9 +6,11 @@ import com.kreait.slack.api.group.auth.AuthGroup
 import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
+import com.kreait.slack.api.group.dialog.DialogMethodGroup
 import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
+import com.kreait.slack.api.group.pins.PinsMethodGroup
 import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 import com.kreait.slack.api.group.respond.RespondMethodGroup
 import com.kreait.slack.api.group.team.TeamMethodGroup
@@ -22,11 +24,12 @@ import com.kreait.slack.api.spring.group.dialog.SpringDialogMethodGroup
 import com.kreait.slack.api.spring.group.groups.SpringGroupsMethodGroup
 import com.kreait.slack.api.spring.group.im.SpringImMethodGroup
 import com.kreait.slack.api.spring.group.oauth.SpringOauthMethodGroup
+import com.kreait.slack.api.spring.group.pins.SpringPinsMethodGroup
+import com.kreait.slack.api.spring.group.reminders.SpringRemindersMethodGroup
 import com.kreait.slack.api.spring.group.respond.SpringRespondMethodGroup
 import com.kreait.slack.api.spring.group.team.SpringTeamMethodGroup
 import com.kreait.slack.api.spring.group.usergroups.SpringUsergroupMethodGroup
 import com.kreait.slack.api.spring.group.users.SpringUserMethodGroup
-import com.kreait.slack.api.spring.group.reminders.SpringRemindersMethodGroup
 
 /**
  * Api Client to interact with the slack api
@@ -66,7 +69,7 @@ class SpringSlackClient : SlackClient {
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    override fun dialog(): SpringDialogMethodGroup {
+    override fun dialog(): DialogMethodGroup {
         return SpringDialogMethodGroup()
     }
 
@@ -154,6 +157,15 @@ class SpringSlackClient : SlackClient {
      */
     override fun reminders(): RemindersMethodGroup {
         return SpringRemindersMethodGroup()
+    }
+
+    /**
+     * Convenience function to apply slack api Pins method grouping
+     *
+     * [Slack Api Documentation](https://api.slack.com/methods)
+     */
+    override fun pins(): PinsMethodGroup {
+        return SpringPinsMethodGroup()
     }
 
     /**
