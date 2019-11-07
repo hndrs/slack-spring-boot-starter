@@ -1,7 +1,6 @@
 package com.kreait.slack.api.test
 
 import com.kreait.slack.api.SlackClient
-import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 import com.kreait.slack.api.test.group.auth.MockAuthGroup
 import com.kreait.slack.api.test.group.channel.MockChannelsMethodGroup
 import com.kreait.slack.api.test.group.chat.MockChatMethodGroup
@@ -10,6 +9,7 @@ import com.kreait.slack.api.test.group.dialog.MockDialogMethodGroup
 import com.kreait.slack.api.test.group.groups.MockGroupsMethodGroup
 import com.kreait.slack.api.test.group.im.MockImMethodGroup
 import com.kreait.slack.api.test.group.oauth.MockOauthMethodGroup
+import com.kreait.slack.api.test.group.pins.MockPinsMethodGroup
 import com.kreait.slack.api.test.group.reminders.MockRemindersMethodGroup
 import com.kreait.slack.api.test.group.respond.MockRespondMethodGroup
 import com.kreait.slack.api.test.group.team.MockTeamMethodGroup
@@ -35,6 +35,7 @@ class MockSlackClient : SlackClient {
     private val mockTeamMethodGroup = MockTeamMethodGroup()
     private val mockUsergroupsMethodGroup = MockUsergroupsMethodGroup()
     private val mockGroupsMethodGroup = MockGroupsMethodGroup()
+    private val mockPinsMethodGroup = MockPinsMethodGroup()
 
     override fun auth() = mockAuthGroup
     override fun chat() = mockChatGroup
@@ -49,4 +50,5 @@ class MockSlackClient : SlackClient {
     override fun usergroups() = mockUsergroupsMethodGroup
     override fun groups() = mockGroupsMethodGroup
     override fun reminders() = mockRemindersMethodGroup
+    override fun pins() = mockPinsMethodGroup
 }
