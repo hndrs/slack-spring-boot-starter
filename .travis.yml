@@ -42,12 +42,12 @@ jobs:
   include:
     - stage: test
       name: "PullRequest Quality Check and Tests"
-      script: ./gradlew check jacocoTestReport detekt sonarqube --info --scan
+      script: ./gradlew check jacocoTestReport detekt sonarqube -Dsonar.login=$SONAR_TOKEN --info --scan
       if: type = pull_request
 
     - stage: test
       name: "Quality Check and Tests"
-      script: ./gradlew check jacocoTestReport detekt sonarqube --info --scan
+      script: ./gradlew check jacocoTestReport detekt sonarqube -Dsonar.login=$SONAR_TOKEN --info --scan
       if: branch = master AND type != pull_request
 
     - stage: publish
