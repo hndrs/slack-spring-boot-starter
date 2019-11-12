@@ -1,7 +1,7 @@
 package com.kreait.slack.broker.store.user
 
 /**
- * In Memory TeamStore
+ * In Memory UserStore
  * This Default implementation should not be used on production environments
  */
 class InMemoryUserStore(private val inMemoryUsers: MutableMap<String, User> = mutableMapOf()) : UserStore {

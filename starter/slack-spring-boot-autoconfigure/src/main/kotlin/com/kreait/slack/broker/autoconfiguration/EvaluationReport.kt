@@ -38,14 +38,14 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         sb.appendln("| REGISTERED SLACK BROKER COMPONENTS |")
         sb.appendln("+------------------------------------+")
 
-        addComponent(sb, "Event Receivers", ctx.getBeanNamesForType(EventReceiver::class.java));
-        addComponent(sb, "Installation Receivers", ctx.getBeanNamesForType(InstallationReceiver::class.java));
-        addComponent(sb, "Interactive Component Receivers", ctx.getBeanNamesForType(InteractiveComponentReceiver::class.java));
-        addComponent(sb, "Slash Command Receivers", ctx.getBeanNamesForType(SlashCommandReceiver::class.java));
-        addComponent(sb, "Mismatch Command Receivers", ctx.getBeanNamesForType(MismatchCommandReceiver::class.java));
-        addComponent(sb, "Team Store", ctx.getBeanNamesForType(TeamStore::class.java));
-        addComponent(sb, "User Store", ctx.getBeanNamesForType(UserStore::class.java));
-        addComponent(sb, "Event Store", ctx.getBeanNamesForType(TeamStore::class.java));
+        addComponent(sb, "Event Receivers", ctx.getBeanNamesForType(EventReceiver::class.java))
+        addComponent(sb, "Installation Receivers", ctx.getBeanNamesForType(InstallationReceiver::class.java))
+        addComponent(sb, "Interactive Component Receivers", ctx.getBeanNamesForType(InteractiveComponentReceiver::class.java))
+        addComponent(sb, "Slash Command Receivers", ctx.getBeanNamesForType(SlashCommandReceiver::class.java))
+        addComponent(sb, "Mismatch Command Receivers", ctx.getBeanNamesForType(MismatchCommandReceiver::class.java))
+        addComponent(sb, "Team Store", ctx.getBeanNamesForType(TeamStore::class.java))
+        addComponent(sb, "User Store", ctx.getBeanNamesForType(UserStore::class.java))
+        addComponent(sb, "Event Store", ctx.getBeanNamesForType(EventStore::class.java))
 
         defaultChecks(ctx, sb, Pair(TeamStore::class, InMemoryTeamStore::class), Pair(EventStore::class, InMemoryEventStore::class))
 
