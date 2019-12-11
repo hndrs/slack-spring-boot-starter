@@ -2,7 +2,8 @@ package com.kreait.slack.broker.receiver
 
 import com.kreait.slack.api.contract.jackson.InteractiveComponentResponse
 import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.SlackEvent
+import com.kreait.slack.api.contract.jackson.event.Event
+import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.broker.store.team.Team
 import org.slf4j.LoggerFactory
 import org.springframework.core.Ordered
@@ -24,7 +25,7 @@ class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InteractiveComp
         val LOG = LoggerFactory.getLogger(SL4JLoggingReceiver::class.java)!!
     }
 
-    override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
+    override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
         LOG.info("Received SlackCallBack    {}\nHeaders:  {}", slackEvent, headers)
     }
 

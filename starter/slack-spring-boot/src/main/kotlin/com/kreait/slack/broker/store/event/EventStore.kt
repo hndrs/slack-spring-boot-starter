@@ -1,6 +1,6 @@
 package com.kreait.slack.broker.store.event
 
-import com.kreait.slack.api.contract.jackson.EventRequest
+import com.kreait.slack.api.contract.jackson.event.EventRequest
 
 /**
  * Interface that is used to store received events

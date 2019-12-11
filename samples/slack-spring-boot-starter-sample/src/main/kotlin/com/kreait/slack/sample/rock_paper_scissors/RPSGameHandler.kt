@@ -2,10 +2,11 @@ package com.kreait.slack.sample.rock_paper_scissors
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.BlockActions
-import com.kreait.slack.api.contract.jackson.SlackEvent
 import com.kreait.slack.api.contract.jackson.common.messaging.Block
 import com.kreait.slack.api.contract.jackson.common.messaging.Element
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
+import com.kreait.slack.api.contract.jackson.event.Event
+import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.ResponseType
@@ -59,37 +60,37 @@ class RPSGameHandler @Autowired constructor(private val slackClient: SlackClient
         val selection = (interactiveComponentResponse.actions?.first() as Element.Button).text.text
         selection.let { userSelection ->
 
-                val gameResult = play(WEAPONS.valueOf(userSelection.toUpperCase()))
+            val gameResult = play(WEAPONS.valueOf(userSelection.toUpperCase()))
 
-                if (gameResult.userWon) {
+            if (gameResult.userWon) {
+                this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
+                        .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*\n$selection beats ${gameResult.botWeapon}\n*you won* this time :tada: :white_check_mark:",
+                                responseType = ResponseType.EPHEMERAL))
+                        .onSuccess { println(it) }
+                        .onFailure { println(it) }
+                        .invoke()
+            } else {
+                if (gameResult.draw) {
                     this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
-                            .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*\n$selection beats ${gameResult.botWeapon}\n*you won* this time :tada: :white_check_mark:",
+                            .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*,\n this one is a *tie*, try again",
                                     responseType = ResponseType.EPHEMERAL))
                             .onSuccess { println(it) }
                             .onFailure { println(it) }
                             .invoke()
                 } else {
-                    if (gameResult.draw) {
-                        this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
-                                .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*,\n this one is a *tie*, try again",
-                                        responseType = ResponseType.EPHEMERAL))
-                                .onSuccess { println(it) }
-                                .onFailure { println(it) }
-                                .invoke()
-                    } else {
-                        this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
-                                .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*,\n ${gameResult.botWeapon} beats $selection,\n*You lost* :x: ",
-                                        responseType = ResponseType.EPHEMERAL))
-                                .onSuccess { println(it) }
-                                .onFailure { println(it) }
-                                .invoke()
-                    }
+                    this.slackClient.respond().message(interactiveComponentResponse.responseUrl!!)
+                            .with(RespondMessageRequest(text = "I choose *${gameResult.botWeapon}*,\n ${gameResult.botWeapon} beats $selection,\n*You lost* :x: ",
+                                    responseType = ResponseType.EPHEMERAL))
+                            .onSuccess { println(it) }
+                            .onFailure { println(it) }
+                            .invoke()
+                }
             }
         }
     }
 
-    fun dmHandler(weapon: WEAPONS, team: Team, slackEvent: SlackEvent) {
-        val channelId = slackEvent.event["channel"] as String
+    fun dmHandler(weapon: WEAPONS, team: Team, slackEvent: SlackEvent<Event.Generic>) {
+        val channelId = slackEvent.event.data["channel"] as String
         val result = play(weapon)
 
         when {

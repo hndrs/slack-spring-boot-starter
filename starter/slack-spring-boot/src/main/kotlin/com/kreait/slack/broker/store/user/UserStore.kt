@@ -15,7 +15,7 @@ interface UserStore {
     fun findById(id: String): User
 
     /**
-     * Adds a [User] to the Database
+     * Adds a [User] to the [UserStore]
      *
      * @param users the [User]s you want to add
      */

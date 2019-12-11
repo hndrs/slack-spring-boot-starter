@@ -1,8 +1,8 @@
 package com.kreait.slack.broker.broker
 
-import com.kreait.slack.api.contract.jackson.EventRequest
-import com.kreait.slack.api.contract.jackson.SlackChallenge
-import com.kreait.slack.api.contract.jackson.SlackEvent
+import com.kreait.slack.api.contract.jackson.event.EventRequest
+import com.kreait.slack.api.contract.jackson.event.SlackChallenge
+import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.broker.configuration.Event
 import com.kreait.slack.broker.metrics.EventMetricsCollector
 import com.kreait.slack.broker.receiver.EventReceiver
@@ -49,7 +49,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
 
         if (event is SlackChallenge) {
             return mapOf(Pair("challenge", event.challenge))
-        } else if (event is SlackEvent && shouldInvoke(event)) {
+        } else if (event is SlackEvent<*> && shouldInvoke(event)) {
             val team = this.teamStore.findById(event.teamId)
             this.invoke(event, headers, team)
         }
@@ -64,7 +64,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
      * returns false if the underlying eventstore determines that an event already has been
      * received
      */
-    private fun shouldInvoke(event: SlackEvent): Boolean {
+    private fun shouldInvoke(event: SlackEvent<*>): Boolean {
         val exists = this.eventStore.exists(event.eventId)
         return if (exists) {
             when {
@@ -83,7 +83,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
     /**
      * Invokes the receiver chain
      */
-    private fun invoke(event: SlackEvent, headers: HttpHeaders, team: Team) {
+    private fun invoke(event: SlackEvent<*>, headers: HttpHeaders, team: Team) {
         this.slackEventReceivers
                 .filter { receiver ->
                     val supportsEvent = receiver.supportsEvent(event)

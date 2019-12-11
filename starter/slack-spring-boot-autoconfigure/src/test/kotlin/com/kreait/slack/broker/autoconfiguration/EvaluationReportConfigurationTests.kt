@@ -2,7 +2,7 @@ package com.kreait.slack.broker.autoconfiguration
 
 import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.SlackEvent
+import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver

@@ -1,7 +1,7 @@
 package com.kreait.slack.broker.configuration
 
-import com.kreait.slack.api.contract.jackson.EventRequest
-import com.kreait.slack.api.contract.jackson.SlackEvent
+import com.kreait.slack.api.contract.jackson.event.EventRequest
+import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.broker.RequestTestUtils
 import com.kreait.slack.broker.RequestTestUtils.jsonBody

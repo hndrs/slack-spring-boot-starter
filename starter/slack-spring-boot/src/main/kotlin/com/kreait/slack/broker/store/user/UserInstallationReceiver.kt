@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 
 /**
- * Receiver that downloads all users after a team installs the app
+ * Receiver that stores all users after a team installs the app
  */
 class UserInstallationReceiver @Autowired constructor(private val slackClient: SlackClient,
                                                       private val userStore: UserStore) : InstallationReceiver {
@@ -19,17 +19,18 @@ class UserInstallationReceiver @Autowired constructor(private val slackClient: S
                 .with(ListAllRequest(true, PACKAGE_SIZE))
                 .onSuccess { response ->
                     this.userStore.put(*response.members.map { userOfMember(it) }.toTypedArray())
-                    if (LOG.isDebugEnabled)
+                    if (LOG.isDebugEnabled) {
                         LOG.debug("successfully downloaded users")
+                    }
                 }
                 .onFailure {
-                    LOG.error("failure while trying to load users")
+                    LOG.error("Failure while trying to load users\n{}", it)
                 }
                 .invoke()
     }
 
     companion object {
-        val LOG = LoggerFactory.getLogger(UserInstallationReceiver::class.java)
+        private val LOG = LoggerFactory.getLogger(UserInstallationReceiver::class.java)
         private const val PACKAGE_SIZE = 100
     }
 }

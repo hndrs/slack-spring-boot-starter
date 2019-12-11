@@ -1,7 +1,9 @@
 package com.kreait.slack.api.contract.jackson.group.usergroups
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.kreait.slack.api.contract.jackson.util.InstantToInt
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
+import java.time.Instant
 
 /**
  * The Usergroup dto
@@ -20,7 +22,7 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  * @property createdBy the user-id of the user that created the usergroup
  * @property updatedBy the user-id of the user that updated the usergroup
  * @property deletedBy the user-id of the user that deleted the usergroup
- * @property prefs
+ * @property prefs contains default channels and groups (private channels) that members of this group will be invited to upon joining.
  * @property users list of users in that usergroup
  * @property userCount the amount of users in that usergroup
  */
@@ -28,20 +30,20 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 data class UserGroup(
         @JsonProperty("id") val id: String,
         @JsonProperty("team_id") val teamId: String,
-        @JsonProperty("is_usergroup") val isUsergroup: Boolean,
+        @JsonProperty("is_usergroup") val isUserGroup: Boolean,
         @JsonProperty("name") val name: String,
         @JsonProperty("description") val description: String,
         @JsonProperty("handle") val handle: String,
         @JsonProperty("is_external") val isExternal: Boolean,
-        @JsonProperty("date_create") val dateCreate: Int,
-        @JsonProperty("date_update") val dateUpdate: Int,
-        @JsonProperty("date_delete") val dateDelete: Int,
+        @InstantToInt @JsonProperty("date_create") val createdAt: Instant,
+        @InstantToInt @JsonProperty("date_update") val updatedAt: Instant,
+        @InstantToInt @JsonProperty("date_delete") val deletedAt: Instant,
         @JsonProperty("auto_type") val autoType: AutoType,
         @JsonProperty("created_by") val createdBy: String,
         @JsonProperty("updated_by") val updatedBy: String,
-        @JsonProperty("deleted_by") val deletedBy: String,
+        @JsonProperty("deleted_by") val deletedBy: String?,
         @JsonProperty("prefs") val prefs: Prefs,
-        @JsonProperty("users") val users: List<String>,
+        @JsonProperty("users") val userIds: List<String>,
         @JsonProperty("user_count") val userCount: Int
 ) {
     companion object
@@ -49,8 +51,8 @@ data class UserGroup(
 
 @JacksonDataClass
 data class Prefs(
-        @JsonProperty("channels") val channels: List<String>,
-        @JsonProperty("groups") val groups: List<String>
+        @JsonProperty("channels") val channelIds: List<String>,
+        @JsonProperty("groups") val groupIds: List<String>
 ) {
     companion object
 }

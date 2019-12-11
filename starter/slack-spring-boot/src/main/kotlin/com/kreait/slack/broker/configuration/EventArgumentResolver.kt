@@ -1,7 +1,7 @@
 package com.kreait.slack.broker.configuration
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.kreait.slack.api.contract.jackson.EventRequest
+import com.kreait.slack.api.contract.jackson.event.EventRequest
 import com.kreait.slack.broker.security.VerificationMethodArgumentResolver
 import org.springframework.core.MethodParameter
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder

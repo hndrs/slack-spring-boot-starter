@@ -1,6 +1,6 @@
 package com.kreait.slack.broker.autoconfiguration
 
-import com.kreait.slack.api.contract.jackson.EventRequest
+import com.kreait.slack.api.contract.jackson.event.EventRequest
 import com.kreait.slack.broker.store.event.EventStore
 import com.kreait.slack.broker.store.event.InMemoryEventStore
 import org.junit.jupiter.api.Assertions
