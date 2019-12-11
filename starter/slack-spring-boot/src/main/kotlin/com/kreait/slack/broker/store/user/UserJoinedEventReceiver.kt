@@ -1,9 +1,8 @@
 package com.kreait.slack.broker.store.user
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.kreait.slack.api.contract.jackson.SlackEvent
-import com.kreait.slack.api.contract.jackson.common.types.Member
-import com.kreait.slack.broker.receiver.EventReceiver
+import com.kreait.slack.api.contract.jackson.event.Event
+import com.kreait.slack.api.contract.jackson.event.SlackEvent
+import com.kreait.slack.broker.receiver.adapter.TypedEventReceiverAdapter
 import com.kreait.slack.broker.store.team.Team
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
@@ -11,15 +10,10 @@ import org.springframework.http.HttpHeaders
 /**
  * EventReceiver that adds a user to the registered store when a new user joins the team
  */
-class UserJoinedEventReceiver @Autowired constructor(private val userStore: UserStore) : EventReceiver {
+class UserJoinedEventReceiver @Autowired constructor(private val userStore: UserStore) : TypedEventReceiverAdapter<Event.TeamJoin>(Event.TeamJoin.TYPE) {
 
-    override fun supportsEvent(slackEvent: SlackEvent): Boolean {
-        return slackEvent.event["type"] == "team_join"
-    }
-
-    override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
-        val json = jacksonObjectMapper().writeValueAsString(slackEvent.event["user"] as Map<*, *>)
-        val user = jacksonObjectMapper().readValue(json, Member::class.java)
-        userStore.put(userOfMember(user))
+    override fun onReceive(slackEvent: SlackEvent<Event.TeamJoin>, headers: HttpHeaders, team: Team) {
+        userStore.put(userOfMember(slackEvent.event.member))
     }
 }
+

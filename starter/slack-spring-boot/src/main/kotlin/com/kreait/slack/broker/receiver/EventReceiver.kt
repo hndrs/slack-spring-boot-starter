@@ -1,6 +1,7 @@
 package com.kreait.slack.broker.receiver
 
-import com.kreait.slack.api.contract.jackson.SlackEvent
+import com.kreait.slack.api.contract.jackson.event.Event
+import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.broker.store.team.Team
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
@@ -15,7 +16,7 @@ interface EventReceiver {
      *
      * @param slackEvent the incoming event
      */
-    fun supportsEvent(slackEvent: SlackEvent): Boolean = true
+    fun supportsEvent(slackEvent: SlackEvent<Event>): Boolean = true
 
     /**
      * will be executed if [supportsEvent] returned true
@@ -23,7 +24,7 @@ interface EventReceiver {
      * @param slackEvent the incoming event
      * @param team the team with the access-token which can be used for further actions
      */
-    fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team)
+    fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team)
 
     /**
      * Method that determines if an exception in this receiver should be thrown

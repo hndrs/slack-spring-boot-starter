@@ -1,4 +1,4 @@
-package com.kreait.slack.api.contract.jackson
+package com.kreait.slack.api.contract.jackson.event
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
@@ -47,7 +47,7 @@ data class SlackChallenge constructor(
  * @property event the event information
  */
 @JacksonDataClass
-data class SlackEvent constructor(
+data class SlackEvent<out T : Event> constructor(
         override val type: String,
         override val token: String,
         @JsonProperty("team_id") val teamId: String,
@@ -55,7 +55,10 @@ data class SlackEvent constructor(
         @JsonProperty("authed_users") val authedUsers: Set<String>?,
         @JsonProperty("event_id") val eventId: String,
         @JsonProperty("event_time") val eventTime: Int,
-        @JsonProperty("event") val event: Map<String, Any>
+        @JsonProperty("event") val event: T
 ) : EventRequest(type, token) {
+
+    fun isOfType(type: String): Boolean = this.event.type == type
+
     companion object
 }
