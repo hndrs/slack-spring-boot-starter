@@ -4,7 +4,7 @@ import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.event.Event
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
-import com.kreait.slack.broker.receiver.TypedEventReceiver
+import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.store.team.Team
 import com.kreait.slack.sample.rock_paper_scissors.data.WEAPONS
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service
 
 @Service
 class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGameHandler: RPSGameHandler,
-                                                              private val slackClient: SlackClient) : TypedEventReceiver<Event.Generic> {
+                                                              private val slackClient: SlackClient) : EventReceiver<Event.Generic> {
 
-    override fun supportsEvent(slackEvent: SlackEvent<Event>): Boolean {
-        val data = (slackEvent.event as Event.Generic).data
+    override fun supportsEvent(slackEvent: SlackEvent<Event.Generic>): Boolean {
+        val data = slackEvent.event.data
         return (data["type"] == "message"
                 && ((data["text"] == "rock")
                 || (data["text"] == "paper")
@@ -24,7 +24,7 @@ class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGam
                 || (data["text"] == "rock paper scissors")))
     }
 
-    override fun onReceive(slackEvent: SlackEvent<Event.Generic>, headers: HttpHeaders, team: Team) {
+    override fun onReceiveEvent(slackEvent: SlackEvent<Event.Generic>, headers: HttpHeaders, team: Team) {
         val eventMessage = (slackEvent.event.data["text"] as String).trim()
 
         if (eventMessage == "rock") {

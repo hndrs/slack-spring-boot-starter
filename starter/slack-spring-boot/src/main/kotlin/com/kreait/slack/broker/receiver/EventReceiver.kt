@@ -9,14 +9,14 @@ import org.springframework.http.HttpHeaders
 /**
  * EventReceiver that should be implemented to react to incoming events
  */
-interface EventReceiver {
+interface EventReceiver<T : Event> {
 
     /**
      * Method that determines if the incoming event should be handled by the implementing receiver
      *
      * @param slackEvent the incoming event
      */
-    fun supportsEvent(slackEvent: SlackEvent<Event>): Boolean = true
+    fun supportsEvent(slackEvent: SlackEvent<T>): Boolean = true
 
     /**
      * will be executed if [supportsEvent] returned true
@@ -24,7 +24,7 @@ interface EventReceiver {
      * @param slackEvent the incoming event
      * @param team the team with the access-token which can be used for further actions
      */
-    fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team)
+    fun onReceiveEvent(slackEvent: SlackEvent<T>, headers: HttpHeaders, team: Team)
 
     /**
      * Method that determines if an exception in this receiver should be thrown
