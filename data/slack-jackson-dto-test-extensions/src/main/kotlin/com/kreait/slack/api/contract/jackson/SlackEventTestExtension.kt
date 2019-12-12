@@ -8,7 +8,7 @@ import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.api.contract.jackson.group.usergroups.UserGroup
 import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 
-fun SlackEvent.Companion.sample(event: Event): SlackEvent<Event> {
+fun <T : Event> SlackEvent.Companion.sample(event: T): SlackEvent<T> {
     return SlackEvent(
             "",
             "",

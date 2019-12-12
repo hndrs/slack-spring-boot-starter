@@ -3,6 +3,7 @@ package com.kreait.slack.broker.autoconfiguration
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.BlockActions
 import com.kreait.slack.api.contract.jackson.InteractiveMessage
+import com.kreait.slack.api.contract.jackson.event.Event
 import com.kreait.slack.api.spring.SpringSlackClient
 import com.kreait.slack.broker.autoconfiguration.credentials.CredentialsProvider
 import com.kreait.slack.broker.autoconfiguration.credentials.DefaultCredentialsProviderChain
@@ -75,7 +76,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
          * Registers the [EventBroker] which forwards events to all [EventReceiver]s
          */
         @Bean
-        open fun eventBroker(slackEventReceivers: List<EventReceiver>, teamStore: TeamStore, eventStore: EventStore, metricsCollector: EventMetricsCollector?): EventBroker {
+        open fun eventBroker(slackEventReceivers: List<EventReceiver<in Event>>, teamStore: TeamStore, eventStore: EventStore, metricsCollector: EventMetricsCollector?): EventBroker {
             return EventBroker(slackEventReceivers, teamStore, eventStore, metricsCollector)
         }
 

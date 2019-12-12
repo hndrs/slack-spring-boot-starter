@@ -27,12 +27,34 @@ import java.time.Instant
         JsonSubTypes.Type(value = Event.SubteamCreated::class, name = Event.SubteamCreated.TYPE)
 )
 @JacksonDataClass
-sealed class Event constructor(@JsonProperty("type") open val type: String) {
+abstract class Event constructor(@JsonProperty("type") open val type: String) {
 
 
-    @JacksonDataClass
-    data class Generic(override val type: String,
-                       @field:JsonAnySetter val data: Map<String, Any>) : Event(type) {
+    data class Generic(override val type: String) : Event(type) {
+        val data: Map<String, Any>
+            get() = internalData.toMap()
+
+        /**
+         * we use this internal data map to make use of the json any setter
+         * which is not supported for use with [com.fasterxml.jackson.annotation.JsonCreator]
+         * annotation yet
+         */
+        private val internalData: MutableMap<String, Any> = mutableMapOf()
+
+        /**
+         * this method can only be used once to ensure immutablity
+         * It is a workaround
+         */
+        @JsonAnySetter
+        internal fun anySetter(key: String, value: Any) {
+            this.internalData[key] = value
+        }
+
+        override fun toString(): String {
+            return "Generic(type='$type', data=$internalData)"
+        }
+
+
     }
 
     @JacksonDataClass

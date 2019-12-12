@@ -5,7 +5,7 @@ import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.metrics.EventMetrics
-import com.kreait.slack.broker.receiver.TypedEventReceiver
+import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.store.event.InMemoryEventStore
 import com.kreait.slack.broker.store.team.InMemoryTeamStore
 import com.kreait.slack.broker.store.team.Team
@@ -95,6 +95,8 @@ class EventBrokerTests {
         val successReceiver = SuccessReceiver()
         val errorReceiver = ErrorReceiver()
 
+        val listOf = listOf(successReceiver, errorReceiver)
+
         EventBroker(listOf(successReceiver, errorReceiver), teamStore, eventStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
 
         Assertions.assertFalse(successReceiver.executed)
@@ -136,59 +138,59 @@ class EventBrokerTests {
         Assertions.assertEquals(2, third.currentOrder)
     }
 
-    class FirstEventReceiver(private val current: AtomicInteger) : TypedEventReceiver<Event.UserChange> {
+    class FirstEventReceiver(private val current: AtomicInteger) : EventReceiver<Event> {
         override fun order(): Int {
             return 1
         }
 
         var currentOrder: Int? = null
-        override fun onReceive(slackEvent: SlackEvent<Event.UserChange>, headers: HttpHeaders, team: Team) {
+        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
             currentOrder = current.getAndIncrement()
         }
     }
 
-    class SecondEventReceiver(private val current: AtomicInteger) : TypedEventReceiver<Event.UserChange> {
+    class SecondEventReceiver(private val current: AtomicInteger) : EventReceiver<Event> {
         override fun order(): Int {
             return 2
         }
 
         var currentOrder: Int? = null
-        override fun onReceive(slackEvent: SlackEvent<Event.UserChange>, headers: HttpHeaders, team: Team) {
+        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
             currentOrder = current.getAndIncrement()
         }
     }
 
-    class ThirdEventReceiver(private val current: AtomicInteger) : TypedEventReceiver<Event.UserChange> {
+    class ThirdEventReceiver(private val current: AtomicInteger) : EventReceiver<Event> {
         override fun order(): Int {
             return 3
         }
 
         var currentOrder: Int? = null
-        override fun onReceive(slackEvent: SlackEvent<Event.UserChange>, headers: HttpHeaders, team: Team) {
+        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
             currentOrder = current.getAndIncrement()
         }
     }
 
-    class SuccessReceiver : TypedEventReceiver<Event.UserChange> {
+    class SuccessReceiver : EventReceiver<Event> {
         var executed: Boolean = false
 
-        override fun onReceive(slackEvent: SlackEvent<Event.UserChange>, headers: HttpHeaders, team: Team) {
+        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
             executed = true
         }
     }
 
-    class ErrorReceiver : TypedEventReceiver<Event.UserChange> {
+    class ErrorReceiver : EventReceiver<Event> {
 
         var executed: Boolean = false
 
-        override fun onReceive(slackEvent: SlackEvent<Event.UserChange>, headers: HttpHeaders, team: Team) {
+        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
             executed = true
             throw IllegalStateException("Failing Test Case")
         }
     }
 
-    class ShouldThrowReceiver : TypedEventReceiver<Event.UserChange> {
-        override fun onReceive(slackEvent: SlackEvent<Event.UserChange>, headers: HttpHeaders, team: Team) {
+    class ShouldThrowReceiver : EventReceiver<Event> {
+        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
             throw Exception()
         }
 

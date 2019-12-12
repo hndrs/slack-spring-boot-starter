@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
 
-class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InteractiveComponentReceiver<InteractiveComponentResponse>, InstallationReceiver {
+class SL4JLoggingReceiver : EventReceiver<Event>, SlashCommandReceiver, InteractiveComponentReceiver<InteractiveComponentResponse>, InstallationReceiver {
     /**
      * receivers will be sorted ascending by this order
      */
