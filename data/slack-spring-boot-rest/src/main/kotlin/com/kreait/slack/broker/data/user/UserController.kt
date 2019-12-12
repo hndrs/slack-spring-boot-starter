@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping
 class UserController(private val userStore: UserStore) {
 
     @GetMapping(path = ["/users"])
-    fun teams(): List<User> {
+    fun users(): List<User> {
         return userStore.findAll();
     }
 }

@@ -1,6 +1,6 @@
 package com.kreait.slack.broker.data.event
 
-import com.kreait.slack.api.contract.jackson.EventRequest
+import com.kreait.slack.api.contract.jackson.event.EventRequest
 import com.kreait.slack.broker.data.DataController
 import com.kreait.slack.broker.store.event.EventStore
 import org.springframework.web.bind.annotation.GetMapping
