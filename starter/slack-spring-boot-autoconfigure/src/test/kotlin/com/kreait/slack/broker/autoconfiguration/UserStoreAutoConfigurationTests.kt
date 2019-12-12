@@ -108,6 +108,8 @@ class UserStoreAutoConfigurationTests {
 
         override fun update(newUser: User) {}
 
+        override fun findAll(): List<User> = listOf()
+
     }
 
 }

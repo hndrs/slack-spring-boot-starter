@@ -22,6 +22,12 @@ interface TeamStore {
      * @id the id of the [Team] you want to remove
      */
     fun removeById(id: String)
+
+    /**
+     * Returns all teams
+     *
+     */
+    fun findAll(): List<Team>
 }
 
 /**

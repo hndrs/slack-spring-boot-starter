@@ -83,6 +83,8 @@ class TeamStoreAutoConfigurationTests {
         override fun put(team: Team) {}
 
         override fun removeById(id: String) {}
+        override fun findAll(): List<Team> = listOf()
+
 
     }
 

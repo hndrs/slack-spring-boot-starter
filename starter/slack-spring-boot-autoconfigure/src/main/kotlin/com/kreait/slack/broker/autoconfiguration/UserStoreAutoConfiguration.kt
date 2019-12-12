@@ -14,7 +14,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 /**
  * AutoConfiguration that registers a [UserStore]
@@ -26,7 +25,7 @@ open class UserStoreAutoConfiguration {
     /**
      * Registers the [InMemoryUserStore] if no other is defined and the property [SlackBrokerConfigurationProperties.USER_STORE].type is set to memory
      */
-    @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.USER_STORE, name = ["type"], havingValue = "memory")
+    @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.USER_STORE, name = ["type"], havingValue = "memory", matchIfMissing = true)
     @ConditionalOnMissingBean
     @Bean
     open fun userStore(): UserStore {

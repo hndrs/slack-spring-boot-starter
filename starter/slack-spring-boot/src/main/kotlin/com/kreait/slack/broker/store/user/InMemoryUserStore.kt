@@ -23,4 +23,7 @@ class InMemoryUserStore(private val inMemoryUsers: MutableMap<String, User> = mu
     override fun update(newUser: User) {
         inMemoryUsers.replace(newUser.id, newUser)
     }
+
+    override fun findAll(): List<User> = inMemoryUsers.entries.map { it.value }
+
 }

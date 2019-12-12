@@ -22,4 +22,9 @@ interface EventStore {
      */
     fun put(event: EventRequest)
 
+    /**
+     * finds all events from the event store
+     */
+    fun findAll(): List<EventRequest>
+
 }

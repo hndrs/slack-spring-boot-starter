@@ -48,6 +48,6 @@ class EventStoreAutoConfigurationTests {
 
         override fun put(event: EventRequest) {}
 
+        override fun findAll(): List<EventRequest> = listOf()
     }
-
 }

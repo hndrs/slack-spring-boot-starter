@@ -17,4 +17,8 @@ class InMemoryTeamStore(private val teams: MutableMap<String, Team> = mutableMap
     override fun removeById(id: String) {
         teams.remove(id)
     }
+
+    override fun findAll(): List<Team> {
+        return teams.entries.map { it.value }
+    }
 }

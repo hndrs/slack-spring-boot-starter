@@ -34,6 +34,8 @@ interface UserStore {
      * @param newUser the updated [User]
      */
     fun update(newUser: User)
+
+    fun findAll(): List<User>
 }
 
 /**

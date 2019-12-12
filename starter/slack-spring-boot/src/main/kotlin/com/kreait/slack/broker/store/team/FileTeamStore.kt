@@ -31,6 +31,25 @@ class FileTeamStore : TeamStore {
 
         private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
 
+
+        private fun localTeamToTeam(team: LocalTeam): Team {
+            return Team(
+                    teamId = team.teamId,
+                    teamName = team.teamName,
+                    incomingWebhook = team.incomingWebhook?.let {
+                        Team.IncomingWebhook(
+                                channel = team.incomingWebhook.channel,
+                                channelId = team.incomingWebhook.channelId,
+                                configurationUrl = team.incomingWebhook.configurationUrl,
+                                url = team.incomingWebhook.url
+                        )
+                    },
+                    bot = Team.Bot(
+                            userId = team.bot.userId,
+                            accessToken = team.bot.accessToken
+                    ))
+        }
+
     }
 
     /**
@@ -66,21 +85,7 @@ class FileTeamStore : TeamStore {
         // Find the team with the given id in the list that was retrieved from the file
         val team = localTeams.find { it.teamId == id } ?: throw TeamNotFoundException("Team $id not found.")
 
-        return Team(
-                teamId = team.teamId,
-                teamName = team.teamName,
-                incomingWebhook = team.incomingWebhook?.let {
-                    Team.IncomingWebhook(
-                            channel = team.incomingWebhook.channel,
-                            channelId = team.incomingWebhook.channelId,
-                            configurationUrl = team.incomingWebhook.configurationUrl,
-                            url = team.incomingWebhook.url
-                    )
-                },
-                bot = Team.Bot(
-                        userId = team.bot.userId,
-                        accessToken = team.bot.accessToken
-                ))
+        return localTeamToTeam(team)
     }
 
     override fun put(team: Team) {
@@ -121,6 +126,11 @@ class FileTeamStore : TeamStore {
             objectMapper.writeValue(dataFile(), origin.minus(it))
         }
 
+    }
+
+    override fun findAll(): List<Team> {
+        val localTeams: List<LocalTeam> = objectMapper.readValue(dataFile())
+        return localTeams.map { localTeamToTeam(it) }
     }
 
     /**

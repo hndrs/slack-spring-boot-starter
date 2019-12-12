@@ -15,6 +15,10 @@ class InMemoryEventStore(private val events: MutableMap<String, SlackEvent> = mu
             events[event.eventId] = event
     }
 
+    override fun findAll(): List<EventRequest> {
+        return events.entries.map { it.value }
+    }
+
     override fun exists(id: String): Boolean {
         return events[id] != null
     }

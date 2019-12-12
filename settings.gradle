@@ -13,6 +13,8 @@ include "slack-jackson-dto"
 project(":slack-jackson-dto").projectDir = new File("data/slack-jackson-dto")
 include "slack-jackson-dto-test"
 project(":slack-jackson-dto-test").projectDir = new File("data/slack-jackson-dto-test-extensions")
+include "slack-spring-boot-rest"
+project(":slack-spring-boot-rest").projectDir = new File("data/slack-spring-boot-rest")
 
 //Clients
 include "slack-api-client"
@@ -21,6 +23,10 @@ include "slack-spring-api-client"
 project(":slack-spring-api-client").projectDir = new File("client/slack-spring-api-client")
 include "slack-spring-test-api-client"
 project(":slack-spring-test-api-client").projectDir = new File("client/slack-spring-test-api-client")
+
+//admin
+include "slack-spring-boot-admin"
+project(":slack-spring-boot-admin").projectDir = new File("ui/slack-spring-boot-admin")
 
 //Samples
 include "slack-spring-boot-starter-sample"

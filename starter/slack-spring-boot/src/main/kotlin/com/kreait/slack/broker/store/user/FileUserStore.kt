@@ -98,6 +98,8 @@ class FileUserStore : UserStore {
         put(newUser)
     }
 
+    override fun findAll(): List<User> = objectMapper.readValue<List<LocalUser>>(dataFile()).map { userOfLocalUser(it) }
+
     /**
      * The user-object that is saved to the file
      */

@@ -9,6 +9,7 @@ description = "Contains autoconfiguration strategies for Slack Spring Boot"
 
 dependencies {
     api(project(":slack-spring-boot"))
+    api(project(":slack-spring-boot-rest"))
 
     implementation("org.springframework.boot:spring-boot")
     implementation("org.springframework.boot:spring-boot-starter-web")
