@@ -1,21 +1,23 @@
 package com.kreait.slack.api.contract.jackson.group.usergroups
 
+import com.kreait.slack.api.contract.jackson.common.InstantSample
+
 fun UserGroup.Companion.sample() = UserGroup(id = "",
         teamId = "",
-        isUsergroup = true,
+        isUserGroup = true,
         name = "",
         description = "",
         handle = "",
         isExternal = false,
-        dateCreate = 0,
-        dateUpdate = 0,
-        dateDelete = 1,
+        createdAt = InstantSample.sample(),
+        updatedAt = InstantSample.sample(),
+        deletedAt = InstantSample.sample(),
         autoType = AutoType.NULL,
         createdBy = "",
         updatedBy = "",
         deletedBy = "",
         prefs = Prefs.sample(),
-        users = listOf("", ""),
+        userIds = listOf("", ""),
         userCount = 2)
 
 fun Prefs.Companion.sample() = Prefs(listOf(""), listOf(""))

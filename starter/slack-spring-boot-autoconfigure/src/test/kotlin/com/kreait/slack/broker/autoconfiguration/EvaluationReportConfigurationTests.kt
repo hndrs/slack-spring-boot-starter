@@ -2,6 +2,7 @@ package com.kreait.slack.broker.autoconfiguration
 
 import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.SlackCommand
+import com.kreait.slack.api.contract.jackson.event.Event
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.receiver.InstallationReceiver
@@ -9,6 +10,7 @@ import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
 import com.kreait.slack.broker.receiver.MismatchCommandReceiver
 import com.kreait.slack.broker.receiver.SL4JLoggingReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
+import com.kreait.slack.broker.receiver.TypedEventReceiver
 import com.kreait.slack.broker.store.event.EventStore
 import com.kreait.slack.broker.store.event.InMemoryEventStore
 import com.kreait.slack.broker.store.team.InMemoryTeamStore
@@ -77,8 +79,8 @@ class EvaluationReportConfigurationTests {
     open class TestConfiguration {
 
         @Bean
-        open fun testEventReceiver(): EventReceiver = object : EventReceiver {
-            override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {}
+        open fun testEventReceiver(): EventReceiver = object : TypedEventReceiver<Event.UserChange> {
+            override fun onReceive(slackEvent: SlackEvent<Event.UserChange>, headers: HttpHeaders, team: Team) {}
         }
 
         @Bean
