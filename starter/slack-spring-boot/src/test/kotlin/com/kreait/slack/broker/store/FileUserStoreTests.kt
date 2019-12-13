@@ -223,7 +223,7 @@ internal class FileUserStoreTests {
                 val receiver = UserChangedEventReceiver(store)
 
                 val event = SlackEvent.sample(Event.UserChange.sample().copy(
-                        member = member.copy(id = "testNew")
+                        member = member.copy(name = "testNew")
                 ))
 
                 receiver.onReceiveEvent(event, HttpHeaders.EMPTY, Team.sample().copy(teamId = "team1"))
