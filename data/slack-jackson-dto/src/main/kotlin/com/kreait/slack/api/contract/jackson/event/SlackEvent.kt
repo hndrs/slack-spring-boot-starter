@@ -31,7 +31,9 @@ data class SlackChallenge constructor(
         override val type: String,
         override val token: String,
         @JsonProperty("challenge") val challenge: String)
-    : EventRequest(type, token)
+    : EventRequest(type, token) {
+    companion object
+}
 
 /**
  *

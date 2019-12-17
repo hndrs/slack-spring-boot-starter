@@ -4,9 +4,11 @@ import com.kreait.slack.api.contract.jackson.common.InstantSample
 import com.kreait.slack.api.contract.jackson.common.types.Member
 import com.kreait.slack.api.contract.jackson.common.types.sample
 import com.kreait.slack.api.contract.jackson.event.Event
+import com.kreait.slack.api.contract.jackson.event.SlackChallenge
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.api.contract.jackson.group.usergroups.UserGroup
 import com.kreait.slack.api.contract.jackson.group.usergroups.sample
+
 
 fun <T : Event> SlackEvent.Companion.sample(event: T): SlackEvent<T> {
     return SlackEvent(
@@ -19,6 +21,10 @@ fun <T : Event> SlackEvent.Companion.sample(event: T): SlackEvent<T> {
             0,
             event
     )
+}
+
+fun SlackChallenge.Companion.sample(): SlackChallenge {
+    return SlackChallenge("", "", "")
 }
 
 
