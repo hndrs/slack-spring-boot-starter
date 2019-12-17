@@ -1,6 +1,7 @@
 package com.kreait.slack.broker.broker
 
 import com.kreait.slack.api.contract.jackson.event.Event
+import com.kreait.slack.api.contract.jackson.event.SlackChallenge
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.api.contract.jackson.sample
 import com.kreait.slack.broker.extensions.sample
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
+import java.util.UUID
 import java.util.concurrent.atomic.AtomicInteger
 
 @DisplayName("Event Broker Tests")
@@ -53,6 +55,15 @@ class EventBrokerTests {
     @DisplayName("verify execution order")
     fun testExecutionOrder() {
 
+    }
+
+    @Test
+    @DisplayName("SlackChallengeTest")
+    fun testSlackChallenge() {
+        val random = UUID.randomUUID().toString()
+        val receiveEvents = EventBroker(listOf(), InMemoryTeamStore(), InMemoryEventStore())
+                .receiveEvents(SlackChallenge.sample().copy(challenge = random), HttpHeaders.EMPTY)
+        Assertions.assertEquals(random, receiveEvents["challenge"])
     }
 
 
