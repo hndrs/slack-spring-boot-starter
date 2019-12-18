@@ -2,7 +2,8 @@ package com.kreait.slack.broker.configuration
 
 import com.kreait.slack.api.contract.jackson.event.EventRequest
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
-import com.kreait.slack.api.contract.jackson.sample
+import com.kreait.slack.api.contract.jackson.event.sample
+import com.kreait.slack.api.contract.jackson.event.type.user.UserChange
 import com.kreait.slack.broker.RequestTestUtils
 import com.kreait.slack.broker.RequestTestUtils.jsonBody
 import com.kreait.slack.broker.RequestTestUtils.mockMethodParameter
@@ -31,7 +32,7 @@ internal class EventArgumentResolverTest {
     fun internalResolveArgument() {
 
         //setup
-        val slackEvent = SlackEvent.sample(com.kreait.slack.api.contract.jackson.event.Event.UserChange.sample())
+        val slackEvent = SlackEvent.sample(UserChange.sample())
         val signingSecret = "mySecret"
         val timestamp = Instant.now()
 

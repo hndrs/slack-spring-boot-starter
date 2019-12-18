@@ -1,9 +1,9 @@
 package com.kreait.slack.broker.broker
 
-import com.kreait.slack.api.contract.jackson.event.Event
 import com.kreait.slack.api.contract.jackson.event.SlackChallenge
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
-import com.kreait.slack.api.contract.jackson.sample
+import com.kreait.slack.api.contract.jackson.event.sample
+import com.kreait.slack.api.contract.jackson.event.type.user.UserChange
 import com.kreait.slack.broker.extensions.sample
 import com.kreait.slack.broker.metrics.EventMetrics
 import com.kreait.slack.broker.receiver.EventReceiver
@@ -40,7 +40,7 @@ class EventBrokerTests {
         val errorReceiver = ErrorReceiver()
 
         EventBroker(listOf(successReceiver, errorReceiver), teamStore, eventStore, metrics)
-                .receiveEvents(SlackEvent.sample(Event.UserChange.sample())
+                .receiveEvents(SlackEvent.sample(UserChange.sample())
                         .copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
@@ -81,7 +81,7 @@ class EventBrokerTests {
         val errorReceiver = ErrorReceiver()
 
         EventBroker(listOf(successReceiver, errorReceiver), teamStore, eventStore)
-                .receiveEvents(SlackEvent.sample(Event.UserChange.sample())
+                .receiveEvents(SlackEvent.sample(UserChange.sample())
                         .copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
@@ -94,7 +94,7 @@ class EventBrokerTests {
 
         val teamStore = InMemoryTeamStore()
 
-        val sampleEvent = SlackEvent.sample(Event.UserChange.sample())
+        val sampleEvent = SlackEvent.sample(UserChange.sample())
                 .copy(teamId = "TestId", eventId = "TestEventId")
 
         val eventStore = InMemoryEventStore()
@@ -124,7 +124,7 @@ class EventBrokerTests {
         val eventStore = InMemoryEventStore()
 
 
-        val sampleEvent = SlackEvent.sample(Event.UserChange.sample()).copy(teamId = "TestId", eventId = "TestEventId")
+        val sampleEvent = SlackEvent.sample(UserChange.sample()).copy(teamId = "TestId", eventId = "TestEventId")
         Assertions.assertThrows(Exception::class.java) {
             EventBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore, eventStore).receiveEvents(sampleEvent, HttpHeaders.EMPTY)
         }
@@ -137,7 +137,7 @@ class EventBrokerTests {
         val first = FirstEventReceiver(atomic)
         val second = SecondEventReceiver(atomic)
         val third = ThirdEventReceiver(atomic)
-        val event = SlackEvent.sample(Event.UserChange.sample()).copy(teamId = "TestTeamId")
+        val event = SlackEvent.sample(UserChange.sample()).copy(teamId = "TestTeamId")
         val store = InMemoryTeamStore()
         store.put(Team.sample().copy(teamId = "TestTeamId"))
 
