@@ -1,5 +1,6 @@
 package com.kreait.slack.broker.autoconfiguration
 
+import com.kreait.slack.broker.autoconfiguration.event.EventAutoConfiguration
 import com.kreait.slack.broker.broker.CommandBroker
 import com.kreait.slack.broker.broker.EventBroker
 import com.kreait.slack.broker.configuration.EventArgumentResolver
@@ -112,13 +113,5 @@ class BrokerAutoConfigurationTests {
     }
 
 
-    @DisplayName("EventBroker Registration")
-    @Test
-    fun eventBrokerRegistration() {
-        TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .run {
-                    assertDoesNotThrow { it.getBean(EventBroker::class.java) }
-                }
-    }
+
 }

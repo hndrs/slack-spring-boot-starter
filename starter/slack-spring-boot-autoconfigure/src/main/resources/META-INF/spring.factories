@@ -1,4 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.kreait.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration,\
 com.kreait.slack.broker.autoconfiguration.TeamStoreAutoconfiguration,\
+com.kreait.slack.broker.autoconfiguration.event.EventAutoConfiguration,\
 com.kreait.slack.broker.autoconfiguration.UserStoreAutoConfiguration
+

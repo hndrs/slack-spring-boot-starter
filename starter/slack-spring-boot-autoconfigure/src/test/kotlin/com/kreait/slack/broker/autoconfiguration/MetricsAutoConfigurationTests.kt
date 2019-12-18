@@ -58,41 +58,7 @@ class MetricsAutoConfigurationTests {
         }
     }
 
-    @Nested
-    @DisplayName("Event Metrics AutoConfiguration")
-    class EventMetricsTests {
 
-        @DisplayName("EventMetrics Registration")
-        @Test
-        fun eventMetricsRegistration() {
-            TestApplicationContext.base()
-                    .withSystemProperties(
-                            "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
-                    )
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                    .run {
-                        Assertions.assertDoesNotThrow { it.getBean(EventMetricsCollector::class.java) }
-                    }
-        }
-
-        @DisplayName("EventBroker Registration Without Micrometer")
-        @Test
-        fun eventMetricsRegistrationWithoutMicrometer() {
-            TestApplicationContext.base()
-                    .withSystemProperties(
-                            "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
-                    )
-                    .withClassLoader(FilteredClassLoader(MeterRegistry::class.java))
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                    .run {
-                        Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(EventMetricsCollector::class.java) }
-                        Assertions.assertDoesNotThrow { it.getBean(EventBroker::class.java) }
-                    }
-
-        }
-    }
 
     @Nested
     @DisplayName("Command Metrics AutoConfiguration")

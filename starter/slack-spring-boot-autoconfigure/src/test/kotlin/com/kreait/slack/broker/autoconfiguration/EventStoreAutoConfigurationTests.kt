@@ -13,41 +13,6 @@ import org.springframework.context.annotation.Configuration
 
 class EventStoreAutoConfigurationTests {
 
-    @DisplayName("Custom EventStore Registration")
-    @Test
-    fun customEventStoreRegistration() {
-        TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withUserConfiguration(TestConfiguration::class.java)
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(EventStore::class.java) }
-                    Assertions.assertTrue(it.getBean(EventStore::class.java) is TestEventStore)
-                }
-    }
 
-    @DisplayName("InMemoryEventStore Registration")
-    @Test
-    fun eventStoreRegistration() {
-        TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(EventStore::class.java) }
-                    Assertions.assertTrue(it.getBean(EventStore::class.java) is InMemoryEventStore)
-                }
-    }
-
-    @Configuration
-    open class TestConfiguration {
-
-        @Bean
-        open fun testEventStore(): EventStore = TestEventStore()
-    }
-
-    class TestEventStore : EventStore {
-        override fun exists(id: String): Boolean = false
-
-        override fun put(event: EventRequest) {}
-
-    }
 
 }

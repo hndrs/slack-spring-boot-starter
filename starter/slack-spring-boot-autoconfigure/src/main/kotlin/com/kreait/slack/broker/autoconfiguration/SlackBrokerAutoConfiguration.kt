@@ -64,23 +64,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
     open class BrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties, private val credentialsProvider: CredentialsProvider) : WebMvcConfigurer {
 
         /**
-         * Registers the [InMemoryEventStore] when no other [EventStore] is registered
-         */
-        @ConditionalOnMissingBean
-        @Bean
-        open fun eventStore(): EventStore {
-            return InMemoryEventStore()
-        }
-
-        /**
-         * Registers the [EventBroker] which forwards events to all [EventReceiver]s
-         */
-        @Bean
-        open fun eventBroker(slackEventReceivers: List<EventReceiver<in Event>>, teamStore: TeamStore, eventStore: EventStore, metricsCollector: EventMetricsCollector?): EventBroker {
-            return EventBroker(slackEventReceivers, teamStore, eventStore, metricsCollector)
-        }
-
-        /**
          * Registers the [CommandBroker] which forwards commands to all [SlashCommandReceiver]s
          */
         @Bean
@@ -181,14 +164,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             return InstallationMetrics()
         }
 
-        /**
-         * MeterBinder that tracks event metrics
-         */
-        @ConditionalOnMissingBean
-        @Bean
-        open fun eventMetrics(): EventMetrics {
-            return EventMetrics()
-        }
+
 
         /**
          * MeterBinder that tracks command metrics
