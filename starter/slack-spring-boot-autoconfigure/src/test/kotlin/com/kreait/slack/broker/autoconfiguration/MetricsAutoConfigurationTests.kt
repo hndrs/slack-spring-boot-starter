@@ -1,12 +1,8 @@
 package com.kreait.slack.broker.autoconfiguration
 
 import com.kreait.slack.broker.broker.CommandBroker
-import com.kreait.slack.broker.broker.EventBroker
-import com.kreait.slack.broker.broker.InstallationBroker
 import com.kreait.slack.broker.broker.InteractiveComponentBroker
 import com.kreait.slack.broker.metrics.CommandMetricsCollector
-import com.kreait.slack.broker.metrics.EventMetricsCollector
-import com.kreait.slack.broker.metrics.InstallationMetrics
 import com.kreait.slack.broker.metrics.InteractiveComponentMetricsCollector
 import io.micrometer.core.instrument.MeterRegistry
 import org.junit.jupiter.api.Assertions
@@ -20,45 +16,6 @@ import org.springframework.boot.test.context.FilteredClassLoader
 
 @DisplayName("Test Installation Auto configuration")
 class MetricsAutoConfigurationTests {
-
-
-    @Nested
-    @DisplayName("Installation Metrics AutoConfiguration")
-    class InstallationMetricTests {
-
-        @DisplayName("InstallationMetrics Registration")
-        @Test
-        fun installationMetricsRegistration() {
-            TestApplicationContext.base()
-                    .withSystemProperties(
-                            "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
-                    )
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                    .run {
-                        Assertions.assertDoesNotThrow { it.getBean(InstallationMetrics::class.java) }
-                    }
-        }
-
-        @DisplayName("InstallationBroker Registration Without Micrometer")
-        @Test
-        fun installationMetricsRegistrationWithoutMicrometer() {
-            TestApplicationContext.base()
-                    .withSystemProperties(
-                            "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-                            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
-                    )
-                    .withClassLoader(FilteredClassLoader(MeterRegistry::class.java))
-                    .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                    .run {
-                        Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(InstallationMetrics::class.java) }
-                        Assertions.assertDoesNotThrow { it.getBean(InstallationBroker::class.java) }
-                    }
-
-        }
-    }
-
-
 
     @Nested
     @DisplayName("Command Metrics AutoConfiguration")

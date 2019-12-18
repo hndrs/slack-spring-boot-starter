@@ -1,9 +1,6 @@
 package com.kreait.slack.broker.autoconfiguration
 
-import com.kreait.slack.broker.autoconfiguration.event.EventAutoConfiguration
 import com.kreait.slack.broker.broker.CommandBroker
-import com.kreait.slack.broker.broker.EventBroker
-import com.kreait.slack.broker.configuration.EventArgumentResolver
 import com.kreait.slack.broker.configuration.InteractiveResponseArgumentResolver
 import com.kreait.slack.broker.configuration.SlackCommandArgumentResolver
 import com.kreait.slack.broker.exception.SlackExceptionHandler
@@ -38,7 +35,6 @@ class BrokerAutoConfigurationTests {
                     bean.addArgumentResolvers(listOf)
                     assertTrue(listOf[0] is SlackCommandArgumentResolver)
                     assertTrue(listOf[1] is InteractiveResponseArgumentResolver)
-                    assertTrue(listOf[2] is EventArgumentResolver)
                 }
     }
 
@@ -111,7 +107,6 @@ class BrokerAutoConfigurationTests {
                     assertDoesNotThrow { it.getBean(SlackExceptionHandler::class.java) }
                 }
     }
-
 
 
 }

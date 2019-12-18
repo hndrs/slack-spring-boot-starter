@@ -5,6 +5,7 @@ import com.kreait.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration
 import com.kreait.slack.broker.autoconfiguration.TeamStoreAutoconfiguration
 import com.kreait.slack.broker.autoconfiguration.TestApplicationContext
 import com.kreait.slack.broker.broker.EventBroker
+import com.kreait.slack.broker.configuration.EventArgumentResolver
 import com.kreait.slack.broker.metrics.EventMetricsCollector
 import com.kreait.slack.broker.store.event.EventStore
 import com.kreait.slack.broker.store.event.InMemoryEventStore
@@ -14,12 +15,15 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.NoSuchBeanDefinitionException
+import org.springframework.beans.factory.getBean
 import org.springframework.boot.autoconfigure.AutoConfigurations
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 import org.springframework.boot.test.context.FilteredClassLoader
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.web.method.support.HandlerMethodArgumentResolver
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @DisplayName("AutoConfiguration Tests")
 internal class EventAutoConfigurationTests {
@@ -33,15 +37,36 @@ internal class EventAutoConfigurationTests {
                             WebMvcAutoConfiguration::class.java))
 
 
-    @DisplayName("EventBroker Registration")
-    @Test
-    fun eventBrokerRegistration() {
-        applicationContext()
-                .withConfiguration(AutoConfigurations.of(
-                        EventAutoConfiguration::class.java))
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(EventBroker::class.java) }
-                }
+    @DisplayName("EventBroker")
+    @Nested
+    internal inner class BrokerTests {
+
+        @DisplayName("EventBroker Registration")
+        @Test
+        fun eventBrokerRegistration() {
+            applicationContext()
+                    .withConfiguration(AutoConfigurations.of(
+                            EventAutoConfiguration::class.java))
+                    .run {
+                        Assertions.assertDoesNotThrow { it.getBean(EventBroker::class.java) }
+                    }
+        }
+
+        @DisplayName("EventArgumentResolver")
+        @Test
+        fun slackArgumentResolverRegistrations() {
+            applicationContext()
+                    .withConfiguration(AutoConfigurations.of(
+                            EventAutoConfiguration::class.java))
+                    .run {
+                        val listOf = ArrayList<HandlerMethodArgumentResolver>()
+                        val bean = it.getBean<WebMvcConfigurer>("com.kreait.slack.broker.autoconfiguration.event.EventAutoConfiguration\$Broker")
+
+                        bean.addArgumentResolvers(listOf)
+                        Assertions.assertTrue(listOf[0] is EventArgumentResolver)
+                    }
+        }
+
     }
 
 
@@ -105,7 +130,7 @@ internal class EventAutoConfigurationTests {
                     }
         }
 
-        @DisplayName("EventBroker Registration Without Micrometer")
+        @DisplayName("EventMetrics Registration Without Micrometer")
         @Test
         fun eventMetricsRegistrationWithoutMicrometer() {
             applicationContext()

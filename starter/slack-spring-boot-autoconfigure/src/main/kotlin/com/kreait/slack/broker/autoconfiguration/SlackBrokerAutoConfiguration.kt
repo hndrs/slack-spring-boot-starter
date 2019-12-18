@@ -3,35 +3,23 @@ package com.kreait.slack.broker.autoconfiguration
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.contract.jackson.BlockActions
 import com.kreait.slack.api.contract.jackson.InteractiveMessage
-import com.kreait.slack.api.contract.jackson.event.Event
 import com.kreait.slack.api.spring.SpringSlackClient
 import com.kreait.slack.broker.autoconfiguration.credentials.CredentialsProvider
 import com.kreait.slack.broker.autoconfiguration.credentials.DefaultCredentialsProviderChain
 import com.kreait.slack.broker.broker.CommandBroker
-import com.kreait.slack.broker.broker.EventBroker
-import com.kreait.slack.broker.broker.InstallationBroker
 import com.kreait.slack.broker.broker.InteractiveComponentBroker
-import com.kreait.slack.broker.configuration.EventArgumentResolver
 import com.kreait.slack.broker.configuration.InteractiveResponseArgumentResolver
 import com.kreait.slack.broker.configuration.SlackCommandArgumentResolver
 import com.kreait.slack.broker.exception.SlackExceptionHandler
 import com.kreait.slack.broker.metrics.CommandMetrics
 import com.kreait.slack.broker.metrics.CommandMetricsCollector
-import com.kreait.slack.broker.metrics.EventMetrics
-import com.kreait.slack.broker.metrics.EventMetricsCollector
-import com.kreait.slack.broker.metrics.InstallationMetrics
-import com.kreait.slack.broker.metrics.InstallationMetricsCollector
 import com.kreait.slack.broker.metrics.InteractiveComponentMetrics
 import com.kreait.slack.broker.metrics.InteractiveComponentMetricsCollector
 import com.kreait.slack.broker.receiver.CommandNotFoundReceiver
-import com.kreait.slack.broker.receiver.EventReceiver
-import com.kreait.slack.broker.receiver.InstallationReceiver
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
 import com.kreait.slack.broker.receiver.MismatchCommandReceiver
 import com.kreait.slack.broker.receiver.SL4JLoggingReceiver
 import com.kreait.slack.broker.receiver.SlashCommandReceiver
-import com.kreait.slack.broker.store.event.EventStore
-import com.kreait.slack.broker.store.event.InMemoryEventStore
 import com.kreait.slack.broker.store.team.TeamStore
 import io.micrometer.core.instrument.MeterRegistry
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
@@ -89,7 +77,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
 
             resolvers.add(SlackCommandArgumentResolver(signingSecret))
             resolvers.add(InteractiveResponseArgumentResolver(signingSecret))
-            resolvers.add(EventArgumentResolver(signingSecret))
         }
 
         /**
@@ -115,55 +102,12 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
     }
 
     /**
-     * Auto-configuration that registers the [InstallationReceiver]s
-     *
-     * @property configuration The Configuration properties with which you can customise the auto-configuration
-     */
-    @Configuration
-    open class InstallationAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties) {
-
-        /**
-         * Registers the InstallationBroker if error-redirect-url and success-redirect-url are set
-         */
-        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.Companion.INSTALLATION_PROPERTY_PREFIX,
-                name = ["error-redirect-url", "success-redirect-url"])
-        @Bean
-        open fun installationBroker(installationReceivers: List<InstallationReceiver>,
-                                    teamStore: TeamStore,
-                                    slackClient: SlackClient,
-                                    credentialsProvider: CredentialsProvider,
-                                    metricsCollector: InstallationMetricsCollector?): InstallationBroker {
-
-            val installation = this.configuration.installation
-            val applicationCredentials = credentialsProvider.applicationCredentials()
-
-            return InstallationBroker(
-                    installationReceivers,
-                    metricsCollector,
-                    teamStore,
-                    slackClient,
-                    InstallationBroker.Config(applicationCredentials.clientId, applicationCredentials.clientSecret, installation.successRedirectUrl, installation.errorRedirectUrl)
-            )
-        }
-    }
-
-    /**
      * Auto-configuration that registers the MeterBinders
      */
     @AutoConfigureBefore(InstallationAutoConfiguration::class, UserStoreAutoConfiguration::class, TeamStoreAutoconfiguration::class, BrokerAutoConfiguration::class)
     @ConditionalOnClass(MeterRegistry::class)
     @Configuration
     open class SlackBrokerMetricsAutoConfiguration {
-
-        /**
-         * MeterBinder that tracks installation metrics
-         */
-        @ConditionalOnMissingBean
-        @Bean
-        open fun installationMetrics(): InstallationMetrics {
-            return InstallationMetrics()
-        }
-
 
 
         /**
