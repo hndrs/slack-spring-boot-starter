@@ -4,8 +4,9 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.kreait.slack.api.contract.jackson.common.types.Member
 import com.kreait.slack.api.contract.jackson.common.types.sample
-import com.kreait.slack.api.contract.jackson.event.Event
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
+import com.kreait.slack.api.contract.jackson.event.TeamJoin
+import com.kreait.slack.api.contract.jackson.event.UserChange
 import com.kreait.slack.api.contract.jackson.group.users.SuccessfulListAllResponse
 import com.kreait.slack.api.contract.jackson.group.users.sample
 import com.kreait.slack.api.contract.jackson.sample
@@ -208,8 +209,7 @@ internal class FileUserStoreTests {
             fun testSupport() {
                 val receiver = UserChangedEventReceiver(FileUserStore())
                 Assertions.assertTrue(receiver.supportsEvent(SlackEvent.sample(
-                        Event.UserChange.sample()
-
+                        UserChange.sample().copy(Member.sample().copy(id = "testId"))
                 )))
                 deleteFile()
             }
@@ -222,8 +222,8 @@ internal class FileUserStoreTests {
                 store.put(userOfMember(member))
                 val receiver = UserChangedEventReceiver(store)
 
-                val event = SlackEvent.sample(Event.UserChange.sample().copy(
-                        member = member.copy(name = "testNew")
+                val event = SlackEvent.sample(UserChange.sample().copy(
+                        member = member.copy(id = "UserChangedEventReceiverTest", name = "testNew")
                 ))
 
                 receiver.onReceiveEvent(event, HttpHeaders.EMPTY, Team.sample().copy(teamId = "team1"))
@@ -259,7 +259,7 @@ internal class FileUserStoreTests {
             @DisplayName("test supports method")
             fun testSupport() {
                 val receiver = UserJoinedEventReceiver(FileUserStore())
-                Assertions.assertTrue(receiver.supportsEvent(SlackEvent.sample(Event.TeamJoin.sample())))
+                Assertions.assertTrue(receiver.supportsEvent(SlackEvent.sample(TeamJoin.sample())))
                 deleteFile()
             }
 
@@ -269,7 +269,7 @@ internal class FileUserStoreTests {
                 val store = FileUserStore()
                 val receiver = UserJoinedEventReceiver(store)
                 val newUser = Member.sample().copy(id = "testuser1", teamId = "team1", name = "test")
-                val event = SlackEvent.sample(Event.TeamJoin.sample().copy(member = newUser))
+                val event = SlackEvent.sample(TeamJoin.sample().copy(member = newUser))
                 receiver.onReceiveEvent(event, HttpHeaders.EMPTY, Team.sample().copy(teamId = "team1"))
                 Assertions.assertEquals("test", store.findById("testuser1").name)
                 deleteFile()

@@ -4,6 +4,8 @@ description = "Contains jackson implementation of slack api objects"
 dependencies {
     compileOnly("com.fasterxml.jackson.core:jackson-annotations")
     compileOnly("com.fasterxml.jackson.core:jackson-databind")
+    compileOnly(group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin")
+    compileOnly(group = "org.springframework", name = "spring-web")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
