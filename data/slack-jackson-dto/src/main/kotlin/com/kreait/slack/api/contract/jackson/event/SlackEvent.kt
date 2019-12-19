@@ -49,7 +49,7 @@ data class SlackChallenge constructor(
  * @property event the event information
  */
 @JacksonDataClass
-data class SlackEvent<out T : Event> constructor(
+data class SlackEvent constructor(
         override val type: String,
         override val token: String,
         @JsonProperty("team_id") val teamId: String,
@@ -57,10 +57,9 @@ data class SlackEvent<out T : Event> constructor(
         @JsonProperty("authed_users") val authedUsers: Set<String>?,
         @JsonProperty("event_id") val eventId: String,
         @JsonProperty("event_time") val eventTime: Int,
-        @JsonProperty("event") val event: T
+        @JsonProperty("event") val event: Map<String, Any>
 ) : EventRequest(type, token) {
-
-    fun isOfType(type: String): Boolean = this.event.type == type
-
     companion object
+
+    fun isOfType(type: String): Boolean = this.event["type"] == type
 }

@@ -5,7 +5,6 @@ import com.kreait.slack.api.contract.jackson.BlockActions
 import com.kreait.slack.api.contract.jackson.common.messaging.Block
 import com.kreait.slack.api.contract.jackson.common.messaging.Element
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text
-import com.kreait.slack.api.contract.jackson.event.Event
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.api.contract.jackson.group.respond.RespondMessageRequest
@@ -89,8 +88,8 @@ class RPSGameHandler @Autowired constructor(private val slackClient: SlackClient
         }
     }
 
-    fun dmHandler(weapon: WEAPONS, team: Team, slackEvent: SlackEvent<Event.Generic>) {
-        val channelId = slackEvent.event.data["channel"] as String
+    fun dmHandler(weapon: WEAPONS, team: Team, slackEvent: SlackEvent) {
+        val channelId = slackEvent.event["channel"] as String
         val result = play(weapon)
 
         when {

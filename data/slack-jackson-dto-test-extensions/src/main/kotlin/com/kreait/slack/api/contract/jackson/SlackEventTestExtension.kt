@@ -3,16 +3,19 @@ package com.kreait.slack.api.contract.jackson
 import com.kreait.slack.api.contract.jackson.common.InstantSample
 import com.kreait.slack.api.contract.jackson.common.types.Member
 import com.kreait.slack.api.contract.jackson.common.types.sample
-import com.kreait.slack.api.contract.jackson.event.Event
+import com.kreait.slack.api.contract.jackson.event.EventData
 import com.kreait.slack.api.contract.jackson.event.SlackChallenge
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
+import com.kreait.slack.api.contract.jackson.event.SubteamCreated
+import com.kreait.slack.api.contract.jackson.event.SubteamMembersChanged
+import com.kreait.slack.api.contract.jackson.event.TeamJoin
+import com.kreait.slack.api.contract.jackson.event.UserChange
 import com.kreait.slack.api.contract.jackson.group.usergroups.UserGroup
 import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 
-
-fun <T : Event> SlackEvent.Companion.sample(event: T): SlackEvent<T> {
+fun SlackEvent.Companion.sample(event: Map<String, Any>): SlackEvent {
     return SlackEvent(
-            "",
+            "event_callback",
             "",
             "",
             "",
@@ -23,24 +26,27 @@ fun <T : Event> SlackEvent.Companion.sample(event: T): SlackEvent<T> {
     )
 }
 
+fun SlackEvent.Companion.sample(event: EventData): SlackEvent {
+    return SlackEvent.sample(event.toMap())
+}
+
 fun SlackChallenge.Companion.sample(): SlackChallenge {
     return SlackChallenge("", "", "")
 }
 
-
-fun Event.SubteamCreated.Companion.sample(): Event.SubteamCreated {
-    return Event.SubteamCreated(TYPE, UserGroup.sample())
+fun SubteamCreated.Companion.sample(): SubteamCreated {
+    return SubteamCreated(UserGroup.sample())
 }
 
-fun Event.SubteamMembersChanged.Companion.sample(): Event.SubteamMembersChanged {
-    return Event.SubteamMembersChanged(TYPE, "", InstantSample.sample(), InstantSample.sample(), setOf(), "",
+fun SubteamMembersChanged.Companion.sample(): SubteamMembersChanged {
+    return SubteamMembersChanged("", InstantSample.sample(), InstantSample.sample(), setOf(), "",
             setOf(), "")
 }
 
-fun Event.TeamJoin.Companion.sample(): Event.TeamJoin {
-    return Event.TeamJoin(TYPE, Member.sample())
+fun TeamJoin.Companion.sample(): TeamJoin {
+    return TeamJoin(Member.sample())
 }
 
-fun Event.UserChange.Companion.sample(): Event.UserChange {
-    return Event.UserChange(TYPE, Member.sample())
+fun UserChange.Companion.sample(): UserChange {
+    return UserChange(Member.sample())
 }

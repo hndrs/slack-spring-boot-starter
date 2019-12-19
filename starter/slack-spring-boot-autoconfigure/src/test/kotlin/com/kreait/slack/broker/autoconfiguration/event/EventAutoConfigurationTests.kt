@@ -144,5 +144,20 @@ internal class EventAutoConfigurationTests {
         }
     }
 
+    @Nested
+    @DisplayName("EventReceivers")
+    internal inner class EventReceiverTests {
+
+        @Test
+        fun test() {
+            applicationContext()
+                    .withConfiguration(AutoConfigurations.of(
+                            EventAutoConfiguration::class.java))
+                    .run {
+                        Assertions.assertDoesNotThrow { it.getBean(EventBroker::class.java) }
+                    }
+        }
+    }
+
 
 }

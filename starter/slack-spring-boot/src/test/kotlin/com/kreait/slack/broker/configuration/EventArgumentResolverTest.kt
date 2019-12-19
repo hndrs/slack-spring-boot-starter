@@ -31,7 +31,7 @@ internal class EventArgumentResolverTest {
     fun internalResolveArgument() {
 
         //setup
-        val slackEvent = SlackEvent.sample(com.kreait.slack.api.contract.jackson.event.Event.UserChange.sample())
+        val slackEvent = SlackEvent.sample(com.kreait.slack.api.contract.jackson.event.UserChange.sample())
         val signingSecret = "mySecret"
         val timestamp = Instant.now()
 
