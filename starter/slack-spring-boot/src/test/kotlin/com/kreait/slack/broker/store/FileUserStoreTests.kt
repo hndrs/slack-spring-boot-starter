@@ -209,8 +209,7 @@ internal class FileUserStoreTests {
                 val receiver = UserChangedEventReceiver(FileUserStore())
                 Assertions.assertTrue(receiver.supportsEvent(SlackEvent.sample(
                         Event.UserChange.sample()
-
-                )))
+                ).copy(type = Event.UserChange.TYPE)))
                 deleteFile()
             }
 
@@ -259,7 +258,7 @@ internal class FileUserStoreTests {
             @DisplayName("test supports method")
             fun testSupport() {
                 val receiver = UserJoinedEventReceiver(FileUserStore())
-                Assertions.assertTrue(receiver.supportsEvent(SlackEvent.sample(Event.TeamJoin.sample())))
+                Assertions.assertTrue(receiver.supportsEvent(SlackEvent.sample(Event.TeamJoin.sample()).copy(type = Event.TeamJoin.TYPE)))
                 deleteFile()
             }
 

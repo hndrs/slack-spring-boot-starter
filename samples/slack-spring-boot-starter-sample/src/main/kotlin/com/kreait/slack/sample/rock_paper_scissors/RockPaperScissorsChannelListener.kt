@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service
 
 @Service
 class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGameHandler: RPSGameHandler,
-                                                              private val slackClient: SlackClient) : EventReceiver<Event.Generic> {
+                                                              private val slackClient: SlackClient) : EventReceiver {
 
-    override fun supportsEvent(slackEvent: SlackEvent<Event.Generic>): Boolean {
-        val data = slackEvent.event.data
+    override fun supportsEvent(slackEvent: SlackEvent): Boolean {
+        val data = slackEvent.event
         return (data["type"] == "message"
                 && ((data["text"] == "rock")
                 || (data["text"] == "paper")
@@ -24,8 +24,8 @@ class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGam
                 || (data["text"] == "rock paper scissors")))
     }
 
-    override fun onReceiveEvent(slackEvent: SlackEvent<Event.Generic>, headers: HttpHeaders, team: Team) {
-        val eventMessage = (slackEvent.event.data["text"] as String).trim()
+    override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
+        val eventMessage = (slackEvent.event["text"] as String).trim()
 
         if (eventMessage == "rock") {
             rpsGameHandler.dmHandler(WEAPONS.ROCK, team, slackEvent)
@@ -39,9 +39,9 @@ class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGam
         if (eventMessage == "rock paper scissors") {
             this.slackClient.chat().postEphemeral(team.bot.accessToken)
                     .with(PostEphemeralRequest("Choose your weapon!",
-                            user = slackEvent.event.data["user"].toString(),
+                            user = slackEvent.event["user"].toString(),
                             blocks = RPSGameHandler.blocks,
-                            channel = slackEvent.event.data["channel"].toString()))
+                            channel = slackEvent.event["channel"].toString()))
                     .onSuccess {
                         println(it)
                     }

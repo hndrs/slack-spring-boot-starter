@@ -1,5 +1,6 @@
 package com.kreait.slack.api.contract.jackson
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.kreait.slack.api.contract.jackson.common.InstantSample
 import com.kreait.slack.api.contract.jackson.common.types.Member
 import com.kreait.slack.api.contract.jackson.common.types.sample
@@ -23,10 +24,24 @@ fun SlackEvent.Companion.sample(): SlackEvent {
     )
 }
 
+fun SlackEvent.Companion.sample(any: Event): SlackEvent {
+    val json = jacksonObjectMapper().writeValueAsString(any)
+    val mapValue: Map<String, Any> = jacksonObjectMapper().readValue(json, Map::class.java) as Map<String, Any>
+    return SlackEvent(
+            "",
+            "",
+            "",
+            "",
+            setOf(),
+            "",
+            0,
+            mapValue
+    )
+}
+
 fun SlackChallenge.Companion.sample(): SlackChallenge {
     return SlackChallenge("", "", "")
 }
-
 
 fun Event.SubteamCreated.Companion.sample(): Event.SubteamCreated {
     return Event.SubteamCreated(TYPE, UserGroup.sample())

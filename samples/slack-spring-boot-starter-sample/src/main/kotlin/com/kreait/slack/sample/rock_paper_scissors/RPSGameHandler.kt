@@ -89,8 +89,8 @@ class RPSGameHandler @Autowired constructor(private val slackClient: SlackClient
         }
     }
 
-    fun dmHandler(weapon: WEAPONS, team: Team, slackEvent: SlackEvent<Event.Generic>) {
-        val channelId = slackEvent.event.data["channel"] as String
+    fun dmHandler(weapon: WEAPONS, team: Team, slackEvent: SlackEvent) {
+        val channelId = slackEvent.event["channel"] as String
         val result = play(weapon)
 
         when {
