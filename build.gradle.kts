@@ -12,7 +12,7 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
-        maven("http://repo.spring.io/plugins-release")
+        maven("https://repo.spring.io/plugins-release")
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.41")

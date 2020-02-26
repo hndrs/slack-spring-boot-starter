@@ -47,7 +47,7 @@ abstract class Event constructor(@JsonProperty("type") open val type: String) {
             const val TYPE = "user_change"
         }
 
-        override fun slackTypeString() = TeamJoin.TYPE
+        override fun slackTypeString() = TYPE
     }
 
     @JacksonDataClass
@@ -61,7 +61,7 @@ abstract class Event constructor(@JsonProperty("type") open val type: String) {
             const val TYPE = "subteam_created"
         }
 
-        override fun slackTypeString() = TeamJoin.TYPE
+        override fun slackTypeString() = TYPE
     }
 
     @JacksonDataClass
@@ -81,6 +81,6 @@ abstract class Event constructor(@JsonProperty("type") open val type: String) {
             const val TYPE = "subteam_members_changed"
         }
 
-        override fun slackTypeString() = TeamJoin.TYPE
+        override fun slackTypeString() = TYPE
     }
 }

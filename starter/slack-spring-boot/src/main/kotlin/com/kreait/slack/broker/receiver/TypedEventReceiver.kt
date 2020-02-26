@@ -21,10 +21,21 @@ abstract class TypedEventReceiver<T : Event>(private val eventType: Class<T>) : 
         this.onReceiveEvent(slackEvent, resolveMappedObject(slackEvent), headers, team)
     }
 
+    /**
+     * Should return true if the receiver supports the incoming event.
+     * This default implementation returns true when the generic [eventType] has the same type
+     * as the incoming [slackEvent]
+     *
+     * [slackEvent] is the original raw event
+     * [event] payload parsed to the
+     */
     open fun supportsEvent(slackEvent: SlackEvent, event: T): Boolean {
         return event.slackTypeString() == slackEvent.type
     }
 
+    /**
+     * Implementation that provides the original [slackEvent] and the deserialized [event]
+     */
     abstract fun onReceiveEvent(slackEvent: SlackEvent, event: T, headers: HttpHeaders, team: Team)
 
     /**

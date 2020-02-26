@@ -149,59 +149,59 @@ class EventBrokerTests {
         Assertions.assertEquals(2, third.currentOrder)
     }
 
-    class FirstEventReceiver(private val current: AtomicInteger) : EventReceiver<Event> {
+    class FirstEventReceiver(private val current: AtomicInteger) : EventReceiver {
         override fun order(): Int {
             return 1
         }
 
         var currentOrder: Int? = null
-        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
+        override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
             currentOrder = current.getAndIncrement()
         }
     }
 
-    class SecondEventReceiver(private val current: AtomicInteger) : EventReceiver<Event> {
+    class SecondEventReceiver(private val current: AtomicInteger) : EventReceiver {
         override fun order(): Int {
             return 2
         }
 
         var currentOrder: Int? = null
-        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
+        override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
             currentOrder = current.getAndIncrement()
         }
     }
 
-    class ThirdEventReceiver(private val current: AtomicInteger) : EventReceiver<Event> {
+    class ThirdEventReceiver(private val current: AtomicInteger) : EventReceiver {
         override fun order(): Int {
             return 3
         }
 
         var currentOrder: Int? = null
-        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
+        override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
             currentOrder = current.getAndIncrement()
         }
     }
 
-    class SuccessReceiver : EventReceiver<Event> {
+    class SuccessReceiver : EventReceiver {
         var executed: Boolean = false
 
-        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
+        override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
             executed = true
         }
     }
 
-    class ErrorReceiver : EventReceiver<Event> {
+    class ErrorReceiver : EventReceiver {
 
         var executed: Boolean = false
 
-        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
+        override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
             executed = true
             throw IllegalStateException("Failing Test Case")
         }
     }
 
-    class ShouldThrowReceiver : EventReceiver<Event> {
-        override fun onReceiveEvent(slackEvent: SlackEvent<Event>, headers: HttpHeaders, team: Team) {
+    class ShouldThrowReceiver : EventReceiver {
+        override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
             throw Exception()
         }
 

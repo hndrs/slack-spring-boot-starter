@@ -2,7 +2,6 @@ package com.kreait.slack.broker.autoconfiguration
 
 import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.SlackCommand
-import com.kreait.slack.api.contract.jackson.event.Event
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.broker.receiver.EventReceiver
 import com.kreait.slack.broker.receiver.InstallationReceiver
@@ -78,8 +77,8 @@ class EvaluationReportConfigurationTests {
     open class TestConfiguration {
 
         @Bean
-        open fun testEventReceiver() = object : EventReceiver<Event.UserChange> {
-            override fun onReceiveEvent(slackEvent: SlackEvent<Event.UserChange>, headers: HttpHeaders, team: Team) {}
+        open fun testEventReceiver() = object : EventReceiver {
+            override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {}
         }
 
         @Bean

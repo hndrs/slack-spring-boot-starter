@@ -3,7 +3,7 @@ import org.asciidoctor.gradle.AsciidoctorTask
 buildscript {
     repositories {
         mavenCentral()
-        maven("http://repo.spring.io/plugins-release")
+        maven("https://repo.spring.io/plugins-release")
     }
     dependencies {
         classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2")
