@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController
  */
 @SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
-class EventBroker constructor(private val slackEventReceivers: List<EventReceiver<in com.kreait.slack.api.contract.jackson.event.Event>>,
+class EventBroker constructor(private val slackEventReceivers: List<EventReceiver>,
                               private val teamStore: TeamStore,
                               private val eventStore: EventStore,
                               private val metricsCollector: EventMetricsCollector? = null) {
@@ -49,7 +49,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
 
         if (event is SlackChallenge) {
             return mapOf(Pair("challenge", event.challenge))
-        } else if (event is SlackEvent<*> && shouldInvoke(event)) {
+        } else if (event is SlackEvent && shouldInvoke(event)) {
             val team = this.teamStore.findById(event.teamId)
             this.invoke(event, headers, team)
         }
@@ -64,7 +64,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
      * returns false if the underlying eventstore determines that an event already has been
      * received
      */
-    private fun shouldInvoke(event: SlackEvent<*>): Boolean {
+    private fun shouldInvoke(event: SlackEvent): Boolean {
         val exists = this.eventStore.exists(event.eventId)
         return if (exists) {
             when {
@@ -83,7 +83,7 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
     /**
      * Invokes the receiver chain
      */
-    private fun invoke(event: SlackEvent<*>, headers: HttpHeaders, team: Team) {
+    private fun invoke(event: SlackEvent, headers: HttpHeaders, team: Team) {
         this.slackEventReceivers
                 .filter { receiver ->
                     val supportsEvent = receiver.supportsEvent(event)

@@ -8,10 +8,10 @@ import com.kreait.slack.api.contract.jackson.event.SlackEvent
  *
  * @property events
  */
-class InMemoryEventStore(private val events: MutableMap<String, SlackEvent<*>> = mutableMapOf()) : EventStore {
+class InMemoryEventStore(private val events: MutableMap<String, SlackEvent> = mutableMapOf()) : EventStore {
 
     override fun put(event: EventRequest) {
-        if (event is SlackEvent<*>)
+        if (event is SlackEvent)
             events[event.eventId] = event
     }
 

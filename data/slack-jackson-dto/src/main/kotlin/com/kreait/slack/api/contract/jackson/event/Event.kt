@@ -1,9 +1,6 @@
 package com.kreait.slack.api.contract.jackson.event
 
-import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.annotation.JsonSubTypes
-import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.types.Member
 import com.kreait.slack.api.contract.jackson.group.usergroups.UserGroup
 import com.kreait.slack.api.contract.jackson.util.InstantToInt
@@ -15,51 +12,19 @@ import java.time.Instant
  * @property type the type of the event
  * @property token the token that can be used for further actions
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "type",
-        visible = true,
-        defaultImpl = Event.Generic::class)
-@JsonSubTypes(
-        JsonSubTypes.Type(value = Event.TeamJoin::class, name = Event.TeamJoin.TYPE),
-        JsonSubTypes.Type(value = Event.UserChange::class, name = Event.UserChange.TYPE),
-        JsonSubTypes.Type(value = Event.SubteamMembersChanged::class, name = Event.SubteamMembersChanged.TYPE),
-        JsonSubTypes.Type(value = Event.SubteamCreated::class, name = Event.SubteamCreated.TYPE)
-)
 @JacksonDataClass
 abstract class Event constructor(@JsonProperty("type") open val type: String) {
 
-
-    data class Generic(override val type: String) : Event(type) {
-        val data: Map<String, Any>
-            get() = internalData.toMap()
-
-        /**
-         * we use this internal data map to make use of the json any setter
-         * which is not supported for use with [com.fasterxml.jackson.annotation.JsonCreator]
-         * annotation yet
-         */
-        private val internalData: MutableMap<String, Any> = mutableMapOf()
-
-        /**
-         * this method can only be used once to ensure immutablity
-         * It is a workaround
-         */
-        @JsonAnySetter
-        internal fun anySetter(key: String, value: Any) {
-            this.internalData[key] = value
-        }
-
-        override fun toString(): String {
-            return "Generic(type='$type', data=$internalData)"
-        }
-
-
-    }
+    /**
+     * returns the type that is specified by slack
+     * https://api.slack.com/events
+     */
+    abstract fun slackTypeString(): String
 
     @JacksonDataClass
     data class TeamJoin(override val type: String,
                         @JsonProperty("user") val member: Member) : Event(type) {
+
         companion object {
             /**
              * A new member has joined
@@ -67,6 +32,8 @@ abstract class Event constructor(@JsonProperty("type") open val type: String) {
              */
             const val TYPE = "team_join"
         }
+
+        override fun slackTypeString() = TYPE
     }
 
     @JacksonDataClass
@@ -79,6 +46,8 @@ abstract class Event constructor(@JsonProperty("type") open val type: String) {
              */
             const val TYPE = "user_change"
         }
+
+        override fun slackTypeString() = TeamJoin.TYPE
     }
 
     @JacksonDataClass
@@ -91,6 +60,8 @@ abstract class Event constructor(@JsonProperty("type") open val type: String) {
              */
             const val TYPE = "subteam_created"
         }
+
+        override fun slackTypeString() = TeamJoin.TYPE
     }
 
     @JacksonDataClass
@@ -109,5 +80,7 @@ abstract class Event constructor(@JsonProperty("type") open val type: String) {
              */
             const val TYPE = "subteam_members_changed"
         }
+
+        override fun slackTypeString() = TeamJoin.TYPE
     }
 }

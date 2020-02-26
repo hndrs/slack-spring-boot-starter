@@ -6,7 +6,7 @@ buildscript {
         maven("http://repo.spring.io/plugins-release")
     }
     dependencies {
-        classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.10")
+        classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2")
     }
 }
 

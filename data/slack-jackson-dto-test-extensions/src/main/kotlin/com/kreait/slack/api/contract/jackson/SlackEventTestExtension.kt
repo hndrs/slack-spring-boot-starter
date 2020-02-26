@@ -10,7 +10,7 @@ import com.kreait.slack.api.contract.jackson.group.usergroups.UserGroup
 import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 
 
-fun <T : Event> SlackEvent.Companion.sample(event: T): SlackEvent<T> {
+fun SlackEvent.Companion.sample(): SlackEvent {
     return SlackEvent(
             "",
             "",
@@ -19,7 +19,7 @@ fun <T : Event> SlackEvent.Companion.sample(event: T): SlackEvent<T> {
             setOf(),
             "",
             0,
-            event
+            mapOf()
     )
 }
 
