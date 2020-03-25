@@ -1,33 +1,20 @@
 import axios from 'axios';
 import {settings} from '@/Variables'
 
-import {Team} from '@/model/Team';
-
-export namespace Api {
-    class Api {
-        constructor(public endpoint?: string) {
-        }
-
-        apiClient = axios.create({
-            baseURL: settings.BASE_URL + this.endpoint,
-            responseType: 'json',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        async get<T>(url: string): Promise<T> {
-            const response = await this.apiClient.get<T>(url);
-            return response.data;
-        };
+export class Api<T> {
+    protected constructor(public uri: string) {
     }
 
-    export module Teams {
-        const api = new Api('/teams');
-
-        export function getTeams(): Promise<Team[]> {
-            return api.get<Team[]>('');
+    protected apiClient = axios.create({
+        baseURL: settings.BASE_URL + this.uri,
+        responseType: 'json',
+        headers: {
+            'Content-Type': 'application/json'
         }
+    });
+
+    getAll(): Promise<T[]> {
+        return this.apiClient.get<T[]>('').then((result) => result.data)
     }
+
 }
-

@@ -9,20 +9,20 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {Api} from '@/services/Api'
     import {Team} from "@/model/Team";
+    import {TeamApi} from "@/services/TeamApi";
 
     @Component
     export default class HelloWorld extends Vue {
         @Prop() private msg!: string;
+        private teamApi: TeamApi = new TeamApi();
+
         teams: Team[] = [];
 
         private loadTeams(): void {
-            Api.Teams.getTeams().then(teams => {
-                this.teams = teams;
-            }).catch(error => {
-                console.log(error);
-            })
+            this.teamApi.getAll()
+                .then((teams) => this.teams = teams)
+                .catch((error) => console.log(`Sorry, but ${error} happened :/`))
         }
 
         mounted() {

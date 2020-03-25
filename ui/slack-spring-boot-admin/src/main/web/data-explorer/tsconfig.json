@@ -12,11 +12,15 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      "webpack-env","vuetify"
+      "webpack-env",
+      "vuetify"
     ],
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "@": [
+        "src"
       ]
     },
     "lib": [
