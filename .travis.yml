@@ -6,8 +6,7 @@ git:
 addons:
   sonarcloud:
     organization: "kreait"
-    token:
-      secure: $SONAR_TOKEN
+    token: ${SONAR_TOKEN}
   apt:
     packages:
       - openjdk-6-jdk
