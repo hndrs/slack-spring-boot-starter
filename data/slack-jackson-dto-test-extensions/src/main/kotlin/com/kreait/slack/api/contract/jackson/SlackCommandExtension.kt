@@ -1,5 +1,6 @@
 package com.kreait.slack.api.contract.jackson
 
+import com.kreait.slack.api.contract.jackson.SlackCommand.Companion.API_APP_ID_PROPERTY_NAME
 import com.kreait.slack.api.contract.jackson.SlackCommand.Companion.CHANNEL_ID_PROPERTY_NAME
 import com.kreait.slack.api.contract.jackson.SlackCommand.Companion.CHANNEL_NAME_PROPERTY_NAME
 import com.kreait.slack.api.contract.jackson.SlackCommand.Companion.COMMAND_PROPERTY_NAME
@@ -26,7 +27,8 @@ fun SlackCommand.Companion.sample(): SlackCommand {
             "",
             "",
             null,
-            null
+            null,
+            ""
     )
 }
 
@@ -44,6 +46,7 @@ fun SlackCommand.toParameterMap(): Map<String, List<String>> {
     parameterMap[TEXT_PROPERTY_NAME] = listOf(text)
     parameterMap[RESPONSE_URL_PROPERTY_NAME] = listOf(responseUrl)
     parameterMap[TRIGGER_ID_PROPERTY_NAME] = listOf(triggerId)
+    parameterMap[API_APP_ID_PROPERTY_NAME] = listOf(apiAppId)
 
     enterpriseId?.let { parameterMap[TRIGGER_ID_PROPERTY_NAME] = listOf(it) }
     enterpriseName?.let { parameterMap[TRIGGER_ID_PROPERTY_NAME] = listOf(it) }
