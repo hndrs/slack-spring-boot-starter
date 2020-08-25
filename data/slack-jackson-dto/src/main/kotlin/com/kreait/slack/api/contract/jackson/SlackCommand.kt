@@ -19,6 +19,7 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  * @property triggerId the trigger id which is used to open a dialog
  * @property enterpriseId the enterprise id which is only present, when the workspace is contained in the enterprise grid
  * @property enterpriseName the enterprise name which is only present, when the workspace is contained in the enterprise grid
+ * @property apiAppId the slack apps Id. Can be used for handling commands from multiple applications or environments.
  */
 @JacksonDataClass
 data class SlackCommand constructor(@JsonProperty(TOKEN_PROPERTY_NAME) val token: String,
@@ -33,7 +34,8 @@ data class SlackCommand constructor(@JsonProperty(TOKEN_PROPERTY_NAME) val token
                                     @JsonProperty(RESPONSE_URL_PROPERTY_NAME) val responseUrl: String,
                                     @JsonProperty(TRIGGER_ID_PROPERTY_NAME) val triggerId: String,
                                     @JsonProperty(ENTERPRISE_ID_PROPERTY_NAME) val enterpriseId: String?,
-                                    @JsonProperty(ENTERPRISE_NAME_PROPERTY_NAME) val enterpriseName: String?) {
+                                    @JsonProperty(ENTERPRISE_NAME_PROPERTY_NAME) val enterpriseName: String?,
+                                    @JsonProperty(API_APP_ID_PROPERTY_NAME) val apiAppId: String) {
     companion object {
         const val TOKEN_PROPERTY_NAME = "token"
         const val TEAM_ID_PROPERTY_NAME = "team_id"
@@ -48,5 +50,6 @@ data class SlackCommand constructor(@JsonProperty(TOKEN_PROPERTY_NAME) val token
         const val TRIGGER_ID_PROPERTY_NAME = "trigger_id"
         const val ENTERPRISE_ID_PROPERTY_NAME = "enterprise_id"
         const val ENTERPRISE_NAME_PROPERTY_NAME = "enterprise_name"
+        const val API_APP_ID_PROPERTY_NAME = "api_app_id"
     }
 }
