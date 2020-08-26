@@ -17,7 +17,7 @@ import com.kreait.slack.api.spring.group.users.SpringUserMethodGroup
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-class SprinSlackClientTests {
+class SpringSlackClientTests {
     private val springSlackClient = SpringSlackClient()
 
     @DisplayName("Check RespondMethodGroup")
