@@ -1,6 +1,6 @@
 :source-highlighter: prettify
 
-:version: 1.0.0.RC1
+:version: 2.0.0
 
 = Slack Spring Boot
 
