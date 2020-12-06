@@ -3,14 +3,12 @@ package com.kreait.slack.broker.autoconfiguration.credentials
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
 @DisplayName("SystemPropertyCredentialsProvider")
 class SystemPropertyCredentialsProviderTests {
 
     @Test
     @DisplayName("Valid Properties")
-    @ExtendWith(CredentialsFileCredentialsProviderTests.DisabledOnExistingCredentialsFile::class)
     fun validProperties() {
         // setup
 
@@ -24,7 +22,7 @@ class SystemPropertyCredentialsProviderTests {
 
         // test
         val applicationCredentials = SystemPropertyCredentialsProvider()
-                .applicationCredentials()
+            .applicationCredentials()
 
         // assert
         Assertions.assertEquals(clientId, applicationCredentials.clientId)
@@ -37,7 +35,6 @@ class SystemPropertyCredentialsProviderTests {
 
     @Test
     @DisplayName("Missing Client Id")
-    @ExtendWith(CredentialsFileCredentialsProviderTests.DisabledOnExistingCredentialsFile::class)
     fun missingClientId() {
         // setup
 
@@ -56,7 +53,6 @@ class SystemPropertyCredentialsProviderTests {
 
     @Test
     @DisplayName("Missing Client Secret")
-    @ExtendWith(CredentialsFileCredentialsProviderTests.DisabledOnExistingCredentialsFile::class)
     fun missingClientSecret() {
         // setup
 
@@ -75,7 +71,6 @@ class SystemPropertyCredentialsProviderTests {
 
     @Test
     @DisplayName("Missing Signing Secret")
-    @ExtendWith(CredentialsFileCredentialsProviderTests.DisabledOnExistingCredentialsFile::class)
     fun missingSigningSecret() {
         // setup
 
