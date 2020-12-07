@@ -55,7 +55,7 @@ allprojects {
 
     group = "com.kreait.slack"
     version = rootProject.file("version.txt").readText().trim()
-            .plus(if (isRelease?.toBoolean() == true) "" else "-${System.getenv("GITHUB_RUN_NUMBER")}-SNAPSHOT")
+            .plus(if (isRelease?.toBoolean() == true) "" else "-SNAPSHOT")
 
     project.ext {
         set("junitJupiterVersion", "5.4.2")
