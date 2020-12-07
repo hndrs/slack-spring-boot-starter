@@ -122,8 +122,8 @@ subprojects {
                     name = "release"
                     url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2")
                     credentials {
-                        username = System.getenv("SONATYPE_JIRA_USERNAME")
-                        password = System.getenv("SONATYPE_JIRA_PASSWORD")
+                        username = System.getenv("SONATYPE_USER")
+                        password = System.getenv("SONATYPE_PASSWORD")
                     }
                 }
             }

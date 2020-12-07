@@ -50,5 +50,8 @@ jobs:
 
       - name: Publish Snapshot
         if: ${{ github.event_name != 'pull_request'}}
+        env:
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
         run: |
           ./gradlew publish
