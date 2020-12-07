@@ -4,6 +4,9 @@ import org.springframework.beans.BeanInstantiationException
 import org.springframework.boot.diagnostics.AbstractFailureAnalyzer
 import org.springframework.boot.diagnostics.FailureAnalysis
 
+/**
+ * [org.springframework.boot.diagnostics.FailureAnalyzer] that helps identifying [CredentialsProvider] issues
+ */
 class CredentialsFailureAnalyzer : AbstractFailureAnalyzer<BeanInstantiationException>() {
 
     companion object {
