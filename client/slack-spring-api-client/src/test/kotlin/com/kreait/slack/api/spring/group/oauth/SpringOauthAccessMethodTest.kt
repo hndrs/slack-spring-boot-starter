@@ -24,7 +24,7 @@ class SpringOauthAccessMethodTest {
     @DisplayName("oauth.access Failure")
     fun oauthAccessFailure() {
         val response = ErrorAccessResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "oauth.access", response)
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "oauth.v2.access", response)
         val verifier = Verifier(response)
 
         SpringOauthAccessMethod(mockTemplate)
@@ -39,7 +39,7 @@ class SpringOauthAccessMethodTest {
     @DisplayName("oauth.access Success")
     fun oauthAccessSuccess() {
         val response = SuccessfullAccessResponse.sample()
-        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "oauth.access", response)
+        val mockServer = MockServerHelper.buildMockRestServer(mockTemplate, "oauth.v2.access", response)
         val verifier = Verifier(response)
 
         SpringOauthAccessMethod(mockTemplate)
