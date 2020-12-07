@@ -13,17 +13,22 @@ import org.springframework.web.client.RestTemplate
 
 /**
  * Spring based implementation of [OauthMethodGroup.access]
-*/
+ */
 @Suppress("UNCHECKED_CAST")
-class SpringOauthAccessMethod(private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : OauthAccessMethod() {
+class SpringOauthAccessMethod(private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) :
+    OauthAccessMethod() {
 
     override fun request(): ApiCallResult<SuccessfullAccessResponse, ErrorAccessResponse> {
         val response = SlackRequestBuilder<AccessResponse>(restTemplate = restTemplate)
-                .toMethod("oauth.access")
-                .returnAsType(AccessResponse::class.java)
-                .postUrlEncoded(mapOf(Pair("client_id", params.clientId),
-                        Pair("client_secret", params.client_secret),
-                        Pair("code", params.code)))
+            .toMethod("oauth.v2.access")
+            .returnAsType(AccessResponse::class.java)
+            .postUrlEncoded(
+                mapOf(
+                    Pair("client_id", params.clientId),
+                    Pair("client_secret", params.client_secret),
+                    Pair("code", params.code)
+                )
+            )
 
         return when (response.body!!) {
             is SuccessfullAccessResponse -> {

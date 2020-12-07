@@ -27,7 +27,7 @@ class FileTeamStore : TeamStore {
          * Methods to set up the directory and the storage file
          */
         private fun homeDirectory(): String = System.getProperty("user.home")
-                ?: throw IllegalArgumentException("Unable to load team-file:'user.home' System property is not set.")
+            ?: throw IllegalArgumentException("Unable to load team-file:'user.home' System property is not set.")
 
         private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
 
@@ -67,20 +67,13 @@ class FileTeamStore : TeamStore {
         val team = localTeams.find { it.teamId == id } ?: throw TeamNotFoundException("Team $id not found.")
 
         return Team(
-                teamId = team.teamId,
-                teamName = team.teamName,
-                incomingWebhook = team.incomingWebhook?.let {
-                    Team.IncomingWebhook(
-                            channel = team.incomingWebhook.channel,
-                            channelId = team.incomingWebhook.channelId,
-                            configurationUrl = team.incomingWebhook.configurationUrl,
-                            url = team.incomingWebhook.url
-                    )
-                },
-                bot = Team.Bot(
-                        userId = team.bot.userId,
-                        accessToken = team.bot.accessToken
-                ))
+            teamId = team.teamId,
+            teamName = team.teamName,
+            bot = Team.Bot(
+                userId = team.bot.userId,
+                accessToken = team.bot.accessToken
+            )
+        )
     }
 
     override fun put(team: Team) {
@@ -92,19 +85,12 @@ class FileTeamStore : TeamStore {
 
         // Build an Object out of the team that is given in via parameter
         val localTeam = LocalTeam(
-                teamId = team.teamId,
-                teamName = team.teamName,
-                incomingWebhook = team.incomingWebhook?.let {
-                    LocalTeam.IncomingWebhook(
-                            channel = team.incomingWebhook.channel,
-                            channelId = team.incomingWebhook.channelId,
-                            configurationUrl = team.incomingWebhook.configurationUrl,
-                            url = team.incomingWebhook.url)
-                },
-                bot = LocalTeam.Bot(
-                        userId = team.bot.userId,
-                        accessToken = team.bot.accessToken
-                )
+            teamId = team.teamId,
+            teamName = team.teamName,
+            bot = LocalTeam.Bot(
+                userId = team.bot.userId,
+                accessToken = team.bot.accessToken
+            )
         )
 
         val result = origin.plus(localTeam)
@@ -127,21 +113,19 @@ class FileTeamStore : TeamStore {
      * Team that is saved to the file
      */
     @JacksonDataClass
-    data class LocalTeam(@field: JsonProperty("team_id")
-                         @param: JsonProperty("team_id")
-                         val teamId: String,
+    data class LocalTeam(
+        @field: JsonProperty("team_id")
+        @param: JsonProperty("team_id")
+        val teamId: String,
 
-                         @field: JsonProperty("team_name")
-                         @param: JsonProperty("team_name")
-                         val teamName: String,
+        @field: JsonProperty("team_name")
+        @param: JsonProperty("team_name")
+        val teamName: String?,
 
-                         @field: JsonProperty("incoming_webhook")
-                         @param: JsonProperty("incoming_webhook")
-                         val incomingWebhook: IncomingWebhook?,
-
-                         @field: JsonProperty("bot")
-                         @param: JsonProperty("bot")
-                         val bot: Bot) {
+        @field: JsonProperty("bot")
+        @param: JsonProperty("bot")
+        val bot: Bot
+    ) {
         companion object {}
 
         /**
@@ -149,36 +133,14 @@ class FileTeamStore : TeamStore {
          */
         @JacksonDataClass
         data class Bot(
-                @field: JsonProperty("user_id")
-                @param: JsonProperty("user_id")
-                val userId: String,
+            @field: JsonProperty("user_id")
+            @param: JsonProperty("user_id")
+            val userId: String,
 
-                @field: JsonProperty("access_token")
-                @param: JsonProperty("access_token")
-                val accessToken: String) {
-            companion object
-        }
-
-        /**
-         * Incoming-webhook object that can be used to post messages to a channel without user-interaction
-         */
-        @JacksonDataClass
-        data class IncomingWebhook(
-                @field:JsonProperty("channel")
-                @param: JsonProperty("channel")
-                val channel: String,
-
-                @field: JsonProperty("channel_id")
-                @param: JsonProperty("channel_id")
-                val channelId: String,
-
-                @field: JsonProperty("configuration_rl")
-                @param: JsonProperty("configuration_rl")
-                val configurationUrl: String,
-
-                @field: JsonProperty("url")
-                @param: JsonProperty("url")
-                val url: String) {
+            @field: JsonProperty("access_token")
+            @param: JsonProperty("access_token")
+            val accessToken: String
+        ) {
             companion object
         }
     }

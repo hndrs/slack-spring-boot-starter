@@ -8,6 +8,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 - Added ApplicationEnvironmentCredentialsProvider
+- Replaced oauth.access with oauth.v2.access
 
 ## [2.0.0] - 2020-08-26
 

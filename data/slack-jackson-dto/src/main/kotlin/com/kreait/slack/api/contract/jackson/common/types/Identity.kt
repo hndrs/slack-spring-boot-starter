@@ -15,7 +15,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 @JacksonDataClass
 data class Identity(
         @JsonProperty("user") val user: User,
-        @JsonProperty("team") val team: Team) {
+        @JsonProperty("team") val team: Team
+) {
 
     /**
      * A data-class used for user identities.
@@ -37,17 +38,6 @@ data class Identity(
                     val image48: String?,
                     val image72: String?,
                     val image192: String?) {
-        companion object
-    }
-
-    /**
-     * A data-class used for team identities.
-     *
-     * @property id Indicates a unique id for the team.
-     * @property name The name of the team.
-     */
-    data class Team(val id: String,
-                    val name: String?) {
         companion object
     }
 
