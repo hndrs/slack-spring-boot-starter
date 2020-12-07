@@ -39,6 +39,6 @@ class CredentialsFileCredentialsProvider : CredentialsProvider {
             }
             throw ApplicationCredentialsException("Unable to load credentials:'~/.slack/credentials' not all values are set")
         }
-        throw ApplicationCredentialsException("Unable to load credentials:'~/.slack/credentials' file is not set.")
+        throw ApplicationCredentialsException("Unable to load credentials: from '~/.slack/credentials' file does not exist.")
     }
 }
