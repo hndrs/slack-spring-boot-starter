@@ -72,7 +72,7 @@ allprojects {
     }
 
     tasks.withType<Wrapper> {
-        gradleVersion = "5.4.1"
+        gradleVersion = "6.7.1"
         // anything else
     }
 
