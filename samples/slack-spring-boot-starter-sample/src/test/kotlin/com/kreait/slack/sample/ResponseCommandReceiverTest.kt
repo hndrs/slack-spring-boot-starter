@@ -25,9 +25,13 @@ class ResponseCommandReceiverTest {
         // provide mock client to receiver implementation
         val commandReceiver = ResponseCommandReceiver(mockSlackClient, responseHandler)
         // call the receiver
-        commandReceiver.onReceiveSlashCommand(SlackCommand.sample().copy(command = "/response", channelId = "test-channel", responseUrl = "www.test.com"),
-                HttpHeaders.EMPTY, Team("", "", null,
-                Team.Bot("", "test-token")))
+        commandReceiver.onReceiveSlashCommand(
+            SlackCommand.sample().copy(command = "/response", channelId = "test-channel", responseUrl = "www.test.com"),
+            HttpHeaders.EMPTY, Team(
+                "", "",
+                Team.Bot("", "test-token")
+            )
+        )
         // verify logic has been executed as expected
         verify(responseHandler, times(1)).successResponse("test-channel", "test-token")
         verify(responseHandler, times(0)).failureResponse("test-channel", "test-token")
@@ -44,9 +48,11 @@ class ResponseCommandReceiverTest {
         // provide mock client to receiver implementation
         val commandReceiver = ResponseCommandReceiver(mockSlackClient, responseHandler)
         // call the receiver
-        commandReceiver.onReceiveSlashCommand(SlackCommand.sample().copy(command = "/response", channelId = "test-channel", responseUrl = "www.test.com"),
-                HttpHeaders.EMPTY,
-                Team("", "", null, Team.Bot("", "test-token")))
+        commandReceiver.onReceiveSlashCommand(
+            SlackCommand.sample().copy(command = "/response", channelId = "test-channel", responseUrl = "www.test.com"),
+            HttpHeaders.EMPTY,
+            Team("", "", Team.Bot("", "test-token"))
+        )
         // verify logic has been executed as expected
         verify(responseHandler, times(0)).successResponse("test-channel", "test-token")
         verify(responseHandler, times(1)).failureResponse("test-channel", "test-token")

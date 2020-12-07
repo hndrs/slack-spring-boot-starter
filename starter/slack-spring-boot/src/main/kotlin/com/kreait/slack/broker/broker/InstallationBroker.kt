@@ -70,14 +70,10 @@ class InstallationBroker constructor(
                 .with(AccessRequest(config.clientId, config.clientSecret, code))
                 .invoke()
         return response.success?.let {
-            Team(it.teamId,
-                    it.teamName,
-                    Team.IncomingWebhook(it.incomingWebhook.channel,
-                            it.incomingWebhook.channelId,
-                            it.incomingWebhook.configurationUrl,
-                            it.incomingWebhook.url),
-                    Team.Bot(it.bot.botUserId,
-                            it.bot.botAccessToken)
+            Team(it.team.id,
+                    it.team.name,
+                    Team.Bot(it.botUserId,
+                            it.accessToken)
             )
         } ?: throw IllegalStateException("Could not obtain access-token: ${response.failure}")
     }
