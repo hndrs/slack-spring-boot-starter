@@ -7,7 +7,6 @@ import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.dialog.DialogMethodGroup
 import com.kreait.slack.api.group.groups.GroupsMethodGroup
-import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
 import com.kreait.slack.api.group.pins.PinsMethodGroup
 import com.kreait.slack.api.group.reminders.RemindersMethodGroup
@@ -31,23 +30,35 @@ class SlackApiClientAutoConfigurationTests {
     @Test
     fun slackClientRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(SlackClient::class.java) }
-                    Assertions.assertTrue(it.getBean(SlackClient::class.java) is SpringSlackClient)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    SlackBrokerAutoConfiguration::class.java,
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(SlackClient::class.java) }
+                Assertions.assertTrue(it.getBean(SlackClient::class.java) is SpringSlackClient)
+            }
     }
 
     @DisplayName("Custom SlackClient Registration")
     @Test
     fun customSlackClientRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withUserConfiguration(TestConfiguration::class.java)
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(SlackClient::class.java) }
-                    Assertions.assertTrue(it.getBean(SlackClient::class.java) is TestSlackClient)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    SlackBrokerAutoConfiguration::class.java,
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withUserConfiguration(TestConfiguration::class.java)
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(SlackClient::class.java) }
+                Assertions.assertTrue(it.getBean(SlackClient::class.java) is TestSlackClient)
+            }
     }
 
 
@@ -76,9 +87,7 @@ class SlackApiClientAutoConfigurationTests {
         override fun conversation(): ConversationsMethodGroup = throw UnsupportedOperationException()
 
         override fun channel(): ChannelsMethodGroup = throw UnsupportedOperationException()
-
-        override fun im(): ImMethodGroup = throw UnsupportedOperationException()
-
+        
         override fun users(): UsersMethodGroup = throw UnsupportedOperationException()
 
         override fun oauth(): OauthMethodGroup = throw UnsupportedOperationException()
