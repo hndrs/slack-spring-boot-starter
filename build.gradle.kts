@@ -15,7 +15,7 @@ buildscript {
         maven("https://repo.spring.io/plugins-release")
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.41")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10")
         classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
         classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.9.18")
         classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.0.1")
@@ -25,8 +25,7 @@ buildscript {
 plugins {
     id("org.sonarqube") version "2.7"
     id("io.spring.dependency-management") version "1.0.7.RELEASE"
-    id("org.jetbrains.kotlin.jvm") version "1.3.41" apply false
-    id("com.gradle.build-scan") version "2.2.1"
+    id("org.jetbrains.kotlin.jvm") version "1.4.10" apply false
     signing
 }
 
@@ -44,11 +43,6 @@ sonarqube {
                 "**/slack-api-client/**, " +
                 "**/SL4JLoggingReceiver.kt")
     }
-}
-
-extensions.findByName("buildScan")?.withGroovyBuilder {
-    setProperty("termsOfServiceUrl", "https://gradle.com/terms-of-service")
-    setProperty("termsOfServiceAgree", "yes")
 }
 
 allprojects {
