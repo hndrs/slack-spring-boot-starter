@@ -7,7 +7,6 @@ import com.kreait.slack.api.test.group.chat.MockChatMethodGroup
 import com.kreait.slack.api.test.group.conversation.MockConversationMethodGroup
 import com.kreait.slack.api.test.group.dialog.MockDialogMethodGroup
 import com.kreait.slack.api.test.group.groups.MockGroupsMethodGroup
-import com.kreait.slack.api.test.group.im.MockImMethodGroup
 import com.kreait.slack.api.test.group.oauth.MockOauthMethodGroup
 import com.kreait.slack.api.test.group.pins.MockPinsMethodGroup
 import com.kreait.slack.api.test.group.reminders.MockRemindersMethodGroup
@@ -25,7 +24,6 @@ class MockSlackClient : SlackClient {
     private val mockRemindersMethodGroup = MockRemindersMethodGroup()
     private val mockChatGroup = MockChatMethodGroup()
     private val mockAuthGroup = MockAuthGroup()
-    private val mockImMethodGroup = MockImMethodGroup()
     private val mockDialogMethodGroup = MockDialogMethodGroup()
     private val mockConversationsMethodGroup = MockConversationMethodGroup()
     private val mockChannelsMethodGroup = MockChannelsMethodGroup()
@@ -42,7 +40,6 @@ class MockSlackClient : SlackClient {
     override fun dialog() = mockDialogMethodGroup
     override fun conversation() = mockConversationsMethodGroup
     override fun channel() = mockChannelsMethodGroup
-    override fun im() = mockImMethodGroup
     override fun users() = mockUsersMethodGroup
     override fun oauth() = mockOauthMethodGroup
     override fun respond() = mockRespondMethodGroup

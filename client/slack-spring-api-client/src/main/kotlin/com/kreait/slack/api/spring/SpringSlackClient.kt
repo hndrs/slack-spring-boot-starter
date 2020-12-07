@@ -8,7 +8,6 @@ import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.dialog.DialogMethodGroup
 import com.kreait.slack.api.group.groups.GroupsMethodGroup
-import com.kreait.slack.api.group.im.ImMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
 import com.kreait.slack.api.group.pins.PinsMethodGroup
 import com.kreait.slack.api.group.reminders.RemindersMethodGroup
@@ -22,7 +21,6 @@ import com.kreait.slack.api.spring.group.chat.SpringChatMethodGroup
 import com.kreait.slack.api.spring.group.conversations.SpringConversationsMethodGroup
 import com.kreait.slack.api.spring.group.dialog.SpringDialogMethodGroup
 import com.kreait.slack.api.spring.group.groups.SpringGroupsMethodGroup
-import com.kreait.slack.api.spring.group.im.SpringImMethodGroup
 import com.kreait.slack.api.spring.group.oauth.SpringOauthMethodGroup
 import com.kreait.slack.api.spring.group.pins.SpringPinsMethodGroup
 import com.kreait.slack.api.spring.group.reminders.SpringRemindersMethodGroup
@@ -91,16 +89,6 @@ class SpringSlackClient : SlackClient {
 
     override fun channel(): ChannelsMethodGroup {
         return SpringChannelsMethodGroup()
-    }
-
-    /**
-     * Convenience function to apply slack api im method grouping
-     *
-     * [Slack Api Documentation](https://api.slack.com/methods)
-     */
-
-    override fun im(): ImMethodGroup {
-        return SpringImMethodGroup()
     }
 
     /**
