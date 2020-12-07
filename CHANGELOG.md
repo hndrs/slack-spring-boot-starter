@@ -9,7 +9,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Added ApplicationEnvironmentCredentialsProvider
 - Replaced oauth.access with oauth.v2.access
-- Removed deprecated IM method group
+- Removed deprecated im method group
+- Removed deprecated channels method group
+- Removed deprecated groups method group
 
 ## [2.0.0] - 2020-08-26
 

@@ -3,11 +3,9 @@ package com.kreait.slack.api.spring
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.group.auth.AuthGroup
-import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.dialog.DialogMethodGroup
-import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
 import com.kreait.slack.api.group.pins.PinsMethodGroup
 import com.kreait.slack.api.group.reminders.RemindersMethodGroup
@@ -16,11 +14,9 @@ import com.kreait.slack.api.group.team.TeamMethodGroup
 import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.group.users.UsersMethodGroup
 import com.kreait.slack.api.spring.group.auth.SpringAuthMethodGroup
-import com.kreait.slack.api.spring.group.channels.SpringChannelsMethodGroup
 import com.kreait.slack.api.spring.group.chat.SpringChatMethodGroup
 import com.kreait.slack.api.spring.group.conversations.SpringConversationsMethodGroup
 import com.kreait.slack.api.spring.group.dialog.SpringDialogMethodGroup
-import com.kreait.slack.api.spring.group.groups.SpringGroupsMethodGroup
 import com.kreait.slack.api.spring.group.oauth.SpringOauthMethodGroup
 import com.kreait.slack.api.spring.group.pins.SpringPinsMethodGroup
 import com.kreait.slack.api.spring.group.reminders.SpringRemindersMethodGroup
@@ -82,16 +78,6 @@ class SpringSlackClient : SlackClient {
     }
 
     /**
-     * Convenience function to apply slack api channel method grouping
-     *
-     * [Slack Api Documentation](https://api.slack.com/methods)
-     */
-
-    override fun channel(): ChannelsMethodGroup {
-        return SpringChannelsMethodGroup()
-    }
-
-    /**
      * Convenience function to apply slack api users method grouping
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
@@ -126,16 +112,6 @@ class SpringSlackClient : SlackClient {
      */
     override fun usergroups(): UsergroupsMethodGroup {
         return SpringUsergroupMethodGroup()
-    }
-
-
-    /**
-     * Convenience function to apply slack api Usergroups method grouping
-     *
-     * [Slack Api Documentation](https://api.slack.com/methods)
-     */
-    override fun groups(): GroupsMethodGroup {
-        return SpringGroupsMethodGroup()
     }
 
     /**
