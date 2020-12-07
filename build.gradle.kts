@@ -55,7 +55,7 @@ allprojects {
 
     group = "com.kreait.slack"
     version = rootProject.file("version.txt").readText().trim()
-            .plus(if (isRelease?.toBoolean() == true) "" else "-${System.getenv("TRAVIS_BUILD_NUMBER") ?: ""}-SNAPSHOT")
+            .plus(if (isRelease?.toBoolean() == true) "" else "-SNAPSHOT")
 
     project.ext {
         set("junitJupiterVersion", "5.4.2")
@@ -219,13 +219,13 @@ subprojects {
     tasks.withType<KotlinCompile>() {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "1.8"
+            jvmTarget = "11"
         }
     }
     tasks.withType<KotlinCompile>() {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "1.8"
+            jvmTarget = "11"
         }
     }
     configure<JacocoPluginExtension> {
