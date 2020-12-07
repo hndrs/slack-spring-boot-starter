@@ -1,11 +1,9 @@
 package com.kreait.slack.api.spring
 
 import com.kreait.slack.api.spring.group.auth.SpringAuthMethodGroup
-import com.kreait.slack.api.spring.group.channels.SpringChannelsMethodGroup
 import com.kreait.slack.api.spring.group.chat.SpringChatMethodGroup
 import com.kreait.slack.api.spring.group.conversations.SpringConversationsMethodGroup
 import com.kreait.slack.api.spring.group.dialog.SpringDialogMethodGroup
-import com.kreait.slack.api.spring.group.groups.SpringGroupsMethodGroup
 import com.kreait.slack.api.spring.group.oauth.SpringOauthMethodGroup
 import com.kreait.slack.api.spring.group.pins.SpringPinsMethodGroup
 import com.kreait.slack.api.spring.group.reminders.SpringRemindersMethodGroup
@@ -49,12 +47,6 @@ class SpringSlackClientTests {
         assert(springSlackClient.conversation() is SpringConversationsMethodGroup)
     }
 
-    @DisplayName("Check ChannelMethodGroup")
-    @Test
-    fun testChannelGroup() {
-        assert(springSlackClient.channel() is SpringChannelsMethodGroup)
-    }
-
     @DisplayName("Check UsersMethodGroup")
     @Test
     fun testUsersGroup() {
@@ -77,12 +69,6 @@ class SpringSlackClientTests {
     @Test
     fun testUserGroupsGroup() {
         assert(springSlackClient.usergroups() is SpringUsergroupMethodGroup)
-    }
-
-    @DisplayName("Check GroupsMethodGroup")
-    @Test
-    fun testGroupsGroup() {
-        assert(springSlackClient.groups() is SpringGroupsMethodGroup)
     }
 
     @DisplayName("Check RemindersMethodGroup")

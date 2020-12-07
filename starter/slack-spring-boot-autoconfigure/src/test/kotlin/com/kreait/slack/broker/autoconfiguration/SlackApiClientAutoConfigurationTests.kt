@@ -2,11 +2,9 @@ package com.kreait.slack.broker.autoconfiguration
 
 import com.kreait.slack.api.SlackClient
 import com.kreait.slack.api.group.auth.AuthGroup
-import com.kreait.slack.api.group.channels.ChannelsMethodGroup
 import com.kreait.slack.api.group.chat.ChatMethodGroup
 import com.kreait.slack.api.group.conversations.ConversationsMethodGroup
 import com.kreait.slack.api.group.dialog.DialogMethodGroup
-import com.kreait.slack.api.group.groups.GroupsMethodGroup
 import com.kreait.slack.api.group.oauth.OauthMethodGroup
 import com.kreait.slack.api.group.pins.PinsMethodGroup
 import com.kreait.slack.api.group.reminders.RemindersMethodGroup
@@ -76,8 +74,6 @@ class SlackApiClientAutoConfigurationTests {
 
         override fun reminders(): RemindersMethodGroup = throw UnsupportedOperationException()
 
-        override fun groups(): GroupsMethodGroup = throw UnsupportedOperationException()
-
         override fun auth(): AuthGroup = throw UnsupportedOperationException()
 
         override fun chat(): ChatMethodGroup = throw UnsupportedOperationException()
@@ -86,8 +82,6 @@ class SlackApiClientAutoConfigurationTests {
 
         override fun conversation(): ConversationsMethodGroup = throw UnsupportedOperationException()
 
-        override fun channel(): ChannelsMethodGroup = throw UnsupportedOperationException()
-        
         override fun users(): UsersMethodGroup = throw UnsupportedOperationException()
 
         override fun oauth(): OauthMethodGroup = throw UnsupportedOperationException()
