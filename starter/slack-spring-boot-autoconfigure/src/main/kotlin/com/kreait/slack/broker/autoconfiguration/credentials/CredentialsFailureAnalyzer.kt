@@ -6,9 +6,16 @@ import org.springframework.boot.diagnostics.FailureAnalysis
 
 class CredentialsFailureAnalyzer : AbstractFailureAnalyzer<BeanInstantiationException>() {
 
+    companion object {
+        private val DESCRIPTION = "Could not resolve slack app credentials"
+
+        //TODO add documentation url here
+        private val ACTION = "Consider setting the credentials"
+    }
+
     override fun analyze(rootFailure: Throwable?, cause: BeanInstantiationException): FailureAnalysis? {
         return if (cause.cause is ApplicationCredentialsException) {
-            return FailureAnalysis("Could Not Resolve Credentials", "Consider doing this", cause.cause)
+            return FailureAnalysis(DESCRIPTION, ACTION, cause.cause)
         } else {
             null
         }
