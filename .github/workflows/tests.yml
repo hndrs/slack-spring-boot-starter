@@ -47,3 +47,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ./gradlew check jacocoTestReport detekt sonarqube -Dsonar.login=$SONAR_TOKEN
+
+      - name: Publish Snapshot
+        if: ${{ github.event_name != 'pull_request'}}
+        run: |
+          ./gradlew publish
