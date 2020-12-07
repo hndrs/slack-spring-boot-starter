@@ -19,7 +19,7 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("io.micrometer:micrometer-core")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:${project.ext.get("springBootVersion")}") {
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude("junit:junit")
     }
     testImplementation(project(":slack-jackson-dto-test"))

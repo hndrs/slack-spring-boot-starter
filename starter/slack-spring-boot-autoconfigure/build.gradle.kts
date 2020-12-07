@@ -22,7 +22,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test:${extra["springBootVersion"]}") {
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude("junit:junit")
     }
     testImplementation("org.springframework.boot:spring-boot-starter-actuator")

@@ -60,9 +60,7 @@ allprojects {
     project.ext {
         set("junitJupiterVersion", "5.4.2")
         set("junitPlatformVersion", "1.4.2")
-        set("springBootVersion", "2.1.3.RELEASE")
         set("projectVersion", version)
-        set("kotlinVersion", "1.3.21")
     }
 
     tasks.withType<Wrapper> {
@@ -77,8 +75,8 @@ allprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:${extra["springBootVersion"]}") {
-                bomProperty("kotlin.version", "${extra["kotlinVersion"]}")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.4.0") {
+                bomProperty("kotlin.version", "1.4.10")
             }
         }
     }
@@ -277,7 +275,7 @@ subprojects {
 
     dependencies {
         "testImplementation"("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
-        "testImplementation"(group = "org.junit.jupiter", name = "junit-jupiter", version = "${extra["junitJupiterVersion"]}")
+        "testImplementation"(group = "org.junit.jupiter", name = "junit-jupiter", version = "5.4.2")
     }
 }
 
