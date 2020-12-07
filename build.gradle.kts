@@ -55,7 +55,7 @@ allprojects {
 
     group = "com.kreait.slack"
     version = rootProject.file("version.txt").readText().trim()
-            .plus(if (isRelease?.toBoolean() == true) "" else "${System.getenv("GITHUB_RUN_ID")}-SNAPSHOT")
+            .plus(if (isRelease?.toBoolean() == true) "" else "-${System.getenv("GITHUB_RUN_NUMBER")}-SNAPSHOT")
 
     project.ext {
         set("junitJupiterVersion", "5.4.2")
@@ -114,8 +114,8 @@ subprojects {
                     name = "snapshot"
                     url = uri("https://oss.sonatype.org/content/repositories/snapshots")
                     credentials {
-                        username = System.getenv("SONATYPE_JIRA_USERNAME")
-                        password = System.getenv("SONATYPE_JIRA_PASSWORD")
+                        username = System.getenv("SONATYPE_USER")
+                        password = System.getenv("SONATYPE_PASSWORD")
                     }
                 }
                 maven {
