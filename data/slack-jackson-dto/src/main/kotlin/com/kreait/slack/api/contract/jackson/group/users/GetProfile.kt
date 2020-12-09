@@ -49,12 +49,12 @@ data class ErrorGetProfileResponse constructor(
  */
 data class GetProfileRequest(private val includeLabels: Boolean? = false, private val user: String? = "") {
 
-    companion object {}
-
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()
         includeLabels?.let { requestMap.put("include_labels", it.toString()) }
         user?.let { requestMap.put("user", it) }
         return requestMap
     }
+
+    companion object
 }

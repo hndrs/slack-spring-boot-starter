@@ -55,8 +55,8 @@ data class ChannelsKickRequest constructor(
     @JsonProperty("channel") val channelId: String,
     @JsonProperty("user") val userId: String
 ) {
-    companion object {}
 
     fun toRequestMap() = mapOf("channel" to channelId, "user" to userId)
 
+    companion object
 }

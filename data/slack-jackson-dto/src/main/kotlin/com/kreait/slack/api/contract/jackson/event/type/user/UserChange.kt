@@ -10,6 +10,9 @@ data class UserChange(
     override val type: String,
     @JsonProperty("user") val member: Member
 ) : Event(type) {
+
+    override fun slackTypeString() = TYPE
+
     companion object {
         /**
          * A member's data has changed
@@ -17,6 +20,4 @@ data class UserChange(
          */
         const val TYPE = "user_change"
     }
-
-    override fun slackTypeString() = TYPE
 }

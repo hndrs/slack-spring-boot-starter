@@ -55,12 +55,12 @@ data class ErrorAuthRevokeResponse constructor(
  * @see [Slack Api Method](https://api.slack.com/methods/auth.revoke)
  */
 data class AuthRevokeRequest constructor(private val test: Boolean?) {
-
-    companion object
-
+    
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()
         test?.let { requestMap.put("test", test.toString()) }
         return requestMap
     }
+
+    companion object
 }

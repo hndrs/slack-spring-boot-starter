@@ -15,7 +15,8 @@ data class ResponseMetadata(
     @JsonProperty("next_cursor") val nextCursor: String? = null,
     @JsonProperty("warnings") val warnings: List<String>? = null
 ) {
-    companion object
 
     fun hasNext() = !nextCursor.isNullOrBlank()
+
+    companion object
 }

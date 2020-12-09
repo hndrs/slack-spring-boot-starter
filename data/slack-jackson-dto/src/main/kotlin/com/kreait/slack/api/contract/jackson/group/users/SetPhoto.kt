@@ -54,7 +54,6 @@ data class SetPhotoRequest(
     val cropX: Int? = null,
     val cropY: Int? = null
 ) {
-    companion object {}
 
     fun toMap(): Map<String, List<Any>> {
         val request = mutableMapOf<String, List<Any>>()
@@ -65,5 +64,7 @@ data class SetPhotoRequest(
 
         return request
     }
+
+    companion object
 }
 

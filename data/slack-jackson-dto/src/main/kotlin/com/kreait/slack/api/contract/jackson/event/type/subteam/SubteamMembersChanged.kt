@@ -17,6 +17,9 @@ data class SubteamMembersChanged(
     @JsonProperty("removed_users") val removedUserIds: Set<String>,
     @JsonProperty("removed_users_count") val removedUserCount: String
 ) : Event(type) {
+
+    override fun slackTypeString() = TYPE
+
     companion object {
         /**
          * The membership of an existing User Group has changed
@@ -24,6 +27,4 @@ data class SubteamMembersChanged(
          */
         const val TYPE = "subteam_members_changed"
     }
-
-    override fun slackTypeString() = TYPE
 }

@@ -49,11 +49,11 @@ data class ErrorInfoResponse constructor(
  */
 data class InfoRequest(private val userId: String, private val includeLocale: Boolean? = null) {
 
-    companion object
-
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf("user" to userId)
         includeLocale?.let { requestMap.put("include_locale", it.toString()) }
         return requestMap
     }
+
+    companion object
 }

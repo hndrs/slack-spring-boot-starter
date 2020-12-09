@@ -10,6 +10,9 @@ data class SubteamCreated(
     override val type: String,
     @JsonProperty("subteam") val userGroup: UserGroup
 ) : Event(type) {
+
+    override fun slackTypeString() = TYPE
+
     companion object {
         /**
          * A User Group has been added to the workspace
@@ -17,6 +20,4 @@ data class SubteamCreated(
          */
         const val TYPE = "subteam_created"
     }
-
-    override fun slackTypeString() = TYPE
 }

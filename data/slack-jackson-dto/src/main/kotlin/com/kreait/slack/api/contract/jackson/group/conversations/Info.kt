@@ -64,7 +64,6 @@ data class ConversationsInfoRequest constructor(
     @JsonProperty("include_locale") val includeLocale: Boolean = false,
     @JsonProperty("include_num_members") val includeNumMembers: Boolean = false
 ) {
-    companion object
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf("channel" to channel)
@@ -72,4 +71,6 @@ data class ConversationsInfoRequest constructor(
         requestMap["include_num_members"] = includeNumMembers.toString()
         return requestMap
     }
+
+    companion object
 }

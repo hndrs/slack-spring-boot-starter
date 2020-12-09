@@ -53,7 +53,6 @@ data class UsergroupsUsersListRequest(
     @JsonProperty("usergroup") val usergroupId: String,
     @JsonProperty("include_disabled") val includeDisabled: Boolean?
 ) {
-    companion object
 
     fun toRequestMap(): MutableMap<String, String> {
         val request = mutableMapOf<String, String>()
@@ -61,4 +60,6 @@ data class UsergroupsUsersListRequest(
         includeDisabled?.let { request.put("include_disabled", it.toString()) }
         return request
     }
+
+    companion object
 }

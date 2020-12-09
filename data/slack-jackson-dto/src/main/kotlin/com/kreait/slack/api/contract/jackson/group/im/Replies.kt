@@ -61,12 +61,12 @@ data class ImRepliesRequest(
     private val thread_ts: String
 ) {
 
-    companion object
-
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()
         channel.let { requestMap.put("channel", it) }
         thread_ts.let { requestMap.put("thread_ts", it) }
         return requestMap
     }
+
+    companion object
 }

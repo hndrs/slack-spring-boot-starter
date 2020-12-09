@@ -11,6 +11,8 @@ data class TeamJoin(
     @JsonProperty("user") val member: Member
 ) : Event(type) {
 
+    override fun slackTypeString() = TYPE
+
     companion object {
         /**
          * A new member has joined
@@ -18,6 +20,5 @@ data class TeamJoin(
          */
         const val TYPE = "team_join"
     }
-
-    override fun slackTypeString() = TYPE
+    
 }

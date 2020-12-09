@@ -72,7 +72,6 @@ data class ImHistoryRequest(
     private val oldest: String? = null,
     private val unreads: Boolean? = false
 ) {
-    companion object {}
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf("channel" to channel)
@@ -83,4 +82,6 @@ data class ImHistoryRequest(
         unreads?.let { requestMap.put("unreads", it.toString()) }
         return requestMap
     }
+
+    companion object
 }

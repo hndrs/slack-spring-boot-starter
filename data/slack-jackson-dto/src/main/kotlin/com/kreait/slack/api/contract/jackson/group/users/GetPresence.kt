@@ -61,7 +61,8 @@ data class ErrorGetPresenceResponse constructor(
  * @property user User to get presence info on. Defaults to the authed user.
  */
 data class GetPresenceRequest(@JsonProperty("user") val user: String) {
-    companion object
 
     fun toRequestMap() = mutableMapOf("user" to user)
+
+    companion object
 }
