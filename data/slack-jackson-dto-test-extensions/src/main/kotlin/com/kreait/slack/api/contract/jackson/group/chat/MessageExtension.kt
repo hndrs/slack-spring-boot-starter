@@ -6,12 +6,12 @@ import com.kreait.slack.api.contract.jackson.common.messaging.sample
 import com.kreait.slack.api.contract.jackson.common.types.Message
 
 fun Message.Companion.sample(): Message = Message(
-        "",
-        "",
-        "",
-        InstantSample.sample(),
-        "",
-        listOf(),
-        listOf(Block.Action.sample()),
-        ""
+    "",
+    "",
+    "",
+    InstantSample.sample(),
+    "",
+    listOf(),
+    listOf(Block.Action.sample()),
+    ""
 )

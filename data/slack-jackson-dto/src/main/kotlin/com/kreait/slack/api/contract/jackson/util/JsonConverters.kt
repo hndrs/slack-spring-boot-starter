@@ -38,12 +38,14 @@ object JsonConverters {
 
     class InstantToUnixTimestampIntSerializer : JsonSerializer<Instant>() {
 
-        override fun serialize(value: Instant, gen: JsonGenerator, serializers: SerializerProvider?) = gen.writeNumber(value.epochSecond)
+        override fun serialize(value: Instant, gen: JsonGenerator, serializers: SerializerProvider?) =
+            gen.writeNumber(value.epochSecond)
 
     }
 
     class UnixTimestampIntToInstantDeserializer : JsonDeserializer<Instant>() {
 
-        override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): Instant = Instant.ofEpochSecond(p.longValue)
+        override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): Instant =
+            Instant.ofEpochSecond(p.longValue)
     }
 }

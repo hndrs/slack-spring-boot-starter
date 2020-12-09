@@ -8,4 +8,5 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/reminders.list
  */
-abstract class RemindersListMethod : ApiCallMethod<RemindersListMethod, SuccessfulRemindersListResponse, ErrorRemindersListResponse, Unit>()
+abstract class RemindersListMethod :
+    ApiCallMethod<RemindersListMethod, SuccessfulRemindersListResponse, ErrorRemindersListResponse, Unit>()

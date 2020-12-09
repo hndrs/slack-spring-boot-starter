@@ -7,13 +7,15 @@ import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.types.Group
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGroupsListResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGroupsListResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulGroupsListResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorGroupsListResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -27,9 +29,10 @@ sealed class GroupsListResponse constructor(@JsonProperty("ok") open val ok: Boo
  * @property responseMetadata metadata used for paging
  */
 data class SuccessfulGroupsListResponse(
-        override val ok: Boolean,
-        @JsonProperty("groups") val group: List<Group>,
-        @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata) : GroupsListResponse(ok) {
+    override val ok: Boolean,
+    @JsonProperty("groups") val group: List<Group>,
+    @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
+) : GroupsListResponse(ok) {
     companion object
 }
 
@@ -40,8 +43,8 @@ data class SuccessfulGroupsListResponse(
  * @property error contains the error description
  */
 data class ErrorGroupsListResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : GroupsListResponse(ok) {
     companion object
 }
@@ -54,9 +57,11 @@ data class ErrorGroupsListResponse constructor(
  * @property excludeMembers determines if members should be excluded
  * @property limit the max-count of groups you want to request
  */
-data class GroupsListRequest(@JsonProperty("cursor") val cursor: String,
-                             @JsonProperty("exclude_archived") val excludeArchived: Boolean? = null,
-                             @JsonProperty("exclude_members") val excludeMembers: Boolean? = null,
-                             @JsonProperty("limit") val limit: Int? = null) {
+data class GroupsListRequest(
+    @JsonProperty("cursor") val cursor: String,
+    @JsonProperty("exclude_archived") val excludeArchived: Boolean? = null,
+    @JsonProperty("exclude_members") val excludeMembers: Boolean? = null,
+    @JsonProperty("limit") val limit: Int? = null
+) {
     companion object
 }

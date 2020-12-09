@@ -9,4 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/reminders.complete
  */
-abstract class RemindersCompleteMethod : ApiCallMethod<RemindersCompleteMethod, SuccessfulRemindersCompleteResponse, ErrorRemindersCompleteResponse, RemindersCompleteRequest>()
+abstract class RemindersCompleteMethod :
+    ApiCallMethod<RemindersCompleteMethod, SuccessfulRemindersCompleteResponse,
+            ErrorRemindersCompleteResponse, RemindersCompleteRequest>()

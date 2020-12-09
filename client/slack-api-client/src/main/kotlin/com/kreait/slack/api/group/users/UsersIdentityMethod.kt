@@ -9,5 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/users.identity
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UsersIdentityMethod : ApiCallMethod<UsersIdentityMethod, SuccessfulIdentityResponse, ErrorIdentityResponse, Unit>()
+abstract class UsersIdentityMethod :
+    ApiCallMethod<UsersIdentityMethod, SuccessfulIdentityResponse, ErrorIdentityResponse, Unit>()
 

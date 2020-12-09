@@ -4,10 +4,10 @@ import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.sample
 
 fun SuccessfulConversationJoinResponse.Companion.sample() = SuccessfulConversationJoinResponse(
-        true,
-        SuccessfulConversationJoinResponse.Channel.sample(),
-        "",
-        ResponseMetadata.sample()
+    true,
+    SuccessfulConversationJoinResponse.Channel.sample(),
+    "",
+    ResponseMetadata.sample()
 )
 
 fun ErrorConversationJoinResponse.Companion.sample() = ErrorConversationJoinResponse(false, "")

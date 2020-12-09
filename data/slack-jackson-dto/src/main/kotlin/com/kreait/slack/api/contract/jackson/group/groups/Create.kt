@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.types.Group
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGroupsCreateResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGroupsCreateResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulGroupsCreateResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorGroupsCreateResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -25,8 +27,9 @@ sealed class GroupsCreateResponse constructor(@JsonProperty("ok") open val ok: B
  * @property group the created group object
  */
 data class SuccessfulGroupsCreateResponse(
-        override val ok: Boolean,
-        @JsonProperty("group") val group: Group) : GroupsCreateResponse(ok) {
+    override val ok: Boolean,
+    @JsonProperty("group") val group: Group
+) : GroupsCreateResponse(ok) {
     companion object
 }
 
@@ -37,8 +40,8 @@ data class SuccessfulGroupsCreateResponse(
  * @property error contains the error description
  */
 data class ErrorGroupsCreateResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : GroupsCreateResponse(ok) {
     companion object
 }
@@ -49,7 +52,9 @@ data class ErrorGroupsCreateResponse constructor(
  * @property name the name of the group you want to create
  * @property validate Whether to return errors on invalid channel name instead of modifying it to meet the specified criteria.
  */
-data class GroupsCreateRequest(@JsonProperty("name") val name: String,
-                               @JsonProperty("validate") val validate: Boolean = true) {
+data class GroupsCreateRequest(
+    @JsonProperty("name") val name: String,
+    @JsonProperty("validate") val validate: Boolean = true
+) {
     companion object
 }

@@ -15,18 +15,20 @@ internal class InstantConverterTests {
 
 
     @JacksonDataClass
-    data class InstantValueHolder(@InstantToInt
-                                  @param:JsonProperty("createdAt")
-                                  @field:JsonProperty("createdAt") val createdAt: Instant,
-                                  @InstantToString
-                                  @param:JsonProperty("ts")
-                                  @field:JsonProperty("ts") val timestamp: Instant)
+    data class InstantValueHolder(
+        @InstantToInt
+        @param:JsonProperty("createdAt")
+        @field:JsonProperty("createdAt") val createdAt: Instant,
+        @InstantToString
+        @param:JsonProperty("ts")
+        @field:JsonProperty("ts") val timestamp: Instant
+    )
 
     val mapper = Jackson2ObjectMapperBuilder
-            .json()
-            .serializationInclusion(JsonInclude.Include.NON_NULL)
-            .failOnUnknownProperties(false)
-            .build<ObjectMapper>()
+        .json()
+        .serializationInclusion(JsonInclude.Include.NON_NULL)
+        .failOnUnknownProperties(false)
+        .build<ObjectMapper>()
 
     @Test
     @DisplayName("Serialization")
@@ -46,12 +48,16 @@ internal class InstantConverterTests {
     @DisplayName("Deserialization")
     fun deserializationTests() {
         val sampleInstant = Instant.now()
-        val sample = "{\"createdAt\":${sampleInstant.epochSecond},\"ts\":${sampleInstant.epochSecond}.${sampleInstant.micros()}}"
+        val sample =
+            "{\"createdAt\":${sampleInstant.epochSecond},\"ts\":${sampleInstant.epochSecond}.${sampleInstant.micros()}}"
 
         val deserializedValue = mapper.readValue(sample, InstantValueHolder::class.java)
 
         Assertions.assertEquals(Instant.ofEpochSecond(sampleInstant.epochSecond), deserializedValue.createdAt)
-        Assertions.assertEquals(Instant.ofEpochSecond(sampleInstant.epochSecond, sampleInstant.micros() * 1000), deserializedValue.timestamp)
+        Assertions.assertEquals(
+            Instant.ofEpochSecond(sampleInstant.epochSecond, sampleInstant.micros() * 1000),
+            deserializedValue.timestamp
+        )
     }
 
 

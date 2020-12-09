@@ -7,7 +7,10 @@ import java.time.Instant
 fun ChannelsHistoryRequest.Companion.sample(): ChannelsHistoryRequest = ChannelsHistoryRequest("")
 
 fun SuccessfulChannelsHistoryResponse.Companion.sample(): SuccessfulChannelsHistoryResponse =
-        SuccessfulChannelsHistoryResponse(true, listOf(Message.sample()),
-                Instant.ofEpochSecond(10000), false)
+    SuccessfulChannelsHistoryResponse(
+        true, listOf(Message.sample()),
+        Instant.ofEpochSecond(10000), false
+    )
 
-fun ErrorChannelsHistoryResponse.Companion.sample(): ErrorChannelsHistoryResponse = ErrorChannelsHistoryResponse(false, "")
+fun ErrorChannelsHistoryResponse.Companion.sample(): ErrorChannelsHistoryResponse =
+    ErrorChannelsHistoryResponse(false, "")

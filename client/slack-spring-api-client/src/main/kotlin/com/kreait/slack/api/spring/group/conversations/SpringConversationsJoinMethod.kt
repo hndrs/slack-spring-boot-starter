@@ -1,3 +1,4 @@
+
 package com.kreait.slack.api.spring.group.conversations
 
 import com.kreait.slack.api.contract.jackson.group.conversations.ConversationJoinResponse

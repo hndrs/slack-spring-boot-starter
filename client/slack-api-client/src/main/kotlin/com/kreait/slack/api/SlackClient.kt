@@ -15,6 +15,7 @@ import com.kreait.slack.api.group.users.UsersMethodGroup
 /**
  * Slack client specification to interact with the slack api
  */
+@Suppress("ComplexInterface")
 interface SlackClient {
 
     /**

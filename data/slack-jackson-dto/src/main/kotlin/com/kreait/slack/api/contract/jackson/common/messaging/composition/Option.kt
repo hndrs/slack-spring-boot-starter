@@ -14,9 +14,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @see [Text]
  * @see [Slack API Documentation](https://api.slack.com/reference/messaging/composition-objects#option)
  */
-data class Option(@JsonProperty("text") val text: Text,
-                  @JsonProperty("value") val value: String,
-                  @JsonProperty("url") val url: String? = "") {
+data class Option(
+    @JsonProperty("text") val text: Text,
+    @JsonProperty("value") val value: String,
+    @JsonProperty("url") val url: String? = ""
+) {
     companion object
 }
 
@@ -31,7 +33,9 @@ data class Option(@JsonProperty("text") val text: Text,
  *
  * @see [Slack API Documentation](https://api.slack.com/reference/messaging/composition-objects#option-group)
  */
-data class OptionGroup(@JsonProperty("label") val text: Text,
-                       @JsonProperty("value") val options: List<Option>) {
+data class OptionGroup(
+    @JsonProperty("label") val text: Text,
+    @JsonProperty("value") val options: List<Option>
+) {
     companion object
 }

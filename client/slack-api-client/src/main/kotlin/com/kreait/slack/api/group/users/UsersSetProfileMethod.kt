@@ -11,5 +11,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/users.profile.set
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UsersSetProfileMethod : ApiCallMethod<UsersSetProfileMethod, SuccessfulSetProfileResponse, ErrorSetProfileResponse, SetProfileRequest>()
+abstract class UsersSetProfileMethod :
+    ApiCallMethod<UsersSetProfileMethod, SuccessfulSetProfileResponse, ErrorSetProfileResponse, SetProfileRequest>()
 

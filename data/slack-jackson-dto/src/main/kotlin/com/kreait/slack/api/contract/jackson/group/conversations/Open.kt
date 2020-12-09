@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulConversationOpenResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorConversationOpenResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulConversationOpenResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorConversationOpenResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ConversationOpenResponse constructor(@JsonProperty("ok") open val ok: Boolean) {
@@ -25,9 +27,10 @@ sealed class ConversationOpenResponse constructor(@JsonProperty("ok") open val o
  * @property channel the new channel object
  */
 @JacksonDataClass
-data class SuccessfulConversationOpenResponse constructor(override val ok: Boolean,
-                                                          @JsonProperty("channel") val channel: Channel)
-    : ConversationOpenResponse(ok) {
+data class SuccessfulConversationOpenResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("channel") val channel: Channel
+) : ConversationOpenResponse(ok) {
 
     companion object
 
@@ -45,8 +48,10 @@ data class SuccessfulConversationOpenResponse constructor(override val ok: Boole
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorConversationOpenResponse constructor(override val ok: Boolean, @JsonProperty("error") val error: String)
-    : ConversationOpenResponse(ok) {
+data class ErrorConversationOpenResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ConversationOpenResponse(ok) {
     companion object
 }
 
@@ -58,9 +63,11 @@ data class ErrorConversationOpenResponse constructor(override val ok: Boolean, @
  * @property users Comma separated lists of users. If only one user is included, this creates a 1:1 DM. The ordering of the users is preserved whenever a multi-person direct message is returned. Supply a channel when not supplying users.
  */
 @JacksonDataClass
-data class ConversationsOpenRequest constructor(@JsonProperty("channel") val channelId: String? = null,
-                                                @JsonProperty("return_im") val shouldReturnIm: Boolean? = null,
-                                                @JsonProperty("users") val users: List<String>? = null) {
+data class ConversationsOpenRequest constructor(
+    @JsonProperty("channel") val channelId: String? = null,
+    @JsonProperty("return_im") val shouldReturnIm: Boolean? = null,
+    @JsonProperty("users") val users: List<String>? = null
+) {
     companion object
 }
 

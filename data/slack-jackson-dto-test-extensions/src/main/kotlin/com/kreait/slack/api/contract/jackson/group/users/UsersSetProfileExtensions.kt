@@ -5,10 +5,12 @@ fun SuccessfulSetProfileResponse.Companion.sample(): SuccessfulSetProfileRespons
 }
 
 fun SuccessfulSetProfileResponse.Profile.Companion.sample(): SuccessfulSetProfileResponse.Profile {
-    return SuccessfulSetProfileResponse.Profile("", "", "", "",
-            mapOf(), "", "", "", "", "", "", "",
-            "", "", "", "", "", "", 0, "",
-            "", "")
+    return SuccessfulSetProfileResponse.Profile(
+        "", "", "", "",
+        mapOf(), "", "", "", "", "", "", "",
+        "", "", "", "", "", "", 0, "",
+        "", ""
+    )
 }
 
 fun ErrorSetProfileResponse.Companion.sample(): ErrorSetProfileResponse {

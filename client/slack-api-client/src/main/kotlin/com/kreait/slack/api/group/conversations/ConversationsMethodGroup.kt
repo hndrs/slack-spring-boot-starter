@@ -5,6 +5,7 @@ package com.kreait.slack.api.group.conversations
  *
  *  [Slack Api Documentation](https://api.slack.com/methods)
  */
+@Suppress("ComplexInterface")
 interface ConversationsMethodGroup {
 
 

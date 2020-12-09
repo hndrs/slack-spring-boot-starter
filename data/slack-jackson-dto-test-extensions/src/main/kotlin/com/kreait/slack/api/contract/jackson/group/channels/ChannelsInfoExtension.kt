@@ -5,6 +5,7 @@ import com.kreait.slack.api.contract.jackson.common.types.sample
 
 fun ChannelsInfoRequest.Companion.sample(): ChannelsInfoRequest = ChannelsInfoRequest("")
 
-fun SuccessfulChannelInfoResponse.Companion.sample(): SuccessfulChannelInfoResponse = SuccessfulChannelInfoResponse(true, Channel.sample())
+fun SuccessfulChannelInfoResponse.Companion.sample(): SuccessfulChannelInfoResponse =
+    SuccessfulChannelInfoResponse(true, Channel.sample())
 
 fun ErrorChannelInfoResponse.Companion.sample(): ErrorChannelInfoResponse = ErrorChannelInfoResponse(false, "")

@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGroupsLeaveResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGroupsLeaveResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulGroupsLeaveResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorGroupsLeaveResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -33,8 +35,8 @@ data class SuccessfulGroupsLeaveResponse(override val ok: Boolean) : GroupsLeave
  * @property error contains the error description
  */
 data class ErrorGroupsLeaveResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : GroupsLeaveResponse(ok) {
     companion object
 }

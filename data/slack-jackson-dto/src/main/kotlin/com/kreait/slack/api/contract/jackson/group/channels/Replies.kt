@@ -8,14 +8,16 @@ import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelsRepliesResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelsRepliesResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulChannelsRepliesResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorChannelsRepliesResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -33,7 +35,7 @@ data class SuccessfulChannelsRepliesResponse constructor(
     override val ok: Boolean,
     @JsonProperty("messages") val messages: List<Message>,
     @JsonProperty("has_more") val hasMore: Boolean = false
-)   : ChannelsRepliesResponse(ok) {
+) : ChannelsRepliesResponse(ok) {
     companion object
 }
 
@@ -44,10 +46,11 @@ data class SuccessfulChannelsRepliesResponse constructor(
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorChannelsRepliesResponse constructor(override val ok: Boolean,
-                                                    @JsonProperty("error") val error: String,
-                                                    @JsonProperty("detail") val detail: String)
-    : ChannelsRepliesResponse(ok) {
+data class ErrorChannelsRepliesResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String,
+    @JsonProperty("detail") val detail: String
+) : ChannelsRepliesResponse(ok) {
     companion object
 }
 
@@ -58,8 +61,10 @@ data class ErrorChannelsRepliesResponse constructor(override val ok: Boolean,
  * @property threadTimestamp Unique identifier of a thread's parent message
  */
 @JacksonDataClass
-data class ChannelsRepliesRequest constructor(@JsonProperty("channel") val channelId: String,
-                                              @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant) {
+data class ChannelsRepliesRequest constructor(
+    @JsonProperty("channel") val channelId: String,
+    @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant
+) {
 
     companion object {}
 

@@ -28,31 +28,31 @@ import java.time.Instant
  */
 @JacksonDataClass
 data class UserGroup(
-        @JsonProperty("id") val id: String,
-        @JsonProperty("team_id") val teamId: String,
-        @JsonProperty("is_usergroup") val isUserGroup: Boolean,
-        @JsonProperty("name") val name: String,
-        @JsonProperty("description") val description: String,
-        @JsonProperty("handle") val handle: String,
-        @JsonProperty("is_external") val isExternal: Boolean,
-        @InstantToInt @JsonProperty("date_create") val createdAt: Instant,
-        @InstantToInt @JsonProperty("date_update") val updatedAt: Instant,
-        @InstantToInt @JsonProperty("date_delete") val deletedAt: Instant,
-        @JsonProperty("auto_type") val autoType: AutoType,
-        @JsonProperty("created_by") val createdBy: String,
-        @JsonProperty("updated_by") val updatedBy: String,
-        @JsonProperty("deleted_by") val deletedBy: String?,
-        @JsonProperty("prefs") val prefs: Prefs,
-        @JsonProperty("users") val userIds: List<String>,
-        @JsonProperty("user_count") val userCount: Int
+    @JsonProperty("id") val id: String,
+    @JsonProperty("team_id") val teamId: String,
+    @JsonProperty("is_usergroup") val isUserGroup: Boolean,
+    @JsonProperty("name") val name: String,
+    @JsonProperty("description") val description: String,
+    @JsonProperty("handle") val handle: String,
+    @JsonProperty("is_external") val isExternal: Boolean,
+    @InstantToInt @JsonProperty("date_create") val createdAt: Instant,
+    @InstantToInt @JsonProperty("date_update") val updatedAt: Instant,
+    @InstantToInt @JsonProperty("date_delete") val deletedAt: Instant,
+    @JsonProperty("auto_type") val autoType: AutoType,
+    @JsonProperty("created_by") val createdBy: String,
+    @JsonProperty("updated_by") val updatedBy: String,
+    @JsonProperty("deleted_by") val deletedBy: String?,
+    @JsonProperty("prefs") val prefs: Prefs,
+    @JsonProperty("users") val userIds: List<String>,
+    @JsonProperty("user_count") val userCount: Int
 ) {
     companion object
 }
 
 @JacksonDataClass
 data class Prefs(
-        @JsonProperty("channels") val channelIds: List<String>,
-        @JsonProperty("groups") val groupIds: List<String>
+    @JsonProperty("channels") val channelIds: List<String>,
+    @JsonProperty("groups") val groupIds: List<String>
 ) {
     companion object
 }

@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulConversationSetPurposeResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorConversationSetPurposeResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulConversationSetPurposeResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorConversationSetPurposeResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -24,8 +26,8 @@ sealed class ConversationSetPurposeResponse constructor(@JsonProperty("ok") open
  * @property purpose the new purpose
  */
 data class SuccessfulConversationSetPurposeResponse(
-        override val ok: Boolean,
-        @JsonProperty("purpose") val purpose: String
+    override val ok: Boolean,
+    @JsonProperty("purpose") val purpose: String
 ) : ConversationSetPurposeResponse(ok) {
     companion object
 }
@@ -38,8 +40,8 @@ data class SuccessfulConversationSetPurposeResponse(
  */
 @JacksonDataClass
 data class ErrorConversationSetPurposeResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : ConversationSetPurposeResponse(ok) {
     companion object
 }
@@ -50,7 +52,9 @@ data class ErrorConversationSetPurposeResponse constructor(
  * @property channel the channel-id of the channel you want to set the Purpose for
  * @property purpose the purpose you want to set
  */
-data class ConversationsSetPurposeRequest(private val channel: String,
-                                          private val purpose: String) {
+data class ConversationsSetPurposeRequest(
+    private val channel: String,
+    private val purpose: String
+) {
     companion object
 }

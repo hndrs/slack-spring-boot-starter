@@ -7,13 +7,15 @@ import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulConversationRepliesResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorConversationRepliesResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulConversationRepliesResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorConversationRepliesResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ConversationRepliesResponse constructor(@JsonProperty("ok") open val ok: Boolean) {
@@ -45,8 +47,10 @@ data class SuccessfulConversationRepliesResponse constructor(
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorConversationRepliesResponse constructor(override val ok: Boolean, @JsonProperty("error") val error: String)
-    : ConversationRepliesResponse(ok) {
+data class ErrorConversationRepliesResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ConversationRepliesResponse(ok) {
     companion object
 }
 
@@ -61,13 +65,14 @@ data class ErrorConversationRepliesResponse constructor(override val ok: Boolean
  * @property limit The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.
  * @property oldest Start of time range of messages to include in results.
  */
-data class ConversationsRepliesRequest constructor(val channelId: String,
-                                                   val timestamp: String,
-                                                   val cursor: String? = null,
-                                                   val inclusive: Boolean? = null,
-                                                   val latest: String? = null,
-                                                   val limit: Int? = null,
-                                                   val oldest: String? = null
+data class ConversationsRepliesRequest constructor(
+    val channelId: String,
+    val timestamp: String,
+    val cursor: String? = null,
+    val inclusive: Boolean? = null,
+    val latest: String? = null,
+    val limit: Int? = null,
+    val oldest: String? = null
 ) {
 
     fun toRequestMap(): MutableMap<String, String> {

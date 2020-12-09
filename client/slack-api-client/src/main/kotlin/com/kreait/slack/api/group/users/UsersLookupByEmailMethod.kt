@@ -11,4 +11,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/users.lookupByEmail
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UsersLookupByEmailMethod : ApiCallMethod<UsersLookupByEmailMethod, SuccessfulLookupByEmailResponse, ErrorLookupByEmailResponse, LookupByEmailRequest>()
+abstract class UsersLookupByEmailMethod :
+    ApiCallMethod<UsersLookupByEmailMethod, SuccessfulLookupByEmailResponse,
+            ErrorLookupByEmailResponse, LookupByEmailRequest>()

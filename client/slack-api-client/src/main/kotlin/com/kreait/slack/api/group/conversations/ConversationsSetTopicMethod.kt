@@ -9,4 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/conversations.setTopic
  */
-abstract class ConversationsSetTopicMethod : ApiCallMethod<ConversationsSetTopicMethod, SuccessfulConversationSetTopicResponse, ErrorConversationSetTopicResponse, ConversationsSetTopicRequest>()
+abstract class ConversationsSetTopicMethod :
+    ApiCallMethod<ConversationsSetTopicMethod, SuccessfulConversationSetTopicResponse,
+            ErrorConversationSetTopicResponse, ConversationsSetTopicRequest>()

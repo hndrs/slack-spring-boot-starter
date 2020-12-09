@@ -8,8 +8,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulSetPresenceResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorSetPresenceResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulSetPresenceResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorSetPresenceResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class SetPresenceResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -19,8 +19,7 @@ sealed class SetPresenceResponse constructor(@JsonProperty("ok") open val ok: Bo
  *
  * @property ok will be true
  */
-data class SuccessfulSetPresenceResponse constructor(override val ok: Boolean)
-    : SetPresenceResponse(ok) {
+data class SuccessfulSetPresenceResponse constructor(override val ok: Boolean) : SetPresenceResponse(ok) {
     companion object
 }
 
@@ -31,9 +30,10 @@ data class SuccessfulSetPresenceResponse constructor(override val ok: Boolean)
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorSetPresenceResponse constructor(override val ok: Boolean,
-                                                @JsonProperty("error") val error: String)
-    : SetPresenceResponse(ok) {
+data class ErrorSetPresenceResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : SetPresenceResponse(ok) {
     companion object
 }
 

@@ -11,27 +11,31 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  * @property type the type of the event
  * @property token the token that can be used for further actions
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "type",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "type",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SlackChallenge::class, name = "url_verification"),
-        JsonSubTypes.Type(value = SlackEvent::class, name = "event_callback")
+    JsonSubTypes.Type(value = SlackChallenge::class, name = "url_verification"),
+    JsonSubTypes.Type(value = SlackEvent::class, name = "event_callback")
 )
 @JacksonDataClass
-abstract class EventRequest constructor(@JsonProperty("type") open val type: String,
-                                        @JsonProperty("token") open val token: String)
+abstract class EventRequest constructor(
+    @JsonProperty("type") open val type: String,
+    @JsonProperty("token") open val token: String
+)
 
 /**
  * The challenge parameter which is only used to verify the events endpoint
  */
 @JacksonDataClass
 data class SlackChallenge constructor(
-        override val type: String,
-        override val token: String,
-        @JsonProperty("challenge") val challenge: String)
-    : EventRequest(type, token) {
+    override val type: String,
+    override val token: String,
+    @JsonProperty("challenge") val challenge: String
+) : EventRequest(type, token) {
     companion object
 }
 
@@ -50,14 +54,14 @@ data class SlackChallenge constructor(
  */
 @JacksonDataClass
 data class SlackEvent constructor(
-        override val type: String,
-        override val token: String,
-        @JsonProperty("team_id") val teamId: String,
-        @JsonProperty("api_app_id") val apiAppId: String,
-        @JsonProperty("authed_users") val authedUsers: Set<String>?,
-        @JsonProperty("event_id") val eventId: String,
-        @JsonProperty("event_time") val eventTime: Int,
-        @JsonProperty("event") val event: Map<String, Any>
+    override val type: String,
+    override val token: String,
+    @JsonProperty("team_id") val teamId: String,
+    @JsonProperty("api_app_id") val apiAppId: String,
+    @JsonProperty("authed_users") val authedUsers: Set<String>?,
+    @JsonProperty("event_id") val eventId: String,
+    @JsonProperty("event_time") val eventTime: Int,
+    @JsonProperty("event") val event: Map<String, Any>
 ) : EventRequest(type, token) {
 
     fun isOfType(type: String): Boolean = this.event["type"] == type

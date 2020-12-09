@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGroupsOpenResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGroupsOpenResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulGroupsOpenResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorGroupsOpenResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -24,9 +26,11 @@ sealed class GroupsOpenResponse constructor(@JsonProperty("ok") open val ok: Boo
  * @property noOp true if the channel is already open
  * @property isAlreadyOpen true if the channel is already open
  */
-data class SuccessfulGroupsOpenResponse(override val ok: Boolean,
-                                        @JsonProperty("no_op") val noOp: Boolean? = null,
-                                        @JsonProperty("already_open") val isAlreadyOpen: Boolean? = null) : GroupsOpenResponse(ok) {
+data class SuccessfulGroupsOpenResponse(
+    override val ok: Boolean,
+    @JsonProperty("no_op") val noOp: Boolean? = null,
+    @JsonProperty("already_open") val isAlreadyOpen: Boolean? = null
+) : GroupsOpenResponse(ok) {
     companion object
 }
 
@@ -37,8 +41,8 @@ data class SuccessfulGroupsOpenResponse(override val ok: Boolean,
  * @property error contains the error description
  */
 data class ErrorGroupsOpenResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : GroupsOpenResponse(ok) {
     companion object
 }

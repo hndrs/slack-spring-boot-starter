@@ -12,12 +12,14 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  * https://api.slack.com/dialogs#text_elements
  */
 @JacksonDataClass
-data class TextElement constructor(@JsonProperty("label") override val label: String,
-                                   @JsonProperty("name") override val name: String,
-                                   @JsonProperty("type") override val type: Type,
-                                   @JsonProperty("placeholder") val placeholder: String,
-                                   @JsonProperty("value") val value: String = "",
-                                   @JsonProperty("hint") val hint: String? = "") : Element(label, type, name)
+data class TextElement constructor(
+    @JsonProperty("label") override val label: String,
+    @JsonProperty("name") override val name: String,
+    @JsonProperty("type") override val type: Type,
+    @JsonProperty("placeholder") val placeholder: String,
+    @JsonProperty("value") val value: String = "",
+    @JsonProperty("hint") val hint: String? = ""
+) : Element(label, type, name)
 
 @JsonSerialize(using = Subtype.Serializer::class)
 enum class Subtype {
@@ -51,32 +53,40 @@ enum class Type {
  * https://api.slack.com/dialogs#textarea_elements
  */
 @JacksonDataClass
-data class TextAreaElement constructor(@JsonProperty("label") override val label: String,
-                                       @JsonProperty("name") override val name: String,
-                                       @JsonProperty("type") override val type: Type,
-                                       @JsonProperty("value") val value: String = "",
-                                       @JsonProperty("hint") val hint: String = "") : Element(label, type, name)
+data class TextAreaElement constructor(
+    @JsonProperty("label") override val label: String,
+    @JsonProperty("name") override val name: String,
+    @JsonProperty("type") override val type: Type,
+    @JsonProperty("value") val value: String = "",
+    @JsonProperty("hint") val hint: String = ""
+) : Element(label, type, name)
 
 /**
  * https://api.slack.com/dialogs#select_elements
  */
 @JacksonDataClass
-data class SelectElement constructor(@JsonProperty("label") override val label: String,
-                                     @JsonProperty("name") override val name: String,
-                                     @JsonProperty("type") override val type: Type,
-                                     @JsonProperty("options") val options: List<Options>,
-                                     @JsonProperty("hint") val hint: String? = "",
-                                     @JsonProperty("value") val value: String = "") : Element(label, type, name)
+data class SelectElement constructor(
+    @JsonProperty("label") override val label: String,
+    @JsonProperty("name") override val name: String,
+    @JsonProperty("type") override val type: Type,
+    @JsonProperty("options") val options: List<Options>,
+    @JsonProperty("hint") val hint: String? = "",
+    @JsonProperty("value") val value: String = ""
+) : Element(label, type, name)
 
 @JacksonDataClass
-data class Options constructor(@JsonProperty("label") val label: String,
-                               @JsonProperty("value") val value: String)
+data class Options constructor(
+    @JsonProperty("label") val label: String,
+    @JsonProperty("value") val value: String
+)
 
 @JacksonDataClass
-data class DynamicSelectElement constructor(@JsonProperty("label") override val label: String,
-                                            @JsonProperty("name") override val name: String,
-                                            @JsonProperty("type") override val type: Type,
-                                            @JsonProperty("data_source") val dataSource: DataSource) : Element(label, type, name)
+data class DynamicSelectElement constructor(
+    @JsonProperty("label") override val label: String,
+    @JsonProperty("name") override val name: String,
+    @JsonProperty("type") override val type: Type,
+    @JsonProperty("data_source") val dataSource: DataSource
+) : Element(label, type, name)
 
 @JsonSerialize(using = DataSource.Serializer::class)
 enum class DataSource {

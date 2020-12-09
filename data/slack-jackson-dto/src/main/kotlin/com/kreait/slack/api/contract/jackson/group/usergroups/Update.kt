@@ -11,8 +11,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUpdateResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUpdateResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulUpdateResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorUpdateResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -24,9 +24,10 @@ sealed class UpdateResponse constructor(@JsonProperty("ok") open val ok: Boolean
  * @property ok will be true
  */
 @JacksonDataClass
-data class SuccessfulUpdateResponse constructor(override val ok: Boolean,
-                                                @JsonProperty("usergroup") val userGroup: UserGroup)
-    : UpdateResponse(ok) {
+data class SuccessfulUpdateResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("usergroup") val userGroup: UserGroup
+) : UpdateResponse(ok) {
     companion object
 }
 
@@ -37,9 +38,10 @@ data class SuccessfulUpdateResponse constructor(override val ok: Boolean,
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorUpdateResponse constructor(override val ok: Boolean,
-                                           @JsonProperty("error") val error: String)
-    : UpdateResponse(ok) {
+data class ErrorUpdateResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : UpdateResponse(ok) {
     companion object
 }
 
@@ -54,11 +56,13 @@ data class ErrorUpdateResponse constructor(override val ok: Boolean,
  * @property name A name for the User Group. Must be unique among User Groups.
  */
 @JacksonDataClass
-data class UpdateRequest constructor(@JsonProperty("usergroup") val usergroupId: String,
-                                     @JsonProperty("channels") val channels: List<Channel>?,
-                                     @JsonProperty("description") val description: String?,
-                                     @JsonProperty("handle") val handle: String?,
-                                     @JsonProperty("include_count") val includeCount: Boolean?,
-                                     @JsonProperty("name") val name: String?) {
+data class UpdateRequest constructor(
+    @JsonProperty("usergroup") val usergroupId: String,
+    @JsonProperty("channels") val channels: List<Channel>?,
+    @JsonProperty("description") val description: String?,
+    @JsonProperty("handle") val handle: String?,
+    @JsonProperty("include_count") val includeCount: Boolean?,
+    @JsonProperty("name") val name: String?
+) {
     companion object
 }

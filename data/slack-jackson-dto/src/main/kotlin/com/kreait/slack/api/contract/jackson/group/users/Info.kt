@@ -8,8 +8,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulInfoResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorInfoResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulInfoResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorInfoResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class InfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -20,9 +20,10 @@ sealed class InfoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
  * @property ok will be true
  * @property user the users information
  */
-data class SuccessfulInfoResponse constructor(override val ok: Boolean,
-                                              @JsonProperty("user") val user: Member)
-    : InfoResponse(ok) {
+data class SuccessfulInfoResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("user") val user: Member
+) : InfoResponse(ok) {
     companion object
 }
 
@@ -33,9 +34,10 @@ data class SuccessfulInfoResponse constructor(override val ok: Boolean,
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorInfoResponse constructor(override val ok: Boolean,
-                                         @JsonProperty("error") val error: String)
-    : InfoResponse(ok) {
+data class ErrorInfoResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : InfoResponse(ok) {
     companion object
 }
 

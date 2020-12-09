@@ -6,8 +6,10 @@ import com.kreait.slack.api.contract.jackson.event.Event
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JacksonDataClass
-data class UserChange(override val type: String,
-                      @JsonProperty("user") val member: Member) : Event(type) {
+data class UserChange(
+    override val type: String,
+    @JsonProperty("user") val member: Member
+) : Event(type) {
     companion object {
         /**
          * A member's data has changed

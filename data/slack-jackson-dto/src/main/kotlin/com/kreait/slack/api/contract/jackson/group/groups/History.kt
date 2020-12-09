@@ -8,10 +8,12 @@ import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
     include = JsonTypeInfo.As.PROPERTY,
     property = "ok",
-    visible = true)
+    visible = true
+)
 @JsonSubTypes(
     JsonSubTypes.Type(value = SuccessfulGroupsHistoryResponse::class, name = "true"),
     JsonSubTypes.Type(value = ErrorGroupsHistoryResponse::class, name = "false")

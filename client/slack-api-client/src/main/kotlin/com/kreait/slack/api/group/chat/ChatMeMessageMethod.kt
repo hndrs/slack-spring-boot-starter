@@ -10,6 +10,8 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Share a me message into a channel.
  * https://api.slack.com/methods/chat.meMessage
  */
-abstract class ChatMeMessageMethod : ApiCallMethod<ChatMeMessageMethod, SuccessfulChatMeMessageResponse, ErrorChatMeMessageResponse, ChatMeMessageRequest>() {
+abstract class ChatMeMessageMethod :
+    ApiCallMethod<ChatMeMessageMethod, SuccessfulChatMeMessageResponse,
+            ErrorChatMeMessageResponse, ChatMeMessageRequest>() {
 
 }

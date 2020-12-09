@@ -6,14 +6,16 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelsCreateResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelsCreateResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulChannelsCreateResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorChannelsCreateResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -26,9 +28,10 @@ sealed class ChannelsCreateResponse constructor(@JsonProperty("ok") open val ok:
  * @property channel the channel object that was created
  */
 @JacksonDataClass
-data class SuccessfulChannelsCreateResponse constructor(override val ok: Boolean,
-                                                        @JsonProperty("channel") val channel: Channel)
-    : ChannelsCreateResponse(ok) {
+data class SuccessfulChannelsCreateResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("channel") val channel: Channel
+) : ChannelsCreateResponse(ok) {
     companion object
 }
 
@@ -39,10 +42,11 @@ data class SuccessfulChannelsCreateResponse constructor(override val ok: Boolean
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorChannelsCreateResponse constructor(override val ok: Boolean,
-                                                   @JsonProperty("error") val error: String,
-                                                   @JsonProperty("detail") val detail: String)
-    : ChannelsCreateResponse(ok) {
+data class ErrorChannelsCreateResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String,
+    @JsonProperty("detail") val detail: String
+) : ChannelsCreateResponse(ok) {
     companion object
 }
 
@@ -55,8 +59,10 @@ data class ErrorChannelsCreateResponse constructor(override val ok: Boolean,
  * @see [Slack Api Method](https://api.slack.com/methods/channels.create)
  */
 @JacksonDataClass
-data class ChannelsCreateRequest constructor(@JsonProperty("name") val name: String,
-                                             @JsonProperty("validate") val validate: Boolean?) {
+data class ChannelsCreateRequest constructor(
+    @JsonProperty("name") val name: String,
+    @JsonProperty("validate") val validate: Boolean?
+) {
 
     companion object
 }

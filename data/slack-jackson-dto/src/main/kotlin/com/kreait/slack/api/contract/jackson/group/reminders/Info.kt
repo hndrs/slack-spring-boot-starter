@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.group.reminders.common.Reminder
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulRemindersInfoResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorRemindersInfoResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulRemindersInfoResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorRemindersInfoResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -25,8 +27,9 @@ sealed class RemindersInfoResponse constructor(@JsonProperty("ok") open val ok: 
  * @property error
  */
 data class SuccessfulRemindersInfoResponse(
-        override val ok: Boolean,
-        @JsonProperty("reminder") val reminder: Reminder) : RemindersInfoResponse(ok) {
+    override val ok: Boolean,
+    @JsonProperty("reminder") val reminder: Reminder
+) : RemindersInfoResponse(ok) {
     companion object
 }
 
@@ -37,8 +40,8 @@ data class SuccessfulRemindersInfoResponse(
  * @property error contains the error description
  */
 data class ErrorRemindersInfoResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : RemindersInfoResponse(ok) {
     companion object
 }

@@ -15,20 +15,20 @@ import com.kreait.slack.api.contract.jackson.SlackCommand.Companion.USER_NAME_PR
 
 fun SlackCommand.Companion.sample(): SlackCommand {
     return SlackCommand(
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            null,
-            null,
-            ""
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        null,
+        null,
+        ""
     )
 }
 

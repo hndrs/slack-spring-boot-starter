@@ -8,8 +8,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulDeletePhotoResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorDeletePhotoResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulDeletePhotoResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorDeletePhotoResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class DeletePhotoResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -19,8 +19,7 @@ sealed class DeletePhotoResponse constructor(@JsonProperty("ok") open val ok: Bo
  *
  * @property ok will be true
  */
-data class SuccessfulDeletePhotoResponse constructor(override val ok: Boolean)
-    : DeletePhotoResponse(ok) {
+data class SuccessfulDeletePhotoResponse constructor(override val ok: Boolean) : DeletePhotoResponse(ok) {
     companion object
 }
 
@@ -31,8 +30,9 @@ data class SuccessfulDeletePhotoResponse constructor(override val ok: Boolean)
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorDeletePhotoResponse constructor(override val ok: Boolean,
-                                                @JsonProperty("error") val error: String)
-    : DeletePhotoResponse(ok) {
+data class ErrorDeletePhotoResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : DeletePhotoResponse(ok) {
     companion object
 }

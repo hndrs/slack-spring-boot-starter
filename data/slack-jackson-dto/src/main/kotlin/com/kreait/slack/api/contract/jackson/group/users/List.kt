@@ -10,8 +10,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulListResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorListResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulListResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorListResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ListResponse(@JsonProperty("ok") open val ok: Boolean)
@@ -25,10 +25,10 @@ sealed class ListResponse(@JsonProperty("ok") open val ok: Boolean)
  * @property responseMetadata metadata used for paging
  */
 data class SuccessfulListResponse(
-        override val ok: Boolean,
-        @JsonProperty("members") val members: List<Member>,
-        @JsonProperty("cache_ts") val cacheTs: Int,
-        @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
+    override val ok: Boolean,
+    @JsonProperty("members") val members: List<Member>,
+    @JsonProperty("cache_ts") val cacheTs: Int,
+    @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
 ) : ListResponse(ok) {
     companion object
 }
@@ -40,9 +40,10 @@ data class SuccessfulListResponse(
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorListResponse constructor(override val ok: Boolean,
-                                         @JsonProperty("error") val error: String)
-    : ListResponse(ok) {
+data class ErrorListResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ListResponse(ok) {
     companion object
 }
 
@@ -54,9 +55,11 @@ data class ErrorListResponse constructor(override val ok: Boolean,
  * @property includePresence determines if the users presence should be included in the response
  * @property cursor the cursor used for paging
  */
-data class ListRequest(private val includeLocale: Boolean? = null,
-                       private val limit: Int? = null,
-                       private val cursor: String? = null) {
+data class ListRequest(
+    private val includeLocale: Boolean? = null,
+    private val limit: Int? = null,
+    private val cursor: String? = null
+) {
 
     fun toRequestMap(): MutableMap<String, String> {
 

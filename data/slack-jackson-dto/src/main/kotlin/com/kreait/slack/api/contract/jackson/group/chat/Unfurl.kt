@@ -7,13 +7,15 @@ import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChatUnfurlResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChatUnfurlResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulChatUnfurlResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorChatUnfurlResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ChatUnfurlResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -24,8 +26,7 @@ sealed class ChatUnfurlResponse constructor(@JsonProperty("ok") open val ok: Boo
  * @property ok will be true
  */
 @JacksonDataClass
-data class SuccessfulChatUnfurlResponse constructor(override val ok: Boolean)
-    : ChatUnfurlResponse(ok) {
+data class SuccessfulChatUnfurlResponse constructor(override val ok: Boolean) : ChatUnfurlResponse(ok) {
     companion object
 }
 
@@ -37,9 +38,10 @@ data class SuccessfulChatUnfurlResponse constructor(override val ok: Boolean)
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorChatUnfurlResponse constructor(override val ok: Boolean,
-                                               @JsonProperty("error") val error: String)
-    : ChatUnfurlResponse(ok) {
+data class ErrorChatUnfurlResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ChatUnfurlResponse(ok) {
     companion object
 }
 
@@ -54,12 +56,13 @@ data class ErrorChatUnfurlResponse constructor(override val ok: Boolean,
  * @property userAuthUrl Send users to this custom URL where they will complete authentication in your app to fully trigger unfurling. Value should be properly URL-encoded.
  */
 @JacksonDataClass
-data class ChatUnfurlRequest constructor(@JsonProperty("channel") val channelId: String,
-                                         @InstantToString @JsonProperty("ts") val timestamp: Instant,
-                                         @JsonProperty("unfurls") val unfurls: Map<String, String>,
-                                         @JsonProperty("user_auth_message") val userAuthMessage: String? = null,
-                                         @JsonProperty("user_auth_required") val userAuthRequired: Boolean = false,
-                                         @JsonProperty("user_auth_url") val userAuthUrl: String? = null
+data class ChatUnfurlRequest constructor(
+    @JsonProperty("channel") val channelId: String,
+    @InstantToString @JsonProperty("ts") val timestamp: Instant,
+    @JsonProperty("unfurls") val unfurls: Map<String, String>,
+    @JsonProperty("user_auth_message") val userAuthMessage: String? = null,
+    @JsonProperty("user_auth_required") val userAuthRequired: Boolean = false,
+    @JsonProperty("user_auth_url") val userAuthUrl: String? = null
 ) {
     companion object
 }

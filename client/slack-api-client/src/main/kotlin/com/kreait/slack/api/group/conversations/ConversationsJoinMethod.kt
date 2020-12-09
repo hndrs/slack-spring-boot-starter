@@ -9,4 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/conversations.join
  */
-abstract class ConversationsJoinMethod : ApiCallMethod<ConversationsJoinMethod, SuccessfulConversationJoinResponse, ErrorConversationJoinResponse, ConversationJoinRequest>()
+abstract class ConversationsJoinMethod :
+    ApiCallMethod<ConversationsJoinMethod, SuccessfulConversationJoinResponse,
+            ErrorConversationJoinResponse, ConversationJoinRequest>()

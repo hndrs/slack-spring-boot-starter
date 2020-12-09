@@ -9,4 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/conversations.setPurpose
  */
-abstract class ConversationsSetPurposeMethod : ApiCallMethod<ConversationsSetPurposeMethod, SuccessfulConversationSetPurposeResponse, ErrorConversationSetPurposeResponse, ConversationsSetPurposeRequest>()
+abstract class ConversationsSetPurposeMethod :
+    ApiCallMethod<ConversationsSetPurposeMethod, SuccessfulConversationSetPurposeResponse,
+            ErrorConversationSetPurposeResponse, ConversationsSetPurposeRequest>()

@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGroupsKickResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGroupsKickResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulGroupsKickResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorGroupsKickResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -33,8 +35,8 @@ data class SuccessfulGroupsKickResponse(override val ok: Boolean) : GroupsKickRe
  * @property error contains the error description
  */
 data class ErrorGroupsKickResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : GroupsKickResponse(ok) {
     companion object
 }
@@ -45,7 +47,9 @@ data class ErrorGroupsKickResponse constructor(
  * @property channelId the channel id of the channel you want to remove the user from
  * @property userId the user id you want to remove
  */
-data class GroupsKickRequest(@JsonProperty("channel") val channelId: String,
-                             @JsonProperty("user") val userId: Boolean = true) {
+data class GroupsKickRequest(
+    @JsonProperty("channel") val channelId: String,
+    @JsonProperty("user") val userId: Boolean = true
+) {
     companion object
 }

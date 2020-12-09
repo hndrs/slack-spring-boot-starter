@@ -7,13 +7,15 @@ import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChatGetPermalinkResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChatGetPermalinkResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulChatGetPermalinkResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorChatGetPermalinkResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ChatGetPermalinkResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -26,9 +28,11 @@ sealed class ChatGetPermalinkResponse constructor(@JsonProperty("ok") open val o
  * @property permalink the requested permalink
  */
 @JacksonDataClass
-data class SuccessfulChatGetPermalinkResponse constructor(override val ok: Boolean,
-                                                          @JsonProperty("channel") val channelId: String,
-                                                          @JsonProperty("permalink") val permalink: String) : ChatGetPermalinkResponse(ok) {
+data class SuccessfulChatGetPermalinkResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("channel") val channelId: String,
+    @JsonProperty("permalink") val permalink: String
+) : ChatGetPermalinkResponse(ok) {
     companion object
 }
 
@@ -39,9 +43,10 @@ data class SuccessfulChatGetPermalinkResponse constructor(override val ok: Boole
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorChatGetPermalinkResponse constructor(override val ok: Boolean,
-                                                     @JsonProperty("error") val error: String)
-    : ChatGetPermalinkResponse(ok) {
+data class ErrorChatGetPermalinkResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ChatGetPermalinkResponse(ok) {
     companion object
 }
 
@@ -52,7 +57,9 @@ data class ErrorChatGetPermalinkResponse constructor(override val ok: Boolean,
  * @property timestamp the timestamp of the message
  */
 @JacksonDataClass
-data class ChatGetPermalinkRequest constructor(@JsonProperty("channel") val channel: String,
-                                               @InstantToString @JsonProperty("message_ts") val timestamp: Instant) {
+data class ChatGetPermalinkRequest constructor(
+    @JsonProperty("channel") val channel: String,
+    @InstantToString @JsonProperty("message_ts") val timestamp: Instant
+) {
     companion object
 }

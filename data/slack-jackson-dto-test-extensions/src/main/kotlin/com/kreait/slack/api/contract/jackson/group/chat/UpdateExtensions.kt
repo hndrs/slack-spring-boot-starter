@@ -1,7 +1,6 @@
 package com.kreait.slack.api.contract.jackson.group.chat
 
 import com.kreait.slack.api.contract.jackson.common.InstantSample
-import java.time.Instant
 
 fun ErrorChatUpdateResponse.Companion.sample(): ErrorChatUpdateResponse {
     return ErrorChatUpdateResponse(false, "")

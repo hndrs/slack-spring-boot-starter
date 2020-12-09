@@ -33,48 +33,48 @@ import java.time.Instant
  */
 @JacksonDataClass
 data class Member(
-        @JsonProperty("color")
-        val color: String? = null,
-        @JsonProperty("deleted")
-        val isDeleted: Boolean,
-        @JsonProperty("id")
-        val id: String,
-        @JsonProperty("is_admin")
-        val isAdmin: Boolean,
-        @JsonProperty("is_app_user")
-        val isAppUser: Boolean,
-        @JsonProperty("is_bot")
-        val isBot: Boolean,
-        @JsonProperty("is_owner")
-        val isOwner: Boolean,
-        @JsonProperty("is_primary_owner")
-        val isPrimaryOwner: Boolean,
-        @JsonProperty("is_restricted")
-        val isRestricted: Boolean,
-        @JsonProperty("is_ultra_restricted")
-        val isUltraRestricted: Boolean,
-        @JsonProperty("locale")
-        val locale: String? = null,
-        @JsonProperty("name")
-        val name: String,
-        @JsonProperty("profile")
-        val profile: UserProfile,
-        @JsonProperty("real_name")
-        val realName: String? = null,
-        @JsonProperty("team_id")
-        val teamId: String,
-        @JsonProperty("tz")
-        val timezone: String? = null,
-        @JsonProperty("tz_label")
-        val timezoneLabel: String? = null,
-        @JsonProperty("tz_offset")
-        val timezoneOffset: Int?,
-        @InstantToInt @JsonProperty("updated")
-        val updated: Instant? = null,
-        @JsonProperty("has_2fa")
-        val has2fa: Boolean,
-        @InstantToInt @JsonProperty("last_modified_at")
-        val lastModifiedAt: Instant? = null
+    @JsonProperty("color")
+    val color: String? = null,
+    @JsonProperty("deleted")
+    val isDeleted: Boolean,
+    @JsonProperty("id")
+    val id: String,
+    @JsonProperty("is_admin")
+    val isAdmin: Boolean,
+    @JsonProperty("is_app_user")
+    val isAppUser: Boolean,
+    @JsonProperty("is_bot")
+    val isBot: Boolean,
+    @JsonProperty("is_owner")
+    val isOwner: Boolean,
+    @JsonProperty("is_primary_owner")
+    val isPrimaryOwner: Boolean,
+    @JsonProperty("is_restricted")
+    val isRestricted: Boolean,
+    @JsonProperty("is_ultra_restricted")
+    val isUltraRestricted: Boolean,
+    @JsonProperty("locale")
+    val locale: String? = null,
+    @JsonProperty("name")
+    val name: String,
+    @JsonProperty("profile")
+    val profile: UserProfile,
+    @JsonProperty("real_name")
+    val realName: String? = null,
+    @JsonProperty("team_id")
+    val teamId: String,
+    @JsonProperty("tz")
+    val timezone: String? = null,
+    @JsonProperty("tz_label")
+    val timezoneLabel: String? = null,
+    @JsonProperty("tz_offset")
+    val timezoneOffset: Int?,
+    @InstantToInt @JsonProperty("updated")
+    val updated: Instant? = null,
+    @JsonProperty("has_2fa")
+    val has2fa: Boolean,
+    @InstantToInt @JsonProperty("last_modified_at")
+    val lastModifiedAt: Instant? = null
 ) {
     companion object {}
 }

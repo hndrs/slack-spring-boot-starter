@@ -2,7 +2,6 @@ package com.kreait.slack.api.contract.jackson.group.conversations
 
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 import com.kreait.slack.api.contract.jackson.common.types.sample
-import com.kreait.slack.api.contract.jackson.group.channels.sample
 
 fun ConversationCreateRequest.Companion.sample(): ConversationCreateRequest {
     return ConversationCreateRequest(name = "NewChannelName")

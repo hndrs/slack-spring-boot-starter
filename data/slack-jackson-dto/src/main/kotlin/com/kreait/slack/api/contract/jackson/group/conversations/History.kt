@@ -7,13 +7,15 @@ import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulConversationHistoryResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorConversationHistoryResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulConversationHistoryResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorConversationHistoryResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ConversationHistoryResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -61,12 +63,14 @@ data class ErrorConversationHistoryResponse constructor(
  * @property limit The maximum number of items to return.
  * @property oldest Start of time range of messages to include in results.
  */
-data class ConversationsHistoryRequest(private val channel: String,
-                                       private val cursor: String? = null,
-                                       private val inclusive: Boolean = false,
-                                       private val latest: String? = null,
-                                       private val limit: Int? = null,
-                                       private val oldest: Int? = null) {
+data class ConversationsHistoryRequest(
+    private val channel: String,
+    private val cursor: String? = null,
+    private val inclusive: Boolean = false,
+    private val latest: String? = null,
+    private val limit: Int? = null,
+    private val oldest: Int? = null
+) {
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()

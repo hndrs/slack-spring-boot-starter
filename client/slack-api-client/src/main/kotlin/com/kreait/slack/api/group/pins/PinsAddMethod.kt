@@ -9,4 +9,5 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/pins.add
  */
-abstract class PinsAddMethod : ApiCallMethod<PinsAddMethod, SuccessfulPinsAddResponse, ErrorPinsAddResponse, PinsAddRequest>()
+abstract class PinsAddMethod :
+    ApiCallMethod<PinsAddMethod, SuccessfulPinsAddResponse, ErrorPinsAddResponse, PinsAddRequest>()

@@ -8,8 +8,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGetProfileResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGetProfileResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulGetProfileResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorGetProfileResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class GetProfileResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -20,9 +20,10 @@ sealed class GetProfileResponse constructor(@JsonProperty("ok") open val ok: Boo
  * @property ok will be true
  * @property profile the profile of the user
  */
-data class SuccessfulGetProfileResponse constructor(override val ok: Boolean,
-                                                    @JsonProperty("profile") val profile: UserProfile)
-    : GetProfileResponse(ok) {
+data class SuccessfulGetProfileResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("profile") val profile: UserProfile
+) : GetProfileResponse(ok) {
     companion object {}
 }
 
@@ -33,9 +34,10 @@ data class SuccessfulGetProfileResponse constructor(override val ok: Boolean,
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorGetProfileResponse constructor(override val ok: Boolean,
-                                               @JsonProperty("error") val error: String)
-    : GetProfileResponse(ok) {
+data class ErrorGetProfileResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : GetProfileResponse(ok) {
     companion object
 }
 

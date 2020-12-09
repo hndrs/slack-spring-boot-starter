@@ -13,8 +13,10 @@ import java.time.Instant
  * @property lastModifiedAt the date when the topic was last modified
  */
 @JacksonDataClass
-data class Topic(@JsonProperty("value") val value: String,
-                 @JsonProperty("creator") val createdBy: String,
-                 @InstantToInt @JsonProperty("last_set") val lastModifiedAt: Instant) {
+data class Topic(
+    @JsonProperty("value") val value: String,
+    @JsonProperty("creator") val createdBy: String,
+    @InstantToInt @JsonProperty("last_set") val lastModifiedAt: Instant
+) {
     companion object
 }

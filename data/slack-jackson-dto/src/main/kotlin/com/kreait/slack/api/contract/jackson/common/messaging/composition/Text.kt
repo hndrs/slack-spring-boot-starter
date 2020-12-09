@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text.Type
 
 
 /**
@@ -22,10 +23,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
  * @see [Type]
  * @see [Slack API Documentation](https://api.slack.com/reference/messaging/composition-objects#text)
  */
-data class Text(@JsonProperty("type") val type: Type,
-                @JsonProperty("text") val text: String,
-                @JsonProperty("emoji") val escapeEmojis: Boolean? = null,
-                @JsonProperty("verbatim") val verbatim: Boolean? = null) {
+data class Text(
+    @JsonProperty("type") val type: Type,
+    @JsonProperty("text") val text: String,
+    @JsonProperty("emoji") val escapeEmojis: Boolean? = null,
+    @JsonProperty("verbatim") val verbatim: Boolean? = null
+) {
 
     @JsonSerialize(using = Type.Serializer::class)
     @JsonDeserialize(using = Type.Desializer::class)
@@ -45,5 +48,6 @@ data class Text(@JsonProperty("type") val type: Type,
             }
         }
     }
+
     companion object
 }

@@ -8,8 +8,8 @@ import java.io.File
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulSetPhotoResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorSetPhotoResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulSetPhotoResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorSetPhotoResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -20,8 +20,7 @@ sealed class SetPhotoResponse constructor(@JsonProperty("ok") open val ok: Boole
  *
  * @property ok will be true
  */
-data class SuccessfulSetPhotoResponse constructor(override val ok: Boolean)
-    : SetPhotoResponse(ok) {
+data class SuccessfulSetPhotoResponse constructor(override val ok: Boolean) : SetPhotoResponse(ok) {
     companion object
 }
 
@@ -32,9 +31,10 @@ data class SuccessfulSetPhotoResponse constructor(override val ok: Boolean)
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorSetPhotoResponse constructor(override val ok: Boolean,
-                                             val error: String)
-    : SetPhotoResponse(ok) {
+data class ErrorSetPhotoResponse constructor(
+    override val ok: Boolean,
+    val error: String
+) : SetPhotoResponse(ok) {
     companion object
 }
 
@@ -48,10 +48,12 @@ data class ErrorSetPhotoResponse constructor(override val ok: Boolean,
  * @property cropY Y coordinate of top-left corner of crop box
  */
 @JacksonDataClass
-data class SetPhotoRequest(val image: File,
-                           val cropW: Int? = null,
-                           val cropX: Int? = null,
-                           val cropY: Int? = null) {
+data class SetPhotoRequest(
+    val image: File,
+    val cropW: Int? = null,
+    val cropX: Int? = null,
+    val cropY: Int? = null
+) {
     companion object {}
 
     fun toMap(): Map<String, List<Any>> {

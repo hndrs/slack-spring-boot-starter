@@ -19,16 +19,18 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  *
  * @property type Specifies the type of the Block you want to use.
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "type",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "type",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = Block.Divider::class, name = "divider"),
-        JsonSubTypes.Type(value = Block.Action::class, name = "actions"),
-        JsonSubTypes.Type(value = Block.Section::class, name = "section"),
-        JsonSubTypes.Type(value = Block.Context::class, name = "context"),
-        JsonSubTypes.Type(value = Block.Image::class, name = "image")
+    JsonSubTypes.Type(value = Block.Divider::class, name = "divider"),
+    JsonSubTypes.Type(value = Block.Action::class, name = "actions"),
+    JsonSubTypes.Type(value = Block.Section::class, name = "section"),
+    JsonSubTypes.Type(value = Block.Context::class, name = "context"),
+    JsonSubTypes.Type(value = Block.Image::class, name = "image")
 )
 
 @JacksonDataClass
@@ -81,10 +83,12 @@ sealed class Block(@JsonProperty("type") val type: Type) {
      * @see [Slack API Documentation](https://api.slack.com/reference/messaging/blocks#section)
      */
     @JacksonDataClass
-    data class Section(@JsonProperty("text") val text: Text,
-                       @JsonProperty("block_id") val blockId: String? = null,
-                       @JsonProperty("fields") val fields: List<Text>? = null,
-                       @JsonProperty("accessory") val accessory: Element? = null) : Block(Type.SECTION) {
+    data class Section(
+        @JsonProperty("text") val text: Text,
+        @JsonProperty("block_id") val blockId: String? = null,
+        @JsonProperty("fields") val fields: List<Text>? = null,
+        @JsonProperty("accessory") val accessory: Element? = null
+    ) : Block(Type.SECTION) {
         companion object
     }
 
@@ -99,10 +103,12 @@ sealed class Block(@JsonProperty("type") val type: Type) {
      * @see [Slack API Documentation](https://api.slack.com/reference/messaging/blocks#image)
      */
     @JacksonDataClass
-    data class Image(@JsonProperty("image_url") val imageUrl: String,
-                     @JsonProperty("alt_text") val altText: String,
-                     @JsonProperty("title") val title: String? = null,
-                     @JsonProperty("block_id") val blockId: String? = null) : Block(Type.IMAGE) {
+    data class Image(
+        @JsonProperty("image_url") val imageUrl: String,
+        @JsonProperty("alt_text") val altText: String,
+        @JsonProperty("title") val title: String? = null,
+        @JsonProperty("block_id") val blockId: String? = null
+    ) : Block(Type.IMAGE) {
         companion object
     }
 
@@ -116,8 +122,10 @@ sealed class Block(@JsonProperty("type") val type: Type) {
      * @see [Slack API Documentation](https://api.slack.com/reference/messaging/blocks#actions)
      */
     @JacksonDataClass
-    data class Action(@JsonProperty("elements") val elements: List<Element>,
-                      @JsonProperty("block_id") val blockId: String? = null) : Block(Type.ACTIONS) {
+    data class Action(
+        @JsonProperty("elements") val elements: List<Element>,
+        @JsonProperty("block_id") val blockId: String? = null
+    ) : Block(Type.ACTIONS) {
         companion object
     }
 
@@ -133,8 +141,10 @@ sealed class Block(@JsonProperty("type") val type: Type) {
      * @see [Slack API Documentation](https://api.slack.com/reference/messaging/blocks#context)
      */
     @JacksonDataClass
-    data class Context(@JsonProperty("elements") val elements: List<Any>,
-                       @JsonProperty("block_id") val blockId: String? = null) : Block(Type.CONTEXT) {
+    data class Context(
+        @JsonProperty("elements") val elements: List<Any>,
+        @JsonProperty("block_id") val blockId: String? = null
+    ) : Block(Type.CONTEXT) {
         companion object
     }
 }

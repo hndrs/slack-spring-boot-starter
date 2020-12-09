@@ -7,8 +7,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulUsergroupsUsersListResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorUsergroupsUsersListResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulUsergroupsUsersListResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorUsergroupsUsersListResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -21,9 +21,10 @@ sealed class UsergroupsUsersListResponse constructor(@JsonProperty("ok") open va
  * @property users the list of users in that usergroup
  */
 @JacksonDataClass
-data class SuccessfulUsergroupsUsersListResponse constructor(override val ok: Boolean,
-                                                             @JsonProperty("users") val users: List<String>)
-    : UsergroupsUsersListResponse(ok) {
+data class SuccessfulUsergroupsUsersListResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("users") val users: List<String>
+) : UsergroupsUsersListResponse(ok) {
     companion object
 }
 
@@ -34,9 +35,10 @@ data class SuccessfulUsergroupsUsersListResponse constructor(override val ok: Bo
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorUsergroupsUsersListResponse constructor(override val ok: Boolean,
-                                                        @JsonProperty("error") val error: String)
-    : UsergroupsUsersListResponse(ok) {
+data class ErrorUsergroupsUsersListResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : UsergroupsUsersListResponse(ok) {
     companion object
 }
 
@@ -47,8 +49,10 @@ data class ErrorUsergroupsUsersListResponse constructor(override val ok: Boolean
  * @property includeDisabled determines if disabled users should be included in the response
  */
 @JacksonDataClass
-data class UsergroupsUsersListRequest(@JsonProperty("usergroup") val usergroupId: String,
-                                      @JsonProperty("include_disabled") val includeDisabled: Boolean?) {
+data class UsergroupsUsersListRequest(
+    @JsonProperty("usergroup") val usergroupId: String,
+    @JsonProperty("include_disabled") val includeDisabled: Boolean?
+) {
     companion object
 
     fun toRequestMap(): MutableMap<String, String> {

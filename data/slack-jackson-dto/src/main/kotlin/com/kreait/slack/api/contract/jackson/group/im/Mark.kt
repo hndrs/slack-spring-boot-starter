@@ -7,14 +7,16 @@ import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulImMarkResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorImMarkResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulImMarkResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorImMarkResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -26,8 +28,7 @@ sealed class ImMarkResponse constructor(@JsonProperty("ok") open val ok: Boolean
  * @property ok will be true
  */
 @JacksonDataClass
-data class SuccessfulImMarkResponse constructor(override val ok: Boolean)
-    : ImMarkResponse(ok) {
+data class SuccessfulImMarkResponse constructor(override val ok: Boolean) : ImMarkResponse(ok) {
     companion object
 }
 
@@ -38,9 +39,10 @@ data class SuccessfulImMarkResponse constructor(override val ok: Boolean)
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorImMarkResponse constructor(override val ok: Boolean,
-                                           @JsonProperty("error") val error: String)
-    : ImMarkResponse(ok) {
+data class ErrorImMarkResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ImMarkResponse(ok) {
     companion object
 }
 
@@ -51,7 +53,9 @@ data class ErrorImMarkResponse constructor(override val ok: Boolean,
  * @property timestamp the timestamp of the message you want to set the read cursor to
  */
 @JacksonDataClass
-data class ImMarkRequest constructor(@JsonProperty("channel") val channel: String,
-                                     @InstantToString @JsonProperty("ts") val timestamp: Instant) {
+data class ImMarkRequest constructor(
+    @JsonProperty("channel") val channel: String,
+    @InstantToString @JsonProperty("ts") val timestamp: Instant
+) {
     companion object
 }

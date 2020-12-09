@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder
 @Target(AnnotationTarget.CLASS)
 @JacksonAnnotationsInside
 @JsonPropertyOrder(alphabetic = true)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE)
+@JsonAutoDetect(
+    fieldVisibility = JsonAutoDetect.Visibility.ANY,
+    getterVisibility = JsonAutoDetect.Visibility.NONE,
+    isGetterVisibility = JsonAutoDetect.Visibility.NONE
+)
 @JsonCreator
 @JsonIgnoreProperties(ignoreUnknown = true)
 annotation class JacksonDataClass

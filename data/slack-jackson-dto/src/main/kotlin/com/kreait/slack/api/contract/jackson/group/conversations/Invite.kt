@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulConversationInviteResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorConversationInviteResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulConversationInviteResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorConversationInviteResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ConversationInviteResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -25,8 +27,8 @@ sealed class ConversationInviteResponse constructor(@JsonProperty("ok") open val
  */
 @JacksonDataClass
 data class SuccessfulConversationInviteResponse(
-        override val ok: Boolean,
-        @JsonProperty("channel") val channel: Channel
+    override val ok: Boolean,
+    @JsonProperty("channel") val channel: Channel
 ) : ConversationInviteResponse(ok) {
     companion object
 }
@@ -38,9 +40,10 @@ data class SuccessfulConversationInviteResponse(
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorConversationInviteResponse constructor(override val ok: Boolean,
-                                                       @JsonProperty("error") val error: String)
-    : ConversationInviteResponse(ok) {
+data class ErrorConversationInviteResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ConversationInviteResponse(ok) {
     companion object
 }
 
@@ -50,7 +53,9 @@ data class ErrorConversationInviteResponse constructor(override val ok: Boolean,
  * @property channel the channel-id you want to add the user to
  * @property users the user-id which you want to add to the channel
  */
-data class ConversationsInviteRequest(@JsonProperty("channel") val channel: String,
-                                      @JsonProperty("users") val users: List<String>) {
+data class ConversationsInviteRequest(
+    @JsonProperty("channel") val channel: String,
+    @JsonProperty("users") val users: List<String>
+) {
     companion object
 }

@@ -5,6 +5,7 @@ import com.kreait.publish.meta.Organization
 import com.kreait.publish.meta.Scm
 import groovy.json.StringEscapeUtils
 import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.detekt
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -17,7 +18,6 @@ buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20")
         classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
-        classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.0.1")
     }
 }
 
@@ -26,6 +26,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.7.RELEASE"
     id("org.jetbrains.kotlin.jvm") version "1.4.20" apply false
     id("org.jetbrains.dokka") version "1.4.20"
+    id("io.gitlab.arturbosch.detekt") version "1.14.2"
     signing
 }
 
@@ -269,8 +270,8 @@ subprojects {
         systemProperties["user.dir"] = workingDir
     }
 
-    tasks.withType<Detekt>().configureEach {
-        config = files("${rootProject.rootDir}/detekt.yml")
+    tasks.withType<Detekt> {
+        config.setFrom(files("${rootProject.rootDir}/detekt.yml"))
     }
 
     dependencies {

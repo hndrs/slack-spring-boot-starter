@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGroupsSetPurposeResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGroupsSetPurposeResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulGroupsSetPurposeResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorGroupsSetPurposeResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -24,8 +26,9 @@ sealed class GroupsSetPurposeResponse constructor(@JsonProperty("ok") open val o
  * @property newPurpose the new purpose
  */
 data class SuccessfulGroupsSetPurposeResponse(
-        override val ok: Boolean,
-        @JsonProperty("purpose") val newPurpose: String) : GroupsSetPurposeResponse(ok) {
+    override val ok: Boolean,
+    @JsonProperty("purpose") val newPurpose: String
+) : GroupsSetPurposeResponse(ok) {
     companion object
 }
 
@@ -36,8 +39,8 @@ data class SuccessfulGroupsSetPurposeResponse(
  * @property error contains the error description
  */
 data class ErrorGroupsSetPurposeResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : GroupsSetPurposeResponse(ok) {
     companion object
 }
@@ -48,7 +51,9 @@ data class ErrorGroupsSetPurposeResponse constructor(
  * @property channelId the channel-id of the group you want to set the purpose for
  * @property purpose the new purpose
  */
-data class GroupsSetPurposeRequest(@JsonProperty("channel") val channelId: String,
-                                   @JsonProperty("purpose") val purpose: String) {
+data class GroupsSetPurposeRequest(
+    @JsonProperty("channel") val channelId: String,
+    @JsonProperty("purpose") val purpose: String
+) {
     companion object
 }

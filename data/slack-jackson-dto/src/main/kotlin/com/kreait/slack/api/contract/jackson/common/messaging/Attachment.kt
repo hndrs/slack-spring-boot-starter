@@ -29,17 +29,18 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  */
 @JacksonDataClass
 data class Attachment(
-        @JsonProperty("id") val id: String? = null,
-        @JsonProperty("title") val title: String? = null,
-        @JsonProperty("fallback") val fallback: String? = null,
-        @JsonProperty("pretext") val pretext: String? = null,
-        @JsonProperty("color") val color: Color? = null,
-        @JsonProperty("attachment_type") val attachmentType: String? = null,
-        @JsonProperty("callback_id") val callbackId: String? = null,
-        @JsonProperty("actions") val actions: List<Action>? = listOf(),
-        @JsonProperty("text") val text: String? = null,
-        @JsonProperty("author_name") val authorName: String? = null,
-        @JsonProperty("blocks") val blocks: List<Block>? = null) {
+    @JsonProperty("id") val id: String? = null,
+    @JsonProperty("title") val title: String? = null,
+    @JsonProperty("fallback") val fallback: String? = null,
+    @JsonProperty("pretext") val pretext: String? = null,
+    @JsonProperty("color") val color: Color? = null,
+    @JsonProperty("attachment_type") val attachmentType: String? = null,
+    @JsonProperty("callback_id") val callbackId: String? = null,
+    @JsonProperty("actions") val actions: List<Action>? = listOf(),
+    @JsonProperty("text") val text: String? = null,
+    @JsonProperty("author_name") val authorName: String? = null,
+    @JsonProperty("blocks") val blocks: List<Block>? = null
+) {
     companion object
 }
 
@@ -100,13 +101,14 @@ data class Color(val code: String?) {
  */
 @JacksonDataClass
 data class UpdateAttachment(
-        @JsonProperty("pretext") val pretext: String? = null,
-        @JsonProperty("text") val text: String,
-        @JsonProperty("title") val title: String? = null,
-        @JsonProperty("color") val color: String? = null,
-        @JsonProperty("attachment_type") val attachmentType: String? = "default",
-        @JsonProperty("callback_id") val callbackId: String? = null,
-        @JsonProperty("actions") val actions: List<Action>? = listOf(),
-        @JsonProperty("author_name") val authorName: String? = null,
-        @JsonProperty("fallback") val fallback: String,
-        @JsonProperty("blocks") val blocks: List<Block>? = null)
+    @JsonProperty("pretext") val pretext: String? = null,
+    @JsonProperty("text") val text: String,
+    @JsonProperty("title") val title: String? = null,
+    @JsonProperty("color") val color: String? = null,
+    @JsonProperty("attachment_type") val attachmentType: String? = "default",
+    @JsonProperty("callback_id") val callbackId: String? = null,
+    @JsonProperty("actions") val actions: List<Action>? = listOf(),
+    @JsonProperty("author_name") val authorName: String? = null,
+    @JsonProperty("fallback") val fallback: String,
+    @JsonProperty("blocks") val blocks: List<Block>? = null
+)

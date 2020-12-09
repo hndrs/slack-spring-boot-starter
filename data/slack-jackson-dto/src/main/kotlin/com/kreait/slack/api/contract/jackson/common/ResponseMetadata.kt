@@ -11,8 +11,10 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  * @property warnings warnings retreived by the api
  */
 @JacksonDataClass
-data class ResponseMetadata(@JsonProperty("next_cursor") val nextCursor: String? = null,
-                            @JsonProperty("warnings") val warnings: List<String>? = null) {
+data class ResponseMetadata(
+    @JsonProperty("next_cursor") val nextCursor: String? = null,
+    @JsonProperty("warnings") val warnings: List<String>? = null
+) {
     companion object
 
     fun hasNext() = !nextCursor.isNullOrBlank()

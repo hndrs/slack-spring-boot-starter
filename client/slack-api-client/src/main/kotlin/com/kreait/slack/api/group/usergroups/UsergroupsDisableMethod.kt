@@ -10,4 +10,5 @@ import com.kreait.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/usergroups.disable
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UsergroupsDisableMethod : ApiCallMethod<UsergroupsDisableMethod, SuccessfulDisableResponse, ErrorDisableResponse, DisableRequest>()
+abstract class UsergroupsDisableMethod :
+    ApiCallMethod<UsergroupsDisableMethod, SuccessfulDisableResponse, ErrorDisableResponse, DisableRequest>()
