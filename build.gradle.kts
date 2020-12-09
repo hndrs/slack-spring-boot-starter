@@ -15,9 +15,8 @@ buildscript {
         maven("https://repo.spring.io/plugins-release")
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20")
         classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:0.9.18")
         classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.0.1")
     }
 }
@@ -25,7 +24,8 @@ buildscript {
 plugins {
     id("org.sonarqube") version "2.7"
     id("io.spring.dependency-management") version "1.0.7.RELEASE"
-    id("org.jetbrains.kotlin.jvm") version "1.4.10" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.4.20" apply false
+    id("org.jetbrains.dokka") version "1.4.20"
     signing
 }
 
@@ -48,6 +48,11 @@ sonarqube {
 allprojects {
 
     val isRelease: String? by project
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
 
     apply {
         from("${rootProject.rootDir}/publish-meta.gradle.kts")
@@ -76,7 +81,7 @@ allprojects {
     dependencyManagement {
         imports {
             mavenBom("org.springframework.boot:spring-boot-dependencies:2.4.0") {
-                bomProperty("kotlin.version", "1.4.10")
+                bomProperty("kotlin.version", "1.4.20")
             }
         }
     }
@@ -98,12 +103,6 @@ subprojects {
         plugin("org.jetbrains.dokka")
         plugin("io.gitlab.arturbosch.detekt")
         plugin("signing")
-    }
-
-    tasks.withType<DokkaTask> {
-        moduleName = project.name
-        outputFormat = "html"
-        outputDirectory = "${rootProject.buildDir}/generated-docs/api"
     }
 
     afterEvaluate {
@@ -131,18 +130,24 @@ subprojects {
             // only create publications for relevant projects
             if (!projectsNotToPublish.contains(project)) {
                 publications {
+
                     val sourcesJar by tasks.registering(Jar::class) {
                         archiveClassifier.value("sources")
                         from(project.the<SourceSetContainer>()["main"].allSource)
                     }
-                    val javaDoc by tasks.registering(Jar::class) {
+
+                    /*
+                    Disabled because it consumes to much memory
+                    val javaDoc = tasks.dokkaJavadoc
+                    val javaDocJar by tasks.registering(Jar::class) {
                         archiveClassifier.value("javadoc")
-                        from(tasks.withType<DokkaTask>())
+                        from(javaDoc.get())
                     }
+                     */
                     create(project.name, MavenPublication::class) {
                         from(components["java"])
                         artifact(sourcesJar.get())
-                        artifact(javaDoc.get())
+                        //jartifact(javaDocJar)
                         pom {
                             if (project.extra.has("displayName")) {
                                 name.set(project.extra["displayName"] as? String)
@@ -266,11 +271,6 @@ subprojects {
 
     tasks.withType<Detekt>().configureEach {
         config = files("${rootProject.rootDir}/detekt.yml")
-    }
-
-    repositories {
-        mavenCentral()
-        jcenter()
     }
 
     dependencies {
