@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.types.Group
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGroupsCreateChildResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGroupsCreateChildResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulGroupsCreateChildResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorGroupsCreateChildResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -25,8 +27,9 @@ sealed class GroupsCreateChildResponse constructor(@JsonProperty("ok") open val 
  * @property group the created child-group object
  */
 data class SuccessfulGroupsCreateChildResponse(
-        override val ok: Boolean,
-        @JsonProperty("group") val group: Group) : GroupsCreateChildResponse(ok) {
+    override val ok: Boolean,
+    @JsonProperty("group") val group: Group
+) : GroupsCreateChildResponse(ok) {
     companion object
 }
 
@@ -37,8 +40,8 @@ data class SuccessfulGroupsCreateChildResponse(
  * @property error contains the error description
  */
 data class ErrorGroupsCreateChildResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : GroupsCreateChildResponse(ok) {
     companion object
 }

@@ -10,6 +10,7 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Provide custom unfurl behavior for user-posted URLs
  * https://api.slack.com/methods/chat.unfurl
  */
-abstract class ChatUnfurlMethod : ApiCallMethod<ChatUnfurlMethod, SuccessfulChatUnfurlResponse, ErrorChatUnfurlResponse, ChatUnfurlRequest>() {
+abstract class ChatUnfurlMethod :
+    ApiCallMethod<ChatUnfurlMethod, SuccessfulChatUnfurlResponse, ErrorChatUnfurlResponse, ChatUnfurlRequest>() {
 
 }

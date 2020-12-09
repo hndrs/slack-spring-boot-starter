@@ -10,8 +10,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulListResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorListResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulListResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorListResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -23,9 +23,10 @@ sealed class ListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
  * @property ok will be true
  */
 @JacksonDataClass
-data class SuccessfulListResponse constructor(override val ok: Boolean,
-                                              @JsonProperty("usergroups") val userGroups: List<UserGroup>)
-    : ListResponse(ok) {
+data class SuccessfulListResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("usergroups") val userGroups: List<UserGroup>
+) : ListResponse(ok) {
     companion object
 }
 
@@ -36,9 +37,10 @@ data class SuccessfulListResponse constructor(override val ok: Boolean,
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorListResponse constructor(override val ok: Boolean,
-                                         @JsonProperty("error") val error: String)
-    : ListResponse(ok) {
+data class ErrorListResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ListResponse(ok) {
     companion object
 }
 
@@ -49,9 +51,11 @@ data class ErrorListResponse constructor(override val ok: Boolean,
  * @property includeDisabled Include disabled User Groups.
  * @property includeUsers Include the list of users for each User Group.
  */
-data class ListRequest(private val includeCount: Boolean?,
-                       private val includeDisabled: Boolean?,
-                       private val includeUsers: Boolean?) {
+data class ListRequest(
+    private val includeCount: Boolean?,
+    private val includeDisabled: Boolean?,
+    private val includeUsers: Boolean?
+) {
     companion object
 
     fun toRequestMap(): MutableMap<String, String> {

@@ -5,10 +5,10 @@ fun SuccessfulUpdateResponse.Companion.sample() = SuccessfulUpdateResponse(true,
 fun ErrorUpdateResponse.Companion.sample() = ErrorUpdateResponse(false, "")
 
 fun UpdateRequest.Companion.sample() = UpdateRequest(
-        "",
-        listOf(),
-        "",
-        "",
-        false,
-        ""
+    "",
+    listOf(),
+    "",
+    "",
+    false,
+    ""
 )

@@ -1,7 +1,5 @@
 package com.kreait.slack.api.contract.jackson.util
 
-import com.kreait.slack.api.contract.jackson.util.toSlackTimeStampInstant
-import com.kreait.slack.api.contract.jackson.util.toSlackTimestampString
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

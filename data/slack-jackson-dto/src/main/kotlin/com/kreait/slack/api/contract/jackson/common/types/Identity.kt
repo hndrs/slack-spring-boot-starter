@@ -1,6 +1,7 @@
 package com.kreait.slack.api.contract.jackson.common.types
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.kreait.slack.api.contract.jackson.common.types.Identity.User
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 /**
@@ -14,8 +15,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  */
 @JacksonDataClass
 data class Identity(
-        @JsonProperty("user") val user: User,
-        @JsonProperty("team") val team: Team
+    @JsonProperty("user") val user: User,
+    @JsonProperty("team") val team: Team
 ) {
 
     /**
@@ -30,14 +31,16 @@ data class Identity(
      * @property image72 The user avatar with the dimensions of 72x72px.
      * @property image192 The user avatar with the dimensions of 192x192px.
      */
-    data class User(val name: String,
-                    val id: String,
-                    val email: String?,
-                    val image24: String?,
-                    val image32: String?,
-                    val image48: String?,
-                    val image72: String?,
-                    val image192: String?) {
+    data class User(
+        val name: String,
+        val id: String,
+        val email: String?,
+        val image24: String?,
+        val image32: String?,
+        val image48: String?,
+        val image72: String?,
+        val image192: String?
+    ) {
         companion object
     }
 

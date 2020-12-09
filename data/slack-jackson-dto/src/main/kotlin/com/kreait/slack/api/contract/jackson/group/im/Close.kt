@@ -5,14 +5,16 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulImCloseResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorImCloseResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulImCloseResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorImCloseResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -26,10 +28,11 @@ sealed class ImCloseResponse constructor(@JsonProperty(value = "ok") open val ok
  * @property alreadyClosed true if the Im-Channel is already closed
  */
 @JacksonDataClass
-data class SuccessfulImCloseResponse constructor(override val ok: Boolean,
-                                                 @JsonProperty(value = "no_op") val noOp: Boolean?,
-                                                 @JsonProperty(value = "already_closed") val alreadyClosed: Boolean?)
-    : ImCloseResponse(ok) {
+data class SuccessfulImCloseResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty(value = "no_op") val noOp: Boolean?,
+    @JsonProperty(value = "already_closed") val alreadyClosed: Boolean?
+) : ImCloseResponse(ok) {
     companion object
 }
 
@@ -40,9 +43,10 @@ data class SuccessfulImCloseResponse constructor(override val ok: Boolean,
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorImCloseResponse constructor(override val ok: Boolean,
-                                            @JsonProperty(value = "error") val error: String)
-    : ImCloseResponse(ok) {
+data class ErrorImCloseResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty(value = "error") val error: String
+) : ImCloseResponse(ok) {
     companion object
 }
 

@@ -6,8 +6,10 @@ import com.kreait.slack.api.contract.jackson.group.usergroups.UserGroup
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JacksonDataClass
-data class SubteamCreated(override val type: String,
-                          @JsonProperty("subteam") val userGroup: UserGroup) : Event(type) {
+data class SubteamCreated(
+    override val type: String,
+    @JsonProperty("subteam") val userGroup: UserGroup
+) : Event(type) {
     companion object {
         /**
          * A User Group has been added to the workspace

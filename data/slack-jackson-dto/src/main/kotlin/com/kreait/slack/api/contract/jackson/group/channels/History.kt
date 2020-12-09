@@ -8,13 +8,15 @@ import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelsHistoryResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelsHistoryResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulChannelsHistoryResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorChannelsHistoryResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ChannelsHistoryResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -45,9 +47,10 @@ data class SuccessfulChannelsHistoryResponse constructor(
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorChannelsHistoryResponse constructor(override val ok: Boolean,
-                                                    @JsonProperty("error") val error: String)
-    : ChannelsHistoryResponse(ok) {
+data class ErrorChannelsHistoryResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ChannelsHistoryResponse(ok) {
 
     companion object
 }
@@ -64,12 +67,13 @@ data class ErrorChannelsHistoryResponse constructor(override val ok: Boolean,
  * @see [Slack Api Method](https://api.slack.com/methods/channels.history)
  */
 @JacksonDataClass
-data class ChannelsHistoryRequest constructor(@JsonProperty("channel") val channelId: String,
-                                              @JsonProperty("count") val count: Int? = null,
-                                              @JsonProperty("inclusive") val inclusive: Boolean? = null,
-                                              @InstantToString @JsonProperty("latest") val latestTimestamp: Instant? = null,
-                                              @InstantToString @JsonProperty("oldest") val oldestTimestamp: Instant? = null,
-                                              @JsonProperty("unreads") val unreads: Boolean? = null
+data class ChannelsHistoryRequest constructor(
+    @JsonProperty("channel") val channelId: String,
+    @JsonProperty("count") val count: Int? = null,
+    @JsonProperty("inclusive") val inclusive: Boolean? = null,
+    @InstantToString @JsonProperty("latest") val latestTimestamp: Instant? = null,
+    @InstantToString @JsonProperty("oldest") val oldestTimestamp: Instant? = null,
+    @JsonProperty("unreads") val unreads: Boolean? = null
 ) {
     companion object {}
 

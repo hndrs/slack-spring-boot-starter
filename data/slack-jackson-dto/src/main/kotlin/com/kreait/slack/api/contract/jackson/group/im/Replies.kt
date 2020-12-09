@@ -6,15 +6,16 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
 )
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulImRepliesResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorImRepliesResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulImRepliesResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorImRepliesResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -42,9 +43,10 @@ data class SuccessfulImRepliesResponse constructor(
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorImRepliesResponse constructor(override val ok: Boolean,
-                                              @JsonProperty(value = "error") val error: String)
-    : ImRepliesResponse(ok) {
+data class ErrorImRepliesResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty(value = "error") val error: String
+) : ImRepliesResponse(ok) {
     companion object
 }
 
@@ -54,8 +56,10 @@ data class ErrorImRepliesResponse constructor(override val ok: Boolean,
  * @property channel the channel-id of the direct-message channel that contains the thread
  * @property thread_ts the timestamp of the thread
  */
-data class ImRepliesRequest(private val channel: String,
-                            private val thread_ts: String) {
+data class ImRepliesRequest(
+    private val channel: String,
+    private val thread_ts: String
+) {
 
     companion object
 

@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGroupsMarkResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGroupsMarkResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulGroupsMarkResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorGroupsMarkResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -33,8 +35,8 @@ data class SuccessfulGroupsMarkResponse(override val ok: Boolean) : GroupsMarkRe
  * @property error contains the error description
  */
 data class ErrorGroupsMarkResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : GroupsMarkResponse(ok) {
     companion object
 }
@@ -45,7 +47,9 @@ data class ErrorGroupsMarkResponse constructor(
  * @property channelId the channel-id of the channel you want to mark
  * @property timestamp the timestamp of the message, where the read cursor should point to
  */
-data class GroupsMarkRequest(@JsonProperty("channel") val channelId: String,
-                             @JsonProperty("ts") val timestamp: Boolean = true) {
+data class GroupsMarkRequest(
+    @JsonProperty("channel") val channelId: String,
+    @JsonProperty("ts") val timestamp: Boolean = true
+) {
     companion object
 }

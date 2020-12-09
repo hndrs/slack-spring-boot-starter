@@ -21,6 +21,7 @@ enum class ParseType(private val value: String) {
      * will ignore any markup formatting you added to your message
      */
     FULL("full"),
+
     /**
      * If you want Slack to treat your message as completely unformatted, pass parse=full. This will ignore any markup formatting you added to your message.
      */

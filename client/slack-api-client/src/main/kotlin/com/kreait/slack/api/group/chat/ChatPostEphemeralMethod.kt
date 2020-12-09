@@ -10,6 +10,8 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Sends an ephemeral message to a user in a channel.
  * https://api.slack.com/methods/chat.postEphemeral
  */
-abstract class ChatPostEphemeralMethod : ApiCallMethod<ChatPostEphemeralMethod, SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse, PostEphemeralRequest>() {
+abstract class ChatPostEphemeralMethod :
+    ApiCallMethod<ChatPostEphemeralMethod, SuccessfulPostEphemeralResponse,
+            ErrorPostEphemeralResponse, PostEphemeralRequest>() {
 
 }

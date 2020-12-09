@@ -10,6 +10,7 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Updates a message.
  * https://api.slack.com/methods/chat.update
  */
-abstract class ChatUpdateMethod : ApiCallMethod<ChatUpdateMethod, SuccessfulChatUpdateResponse, ErrorChatUpdateResponse, ChatUpdateRequest>() {
+abstract class ChatUpdateMethod :
+    ApiCallMethod<ChatUpdateMethod, SuccessfulChatUpdateResponse, ErrorChatUpdateResponse, ChatUpdateRequest>() {
 
 }

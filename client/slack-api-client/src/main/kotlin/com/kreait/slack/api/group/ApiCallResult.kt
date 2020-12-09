@@ -10,8 +10,8 @@ package com.kreait.slack.api.group
  * This class is not representing http errors (like Http 500)
  */
 data class ApiCallResult<out Success, out Failure>(
-        val success: Success? = null,
-        val failure: Failure? = null
+    val success: Success? = null,
+    val failure: Failure? = null
 ) {
     /**
      * @return true when api call was successful

@@ -14,14 +14,14 @@ import com.kreait.slack.api.contract.jackson.group.usergroups.sample
 
 fun SlackEvent.Companion.sample(): SlackEvent {
     return SlackEvent(
-            "",
-            "",
-            "",
-            "",
-            setOf(),
-            "",
-            0,
-            mapOf()
+        "",
+        "",
+        "",
+        "",
+        setOf(),
+        "",
+        0,
+        mapOf()
     )
 }
 
@@ -29,14 +29,14 @@ fun SlackEvent.Companion.sample(any: Event): SlackEvent {
     val json = jacksonObjectMapper().writeValueAsString(any)
     val mapValue: Map<String, Any> = jacksonObjectMapper().readValue(json, Map::class.java) as Map<String, Any>
     return SlackEvent(
-            "",
-            "",
-            "",
-            "",
-            setOf(),
-            "",
-            0,
-            mapValue
+        "",
+        "",
+        "",
+        "",
+        setOf(),
+        "",
+        0,
+        mapValue
     )
 }
 
@@ -49,8 +49,10 @@ fun SubteamCreated.Companion.sample(): SubteamCreated {
 }
 
 fun SubteamMembersChanged.Companion.sample(): SubteamMembersChanged {
-    return SubteamMembersChanged(TYPE, "", InstantSample.sample(), InstantSample.sample(), setOf(), "",
-            setOf(), "")
+    return SubteamMembersChanged(
+        TYPE, "", InstantSample.sample(), InstantSample.sample(), setOf(), "",
+        setOf(), ""
+    )
 }
 
 fun TeamJoin.Companion.sample(): TeamJoin {

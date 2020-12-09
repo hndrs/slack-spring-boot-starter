@@ -8,13 +8,15 @@ import com.kreait.slack.api.contract.jackson.util.InstantToString
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChatUpdateResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChatUpdateResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulChatUpdateResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorChatUpdateResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ChatUpdateResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -25,11 +27,12 @@ sealed class ChatUpdateResponse constructor(@JsonProperty("ok") open val ok: Boo
  * @property ok will be true
  */
 @JacksonDataClass
-data class SuccessfulChatUpdateResponse constructor(override val ok: Boolean,
-                                                    @JsonProperty("channel") val channel: String,
-                                                    @InstantToString @JsonProperty("ts") val timestamp: Instant,
-                                                    @JsonProperty("text") val text: String?)
-    : ChatUpdateResponse(ok) {
+data class SuccessfulChatUpdateResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("channel") val channel: String,
+    @InstantToString @JsonProperty("ts") val timestamp: Instant,
+    @JsonProperty("text") val text: String?
+) : ChatUpdateResponse(ok) {
     companion object
 }
 
@@ -40,9 +43,10 @@ data class SuccessfulChatUpdateResponse constructor(override val ok: Boolean,
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorChatUpdateResponse constructor(override val ok: Boolean,
-                                               @JsonProperty("error") val error: String)
-    : ChatUpdateResponse(ok) {
+data class ErrorChatUpdateResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ChatUpdateResponse(ok) {
     companion object
 }
 
@@ -59,12 +63,14 @@ data class ErrorChatUpdateResponse constructor(override val ok: Boolean,
  * @property parse the @link[ParseType] of that message
  */
 @JacksonDataClass
-data class ChatUpdateRequest constructor(@JsonProperty("channel") val channel: String,
-                                         @JsonProperty("text") val text: String? = null,
-                                         @InstantToString @JsonProperty("ts") val timestamp: Instant,
-                                         @JsonProperty("as_user") val asUser: Boolean? = true,
-                                         @JsonProperty("attachments") val attachments: List<UpdateAttachment>? = null,
-                                         @JsonProperty("link_names") val linkNames: Boolean? = true,
-                                         @JsonProperty("parse") val parse: ParseType? = null) {
+data class ChatUpdateRequest constructor(
+    @JsonProperty("channel") val channel: String,
+    @JsonProperty("text") val text: String? = null,
+    @InstantToString @JsonProperty("ts") val timestamp: Instant,
+    @JsonProperty("as_user") val asUser: Boolean? = true,
+    @JsonProperty("attachments") val attachments: List<UpdateAttachment>? = null,
+    @JsonProperty("link_names") val linkNames: Boolean? = true,
+    @JsonProperty("parse") val parse: ParseType? = null
+) {
     companion object
 }

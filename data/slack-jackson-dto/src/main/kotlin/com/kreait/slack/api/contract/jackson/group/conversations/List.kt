@@ -8,13 +8,15 @@ import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.types.Conversation
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulConversationListResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorConversationListResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulConversationListResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorConversationListResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ConversationListResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -25,17 +27,18 @@ sealed class ConversationListResponse constructor(@JsonProperty("ok") open val o
  * @property ok will be true
  */
 data class SuccessfulConversationListResponse(
-        override val ok: Boolean,
-        @JsonProperty("channels") val channels: List<Conversation>,
-        @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
+    override val ok: Boolean,
+    @JsonProperty("channels") val channels: List<Conversation>,
+    @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
 ) : ConversationListResponse(ok) {
     companion object
 }
 
 @JacksonDataClass
-data class ErrorConversationListResponse constructor(override val ok: Boolean,
-                                                     @JsonProperty("error") val error: String)
-    : ConversationListResponse(ok) {
+data class ErrorConversationListResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ConversationListResponse(ok) {
     companion object
 }
 
@@ -47,10 +50,12 @@ data class ErrorConversationListResponse constructor(override val ok: Boolean,
  * @property limit The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.
  * @property Mix and match channel types by providing a comma-separated list of any combination of public_channel, private_channel, mpim, im
  */
-data class ConversationsListRequest(private val cursor: String? = null,
-                                    private val excludeArchived: Boolean? = null,
-                                    private val limit: Int? = null,
-                                    private val types: Set<ChannelType>? = null) {
+data class ConversationsListRequest(
+    private val cursor: String? = null,
+    private val excludeArchived: Boolean? = null,
+    private val limit: Int? = null,
+    private val types: Set<ChannelType>? = null
+) {
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()

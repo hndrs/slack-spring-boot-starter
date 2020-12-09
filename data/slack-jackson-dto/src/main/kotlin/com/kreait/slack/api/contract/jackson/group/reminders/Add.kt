@@ -8,13 +8,15 @@ import com.kreait.slack.api.contract.jackson.util.InstantToInt
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 import java.time.Instant
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulRemindersAddResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorRemindersAddResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulRemindersAddResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorRemindersAddResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -27,8 +29,9 @@ sealed class RemindersAddResponse constructor(@JsonProperty("ok") open val ok: B
  * @property reminder the added reminder
  */
 data class SuccessfulRemindersAddResponse(
-        override val ok: Boolean,
-        @JsonProperty("reminder") val reminder: Reminder) : RemindersAddResponse(ok) {
+    override val ok: Boolean,
+    @JsonProperty("reminder") val reminder: Reminder
+) : RemindersAddResponse(ok) {
     companion object
 }
 
@@ -39,8 +42,8 @@ data class SuccessfulRemindersAddResponse(
  * @property error contains the error description
  */
 data class ErrorRemindersAddResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : RemindersAddResponse(ok) {
     companion object
 }
@@ -52,9 +55,10 @@ data class ErrorRemindersAddResponse constructor(
  * @property triggerTimestamp the timestamp when the reminder should trigger
  * @property userId the user-id of the user that should be reminded
  */
-data class RemindersAddRequest(@JsonProperty("text") val text: String,
-                               @InstantToInt @JsonProperty("time") val triggerTimestamp: Instant, //time when the reminder should trigger
-                               @JsonProperty("user") val userId: String? = null
+data class RemindersAddRequest(
+    @JsonProperty("text") val text: String,
+    @InstantToInt @JsonProperty("time") val triggerTimestamp: Instant, //time when the reminder should trigger
+    @JsonProperty("user") val userId: String? = null
 ) {
     companion object
 }

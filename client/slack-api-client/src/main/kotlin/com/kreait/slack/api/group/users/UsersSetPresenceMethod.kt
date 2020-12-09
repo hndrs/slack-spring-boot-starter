@@ -11,4 +11,5 @@ import com.kreait.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/users.setPresence
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UsersSetPresenceMethod : ApiCallMethod<UsersSetPresenceMethod, SuccessfulSetPresenceResponse, ErrorSetPresenceResponse, SetPresenceRequest>()
+abstract class UsersSetPresenceMethod :
+    ApiCallMethod<UsersSetPresenceMethod, SuccessfulSetPresenceResponse, ErrorSetPresenceResponse, SetPresenceRequest>()

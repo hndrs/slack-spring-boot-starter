@@ -10,6 +10,7 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Deletes a message.
  * https://api.slack.com/methods/chat.delete
  */
-abstract class ChatDeleteMethod : ApiCallMethod<ChatDeleteMethod, SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, ChatDeleteRequest>() {
+abstract class ChatDeleteMethod :
+    ApiCallMethod<ChatDeleteMethod, SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, ChatDeleteRequest>() {
 
 }

@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulConversationJoinResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorConversationJoinResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulConversationJoinResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorConversationJoinResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -26,11 +28,12 @@ sealed class ConversationJoinResponse(@JsonProperty("ok") open val ok: Boolean)
  * @property warning additional non-fatal warnings
  * @property responseMetadata responseMetadata, used for paging
  */
-data class SuccessfulConversationJoinResponse(override val ok: Boolean,
-                                              @JsonProperty("channel") val channel: Channel,
-                                              @JsonProperty("warning") val warning: String?,
-                                              @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata?)
-    : ConversationJoinResponse(ok) {
+data class SuccessfulConversationJoinResponse(
+    override val ok: Boolean,
+    @JsonProperty("channel") val channel: Channel,
+    @JsonProperty("warning") val warning: String?,
+    @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata?
+) : ConversationJoinResponse(ok) {
     companion object
 
     @JacksonDataClass
@@ -47,9 +50,10 @@ data class SuccessfulConversationJoinResponse(override val ok: Boolean,
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorConversationJoinResponse constructor(override val ok: Boolean,
-                                                     @JsonProperty("error") val error: String)
-    : ConversationJoinResponse(ok) {
+data class ErrorConversationJoinResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ConversationJoinResponse(ok) {
     companion object
 }
 

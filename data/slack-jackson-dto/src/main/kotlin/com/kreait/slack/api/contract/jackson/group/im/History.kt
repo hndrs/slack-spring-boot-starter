@@ -6,10 +6,12 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
     include = JsonTypeInfo.As.PROPERTY,
     property = "ok",
-    visible = true)
+    visible = true
+)
 @JsonSubTypes(
     JsonSubTypes.Type(value = SuccessfulImHistoryResponse::class, name = "true"),
     JsonSubTypes.Type(value = ErrorImHistoryResponse::class, name = "false")

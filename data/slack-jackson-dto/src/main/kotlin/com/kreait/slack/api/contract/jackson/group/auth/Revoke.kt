@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulAuthRevokeResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorAuthRevokeResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulAuthRevokeResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorAuthRevokeResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class AuthRevokeResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -25,9 +27,9 @@ sealed class AuthRevokeResponse constructor(@JsonProperty("ok") open val ok: Boo
  */
 @JacksonDataClass
 data class SuccessfulAuthRevokeResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("revoked") val isRevoked: Boolean)
-    : AuthRevokeResponse(ok) {
+    override val ok: Boolean,
+    @JsonProperty("revoked") val isRevoked: Boolean
+) : AuthRevokeResponse(ok) {
     companion object
 }
 
@@ -39,9 +41,9 @@ data class SuccessfulAuthRevokeResponse constructor(
  */
 @JacksonDataClass
 data class ErrorAuthRevokeResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String)
-    : AuthRevokeResponse(ok) {
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : AuthRevokeResponse(ok) {
     companion object
 }
 

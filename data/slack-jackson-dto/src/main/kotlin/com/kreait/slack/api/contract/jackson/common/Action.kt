@@ -29,17 +29,17 @@ import java.time.Instant
  */
 @JacksonDataClass
 data class Action(
-        @JsonProperty("id") val id: String? = null,
-        @JsonProperty("action_id") val actionId: String? = null,
-        @InstantToString @JsonProperty("action_ts") val actionTimestamp: Instant? = null,
-        @JsonProperty("block_id") val blockId: String? = null,
-        @JsonProperty("name") val name: String? = null,
-        @JsonProperty("text") val text: String? = null,
-        @JsonProperty("style") val style: Style? = null,
-        @JsonProperty("type") val type: ActionType,
-        @JsonProperty("value") val value: String? = null,
-        @JsonProperty("options") val options: List<Option>? = listOf(),
-        @JsonProperty("selected_options") val selectedOptions: List<Option>? = listOf()
+    @JsonProperty("id") val id: String? = null,
+    @JsonProperty("action_id") val actionId: String? = null,
+    @InstantToString @JsonProperty("action_ts") val actionTimestamp: Instant? = null,
+    @JsonProperty("block_id") val blockId: String? = null,
+    @JsonProperty("name") val name: String? = null,
+    @JsonProperty("text") val text: String? = null,
+    @JsonProperty("style") val style: Style? = null,
+    @JsonProperty("type") val type: ActionType,
+    @JsonProperty("value") val value: String? = null,
+    @JsonProperty("options") val options: List<Option>? = listOf(),
+    @JsonProperty("selected_options") val selectedOptions: List<Option>? = listOf()
 ) {
 
     @JsonDeserialize(using = ActionType.Deserializer::class)
@@ -83,7 +83,7 @@ data class Action(
 
     @JacksonDataClass
     data class Option(
-            @JsonProperty("text") val text: String? = null,
-            @JsonProperty("value") val value: String
+        @JsonProperty("text") val text: String? = null,
+        @JsonProperty("value") val value: String
     )
 }

@@ -9,5 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/users.deletePhoto
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UsersDeletePhotoMethod : ApiCallMethod<UsersDeletePhotoMethod, SuccessfulDeletePhotoResponse, ErrorDeletePhotoResponse, Unit>()
+abstract class UsersDeletePhotoMethod :
+    ApiCallMethod<UsersDeletePhotoMethod, SuccessfulDeletePhotoResponse, ErrorDeletePhotoResponse, Unit>()
 

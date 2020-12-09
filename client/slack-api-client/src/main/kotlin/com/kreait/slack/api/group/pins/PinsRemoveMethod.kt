@@ -9,4 +9,5 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/pins.remove
  */
-abstract class PinsRemoveMethod : ApiCallMethod<PinsRemoveMethod, SuccessfulPinsRemoveResponse, ErrorPinsRemoveResponse, PinsRemoveRequest>()
+abstract class PinsRemoveMethod :
+    ApiCallMethod<PinsRemoveMethod, SuccessfulPinsRemoveResponse, ErrorPinsRemoveResponse, PinsRemoveRequest>()

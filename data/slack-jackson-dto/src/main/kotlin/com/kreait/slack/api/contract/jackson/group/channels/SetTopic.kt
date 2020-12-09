@@ -6,14 +6,16 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelsSetTopicResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelsSetTopicResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulChannelsSetTopicResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorChannelsSetTopicResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -26,9 +28,10 @@ sealed class ChannelsSetTopicResponse constructor(@JsonProperty("ok") open val o
  * @property channel the channel object with the changed topic
  */
 @JacksonDataClass
-data class SuccessfulChannelsSetTopicResponse constructor(override val ok: Boolean,
-                                                          @JsonProperty("channel") val channel: Channel)
-    : ChannelsSetTopicResponse(ok) {
+data class SuccessfulChannelsSetTopicResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("channel") val channel: Channel
+) : ChannelsSetTopicResponse(ok) {
     companion object
 }
 
@@ -39,10 +42,11 @@ data class SuccessfulChannelsSetTopicResponse constructor(override val ok: Boole
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorChannelsSetTopicResponse constructor(override val ok: Boolean,
-                                                     @JsonProperty("error") val error: String,
-                                                     @JsonProperty("detail") val detail: String)
-    : ChannelsSetTopicResponse(ok) {
+data class ErrorChannelsSetTopicResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String,
+    @JsonProperty("detail") val detail: String
+) : ChannelsSetTopicResponse(ok) {
     companion object
 }
 
@@ -53,8 +57,10 @@ data class ErrorChannelsSetTopicResponse constructor(override val ok: Boolean,
  * @property topic the topic you want to set
  */
 @JacksonDataClass
-data class ChannelsSetTopicRequest constructor(@JsonProperty("channel") val channelId: String,
-                                               @JsonProperty("topic") val topic: String) {
+data class ChannelsSetTopicRequest constructor(
+    @JsonProperty("channel") val channelId: String,
+    @JsonProperty("topic") val topic: String
+) {
 
     companion object
 }

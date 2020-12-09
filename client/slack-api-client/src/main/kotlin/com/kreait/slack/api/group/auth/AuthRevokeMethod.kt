@@ -9,5 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Revokes a token.
  * https://api.slack.com/methods/auth.revoke
  */
-abstract class AuthRevokeMethod : ApiCallMethod<AuthRevokeMethod, SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse, AuthRevokeRequest>() {
+abstract class AuthRevokeMethod :
+    ApiCallMethod<AuthRevokeMethod, SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse, AuthRevokeRequest>() {
 }

@@ -9,4 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/conversations.unarchive
  */
-abstract class ConversationsUnarchiveMethod : ApiCallMethod<ConversationsUnarchiveMethod, SuccessfulConversationUnarchiveResponse, ErrorConversationUnarchiveResponse, ConversationUnarchiveRequest>()
+abstract class ConversationsUnarchiveMethod :
+    ApiCallMethod<ConversationsUnarchiveMethod, SuccessfulConversationUnarchiveResponse,
+            ErrorConversationUnarchiveResponse, ConversationUnarchiveRequest>()

@@ -20,10 +20,12 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  * @property responseType the responsetype of your message, can be [ResponseType.IN_CHANNEL] or [ResponseType.EPHEMERAL]
  */
 @JacksonDataClass
-data class RespondMessageRequest constructor(@JsonProperty("text") val text: String? = null,
-                                             @JsonProperty("attachments") val attachments: List<Attachment>? = null,
-                                             @JsonProperty("blocks") val blocks: List<Block>? = null,
-                                             @JsonProperty("response_type") val responseType: ResponseType) {
+data class RespondMessageRequest constructor(
+    @JsonProperty("text") val text: String? = null,
+    @JsonProperty("attachments") val attachments: List<Attachment>? = null,
+    @JsonProperty("blocks") val blocks: List<Block>? = null,
+    @JsonProperty("response_type") val responseType: ResponseType
+) {
     companion object
 }
 

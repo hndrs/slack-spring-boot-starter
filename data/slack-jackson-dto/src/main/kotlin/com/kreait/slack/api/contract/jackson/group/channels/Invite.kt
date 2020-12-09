@@ -6,14 +6,16 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelInviteResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelInviteResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulChannelInviteResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorChannelInviteResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -26,9 +28,10 @@ sealed class ChannelInviteResponse constructor(@JsonProperty("ok") open val ok: 
  * @property channel the channel in which the user was added
  */
 @JacksonDataClass
-data class SuccessfulChannelInviteResponse constructor(override val ok: Boolean,
-                                                       @JsonProperty("channel") val channel: Channel)
-    : ChannelInviteResponse(ok) {
+data class SuccessfulChannelInviteResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("channel") val channel: Channel
+) : ChannelInviteResponse(ok) {
     companion object
 }
 
@@ -39,9 +42,10 @@ data class SuccessfulChannelInviteResponse constructor(override val ok: Boolean,
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorChannelInviteResponse constructor(override val ok: Boolean,
-                                                  @JsonProperty("error") val error: String)
-    : ChannelInviteResponse(ok) {
+data class ErrorChannelInviteResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ChannelInviteResponse(ok) {
     companion object
 }
 
@@ -53,8 +57,10 @@ data class ErrorChannelInviteResponse constructor(override val ok: Boolean,
  * @see
  */
 @JacksonDataClass
-data class ChannelInviteRequest constructor(@JsonProperty("channel") val channel: String,
-                                            @JsonProperty("user") val user: String) {
+data class ChannelInviteRequest constructor(
+    @JsonProperty("channel") val channel: String,
+    @JsonProperty("user") val user: String
+) {
 
     companion object
 }

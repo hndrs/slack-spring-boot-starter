@@ -9,4 +9,5 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/stars.list
  */
-abstract class StarsRemoveMethod : ApiCallMethod<StarsRemoveMethod, SuccessfulStarsRemoveResponse, ErrorStarsRemoveResponse, StarsRemoveRequest>()
+abstract class StarsRemoveMethod :
+    ApiCallMethod<StarsRemoveMethod, SuccessfulStarsRemoveResponse, ErrorStarsRemoveResponse, StarsRemoveRequest>()

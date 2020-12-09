@@ -10,6 +10,8 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Sends a message to a user in a channel.
  * https://api.slack.com/methods/chat.postMessage
  */
-abstract class ChatPostMessageMethod : ApiCallMethod<ChatPostMessageMethod, SuccessfulPostMessageResponse, ErrorPostMessageResponse, PostMessageRequest>() {
+abstract class ChatPostMessageMethod :
+    ApiCallMethod<ChatPostMessageMethod, SuccessfulPostMessageResponse,
+            ErrorPostMessageResponse, PostMessageRequest>() {
 
 }

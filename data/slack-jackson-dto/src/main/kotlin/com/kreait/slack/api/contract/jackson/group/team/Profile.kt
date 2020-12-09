@@ -8,12 +8,13 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulProfileResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorProfileResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulProfileResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorProfileResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ProfileResponse(
-        @JsonProperty("ok") open val ok: Boolean)
+    @JsonProperty("ok") open val ok: Boolean
+)
 
 /**
  * Success-response of this request.
@@ -23,25 +24,28 @@ sealed class ProfileResponse(
  */
 @JacksonDataClass
 data class SuccessfulProfileResponse(
-        override val ok: Boolean,
-        @JsonProperty("profile") val teamProfile: TeamProfile) : ProfileResponse(ok) {
+    override val ok: Boolean,
+    @JsonProperty("profile") val teamProfile: TeamProfile
+) : ProfileResponse(ok) {
     companion object
 }
 
 data class TeamProfile(
-        @JsonProperty("fields")
-        val fields: List<Field>) {
+    @JsonProperty("fields")
+    val fields: List<Field>
+) {
     companion object {}
 
     data class Field(
-            @JsonProperty("hint") val hint: String,
-            @JsonProperty("id") val id: String,
-            @JsonProperty("is_hidden") val isHidden: Int,
-            @JsonProperty("label") val label: String,
-            @JsonProperty("options") val options: Any?,
-            @JsonProperty("ordering") val ordering: Int,
-            @JsonProperty("possible_values") val possibleValues: Any?,
-            @JsonProperty("type") val type: String) {
+        @JsonProperty("hint") val hint: String,
+        @JsonProperty("id") val id: String,
+        @JsonProperty("is_hidden") val isHidden: Int,
+        @JsonProperty("label") val label: String,
+        @JsonProperty("options") val options: Any?,
+        @JsonProperty("ordering") val ordering: Int,
+        @JsonProperty("possible_values") val possibleValues: Any?,
+        @JsonProperty("type") val type: String
+    ) {
         companion object
     }
 }
@@ -53,9 +57,10 @@ data class TeamProfile(
  * @property ok will be false
  * @property error contains the error description
  */
-data class ErrorProfileResponse constructor(override val ok: Boolean,
-                                            @JsonProperty("error") val error: String)
-    : ProfileResponse(ok) {
+data class ErrorProfileResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ProfileResponse(ok) {
     companion object
 }
 

@@ -9,4 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/conversations.create
  */
-abstract class ConversationsCreateMethod : ApiCallMethod<ConversationsCreateMethod, SuccessfulConversationCreateResponse, ErrorConversationCreateResponse, ConversationCreateRequest>()
+abstract class ConversationsCreateMethod :
+    ApiCallMethod<ConversationsCreateMethod, SuccessfulConversationCreateResponse,
+            ErrorConversationCreateResponse, ConversationCreateRequest>()

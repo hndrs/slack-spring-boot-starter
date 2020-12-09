@@ -9,6 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/conversations.rename
  */
-abstract class ConversationsRenameMethod : ApiCallMethod<ConversationsRenameMethod, SuccessfulConversationsRenameResponse, ErrorConversationsRenameResponse, ConversationsRenameRequest>() {
-
-}
+abstract class ConversationsRenameMethod :
+    ApiCallMethod<ConversationsRenameMethod, SuccessfulConversationsRenameResponse,
+            ErrorConversationsRenameResponse, ConversationsRenameRequest>()

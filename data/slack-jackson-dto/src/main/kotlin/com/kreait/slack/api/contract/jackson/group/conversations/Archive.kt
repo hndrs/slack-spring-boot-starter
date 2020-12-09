@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulConversationArchiveResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorConversationArchiveResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulConversationArchiveResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorConversationArchiveResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -23,7 +25,8 @@ sealed class ConversationArchiveResponse constructor(@JsonProperty("ok") open va
  * @property ok will be true
  */
 data class SuccessfulConversationArchiveResponse(
-        override val ok: Boolean) : ConversationArchiveResponse(ok) {
+    override val ok: Boolean
+) : ConversationArchiveResponse(ok) {
     companion object
 }
 
@@ -34,8 +37,8 @@ data class SuccessfulConversationArchiveResponse(
  * @property error contains the error description
  */
 data class ErrorConversationArchiveResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : ConversationArchiveResponse(ok) {
     companion object
 }

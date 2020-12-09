@@ -8,8 +8,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulIdentityResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorIdentityResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulIdentityResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorIdentityResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class IdentityResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -20,8 +20,10 @@ sealed class IdentityResponse constructor(@JsonProperty("ok") open val ok: Boole
  * @property ok will be true
  * @property user the users identity
  */
-data class SuccessfulIdentityResponse constructor(override val ok: Boolean,
-                                                  @JsonProperty("user") val user: Identity) : IdentityResponse(ok) {
+data class SuccessfulIdentityResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("user") val user: Identity
+) : IdentityResponse(ok) {
     companion object
 }
 
@@ -32,8 +34,9 @@ data class SuccessfulIdentityResponse constructor(override val ok: Boolean,
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorIdentityResponse constructor(override val ok: Boolean,
-                                             @JsonProperty("error") val error: String)
-    : IdentityResponse(ok) {
+data class ErrorIdentityResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : IdentityResponse(ok) {
     companion object
 }

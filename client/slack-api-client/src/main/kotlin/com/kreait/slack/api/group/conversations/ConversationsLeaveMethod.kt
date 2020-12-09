@@ -9,4 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/conversations.leave
  */
-abstract class ConversationsLeaveMethod : ApiCallMethod<ConversationsLeaveMethod, SuccessfulConversationLeaveResponse, ErrorConversationLeaveResponse, ConversationsLeaveRequest>()
+abstract class ConversationsLeaveMethod :
+    ApiCallMethod<ConversationsLeaveMethod, SuccessfulConversationLeaveResponse,
+            ErrorConversationLeaveResponse, ConversationsLeaveRequest>()

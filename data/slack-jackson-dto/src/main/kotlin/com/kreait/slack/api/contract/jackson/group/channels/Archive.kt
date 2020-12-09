@@ -5,14 +5,16 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelArchiveResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelArchiveResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulChannelArchiveResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorChannelArchiveResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -24,8 +26,7 @@ sealed class ChannelArchiveResponse constructor(@JsonProperty("ok") open val ok:
  * @property ok will be true
  */
 @JacksonDataClass
-data class SuccessfulChannelArchiveResponse constructor(override val ok: Boolean)
-    : ChannelArchiveResponse(ok) {
+data class SuccessfulChannelArchiveResponse constructor(override val ok: Boolean) : ChannelArchiveResponse(ok) {
     companion object
 }
 
@@ -37,9 +38,10 @@ data class SuccessfulChannelArchiveResponse constructor(override val ok: Boolean
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorChannelArchiveResponse constructor(override val ok: Boolean,
-                                                   @JsonProperty("error") val error: String)
-    : ChannelArchiveResponse(ok) {
+data class ErrorChannelArchiveResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ChannelArchiveResponse(ok) {
     companion object
 }
 

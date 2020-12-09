@@ -9,6 +9,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Abstract representation of an slack api operation
  * https://api.slack.com/methods/conversations.members
  */
-abstract class ConversationsMembersMethod : ApiCallMethod<ConversationsMembersMethod, SuccessfulConversationMembersResponse, ErrorConversationMembersResponse, ConversationMembersRequest>() {
-
-}
+abstract class ConversationsMembersMethod :
+    ApiCallMethod<ConversationsMembersMethod, SuccessfulConversationMembersResponse,
+            ErrorConversationMembersResponse, ConversationMembersRequest>()

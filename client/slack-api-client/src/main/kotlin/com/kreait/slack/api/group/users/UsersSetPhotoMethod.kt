@@ -11,4 +11,5 @@ import com.kreait.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/users.setPhoto
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UsersSetPhotoMethod : ApiCallMethod<UsersSetPhotoMethod, SuccessfulSetPhotoResponse, ErrorSetPhotoResponse, SetPhotoRequest>()
+abstract class UsersSetPhotoMethod :
+    ApiCallMethod<UsersSetPhotoMethod, SuccessfulSetPhotoResponse, ErrorSetPhotoResponse, SetPhotoRequest>()

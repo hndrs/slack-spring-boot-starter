@@ -10,7 +10,9 @@ import com.kreait.slack.api.group.ApiCallMethod
  * Retrieve a permalink URL for a specific extant message
  * https://api.slack.com/methods/chat.getPermalink
  */
-abstract class ChatGetPermalinkMethod : ApiCallMethod<ChatGetPermalinkMethod, SuccessfulChatGetPermalinkResponse, ErrorChatGetPermalinkResponse, ChatGetPermalinkRequest>() {
+abstract class ChatGetPermalinkMethod :
+    ApiCallMethod<ChatGetPermalinkMethod, SuccessfulChatGetPermalinkResponse,
+            ErrorChatGetPermalinkResponse, ChatGetPermalinkRequest>() {
 
 }
 

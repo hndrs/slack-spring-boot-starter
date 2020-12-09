@@ -4,4 +4,5 @@ fun ChannelsArchiveRequest.Companion.sample(): ChannelsArchiveRequest = Channels
 
 fun ErrorChannelArchiveResponse.Companion.sample(): ErrorChannelArchiveResponse = ErrorChannelArchiveResponse(false, "")
 
-fun SuccessfulChannelArchiveResponse.Companion.sample(): SuccessfulChannelArchiveResponse = SuccessfulChannelArchiveResponse(true)
+fun SuccessfulChannelArchiveResponse.Companion.sample(): SuccessfulChannelArchiveResponse =
+    SuccessfulChannelArchiveResponse(true)

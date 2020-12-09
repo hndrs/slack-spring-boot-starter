@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
 @JacksonDataClass
-data class InteractiveComponentMessageResponse(@JsonProperty("title") val token: String? = null,
-                                               @JsonProperty("delete_original") val deleteOriginal: Boolean = false,
-                                               @JsonProperty("replace_original") val replaceOriginal: Boolean = false)
+data class InteractiveComponentMessageResponse(
+    @JsonProperty("title") val token: String? = null,
+    @JsonProperty("delete_original") val deleteOriginal: Boolean = false,
+    @JsonProperty("replace_original") val replaceOriginal: Boolean = false
+)

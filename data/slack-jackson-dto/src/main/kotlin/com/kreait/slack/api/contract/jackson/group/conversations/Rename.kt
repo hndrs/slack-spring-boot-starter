@@ -7,13 +7,15 @@ import com.kreait.slack.api.contract.jackson.common.ResponseMetadata
 import com.kreait.slack.api.contract.jackson.common.types.Channel
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulConversationsRenameResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorConversationsRenameResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulConversationsRenameResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorConversationsRenameResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ConversationsRenameResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -25,10 +27,10 @@ sealed class ConversationsRenameResponse constructor(@JsonProperty("ok") open va
  * @property channel the renamed channel object
  */
 data class SuccessfulConversationsRenameResponse(
-        override val ok: Boolean,
-        @JsonProperty("channel") val channel: Channel,
-        @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata)
-    : ConversationsRenameResponse(ok) {
+    override val ok: Boolean,
+    @JsonProperty("channel") val channel: Channel,
+    @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
+) : ConversationsRenameResponse(ok) {
     companion object
 }
 
@@ -39,9 +41,10 @@ data class SuccessfulConversationsRenameResponse(
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorConversationsRenameResponse constructor(override val ok: Boolean,
-                                                        @JsonProperty("error") val error: String)
-    : ConversationsRenameResponse(ok) {
+data class ErrorConversationsRenameResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ConversationsRenameResponse(ok) {
     companion object
 }
 
@@ -51,7 +54,9 @@ data class ErrorConversationsRenameResponse constructor(override val ok: Boolean
  * @property channel the channel-id of the channel you want to rename
  * @property name the new name for the channel
  */
-data class ConversationsRenameRequest(@JsonProperty("channel") val channel: String,
-                                      @JsonProperty("name") val name: String) {
+data class ConversationsRenameRequest(
+    @JsonProperty("channel") val channel: String,
+    @JsonProperty("name") val name: String
+) {
     companion object
 }

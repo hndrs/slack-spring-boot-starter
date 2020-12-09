@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulConversationCloseResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorConversationCloseResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulConversationCloseResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorConversationCloseResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -24,9 +26,9 @@ sealed class ConversationCloseResponse constructor(@JsonProperty("ok") open val 
  * @property alreadyClosed true if the conversation was already closed
  */
 data class SuccessfulConversationCloseResponse(
-        override val ok: Boolean,
-        @JsonProperty("no_op") val noOp: Boolean?,
-        @JsonProperty("already_closed") val alreadyClosed: Boolean?
+    override val ok: Boolean,
+    @JsonProperty("no_op") val noOp: Boolean?,
+    @JsonProperty("already_closed") val alreadyClosed: Boolean?
 ) : ConversationCloseResponse(ok) {
     companion object
 }
@@ -38,8 +40,8 @@ data class SuccessfulConversationCloseResponse(
  * @property error contains the error description
  */
 data class ErrorConversationCloseResponse constructor(
-        override val ok: Boolean,
-        @JsonProperty("error") val error: String
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
 ) : ConversationCloseResponse(ok) {
     companion object
 }

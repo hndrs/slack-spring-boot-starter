@@ -11,8 +11,8 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulGetPresenceResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorGetPresenceResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulGetPresenceResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorGetPresenceResponse::class, name = "false")
 )
 
 @JacksonDataClass
@@ -29,14 +29,15 @@ sealed class GetPresenceResponse constructor(@JsonProperty("ok") open val ok: Bo
  * @property connectionCount gives a count of total connections.
  * @property lastActivity indicates the last activity seen by our servers. If a user has no connected clients then this property will be absent
  */
-data class SuccessfulGetPresenceResponse constructor(override val ok: Boolean,
-                                                     @JsonProperty("presence") val presence: UserPresence,
-                                                     @JsonProperty("online") val isOnline: Boolean?,
-                                                     @JsonProperty("auto_away") val autoAway: Boolean?,
-                                                     @JsonProperty("manual_away") val manualAway: Boolean?,
-                                                     @JsonProperty("connection_count") val connectionCount: Int?,
-                                                     @JsonProperty("last_activity") val lastActivity: String?)
-    : GetPresenceResponse(ok) {
+data class SuccessfulGetPresenceResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("presence") val presence: UserPresence,
+    @JsonProperty("online") val isOnline: Boolean?,
+    @JsonProperty("auto_away") val autoAway: Boolean?,
+    @JsonProperty("manual_away") val manualAway: Boolean?,
+    @JsonProperty("connection_count") val connectionCount: Int?,
+    @JsonProperty("last_activity") val lastActivity: String?
+) : GetPresenceResponse(ok) {
     companion object
 }
 
@@ -47,9 +48,10 @@ data class SuccessfulGetPresenceResponse constructor(override val ok: Boolean,
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorGetPresenceResponse constructor(override val ok: Boolean,
-                                                @JsonProperty("error") val error: String)
-    : GetPresenceResponse(ok) {
+data class ErrorGetPresenceResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : GetPresenceResponse(ok) {
     companion object
 }
 

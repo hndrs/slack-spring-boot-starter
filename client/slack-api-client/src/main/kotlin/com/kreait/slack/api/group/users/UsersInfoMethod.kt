@@ -10,5 +10,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/users.info
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UsersInfoMethod : ApiCallMethod<UsersInfoMethod, SuccessfulInfoResponse, ErrorInfoResponse, InfoRequest>()
+abstract class UsersInfoMethod :
+    ApiCallMethod<UsersInfoMethod, SuccessfulInfoResponse, ErrorInfoResponse, InfoRequest>()
 

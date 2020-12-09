@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "ok",
-        visible = true)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "ok",
+    visible = true
+)
 @JsonSubTypes(
-        JsonSubTypes.Type(value = SuccessfulChannelKickResponse::class, name = "true"),
-        JsonSubTypes.Type(value = ErrorChannelKickResponse::class, name = "false")
+    JsonSubTypes.Type(value = SuccessfulChannelKickResponse::class, name = "true"),
+    JsonSubTypes.Type(value = ErrorChannelKickResponse::class, name = "false")
 )
 @JacksonDataClass
 sealed class ChannelKickResponse constructor(@JsonProperty("ok") open val ok: Boolean)
@@ -22,8 +24,7 @@ sealed class ChannelKickResponse constructor(@JsonProperty("ok") open val ok: Bo
  * @property ok will be true
  */
 @JacksonDataClass
-data class SuccessfulChannelKickResponse constructor(override val ok: Boolean)
-    : ChannelKickResponse(ok) {
+data class SuccessfulChannelKickResponse constructor(override val ok: Boolean) : ChannelKickResponse(ok) {
 
     companion object
 }
@@ -35,9 +36,10 @@ data class SuccessfulChannelKickResponse constructor(override val ok: Boolean)
  * @property error contains the error description
  */
 @JacksonDataClass
-data class ErrorChannelKickResponse constructor(override val ok: Boolean,
-                                                @JsonProperty("error") val error: String)
-    : ChannelKickResponse(ok) {
+data class ErrorChannelKickResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : ChannelKickResponse(ok) {
 
     companion object
 }
@@ -49,8 +51,10 @@ data class ErrorChannelKickResponse constructor(override val ok: Boolean,
  * @property userId the user-id that should be removed
  */
 @JacksonDataClass
-data class ChannelsKickRequest constructor(@JsonProperty("channel") val channelId: String,
-                                           @JsonProperty("user") val userId: String) {
+data class ChannelsKickRequest constructor(
+    @JsonProperty("channel") val channelId: String,
+    @JsonProperty("user") val userId: String
+) {
     companion object {}
 
     fun toRequestMap() = mapOf("channel" to channelId, "user" to userId)

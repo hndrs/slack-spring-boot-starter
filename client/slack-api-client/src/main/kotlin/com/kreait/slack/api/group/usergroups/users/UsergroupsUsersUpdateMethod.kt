@@ -10,4 +10,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/usergroups.users.update
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UsergroupsUsersUpdateMethod : ApiCallMethod<UsergroupsUsersUpdateMethod, SuccessfulUsergroupUsersUpdateResponse, ErrorUsergroupUsersUpdateResponse, UsergroupUsersUpdateRequest>()
+abstract class UsergroupsUsersUpdateMethod :
+    ApiCallMethod<UsergroupsUsersUpdateMethod, SuccessfulUsergroupUsersUpdateResponse,
+            ErrorUsergroupUsersUpdateResponse, UsergroupUsersUpdateRequest>()

@@ -5,15 +5,19 @@ import com.kreait.slack.api.contract.jackson.common.types.Message
 import com.kreait.slack.api.contract.jackson.group.chat.sample
 
 fun InteractiveMessage.Companion.sample(): InteractiveMessage {
-    return InteractiveMessage(InteractiveComponentResponse.Team.sample(), "token", InstantSample.sample(), InstantSample.sample(),
-            User.sample(), "",
-            Channel.sample(), mapOf(), "", "", listOf(), Message.sample(), listOf(), null, "", null)
+    return InteractiveMessage(
+        InteractiveComponentResponse.Team.sample(), "token", InstantSample.sample(), InstantSample.sample(),
+        User.sample(), "",
+        Channel.sample(), mapOf(), "", "", listOf(), Message.sample(), listOf(), null, "", null
+    )
 }
 
 
 fun BlockActions.Companion.sample(): BlockActions {
-    return BlockActions(InteractiveComponentResponse.Team.sample(), User.sample(), "token", "", null, "",
-            Channel.sample(), "", listOf())
+    return BlockActions(
+        InteractiveComponentResponse.Team.sample(), User.sample(), "token", "", null, "",
+        Channel.sample(), "", listOf()
+    )
 }
 
 fun Channel.Companion.sample(): Channel {

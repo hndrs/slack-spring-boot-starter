@@ -10,5 +10,6 @@ import com.kreait.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/usergroups.list
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UsergroupsListMethod : ApiCallMethod<UsergroupsListMethod, SuccessfulListResponse, ErrorListResponse, ListRequest>()
+abstract class UsergroupsListMethod :
+    ApiCallMethod<UsergroupsListMethod, SuccessfulListResponse, ErrorListResponse, ListRequest>()
 
