@@ -52,7 +52,6 @@ data class ErrorListResponse constructor(
  *
  * @property includeLocale determines if the locale should be included in the response
  * @property limit the limit of users you want to retrieve
- * @property includePresence determines if the users presence should be included in the response
  * @property cursor the cursor used for paging
  */
 data class ListRequest(

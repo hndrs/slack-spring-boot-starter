@@ -271,6 +271,7 @@ subprojects {
     }
 
     tasks.withType<Detekt> {
+        autoCorrect = true
         config.setFrom(files("${rootProject.rootDir}/detekt.yml"))
     }
 

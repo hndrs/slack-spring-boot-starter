@@ -70,7 +70,6 @@ data class ImListRequest constructor(
     val cursor: String?,
     val limit: String?
 ) {
-    companion object {}
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()
@@ -78,4 +77,6 @@ data class ImListRequest constructor(
         limit?.let { requestMap.put("limit", it) }
         return requestMap
     }
+
+    companion object
 }

@@ -66,7 +66,7 @@ data class ChannelsRepliesRequest constructor(
     @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant
 ) {
 
-    companion object {}
-
     fun toRequestMap() = mapOf("channel" to channelId, "thread_ts" to threadTimestamp.toString())
+
+    companion object
 }

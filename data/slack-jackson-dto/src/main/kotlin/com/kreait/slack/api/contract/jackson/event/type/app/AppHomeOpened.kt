@@ -22,6 +22,8 @@ data class AppHomeOpened(
     val view: View?
 ) : Event(type) {
 
+    override fun slackTypeString(): String = TYPE
+
     companion object {
         /**
          * A new member has joined
@@ -30,7 +32,6 @@ data class AppHomeOpened(
         const val TYPE = "app_home_opened"
     }
 
-    override fun slackTypeString(): String = TYPE
 }
 
 data class View(

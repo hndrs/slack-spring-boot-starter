@@ -72,13 +72,14 @@ data class ErrorProfileResponse constructor(
 @JacksonDataClass
 data class ProfileRequest(@JsonProperty("visibility") val visibility: TeamVisibility?) {
 
-    companion object {}
 
     fun toRequestMap(): Map<String, String> {
         val map = mutableMapOf<String, String>()
         visibility?.let { map.put("visibility", it.value) }
         return map
     }
+
+    companion object
 }
 
 enum class TeamVisibility(val value: String) {

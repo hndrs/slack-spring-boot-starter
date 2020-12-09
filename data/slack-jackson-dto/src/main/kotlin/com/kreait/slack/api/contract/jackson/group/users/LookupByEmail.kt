@@ -50,8 +50,9 @@ data class ErrorLookupByEmailResponse constructor(
  * @property email the email of the user you want to look up
  */
 data class LookupByEmailRequest(private val email: String) {
-    companion object {}
 
     fun toRequestMap(): MutableMap<String, String> = mutableMapOf("email" to email)
+
+    companion object
 }
 

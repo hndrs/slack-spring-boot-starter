@@ -75,7 +75,6 @@ data class ChannelsHistoryRequest constructor(
     @InstantToString @JsonProperty("oldest") val oldestTimestamp: Instant? = null,
     @JsonProperty("unreads") val unreads: Boolean? = null
 ) {
-    companion object {}
 
     fun toRequestMap(): Map<String, String> {
         val requestMap = mutableMapOf("channel" to channelId)
@@ -87,6 +86,8 @@ data class ChannelsHistoryRequest constructor(
         return requestMap
 
     }
+
+    companion object
 }
 
 

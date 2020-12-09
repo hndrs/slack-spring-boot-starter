@@ -56,7 +56,6 @@ data class ListRequest(
     private val includeDisabled: Boolean?,
     private val includeUsers: Boolean?
 ) {
-    companion object
 
     fun toRequestMap(): MutableMap<String, String> {
         val requestMap = mutableMapOf<String, String>()
@@ -65,4 +64,6 @@ data class ListRequest(
         includeUsers?.let { requestMap.put("include_users", it.toString()) }
         return requestMap
     }
+
+    companion object
 }
