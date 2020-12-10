@@ -12,6 +12,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Removed deprecated im method group
 - Removed deprecated channels method group
 - Removed deprecated groups method group
+- Fixed conversations.setPurpose Request
+- Fixed conversations.setTopic Request
 
 ## [2.0.0] - 2020-08-26
 

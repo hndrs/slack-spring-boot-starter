@@ -53,8 +53,10 @@ data class ErrorConversationSetPurposeResponse constructor(
  * @property purpose the purpose you want to set
  */
 data class ConversationsSetPurposeRequest(
-    private val channel: String,
-    private val purpose: String
+    @JsonProperty("channel")
+    val channel: String,
+    @JsonProperty("purpose")
+    val purpose: String
 ) {
     companion object
 }
