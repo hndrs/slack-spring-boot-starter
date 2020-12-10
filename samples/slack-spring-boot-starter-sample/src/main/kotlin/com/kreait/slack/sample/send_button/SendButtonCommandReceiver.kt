@@ -43,7 +43,7 @@ class SendButtonCommandReceiver @Autowired constructor(private val slackClient: 
     }
 
     companion object {
-        private const val CALLBACK_ID = "test_callback"
-        private const val ACTION_NAME = "test_action"
+        const val CALLBACK_ID = "test_callback"
+        const val ACTION_NAME = "test_action"
     }
 }
