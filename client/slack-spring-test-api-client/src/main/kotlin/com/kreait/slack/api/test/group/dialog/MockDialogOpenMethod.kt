@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.dialog
 
 import com.kreait.slack.api.contract.jackson.group.dialog.ErrorOpenDialogResponse
-import com.kreait.slack.api.contract.jackson.group.dialog.SlackOpenDialogRequest
+import com.kreait.slack.api.contract.jackson.group.dialog.OpenDialogRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.SuccessfulOpenDialogResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.dialog.DialogMethodGroup
@@ -11,9 +11,9 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [DialogMethodGroup.open]
  */
-class MockDialogOpenMethod : DialogOpenMethod(), MockMethod<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse, SlackOpenDialogRequest> {
+class MockDialogOpenMethod : DialogOpenMethod(), MockMethod<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse, OpenDialogRequest> {
 
-    override fun params(): SlackOpenDialogRequest = params
+    override fun params(): OpenDialogRequest = params
 
     override var successResponse: SuccessfulOpenDialogResponse? = null
     override var failureResponse: ErrorOpenDialogResponse? = null

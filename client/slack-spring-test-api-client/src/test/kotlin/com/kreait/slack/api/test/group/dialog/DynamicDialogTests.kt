@@ -1,7 +1,7 @@
 package com.kreait.slack.api.test.group.dialog
 
 import com.kreait.slack.api.contract.jackson.group.dialog.ErrorOpenDialogResponse
-import com.kreait.slack.api.contract.jackson.group.dialog.SlackOpenDialogRequest
+import com.kreait.slack.api.contract.jackson.group.dialog.OpenDialogRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.SuccessfulOpenDialogResponse
 import com.kreait.slack.api.contract.jackson.group.dialog.sample
 import com.kreait.slack.api.test.DynamicMockGroupTests
@@ -20,6 +20,6 @@ class DynamicDialogTests {
     private val client = MockSlackClient()
 
     private fun testCases() = listOf(
-            MockMetaInfo({ client.dialog().open("") }, mock { }, SuccessfulOpenDialogResponse.sample(), mock { }, ErrorOpenDialogResponse.sample(), SlackOpenDialogRequest.sample())
+            MockMetaInfo({ client.dialog().open("") }, mock { }, SuccessfulOpenDialogResponse.sample(), mock { }, ErrorOpenDialogResponse.sample(), OpenDialogRequest.sample())
     )
 }

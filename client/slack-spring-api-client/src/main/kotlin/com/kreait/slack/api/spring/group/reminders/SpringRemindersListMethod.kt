@@ -14,14 +14,17 @@ import org.springframework.web.client.RestTemplate
 /**
  * Spring based implementation of [RemindersMethodGroup.list]
  */
-class SpringRemindersListMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : RemindersListMethod() {
+class SpringRemindersListMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : RemindersListMethod() {
     override fun request(): ApiCallResult<SuccessfulRemindersListResponse, ErrorRemindersListResponse> {
 
         val response = SlackRequestBuilder<RemindersListResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("reminders.list")
-                .returnAsType(RemindersListResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("reminders.list")
+            .returnAsType(RemindersListResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulRemindersListResponse -> {

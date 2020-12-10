@@ -16,14 +16,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ChatMethodGroup.update]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUpdateMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatUpdateMethod() {
+class SpringUpdateMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ChatUpdateMethod() {
 
     override fun request(): ApiCallResult<SuccessfulChatUpdateResponse, ErrorChatUpdateResponse> {
         val response = SlackRequestBuilder<ChatUpdateResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("chat.update")
-                .returnAsType(ChatUpdateResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("chat.update")
+            .returnAsType(ChatUpdateResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulChatUpdateResponse -> {

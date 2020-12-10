@@ -67,6 +67,7 @@ class SpringConversationsMethodGroup : ConversationsMethodGroup {
         return SpringConversationsSetPurposeMethod(authToken)
     }
 
+    @Suppress("NotImplementedDeclaration")
     override fun setTopic(authToken: String): ConversationsSetTopicMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -77,10 +78,6 @@ class SpringConversationsMethodGroup : ConversationsMethodGroup {
 
     override fun archive(authToken: String): ConversationsArchiveMethod {
         return SpringConversationsArchiveMethod(authToken)
-    }
-
-    companion object {
-        val LOG = LoggerFactory.getLogger(SpringConversationsMethodGroup::class.java)
     }
 
     override fun members(authToken: String): SpringConversationsMembersMethod {

@@ -50,11 +50,15 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
     }
 
     internal fun postWithJsonBody(): ResponseEntity<T> {
-        val requestEntity = RequestEntity(this.body, slackHeaders(listOf("application/json")), HttpMethod.POST, this.uri)
+        val requestEntity =
+            RequestEntity(this.body, slackHeaders(listOf("application/json")), HttpMethod.POST, this.uri)
         return restTemplate.exchange(requestEntity, responseType)
     }
 
-    internal fun postUrlEncoded(params: Map<String, String>, contentType: List<String> = listOf("application/x-www-form-urlencoded")): ResponseEntity<T> {
+    internal fun postUrlEncoded(
+        params: Map<String, String>,
+        contentType: List<String> = listOf("application/x-www-form-urlencoded")
+    ): ResponseEntity<T> {
         val map = LinkedMultiValueMap<String, String>()
         params.forEach { (key, value) -> map.add(key, value) }
         val req = HttpEntity<MultiValueMap<String, String>>(map, slackHeaders(contentType))
@@ -66,8 +70,9 @@ class SlackRequestBuilder<T>(private val token: String? = null, private val rest
         val requestEntity = HttpEntity(this.body, slackHeaders(listOf(MediaType.MULTIPART_FORM_DATA_VALUE)))
 
         return restTemplate.exchange(
-                uri, HttpMethod.POST, requestEntity,
-                responseType)
+            uri, HttpMethod.POST, requestEntity,
+            responseType
+        )
     }
 
     private fun slackHeaders(contentType: List<String>): LinkedMultiValueMap<String, String> {

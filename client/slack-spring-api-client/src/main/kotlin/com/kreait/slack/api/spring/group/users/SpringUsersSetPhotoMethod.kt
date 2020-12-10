@@ -22,14 +22,17 @@ import java.io.File
  * Spring based implementation of [UsersMethodGroup.setPhoto]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUsersSetPhotoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersSetPhotoMethod() {
+class SpringUsersSetPhotoMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersSetPhotoMethod() {
 
     override fun request(): ApiCallResult<SuccessfulSetPhotoResponse, ErrorSetPhotoResponse> {
         val response = SlackRequestBuilder<SetPhotoResponse>(authToken, restTemplate)
-                .with(LinkedMultiValueMap(convertParams()))
-                .toMethod("users.setPhoto")
-                .returnAsType(SetPhotoResponse::class.java)
-                .postMultipartFormdata()
+            .with(LinkedMultiValueMap(convertParams()))
+            .toMethod("users.setPhoto")
+            .returnAsType(SetPhotoResponse::class.java)
+            .postMultipartFormdata()
 
         return when (response.body!!) {
             is SuccessfulSetPhotoResponse -> {

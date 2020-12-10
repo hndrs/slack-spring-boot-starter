@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.replies]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsRepliesMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsRepliesMethod() {
+class SpringConversationsRepliesMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsRepliesMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationRepliesResponse, ErrorConversationRepliesResponse> {
         val response = SlackRequestBuilder<ConversationRepliesResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("conversations.replies")
-                .returnAsType(ConversationRepliesResponse::class.java)
-                .postUrlEncoded(this.params.toRequestMap())
+            .with(this.params)
+            .toMethod("conversations.replies")
+            .returnAsType(ConversationRepliesResponse::class.java)
+            .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {
             is SuccessfulConversationRepliesResponse -> {

@@ -16,13 +16,16 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [UsersMethodGroup.getProfile]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUsersGetProfileMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersGetProfileMethod() {
+class SpringUsersGetProfileMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersGetProfileMethod() {
 
     override fun request(): ApiCallResult<SuccessfulGetProfileResponse, ErrorGetProfileResponse> {
         val response = SlackRequestBuilder<GetProfileResponse>(authToken, restTemplate)
-                .toMethod("users.profile.get")
-                .returnAsType(GetProfileResponse::class.java)
-                .postUrlEncoded(this.params.toRequestMap())
+            .toMethod("users.profile.get")
+            .returnAsType(GetProfileResponse::class.java)
+            .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {
             is SuccessfulGetProfileResponse -> {

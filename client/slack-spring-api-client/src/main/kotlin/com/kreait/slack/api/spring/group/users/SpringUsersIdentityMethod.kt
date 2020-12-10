@@ -16,13 +16,16 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [UsersMethodGroup.identity]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUsersIdentityMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersIdentityMethod() {
+class SpringUsersIdentityMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersIdentityMethod() {
 
     override fun request(): ApiCallResult<SuccessfulIdentityResponse, ErrorIdentityResponse> {
         val response = SlackRequestBuilder<IdentityResponse>(authToken, restTemplate)
-                .toMethod("users.identity")
-                .returnAsType(IdentityResponse::class.java)
-                .postUrlEncoded(mapOf())
+            .toMethod("users.identity")
+            .returnAsType(IdentityResponse::class.java)
+            .postUrlEncoded(mapOf())
 
         return when (response.body!!) {
             is SuccessfulIdentityResponse -> {

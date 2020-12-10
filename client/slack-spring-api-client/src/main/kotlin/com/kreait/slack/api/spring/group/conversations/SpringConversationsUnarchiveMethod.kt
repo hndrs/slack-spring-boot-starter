@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.unarchive]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsUnarchiveMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsUnarchiveMethod() {
+class SpringConversationsUnarchiveMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsUnarchiveMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationUnarchiveResponse, ErrorConversationUnarchiveResponse> {
         val response = SlackRequestBuilder<ConversationUnarchiveResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("conversations.unarchive")
-                .returnAsType(ConversationUnarchiveResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("conversations.unarchive")
+            .returnAsType(ConversationUnarchiveResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulConversationUnarchiveResponse -> {

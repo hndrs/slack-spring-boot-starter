@@ -9,15 +9,16 @@ import org.springframework.web.client.ResponseErrorHandler
  *
  */
 class SlackResponseErrorHandler : ResponseErrorHandler {
-    companion object {
-        private val Log = LoggerFactory.getLogger(SlackResponseErrorHandler::class.java)
-    }
 
     override fun hasError(response: ClientHttpResponse): Boolean {
         return !response.statusCode.is2xxSuccessful
     }
 
     override fun handleError(response: ClientHttpResponse) {
-        Log.error("received error-code: ${response.statusCode} while posting to responseUrl")
+        LOG.error("received error-code: ${response.statusCode} while posting to responseUrl")
+    }
+
+    companion object {
+        private val LOG = LoggerFactory.getLogger(SlackResponseErrorHandler::class.java)
     }
 }

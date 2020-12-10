@@ -3,7 +3,6 @@ package com.kreait.slack.api.spring.group.usergroups
 import com.kreait.slack.api.group.usergroups.UsergroupsMethodGroup
 import com.kreait.slack.api.spring.group.usergroups.users.SpringUsergroupsUsersListMethod
 import com.kreait.slack.api.spring.group.usergroups.users.SpringUsergroupsUsersUpdateMethod
-import org.slf4j.LoggerFactory
 
 /**
  * Convenience function to apply slack api Usergroups method grouping
@@ -11,10 +10,6 @@ import org.slf4j.LoggerFactory
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
 class SpringUsergroupMethodGroup : UsergroupsMethodGroup {
-
-    companion object {
-        val LOG = LoggerFactory.getLogger(SpringUsergroupMethodGroup::class.java)
-    }
 
     override fun replaceUsers(authToken: String) = SpringUsergroupsUsersUpdateMethod(authToken)
 

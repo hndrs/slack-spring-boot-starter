@@ -14,13 +14,16 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.kick]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsKickMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsKickMethod() {
+class SpringConversationsKickMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsKickMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationKickResponse, ErrorConversationKickResponse> {
         val response = SlackRequestBuilder<ConversationsKickResponse>(authToken, restTemplate)
-                .toMethod("conversations.kick")
-                .returnAsType(ConversationsKickResponse::class.java)
-                .postWithJsonBody()
+            .toMethod("conversations.kick")
+            .returnAsType(ConversationsKickResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulConversationKickResponse -> {

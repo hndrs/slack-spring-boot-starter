@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.leave]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsLeaveMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsLeaveMethod() {
+class SpringConversationsLeaveMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsLeaveMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationLeaveResponse, ErrorConversationLeaveResponse> {
         val response = SlackRequestBuilder<ConversationsLeaveResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("conversations.leave")
-                .returnAsType(ConversationsLeaveResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("conversations.leave")
+            .returnAsType(ConversationsLeaveResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulConversationLeaveResponse -> {

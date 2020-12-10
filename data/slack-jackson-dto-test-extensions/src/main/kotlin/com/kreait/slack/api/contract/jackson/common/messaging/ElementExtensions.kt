@@ -1,3 +1,5 @@
+@file:Suppress("StringLiteralDuplication")
+
 package com.kreait.slack.api.contract.jackson.common.messaging
 
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Option

@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [UsersMethodGroup.getPresence]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUsersGetPresenceMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersGetPresenceMethod() {
+class SpringUsersGetPresenceMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersGetPresenceMethod() {
 
     override fun request(): ApiCallResult<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse> {
         val response = SlackRequestBuilder<GetPresenceResponse>(authToken, restTemplate)
-                .toMethod("users.getPresence")
-                .returnAsType(GetPresenceResponse::class.java)
-                .with(this.params)
-                .postUrlEncoded(mapOf())
+            .toMethod("users.getPresence")
+            .returnAsType(GetPresenceResponse::class.java)
+            .with(this.params)
+            .postUrlEncoded(mapOf())
 
         return when (response.body!!) {
 

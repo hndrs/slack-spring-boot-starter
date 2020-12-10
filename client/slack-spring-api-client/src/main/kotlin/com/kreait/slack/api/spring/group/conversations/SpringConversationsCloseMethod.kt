@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.close]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsCloseMethod constructor(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsCloseMethod() {
+class SpringConversationsCloseMethod constructor(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsCloseMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationCloseResponse, ErrorConversationCloseResponse> {
         val response = SlackRequestBuilder<ConversationCloseResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("conversations.close")
-                .returnAsType(ConversationCloseResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("conversations.close")
+            .returnAsType(ConversationCloseResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulConversationCloseResponse -> {

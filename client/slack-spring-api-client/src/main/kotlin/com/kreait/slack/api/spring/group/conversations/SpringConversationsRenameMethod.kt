@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.rename]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsRenameMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsRenameMethod() {
+class SpringConversationsRenameMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsRenameMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationsRenameResponse, ErrorConversationsRenameResponse> {
         val response = SlackRequestBuilder<ConversationsRenameResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("conversations.rename")
-                .returnAsType(ConversationsRenameResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("conversations.rename")
+            .returnAsType(ConversationsRenameResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulConversationsRenameResponse -> {

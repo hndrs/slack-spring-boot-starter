@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
 
-//TODO: Refactor names, e.g. should be DialogOpenResponse instead of SlackOpenDialogResponse
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
     include = JsonTypeInfo.As.PROPERTY,
@@ -17,15 +16,15 @@ import com.kreait.slack.api.contract.jackson.util.JacksonDataClass
     JsonSubTypes.Type(value = ErrorOpenDialogResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class SlackOpenDialogResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed class OpenDialogResponse constructor(@JsonProperty("ok") open val ok: Boolean)
 
 /**
  * Success-response of this request.
  *
- * @property ok will be true
+ * @property ok will be trueElementExtensions
  */
 @JacksonDataClass
-data class SuccessfulOpenDialogResponse constructor(override val ok: Boolean) : SlackOpenDialogResponse(ok) {
+data class SuccessfulOpenDialogResponse constructor(override val ok: Boolean) : OpenDialogResponse(ok) {
     companion object
 }
 
@@ -41,7 +40,7 @@ data class ErrorOpenDialogResponse constructor(
     override val ok: Boolean,
     @JsonProperty("error") val error: String,
     @JsonProperty("response_metadata") val metadata: MetaData? = null
-) : SlackOpenDialogResponse(ok) {
+) : OpenDialogResponse(ok) {
     companion object
 }
 
@@ -55,7 +54,7 @@ data class MetaData constructor(@JsonProperty("messages") val messages: List<Str
  * @property trigger_id the triggerId you receive by invoking a slashcommand or interactive component
  */
 @JacksonDataClass
-data class SlackOpenDialogRequest constructor(
+data class OpenDialogRequest constructor(
     @JsonProperty("dialog") val dialog: Dialog,
     @JsonProperty("trigger_id") val trigger_id: String
 ) {

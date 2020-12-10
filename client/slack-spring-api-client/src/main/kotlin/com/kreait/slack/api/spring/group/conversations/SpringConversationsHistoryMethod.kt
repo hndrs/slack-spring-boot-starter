@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.history]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsHistoryMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsHistoryMethod() {
+class SpringConversationsHistoryMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsHistoryMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationHistoryResponse, ErrorConversationHistoryResponse> {
         val response = SlackRequestBuilder<ConversationHistoryResponse>(authToken, restTemplate)
-                .with(params)
-                .toMethod("conversations.history")
-                .returnAsType(ConversationHistoryResponse::class.java)
-                .postUrlEncoded(params.toRequestMap())
+            .with(params)
+            .toMethod("conversations.history")
+            .returnAsType(ConversationHistoryResponse::class.java)
+            .postUrlEncoded(params.toRequestMap())
 
         return when (response.body!!) {
             is SuccessfulConversationHistoryResponse -> {

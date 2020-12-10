@@ -16,14 +16,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ChatMethodGroup.unfurl]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUnfurlMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatUnfurlMethod() {
+class SpringUnfurlMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ChatUnfurlMethod() {
 
     override fun request(): ApiCallResult<SuccessfulChatUnfurlResponse, ErrorChatUnfurlResponse> {
         val response = SlackRequestBuilder<ChatUnfurlResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("chat.unfurl")
-                .returnAsType(ChatUnfurlResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("chat.unfurl")
+            .returnAsType(ChatUnfurlResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulChatUnfurlResponse -> {

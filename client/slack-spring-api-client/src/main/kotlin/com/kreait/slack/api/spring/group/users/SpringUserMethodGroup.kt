@@ -20,10 +20,6 @@ import org.slf4j.LoggerFactory
  */
 class SpringUserMethodGroup : UsersMethodGroup {
 
-    companion object {
-        val LOG = LoggerFactory.getLogger(SpringUserMethodGroup::class.java)
-    }
-
     override fun info(authToken: String): UsersInfoMethod {
         return SpringUsersInfoMethod(authToken)
     }

@@ -16,14 +16,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ChatMethodGroup.getPermalink]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringGetPermalinkMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatGetPermalinkMethod() {
+class SpringGetPermalinkMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ChatGetPermalinkMethod() {
 
     override fun request(): ApiCallResult<SuccessfulChatGetPermalinkResponse, ErrorChatGetPermalinkResponse> {
         val response = SlackRequestBuilder<ChatGetPermalinkResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("chat.getPermalink")
-                .returnAsType(ChatGetPermalinkResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("chat.getPermalink")
+            .returnAsType(ChatGetPermalinkResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulChatGetPermalinkResponse -> {

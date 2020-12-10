@@ -29,12 +29,14 @@ object RestTemplateFactory {
     init {
 
         val objectMapper = Jackson2ObjectMapperBuilder
-                .json()
-                .serializationInclusion(JsonInclude.Include.NON_NULL)
-                .failOnUnknownProperties(false)
-                .build<ObjectMapper>()
-        slackApiRestTemplate.messageConverters = listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
-        slackResponseRestTemplate.messageConverters = listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
+            .json()
+            .serializationInclusion(JsonInclude.Include.NON_NULL)
+            .failOnUnknownProperties(false)
+            .build<ObjectMapper>()
+        slackApiRestTemplate.messageConverters =
+            listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
+        slackResponseRestTemplate.messageConverters =
+            listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
         slackResponseRestTemplate.errorHandler = SlackResponseErrorHandler()
     }
 
@@ -53,8 +55,8 @@ object RestTemplateFactory {
                 val acceptingTrustStrategy = { _: Array<X509Certificate>, _: String -> true }
 
                 val sslContext = org.apache.http.ssl.SSLContexts.custom()
-                        .loadTrustMaterial(null, acceptingTrustStrategy)
-                        .build()
+                    .loadTrustMaterial(null, acceptingTrustStrategy)
+                    .build()
 
                 val csf = SSLConnectionSocketFactory(sslContext)
                 builder.setSSLSocketFactory(csf)

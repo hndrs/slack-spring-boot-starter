@@ -16,14 +16,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ChatMethodGroup.postMessage]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringPostMessageMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatPostMessageMethod() {
+class SpringPostMessageMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ChatPostMessageMethod() {
 
     override fun request(): ApiCallResult<SuccessfulPostMessageResponse, ErrorPostMessageResponse> {
         val response = SlackRequestBuilder<PostMessageResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("chat.postMessage")
-                .returnAsType(PostMessageResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("chat.postMessage")
+            .returnAsType(PostMessageResponse::class.java)
+            .postWithJsonBody()
         return when (response.body!!) {
             is SuccessfulPostMessageResponse -> {
                 val responseEntity = response.body as SuccessfulPostMessageResponse

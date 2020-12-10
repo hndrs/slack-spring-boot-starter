@@ -16,13 +16,16 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [TeamMethodGroup.getProfile]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringTeamGetProfileMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : TeamGetProfileMethod() {
+class SpringTeamGetProfileMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : TeamGetProfileMethod() {
 
     override fun request(): ApiCallResult<SuccessfulProfileResponse, ErrorProfileResponse> {
         val response = SlackRequestBuilder<ProfileResponse>(authToken, restTemplate)
-                .toMethod("team.profile.get")
-                .returnAsType(ProfileResponse::class.java)
-                .postUrlEncoded(this.params.toRequestMap())
+            .toMethod("team.profile.get")
+            .returnAsType(ProfileResponse::class.java)
+            .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {
             is SuccessfulProfileResponse -> {
