@@ -53,8 +53,10 @@ data class ErrorConversationSetTopicResponse constructor(
  * @property purpose the topic you want to set
  */
 data class ConversationsSetTopicRequest(
-    private val channel: String,
-    private val topic: String
+    @JsonProperty("channel")
+    val channel: String,
+    @JsonProperty("topic")
+    val topic: String
 ) {
     companion object
 }
