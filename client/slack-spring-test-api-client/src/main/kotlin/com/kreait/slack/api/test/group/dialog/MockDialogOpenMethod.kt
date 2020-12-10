@@ -11,10 +11,9 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [DialogMethodGroup.open]
  */
-class MockDialogOpenMethod : DialogOpenMethod(), MockMethod<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse, OpenDialogRequest> {
-
-    override fun params(): OpenDialogRequest = params
-
+class MockDialogOpenMethod : DialogOpenMethod(),
+    MockMethod<SuccessfulOpenDialogResponse, ErrorOpenDialogResponse, OpenDialogRequest> {
+    
     override var successResponse: SuccessfulOpenDialogResponse? = null
     override var failureResponse: ErrorOpenDialogResponse? = null
 
@@ -25,4 +24,6 @@ class MockDialogOpenMethod : DialogOpenMethod(), MockMethod<SuccessfulOpenDialog
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): OpenDialogRequest = params
 }

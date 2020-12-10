@@ -13,8 +13,6 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockUsergroupsEnableMethod : UsergroupsEnableMethod(), MockMethod<SuccessfulEnableResponse, ErrorEnableResponse, EnableRequest> {
 
-    override fun params(): EnableRequest = params
-
     override var successResponse: SuccessfulEnableResponse? = null
     override var failureResponse: ErrorEnableResponse? = null
 
@@ -25,4 +23,6 @@ class MockUsergroupsEnableMethod : UsergroupsEnableMethod(), MockMethod<Successf
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): EnableRequest = params
 }

@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [PinsMethodGroup.remove]
  */
-class MockPinsRemoveMethod : PinsRemoveMethod(), MockMethod<SuccessfulPinsRemoveResponse, ErrorPinsRemoveResponse, PinsRemoveRequest> {
-
-    override fun params() = params
+class MockPinsRemoveMethod : PinsRemoveMethod(),
+    MockMethod<SuccessfulPinsRemoveResponse, ErrorPinsRemoveResponse, PinsRemoveRequest> {
 
     override var successResponse: SuccessfulPinsRemoveResponse? = null
     override var failureResponse: ErrorPinsRemoveResponse? = null
@@ -25,4 +24,6 @@ class MockPinsRemoveMethod : PinsRemoveMethod(), MockMethod<SuccessfulPinsRemove
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params() = params
 }

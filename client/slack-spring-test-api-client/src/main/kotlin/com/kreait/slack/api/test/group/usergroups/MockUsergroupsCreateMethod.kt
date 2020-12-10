@@ -12,9 +12,7 @@ import com.kreait.slack.api.test.MockMethod
  * Testable implementation of [UsergroupsMethodGroup.create]
  */
 class MockUsergroupsCreateMethod : UsergroupsCreateMethod(), MockMethod<SuccessfulCreateResponse, ErrorCreateResponse, CreateRequest> {
-
-    override fun params(): CreateRequest = params
-
+    
     override var successResponse: SuccessfulCreateResponse? = null
     override var failureResponse: ErrorCreateResponse? = null
 
@@ -25,4 +23,6 @@ class MockUsergroupsCreateMethod : UsergroupsCreateMethod(), MockMethod<Successf
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): CreateRequest = params
 }

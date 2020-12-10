@@ -13,8 +13,6 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockConversationsSetPurposeMethod : ConversationsSetPurposeMethod(), MockMethod<SuccessfulConversationSetPurposeResponse, ErrorConversationSetPurposeResponse, ConversationsSetPurposeRequest> {
 
-    override fun params(): ConversationsSetPurposeRequest = params
-
     override var successResponse: SuccessfulConversationSetPurposeResponse? = null
     override var failureResponse: ErrorConversationSetPurposeResponse? = null
 
@@ -25,4 +23,6 @@ class MockConversationsSetPurposeMethod : ConversationsSetPurposeMethod(), MockM
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ConversationsSetPurposeRequest = params
 }

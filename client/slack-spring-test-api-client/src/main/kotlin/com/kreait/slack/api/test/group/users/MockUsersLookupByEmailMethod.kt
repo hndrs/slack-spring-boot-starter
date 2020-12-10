@@ -11,10 +11,9 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [UsersMethodGroup.lookupByEmail]
  */
-class MockUsersLookupByEmailMethod : UsersLookupByEmailMethod(), MockMethod<SuccessfulLookupByEmailResponse, ErrorLookupByEmailResponse, LookupByEmailRequest> {
-
-    override fun params(): LookupByEmailRequest = params
-
+class MockUsersLookupByEmailMethod : UsersLookupByEmailMethod(),
+    MockMethod<SuccessfulLookupByEmailResponse, ErrorLookupByEmailResponse, LookupByEmailRequest> {
+    
     override var successResponse: SuccessfulLookupByEmailResponse? = null
     override var failureResponse: ErrorLookupByEmailResponse? = null
 
@@ -25,4 +24,6 @@ class MockUsersLookupByEmailMethod : UsersLookupByEmailMethod(), MockMethod<Succ
 
         return ApiCallResult(success = this.successResponse, failure = this.failureResponse)
     }
+
+    override fun params(): LookupByEmailRequest = params
 }

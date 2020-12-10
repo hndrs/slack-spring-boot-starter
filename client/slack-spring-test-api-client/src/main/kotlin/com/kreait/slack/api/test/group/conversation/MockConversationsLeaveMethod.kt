@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [ConversationsMethodGroup.leave]
  */
-open class MockConversationsLeaveMethod : ConversationsLeaveMethod(), MockMethod<SuccessfulConversationLeaveResponse, ErrorConversationLeaveResponse, ConversationsLeaveRequest> {
-
-    override fun params(): ConversationsLeaveRequest = params
+open class MockConversationsLeaveMethod : ConversationsLeaveMethod(),
+    MockMethod<SuccessfulConversationLeaveResponse, ErrorConversationLeaveResponse, ConversationsLeaveRequest> {
 
     override var successResponse: SuccessfulConversationLeaveResponse? = null
     override var failureResponse: ErrorConversationLeaveResponse? = null
@@ -25,4 +24,6 @@ open class MockConversationsLeaveMethod : ConversationsLeaveMethod(), MockMethod
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ConversationsLeaveRequest = params
 }

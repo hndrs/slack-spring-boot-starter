@@ -11,10 +11,9 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [ConversationsMethodGroup.unarchive]
  */
-open class MockConversationsUnarchiveMethod : ConversationsUnarchiveMethod(), MockMethod<SuccessfulConversationUnarchiveResponse, ErrorConversationUnarchiveResponse, ConversationUnarchiveRequest> {
-
-    override fun params(): ConversationUnarchiveRequest = params
-
+open class MockConversationsUnarchiveMethod : ConversationsUnarchiveMethod(),
+    MockMethod<SuccessfulConversationUnarchiveResponse, ErrorConversationUnarchiveResponse, ConversationUnarchiveRequest> {
+    
     override var successResponse: SuccessfulConversationUnarchiveResponse? = null
     override var failureResponse: ErrorConversationUnarchiveResponse? = null
 
@@ -25,4 +24,6 @@ open class MockConversationsUnarchiveMethod : ConversationsUnarchiveMethod(), Mo
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ConversationUnarchiveRequest = params
 }

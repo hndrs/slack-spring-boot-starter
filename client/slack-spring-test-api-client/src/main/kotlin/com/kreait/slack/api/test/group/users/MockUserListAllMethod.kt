@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [UsersMethodGroup.listAll]
  */
-class MockUserListAllMethod : UserListAllMethod(), MockMethod<SuccessfulListAllResponse, ErrorListAllResponse, ListAllRequest> {
-
-    override fun params(): ListAllRequest = params
+class MockUserListAllMethod : UserListAllMethod(),
+    MockMethod<SuccessfulListAllResponse, ErrorListAllResponse, ListAllRequest> {
 
     override var successResponse: SuccessfulListAllResponse? = null
     override var failureResponse: ErrorListAllResponse? = null
@@ -25,4 +24,6 @@ class MockUserListAllMethod : UserListAllMethod(), MockMethod<SuccessfulListAllR
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ListAllRequest = params
 }

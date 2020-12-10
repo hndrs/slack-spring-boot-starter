@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [StarsMethodGroup.list]
  */
-class MockStarsListMethod : StarsListMethod(), MockMethod<SuccessfulStarsListResponse, ErrorStarsListResponse, StarsListRequest> {
-
-    override fun params() = params
+class MockStarsListMethod : StarsListMethod(),
+    MockMethod<SuccessfulStarsListResponse, ErrorStarsListResponse, StarsListRequest> {
 
     override var successResponse: SuccessfulStarsListResponse? = null
     override var failureResponse: ErrorStarsListResponse? = null
@@ -25,4 +24,6 @@ class MockStarsListMethod : StarsListMethod(), MockMethod<SuccessfulStarsListRes
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params() = params
 }

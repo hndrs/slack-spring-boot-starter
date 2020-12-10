@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [OauthMethodGroup.access]
  */
-class MockOauthAccessMethod : OauthAccessMethod(), MockMethod<SuccessfullAccessResponse, ErrorAccessResponse, AccessRequest> {
-
-    override fun params(): AccessRequest = params
+class MockOauthAccessMethod : OauthAccessMethod(),
+    MockMethod<SuccessfullAccessResponse, ErrorAccessResponse, AccessRequest> {
 
     override var successResponse: SuccessfullAccessResponse? = null
     override var failureResponse: ErrorAccessResponse? = null
@@ -25,4 +24,6 @@ class MockOauthAccessMethod : OauthAccessMethod(), MockMethod<SuccessfullAccessR
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): AccessRequest = params
 }

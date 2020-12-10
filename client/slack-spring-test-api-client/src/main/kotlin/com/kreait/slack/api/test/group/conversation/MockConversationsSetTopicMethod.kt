@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [ConversationsMethodGroup.setTopic]
  */
-class MockConversationsSetTopicMethod : ConversationsSetTopicMethod(), MockMethod<SuccessfulConversationSetTopicResponse, ErrorConversationSetTopicResponse, ConversationsSetTopicRequest> {
-
-    override fun params(): ConversationsSetTopicRequest = params
+class MockConversationsSetTopicMethod : ConversationsSetTopicMethod(),
+    MockMethod<SuccessfulConversationSetTopicResponse, ErrorConversationSetTopicResponse, ConversationsSetTopicRequest> {
 
     override var successResponse: SuccessfulConversationSetTopicResponse? = null
     override var failureResponse: ErrorConversationSetTopicResponse? = null
@@ -25,4 +24,6 @@ class MockConversationsSetTopicMethod : ConversationsSetTopicMethod(), MockMetho
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ConversationsSetTopicRequest = params
 }

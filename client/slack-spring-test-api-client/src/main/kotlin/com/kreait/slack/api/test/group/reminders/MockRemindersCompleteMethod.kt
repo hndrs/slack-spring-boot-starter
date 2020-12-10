@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [RemindersMethodGroup.complete]
  */
-class MockRemindersCompleteMethod : RemindersCompleteMethod(), MockMethod<SuccessfulRemindersCompleteResponse, ErrorRemindersCompleteResponse, RemindersCompleteRequest> {
-
-    override fun params() = params
+class MockRemindersCompleteMethod : RemindersCompleteMethod(),
+    MockMethod<SuccessfulRemindersCompleteResponse, ErrorRemindersCompleteResponse, RemindersCompleteRequest> {
 
     override var successResponse: SuccessfulRemindersCompleteResponse? = null
     override var failureResponse: ErrorRemindersCompleteResponse? = null
@@ -25,4 +24,6 @@ class MockRemindersCompleteMethod : RemindersCompleteMethod(), MockMethod<Succes
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params() = params
 }

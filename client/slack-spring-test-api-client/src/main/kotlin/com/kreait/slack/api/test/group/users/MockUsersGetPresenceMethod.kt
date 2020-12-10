@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [UsersMethodGroup.getPresence]
  */
-class MockUsersGetPresenceMethod : UsersGetPresenceMethod(), MockMethod<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse, GetPresenceRequest> {
-
-    override fun params() = params
+class MockUsersGetPresenceMethod : UsersGetPresenceMethod(),
+    MockMethod<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse, GetPresenceRequest> {
 
     override var successResponse: SuccessfulGetPresenceResponse? = null
     override var failureResponse: ErrorGetPresenceResponse? = null
@@ -25,4 +24,6 @@ class MockUsersGetPresenceMethod : UsersGetPresenceMethod(), MockMethod<Successf
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params() = params
 }

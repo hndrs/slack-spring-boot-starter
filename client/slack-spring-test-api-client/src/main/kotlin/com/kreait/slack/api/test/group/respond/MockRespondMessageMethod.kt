@@ -10,9 +10,7 @@ import com.kreait.slack.api.test.MockMethod
  * Testable implementation of [RespondMethodGroup.message]
  */
 class MockRespondMessageMethod : RespondMessageMethod(), MockMethod<Unit, Unit, RespondMessageRequest> {
-
-    override fun params(): RespondMessageRequest = params
-
+    
     override var successResponse: Unit? = null
     override var failureResponse: Unit? = null
 
@@ -23,4 +21,6 @@ class MockRespondMessageMethod : RespondMessageMethod(), MockMethod<Unit, Unit, 
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): RespondMessageRequest = params
 }

@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [ConversationsMethodGroup.archive]
  */
-open class MockConversationsArchiveMethod : ConversationsArchiveMethod(), MockMethod<SuccessfulConversationArchiveResponse, ErrorConversationArchiveResponse, ConversationArchiveRequest> {
-
-    override fun params(): ConversationArchiveRequest = params
+open class MockConversationsArchiveMethod : ConversationsArchiveMethod(),
+    MockMethod<SuccessfulConversationArchiveResponse, ErrorConversationArchiveResponse, ConversationArchiveRequest> {
 
     override var successResponse: SuccessfulConversationArchiveResponse? = null
     override var failureResponse: ErrorConversationArchiveResponse? = null
@@ -25,4 +24,6 @@ open class MockConversationsArchiveMethod : ConversationsArchiveMethod(), MockMe
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ConversationArchiveRequest = params
 }

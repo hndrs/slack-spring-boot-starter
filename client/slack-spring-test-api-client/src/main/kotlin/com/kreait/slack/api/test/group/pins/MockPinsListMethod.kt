@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [PinsMethodGroup.list]
  */
-class MockPinsListMethod : PinsListMethod(), MockMethod<SuccessfulPinsListResponse, ErrorPinsListResponse, PinsListRequest> {
-
-    override fun params() = params
+class MockPinsListMethod : PinsListMethod(),
+    MockMethod<SuccessfulPinsListResponse, ErrorPinsListResponse, PinsListRequest> {
 
     override var successResponse: SuccessfulPinsListResponse? = null
     override var failureResponse: ErrorPinsListResponse? = null
@@ -25,4 +24,6 @@ class MockPinsListMethod : PinsListMethod(), MockMethod<SuccessfulPinsListRespon
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params() = params
 }

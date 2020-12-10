@@ -11,10 +11,9 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [ChatMethodGroup.delete]
  */
-class MockChatDelete : ChatDeleteMethod(), MockMethod<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, ChatDeleteRequest> {
-
-    override fun params(): ChatDeleteRequest = params
-
+class MockChatDelete : ChatDeleteMethod(),
+    MockMethod<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, ChatDeleteRequest> {
+    
     override var successResponse: SuccessfulChatDeleteResponse? = null
     override var failureResponse: ErrorChatDeleteResponse? = null
 
@@ -25,4 +24,6 @@ class MockChatDelete : ChatDeleteMethod(), MockMethod<SuccessfulChatDeleteRespon
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ChatDeleteRequest = params
 }

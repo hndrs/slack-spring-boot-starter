@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [ChatMethodGroup.meMessage]
  */
-class MockChatMeMessage : ChatMeMessageMethod(), MockMethod<SuccessfulChatMeMessageResponse, ErrorChatMeMessageResponse, ChatMeMessageRequest> {
-
-    override fun params(): ChatMeMessageRequest = params
+class MockChatMeMessage : ChatMeMessageMethod(),
+    MockMethod<SuccessfulChatMeMessageResponse, ErrorChatMeMessageResponse, ChatMeMessageRequest> {
 
     override var successResponse: SuccessfulChatMeMessageResponse? = null
     override var failureResponse: ErrorChatMeMessageResponse? = null
@@ -25,4 +24,6 @@ class MockChatMeMessage : ChatMeMessageMethod(), MockMethod<SuccessfulChatMeMess
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ChatMeMessageRequest = params
 }

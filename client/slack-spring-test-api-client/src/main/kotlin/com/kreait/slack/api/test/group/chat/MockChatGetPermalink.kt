@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [ChatMethodGroup.getPermalink]
  */
-class MockChatGetPermalink : ChatGetPermalinkMethod(), MockMethod<SuccessfulChatGetPermalinkResponse, ErrorChatGetPermalinkResponse, ChatGetPermalinkRequest> {
-
-    override fun params(): ChatGetPermalinkRequest = params
+class MockChatGetPermalink : ChatGetPermalinkMethod(),
+    MockMethod<SuccessfulChatGetPermalinkResponse, ErrorChatGetPermalinkResponse, ChatGetPermalinkRequest> {
 
     override var successResponse: SuccessfulChatGetPermalinkResponse? = null
     override var failureResponse: ErrorChatGetPermalinkResponse? = null
@@ -25,4 +24,6 @@ class MockChatGetPermalink : ChatGetPermalinkMethod(), MockMethod<SuccessfulChat
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ChatGetPermalinkRequest = params
 }

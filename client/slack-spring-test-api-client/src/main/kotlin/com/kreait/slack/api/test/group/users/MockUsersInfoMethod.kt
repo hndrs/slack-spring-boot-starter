@@ -13,8 +13,6 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockUsersInfoMethod : UsersInfoMethod(), MockMethod<SuccessfulInfoResponse, ErrorInfoResponse, InfoRequest> {
 
-    override fun params(): InfoRequest = params
-
     override var successResponse: SuccessfulInfoResponse? = null
     override var failureResponse: ErrorInfoResponse? = null
 
@@ -25,4 +23,6 @@ class MockUsersInfoMethod : UsersInfoMethod(), MockMethod<SuccessfulInfoResponse
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): InfoRequest = params
 }

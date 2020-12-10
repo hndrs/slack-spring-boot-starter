@@ -10,9 +10,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [RemindersMethodGroup.list]
  */
-class MockRemindersListMethod : RemindersListMethod(), MockMethod<SuccessfulRemindersListResponse, ErrorRemindersListResponse, Unit> {
-
-    override fun params() = params
+class MockRemindersListMethod : RemindersListMethod(),
+    MockMethod<SuccessfulRemindersListResponse, ErrorRemindersListResponse, Unit> {
 
     override var successResponse: SuccessfulRemindersListResponse? = null
     override var failureResponse: ErrorRemindersListResponse? = null
@@ -24,4 +23,6 @@ class MockRemindersListMethod : RemindersListMethod(), MockMethod<SuccessfulRemi
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params() = params
 }

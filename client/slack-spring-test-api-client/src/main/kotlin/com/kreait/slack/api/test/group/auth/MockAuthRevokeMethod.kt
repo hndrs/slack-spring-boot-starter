@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [AuthGroup.revoke]
  */
-class MockAuthRevokeMethod : AuthRevokeMethod(), MockMethod<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse, AuthRevokeRequest> {
-
-    override fun params(): AuthRevokeRequest = params
+class MockAuthRevokeMethod : AuthRevokeMethod(),
+    MockMethod<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse, AuthRevokeRequest> {
 
     override var successResponse: SuccessfulAuthRevokeResponse? = null
     override var failureResponse: ErrorAuthRevokeResponse? = null
@@ -24,4 +23,6 @@ class MockAuthRevokeMethod : AuthRevokeMethod(), MockMethod<SuccessfulAuthRevoke
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): AuthRevokeRequest = params
 }
