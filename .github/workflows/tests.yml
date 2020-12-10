@@ -1,4 +1,4 @@
-name: Test && QA && Publish
+name: Snapshot Publish
 
 # Controls when the action will run.
 on:
