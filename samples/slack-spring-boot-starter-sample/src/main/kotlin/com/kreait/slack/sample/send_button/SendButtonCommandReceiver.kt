@@ -15,30 +15,35 @@ import org.springframework.stereotype.Service
 @Service
 class SendButtonCommandReceiver @Autowired constructor(private val slackClient: SlackClient) : SlashCommandReceiver {
 
-    companion object {
-        const val CALLBACK_ID = "test_callback"
-        const val ACTION_NAME = "test_action"
-    }
-
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
-        val attachment = listOf(Attachment(
+        val attachment = listOf(
+            Attachment(
                 actions = listOf(
-                        Action(name = ACTION_NAME,
-                                text = "click me",
-                                style = Action.Style.PRIMARY,
-                                type = Action.ActionType.BUTTON)
+                    Action(
+                        name = ACTION_NAME,
+                        text = "click me",
+                        style = Action.Style.PRIMARY,
+                        type = Action.ActionType.BUTTON
+                    )
                 ), fallback = "test",
                 callbackId = CALLBACK_ID,
-                attachmentType = "default"))
+                attachmentType = "default"
+            )
+        )
 
         this.slackClient.respond().message(slackCommand.responseUrl)
-                .with(RespondMessageRequest(attachments = attachment, responseType = ResponseType.EPHEMERAL))
-                .onSuccess { println(it) }
-                .onFailure { println(it) }
-                .invoke()
+            .with(RespondMessageRequest(attachments = attachment, responseType = ResponseType.EPHEMERAL))
+            .onSuccess { println(it) }
+            .onFailure { println(it) }
+            .invoke()
     }
 
     override fun supportsCommand(slackCommand: SlackCommand): Boolean {
         return slackCommand.command.startsWith("/button")
+    }
+
+    companion object {
+        private const val CALLBACK_ID = "test_callback"
+        private const val ACTION_NAME = "test_action"
     }
 }

@@ -1,7 +1,6 @@
 package com.kreait.slack.sample.rock_paper_scissors
 
 import com.kreait.slack.api.SlackClient
-import com.kreait.slack.api.contract.jackson.event.Event
 import com.kreait.slack.api.contract.jackson.event.SlackEvent
 import com.kreait.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import com.kreait.slack.broker.receiver.EventReceiver
@@ -12,8 +11,10 @@ import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Service
 
 @Service
-class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGameHandler: RPSGameHandler,
-                                                              private val slackClient: SlackClient) : EventReceiver {
+class RockPaperScissorsChannelListener @Autowired constructor(
+    private val rpsGameHandler: RPSGameHandler,
+    private val slackClient: SlackClient
+) : EventReceiver {
 
     override fun supportsEvent(slackEvent: SlackEvent): Boolean {
         val data = slackEvent.event
@@ -38,16 +39,20 @@ class RockPaperScissorsChannelListener @Autowired constructor(private val rpsGam
         }
         if (eventMessage == "rock paper scissors") {
             this.slackClient.chat().postEphemeral(team.bot.accessToken)
-                    .with(PostEphemeralRequest("Choose your weapon!",
-                            user = slackEvent.event["user"].toString(),
-                            blocks = RPSGameHandler.blocks,
-                            channel = slackEvent.event["channel"].toString()))
-                    .onSuccess {
-                        println(it)
-                    }
-                    .onFailure {
-                        println(it)
-                    }.invoke()
+                .with(
+                    PostEphemeralRequest(
+                        "Choose your weapon!",
+                        user = slackEvent.event["user"].toString(),
+                        blocks = RPSGameHandler.blocks,
+                        channel = slackEvent.event["channel"].toString()
+                    )
+                )
+                .onSuccess {
+                    println(it)
+                }
+                .onFailure {
+                    println(it)
+                }.invoke()
         }
     }
 }
