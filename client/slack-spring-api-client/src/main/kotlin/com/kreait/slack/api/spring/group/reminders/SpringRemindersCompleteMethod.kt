@@ -14,14 +14,17 @@ import org.springframework.web.client.RestTemplate
 /**
  * Spring based implementation of [RemindersMethodGroup.complete]
  */
-class SpringRemindersCompleteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : RemindersCompleteMethod() {
+class SpringRemindersCompleteMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : RemindersCompleteMethod() {
     override fun request(): ApiCallResult<SuccessfulRemindersCompleteResponse, ErrorRemindersCompleteResponse> {
 
         val response = SlackRequestBuilder<RemindersCompleteResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("reminders.complete")
-                .returnAsType(RemindersCompleteResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("reminders.complete")
+            .returnAsType(RemindersCompleteResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulRemindersCompleteResponse -> {

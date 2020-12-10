@@ -1,7 +1,7 @@
 package com.kreait.slack.api.contract.jackson.group.dialog
 
-fun SlackOpenDialogRequest.Companion.sample(): SlackOpenDialogRequest {
-    return SlackOpenDialogRequest(Dialog.sample(), "")
+fun OpenDialogRequest.Companion.sample(): OpenDialogRequest {
+    return OpenDialogRequest(Dialog.sample(), "")
 }
 
 fun Dialog.Companion.sample(): Dialog {

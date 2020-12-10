@@ -17,10 +17,13 @@ import java.net.URI
  * @return the API Call Method containing the ResponseEntities
  */
 @Suppress("UNCHECKED_CAST")
-class SpringRespondMessageMethod(private val responseUrl: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackResponseTemplate()) : RespondMessageMethod() {
+class SpringRespondMessageMethod(
+    private val responseUrl: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackResponseTemplate()
+) : RespondMessageMethod() {
 
     override fun request(): ApiCallResult<Unit, Unit> {
-        
+
         val uri = URI.create(responseUrl)
         val requestEntity = RequestEntity(this.params, HttpMethod.POST, uri)
         val response = restTemplate.exchange<Unit>(requestEntity)

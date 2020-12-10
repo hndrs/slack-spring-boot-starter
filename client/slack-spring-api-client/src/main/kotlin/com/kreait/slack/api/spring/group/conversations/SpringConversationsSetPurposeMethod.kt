@@ -14,17 +14,19 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.setPurpose]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsSetPurposeMethod(private val authToken: String,
-                                          private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate())
-    : ConversationsSetPurposeMethod() {
+class SpringConversationsSetPurposeMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsSetPurposeMethod() {
 
-    override fun request(): ApiCallResult<SuccessfulConversationSetPurposeResponse, ErrorConversationSetPurposeResponse> {
+    override fun request():
+            ApiCallResult<SuccessfulConversationSetPurposeResponse, ErrorConversationSetPurposeResponse> {
 
         val response = SlackRequestBuilder<ConversationSetPurposeResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("conversations.setPurpose")
-                .returnAsType(ConversationSetPurposeResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("conversations.setPurpose")
+            .returnAsType(ConversationSetPurposeResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulConversationSetPurposeResponse -> {

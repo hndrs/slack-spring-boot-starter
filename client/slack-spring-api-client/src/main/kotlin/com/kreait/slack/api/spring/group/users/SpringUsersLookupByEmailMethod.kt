@@ -18,14 +18,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [UsersMethodGroup.lookupByEmail]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUsersLookupByEmailMethod(private val authToken: String, val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersLookupByEmailMethod() {
+class SpringUsersLookupByEmailMethod(
+    private val authToken: String,
+    val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersLookupByEmailMethod() {
 
     override fun request(): ApiCallResult<SuccessfulLookupByEmailResponse, ErrorLookupByEmailResponse> {
 
         val response = SlackRequestBuilder<LookupByEmailResponse>(authToken, restTemplate)
-                .toMethod("users.lookupByEmail")
-                .returnAsType(LookupByEmailResponse::class.java)
-                .postUrlEncoded(this.params.toRequestMap())
+            .toMethod("users.lookupByEmail")
+            .returnAsType(LookupByEmailResponse::class.java)
+            .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {
             is SuccessfulLookupByEmailResponse -> {

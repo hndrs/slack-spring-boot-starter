@@ -1,4 +1,3 @@
-
 package com.kreait.slack.api.spring.group.conversations
 
 import com.kreait.slack.api.contract.jackson.group.conversations.ConversationJoinResponse
@@ -15,14 +14,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.join]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsJoinMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsJoinMethod() {
+class SpringConversationsJoinMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsJoinMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationJoinResponse, ErrorConversationJoinResponse> {
         val response = SlackRequestBuilder<ConversationJoinResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("conversations.join")
-                .returnAsType(ConversationJoinResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("conversations.join")
+            .returnAsType(ConversationJoinResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulConversationJoinResponse -> {

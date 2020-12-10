@@ -13,10 +13,6 @@ import org.slf4j.LoggerFactory
  */
 class SpringPinsMethodGroup : PinsMethodGroup {
 
-    companion object {
-        val LOG = LoggerFactory.getLogger(SpringPinsMethodGroup::class.java)
-    }
-
     override fun add(authToken: String): PinsAddMethod {
         return SpringPinsAddMethod(authToken)
     }

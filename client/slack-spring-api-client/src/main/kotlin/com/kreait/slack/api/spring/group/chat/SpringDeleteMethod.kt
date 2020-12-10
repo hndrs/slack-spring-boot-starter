@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ChatMethodGroup.delete]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringDeleteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatDeleteMethod() {
+class SpringDeleteMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ChatDeleteMethod() {
 
     override fun request(): ApiCallResult<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse> {
         val response = SlackRequestBuilder<ChatDeleteResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("chat.delete")
-                .returnAsType(ChatDeleteResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("chat.delete")
+            .returnAsType(ChatDeleteResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulChatDeleteResponse -> {

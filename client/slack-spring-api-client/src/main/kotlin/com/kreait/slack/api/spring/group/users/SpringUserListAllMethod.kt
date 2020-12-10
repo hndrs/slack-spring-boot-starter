@@ -16,11 +16,8 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [UsersMethodGroup.listAll]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUserListAllMethod(authToken: String, restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UserListAllMethod() {
-
-    companion object {
-        val LOG = LoggerFactory.getLogger(SpringUserListAllMethod::class.java)
-    }
+class SpringUserListAllMethod(authToken: String, restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) :
+    UserListAllMethod() {
 
     private val springUserListMethod: SpringUserListMethod = SpringUserListMethod(authToken, restTemplate)
 
@@ -32,11 +29,15 @@ class SpringUserListAllMethod(authToken: String, restTemplate: RestTemplate = Re
 
         do {
 
-            val request = ListRequest(includeLocale = this.params.includeLocale, cursor = nextCursor, limit = this.params.packageSize)
+            val request = ListRequest(
+                includeLocale = this.params.includeLocale,
+                cursor = nextCursor,
+                limit = this.params.packageSize
+            )
             val result = springUserListMethod.with(request)
-                    .onFailure { LOG.debug("Error while fetching all users, {}", it) }
-                    .onSuccess { LOG.debug("Fetching users with {}\n{}", request, it) }
-                    .invoke()
+                .onFailure { LOG.debug("Error while fetching all users, {}", it) }
+                .onSuccess { LOG.debug("Fetching users with {}\n{}", request, it) }
+                .invoke()
 
             if (result.wasSuccess()) {
                 result.success?.members?.let {
@@ -58,5 +59,9 @@ class SpringUserListAllMethod(authToken: String, restTemplate: RestTemplate = Re
             this.onSuccess?.invoke(successfulListAllResponse)
             ApiCallResult(success = successfulListAllResponse)
         }
+    }
+
+    companion object {
+        private val LOG = LoggerFactory.getLogger(SpringUserListAllMethod::class.java)
     }
 }

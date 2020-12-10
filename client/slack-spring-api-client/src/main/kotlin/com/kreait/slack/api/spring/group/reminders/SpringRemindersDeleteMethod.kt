@@ -5,24 +5,26 @@ import com.kreait.slack.api.contract.jackson.group.reminders.RemindersDeleteResp
 import com.kreait.slack.api.contract.jackson.group.reminders.SuccessfulRemindersDeleteResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.reminders.RemindersDeleteMethod
+import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 import com.kreait.slack.api.spring.group.RestTemplateFactory
 import com.kreait.slack.api.spring.group.SlackRequestBuilder
 import org.springframework.web.client.RestTemplate
-
-import com.kreait.slack.api.group.reminders.RemindersMethodGroup
 
 
 /**
  * Spring based implementation of [RemindersMethodGroup.delete]
  */
-class SpringRemindersDeleteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : RemindersDeleteMethod() {
+class SpringRemindersDeleteMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : RemindersDeleteMethod() {
     override fun request(): ApiCallResult<SuccessfulRemindersDeleteResponse, ErrorRemindersDeleteResponse> {
 
         val response = SlackRequestBuilder<RemindersDeleteResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("reminders.delete")
-                .returnAsType(RemindersDeleteResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("reminders.delete")
+            .returnAsType(RemindersDeleteResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulRemindersDeleteResponse -> {

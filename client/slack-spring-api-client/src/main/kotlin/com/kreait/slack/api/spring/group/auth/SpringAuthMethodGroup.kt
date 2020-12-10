@@ -12,10 +12,6 @@ import org.slf4j.LoggerFactory
  */
 class SpringAuthMethodGroup : AuthGroup {
 
-    companion object {
-        val LOG = LoggerFactory.getLogger(SpringAuthMethodGroup::class.java)
-    }
-
     override fun revoke(authToken: String): AuthRevokeMethod {
         return SpringRevokeMethod(authToken)
     }

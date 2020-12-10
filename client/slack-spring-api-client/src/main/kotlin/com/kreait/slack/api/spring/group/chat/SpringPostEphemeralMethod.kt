@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ChatMethodGroup.postEphemeral]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringPostEphemeralMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ChatPostEphemeralMethod() {
+class SpringPostEphemeralMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ChatPostEphemeralMethod() {
 
     override fun request(): ApiCallResult<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse> {
         val response = SlackRequestBuilder<PostEphemeralResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("chat.postEphemeral")
-                .returnAsType(PostEphemeralResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("chat.postEphemeral")
+            .returnAsType(PostEphemeralResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulPostEphemeralResponse -> {

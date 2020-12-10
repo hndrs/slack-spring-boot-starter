@@ -14,14 +14,17 @@ import org.springframework.web.client.RestTemplate
  * Revokes a token.
  * https://api.slack.com/methods/auth.revoke
  */
-class SpringRevokeMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : AuthRevokeMethod() {
+class SpringRevokeMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : AuthRevokeMethod() {
 
     override fun request(): ApiCallResult<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse> {
 
         val response = SlackRequestBuilder<AuthRevokeResponse>(authToken, restTemplate)
-                .toMethod("auth.revoke")
-                .returnAsType(AuthRevokeResponse::class.java)
-                .postUrlEncoded(this.params.toRequestMap())
+            .toMethod("auth.revoke")
+            .returnAsType(AuthRevokeResponse::class.java)
+            .postUrlEncoded(this.params.toRequestMap())
         return when (response.body!!) {
             is SuccessfulAuthRevokeResponse -> {
                 val responseEntity = response.body as SuccessfulAuthRevokeResponse

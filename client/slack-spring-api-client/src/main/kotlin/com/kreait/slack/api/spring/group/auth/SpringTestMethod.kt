@@ -1,8 +1,8 @@
 package com.kreait.slack.api.spring.group.auth
 
 
-import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthTestResponse
 import com.kreait.slack.api.contract.jackson.group.auth.AuthTestResponse
+import com.kreait.slack.api.contract.jackson.group.auth.ErrorAuthTestResponse
 import com.kreait.slack.api.contract.jackson.group.auth.SuccessfulAuthTestResponse
 import com.kreait.slack.api.group.ApiCallResult
 import com.kreait.slack.api.group.auth.AuthTestMethod
@@ -15,13 +15,16 @@ import org.springframework.web.client.RestTemplate
  * https://api.slack.com/methods/auth.test
  */
 @Suppress("UNCHECKED_CAST")
-class SpringTestMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : AuthTestMethod() {
+class SpringTestMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : AuthTestMethod() {
 
     override fun request(): ApiCallResult<SuccessfulAuthTestResponse, ErrorAuthTestResponse> {
         val response = SlackRequestBuilder<AuthTestResponse>(authToken, restTemplate)
-                .toMethod("auth.test")
-                .returnAsType(AuthTestResponse::class.java)
-                .postWithJsonBody()
+            .toMethod("auth.test")
+            .returnAsType(AuthTestResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulAuthTestResponse -> {

@@ -5,7 +5,7 @@ import com.kreait.slack.api.contract.jackson.InteractiveMessage
 import com.kreait.slack.api.contract.jackson.SlackCommand
 import com.kreait.slack.api.contract.jackson.group.chat.PostMessageRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.Dialog
-import com.kreait.slack.api.contract.jackson.group.dialog.SlackOpenDialogRequest
+import com.kreait.slack.api.contract.jackson.group.dialog.OpenDialogRequest
 import com.kreait.slack.api.contract.jackson.group.dialog.TextElement
 import com.kreait.slack.api.contract.jackson.group.dialog.Type
 import com.kreait.slack.broker.receiver.InteractiveComponentReceiver
@@ -45,7 +45,7 @@ class OpenDialogCommandReceiver @Autowired constructor(private val slackClient: 
     }
 
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
-        val openDialogRequest = SlackOpenDialogRequest(
+        val openDialogRequest = OpenDialogRequest(
                 trigger_id = slackCommand.triggerId,
                 dialog = Dialog(
                         callback_id = DialogSubmissionReceiver.CALL_BACK_ID,

@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.invite]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsInviteMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsInviteMethod() {
+class SpringConversationsInviteMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsInviteMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationInviteResponse, ErrorConversationInviteResponse> {
         val response = SlackRequestBuilder<ConversationInviteResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("conversations.invite")
-                .returnAsType(ConversationInviteResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("conversations.invite")
+            .returnAsType(ConversationInviteResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulConversationInviteResponse -> {

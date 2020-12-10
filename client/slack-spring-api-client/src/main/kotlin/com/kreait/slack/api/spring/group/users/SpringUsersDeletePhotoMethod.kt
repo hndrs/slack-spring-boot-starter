@@ -16,13 +16,16 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [UsersMethodGroup.deletePhoto]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUsersDeletePhotoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersDeletePhotoMethod() {
+class SpringUsersDeletePhotoMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersDeletePhotoMethod() {
 
     override fun request(): ApiCallResult<SuccessfulDeletePhotoResponse, ErrorDeletePhotoResponse> {
         val response = SlackRequestBuilder<DeletePhotoResponse>(authToken, restTemplate)
-                .toMethod("users.deletePhoto")
-                .returnAsType(DeletePhotoResponse::class.java)
-                .postUrlEncoded(mapOf())
+            .toMethod("users.deletePhoto")
+            .returnAsType(DeletePhotoResponse::class.java)
+            .postUrlEncoded(mapOf())
 
         return when (response.body!!) {
             is SuccessfulDeletePhotoResponse -> {

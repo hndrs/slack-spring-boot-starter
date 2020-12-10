@@ -16,13 +16,16 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [UsersMethodGroup.info]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUsersInfoMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : UsersInfoMethod() {
+class SpringUsersInfoMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersInfoMethod() {
 
     override fun request(): ApiCallResult<SuccessfulInfoResponse, ErrorInfoResponse> {
         val response = SlackRequestBuilder<InfoResponse>(authToken, restTemplate)
-                .toMethod("users.info")
-                .returnAsType(InfoResponse::class.java)
-                .postUrlEncoded(this.params.toRequestMap())
+            .toMethod("users.info")
+            .returnAsType(InfoResponse::class.java)
+            .postUrlEncoded(this.params.toRequestMap())
 
         return when (response.body!!) {
             is SuccessfulInfoResponse -> {

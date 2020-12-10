@@ -14,17 +14,18 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.setTopic]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsSetTopicMethod(private val authToken: String,
-                                        private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate())
-    : ConversationsSetTopicMethod() {
+class SpringConversationsSetTopicMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsSetTopicMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationSetTopicResponse, ErrorConversationSetTopicResponse> {
 
         val response = SlackRequestBuilder<ConversationSetTopicResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("conversations.setTopic")
-                .returnAsType(ConversationSetTopicResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("conversations.setTopic")
+            .returnAsType(ConversationSetTopicResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulConversationSetTopicResponse -> {

@@ -15,14 +15,17 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [ConversationsMethodGroup.open]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringConversationsOpenMethod(private val authToken: String, private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) : ConversationsOpenMethod() {
+class SpringConversationsOpenMethod(
+    private val authToken: String,
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsOpenMethod() {
 
     override fun request(): ApiCallResult<SuccessfulConversationOpenResponse, ErrorConversationOpenResponse> {
         val response = SlackRequestBuilder<ConversationOpenResponse>(authToken, restTemplate)
-                .with(this.params)
-                .toMethod("conversations.open")
-                .returnAsType(ConversationOpenResponse::class.java)
-                .postWithJsonBody()
+            .with(this.params)
+            .toMethod("conversations.open")
+            .returnAsType(ConversationOpenResponse::class.java)
+            .postWithJsonBody()
 
         return when (response.body!!) {
             is SuccessfulConversationOpenResponse -> {
