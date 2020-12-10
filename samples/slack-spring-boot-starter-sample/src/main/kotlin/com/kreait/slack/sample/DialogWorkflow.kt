@@ -16,25 +16,31 @@ import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 
 @Component
-class DialogSubmissionReceiver @Autowired constructor(private val slackClient: SlackClient) : InteractiveComponentReceiver<InteractiveMessage> {
-
-    companion object {
-        const val CALL_BACK_ID = "unique_callback_id"
-    }
+class DialogSubmissionReceiver @Autowired constructor(private val slackClient: SlackClient) :
+    InteractiveComponentReceiver<InteractiveMessage> {
 
     override fun supportsInteractiveMessage(interactiveComponentResponse: InteractiveMessage): Boolean {
         return interactiveComponentResponse.callbackId == CALL_BACK_ID
     }
 
-    override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
+    override fun onReceiveInteractiveMessage(
+        interactiveComponentResponse: InteractiveMessage,
+        headers: HttpHeaders,
+        team: Team
+    ) {
 
         this.slackClient.chat().postMessage(team.bot.accessToken)
-                .with(PostMessageRequest(
-                        text = "We received your submission carry on :)",
-                        channel = interactiveComponentResponse.channel.id
-                )).invoke()
+            .with(
+                PostMessageRequest(
+                    text = "We received your submission carry on :)",
+                    channel = interactiveComponentResponse.channel.id
+                )
+            ).invoke()
     }
 
+    companion object {
+        const val CALL_BACK_ID = "unique_callback_id"
+    }
 }
 
 @Component
@@ -46,23 +52,24 @@ class OpenDialogCommandReceiver @Autowired constructor(private val slackClient: 
 
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
         val openDialogRequest = OpenDialogRequest(
-                trigger_id = slackCommand.triggerId,
-                dialog = Dialog(
-                        callback_id = DialogSubmissionReceiver.CALL_BACK_ID,
-                        title = "Welcome Please enter your name",
-                        elements = listOf(
-                                TextElement(
-                                        label = "Name",
-                                        name = "name",
-                                        type = Type.TEXT,
-                                        placeholder = "Your name"
-                                )
-                        )
-                ))
+            trigger_id = slackCommand.triggerId,
+            dialog = Dialog(
+                callback_id = DialogSubmissionReceiver.CALL_BACK_ID,
+                title = "Welcome Please enter your name",
+                elements = listOf(
+                    TextElement(
+                        label = "Name",
+                        name = "name",
+                        type = Type.TEXT,
+                        placeholder = "Your name"
+                    )
+                )
+            )
+        )
 
         this.slackClient.dialog().open(team.bot.accessToken)
-                .with(openDialogRequest)
-                .invoke()
+            .with(openDialogRequest)
+            .invoke()
     }
 
 }

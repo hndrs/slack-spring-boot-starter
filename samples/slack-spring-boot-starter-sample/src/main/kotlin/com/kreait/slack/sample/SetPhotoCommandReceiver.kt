@@ -18,13 +18,13 @@ class SetPhotoCommandReceiver @Autowired constructor(private val slackClient: Sl
 
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
         this.slackClient.users()
-                .setPhoto("YOUR_TOKEN")
-                .with(SetPhotoRequest(File(SetPhotoCommandReceiver::class.java.classLoader.getResource("olaph.png").file)))
-                .onSuccess {
-                    println(it)
-                }.onFailure {
-                    println(it)
-                }.invoke()
+            .setPhoto("YOUR_TOKEN")
+            .with(SetPhotoRequest(File(SetPhotoCommandReceiver::class.java.classLoader.getResource("olaph.png").file)))
+            .onSuccess {
+                println(it)
+            }.onFailure {
+                println(it)
+            }.invoke()
 
     }
 }
