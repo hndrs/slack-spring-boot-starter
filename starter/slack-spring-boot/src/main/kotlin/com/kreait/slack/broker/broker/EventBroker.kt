@@ -28,20 +28,22 @@ import org.springframework.web.bind.annotation.RestController
  */
 @SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
-class EventBroker constructor(private val slackEventReceivers: List<EventReceiver>,
-                              private val teamStore: TeamStore,
-                              private val eventStore: EventStore,
-                              private val metricsCollector: EventMetricsCollector? = null) {
-
-    companion object {
-        val LOG = LoggerFactory.getLogger(EventBroker::class.java)
-    }
+class EventBroker constructor(
+    private val slackEventReceivers: List<EventReceiver>,
+    private val teamStore: TeamStore,
+    private val eventStore: EventStore,
+    private val metricsCollector: EventMetricsCollector? = null
+) {
 
     /**
      * Endpoint that receives the events
      */
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/events", consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping(
+        "/events",
+        consumes = [MediaType.APPLICATION_JSON_VALUE],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
     fun receiveEvents(@Event event: EventRequest, @RequestHeader headers: HttpHeaders): Map<String, String> {
 
         this.metricsCollector?.eventsReceived()
@@ -85,25 +87,34 @@ class EventBroker constructor(private val slackEventReceivers: List<EventReceive
      */
     private fun invoke(event: SlackEvent, headers: HttpHeaders, team: Team) {
         this.slackEventReceivers
-                .filter { receiver ->
-                    val supportsEvent = receiver.supportsEvent(event)
+            .filter { receiver ->
+                val supportsEvent = receiver.supportsEvent(event)
 
-                    when {
-                        LOG.isDebugEnabled -> LOG.debug("EventReceiver:{}\nSupportsEvent:{}\nEvent:{} ", receiver::class, supportsEvent, event)
-                    }
-                    supportsEvent
+                when {
+                    LOG.isDebugEnabled -> LOG.debug(
+                        "EventReceiver:{}\nSupportsEvent:{}\nEvent:{} ",
+                        receiver::class,
+                        supportsEvent,
+                        event
+                    )
                 }
-                .sortedBy { it.order() }
-                .forEach { receiver ->
-                    try {
-                        this.metricsCollector?.receiverExecuted()
-                        receiver.onReceiveEvent(event, headers, team)
-                    } catch (e: Exception) {
-                        this.metricsCollector?.receiverExecutionError()
-                        if (receiver.shouldThrowException(e)) {
-                            throw e
-                        }
+                supportsEvent
+            }
+            .sortedBy { it.order() }
+            .forEach { receiver ->
+                try {
+                    this.metricsCollector?.receiverExecuted()
+                    receiver.onReceiveEvent(event, headers, team)
+                } catch (e: Exception) {
+                    this.metricsCollector?.receiverExecutionError()
+                    if (receiver.shouldThrowException(e)) {
+                        throw e
                     }
                 }
+            }
+    }
+
+    companion object {
+       private val LOG = LoggerFactory.getLogger(EventBroker::class.java)
     }
 }

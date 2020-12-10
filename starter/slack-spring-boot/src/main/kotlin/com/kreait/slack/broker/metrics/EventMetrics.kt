@@ -37,16 +37,16 @@ class EventMetrics : MeterBinder, EventMetricsCollector {
     override fun bindTo(registry: MeterRegistry) {
 
         eventsReceivedCounter = Counter.builder("slack.events.received")
-                .description("Total number of events received")
-                .register(registry)
+            .description("Total number of events received")
+            .register(registry)
 
         eventReceiverExecutions = Counter.builder("slack.events.receiver.executions")
-                .description("Total number of event receivers executions")
-                .register(registry)
+            .description("Total number of event receivers executions")
+            .register(registry)
 
         eventReceiverExecutionErrors = Counter.builder("slack.events.receiver.errors")
-                .description("Number of errors during event receiver execution")
-                .register(registry)
+            .description("Number of errors during event receiver execution")
+            .register(registry)
     }
 
     override fun receiverExecuted() = this.eventReceiverExecutions.increment()

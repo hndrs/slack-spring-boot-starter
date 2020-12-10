@@ -20,10 +20,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 @ControllerAdvice(assignableTypes = [CommandBroker::class, InteractiveComponentBroker::class, EventBroker::class])
 class SlackExceptionHandler(private val errorResponse: String) {
 
-    companion object {
-        private val LOG = LoggerFactory.getLogger(SlackExceptionHandler::class.java)
-    }
-
     /**
      * Handle [DialogValidationException]s
      * This will handle dialog related exception and automatically map to the correct dialog response as mentioned here
@@ -73,5 +69,9 @@ class SlackExceptionHandler(private val errorResponse: String) {
     fun handleExceptionInternal(ex: Exception): ResponseEntity<Any> {
         LOG.error("Unhandled Exception:", ex)
         return ResponseEntity.ok(errorResponse)
+    }
+
+    companion object {
+        private val LOG = LoggerFactory.getLogger(SlackExceptionHandler::class.java)
     }
 }

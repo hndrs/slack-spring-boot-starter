@@ -23,20 +23,25 @@ import org.springframework.web.bind.annotation.RestController
  */
 @SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
-class InteractiveComponentBroker constructor(private val slackBlockActionReceivers: List<InteractiveComponentReceiver<BlockActions>>,
-                                             private val slackInteractiveMessageReceivers: List<InteractiveComponentReceiver<InteractiveMessage>>,
-                                             private val teamStore: TeamStore,
-                                             private val metricsCollector: InteractiveComponentMetricsCollector? = null) {
-
-    companion object {
-        val LOG = LoggerFactory.getLogger(InteractiveComponentBroker::class.java)
-    }
+class InteractiveComponentBroker constructor(
+    private val slackBlockActionReceivers: List<InteractiveComponentReceiver<BlockActions>>,
+    private val slackInteractiveMessageReceivers: List<InteractiveComponentReceiver<InteractiveMessage>>,
+    private val teamStore: TeamStore,
+    private val metricsCollector: InteractiveComponentMetricsCollector? = null
+) {
 
     /**
      * Endpoint that receives the components
      */
-    @PostMapping("/interactive-components", consumes = ["application/x-www-form-urlencoded"], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun receiveComponent(@InteractiveResponse interactiveComponentResponse: InteractiveComponentResponse, @RequestHeader headers: HttpHeaders): ResponseEntity<InteractiveComponentMessageResponse> {
+    @PostMapping(
+        "/interactive-components",
+        consumes = ["application/x-www-form-urlencoded"],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    fun receiveComponent(
+        @InteractiveResponse interactiveComponentResponse: InteractiveComponentResponse,
+        @RequestHeader headers: HttpHeaders
+    ): ResponseEntity<InteractiveComponentMessageResponse> {
         this.metricsCollector?.responseReceived()
         val team = this.teamStore.findById(interactiveComponentResponse.team.id)
         when (interactiveComponentResponse) {
@@ -56,33 +61,37 @@ class InteractiveComponentBroker constructor(private val slackBlockActionReceive
 
     private fun invokeBlockMessages(interactiveComponentResponse: BlockActions, headers: HttpHeaders, team: Team) {
         slackBlockActionReceivers.filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
-                .sortedBy { it.order() }
-                .forEach { receiver ->
-                    try {
-                        this.metricsCollector?.receiverExecuted()
-                        receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
-                    } catch (e: Exception) {
-                        this.metricsCollector?.receiverExecutionError()
-                        if (receiver.shouldThrowException(e)) {
-                            throw e
-                        }
+            .sortedBy { it.order() }
+            .forEach { receiver ->
+                try {
+                    this.metricsCollector?.receiverExecuted()
+                    receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
+                } catch (e: Exception) {
+                    this.metricsCollector?.receiverExecutionError()
+                    if (receiver.shouldThrowException(e)) {
+                        throw e
                     }
                 }
+            }
     }
 
-    private fun invokeInteractiveMessages(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {
+    private fun invokeInteractiveMessages(
+        interactiveComponentResponse: InteractiveMessage,
+        headers: HttpHeaders,
+        team: Team
+    ) {
         slackInteractiveMessageReceivers.filter { it.supportsInteractiveMessage(interactiveComponentResponse) }
-                .sortedBy { it.order() }
-                .forEach { receiver ->
-                    try {
-                        this.metricsCollector?.receiverExecuted()
-                        receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
-                    } catch (e: Exception) {
-                        this.metricsCollector?.receiverExecutionError()
-                        if (receiver.shouldThrowException(e)) {
-                            throw e
-                        }
+            .sortedBy { it.order() }
+            .forEach { receiver ->
+                try {
+                    this.metricsCollector?.receiverExecuted()
+                    receiver.onReceiveInteractiveMessage(interactiveComponentResponse, headers, team)
+                } catch (e: Exception) {
+                    this.metricsCollector?.receiverExecutionError()
+                    if (receiver.shouldThrowException(e)) {
+                        throw e
                     }
                 }
+            }
     }
 }

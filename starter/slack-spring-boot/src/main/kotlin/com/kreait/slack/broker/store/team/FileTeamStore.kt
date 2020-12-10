@@ -15,24 +15,6 @@ import java.nio.charset.Charset
  */
 class FileTeamStore : TeamStore {
 
-
-    companion object {
-
-        private val LOG = LoggerFactory.getLogger(FileTeamStore::class.java)
-
-        private const val fileName = "team-store.json"
-        private val objectMapper = ObjectMapper()
-
-        /**
-         * Methods to set up the directory and the storage file
-         */
-        private fun homeDirectory(): String = System.getProperty("user.home")
-            ?: throw IllegalArgumentException("Unable to load team-file:'user.home' System property is not set.")
-
-        private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
-
-    }
-
     /**
      * File should be already present.
      * Creates the file in case it is missing
@@ -52,7 +34,7 @@ class FileTeamStore : TeamStore {
             }
         } else {
             LOG.error("Could not create file")
-            throw IllegalStateException("$fileName seems to be a directory")
+            error("$fileName seems to be a directory")
         }
     }
 
@@ -143,5 +125,22 @@ class FileTeamStore : TeamStore {
         ) {
             companion object
         }
+    }
+
+    companion object {
+
+        private val LOG = LoggerFactory.getLogger(FileTeamStore::class.java)
+
+        private const val fileName = "team-store.json"
+        private val objectMapper = ObjectMapper()
+
+        /**
+         * Methods to set up the directory and the storage file
+         */
+        private fun homeDirectory(): String = System.getProperty("user.home")
+            ?: throw IllegalArgumentException("Unable to load team-file:'user.home' System property is not set.")
+
+        private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
+
     }
 }

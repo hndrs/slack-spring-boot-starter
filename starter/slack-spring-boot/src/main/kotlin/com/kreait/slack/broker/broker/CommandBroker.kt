@@ -20,43 +20,45 @@ import org.springframework.web.bind.annotation.RestController
  */
 @SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
-class CommandBroker constructor(private val slackCommandReceivers: List<SlashCommandReceiver>,
-                                private val teamStore: TeamStore,
-                                private val mismatchCommandReceiver: MismatchCommandReceiver? = null,
-                                private val metricsCollector: CommandMetricsCollector? = null) {
-
-    companion object {
-        private val LOG = LoggerFactory.getLogger(CommandBroker::class.java)
-    }
+class CommandBroker constructor(
+    private val slackCommandReceivers: List<SlashCommandReceiver>,
+    private val teamStore: TeamStore,
+    private val mismatchCommandReceiver: MismatchCommandReceiver? = null,
+    private val metricsCollector: CommandMetricsCollector? = null
+) {
 
     /**
      * Endpoint that receives the commands
      */
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/commands", consumes = ["application/x-www-form-urlencoded"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping(
+        "/commands",
+        consumes = ["application/x-www-form-urlencoded"],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
     fun receiveCommand(@Command slackCommand: SlackCommand, @RequestHeader headers: HttpHeaders) {
 
         this.metricsCollector?.commandsReceived()
 
         val team = this.teamStore.findById(slackCommand.teamId)
         slackCommandReceivers
-                .filter { it.supportsCommand(slackCommand) }
-                .sortedBy { it.order() }
-                .ifEmpty {
-                    this.metricsCollector?.receiverMismatch()
-                    mismatchCommandReceiver?.onReceiveSlashCommand(slackCommand, headers, team)
-                    listOf()
-                }
-                .forEach { broker ->
-                    try {
-                        this.metricsCollector?.receiverExecuted()
-                        broker.onReceiveSlashCommand(slackCommand, headers, team)
-                    } catch (e: Exception) {
-                        this.metricsCollector?.receiverExecutionError()
-                        if (broker.shouldThrowException(e)) {
-                            throw e
-                        }
+            .filter { it.supportsCommand(slackCommand) }
+            .sortedBy { it.order() }
+            .ifEmpty {
+                this.metricsCollector?.receiverMismatch()
+                mismatchCommandReceiver?.onReceiveSlashCommand(slackCommand, headers, team)
+                listOf()
+            }
+            .forEach { broker ->
+                try {
+                    this.metricsCollector?.receiverExecuted()
+                    broker.onReceiveSlashCommand(slackCommand, headers, team)
+                } catch (e: Exception) {
+                    this.metricsCollector?.receiverExecutionError()
+                    if (broker.shouldThrowException(e)) {
+                        throw e
                     }
                 }
+            }
     }
 }

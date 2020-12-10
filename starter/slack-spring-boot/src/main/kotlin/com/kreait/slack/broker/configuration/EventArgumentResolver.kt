@@ -19,10 +19,16 @@ class EventArgumentResolver(signingSecret: String) : VerificationMethodArgumentR
     private val objectMapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.getParameterAnnotation(Event::class.java) != null && parameter.parameterType == EventRequest::class.java
+        return parameter.getParameterAnnotation(Event::class.java) != null
+                && parameter.parameterType == EventRequest::class.java
     }
 
-    override fun internalResolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, request: ContentCachingRequestWrapper, binderFactory: WebDataBinderFactory?): Any? {
+    override fun internalResolveArgument(
+        parameter: MethodParameter,
+        mavContainer: ModelAndViewContainer?,
+        request: ContentCachingRequestWrapper,
+        binderFactory: WebDataBinderFactory?
+    ): Any? {
         return objectMapper.readValue(request.inputStream, EventRequest::class.java)
     }
 }

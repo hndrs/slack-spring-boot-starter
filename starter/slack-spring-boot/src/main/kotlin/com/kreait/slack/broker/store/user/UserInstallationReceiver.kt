@@ -10,23 +10,25 @@ import org.springframework.beans.factory.annotation.Autowired
 /**
  * Receiver that stores all users after a team installs the app
  */
-class UserInstallationReceiver @Autowired constructor(private val slackClient: SlackClient,
-                                                      private val userStore: UserStore) : InstallationReceiver {
+class UserInstallationReceiver @Autowired constructor(
+    private val slackClient: SlackClient,
+    private val userStore: UserStore
+) : InstallationReceiver {
 
 
     override fun onReceiveInstallation(code: String, state: String, team: Team) {
         this.slackClient.users().listAll(authToken = team.bot.accessToken)
-                .with(ListAllRequest(true, PACKAGE_SIZE))
-                .onSuccess { response ->
-                    this.userStore.put(*response.members.map { userOfMember(it) }.toTypedArray())
-                    if (LOG.isDebugEnabled) {
-                        LOG.debug("successfully downloaded users")
-                    }
+            .with(ListAllRequest(true, PACKAGE_SIZE))
+            .onSuccess { response ->
+                this.userStore.put(*response.members.map { userOfMember(it) }.toTypedArray())
+                if (LOG.isDebugEnabled) {
+                    LOG.debug("successfully downloaded users")
                 }
-                .onFailure {
-                    LOG.error("Failure while trying to load users\n{}", it)
-                }
-                .invoke()
+            }
+            .onFailure {
+                LOG.error("Failure while trying to load users\n{}", it)
+            }
+            .invoke()
     }
 
     companion object {
