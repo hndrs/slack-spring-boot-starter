@@ -25,15 +25,12 @@ import org.springframework.web.servlet.view.RedirectView
 @SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
 class InstallationBroker constructor(
-        private val installationReceivers: List<InstallationReceiver>,
-        private val metricsCollector: InstallationMetricsCollector?,
-        private val teamStore: TeamStore,
-        private val slackClient: SlackClient,
-        private val config: Config) {
-
-    companion object {
-        private val LOG = LoggerFactory.getLogger(InstallationBroker::class.java)
-    }
+    private val installationReceivers: List<InstallationReceiver>,
+    private val metricsCollector: InstallationMetricsCollector?,
+    private val teamStore: TeamStore,
+    private val slackClient: SlackClient,
+    private val config: Config
+) {
 
     /**
      * Installation-endpoint which is called by slack
@@ -49,14 +46,14 @@ class InstallationBroker constructor(
             this.teamStore.put(team)
             this.metricsCollector?.successfulInstallation()
             this.installationReceivers
-                    .forEach { receiver ->
-                        try {
-                            this.metricsCollector?.receiverExecuted()
-                            receiver.onReceiveInstallation(code, state, team)
-                        } catch (e: Exception) {
-                            this.metricsCollector?.receiverExecutionError()
-                        }
+                .forEach { receiver ->
+                    try {
+                        this.metricsCollector?.receiverExecuted()
+                        receiver.onReceiveInstallation(code, state, team)
+                    } catch (e: Exception) {
+                        this.metricsCollector?.receiverExecutionError()
                     }
+                }
             RedirectView(this.config.successRedirectUrl)
         } catch (exception: Exception) {
             LOG.error("There was an error during the installation", exception)
@@ -67,21 +64,32 @@ class InstallationBroker constructor(
 
     private fun obtainOauthAccess(code: String): Team {
         val response = this.slackClient.oauth().access()
-                .with(AccessRequest(config.clientId, config.clientSecret, code))
-                .invoke()
+            .with(AccessRequest(config.clientId, config.clientSecret, code))
+            .invoke()
         return response.success?.let {
-            Team(it.team.id,
-                    it.team.name,
-                    Team.Bot(it.botUserId,
-                            it.accessToken)
+            Team(
+                it.team.id,
+                it.team.name,
+                Team.Bot(
+                    it.botUserId,
+                    it.accessToken
+                )
             )
-        } ?: throw IllegalStateException("Could not obtain access-token: ${response.failure}")
+        } ?: error("Could not obtain access-token: ${response.failure}")
     }
 
     /**
      * Configuration that is needed to install the app
      */
-    data class Config(val clientId: String, val clientSecret: String, val successRedirectUrl: String, val errorRedirectUrl: String)
+    data class Config(
+        val clientId: String,
+        val clientSecret: String,
+        val successRedirectUrl: String,
+        val errorRedirectUrl: String
+    )
 
+    companion object {
+        private val LOG = LoggerFactory.getLogger(InstallationBroker::class.java)
+    }
 
 }

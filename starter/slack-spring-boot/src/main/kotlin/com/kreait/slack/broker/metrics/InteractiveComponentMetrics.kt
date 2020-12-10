@@ -37,16 +37,16 @@ class InteractiveComponentMetrics : MeterBinder, InteractiveComponentMetricsColl
     override fun bindTo(registry: MeterRegistry) {
 
         responseReceived = Counter.builder("slack.interactive.received")
-                .description("Total number of interactive components received")
-                .register(registry)
+            .description("Total number of interactive components received")
+            .register(registry)
 
         responseReceiverExecutions = Counter.builder("slack.interactive.receiver.executions")
-                .description("Total number of interactive component receivers executions")
-                .register(registry)
+            .description("Total number of interactive component receivers executions")
+            .register(registry)
 
         responseReceiverExecutionErrors = Counter.builder("slack.interactive.receiver.errors")
-                .description("Number of errors during interactive component receiver execution")
-                .register(registry)
+            .description("Number of errors during interactive component receiver execution")
+            .register(registry)
     }
 
     override fun receiverExecuted() = this.responseReceiverExecutions.increment()

@@ -18,10 +18,16 @@ class SlackCommandArgumentResolver(signingSecret: String) : VerificationMethodAr
     private val objectMapper = ObjectMapper()
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.getParameterAnnotation(Command::class.java) != null && parameter.parameterType == SlackCommand::class.java
+        return parameter.getParameterAnnotation(Command::class.java) != null
+                && parameter.parameterType == SlackCommand::class.java
     }
 
-    override fun internalResolveArgument(parameter: MethodParameter, mavContainer: ModelAndViewContainer?, request: ContentCachingRequestWrapper, binderFactory: WebDataBinderFactory?): Any? {
+    override fun internalResolveArgument(
+        parameter: MethodParameter,
+        mavContainer: ModelAndViewContainer?,
+        request: ContentCachingRequestWrapper,
+        binderFactory: WebDataBinderFactory?
+    ): Any? {
         val associateMap = request.parameterMap.entries.associate { it.key to it.value[0] }
         return objectMapper.convertValue(associateMap, SlackCommand::class.java)
     }

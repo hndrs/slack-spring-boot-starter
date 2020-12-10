@@ -49,24 +49,24 @@ class InstallationMetrics : MeterBinder, InstallationMetricsCollector {
     override fun bindTo(registry: MeterRegistry) {
 
         installationSuccessCounter = Counter.builder("slack.installation.success")
-                .description("Number of successful installations")
-                .register(registry)
+            .description("Number of successful installations")
+            .register(registry)
 
         installationErrorCounter = Counter.builder("slack.installation.error")
-                .description("Number of errors during installations")
-                .register(registry)
+            .description("Number of errors during installations")
+            .register(registry)
 
         installationCounter = Counter.builder("slack.installation.count")
-                .description("Number of installation attempts")
-                .register(registry)
+            .description("Number of installation attempts")
+            .register(registry)
 
         installationReceiverExecutions = Counter.builder("slack.installation.receiver.executions")
-                .description("Total number of installation receivers executions")
-                .register(registry)
+            .description("Total number of installation receivers executions")
+            .register(registry)
 
         installationReceiverExecutionErrors = Counter.builder("slack.installation.receiver.errors")
-                .description("Number of errors during installation receiver execution")
-                .register(registry)
+            .description("Number of errors during installation receiver execution")
+            .register(registry)
     }
 
     override fun successfulInstallation() = installationSuccessCounter.increment()

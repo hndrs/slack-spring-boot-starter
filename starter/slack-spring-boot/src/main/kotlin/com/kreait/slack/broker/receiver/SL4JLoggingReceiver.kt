@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
 
-class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InteractiveComponentReceiver<InteractiveComponentResponse>, InstallationReceiver {
+class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver,
+    InteractiveComponentReceiver<InteractiveComponentResponse>, InstallationReceiver {
     /**
      * receivers will be sorted ascending by this order
      */
@@ -20,10 +21,6 @@ class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InteractiveComp
         LOG.info("Received installation request")
     }
 
-    companion object {
-        val LOG = LoggerFactory.getLogger(SL4JLoggingReceiver::class.java)!!
-    }
-
     override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
         LOG.info("Received SlackCallBack    {}\nHeaders:  {}", slackEvent, headers)
     }
@@ -32,7 +29,15 @@ class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InteractiveComp
         LOG.info("Received SlackCommand:    {}\nHeaders:    {}", slackCommand, headers)
     }
 
-    override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveComponentResponse, headers: HttpHeaders, team: Team) {
+    override fun onReceiveInteractiveMessage(
+        interactiveComponentResponse: InteractiveComponentResponse,
+        headers: HttpHeaders,
+        team: Team
+    ) {
         LOG.info("Received Interactive Component:   {}\nHeaders:    {}", interactiveComponentResponse, headers)
+    }
+
+    companion object {
+        private val LOG = LoggerFactory.getLogger(SL4JLoggingReceiver::class.java)!!
     }
 }

@@ -44,20 +44,20 @@ class CommandMetrics : MeterBinder, CommandMetricsCollector {
     override fun bindTo(registry: MeterRegistry) {
 
         commandsReceived = Counter.builder("slack.commands.received")
-                .description("Total number of commands received")
-                .register(registry)
+            .description("Total number of commands received")
+            .register(registry)
 
         commandReceiverExecutions = Counter.builder("slack.commands.receiver.executions")
-                .description("Total number of command receivers executions")
-                .register(registry)
+            .description("Total number of command receivers executions")
+            .register(registry)
 
         commandReceiverExecutionErrors = Counter.builder("slack.commands.receiver.errors")
-                .description("Number of errors during command receiver execution")
-                .register(registry)
+            .description("Number of errors during command receiver execution")
+            .register(registry)
 
         commandsReceiverNoneMatch = Counter.builder("slack.commands.receiver.mismatch")
-                .description("Number of times none of the receivers matched")
-                .register(registry)
+            .description("Number of times none of the receivers matched")
+            .register(registry)
     }
 
     override fun receiverExecuted() = this.commandReceiverExecutions.increment()

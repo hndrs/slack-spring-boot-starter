@@ -24,28 +24,31 @@ interface MismatchCommandReceiver {
 /**
  * The Receiver that is invoked when an unknown command was entered
  */
-class CommandNotFoundReceiver(private val slackClient: SlackClient, private val text: String) : MismatchCommandReceiver {
+class CommandNotFoundReceiver(private val slackClient: SlackClient, private val text: String) :
+    MismatchCommandReceiver {
+
+    override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
+        this.slackClient.chat()
+            .postEphemeral(team.bot.accessToken)
+            .with(
+                PostEphemeralRequest(
+                    channel = slackCommand.channelId,
+                    text = text,
+                    user = slackCommand.userId
+                )
+            )
+            .onFailure {
+                LOG.error("Error while sending info message: {}", it)
+            }
+            .onSuccess {
+                if (LOG.isDebugEnabled)
+                    LOG.debug("Sending command not found message was successful: {}", it)
+            }.invoke()
+
+
+    }
 
     companion object {
         private val LOG = LoggerFactory.getLogger(CommandNotFoundReceiver::class.java)
     }
-
-    override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
-        this.slackClient.chat()
-                .postEphemeral(team.bot.accessToken)
-                .with(PostEphemeralRequest(
-                        channel = slackCommand.channelId,
-                        text = text,
-                        user = slackCommand.userId))
-                .onFailure {
-                    LOG.error("Error while sending info message: {}", it)
-                }
-                .onSuccess {
-                    if (LOG.isDebugEnabled)
-                        LOG.debug("Sending command not found message was successful: {}", it)
-                }.invoke()
-
-
-    }
-
 }
