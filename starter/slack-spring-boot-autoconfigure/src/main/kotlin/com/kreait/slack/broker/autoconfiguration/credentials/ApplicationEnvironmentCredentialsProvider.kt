@@ -8,10 +8,6 @@ import org.springframework.core.env.get
  */
 class ApplicationEnvironmentCredentialsProvider(private val environment: Environment) : CredentialsProvider {
 
-    companion object {
-        private const val APPLICATION_PROPERTY_PREFIX = "slack.application"
-    }
-
     override fun applicationCredentials(): ApplicationCredentials {
 
         val clientId = environment["$APPLICATION_PROPERTY_PREFIX.client-id"]?.trim()
@@ -25,4 +21,7 @@ class ApplicationEnvironmentCredentialsProvider(private val environment: Environ
 
     }
 
+    companion object {
+        private const val APPLICATION_PROPERTY_PREFIX = "slack.application"
+    }
 }

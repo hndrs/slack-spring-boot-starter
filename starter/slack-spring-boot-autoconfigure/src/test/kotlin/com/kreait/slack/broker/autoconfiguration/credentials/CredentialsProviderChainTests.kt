@@ -3,7 +3,6 @@ package com.kreait.slack.broker.autoconfiguration.credentials
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 
 @DisplayName("CredentialsProviderChain")
 class CredentialsProviderChainTests {
@@ -69,7 +68,7 @@ class CredentialsProviderChainTests {
                     ExceptionCredentialsProvider("Message4")
                 )
             ).applicationCredentials()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             println(e.message)
         }
 

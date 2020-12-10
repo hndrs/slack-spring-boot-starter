@@ -18,54 +18,79 @@ class TeamStoreAutoConfigurationTests {
     @Test
     fun teamCustomStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withUserConfiguration(TestConfiguration::class.java)
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
-                    Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withUserConfiguration(TestConfiguration::class.java)
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
+                Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
+            }
 
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withUserConfiguration(TestConfiguration::class.java)
-                .withPropertyValues("slack.store.team.type:memory")
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
-                    Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withUserConfiguration(TestConfiguration::class.java)
+            .withPropertyValues("slack.store.team.type:memory")
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
+                Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
+            }
 
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withUserConfiguration(TestConfiguration::class.java)
-                .withPropertyValues("slack.store.team.type:file")
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
-                    Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withUserConfiguration(TestConfiguration::class.java)
+            .withPropertyValues("slack.store.team.type:file")
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
+                Assertions.assertTrue(it.getBean(TeamStore::class.java) is TestTeamStore)
+            }
     }
 
     @DisplayName("InMemoryTeamStore Registration")
     @Test
     fun teamStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withPropertyValues("slack.store.team.type:memory")
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
-                    Assertions.assertTrue(it.getBean(TeamStore::class.java) is InMemoryTeamStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withPropertyValues("slack.store.team.type:memory")
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(TeamStore::class.java) }
+                Assertions.assertTrue(it.getBean(TeamStore::class.java) is InMemoryTeamStore)
+            }
     }
 
     @DisplayName("File TeamStore Registration")
     @Test
     fun fileTeamStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withPropertyValues("slack.store.team.type:file")
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(FileTeamStore::class.java) }
-                    Assertions.assertTrue(it.getBean(TeamStore::class.java) is FileTeamStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withPropertyValues("slack.store.team.type:file")
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(FileTeamStore::class.java) }
+                Assertions.assertTrue(it.getBean(TeamStore::class.java) is FileTeamStore)
+            }
     }
 
 

@@ -40,14 +40,23 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
 
         addComponent(sb, "Event Receivers", ctx.getBeanNamesForType(EventReceiver::class.java))
         addComponent(sb, "Installation Receivers", ctx.getBeanNamesForType(InstallationReceiver::class.java))
-        addComponent(sb, "Interactive Component Receivers", ctx.getBeanNamesForType(InteractiveComponentReceiver::class.java))
+        addComponent(
+            sb,
+            "Interactive Component Receivers",
+            ctx.getBeanNamesForType(InteractiveComponentReceiver::class.java)
+        )
         addComponent(sb, "Slash Command Receivers", ctx.getBeanNamesForType(SlashCommandReceiver::class.java))
         addComponent(sb, "Mismatch Command Receivers", ctx.getBeanNamesForType(MismatchCommandReceiver::class.java))
         addComponent(sb, "Team Store", ctx.getBeanNamesForType(TeamStore::class.java))
         addComponent(sb, "User Store", ctx.getBeanNamesForType(UserStore::class.java))
         addComponent(sb, "Event Store", ctx.getBeanNamesForType(EventStore::class.java))
 
-        defaultChecks(ctx, sb, Pair(TeamStore::class, InMemoryTeamStore::class), Pair(EventStore::class, InMemoryEventStore::class))
+        defaultChecks(
+            ctx,
+            sb,
+            Pair(TeamStore::class, InMemoryTeamStore::class),
+            Pair(EventStore::class, InMemoryEventStore::class)
+        )
 
         return sb.toString()
     }
@@ -55,21 +64,26 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
     companion object {
 
         private fun addComponent(sb: StringBuilder, title: String, names: Array<out String>) {
-            sb.appendln("\n\n$title")
-            sb.appendln("------------------------------")
+            sb.appendLine("\n\n$title")
+            sb.appendLine("------------------------------")
             names.forEach {
-                sb.appendln("   - $it")
+                sb.appendLine("   - $it")
             }
         }
 
-        private fun defaultChecks(ctx: ApplicationContext, sb: StringBuilder, vararg checks: Pair<KClass<*>, KClass<*>>) {
-            sb.appendln()
-            sb.appendln("Notes:")
+        private fun defaultChecks(
+            ctx: ApplicationContext,
+            sb: StringBuilder,
+            vararg checks: Pair<KClass<*>, KClass<*>>
+        ) {
+            sb.appendLine()
+            sb.appendLine("Notes:")
             checks.forEach {
                 try {
                     val bean = ctx.getBean(it.first.java)
                     if (it.second.isInstance(bean)) {
-                        sb.appendln("   - Default version of ${it.second.simpleName} is registered, this is not recommended for production")
+                        sb.appendLine("   - Default version of ${it.second.simpleName} is registered," +
+                                " this is not recommended for production")
                     }
                 } catch (e: BeansException) {
                     //do nothing

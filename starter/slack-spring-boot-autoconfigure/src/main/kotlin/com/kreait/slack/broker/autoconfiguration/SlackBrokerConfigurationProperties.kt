@@ -8,18 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 @ConfigurationProperties(prefix = SlackBrokerConfigurationProperties.PROPERTY_PREFIX)
 open class SlackBrokerConfigurationProperties {
 
-
-    companion object {
-        const val PROPERTY_PREFIX = "slack"
-        const val INSTALLATION_PROPERTY_PREFIX = "$PROPERTY_PREFIX.installation"
-        const val LOGGING_PROPERTY_PREFIX = "$PROPERTY_PREFIX.logging"
-        const val COMMANDS_PROPERTY_PREFIX = "$PROPERTY_PREFIX.commands"
-        const val MISMATCH_PROPERTY_PREFIX = "$COMMANDS_PROPERTY_PREFIX.mismatch"
-        const val STORE_PREFIX = "$PROPERTY_PREFIX.store"
-        const val TEAM_STORE = "$STORE_PREFIX.team"
-        const val USER_STORE = "$STORE_PREFIX.user"
-    }
-
     /**
     Group that contains installation feature related configurations
      */
@@ -127,5 +115,14 @@ open class SlackBrokerConfigurationProperties {
 
     }
 
-
+    companion object {
+        const val PROPERTY_PREFIX = "slack"
+        const val INSTALLATION_PROPERTY_PREFIX = "$PROPERTY_PREFIX.installation"
+        const val LOGGING_PROPERTY_PREFIX = "$PROPERTY_PREFIX.logging"
+        const val COMMANDS_PROPERTY_PREFIX = "$PROPERTY_PREFIX.commands"
+        const val MISMATCH_PROPERTY_PREFIX = "$COMMANDS_PROPERTY_PREFIX.mismatch"
+        const val STORE_PREFIX = "$PROPERTY_PREFIX.store"
+        const val TEAM_STORE = "$STORE_PREFIX.team"
+        const val USER_STORE = "$STORE_PREFIX.user"
+    }
 }

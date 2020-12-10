@@ -17,23 +17,35 @@ class EventStoreAutoConfigurationTests {
     @Test
     fun customEventStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withUserConfiguration(TestConfiguration::class.java)
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(EventStore::class.java) }
-                    Assertions.assertTrue(it.getBean(EventStore::class.java) is TestEventStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    SlackBrokerAutoConfiguration::class.java,
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withUserConfiguration(TestConfiguration::class.java)
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(EventStore::class.java) }
+                Assertions.assertTrue(it.getBean(EventStore::class.java) is TestEventStore)
+            }
     }
 
     @DisplayName("InMemoryEventStore Registration")
     @Test
     fun eventStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(EventStore::class.java) }
-                    Assertions.assertTrue(it.getBean(EventStore::class.java) is InMemoryEventStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    SlackBrokerAutoConfiguration::class.java,
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(EventStore::class.java) }
+                Assertions.assertTrue(it.getBean(EventStore::class.java) is InMemoryEventStore)
+            }
     }
 
     @Configuration

@@ -6,8 +6,10 @@ object TestApplicationContext {
 
     fun base(): WebApplicationContextRunner {
         return WebApplicationContextRunner()
-                .withSystemProperties("slack.application.client-id:id",
-                        "slack.application.client-secret:secret",
-                        "slack.application.signing-secret:signingsecret")
+            .withSystemProperties(
+                "slack.application.client-id:id",
+                "slack.application.client-secret:secret",
+                "slack.application.signing-secret:signingsecret"
+            )
     }
 }

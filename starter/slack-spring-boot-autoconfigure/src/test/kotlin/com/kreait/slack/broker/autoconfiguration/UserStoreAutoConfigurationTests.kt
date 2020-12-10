@@ -22,66 +22,102 @@ class UserStoreAutoConfigurationTests {
     @Test
     fun userCustomStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withUserConfiguration(TestConfiguration::class.java)
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
-                    Assertions.assertTrue(it.getBean(UserStore::class.java) is TestUserStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    UserStoreAutoConfiguration::class.java,
+                    SlackConfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withUserConfiguration(TestConfiguration::class.java)
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
+                Assertions.assertTrue(it.getBean(UserStore::class.java) is TestUserStore)
+            }
 
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withUserConfiguration(TestConfiguration::class.java)
-                .withPropertyValues("slack.store.user.type:memory")
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
-                    Assertions.assertTrue(it.getBean(UserStore::class.java) is TestUserStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    UserStoreAutoConfiguration::class.java,
+                    SlackConfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withUserConfiguration(TestConfiguration::class.java)
+            .withPropertyValues("slack.store.user.type:memory")
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
+                Assertions.assertTrue(it.getBean(UserStore::class.java) is TestUserStore)
+            }
 
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withUserConfiguration(TestConfiguration::class.java)
-                .withPropertyValues("slack.store.user.type:file")
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(UserInstallationReceiver::class.java) }
-                    Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
-                    Assertions.assertTrue(it.getBean(UserStore::class.java) is TestUserStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    UserStoreAutoConfiguration::class.java,
+                    SlackConfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withUserConfiguration(TestConfiguration::class.java)
+            .withPropertyValues("slack.store.user.type:file")
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(UserInstallationReceiver::class.java) }
+                Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
+                Assertions.assertTrue(it.getBean(UserStore::class.java) is TestUserStore)
+            }
     }
 
     @DisplayName("UserManager Registration")
     @Test
     fun userManagerRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .run {
-                    Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserStore::class.java) }
-                    Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserInstallationReceiver::class.java) }
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    UserStoreAutoConfiguration::class.java,
+                    SlackConfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .run {
+                Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserStore::class.java) }
+                Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserInstallationReceiver::class.java) }
+            }
     }
 
     @DisplayName("InMemoryUserStore Registration")
     @Test
     fun userStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withPropertyValues("slack.store.user.type:memory")
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
-                    Assertions.assertTrue(it.getBean(UserStore::class.java) is InMemoryUserStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    UserStoreAutoConfiguration::class.java,
+                    SlackConfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withPropertyValues("slack.store.user.type:memory")
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
+                Assertions.assertTrue(it.getBean(UserStore::class.java) is InMemoryUserStore)
+            }
     }
 
     @DisplayName("File UserStore Registration")
     @Test
     fun fileUserStoreRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(UserStoreAutoConfiguration::class.java, SlackConfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withPropertyValues("slack.store.user.type:file")
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(FileUserStore::class.java) }
-                    Assertions.assertTrue(it.getBean(UserStore::class.java) is FileUserStore)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    UserStoreAutoConfiguration::class.java,
+                    SlackConfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withPropertyValues("slack.store.user.type:file")
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(FileUserStore::class.java) }
+                Assertions.assertTrue(it.getBean(UserStore::class.java) is FileUserStore)
+            }
     }
 
     @Configuration

@@ -19,7 +19,12 @@ open class TeamStoreAutoconfiguration {
     /**
      * Registers the [InMemoryTeamStore] if no other is defined and the property [SlackBrokerConfigurationProperties.TEAM_STORE].type is set to memory
      */
-    @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "memory", matchIfMissing = true)
+    @ConditionalOnProperty(
+        prefix = SlackBrokerConfigurationProperties.TEAM_STORE,
+        name = ["type"],
+        havingValue = "memory",
+        matchIfMissing = true
+    )
     @ConditionalOnMissingBean
     @Bean
     open fun inMemoryTeamStore(): TeamStore {
@@ -29,7 +34,11 @@ open class TeamStoreAutoconfiguration {
     /**
      * Registers the [FileTeamStore] if no other is defined and the property [SlackBrokerConfigurationProperties.TEAM_STORE].type is set to file
      */
-    @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.TEAM_STORE, name = ["type"], havingValue = "file")
+    @ConditionalOnProperty(
+        prefix = SlackBrokerConfigurationProperties.TEAM_STORE,
+        name = ["type"],
+        havingValue = "file"
+    )
     @ConditionalOnMissingBean
     @Bean
     open fun localTeamStore(): TeamStore {
