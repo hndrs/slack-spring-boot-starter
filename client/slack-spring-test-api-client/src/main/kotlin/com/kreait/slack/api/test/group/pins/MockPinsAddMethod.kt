@@ -13,8 +13,6 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockPinsAddMethod : PinsAddMethod(), MockMethod<SuccessfulPinsAddResponse, ErrorPinsAddResponse, PinsAddRequest> {
 
-    override fun params() = params
-
     override var successResponse: SuccessfulPinsAddResponse? = null
     override var failureResponse: ErrorPinsAddResponse? = null
 
@@ -25,4 +23,6 @@ class MockPinsAddMethod : PinsAddMethod(), MockMethod<SuccessfulPinsAddResponse,
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params() = params
 }

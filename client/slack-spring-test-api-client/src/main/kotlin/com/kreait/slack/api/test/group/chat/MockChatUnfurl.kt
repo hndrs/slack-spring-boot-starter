@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [ChatMethodGroup.unfurl]
  */
-class MockChatUnfurl : ChatUnfurlMethod(), MockMethod<SuccessfulChatUnfurlResponse, ErrorChatUnfurlResponse, ChatUnfurlRequest> {
-
-    override fun params(): ChatUnfurlRequest = params
+class MockChatUnfurl : ChatUnfurlMethod(),
+    MockMethod<SuccessfulChatUnfurlResponse, ErrorChatUnfurlResponse, ChatUnfurlRequest> {
 
     override var successResponse: SuccessfulChatUnfurlResponse? = null
     override var failureResponse: ErrorChatUnfurlResponse? = null
@@ -25,4 +24,6 @@ class MockChatUnfurl : ChatUnfurlMethod(), MockMethod<SuccessfulChatUnfurlRespon
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ChatUnfurlRequest = params
 }

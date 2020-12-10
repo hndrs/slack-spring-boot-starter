@@ -11,10 +11,9 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [ConversationsMethodGroup.invite]
  */
-open class MockConversationsInviteMethod : ConversationsInviteMethod(), MockMethod<SuccessfulConversationInviteResponse, ErrorConversationInviteResponse, ConversationsInviteRequest> {
-
-    override fun params(): ConversationsInviteRequest = params
-
+open class MockConversationsInviteMethod : ConversationsInviteMethod(),
+    MockMethod<SuccessfulConversationInviteResponse, ErrorConversationInviteResponse, ConversationsInviteRequest> {
+    
     override var successResponse: SuccessfulConversationInviteResponse? = null
     override var failureResponse: ErrorConversationInviteResponse? = null
 
@@ -25,4 +24,6 @@ open class MockConversationsInviteMethod : ConversationsInviteMethod(), MockMeth
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ConversationsInviteRequest = params
 }

@@ -12,9 +12,7 @@ import com.kreait.slack.api.test.MockMethod
  * Testable implementation of [UsersMethodGroup.list]
  */
 class MockUserListMethod : UserListMethod(), MockMethod<SuccessfulListResponse, ErrorListResponse, ListRequest> {
-
-    override fun params(): ListRequest = params
-
+    
     override var successResponse: SuccessfulListResponse? = null
     override var failureResponse: ErrorListResponse? = null
 
@@ -25,4 +23,6 @@ class MockUserListMethod : UserListMethod(), MockMethod<SuccessfulListResponse, 
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params(): ListRequest = params
 }

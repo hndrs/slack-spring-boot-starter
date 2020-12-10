@@ -13,8 +13,6 @@ import com.kreait.slack.api.test.MockMethod
  */
 class MockRemindersDeleteMethod : RemindersDeleteMethod(), MockMethod<SuccessfulRemindersDeleteResponse, ErrorRemindersDeleteResponse, RemindersDeleteRequest> {
 
-    override fun params() = params
-
     override var successResponse: SuccessfulRemindersDeleteResponse? = null
     override var failureResponse: ErrorRemindersDeleteResponse? = null
 
@@ -25,4 +23,6 @@ class MockRemindersDeleteMethod : RemindersDeleteMethod(), MockMethod<Successful
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params() = params
 }

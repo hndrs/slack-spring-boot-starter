@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [UsersMethodGroup.setPhoto]
  */
-class MockUsersSetPhotoMethod : UsersSetPhotoMethod(), MockMethod<SuccessfulSetPhotoResponse, ErrorSetPhotoResponse, SetPhotoRequest> {
-
-    override fun params() = params
+class MockUsersSetPhotoMethod : UsersSetPhotoMethod(),
+    MockMethod<SuccessfulSetPhotoResponse, ErrorSetPhotoResponse, SetPhotoRequest> {
 
     override var successResponse: SuccessfulSetPhotoResponse? = null
     override var failureResponse: ErrorSetPhotoResponse? = null
@@ -25,4 +24,6 @@ class MockUsersSetPhotoMethod : UsersSetPhotoMethod(), MockMethod<SuccessfulSetP
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params() = params
 }

@@ -11,9 +11,8 @@ import com.kreait.slack.api.test.MockMethod
 /**
  * Testable implementation of [RemindersMethodGroup.add]
  */
-class MockRemindersAddMethod : RemindersAddMethod(), MockMethod<SuccessfulRemindersAddResponse, ErrorRemindersAddResponse, RemindersAddRequest> {
-
-    override fun params() = params
+class MockRemindersAddMethod : RemindersAddMethod(),
+    MockMethod<SuccessfulRemindersAddResponse, ErrorRemindersAddResponse, RemindersAddRequest> {
 
     override var successResponse: SuccessfulRemindersAddResponse? = null
     override var failureResponse: ErrorRemindersAddResponse? = null
@@ -25,4 +24,6 @@ class MockRemindersAddMethod : RemindersAddMethod(), MockMethod<SuccessfulRemind
 
         return ApiCallResult(this.successResponse, this.failureResponse)
     }
+
+    override fun params() = params
 }

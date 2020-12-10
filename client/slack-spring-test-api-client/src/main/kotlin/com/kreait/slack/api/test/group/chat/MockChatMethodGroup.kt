@@ -1,8 +1,6 @@
 package com.kreait.slack.api.test.group.chat
 
 import com.kreait.slack.api.group.chat.ChatMethodGroup
-import com.kreait.slack.api.group.chat.ChatUnfurlMethod
-import com.kreait.slack.api.group.chat.ChatUpdateMethod
 
 /**
  * Testable implementation of [ChatMethodGroup]
