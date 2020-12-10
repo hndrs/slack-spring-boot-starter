@@ -60,7 +60,10 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
      * @property credentialsProvider CredentialsProvider-chain that retrieves the credentials
      */
     @Configuration
-    open class BrokerAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties, private val credentialsProvider: CredentialsProvider) : WebMvcConfigurer {
+    open class BrokerAutoConfiguration(
+        private val configuration: SlackBrokerConfigurationProperties,
+        private val credentialsProvider: CredentialsProvider
+    ) : WebMvcConfigurer {
 
         /**
          * Registers the [InMemoryEventStore] when no other [EventStore] is registered
@@ -75,7 +78,12 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
          * Registers the [EventBroker] which forwards events to all [EventReceiver]s
          */
         @Bean
-        open fun eventBroker(slackEventReceivers: List<EventReceiver>, teamStore: TeamStore, eventStore: EventStore, metricsCollector: EventMetricsCollector?): EventBroker {
+        open fun eventBroker(
+            slackEventReceivers: List<EventReceiver>,
+            teamStore: TeamStore,
+            eventStore: EventStore,
+            metricsCollector: EventMetricsCollector?
+        ): EventBroker {
             return EventBroker(slackEventReceivers, teamStore, eventStore, metricsCollector)
         }
 
@@ -83,7 +91,12 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
          * Registers the [CommandBroker] which forwards commands to all [SlashCommandReceiver]s
          */
         @Bean
-        open fun commandBroker(slackEventReceivers: List<SlashCommandReceiver>, teamStore: TeamStore, mismatchCommandReceiver: MismatchCommandReceiver?, metricsCollector: CommandMetricsCollector?): CommandBroker {
+        open fun commandBroker(
+            slackEventReceivers: List<SlashCommandReceiver>,
+            teamStore: TeamStore,
+            mismatchCommandReceiver: MismatchCommandReceiver?,
+            metricsCollector: CommandMetricsCollector?
+        ): CommandBroker {
             return CommandBroker(slackEventReceivers, teamStore, mismatchCommandReceiver, metricsCollector)
         }
 
@@ -91,8 +104,18 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
          * Registers the [InteractiveComponentBroker] which forwards interactive-components to all [InteractiveComponentReceiver]s
          */
         @Bean
-        open fun componentBroker(slackInteractiveMessageReceivers: List<InteractiveComponentReceiver<InteractiveMessage>>, slackBlockActionReceivers: List<InteractiveComponentReceiver<BlockActions>>, teamStore: TeamStore, metricsCollector: InteractiveComponentMetricsCollector?): InteractiveComponentBroker {
-            return InteractiveComponentBroker(slackBlockActionReceivers, slackInteractiveMessageReceivers, teamStore, metricsCollector)
+        open fun componentBroker(
+            slackInteractiveMessageReceivers: List<InteractiveComponentReceiver<InteractiveMessage>>,
+            slackBlockActionReceivers: List<InteractiveComponentReceiver<BlockActions>>,
+            teamStore: TeamStore,
+            metricsCollector: InteractiveComponentMetricsCollector?
+        ): InteractiveComponentBroker {
+            return InteractiveComponentBroker(
+                slackBlockActionReceivers,
+                slackInteractiveMessageReceivers,
+                teamStore,
+                metricsCollector
+            )
         }
 
         /**
@@ -113,7 +136,12 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
          * Can be turned off by setting [SlackBrokerConfigurationProperties.LOGGING_PROPERTY_PREFIX].enabled to [false]
          * @return
          */
-        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.LOGGING_PROPERTY_PREFIX, name = ["enabled"], havingValue = "true", matchIfMissing = true)
+        @ConditionalOnProperty(
+            prefix = SlackBrokerConfigurationProperties.LOGGING_PROPERTY_PREFIX,
+            name = ["enabled"],
+            havingValue = "true",
+            matchIfMissing = true
+        )
         @Bean
         open fun sL4JLoggingReceiver(): SL4JLoggingReceiver {
             return SL4JLoggingReceiver()
@@ -123,7 +151,12 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
          * Registers a [MismatchCommandReceiver] that responds to unknown commands
          */
         @ConditionalOnMissingBean
-        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.MISMATCH_PROPERTY_PREFIX, name = ["enabled"], havingValue = "true", matchIfMissing = true)
+        @ConditionalOnProperty(
+            prefix = SlackBrokerConfigurationProperties.MISMATCH_PROPERTY_PREFIX,
+            name = ["enabled"],
+            havingValue = "true",
+            matchIfMissing = true
+        )
         @Bean
         open fun commandNotFoundMismatchReceiver(slackClient: SlackClient): MismatchCommandReceiver {
             return CommandNotFoundReceiver(slackClient, configuration.commands.mismatch.text)
@@ -141,24 +174,33 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         /**
          * Registers the InstallationBroker if error-redirect-url and success-redirect-url are set
          */
-        @ConditionalOnProperty(prefix = SlackBrokerConfigurationProperties.Companion.INSTALLATION_PROPERTY_PREFIX,
-                name = ["error-redirect-url", "success-redirect-url"])
+        @ConditionalOnProperty(
+            prefix = SlackBrokerConfigurationProperties.Companion.INSTALLATION_PROPERTY_PREFIX,
+            name = ["error-redirect-url", "success-redirect-url"]
+        )
         @Bean
-        open fun installationBroker(installationReceivers: List<InstallationReceiver>,
-                                    teamStore: TeamStore,
-                                    slackClient: SlackClient,
-                                    credentialsProvider: CredentialsProvider,
-                                    metricsCollector: InstallationMetricsCollector?): InstallationBroker {
+        open fun installationBroker(
+            installationReceivers: List<InstallationReceiver>,
+            teamStore: TeamStore,
+            slackClient: SlackClient,
+            credentialsProvider: CredentialsProvider,
+            metricsCollector: InstallationMetricsCollector?
+        ): InstallationBroker {
 
             val installation = this.configuration.installation
             val applicationCredentials = credentialsProvider.applicationCredentials()
 
             return InstallationBroker(
-                    installationReceivers,
-                    metricsCollector,
-                    teamStore,
-                    slackClient,
-                    InstallationBroker.Config(applicationCredentials.clientId, applicationCredentials.clientSecret, installation.successRedirectUrl, installation.errorRedirectUrl)
+                installationReceivers,
+                metricsCollector,
+                teamStore,
+                slackClient,
+                InstallationBroker.Config(
+                    applicationCredentials.clientId,
+                    applicationCredentials.clientSecret,
+                    installation.successRedirectUrl,
+                    installation.errorRedirectUrl
+                )
             )
         }
     }
@@ -166,7 +208,12 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
     /**
      * Auto-configuration that registers the MeterBinders
      */
-    @AutoConfigureBefore(InstallationAutoConfiguration::class, UserStoreAutoConfiguration::class, TeamStoreAutoconfiguration::class, BrokerAutoConfiguration::class)
+    @AutoConfigureBefore(
+        InstallationAutoConfiguration::class,
+        UserStoreAutoConfiguration::class,
+        TeamStoreAutoconfiguration::class,
+        BrokerAutoConfiguration::class
+    )
     @ConditionalOnClass(MeterRegistry::class)
     @Configuration
     open class SlackBrokerMetricsAutoConfiguration {

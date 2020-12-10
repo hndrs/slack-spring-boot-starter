@@ -17,23 +17,35 @@ class CredentialsProviderAutoConfigurationTests {
     @Test
     fun slackCredentialsProviderRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(CredentialsProvider::class.java) }
-                    Assertions.assertTrue(it.getBean(CredentialsProvider::class.java) is DefaultCredentialsProviderChain)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    SlackBrokerAutoConfiguration::class.java,
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(CredentialsProvider::class.java) }
+                Assertions.assertTrue(it.getBean(CredentialsProvider::class.java) is DefaultCredentialsProviderChain)
+            }
     }
 
     @DisplayName("Custom SlackCredentialsProvider Registration")
     @Test
     fun slackCustomCredentialsProviderRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(SlackBrokerAutoConfiguration::class.java, TeamStoreAutoconfiguration::class.java, WebMvcAutoConfiguration::class.java))
-                .withUserConfiguration(TestCredentialsProviderConfiguration::class.java)
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(CredentialsProvider::class.java) }
-                    Assertions.assertTrue(it.getBean(CredentialsProvider::class.java) is TestCredentialsProvider)
-                }
+            .withConfiguration(
+                AutoConfigurations.of(
+                    SlackBrokerAutoConfiguration::class.java,
+                    TeamStoreAutoconfiguration::class.java,
+                    WebMvcAutoConfiguration::class.java
+                )
+            )
+            .withUserConfiguration(TestCredentialsProviderConfiguration::class.java)
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(CredentialsProvider::class.java) }
+                Assertions.assertTrue(it.getBean(CredentialsProvider::class.java) is TestCredentialsProvider)
+            }
     }
 
     @Configuration

@@ -5,13 +5,6 @@ package com.kreait.slack.broker.autoconfiguration.credentials
  */
 class EnvironmentVariableCredentialsProvider : CredentialsProvider {
 
-    companion object {
-        private const val SLACK_APP_CLIENT_ID_VAR = "SLACK_APP_CLIENT_ID"
-        private const val SLACK_APP_CLIENT_SECRET_VAR = "SLACK_APP_CLIENT_SECRET"
-        private const val SLACK_APP_SIGNING_SECRET_VAR = "SLACK_APP_SIGNING_SECRET"
-
-    }
-
     override fun applicationCredentials(): ApplicationCredentials {
 
         val clientId = System.getenv(SLACK_APP_CLIENT_ID_VAR)
@@ -21,7 +14,15 @@ class EnvironmentVariableCredentialsProvider : CredentialsProvider {
         if (clientId != null && clientSecret != null && signingSecret != null) {
             return ApplicationCredentials(clientId, clientSecret, signingSecret)
         }
-        throw  ApplicationCredentialsException("Unable to load credentials: not all environment variables have been set")
+        throw  ApplicationCredentialsException(
+            "Unable to load credentials: not all environment variables have been set"
+        )
+    }
+
+    companion object {
+        private const val SLACK_APP_CLIENT_ID_VAR = "SLACK_APP_CLIENT_ID"
+        private const val SLACK_APP_CLIENT_SECRET_VAR = "SLACK_APP_CLIENT_SECRET"
+        private const val SLACK_APP_SIGNING_SECRET_VAR = "SLACK_APP_SIGNING_SECRET"
 
     }
 }

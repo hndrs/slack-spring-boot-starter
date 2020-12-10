@@ -30,14 +30,16 @@ class CredentialsFileCredentialsProviderTests {
 
         file.parentFile.mkdirs()
         file.createNewFile()
-        FileUtils.write(file, "slack_app_client_id=$clientId\n" +
-                "slack_app_client_secret=$clientSecret\n" +
-                "slack_app_signing_secret=$signingSecret", Charset.forName("UTF-8"))
+        FileUtils.write(
+            file, "slack_app_client_id=$clientId\n" +
+                    "slack_app_client_secret=$clientSecret\n" +
+                    "slack_app_signing_secret=$signingSecret", Charset.forName("UTF-8")
+        )
 
 
         // test
         val applicationCredentials = CredentialsFileCredentialsProvider()
-                .applicationCredentials()
+            .applicationCredentials()
 
 
         // assert
@@ -62,8 +64,10 @@ class CredentialsFileCredentialsProviderTests {
 
         file.parentFile.mkdirs()
         file.createNewFile()
-        FileUtils.write(file, "slack_app_client_id=$clientId\n" +
-                "slack_app_signing_secret=$signingSecret", Charset.forName("UTF-8"))
+        FileUtils.write(
+            file, "slack_app_client_id=$clientId\n" +
+                    "slack_app_signing_secret=$signingSecret", Charset.forName("UTF-8")
+        )
 
         // test and assert
         Assertions.assertThrows(ApplicationCredentialsException::class.java) {

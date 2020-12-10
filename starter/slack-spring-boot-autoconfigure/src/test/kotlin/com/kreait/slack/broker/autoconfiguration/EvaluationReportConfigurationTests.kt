@@ -30,47 +30,59 @@ class EvaluationReportConfigurationTests {
     @Test
     fun evalReportRegistration() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java))
-                .run {
-                    Assertions.assertDoesNotThrow { it.getBean(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java) }
-                }
+            .withConfiguration(AutoConfigurations.of(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java))
+            .run {
+                Assertions.assertDoesNotThrow { it.getBean(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java) }
+            }
     }
 
     @DisplayName("Custom EvaluationReport Test")
     @Test
     fun customEvalReportTest() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java))
-                .withUserConfiguration(TestConfiguration::class.java)
-                .run {
-                    val evaluationReport = it.getBean(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java).buildEvaluationReport(it)
-                    assertThat(evaluationReport, containsString("testEventReceiver"))
-                    assertThat(evaluationReport, containsString("testInteractiveComponentReceiver"))
-                    assertThat(evaluationReport, containsString("testInteractiveComponentReceiver"))
-                    assertThat(evaluationReport, containsString("testSlashCommandReceiver"))
-                    assertThat(evaluationReport, containsString("testLoggingReceiver"))
-                    assertThat(evaluationReport, containsString("testMismatchCommandReceiver"))
-                }
+            .withConfiguration(AutoConfigurations.of(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java))
+            .withUserConfiguration(TestConfiguration::class.java)
+            .run {
+                val evaluationReport =
+                    it.getBean(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java)
+                        .buildEvaluationReport(it)
+                assertThat(evaluationReport, containsString("testEventReceiver"))
+                assertThat(evaluationReport, containsString("testInteractiveComponentReceiver"))
+                assertThat(evaluationReport, containsString("testInteractiveComponentReceiver"))
+                assertThat(evaluationReport, containsString("testSlashCommandReceiver"))
+                assertThat(evaluationReport, containsString("testLoggingReceiver"))
+                assertThat(evaluationReport, containsString("testMismatchCommandReceiver"))
+            }
     }
 
     @DisplayName("EvaluationReport Default Notifications")
     @Test
     fun evaluationReportDefaultBeans() {
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java))
-                .withUserConfiguration(DefaultEventStoreConfiguration::class.java)
-                .run {
-                    val evaluationReport = it.getBean(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java).buildEvaluationReport(it)
-                    assertThat(evaluationReport, containsString("Default version of ${InMemoryEventStore::class.simpleName} is registered, this is not recommended for production"))
-                }
+            .withConfiguration(AutoConfigurations.of(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java))
+            .withUserConfiguration(DefaultEventStoreConfiguration::class.java)
+            .run {
+                val evaluationReport =
+                    it.getBean(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java)
+                        .buildEvaluationReport(it)
+                assertThat(
+                    evaluationReport,
+                    containsString("Default version of ${InMemoryEventStore::class.simpleName} is registered, this is not recommended for production")
+                )
+            }
 
         TestApplicationContext.base()
-                .withConfiguration(AutoConfigurations.of(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java))
-                .withUserConfiguration(DefaultTeamStoreConfiguration::class.java)
-                .run {
-                    val evaluationReport = it.getBean(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java).buildEvaluationReport(it)
-                    assertThat(evaluationReport, containsString("Default version of ${InMemoryTeamStore::class.simpleName} is registered, this is not recommended for production"))
-                }
+            .withConfiguration(AutoConfigurations.of(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java))
+            .withUserConfiguration(DefaultTeamStoreConfiguration::class.java)
+            .run {
+                val evaluationReport =
+                    it.getBean(com.kreait.slack.broker.autoconfiguration.EvaluationReport::class.java)
+                        .buildEvaluationReport(it)
+                assertThat(
+                    evaluationReport,
+                    containsString("Default version of ${InMemoryTeamStore::class.simpleName} is registered, this is not recommended for production")
+                )
+            }
     }
 
     @Configuration
@@ -87,9 +99,15 @@ class EvaluationReportConfigurationTests {
         }
 
         @Bean
-        open fun testInteractiveComponentReceiver(): InteractiveComponentReceiver<InteractiveMessage> = object : InteractiveComponentReceiver<InteractiveMessage> {
-            override fun onReceiveInteractiveMessage(interactiveComponentResponse: InteractiveMessage, headers: HttpHeaders, team: Team) {}
-        }
+        open fun testInteractiveComponentReceiver(): InteractiveComponentReceiver<InteractiveMessage> =
+            object : InteractiveComponentReceiver<InteractiveMessage> {
+                override fun onReceiveInteractiveMessage(
+                    interactiveComponentResponse: InteractiveMessage,
+                    headers: HttpHeaders,
+                    team: Team
+                ) {
+                }
+            }
 
         @Bean
         open fun testSlashCommandReceiver(): SlashCommandReceiver = object : SlashCommandReceiver {
