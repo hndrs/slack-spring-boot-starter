@@ -5,6 +5,9 @@ danger(args) {
     val allSourceFiles = git.modifiedFiles + git.createdFiles
     val changelogChanged = allSourceFiles.contains("CHANGELOG.md")
     val sourceChanges = allSourceFiles.firstOrNull { it.contains("src") }
+    allSourceFiles.forEach {
+        println(it)
+    }
 
     onGitHub {
         val isTrivial = pullRequest.title.contains("#trivial")
