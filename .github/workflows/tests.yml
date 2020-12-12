@@ -48,6 +48,12 @@ jobs:
         run: |
           ./gradlew check jacocoTestReport detekt sonarqube -Dsonar.login=$SONAR_TOKEN
 
+      - name: Danger
+        if: ${{ github.event_name == 'pull_request'}}
+        uses: danger/kotlin@0.7.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publish Snapshot
         if: ${{ github.event_name != 'pull_request'}}
         env:
