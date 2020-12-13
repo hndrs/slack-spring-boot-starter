@@ -4,6 +4,9 @@ name: Pull Requests
 on:
 
   pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - 'guides/**'
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
