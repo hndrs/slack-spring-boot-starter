@@ -1,4 +1,4 @@
-name: Snapshot Publish
+name: Docs Snapshot Publish
 
 # Controls when the action will run.
 on:
@@ -48,7 +48,7 @@ jobs:
 
       - uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --follow-symlinks --delete
+          args: --acl public-read --follow-symlinks
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_DOC_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
