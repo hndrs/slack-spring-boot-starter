@@ -1,5 +1,5 @@
 [[slack-spring-boot-reference-guide]]
-= Slack Spring Boot Reference Guide
+= Slack Spring Boot Reference
 :idprefix:
 :idseparator: -
 :toc: left

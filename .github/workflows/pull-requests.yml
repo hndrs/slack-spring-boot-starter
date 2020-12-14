@@ -1,12 +1,12 @@
-name: Snapshot Publish
+name: Pull Requests
 
 # Controls when the action will run.
 on:
 
-  push:
-    branches: [ main ]
-
   pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - 'guides/**'
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -48,10 +48,7 @@ jobs:
         run: |
           ./gradlew check jacocoTestReport detekt sonarqube -Dsonar.login=$SONAR_TOKEN
 
-      - name: Publish Snapshot
-        if: ${{ github.event_name != 'pull_request'}}
+      - name: Danger
+        uses: danger/kotlin@0.7.1
         env:
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
-        run: |
-          ./gradlew publish
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
