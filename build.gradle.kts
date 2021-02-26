@@ -5,8 +5,6 @@ import com.kreait.publish.meta.Organization
 import com.kreait.publish.meta.Scm
 import groovy.json.StringEscapeUtils
 import io.gitlab.arturbosch.detekt.Detekt
-import io.gitlab.arturbosch.detekt.detekt
-import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -33,16 +31,18 @@ plugins {
 sonarqube {
     properties {
         property("sonar.projectName", "Slack Spring Boot Starter")
-        property("sonar.projectKey", "com.kreait.slack-spring-boot-starter")
+        property("sonar.projectKey", "hndrs_slack-spring-boot-starter")
         property("sonar.host.url", "https://sonarcloud.io/")
-        property("sonar.organization", "kreait")
+        property("sonar.organization", "hndrs")
         property("sonar.jacoco.report missing.force.zero", "true")
         property("sonar.pullrequest.provider", "github")
-        property("sonar.exclusions", "**/slack-jackson-dto-test-extensions/**," +
-                "**/slack-jackson-dto/**," +
-                "**/samples/**, " +
-                "**/slack-api-client/**, " +
-                "**/SL4JLoggingReceiver.kt")
+        property(
+            "sonar.exclusions", "**/slack-jackson-dto-test-extensions/**," +
+                    "**/slack-jackson-dto/**," +
+                    "**/samples/**, " +
+                    "**/slack-api-client/**, " +
+                    "**/SL4JLoggingReceiver.kt"
+        )
     }
 }
 
@@ -61,7 +61,7 @@ allprojects {
 
     group = "com.kreait.slack"
     version = rootProject.file("version.txt").readText().trim()
-            .plus(if (isRelease?.toBoolean() == true) "" else "-SNAPSHOT")
+        .plus(if (isRelease?.toBoolean() == true) "" else "-SNAPSHOT")
 
     project.ext {
         set("junitJupiterVersion", "5.4.2")
