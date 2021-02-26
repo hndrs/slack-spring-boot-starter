@@ -24,7 +24,7 @@ To use the test-extensions, simply include the following in your build.gradle:
 
 [source,subs="attributes"]
 --
-testImplementation(group: "com.kreait.slack", name: "slack-jackson-dto-test", version: "{lib-version}")
+testImplementation(group: "io.hndrs.slack", name: "slack-jackson-dto-test", version: "{lib-version}")
 
 
 --
@@ -33,7 +33,7 @@ Additionally we want to have have
 
 [source,subs="attributes"]
 --
-testImplementation(group: "com.kreait.slack", name: "slack-spring-test-api-client", version: "{lib-version}")
+testImplementation(group: "io.hndrs.slack", name: "slack-spring-test-api-client", version: "{lib-version}")
 --
 
 in our build.gradle in order to test the functionality of our example.

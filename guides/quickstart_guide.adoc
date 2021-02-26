@@ -16,11 +16,11 @@ include::../version.txt[]
 
 [source,groovy]
 --
-implementation(group: "com.kreait.slack", name: "slack-spring-boot-starter", version: "current-version", changing: true)
+implementation(group: "io.hndrs.slack", name: "slack-spring-boot-starter", version: "current-version", changing: true)
 
-testImplementation(group: "com.kreait.slack", name: "slack-spring-test-api-client", version: "current-version")
+testImplementation(group: "io.hndrs.slack", name: "slack-spring-test-api-client", version: "current-version")
 
-testImplementation(group: "com.kreait.slack", name: "slack-jackson-dto-test", version: "current-version")
+testImplementation(group: "io.hndrs.slack", name: "slack-jackson-dto-test", version: "current-version")
 --
 
 .Modules

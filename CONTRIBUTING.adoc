@@ -1,16 +1,16 @@
 == Contribution Guidelines
 
-Slack Spring Boot Starter is released under the https://github.com/kreait/slack-spring-boot-starter/blob/master/LICENSE[MIT license].
+Slack Spring Boot Starter is released under the https://github.com/hndrs/slack-spring-boot-starter/blob/main/LICENSE[MIT license].
 These guidelines are here to help you getting started contributing to this project.
 
 === Code of Conduct
 
-Please read and follow our https://github.com/kreait/slack-spring-boot-starter/blob/master/CODE_OF_CONDUCT.md[Code of Conduct^] before contributing to the project.
+Please read and follow our https://github.com/hndrs/.github/blob/main/CODE_OF_CONDUCT.md[Code of Conduct^] before contributing to the project.
 By contributing we expect you to follow the this code of conduct and furthermore advise you to report any misbehaviour you encounter to the maintainers.
 
 === Contact
 
-Feel free to join us on discord to discuss image:https://img.shields.io/discord/523866370778333184.svg[link="https://discord.gg/fXfQmdJ"]
+Feel free to to ope]
 
 === Missing Feature
 

@@ -1,8 +1,8 @@
-import com.kreait.publish.meta.Contributor
-import com.kreait.publish.meta.Developer
-import com.kreait.publish.meta.License
-import com.kreait.publish.meta.Organization
-import com.kreait.publish.meta.Scm
+import io.hndrs.publish.meta.Contributor
+import io.hndrs.publish.meta.Developer
+import io.hndrs.publish.meta.License
+import io.hndrs.publish.meta.Organization
+import io.hndrs.publish.meta.Scm
 import groovy.json.StringEscapeUtils
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -58,7 +58,7 @@ allprojects {
         from("${rootProject.rootDir}/publish-meta.gradle.kts")
     }
 
-    group = "com.kreait.slack"
+    group = "io.hndrs.slack"
     version = rootProject.file("version.txt").readText().trim()
         .plus(if (isRelease?.toBoolean() == true) "" else "-SNAPSHOT")
 
@@ -260,6 +260,7 @@ subprojects {
     }
 
     tasks.withType<Detekt> {
+        this.ignoreFailures = true
         autoCorrect = true
         config.setFrom(files("${rootProject.rootDir}/detekt.yml"))
     }

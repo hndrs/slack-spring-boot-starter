@@ -1,8 +1,8 @@
-import com.kreait.publish.meta.Contributor
-import com.kreait.publish.meta.Developer
-import com.kreait.publish.meta.License
-import com.kreait.publish.meta.Organization
-import com.kreait.publish.meta.Scm
+import io.hndrs.publish.meta.Contributor
+import io.hndrs.publish.meta.Developer
+import io.hndrs.publish.meta.License
+import io.hndrs.publish.meta.Organization
+import io.hndrs.publish.meta.Scm
 
 extra["developers"] = listOf(
     Developer("marvinschramm", "Marvin Schramm", "marvin.schramm@gmail.com"),
