@@ -34,5 +34,9 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: test
+        env:
+          SLACK_APP_CLIENT_ID: test-clientId
+          SLACK_APP_CLIENT_SECRET: test-clientSecret
+          SLACK_APP_SIGNING_SECRET: test-signingSecret
         run: |
           ./gradlew check
