@@ -144,7 +144,7 @@ subprojects {
                             }
                             description.set(project.description)
                             pom {
-                                url.set("https://slack-spring-boot.kreait.dev")
+                                url.set("https://github.com/hndrs/slack-spring-boot-starter")
                                 (extra["organization"] as Organization).let {
                                     this.organization {
                                         name.set(it.name)
