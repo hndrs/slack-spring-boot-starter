@@ -5,8 +5,6 @@ import com.kreait.publish.meta.Organization
 import com.kreait.publish.meta.Scm
 import groovy.json.StringEscapeUtils
 import io.gitlab.arturbosch.detekt.Detekt
-import io.gitlab.arturbosch.detekt.detekt
-import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -22,10 +20,9 @@ buildscript {
 }
 
 plugins {
-    id("org.sonarqube") version "2.7"
+    id("org.sonarqube") version "3.1.1"
     id("io.spring.dependency-management") version "1.0.7.RELEASE"
     id("org.jetbrains.kotlin.jvm") version "1.4.20" apply false
-    id("org.jetbrains.dokka") version "1.4.20"
     id("io.gitlab.arturbosch.detekt") version "1.14.2"
     signing
 }
@@ -33,16 +30,18 @@ plugins {
 sonarqube {
     properties {
         property("sonar.projectName", "Slack Spring Boot Starter")
-        property("sonar.projectKey", "com.kreait.slack-spring-boot-starter")
+        property("sonar.projectKey", "hndrs_slack-spring-boot-starter")
         property("sonar.host.url", "https://sonarcloud.io/")
-        property("sonar.organization", "kreait")
+        property("sonar.organization", "hndrs")
         property("sonar.jacoco.report missing.force.zero", "true")
         property("sonar.pullrequest.provider", "github")
-        property("sonar.exclusions", "**/slack-jackson-dto-test-extensions/**," +
-                "**/slack-jackson-dto/**," +
-                "**/samples/**, " +
-                "**/slack-api-client/**, " +
-                "**/SL4JLoggingReceiver.kt")
+        property(
+            "sonar.exclusions", "**/slack-jackson-dto-test-extensions/**," +
+                    "**/slack-jackson-dto/**," +
+                    "**/samples/**, " +
+                    "**/slack-api-client/**, " +
+                    "**/SL4JLoggingReceiver.kt"
+        )
     }
 }
 
@@ -61,7 +60,7 @@ allprojects {
 
     group = "com.kreait.slack"
     version = rootProject.file("version.txt").readText().trim()
-            .plus(if (isRelease?.toBoolean() == true) "" else "-SNAPSHOT")
+        .plus(if (isRelease?.toBoolean() == true) "" else "-SNAPSHOT")
 
     project.ext {
         set("junitJupiterVersion", "5.4.2")
@@ -101,7 +100,6 @@ subprojects {
         plugin("jacoco")
         plugin("maven-publish")
         plugin("propdeps")
-        plugin("org.jetbrains.dokka")
         plugin("io.gitlab.arturbosch.detekt")
         plugin("signing")
     }
@@ -137,25 +135,16 @@ subprojects {
                         from(project.the<SourceSetContainer>()["main"].allSource)
                     }
 
-                    /*
-                    Disabled because it consumes to much memory
-                    val javaDoc = tasks.dokkaJavadoc
-                    val javaDocJar by tasks.registering(Jar::class) {
-                        archiveClassifier.value("javadoc")
-                        from(javaDoc.get())
-                    }
-                     */
                     create(project.name, MavenPublication::class) {
                         from(components["java"])
                         artifact(sourcesJar.get())
-                        //jartifact(javaDocJar)
                         pom {
                             if (project.extra.has("displayName")) {
                                 name.set(project.extra["displayName"] as? String)
                             }
                             description.set(project.description)
                             pom {
-                                url.set("https://slack-spring-boot.kreait.dev")
+                                url.set("https://github.com/hndrs/slack-spring-boot-starter")
                                 (extra["organization"] as Organization).let {
                                     this.organization {
                                         name.set(it.name)
@@ -235,7 +224,7 @@ subprojects {
         }
     }
     configure<JacocoPluginExtension> {
-        toolVersion = "0.8.3"
+        toolVersion = "0.8.6"
     }
 
     tasks.withType<JacocoReport> {

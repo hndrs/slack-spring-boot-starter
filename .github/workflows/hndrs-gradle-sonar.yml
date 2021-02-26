@@ -1,34 +1,33 @@
-name: Pull Requests
+name: gradle
 
 # Controls when the action will run.
 on:
-
+  push:
+    branches:
+      - main
   pull_request:
-    paths-ignore:
-      - 'docs/**'
-      - 'guides/**'
     branches: [ main ]
+    types: [ opened, synchronize, reopened ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test:
+  analyse:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Git Checkout
+      - name: git checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Setup Java
+      - name: setup java
         uses: actions/setup-java@v1
         with:
           java-version: '11'
 
-      - name: Setup Build Cache
+      - name: gradle cache
         uses: actions/cache@v2
         with:
           path: |
@@ -38,17 +37,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Tests
+      - name: sonar cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: analyse
         env:
           SLACK_APP_CLIENT_ID: test-clientId
           SLACK_APP_CLIENT_SECRET: test-clientSecret
           SLACK_APP_SIGNING_SECRET: test-signingSecret
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ./gradlew check jacocoTestReport detekt sonarqube -Dsonar.login=$SONAR_TOKEN
-
-      - name: Danger
-        uses: danger/kotlin@0.7.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew check jacocoTestReport sonarqube --info

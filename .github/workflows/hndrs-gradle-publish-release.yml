@@ -1,33 +1,30 @@
-name: Docs  Pull Requests
+name: gradle
 
 # Controls when the action will run.
 on:
-
-  pull_request:
-    paths:
-      - 'docs/**'
-    branches: [ main ]
+  push:
+    tags:
+      - v*
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  docs:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Git Checkout
+      - name: git checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Setup Java
+      - name: setup java
         uses: actions/setup-java@v1
         with:
           java-version: '11'
 
-      - name: Setup Build Cache
+      - name: setup build cache
         uses: actions/cache@v2
         with:
           path: |
@@ -37,12 +34,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Generate Docs
+      - name: publish
+        env:
+          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
         run: |
-          ./buildScripts/generate-snapshot-docs.sh
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: AsciiDoc HTML
-          path: build/docs
+          ./gradlew publish -PisRelease=true
