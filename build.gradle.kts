@@ -1,10 +1,9 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import io.hndrs.publish.meta.Contributor
 import io.hndrs.publish.meta.Developer
 import io.hndrs.publish.meta.License
 import io.hndrs.publish.meta.Organization
 import io.hndrs.publish.meta.Scm
-import groovy.json.StringEscapeUtils
-import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -187,11 +186,13 @@ subprojects {
                         }
                     }
                 }
-                signing {
-                    val signingKey: String? by project
-                    val signingPassword: String? by project
-                    useInMemoryPgpKeys(StringEscapeUtils.unescapeJava(signingKey), signingPassword)
-                    sign(publications[project.name])
+                val signingKey: String? = System.getenv("SIGNING_KEY")
+                val signingPassword: String? = System.getenv("SIGNING_PASSWORD")
+                if (signingKey != null && signingPassword != null) {
+                    signing {
+                        useInMemoryPgpKeys(groovy.json.StringEscapeUtils.unescapeJava(signingKey), signingPassword)
+                        sign(publications[project.name])
+                    }
                 }
             }
 
