@@ -235,7 +235,7 @@ subprojects {
         }
     }
     configure<JacocoPluginExtension> {
-        toolVersion = "0.8.3"
+        toolVersion = "0.8.6"
     }
 
     tasks.withType<JacocoReport> {
