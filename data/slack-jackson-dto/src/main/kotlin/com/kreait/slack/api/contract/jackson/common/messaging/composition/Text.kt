@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text.Type
+import java.lang.IllegalArgumentException
 
 
 /**
@@ -23,7 +24,7 @@ import com.kreait.slack.api.contract.jackson.common.messaging.composition.Text.T
  * @see [Type]
  * @see [Slack API Documentation](https://api.slack.com/reference/messaging/composition-objects#text)
  */
-data class Text(
+data class Text (
     @JsonProperty("type") val type: Type,
     @JsonProperty("text") val text: String,
     @JsonProperty("emoji") val escapeEmojis: Boolean? = null,
@@ -31,9 +32,15 @@ data class Text(
 ) {
 
     @JsonSerialize(using = Type.Serializer::class)
-    @JsonDeserialize(using = Type.Desializer::class)
+    @JsonDeserialize(using = Type.Deserializer::class)
     enum class Type(val type: String) {
-        MARKDOWN("mrkdwn"), PLAIN_TEXT("plain_text");
+        MARKDOWN("mrkdwn"),
+        PLAIN_TEXT("plain_text");
+
+        companion object {
+            fun findByType(type: String): Type = values().find { it.type == type }
+                    ?: throw IllegalArgumentException("No enum constant with type: $type")
+        }
 
         class Serializer : JsonSerializer<Type>() {
             override fun serialize(value: Type, gen: JsonGenerator?, serializers: SerializerProvider?) {
@@ -41,10 +48,9 @@ data class Text(
             }
         }
 
-        class Desializer : JsonDeserializer<Type>() {
+        class Deserializer : JsonDeserializer<Type>() {
             override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): Type {
-                return Type.valueOf(p.text.toUpperCase())
-
+                return findByType(p.text)
             }
         }
     }
