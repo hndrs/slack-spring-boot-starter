@@ -10,6 +10,7 @@
 
 ## [3.0.0] - 2019-10-25
 
+- **changes base package to io.hdnrs**
 - Added Autoconfiguration Failure Analysis
 - replace oauth.access with oauth.v2.access
 - removes im method group (deprecated by slack)
@@ -17,7 +18,6 @@
 - Added ApplicationEnvironmentCredentialsProvider
 - fix conversations.setPurpose and conversations.setTopic Request
 - supported java version to 11+
-- change base package to io.hdnrs
 
 ## [2.0.0] - 2019-08-26
 
