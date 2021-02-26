@@ -1,6 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.kreait.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration,\
-com.kreait.slack.broker.autoconfiguration.TeamStoreAutoconfiguration,\
-com.kreait.slack.broker.autoconfiguration.UserStoreAutoConfiguration
+io.hndrs.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration,\
+io.hndrs.slack.broker.autoconfiguration.TeamStoreAutoconfiguration,\
+io.hndrs.slack.broker.autoconfiguration.UserStoreAutoConfiguration
 org.springframework.boot.diagnostics.FailureAnalyzer=\
-com.kreait.slack.broker.autoconfiguration.credentials.CredentialsFailureAnalyzer
+io.hndrs.slack.broker.autoconfiguration.credentials.CredentialsFailureAnalyzer

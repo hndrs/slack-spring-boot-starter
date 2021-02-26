@@ -1,0 +1,17 @@
+package io.hndrs.slack.api.contract.jackson.group.conversations
+
+import io.hndrs.slack.api.contract.jackson.common.types.Channel
+import io.hndrs.slack.api.contract.jackson.common.types.sample
+
+fun SuccessfulConversationInviteResponse.Companion.sample(): SuccessfulConversationInviteResponse {
+    return SuccessfulConversationInviteResponse(true, Channel.sample())
+}
+
+fun ErrorConversationInviteResponse.Companion.sample(): ErrorConversationInviteResponse {
+    return ErrorConversationInviteResponse(false, "")
+}
+
+
+fun ConversationsInviteRequest.Companion.sample(): ConversationsInviteRequest {
+    return ConversationsInviteRequest("", listOf(""))
+}
