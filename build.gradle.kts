@@ -20,7 +20,7 @@ buildscript {
 }
 
 plugins {
-    id("org.sonarqube") version "2.7"
+    id("org.sonarqube") version "3.1.1"
     id("io.spring.dependency-management") version "1.0.7.RELEASE"
     id("org.jetbrains.kotlin.jvm") version "1.4.20" apply false
     id("org.jetbrains.dokka") version "1.4.20"
