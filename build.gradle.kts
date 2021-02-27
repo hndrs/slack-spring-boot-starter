@@ -132,13 +132,13 @@ subprojects {
                 publications {
 
                     val sourcesJar by tasks.registering(Jar::class) {
-                        archiveClassifier.value("sources")
+                        archiveClassifier.set("sources")
                         from(project.the<SourceSetContainer>()["main"].allSource)
                     }
 
                     val javaDocJar by tasks.registering(Jar::class) {
-                        archiveClassifier.value("javadoc")
-                        from(tasks.dokkaJavadoc.get())
+                        archiveClassifier.set("javadoc")
+                        from(tasks.dokkaJavadoc.get().outputDirectory.get())
                     }
 
                     create(project.name, MavenPublication::class) {
