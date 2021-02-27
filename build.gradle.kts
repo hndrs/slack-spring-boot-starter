@@ -58,7 +58,7 @@ allprojects {
         from("${rootProject.rootDir}/publish-meta.gradle.kts")
     }
 
-    group = "io.hndrs"
+    group = "io.hndrs.slack"
     version = rootProject.file("version.txt").readText().trim()
         .plus(if (isRelease?.toBoolean() == true) "" else "-SNAPSHOT")
 
