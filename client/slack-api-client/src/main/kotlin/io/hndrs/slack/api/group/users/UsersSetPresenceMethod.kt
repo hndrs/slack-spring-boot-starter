@@ -12,4 +12,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  */
 @Suppress("UNCHECKED_CAST")
 abstract class UsersSetPresenceMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.users.UsersSetPresenceMethod, SuccessfulSetPresenceResponse, ErrorSetPresenceResponse, SetPresenceRequest>()
+    ApiCallMethod<UsersSetPresenceMethod, SuccessfulSetPresenceResponse, ErrorSetPresenceResponse, SetPresenceRequest>()

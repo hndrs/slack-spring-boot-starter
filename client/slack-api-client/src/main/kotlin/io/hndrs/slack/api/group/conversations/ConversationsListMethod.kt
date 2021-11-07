@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.list
  */
 abstract class ConversationsListMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsListMethod, SuccessfulConversationListResponse,
+    ApiCallMethod<ConversationsListMethod, SuccessfulConversationListResponse,
             ErrorConversationListResponse, ConversationsListRequest>()

@@ -18,10 +18,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringUsersDeletePhotoMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.users.UsersDeletePhotoMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersDeletePhotoMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulDeletePhotoResponse, ErrorDeletePhotoResponse> {
+    override fun request(): ApiCallResult<SuccessfulDeletePhotoResponse, ErrorDeletePhotoResponse> {
         val response = SlackRequestBuilder<DeletePhotoResponse>(authToken, restTemplate)
             .toMethod("users.deletePhoto")
             .returnAsType(DeletePhotoResponse::class.java)
@@ -31,12 +31,12 @@ class SpringUsersDeletePhotoMethod(
             is SuccessfulDeletePhotoResponse -> {
                 val responseEntity = response.body as SuccessfulDeletePhotoResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorDeletePhotoResponse -> {
                 val responseEntity = response.body as ErrorDeletePhotoResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

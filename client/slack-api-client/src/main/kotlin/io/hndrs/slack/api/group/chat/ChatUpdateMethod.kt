@@ -11,6 +11,6 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/chat.update
  */
 abstract class ChatUpdateMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.chat.ChatUpdateMethod, SuccessfulChatUpdateResponse, ErrorChatUpdateResponse, ChatUpdateRequest>() {
+    ApiCallMethod<ChatUpdateMethod, SuccessfulChatUpdateResponse, ErrorChatUpdateResponse, ChatUpdateRequest>() {
 
 }

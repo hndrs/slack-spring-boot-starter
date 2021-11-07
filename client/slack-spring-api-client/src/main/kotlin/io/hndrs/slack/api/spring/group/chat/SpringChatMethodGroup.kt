@@ -7,7 +7,7 @@ import io.hndrs.slack.api.group.chat.ChatMethodGroup
  *
  *  [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringChatMethodGroup : io.hndrs.slack.api.group.chat.ChatMethodGroup {
+class SpringChatMethodGroup : ChatMethodGroup {
 
     override fun getPermalink(authToken: String): SpringGetPermalinkMethod {
         return SpringGetPermalinkMethod(authToken)

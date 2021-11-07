@@ -9,15 +9,15 @@ interface StarsMethodGroup {
     /**
      * Adds a star to an item.
      */
-    fun add(authToken: String): io.hndrs.slack.api.group.stars.StarsAddMethod
+    fun add(authToken: String): StarsAddMethod
 
     /**
      * 	Lists stars for a user.
      */
-    fun list(authToken: String): io.hndrs.slack.api.group.stars.StarsListMethod
+    fun list(authToken: String): StarsListMethod
 
     /**
      * Removes a star from an item.
      */
-    fun remove(authToken: String): io.hndrs.slack.api.group.stars.StarsRemoveMethod
+    fun remove(authToken: String): StarsRemoveMethod
 }

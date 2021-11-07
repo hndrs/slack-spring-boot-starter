@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  */
 @Suppress("UNCHECKED_CAST")
 abstract class UsersDeletePhotoMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.users.UsersDeletePhotoMethod, SuccessfulDeletePhotoResponse, ErrorDeletePhotoResponse, Unit>()
+    ApiCallMethod<UsersDeletePhotoMethod, SuccessfulDeletePhotoResponse, ErrorDeletePhotoResponse, Unit>()
 

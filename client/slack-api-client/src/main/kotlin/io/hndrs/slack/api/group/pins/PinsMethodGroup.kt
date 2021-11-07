@@ -10,15 +10,15 @@ interface PinsMethodGroup {
     /**
      * 	Pins an item to a channel.
      */
-    fun add(authToken: String): io.hndrs.slack.api.group.pins.PinsAddMethod
+    fun add(authToken: String): PinsAddMethod
 
     /**
      * Lists items pinned to a channel.
      */
-    fun list(authToken: String): io.hndrs.slack.api.group.pins.PinsListMethod
+    fun list(authToken: String): PinsListMethod
 
     /**
      * Un-pins an item from a channel.
      */
-    fun remove(authToken: String): io.hndrs.slack.api.group.pins.PinsRemoveMethod
+    fun remove(authToken: String): PinsRemoveMethod
 }

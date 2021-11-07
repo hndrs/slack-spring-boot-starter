@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.open
  */
 abstract class ConversationsOpenMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsOpenMethod, SuccessfulConversationOpenResponse,
+    ApiCallMethod<ConversationsOpenMethod, SuccessfulConversationOpenResponse,
             ErrorConversationOpenResponse, ConversationsOpenRequest>()

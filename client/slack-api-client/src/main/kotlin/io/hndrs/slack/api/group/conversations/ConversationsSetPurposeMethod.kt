@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.setPurpose
  */
 abstract class ConversationsSetPurposeMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsSetPurposeMethod, SuccessfulConversationSetPurposeResponse,
+    ApiCallMethod<ConversationsSetPurposeMethod, SuccessfulConversationSetPurposeResponse,
             ErrorConversationSetPurposeResponse, ConversationsSetPurposeRequest>()

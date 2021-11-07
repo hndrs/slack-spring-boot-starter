@@ -21,10 +21,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringUsergroupsEnableMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.usergroups.UsergroupsEnableMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsergroupsEnableMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulEnableResponse, ErrorEnableResponse> {
+    override fun request(): ApiCallResult<SuccessfulEnableResponse, ErrorEnableResponse> {
         val response = SlackRequestBuilder<EnableResponse>(authToken, restTemplate)
             .toMethod("usergroups.enable")
             .returnAsType(EnableResponse::class.java)
@@ -34,12 +34,12 @@ class SpringUsergroupsEnableMethod(
             is SuccessfulEnableResponse -> {
                 val responseEntity = response.body as SuccessfulEnableResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorEnableResponse -> {
                 val responseEntity = response.body as ErrorEnableResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

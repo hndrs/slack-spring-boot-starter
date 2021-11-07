@@ -1,6 +1,5 @@
 package io.hndrs.slack.sample.rock_paper_scissors
 
-import io.hndrs.slack.api.SlackClient
 import io.hndrs.slack.api.contract.jackson.SlackCommand
 import io.hndrs.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import io.hndrs.slack.broker.receiver.SlashCommandReceiver
@@ -18,9 +17,9 @@ class RockPaperScissorsCommandReceiver @Autowired constructor(private val slackC
         this.slackClient.chat().postEphemeral(team.bot.accessToken)
             .with(
                 PostEphemeralRequest(
-                    "Choose your weapon",
+                    text = "Choose your weapon",
                     user = slackCommand.userId,
-                    blocks = RPSGameHandler.blocks,
+                   // blocks = RPSGameHandler.blocks,
                     channel = slackCommand.channelId
                 )
             )

@@ -12,25 +12,25 @@ import io.hndrs.slack.api.group.reminders.RemindersMethodGroup
  *
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringRemindersMethodGroup : io.hndrs.slack.api.group.reminders.RemindersMethodGroup {
+class SpringRemindersMethodGroup : RemindersMethodGroup {
 
-    override fun delete(authToken: String): io.hndrs.slack.api.group.reminders.RemindersDeleteMethod {
+    override fun delete(authToken: String): RemindersDeleteMethod {
         return SpringRemindersDeleteMethod(authToken)
     }
 
-    override fun list(authToken: String): io.hndrs.slack.api.group.reminders.RemindersListMethod {
+    override fun list(authToken: String): RemindersListMethod {
         return SpringRemindersListMethod(authToken)
     }
 
-    override fun info(authToken: String): io.hndrs.slack.api.group.reminders.RemindersInfoMethod {
+    override fun info(authToken: String): RemindersInfoMethod {
         return SpringRemindersInfoMethod(authToken)
     }
 
-    override fun complete(authToken: String): io.hndrs.slack.api.group.reminders.RemindersCompleteMethod {
+    override fun complete(authToken: String): RemindersCompleteMethod {
         return SpringRemindersCompleteMethod(authToken)
     }
 
-    override fun add(authToken: String): io.hndrs.slack.api.group.reminders.RemindersAddMethod {
+    override fun add(authToken: String): RemindersAddMethod {
         return SpringRemindersAddMethod(authToken)
     }
 

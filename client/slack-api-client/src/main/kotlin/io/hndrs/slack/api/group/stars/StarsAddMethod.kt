@@ -10,4 +10,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/stars.add
  */
 abstract class StarsAddMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.stars.StarsAddMethod, SuccessfulStarsAddResponse, ErrorStarsAddResponse, StarsAddRequest>()
+    ApiCallMethod<StarsAddMethod, SuccessfulStarsAddResponse, ErrorStarsAddResponse, StarsAddRequest>()

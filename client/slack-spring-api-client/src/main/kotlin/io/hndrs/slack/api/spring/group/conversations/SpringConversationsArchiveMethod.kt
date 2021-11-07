@@ -17,10 +17,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsArchiveMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.conversations.ConversationsArchiveMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsArchiveMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulConversationArchiveResponse, ErrorConversationArchiveResponse> {
+    override fun request(): ApiCallResult<SuccessfulConversationArchiveResponse, ErrorConversationArchiveResponse> {
         val response = SlackRequestBuilder<ConversationArchiveResponse>(authToken, restTemplate)
             .with(this.params)
             .toMethod("conversations.archive")
@@ -31,12 +31,12 @@ class SpringConversationsArchiveMethod(
             is SuccessfulConversationArchiveResponse -> {
                 val responseEntity = response.body as SuccessfulConversationArchiveResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorConversationArchiveResponse -> {
                 val responseEntity = response.body as ErrorConversationArchiveResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

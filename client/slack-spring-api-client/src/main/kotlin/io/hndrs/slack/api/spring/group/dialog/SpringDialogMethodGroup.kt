@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory
  *
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringDialogMethodGroup : io.hndrs.slack.api.group.dialog.DialogMethodGroup {
-    override fun open(authToken: String): io.hndrs.slack.api.group.dialog.DialogOpenMethod {
+class SpringDialogMethodGroup : DialogMethodGroup {
+    override fun open(authToken: String): DialogOpenMethod {
         return SpringDialogOpenMethod(authToken)
     }
 

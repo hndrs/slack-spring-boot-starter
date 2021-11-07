@@ -17,10 +17,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsCloseMethod constructor(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.conversations.ConversationsCloseMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsCloseMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulConversationCloseResponse, ErrorConversationCloseResponse> {
+    override fun request(): ApiCallResult<SuccessfulConversationCloseResponse, ErrorConversationCloseResponse> {
         val response = SlackRequestBuilder<ConversationCloseResponse>(authToken, restTemplate)
             .with(this.params)
             .toMethod("conversations.close")
@@ -31,12 +31,12 @@ class SpringConversationsCloseMethod constructor(
             is SuccessfulConversationCloseResponse -> {
                 val responseEntity = response.body as SuccessfulConversationCloseResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorConversationCloseResponse -> {
                 val responseEntity = response.body as ErrorConversationCloseResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

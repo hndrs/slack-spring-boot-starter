@@ -8,8 +8,8 @@ import io.hndrs.slack.api.group.respond.RespondMethodGroup
  *
  * [Slack Api Documentation](https://api.slack.com/slash-commands#responding_response_url)
  */
-class SpringRespondMethodGroup : io.hndrs.slack.api.group.respond.RespondMethodGroup {
-    override fun message(responseUrl: String): io.hndrs.slack.api.group.respond.RespondMessageMethod {
+class SpringRespondMethodGroup : RespondMethodGroup {
+    override fun message(responseUrl: String): RespondMessageMethod {
         return SpringRespondMessageMethod(responseUrl)
     }
 }

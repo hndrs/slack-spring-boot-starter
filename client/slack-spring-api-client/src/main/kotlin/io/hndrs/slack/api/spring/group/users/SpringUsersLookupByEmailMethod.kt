@@ -20,10 +20,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringUsersLookupByEmailMethod(
     private val authToken: String,
-    val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.users.UsersLookupByEmailMethod() {
+    val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersLookupByEmailMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulLookupByEmailResponse, ErrorLookupByEmailResponse> {
+    override fun request(): ApiCallResult<SuccessfulLookupByEmailResponse, ErrorLookupByEmailResponse> {
 
         val response = SlackRequestBuilder<LookupByEmailResponse>(authToken, restTemplate)
             .toMethod("users.lookupByEmail")
@@ -34,12 +34,12 @@ class SpringUsersLookupByEmailMethod(
             is SuccessfulLookupByEmailResponse -> {
                 val responseEntity = response.body as SuccessfulLookupByEmailResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorLookupByEmailResponse -> {
                 val responseEntity = response.body as ErrorLookupByEmailResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

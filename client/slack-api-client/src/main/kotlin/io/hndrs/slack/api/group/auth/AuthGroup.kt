@@ -11,11 +11,11 @@ interface AuthGroup {
      * Checks authentication & identity.
      * https://api.slack.com/methods/auth.test
      */
-    fun test(authToken: String): io.hndrs.slack.api.group.auth.AuthTestMethod
+    fun test(authToken: String): AuthTestMethod
 
     /**
      * Revokes a token.
      * https://api.slack.com/methods/auth.revoke
      */
-    fun revoke(authToken: String): io.hndrs.slack.api.group.auth.AuthRevokeMethod
+    fun revoke(authToken: String): AuthRevokeMethod
 }

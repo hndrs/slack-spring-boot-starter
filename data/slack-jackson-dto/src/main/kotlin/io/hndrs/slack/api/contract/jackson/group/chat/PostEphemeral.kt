@@ -70,9 +70,9 @@ data class PostEphemeralRequest constructor(
     @JsonProperty("attachments") val attachments: List<Attachment>? = null,
     @JsonProperty("blocks") val blocks: List<Block>? = null,
     @JsonProperty("channel") val channel: String,
-    @JsonProperty("as_user") val asUser: Boolean = false,
+    @JsonProperty("as_user") val asUser: Boolean? = null,
     @JsonProperty("user") val user: String,
-    @JsonProperty("link_names") val linkNames: Boolean = true,
+    @JsonProperty("link_names") val linkNames: Boolean? =null,
     @JsonProperty("parse") val parse: String? = null,
     @InstantToString @JsonProperty("thread_ts") val threadTimestamp: Instant? = null
 ) {

@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.kick
  */
 abstract class ConversationsKickMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsKickMethod, SuccessfulConversationKickResponse,
+    ApiCallMethod<ConversationsKickMethod, SuccessfulConversationKickResponse,
             ErrorConversationKickResponse, ConversationsKickRequest>()

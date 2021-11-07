@@ -9,7 +9,7 @@ import io.hndrs.slack.api.spring.group.usergroups.users.SpringUsergroupsUsersUpd
  *
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringUsergroupMethodGroup : io.hndrs.slack.api.group.usergroups.UsergroupsMethodGroup {
+class SpringUsergroupMethodGroup : UsergroupsMethodGroup {
 
     override fun replaceUsers(authToken: String) = SpringUsergroupsUsersUpdateMethod(authToken)
 

@@ -10,4 +10,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/pins.remove
  */
 abstract class PinsRemoveMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.pins.PinsRemoveMethod, SuccessfulPinsRemoveResponse, ErrorPinsRemoveResponse, PinsRemoveRequest>()
+    ApiCallMethod<PinsRemoveMethod, SuccessfulPinsRemoveResponse, ErrorPinsRemoveResponse, PinsRemoveRequest>()

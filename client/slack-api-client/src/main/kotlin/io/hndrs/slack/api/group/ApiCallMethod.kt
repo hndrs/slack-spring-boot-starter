@@ -41,12 +41,12 @@ abstract class ApiCallMethod<Builder, Success, Failure, Params : Any> {
     /**
      * execution implementation of the request to the slack api
      */
-    protected abstract fun request(): io.hndrs.slack.api.group.ApiCallResult<Success, Failure>
+    protected abstract fun request(): ApiCallResult<Success, Failure>
 
     /**
      * api call invocation
      */
-    fun invoke(): io.hndrs.slack.api.group.ApiCallResult<Success, Failure> {
+    fun invoke(): ApiCallResult<Success, Failure> {
         return request()
     }
 

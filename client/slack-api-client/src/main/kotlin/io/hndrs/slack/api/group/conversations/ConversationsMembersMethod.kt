@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.members
  */
 abstract class ConversationsMembersMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsMembersMethod, SuccessfulConversationMembersResponse,
+    ApiCallMethod<ConversationsMembersMethod, SuccessfulConversationMembersResponse,
             ErrorConversationMembersResponse, ConversationMembersRequest>()

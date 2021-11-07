@@ -16,12 +16,12 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [UsersMethodGroup.listAll]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringUserListAllMethod(authToken: String, restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()) :
-    io.hndrs.slack.api.group.users.UserListAllMethod() {
+class SpringUserListAllMethod(authToken: String, restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) :
+    UserListAllMethod() {
 
     private val springUserListMethod: SpringUserListMethod = SpringUserListMethod(authToken, restTemplate)
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulListAllResponse, ErrorListAllResponse> {
+    override fun request(): ApiCallResult<SuccessfulListAllResponse, ErrorListAllResponse> {
 
         val members = mutableListOf<Member>()
         var nextCursor: String? = null
@@ -53,11 +53,11 @@ class SpringUserListAllMethod(authToken: String, restTemplate: RestTemplate = io
         return if (error != null) {
             val errorListAllResponse = ErrorListAllResponse(error)
             this.onFailure?.invoke(errorListAllResponse)
-            io.hndrs.slack.api.group.ApiCallResult(failure = errorListAllResponse)
+            ApiCallResult(failure = errorListAllResponse)
         } else {
             val successfulListAllResponse = SuccessfulListAllResponse(members)
             this.onSuccess?.invoke(successfulListAllResponse)
-            io.hndrs.slack.api.group.ApiCallResult(success = successfulListAllResponse)
+            ApiCallResult(success = successfulListAllResponse)
         }
     }
 

@@ -11,7 +11,7 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/chat.postMessage
  */
 abstract class ChatPostMessageMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.chat.ChatPostMessageMethod, SuccessfulPostMessageResponse,
+    ApiCallMethod<ChatPostMessageMethod, SuccessfulPostMessageResponse,
             ErrorPostMessageResponse, PostMessageRequest>() {
 
 }

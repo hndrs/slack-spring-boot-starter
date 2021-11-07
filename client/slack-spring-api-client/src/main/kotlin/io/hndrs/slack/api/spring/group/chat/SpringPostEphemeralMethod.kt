@@ -17,10 +17,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringPostEphemeralMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.chat.ChatPostEphemeralMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ChatPostEphemeralMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse> {
+    override fun request(): ApiCallResult<SuccessfulPostEphemeralResponse, ErrorPostEphemeralResponse> {
         val response = SlackRequestBuilder<PostEphemeralResponse>(authToken, restTemplate)
             .with(this.params)
             .toMethod("chat.postEphemeral")
@@ -31,12 +31,12 @@ class SpringPostEphemeralMethod(
             is SuccessfulPostEphemeralResponse -> {
                 val responseEntity = response.body as SuccessfulPostEphemeralResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorPostEphemeralResponse -> {
                 val responseEntity = response.body as ErrorPostEphemeralResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

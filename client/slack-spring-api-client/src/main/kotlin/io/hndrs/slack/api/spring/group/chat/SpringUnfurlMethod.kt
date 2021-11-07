@@ -18,10 +18,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringUnfurlMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.chat.ChatUnfurlMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ChatUnfurlMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulChatUnfurlResponse, ErrorChatUnfurlResponse> {
+    override fun request(): ApiCallResult<SuccessfulChatUnfurlResponse, ErrorChatUnfurlResponse> {
         val response = SlackRequestBuilder<ChatUnfurlResponse>(authToken, restTemplate)
             .with(this.params)
             .toMethod("chat.unfurl")
@@ -32,12 +32,12 @@ class SpringUnfurlMethod(
             is SuccessfulChatUnfurlResponse -> {
                 val responseEntity = response.body as SuccessfulChatUnfurlResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorChatUnfurlResponse -> {
                 val responseEntity = response.body as ErrorChatUnfurlResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

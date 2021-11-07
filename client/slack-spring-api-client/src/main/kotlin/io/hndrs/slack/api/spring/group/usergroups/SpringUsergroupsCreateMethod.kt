@@ -20,10 +20,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringUsergroupsCreateMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.usergroups.UsergroupsCreateMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsergroupsCreateMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulCreateResponse, ErrorCreateResponse> {
+    override fun request(): ApiCallResult<SuccessfulCreateResponse, ErrorCreateResponse> {
         val response = SlackRequestBuilder<CreateResponse>(authToken, restTemplate)
             .toMethod("usergroups.create")
             .returnAsType(CreateResponse::class.java)
@@ -35,14 +35,14 @@ class SpringUsergroupsCreateMethod(
 
                 val responseEntity = response.body as SuccessfulCreateResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
 
             is ErrorCreateResponse -> {
 
                 val responseEntity = response.body as ErrorCreateResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

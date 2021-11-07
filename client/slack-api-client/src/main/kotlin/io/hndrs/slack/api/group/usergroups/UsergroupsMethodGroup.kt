@@ -13,35 +13,35 @@ interface UsergroupsMethodGroup {
     /**
      * Update the list of users for a User Group
      */
-    fun replaceUsers(authToken: String): io.hndrs.slack.api.group.usergroups.users.UsergroupsUsersUpdateMethod
+    fun replaceUsers(authToken: String): UsergroupsUsersUpdateMethod
 
     /**
      * Create a User Group
      */
-    fun create(authToken: String): io.hndrs.slack.api.group.usergroups.UsergroupsCreateMethod
+    fun create(authToken: String): UsergroupsCreateMethod
 
     /**
      * List all User Groups for a team
      */
-    fun listGroups(authToken: String): io.hndrs.slack.api.group.usergroups.UsergroupsListMethod
+    fun listGroups(authToken: String): UsergroupsListMethod
 
     /**
      * Update an existing User Group
      */
-    fun update(authToken: String): io.hndrs.slack.api.group.usergroups.UsergroupsUpdateMethod
+    fun update(authToken: String): UsergroupsUpdateMethod
 
     /**
      * Disable an existing User Group
      */
-    fun disable(authToken: String): io.hndrs.slack.api.group.usergroups.UsergroupsDisableMethod
+    fun disable(authToken: String): UsergroupsDisableMethod
 
     /**
      * List all users in a User Group
      */
-    fun listUsers(authToken: String): io.hndrs.slack.api.group.usergroups.users.UsergroupsUsersListMethod
+    fun listUsers(authToken: String): UsergroupsUsersListMethod
 
     /**
      * Enable a User Group
      */
-    fun enable(authToken: String): io.hndrs.slack.api.group.usergroups.UsergroupsEnableMethod
+    fun enable(authToken: String): UsergroupsEnableMethod
 }

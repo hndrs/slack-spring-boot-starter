@@ -15,10 +15,10 @@ import org.springframework.web.client.RestTemplate
  * Spring based implementation of [OauthMethodGroup.access]
  */
 @Suppress("UNCHECKED_CAST")
-class SpringOauthAccessMethod(private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()) :
-    io.hndrs.slack.api.group.oauth.OauthAccessMethod() {
+class SpringOauthAccessMethod(private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()) :
+    OauthAccessMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfullAccessResponse, ErrorAccessResponse> {
+    override fun request(): ApiCallResult<SuccessfullAccessResponse, ErrorAccessResponse> {
         val response = SlackRequestBuilder<AccessResponse>(restTemplate = restTemplate)
             .toMethod("oauth.v2.access")
             .returnAsType(AccessResponse::class.java)
@@ -34,12 +34,12 @@ class SpringOauthAccessMethod(private val restTemplate: RestTemplate = io.hndrs.
             is SuccessfullAccessResponse -> {
                 val responseEntity = response.body as SuccessfullAccessResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorAccessResponse -> {
                 val responseEntity = response.body as ErrorAccessResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

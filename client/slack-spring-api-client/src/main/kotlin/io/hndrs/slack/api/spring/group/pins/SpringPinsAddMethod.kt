@@ -14,9 +14,9 @@ import org.springframework.web.client.RestTemplate
  */
 class SpringPinsAddMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.pins.PinsAddMethod() {
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulPinsAddResponse, ErrorPinsAddResponse> {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : PinsAddMethod() {
+    override fun request(): ApiCallResult<SuccessfulPinsAddResponse, ErrorPinsAddResponse> {
 
         val response = SlackRequestBuilder<PinsAddResponse>(authToken, restTemplate)
             .with(this.params)
@@ -28,13 +28,13 @@ class SpringPinsAddMethod(
             is SuccessfulPinsAddResponse -> {
                 val responseEntity = response.body as SuccessfulPinsAddResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
 
             is ErrorPinsAddResponse -> {
                 val responseEntity = response.body as ErrorPinsAddResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

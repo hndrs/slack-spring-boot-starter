@@ -10,17 +10,17 @@ import io.hndrs.slack.api.group.stars.StarsRemoveMethod
  *
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringStarsMethodGroup : io.hndrs.slack.api.group.stars.StarsMethodGroup {
+class SpringStarsMethodGroup : StarsMethodGroup {
 
-    override fun add(authToken: String): io.hndrs.slack.api.group.stars.StarsAddMethod {
+    override fun add(authToken: String): StarsAddMethod {
         return SpringStarsAddMethod(authToken)
     }
 
-    override fun list(authToken: String): io.hndrs.slack.api.group.stars.StarsListMethod {
+    override fun list(authToken: String): StarsListMethod {
         return SpringStarsListMethod(authToken)
     }
 
-    override fun remove(authToken: String): io.hndrs.slack.api.group.stars.StarsRemoveMethod {
+    override fun remove(authToken: String): StarsRemoveMethod {
         return SpringStarsRemoveMethod(authToken)
     }
 }

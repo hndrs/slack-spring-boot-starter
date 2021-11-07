@@ -11,6 +11,6 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/chat.unfurl
  */
 abstract class ChatUnfurlMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.chat.ChatUnfurlMethod, SuccessfulChatUnfurlResponse, ErrorChatUnfurlResponse, ChatUnfurlRequest>() {
+    ApiCallMethod<ChatUnfurlMethod, SuccessfulChatUnfurlResponse, ErrorChatUnfurlResponse, ChatUnfurlRequest>() {
 
 }

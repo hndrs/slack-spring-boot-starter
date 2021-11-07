@@ -17,10 +17,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringUsersGetPresenceMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.users.UsersGetPresenceMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersGetPresenceMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse> {
+    override fun request(): ApiCallResult<SuccessfulGetPresenceResponse, ErrorGetPresenceResponse> {
         val response = SlackRequestBuilder<GetPresenceResponse>(authToken, restTemplate)
             .toMethod("users.getPresence")
             .returnAsType(GetPresenceResponse::class.java)
@@ -33,14 +33,14 @@ class SpringUsersGetPresenceMethod(
 
                 val responseEntity = response.body as SuccessfulGetPresenceResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
 
             is ErrorGetPresenceResponse -> {
 
                 val responseEntity = response.body as ErrorGetPresenceResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

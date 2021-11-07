@@ -18,17 +18,17 @@ import org.slf4j.LoggerFactory
  *
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringUserMethodGroup : io.hndrs.slack.api.group.users.UsersMethodGroup {
+class SpringUserMethodGroup : UsersMethodGroup {
 
-    override fun info(authToken: String): io.hndrs.slack.api.group.users.UsersInfoMethod {
+    override fun info(authToken: String): UsersInfoMethod {
         return SpringUsersInfoMethod(authToken)
     }
 
-    override fun list(authToken: String): io.hndrs.slack.api.group.users.UserListMethod {
+    override fun list(authToken: String): UserListMethod {
         return SpringUserListMethod(authToken)
     }
 
-    override fun listAll(authToken: String): io.hndrs.slack.api.group.users.UserListAllMethod {
+    override fun listAll(authToken: String): UserListAllMethod {
         return SpringUserListAllMethod(authToken)
     }
 
@@ -36,7 +36,7 @@ class SpringUserMethodGroup : io.hndrs.slack.api.group.users.UsersMethodGroup {
         return SpringUserConversationsMethod(authToken)
     }
 
-    override fun deletePhoto(authToken: String): io.hndrs.slack.api.group.users.UsersDeletePhotoMethod {
+    override fun deletePhoto(authToken: String): UsersDeletePhotoMethod {
         return SpringUsersDeletePhotoMethod(authToken)
     }
 
@@ -44,27 +44,27 @@ class SpringUserMethodGroup : io.hndrs.slack.api.group.users.UsersMethodGroup {
         return SpringUsersIdentityMethod(authToken)
     }
 
-    override fun setPresence(authToken: String): io.hndrs.slack.api.group.users.UsersSetPresenceMethod {
+    override fun setPresence(authToken: String): UsersSetPresenceMethod {
         return SpringUsersSetPresenceMethod(authToken)
     }
 
-    override fun getProfile(authToken: String): io.hndrs.slack.api.group.users.UsersGetProfileMethod {
+    override fun getProfile(authToken: String): UsersGetProfileMethod {
         return SpringUsersGetProfileMethod(authToken)
     }
 
-    override fun setProfile(authToken: String): io.hndrs.slack.api.group.users.UsersSetProfileMethod {
+    override fun setProfile(authToken: String): UsersSetProfileMethod {
         return SpringUsersSetProfileMethod(authToken)
     }
 
-    override fun setPhoto(authToken: String): io.hndrs.slack.api.group.users.UsersSetPhotoMethod {
+    override fun setPhoto(authToken: String): UsersSetPhotoMethod {
         return SpringUsersSetPhotoMethod(authToken)
     }
 
-    override fun getPresence(authToken: String): io.hndrs.slack.api.group.users.UsersGetPresenceMethod {
+    override fun getPresence(authToken: String): UsersGetPresenceMethod {
         return SpringUsersGetPresenceMethod(authToken)
     }
 
-    override fun lookupByEmail(authToken: String): io.hndrs.slack.api.group.users.UsersLookupByEmailMethod {
+    override fun lookupByEmail(authToken: String): UsersLookupByEmailMethod {
         return SpringUsersLookupByEmailMethod(authToken)
     }
 }

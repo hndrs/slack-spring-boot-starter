@@ -10,6 +10,6 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.archive
  */
 abstract class ConversationsArchiveMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsArchiveMethod, SuccessfulConversationArchiveResponse,
+    ApiCallMethod<ConversationsArchiveMethod, SuccessfulConversationArchiveResponse,
             ErrorConversationArchiveResponse, ConversationArchiveRequest>()
 

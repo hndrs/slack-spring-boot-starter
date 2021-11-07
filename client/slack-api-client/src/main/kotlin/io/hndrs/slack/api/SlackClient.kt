@@ -23,76 +23,77 @@ interface SlackClient {
      *
      *  [Slack Api Documentation](https://api.slack.com/methods)
      */
-    fun auth(): io.hndrs.slack.api.group.auth.AuthGroup
+    fun auth(): AuthGroup
 
     /**
      * Convenience function to apply slack api chat method grouping
      *
      *  [Slack Api Documentation](https://api.slack.com/methods)
      */
-    fun chat(): io.hndrs.slack.api.group.chat.ChatMethodGroup
+    fun chat(): ChatMethodGroup
 
     /**
      * Convenience function to apply slack api dialog method grouping
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    fun dialog(): io.hndrs.slack.api.group.dialog.DialogMethodGroup
+    fun dialog(): DialogMethodGroup
 
     /**
      * Convenience function to apply slack api conversation method grouping
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    fun conversation(): io.hndrs.slack.api.group.conversations.ConversationsMethodGroup
+    fun conversation(): ConversationsMethodGroup
 
     /**
      * Convenience function to apply slack api Users method grouping
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    fun users(): io.hndrs.slack.api.group.users.UsersMethodGroup
+    fun users(): UsersMethodGroup
 
     /**
      * Convenience function to apply slack api oauth method grouping
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    fun oauth(): io.hndrs.slack.api.group.oauth.OauthMethodGroup
+    fun oauth(): OauthMethodGroup
 
     /**
      * Convenience function to reply to slack interactions
      *
      * [Slack Api Documentation](https://api.slack.com/slash-commands#responding_response_url)
      */
-    fun respond(): io.hndrs.slack.api.group.respond.RespondMethodGroup
+    fun respond(): RespondMethodGroup
 
     /**
      * Convenience function to apply slack api Team method grouping
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    fun team(): io.hndrs.slack.api.group.team.TeamMethodGroup
+    fun team(): TeamMethodGroup
 
     /**
      * Convenience function to apply slack api Usergroups method grouping
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    fun usergroups(): io.hndrs.slack.api.group.usergroups.UsergroupsMethodGroup
+    fun usergroups(): UsergroupsMethodGroup
 
     /**
      * Convenience function to apply slack api reminders method grouping
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    fun reminders(): io.hndrs.slack.api.group.reminders.RemindersMethodGroup
+    fun reminders(): RemindersMethodGroup
 
     /**
      * Convenience function to apply slack api pins method grouping
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    fun pins(): io.hndrs.slack.api.group.pins.PinsMethodGroup
+    fun pins(): PinsMethodGroup
 
+    fun apps()
 }

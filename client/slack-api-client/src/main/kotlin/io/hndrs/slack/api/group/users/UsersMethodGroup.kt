@@ -11,60 +11,60 @@ interface UsersMethodGroup {
     /**
      * Gets information about a user.
      */
-    fun info(authToken: String): io.hndrs.slack.api.group.users.UsersInfoMethod
+    fun info(authToken: String): UsersInfoMethod
 
     /**
      * Lists users in a Slack team.
      */
-    fun list(authToken: String): io.hndrs.slack.api.group.users.UserListMethod
+    fun list(authToken: String): UserListMethod
 
     /**
      * Lists all users in a Slack team.
      */
-    fun listAll(authToken: String): io.hndrs.slack.api.group.users.UserListAllMethod
+    fun listAll(authToken: String): UserListAllMethod
 
     /**
      * List conversations the calling user may access.
      */
-    fun conversations(authToken: String): io.hndrs.slack.api.group.users.UserConversationsMethod
+    fun conversations(authToken: String): UserConversationsMethod
 
     /**
      * Delete the user profile photo
      */
-    fun deletePhoto(authToken: String): io.hndrs.slack.api.group.users.UsersDeletePhotoMethod
+    fun deletePhoto(authToken: String): UsersDeletePhotoMethod
 
     /**
      * Get a user's identity.
      */
-    fun identity(authToken: String): io.hndrs.slack.api.group.users.UsersIdentityMethod
+    fun identity(authToken: String): UsersIdentityMethod
 
     /**
      * Retrieves a user's profile information.
      */
-    fun getProfile(authToken: String): io.hndrs.slack.api.group.users.UsersGetProfileMethod
+    fun getProfile(authToken: String): UsersGetProfileMethod
 
     /**
      * Set the profile information for a user.
      */
-    fun setProfile(authToken: String): io.hndrs.slack.api.group.users.UsersSetProfileMethod
+    fun setProfile(authToken: String): UsersSetProfileMethod
 
     /**
      * Sets user presence information.
      */
-    fun setPresence(authToken: String): io.hndrs.slack.api.group.users.UsersSetPresenceMethod
+    fun setPresence(authToken: String): UsersSetPresenceMethod
 
     /**
      * Set the user profile photo
      */
-    fun setPhoto(authToken: String): io.hndrs.slack.api.group.users.UsersSetPhotoMethod
+    fun setPhoto(authToken: String): UsersSetPhotoMethod
 
     /**
      * Gets user presence information.
      */
-    fun getPresence(authToken: String): io.hndrs.slack.api.group.users.UsersGetPresenceMethod
+    fun getPresence(authToken: String): UsersGetPresenceMethod
 
     /**
      * Find a user with an email address.
      */
-    fun lookupByEmail(authToken: String): io.hndrs.slack.api.group.users.UsersLookupByEmailMethod
+    fun lookupByEmail(authToken: String): UsersLookupByEmailMethod
 }

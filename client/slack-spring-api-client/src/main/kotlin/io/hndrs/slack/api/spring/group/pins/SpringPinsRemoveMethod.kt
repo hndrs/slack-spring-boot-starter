@@ -14,9 +14,9 @@ import org.springframework.web.client.RestTemplate
  */
 class SpringPinsRemoveMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.pins.PinsRemoveMethod() {
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulPinsRemoveResponse, ErrorPinsRemoveResponse> {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : PinsRemoveMethod() {
+    override fun request(): ApiCallResult<SuccessfulPinsRemoveResponse, ErrorPinsRemoveResponse> {
 
         val response = SlackRequestBuilder<PinsRemoveResponse>(authToken, restTemplate)
             .with(this.params)
@@ -28,13 +28,13 @@ class SpringPinsRemoveMethod(
             is SuccessfulPinsRemoveResponse -> {
                 val responseEntity = response.body as SuccessfulPinsRemoveResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
 
             is ErrorPinsRemoveResponse -> {
                 val responseEntity = response.body as ErrorPinsRemoveResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

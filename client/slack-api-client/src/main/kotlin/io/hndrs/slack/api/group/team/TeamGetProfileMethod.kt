@@ -10,4 +10,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/team.profile.get
  */
 abstract class TeamGetProfileMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.team.TeamGetProfileMethod, SuccessfulProfileResponse, ErrorProfileResponse, ProfileRequest>()
+    ApiCallMethod<TeamGetProfileMethod, SuccessfulProfileResponse, ErrorProfileResponse, ProfileRequest>()

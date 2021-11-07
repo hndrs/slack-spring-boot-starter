@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/reminders.info
  */
 abstract class RemindersInfoMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.reminders.RemindersInfoMethod, SuccessfulRemindersInfoResponse,
+    ApiCallMethod<RemindersInfoMethod, SuccessfulRemindersInfoResponse,
             ErrorRemindersInfoResponse, RemindersInfoRequest>()

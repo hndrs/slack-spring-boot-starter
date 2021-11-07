@@ -10,4 +10,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/pins.list
  */
 abstract class PinsListMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.pins.PinsListMethod, SuccessfulPinsListResponse, ErrorPinsListResponse, PinsListRequest>()
+    ApiCallMethod<PinsListMethod, SuccessfulPinsListResponse, ErrorPinsListResponse, PinsListRequest>()

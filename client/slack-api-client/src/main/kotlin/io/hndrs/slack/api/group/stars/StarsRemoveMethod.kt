@@ -10,4 +10,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/stars.list
  */
 abstract class StarsRemoveMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.stars.StarsRemoveMethod, SuccessfulStarsRemoveResponse, ErrorStarsRemoveResponse, StarsRemoveRequest>()
+    ApiCallMethod<StarsRemoveMethod, SuccessfulStarsRemoveResponse, ErrorStarsRemoveResponse, StarsRemoveRequest>()

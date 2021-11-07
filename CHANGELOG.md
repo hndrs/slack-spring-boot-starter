@@ -7,6 +7,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- remove redundant qualifiers
+- changes postEphemeral.asUser default value to `null`
+- changes postEphemeral.linkNames default value to `null`
+
+## [3.0.0]
+
 - Added ApplicationEnvironmentCredentialsProvider
 - Replaced oauth.access with oauth.v2.access
 - Removed deprecated im method group

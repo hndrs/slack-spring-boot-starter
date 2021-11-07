@@ -8,4 +8,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * Checks authentication & identity.
  * https://api.slack.com/methods/auth.test
  */
-abstract class AuthTestMethod : io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.auth.AuthTestMethod, SuccessfulAuthTestResponse, ErrorAuthTestResponse, Unit>()
+abstract class AuthTestMethod : ApiCallMethod<AuthTestMethod, SuccessfulAuthTestResponse, ErrorAuthTestResponse, Unit>()

@@ -17,10 +17,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsRenameMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.conversations.ConversationsRenameMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsRenameMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulConversationsRenameResponse, ErrorConversationsRenameResponse> {
+    override fun request(): ApiCallResult<SuccessfulConversationsRenameResponse, ErrorConversationsRenameResponse> {
         val response = SlackRequestBuilder<ConversationsRenameResponse>(authToken, restTemplate)
             .with(this.params)
             .toMethod("conversations.rename")
@@ -31,12 +31,12 @@ class SpringConversationsRenameMethod(
             is SuccessfulConversationsRenameResponse -> {
                 val responseEntity = response.body as SuccessfulConversationsRenameResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorConversationsRenameResponse -> {
                 val responseEntity = response.body as ErrorConversationsRenameResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

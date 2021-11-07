@@ -16,10 +16,10 @@ import org.springframework.web.client.RestTemplate
  */
 class SpringRevokeMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.auth.AuthRevokeMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : AuthRevokeMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse> {
+    override fun request(): ApiCallResult<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse> {
 
         val response = SlackRequestBuilder<AuthRevokeResponse>(authToken, restTemplate)
             .toMethod("auth.revoke")
@@ -29,12 +29,12 @@ class SpringRevokeMethod(
             is SuccessfulAuthRevokeResponse -> {
                 val responseEntity = response.body as SuccessfulAuthRevokeResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorAuthRevokeResponse -> {
                 val responseEntity = response.body as ErrorAuthRevokeResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

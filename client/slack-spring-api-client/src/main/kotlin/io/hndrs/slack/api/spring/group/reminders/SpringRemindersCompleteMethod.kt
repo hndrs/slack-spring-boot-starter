@@ -16,9 +16,9 @@ import org.springframework.web.client.RestTemplate
  */
 class SpringRemindersCompleteMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.reminders.RemindersCompleteMethod() {
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulRemindersCompleteResponse, ErrorRemindersCompleteResponse> {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : RemindersCompleteMethod() {
+    override fun request(): ApiCallResult<SuccessfulRemindersCompleteResponse, ErrorRemindersCompleteResponse> {
 
         val response = SlackRequestBuilder<RemindersCompleteResponse>(authToken, restTemplate)
             .with(this.params)
@@ -30,13 +30,13 @@ class SpringRemindersCompleteMethod(
             is SuccessfulRemindersCompleteResponse -> {
                 val responseEntity = response.body as SuccessfulRemindersCompleteResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
 
             is ErrorRemindersCompleteResponse -> {
                 val responseEntity = response.body as ErrorRemindersCompleteResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

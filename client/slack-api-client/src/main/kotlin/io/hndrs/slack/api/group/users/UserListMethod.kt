@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/users.list
  */
 @Suppress("UNCHECKED_CAST")
-abstract class UserListMethod : io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.users.UserListMethod, SuccessfulListResponse, ErrorListResponse, ListRequest>()
+abstract class UserListMethod : ApiCallMethod<UserListMethod, SuccessfulListResponse, ErrorListResponse, ListRequest>()
 

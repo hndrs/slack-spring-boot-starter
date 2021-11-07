@@ -7,7 +7,7 @@ import io.hndrs.slack.api.group.oauth.OauthMethodGroup
  *
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringOauthMethodGroup : io.hndrs.slack.api.group.oauth.OauthMethodGroup {
+class SpringOauthMethodGroup : OauthMethodGroup {
 
     override fun access(): SpringOauthAccessMethod {
         return SpringOauthAccessMethod()

@@ -11,4 +11,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  */
 @Suppress("UNCHECKED_CAST")
 abstract class UsergroupsDisableMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.usergroups.UsergroupsDisableMethod, SuccessfulDisableResponse, ErrorDisableResponse, DisableRequest>()
+    ApiCallMethod<UsergroupsDisableMethod, SuccessfulDisableResponse, ErrorDisableResponse, DisableRequest>()

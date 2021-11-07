@@ -10,5 +10,5 @@ interface TeamMethodGroup {
     /**
      * 	Retrieve a team's profile.
      */
-    fun getProfile(authToken: String): io.hndrs.slack.api.group.team.TeamGetProfileMethod
+    fun getProfile(authToken: String): TeamGetProfileMethod
 }

@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.history
  */
 abstract class ConversationsHistoryMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsHistoryMethod, SuccessfulConversationHistoryResponse,
+    ApiCallMethod<ConversationsHistoryMethod, SuccessfulConversationHistoryResponse,
             ErrorConversationHistoryResponse, ConversationsHistoryRequest>()

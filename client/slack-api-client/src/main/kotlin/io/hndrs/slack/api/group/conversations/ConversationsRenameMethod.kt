@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.rename
  */
 abstract class ConversationsRenameMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsRenameMethod, SuccessfulConversationsRenameResponse,
+    ApiCallMethod<ConversationsRenameMethod, SuccessfulConversationsRenameResponse,
             ErrorConversationsRenameResponse, ConversationsRenameRequest>()

@@ -12,4 +12,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  */
 @Suppress("UNCHECKED_CAST")
 abstract class UsersSetPhotoMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.users.UsersSetPhotoMethod, SuccessfulSetPhotoResponse, ErrorSetPhotoResponse, SetPhotoRequest>()
+    ApiCallMethod<UsersSetPhotoMethod, SuccessfulSetPhotoResponse, ErrorSetPhotoResponse, SetPhotoRequest>()

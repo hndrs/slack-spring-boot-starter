@@ -28,14 +28,14 @@ import io.hndrs.slack.api.spring.group.users.SpringUserMethodGroup
 /**
  * Api Client to interact with the slack api
  */
-class SpringSlackClient : io.hndrs.slack.api.SlackClient {
+class SpringSlackClient : SlackClient {
 
     /**
      * Convenience function to apply slack api oauth method grouping
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    override fun respond(): io.hndrs.slack.api.group.respond.RespondMethodGroup {
+    override fun respond(): RespondMethodGroup {
         return SpringRespondMethodGroup()
     }
 
@@ -44,7 +44,7 @@ class SpringSlackClient : io.hndrs.slack.api.SlackClient {
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    override fun auth(): io.hndrs.slack.api.group.auth.AuthGroup {
+    override fun auth(): AuthGroup {
         return SpringAuthMethodGroup()
     }
 
@@ -54,7 +54,7 @@ class SpringSlackClient : io.hndrs.slack.api.SlackClient {
      *  [Slack Api Documentation](https://api.slack.com/methods)
      */
 
-    override fun chat(): io.hndrs.slack.api.group.chat.ChatMethodGroup {
+    override fun chat(): ChatMethodGroup {
         return SpringChatMethodGroup()
     }
 
@@ -63,7 +63,7 @@ class SpringSlackClient : io.hndrs.slack.api.SlackClient {
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    override fun dialog(): io.hndrs.slack.api.group.dialog.DialogMethodGroup {
+    override fun dialog(): DialogMethodGroup {
         return SpringDialogMethodGroup()
     }
 
@@ -73,7 +73,7 @@ class SpringSlackClient : io.hndrs.slack.api.SlackClient {
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
 
-    override fun conversation(): io.hndrs.slack.api.group.conversations.ConversationsMethodGroup {
+    override fun conversation(): ConversationsMethodGroup {
         return SpringConversationsMethodGroup()
     }
 
@@ -83,7 +83,7 @@ class SpringSlackClient : io.hndrs.slack.api.SlackClient {
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
 
-    override fun users(): io.hndrs.slack.api.group.users.UsersMethodGroup {
+    override fun users(): UsersMethodGroup {
         return SpringUserMethodGroup()
     }
 
@@ -92,7 +92,7 @@ class SpringSlackClient : io.hndrs.slack.api.SlackClient {
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    override fun oauth(): io.hndrs.slack.api.group.oauth.OauthMethodGroup {
+    override fun oauth(): OauthMethodGroup {
         return SpringOauthMethodGroup()
     }
 
@@ -101,7 +101,7 @@ class SpringSlackClient : io.hndrs.slack.api.SlackClient {
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    override fun team(): io.hndrs.slack.api.group.team.TeamMethodGroup {
+    override fun team(): TeamMethodGroup {
         return SpringTeamMethodGroup()
     }
 
@@ -110,7 +110,7 @@ class SpringSlackClient : io.hndrs.slack.api.SlackClient {
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    override fun usergroups(): io.hndrs.slack.api.group.usergroups.UsergroupsMethodGroup {
+    override fun usergroups(): UsergroupsMethodGroup {
         return SpringUsergroupMethodGroup()
     }
 
@@ -119,7 +119,7 @@ class SpringSlackClient : io.hndrs.slack.api.SlackClient {
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    override fun reminders(): io.hndrs.slack.api.group.reminders.RemindersMethodGroup {
+    override fun reminders(): RemindersMethodGroup {
         return SpringRemindersMethodGroup()
     }
 
@@ -128,7 +128,7 @@ class SpringSlackClient : io.hndrs.slack.api.SlackClient {
      *
      * [Slack Api Documentation](https://api.slack.com/methods)
      */
-    override fun pins(): io.hndrs.slack.api.group.pins.PinsMethodGroup {
+    override fun pins(): PinsMethodGroup {
         return SpringPinsMethodGroup()
     }
 

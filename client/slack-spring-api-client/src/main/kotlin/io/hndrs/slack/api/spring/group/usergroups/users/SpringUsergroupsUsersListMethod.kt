@@ -21,10 +21,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringUsergroupsUsersListMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.usergroups.users.UsergroupsUsersListMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsergroupsUsersListMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulUsergroupsUsersListResponse, ErrorUsergroupsUsersListResponse> {
+    override fun request(): ApiCallResult<SuccessfulUsergroupsUsersListResponse, ErrorUsergroupsUsersListResponse> {
         val response = SlackRequestBuilder<UsergroupsUsersListResponse>(authToken, restTemplate)
             .toMethod("usergroups.users.list")
             .returnAsType(UsergroupsUsersListResponse::class.java)
@@ -34,12 +34,12 @@ class SpringUsergroupsUsersListMethod(
             is SuccessfulUsergroupsUsersListResponse -> {
                 val responseEntity = response.body as SuccessfulUsergroupsUsersListResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorUsergroupsUsersListResponse -> {
                 val responseEntity = response.body as ErrorUsergroupsUsersListResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

@@ -8,9 +8,9 @@ import io.hndrs.slack.api.group.team.TeamMethodGroup
  *
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringTeamMethodGroup : io.hndrs.slack.api.group.team.TeamMethodGroup {
+class SpringTeamMethodGroup : TeamMethodGroup {
 
-    override fun getProfile(authToken: String): io.hndrs.slack.api.group.team.TeamGetProfileMethod {
+    override fun getProfile(authToken: String): TeamGetProfileMethod {
         return SpringTeamGetProfileMethod(authToken)
     }
 }

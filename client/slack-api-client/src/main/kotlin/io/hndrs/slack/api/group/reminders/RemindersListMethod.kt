@@ -9,4 +9,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/reminders.list
  */
 abstract class RemindersListMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.reminders.RemindersListMethod, SuccessfulRemindersListResponse, ErrorRemindersListResponse, Unit>()
+    ApiCallMethod<RemindersListMethod, SuccessfulRemindersListResponse, ErrorRemindersListResponse, Unit>()

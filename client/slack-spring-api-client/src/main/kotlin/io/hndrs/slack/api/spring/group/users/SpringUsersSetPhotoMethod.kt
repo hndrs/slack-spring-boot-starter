@@ -24,10 +24,10 @@ import java.io.File
 @Suppress("UNCHECKED_CAST")
 class SpringUsersSetPhotoMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.users.UsersSetPhotoMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersSetPhotoMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulSetPhotoResponse, ErrorSetPhotoResponse> {
+    override fun request(): ApiCallResult<SuccessfulSetPhotoResponse, ErrorSetPhotoResponse> {
         val response = SlackRequestBuilder<SetPhotoResponse>(authToken, restTemplate)
             .with(LinkedMultiValueMap(convertParams()))
             .toMethod("users.setPhoto")
@@ -38,12 +38,12 @@ class SpringUsersSetPhotoMethod(
             is SuccessfulSetPhotoResponse -> {
                 val responseEntity = response.body as SuccessfulSetPhotoResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorSetPhotoResponse -> {
                 val responseEntity = response.body as ErrorSetPhotoResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

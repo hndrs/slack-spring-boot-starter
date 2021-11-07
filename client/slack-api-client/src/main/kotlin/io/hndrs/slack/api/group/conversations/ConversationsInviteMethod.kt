@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.invite
  */
 abstract class ConversationsInviteMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsInviteMethod, SuccessfulConversationInviteResponse,
+    ApiCallMethod<ConversationsInviteMethod, SuccessfulConversationInviteResponse,
             ErrorConversationInviteResponse, ConversationsInviteRequest>()

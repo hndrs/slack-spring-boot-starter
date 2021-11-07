@@ -10,4 +10,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/oauth.access
  */
 abstract class OauthAccessMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.oauth.OauthAccessMethod, SuccessfullAccessResponse, ErrorAccessResponse, AccessRequest>()
+    ApiCallMethod<OauthAccessMethod, SuccessfullAccessResponse, ErrorAccessResponse, AccessRequest>()

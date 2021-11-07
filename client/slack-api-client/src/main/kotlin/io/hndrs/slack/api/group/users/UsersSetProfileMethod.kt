@@ -12,5 +12,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  */
 @Suppress("UNCHECKED_CAST")
 abstract class UsersSetProfileMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.users.UsersSetProfileMethod, SuccessfulSetProfileResponse, ErrorSetProfileResponse, SetProfileRequest>()
+    ApiCallMethod<UsersSetProfileMethod, SuccessfulSetProfileResponse, ErrorSetProfileResponse, SetProfileRequest>()
 

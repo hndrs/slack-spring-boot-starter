@@ -14,9 +14,9 @@ import org.springframework.web.client.RestTemplate
  */
 class SpringPinsListMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.pins.PinsListMethod() {
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulPinsListResponse, ErrorPinsListResponse> {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : PinsListMethod() {
+    override fun request(): ApiCallResult<SuccessfulPinsListResponse, ErrorPinsListResponse> {
 
         val response = SlackRequestBuilder<PinsListResponse>(authToken, restTemplate)
             .with(this.params)
@@ -28,13 +28,13 @@ class SpringPinsListMethod(
             is SuccessfulPinsListResponse -> {
                 val responseEntity = response.body as SuccessfulPinsListResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
 
             is ErrorPinsListResponse -> {
                 val responseEntity = response.body as ErrorPinsListResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

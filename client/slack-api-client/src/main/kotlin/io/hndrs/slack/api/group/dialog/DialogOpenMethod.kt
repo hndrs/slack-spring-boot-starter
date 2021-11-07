@@ -10,4 +10,4 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/dialog.open
  */
 abstract class DialogOpenMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.dialog.DialogOpenMethod, SuccessfulOpenDialogResponse, ErrorOpenDialogResponse, OpenDialogRequest>()
+    ApiCallMethod<DialogOpenMethod, SuccessfulOpenDialogResponse, ErrorOpenDialogResponse, OpenDialogRequest>()

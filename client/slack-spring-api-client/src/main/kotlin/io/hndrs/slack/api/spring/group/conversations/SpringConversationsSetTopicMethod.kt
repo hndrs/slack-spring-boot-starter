@@ -16,10 +16,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsSetTopicMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.conversations.ConversationsSetTopicMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsSetTopicMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulConversationSetTopicResponse, ErrorConversationSetTopicResponse> {
+    override fun request(): ApiCallResult<SuccessfulConversationSetTopicResponse, ErrorConversationSetTopicResponse> {
 
         val response = SlackRequestBuilder<ConversationSetTopicResponse>(authToken, restTemplate)
             .with(this.params)
@@ -32,14 +32,14 @@ class SpringConversationsSetTopicMethod(
 
                 val responseEntity = response.body as SuccessfulConversationSetTopicResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
 
             is ErrorConversationSetTopicResponse -> {
 
                 val responseEntity = response.body as ErrorConversationSetTopicResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

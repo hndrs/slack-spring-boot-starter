@@ -11,17 +11,17 @@ import org.slf4j.LoggerFactory
  *
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringPinsMethodGroup : io.hndrs.slack.api.group.pins.PinsMethodGroup {
+class SpringPinsMethodGroup : PinsMethodGroup {
 
-    override fun add(authToken: String): io.hndrs.slack.api.group.pins.PinsAddMethod {
+    override fun add(authToken: String): PinsAddMethod {
         return SpringPinsAddMethod(authToken)
     }
 
-    override fun list(authToken: String): io.hndrs.slack.api.group.pins.PinsListMethod {
+    override fun list(authToken: String): PinsListMethod {
         return SpringPinsListMethod(authToken)
     }
 
-    override fun remove(authToken: String): io.hndrs.slack.api.group.pins.PinsRemoveMethod {
+    override fun remove(authToken: String): PinsRemoveMethod {
         return SpringPinsRemoveMethod(authToken)
     }
 }

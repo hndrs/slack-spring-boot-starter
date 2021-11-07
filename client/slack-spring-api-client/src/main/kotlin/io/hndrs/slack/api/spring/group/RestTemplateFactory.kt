@@ -23,7 +23,7 @@ object RestTemplateFactory {
 
     private const val PROXY_PROPERTY_NAME = "slack.proxyHost"
     private const val SSL_PROPERTY_NAME = "slack.development.ssl.accept-self-signed"
-    private val slackApiRestTemplate = RestTemplate(io.hndrs.slack.api.spring.group.RestTemplateFactory.clientFactory(HttpClients.custom()))
+    private val slackApiRestTemplate = RestTemplate(clientFactory(HttpClients.custom()))
     private val slackResponseRestTemplate = RestTemplate()
 
     init {
@@ -33,11 +33,11 @@ object RestTemplateFactory {
             .serializationInclusion(JsonInclude.Include.NON_NULL)
             .failOnUnknownProperties(false)
             .build<ObjectMapper>()
-        io.hndrs.slack.api.spring.group.RestTemplateFactory.slackApiRestTemplate.messageConverters =
+        slackApiRestTemplate.messageConverters =
             listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
-        io.hndrs.slack.api.spring.group.RestTemplateFactory.slackResponseRestTemplate.messageConverters =
+        slackResponseRestTemplate.messageConverters =
             listOf(MappingJackson2HttpMessageConverter(objectMapper), FormHttpMessageConverter())
-        io.hndrs.slack.api.spring.group.RestTemplateFactory.slackResponseRestTemplate.errorHandler = SlackResponseErrorHandler()
+        slackResponseRestTemplate.errorHandler = SlackResponseErrorHandler()
     }
 
     /**
@@ -45,11 +45,11 @@ object RestTemplateFactory {
      */
     internal fun clientFactory(builder: HttpClientBuilder): HttpComponentsClientHttpRequestFactory {
 
-        System.getProperty(io.hndrs.slack.api.spring.group.RestTemplateFactory.PROXY_PROPERTY_NAME)?.let {
+        System.getProperty(PROXY_PROPERTY_NAME)?.let {
             builder.setProxy(HttpHost.create(it))
         }
 
-        (System.getProperty(io.hndrs.slack.api.spring.group.RestTemplateFactory.SSL_PROPERTY_NAME)?.toBoolean())?.let { allowUnsafeCertificates ->
+        (System.getProperty(SSL_PROPERTY_NAME)?.toBoolean())?.let { allowUnsafeCertificates ->
             if (allowUnsafeCertificates) {
 
                 val acceptingTrustStrategy = { _: Array<X509Certificate>, _: String -> true }
@@ -71,11 +71,11 @@ object RestTemplateFactory {
     /**
      * gets a slack compliant slackApiRestTemplate
      */
-    fun slackTemplate() = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackApiRestTemplate
+    fun slackTemplate() = slackApiRestTemplate
 
     /**
      *  gets a slackApiRestTemplate which logs errors without interrupting
      */
-    fun slackResponseTemplate() = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackResponseRestTemplate
+    fun slackResponseTemplate() = slackResponseRestTemplate
 
 }

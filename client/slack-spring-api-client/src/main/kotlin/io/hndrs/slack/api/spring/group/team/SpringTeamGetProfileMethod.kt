@@ -18,10 +18,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringTeamGetProfileMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.team.TeamGetProfileMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : TeamGetProfileMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulProfileResponse, ErrorProfileResponse> {
+    override fun request(): ApiCallResult<SuccessfulProfileResponse, ErrorProfileResponse> {
         val response = SlackRequestBuilder<ProfileResponse>(authToken, restTemplate)
             .toMethod("team.profile.get")
             .returnAsType(ProfileResponse::class.java)
@@ -31,12 +31,12 @@ class SpringTeamGetProfileMethod(
             is SuccessfulProfileResponse -> {
                 val responseEntity = response.body as SuccessfulProfileResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorProfileResponse -> {
                 val responseEntity = response.body as ErrorProfileResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

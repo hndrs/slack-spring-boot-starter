@@ -16,10 +16,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsJoinMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.conversations.ConversationsJoinMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsJoinMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulConversationJoinResponse, ErrorConversationJoinResponse> {
+    override fun request(): ApiCallResult<SuccessfulConversationJoinResponse, ErrorConversationJoinResponse> {
         val response = SlackRequestBuilder<ConversationJoinResponse>(authToken, restTemplate)
             .with(this.params)
             .toMethod("conversations.join")
@@ -30,12 +30,12 @@ class SpringConversationsJoinMethod(
             is SuccessfulConversationJoinResponse -> {
                 val responseEntity = response.body as SuccessfulConversationJoinResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorConversationJoinResponse -> {
                 val responseEntity = response.body as ErrorConversationJoinResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
 

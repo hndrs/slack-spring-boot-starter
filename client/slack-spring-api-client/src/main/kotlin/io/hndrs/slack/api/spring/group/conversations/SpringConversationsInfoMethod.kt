@@ -17,10 +17,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsInfoMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.conversations.ConversationsInfoMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsInfoMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulConversationsInfoResponse, ErrorConversationsInfoResponse> {
+    override fun request(): ApiCallResult<SuccessfulConversationsInfoResponse, ErrorConversationsInfoResponse> {
         val response = SlackRequestBuilder<ConversationsInfoResponse>(authToken, restTemplate)
             .with(this.params)
             .toMethod("conversations.info")
@@ -31,12 +31,12 @@ class SpringConversationsInfoMethod(
             is SuccessfulConversationsInfoResponse -> {
                 val responseEntity = response.body as SuccessfulConversationsInfoResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorConversationsInfoResponse -> {
                 val responseEntity = response.body as ErrorConversationsInfoResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

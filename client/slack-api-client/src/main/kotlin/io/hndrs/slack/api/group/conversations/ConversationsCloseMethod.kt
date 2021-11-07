@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.close
  */
 abstract class ConversationsCloseMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsCloseMethod, SuccessfulConversationCloseResponse,
+    ApiCallMethod<ConversationsCloseMethod, SuccessfulConversationCloseResponse,
             ErrorConversationCloseResponse, ConversationCloseRequest>()

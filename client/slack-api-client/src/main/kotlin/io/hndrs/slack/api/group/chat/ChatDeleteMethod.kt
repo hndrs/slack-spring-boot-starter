@@ -11,6 +11,6 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/chat.delete
  */
 abstract class ChatDeleteMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.chat.ChatDeleteMethod, SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, ChatDeleteRequest>() {
+    ApiCallMethod<ChatDeleteMethod, SuccessfulChatDeleteResponse, ErrorChatDeleteResponse, ChatDeleteRequest>() {
 
 }

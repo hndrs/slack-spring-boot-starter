@@ -17,10 +17,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringTestMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.auth.AuthTestMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : AuthTestMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulAuthTestResponse, ErrorAuthTestResponse> {
+    override fun request(): ApiCallResult<SuccessfulAuthTestResponse, ErrorAuthTestResponse> {
         val response = SlackRequestBuilder<AuthTestResponse>(authToken, restTemplate)
             .toMethod("auth.test")
             .returnAsType(AuthTestResponse::class.java)
@@ -30,12 +30,12 @@ class SpringTestMethod(
             is SuccessfulAuthTestResponse -> {
                 val responseEntity = response.body as SuccessfulAuthTestResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorAuthTestResponse -> {
                 val responseEntity = response.body as ErrorAuthTestResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

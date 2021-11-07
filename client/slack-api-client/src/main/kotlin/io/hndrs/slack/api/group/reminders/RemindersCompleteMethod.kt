@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/reminders.complete
  */
 abstract class RemindersCompleteMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.reminders.RemindersCompleteMethod, SuccessfulRemindersCompleteResponse,
+    ApiCallMethod<RemindersCompleteMethod, SuccessfulRemindersCompleteResponse,
             ErrorRemindersCompleteResponse, RemindersCompleteRequest>()

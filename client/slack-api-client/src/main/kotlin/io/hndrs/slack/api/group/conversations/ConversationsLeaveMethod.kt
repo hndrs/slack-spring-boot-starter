@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.leave
  */
 abstract class ConversationsLeaveMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsLeaveMethod, SuccessfulConversationLeaveResponse,
+    ApiCallMethod<ConversationsLeaveMethod, SuccessfulConversationLeaveResponse,
             ErrorConversationLeaveResponse, ConversationsLeaveRequest>()

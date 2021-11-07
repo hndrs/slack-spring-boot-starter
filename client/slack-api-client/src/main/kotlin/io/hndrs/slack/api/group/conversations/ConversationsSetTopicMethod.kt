@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.setTopic
  */
 abstract class ConversationsSetTopicMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsSetTopicMethod, SuccessfulConversationSetTopicResponse,
+    ApiCallMethod<ConversationsSetTopicMethod, SuccessfulConversationSetTopicResponse,
             ErrorConversationSetTopicResponse, ConversationsSetTopicRequest>()

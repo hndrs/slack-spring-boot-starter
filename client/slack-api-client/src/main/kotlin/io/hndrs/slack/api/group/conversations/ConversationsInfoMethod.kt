@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.info
  */
 abstract class ConversationsInfoMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsInfoMethod, SuccessfulConversationsInfoResponse,
+    ApiCallMethod<ConversationsInfoMethod, SuccessfulConversationsInfoResponse,
             ErrorConversationsInfoResponse, ConversationsInfoRequest>()

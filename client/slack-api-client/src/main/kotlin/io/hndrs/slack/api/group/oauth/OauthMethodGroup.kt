@@ -8,5 +8,5 @@ package io.hndrs.slack.api.group.oauth
 interface OauthMethodGroup {
 
     /**Exchanges a temporary OAuth verifier code for an access token.*/
-    fun access(): io.hndrs.slack.api.group.oauth.OauthAccessMethod
+    fun access(): OauthAccessMethod
 }

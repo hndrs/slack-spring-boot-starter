@@ -15,9 +15,9 @@ import org.springframework.web.client.RestTemplate
  */
 class SpringStarsListMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.stars.StarsListMethod() {
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulStarsListResponse, ErrorStarsListResponse> {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : StarsListMethod() {
+    override fun request(): ApiCallResult<SuccessfulStarsListResponse, ErrorStarsListResponse> {
 
         val response = SlackRequestBuilder<StarsListResponse>(authToken, restTemplate)
             .with(this.params)
@@ -29,13 +29,13 @@ class SpringStarsListMethod(
             is SuccessfulStarsListResponse -> {
                 val responseEntity = response.body as SuccessfulStarsListResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
 
             is ErrorStarsListResponse -> {
                 val responseEntity = response.body as ErrorStarsListResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

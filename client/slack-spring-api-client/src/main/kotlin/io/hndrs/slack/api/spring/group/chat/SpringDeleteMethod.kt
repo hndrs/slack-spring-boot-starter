@@ -17,10 +17,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringDeleteMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.chat.ChatDeleteMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ChatDeleteMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse> {
+    override fun request(): ApiCallResult<SuccessfulChatDeleteResponse, ErrorChatDeleteResponse> {
         val response = SlackRequestBuilder<ChatDeleteResponse>(authToken, restTemplate)
             .with(this.params)
             .toMethod("chat.delete")
@@ -31,12 +31,12 @@ class SpringDeleteMethod(
             is SuccessfulChatDeleteResponse -> {
                 val responseEntity = response.body as SuccessfulChatDeleteResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorChatDeleteResponse -> {
                 val responseEntity = response.body as ErrorChatDeleteResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

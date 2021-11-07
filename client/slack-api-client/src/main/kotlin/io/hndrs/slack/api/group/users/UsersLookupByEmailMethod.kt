@@ -12,5 +12,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  */
 @Suppress("UNCHECKED_CAST")
 abstract class UsersLookupByEmailMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.users.UsersLookupByEmailMethod, SuccessfulLookupByEmailResponse,
+    ApiCallMethod<UsersLookupByEmailMethod, SuccessfulLookupByEmailResponse,
             ErrorLookupByEmailResponse, LookupByEmailRequest>()

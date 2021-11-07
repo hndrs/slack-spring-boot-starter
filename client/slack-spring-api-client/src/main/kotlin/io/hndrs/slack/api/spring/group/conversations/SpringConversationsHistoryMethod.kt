@@ -17,10 +17,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringConversationsHistoryMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.conversations.ConversationsHistoryMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ConversationsHistoryMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulConversationHistoryResponse, ErrorConversationHistoryResponse> {
+    override fun request(): ApiCallResult<SuccessfulConversationHistoryResponse, ErrorConversationHistoryResponse> {
         val response = SlackRequestBuilder<ConversationHistoryResponse>(authToken, restTemplate)
             .with(params)
             .toMethod("conversations.history")
@@ -31,12 +31,12 @@ class SpringConversationsHistoryMethod(
             is SuccessfulConversationHistoryResponse -> {
                 val responseEntity = response.body as SuccessfulConversationHistoryResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorConversationHistoryResponse -> {
                 val responseEntity = response.body as ErrorConversationHistoryResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

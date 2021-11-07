@@ -11,7 +11,7 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/chat.meMessage
  */
 abstract class ChatMeMessageMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.chat.ChatMeMessageMethod, SuccessfulChatMeMessageResponse,
+    ApiCallMethod<ChatMeMessageMethod, SuccessfulChatMeMessageResponse,
             ErrorChatMeMessageResponse, ChatMeMessageRequest>() {
 
 }

@@ -18,10 +18,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringUsersGetProfileMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.users.UsersGetProfileMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : UsersGetProfileMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulGetProfileResponse, ErrorGetProfileResponse> {
+    override fun request(): ApiCallResult<SuccessfulGetProfileResponse, ErrorGetProfileResponse> {
         val response = SlackRequestBuilder<GetProfileResponse>(authToken, restTemplate)
             .toMethod("users.profile.get")
             .returnAsType(GetProfileResponse::class.java)
@@ -31,12 +31,12 @@ class SpringUsersGetProfileMethod(
             is SuccessfulGetProfileResponse -> {
                 val responseEntity = response.body as SuccessfulGetProfileResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorGetProfileResponse -> {
                 val responseEntity = response.body as ErrorGetProfileResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

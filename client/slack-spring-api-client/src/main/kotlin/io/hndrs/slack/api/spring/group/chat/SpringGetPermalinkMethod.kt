@@ -18,10 +18,10 @@ import org.springframework.web.client.RestTemplate
 @Suppress("UNCHECKED_CAST")
 class SpringGetPermalinkMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = io.hndrs.slack.api.spring.group.RestTemplateFactory.slackTemplate()
-) : io.hndrs.slack.api.group.chat.ChatGetPermalinkMethod() {
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+) : ChatGetPermalinkMethod() {
 
-    override fun request(): io.hndrs.slack.api.group.ApiCallResult<SuccessfulChatGetPermalinkResponse, ErrorChatGetPermalinkResponse> {
+    override fun request(): ApiCallResult<SuccessfulChatGetPermalinkResponse, ErrorChatGetPermalinkResponse> {
         val response = SlackRequestBuilder<ChatGetPermalinkResponse>(authToken, restTemplate)
             .with(this.params)
             .toMethod("chat.getPermalink")
@@ -32,12 +32,12 @@ class SpringGetPermalinkMethod(
             is SuccessfulChatGetPermalinkResponse -> {
                 val responseEntity = response.body as SuccessfulChatGetPermalinkResponse
                 this.onSuccess?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(success = responseEntity)
+                ApiCallResult(success = responseEntity)
             }
             is ErrorChatGetPermalinkResponse -> {
                 val responseEntity = response.body as ErrorChatGetPermalinkResponse
                 this.onFailure?.invoke(responseEntity)
-                io.hndrs.slack.api.group.ApiCallResult(failure = responseEntity)
+                ApiCallResult(failure = responseEntity)
             }
         }
     }

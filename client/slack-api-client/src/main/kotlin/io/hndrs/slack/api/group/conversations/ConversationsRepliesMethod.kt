@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.replies
  */
 abstract class ConversationsRepliesMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsRepliesMethod, SuccessfulConversationRepliesResponse,
+    ApiCallMethod<ConversationsRepliesMethod, SuccessfulConversationRepliesResponse,
             ErrorConversationRepliesResponse, ConversationsRepliesRequest>()

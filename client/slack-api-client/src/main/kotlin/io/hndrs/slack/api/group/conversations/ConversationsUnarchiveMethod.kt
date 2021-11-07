@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.unarchive
  */
 abstract class ConversationsUnarchiveMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsUnarchiveMethod, SuccessfulConversationUnarchiveResponse,
+    ApiCallMethod<ConversationsUnarchiveMethod, SuccessfulConversationUnarchiveResponse,
             ErrorConversationUnarchiveResponse, ConversationUnarchiveRequest>()

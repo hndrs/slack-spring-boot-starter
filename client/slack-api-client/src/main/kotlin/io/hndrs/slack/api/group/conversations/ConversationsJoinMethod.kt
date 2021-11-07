@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.join
  */
 abstract class ConversationsJoinMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsJoinMethod, SuccessfulConversationJoinResponse,
+    ApiCallMethod<ConversationsJoinMethod, SuccessfulConversationJoinResponse,
             ErrorConversationJoinResponse, ConversationJoinRequest>()

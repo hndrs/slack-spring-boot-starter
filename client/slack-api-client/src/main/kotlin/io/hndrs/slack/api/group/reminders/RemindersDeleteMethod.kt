@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/reminders.delete
  */
 abstract class RemindersDeleteMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.reminders.RemindersDeleteMethod, SuccessfulRemindersDeleteResponse,
+    ApiCallMethod<RemindersDeleteMethod, SuccessfulRemindersDeleteResponse,
             ErrorRemindersDeleteResponse, RemindersDeleteRequest>()

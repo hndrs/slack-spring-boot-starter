@@ -10,13 +10,13 @@ import org.slf4j.LoggerFactory
  *
  *  [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringAuthMethodGroup : io.hndrs.slack.api.group.auth.AuthGroup {
+class SpringAuthMethodGroup : AuthGroup {
 
-    override fun revoke(authToken: String): io.hndrs.slack.api.group.auth.AuthRevokeMethod {
+    override fun revoke(authToken: String): AuthRevokeMethod {
         return SpringRevokeMethod(authToken)
     }
 
-    override fun test(authToken: String): io.hndrs.slack.api.group.auth.AuthTestMethod {
+    override fun test(authToken: String): AuthTestMethod {
         return SpringTestMethod(authToken)
     }
 }

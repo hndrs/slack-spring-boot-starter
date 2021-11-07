@@ -11,5 +11,5 @@ interface DialogMethodGroup {
      * Abstract representation of an slack api operation
      * https://api.slack.com/methods/dialog.open
      */
-    fun open(authToken: String): io.hndrs.slack.api.group.dialog.DialogOpenMethod
+    fun open(authToken: String): DialogOpenMethod
 }

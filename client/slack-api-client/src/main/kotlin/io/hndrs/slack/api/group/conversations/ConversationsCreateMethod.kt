@@ -10,5 +10,5 @@ import io.hndrs.slack.api.group.ApiCallMethod
  * https://api.slack.com/methods/conversations.create
  */
 abstract class ConversationsCreateMethod :
-    io.hndrs.slack.api.group.ApiCallMethod<io.hndrs.slack.api.group.conversations.ConversationsCreateMethod, SuccessfulConversationCreateResponse,
+    ApiCallMethod<ConversationsCreateMethod, SuccessfulConversationCreateResponse,
             ErrorConversationCreateResponse, ConversationCreateRequest>()

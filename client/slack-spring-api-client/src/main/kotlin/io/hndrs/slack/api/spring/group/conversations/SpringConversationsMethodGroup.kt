@@ -22,61 +22,61 @@ import org.slf4j.LoggerFactory
  *
  * [Slack Api Documentation](https://api.slack.com/methods)
  */
-class SpringConversationsMethodGroup : io.hndrs.slack.api.group.conversations.ConversationsMethodGroup {
-    override fun close(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsCloseMethod {
+class SpringConversationsMethodGroup : ConversationsMethodGroup {
+    override fun close(authToken: String): ConversationsCloseMethod {
         return SpringConversationsCloseMethod(authToken)
     }
 
-    override fun create(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsCreateMethod {
+    override fun create(authToken: String): ConversationsCreateMethod {
         return SpringConversationsCreateMethod(authToken)
     }
 
-    override fun history(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsHistoryMethod {
+    override fun history(authToken: String): ConversationsHistoryMethod {
         return SpringConversationsHistoryMethod(authToken)
     }
 
-    override fun info(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsInfoMethod {
+    override fun info(authToken: String): ConversationsInfoMethod {
         return SpringConversationsInfoMethod(authToken)
     }
 
-    override fun invite(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsInviteMethod {
+    override fun invite(authToken: String): ConversationsInviteMethod {
         return SpringConversationsInviteMethod(authToken)
     }
 
-    override fun join(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsJoinMethod {
+    override fun join(authToken: String): ConversationsJoinMethod {
         return SpringConversationsJoinMethod(authToken)
     }
 
-    override fun kick(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsKickMethod {
+    override fun kick(authToken: String): ConversationsKickMethod {
         return SpringConversationsKickMethod(authToken)
     }
 
-    override fun leave(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsLeaveMethod {
+    override fun leave(authToken: String): ConversationsLeaveMethod {
         return SpringConversationsLeaveMethod(authToken)
     }
 
-    override fun rename(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsRenameMethod {
+    override fun rename(authToken: String): ConversationsRenameMethod {
         return SpringConversationsRenameMethod(authToken)
     }
 
-    override fun replies(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsRepliesMethod {
+    override fun replies(authToken: String): ConversationsRepliesMethod {
         return SpringConversationsRepliesMethod(authToken)
     }
 
-    override fun setPurpose(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsSetPurposeMethod {
+    override fun setPurpose(authToken: String): ConversationsSetPurposeMethod {
         return SpringConversationsSetPurposeMethod(authToken)
     }
 
     @Suppress("NotImplementedDeclaration")
-    override fun setTopic(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsSetTopicMethod {
+    override fun setTopic(authToken: String): ConversationsSetTopicMethod {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun unarchive(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsUnarchiveMethod {
+    override fun unarchive(authToken: String): ConversationsUnarchiveMethod {
         return SpringConversationsUnarchiveMethod(authToken)
     }
 
-    override fun archive(authToken: String): io.hndrs.slack.api.group.conversations.ConversationsArchiveMethod {
+    override fun archive(authToken: String): ConversationsArchiveMethod {
         return SpringConversationsArchiveMethod(authToken)
     }
 

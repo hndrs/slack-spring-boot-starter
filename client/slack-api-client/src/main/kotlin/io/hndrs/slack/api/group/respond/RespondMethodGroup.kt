@@ -10,5 +10,5 @@ interface RespondMethodGroup {
     /**
      * sends a message response to the response-url
      */
-    fun message(responseUrl: String): io.hndrs.slack.api.group.respond.RespondMessageMethod
+    fun message(responseUrl: String): RespondMessageMethod
 }
