@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.hndrs.slack.api.contract.jackson.group.usergroups.UserGroup
 import io.hndrs.slack.api.contract.jackson.util.JacksonDataClass
+import java.lang.reflect.Constructor
+import kotlin.reflect.jvm.javaConstructor
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "ok", visible = true)
 @JsonSubTypes(

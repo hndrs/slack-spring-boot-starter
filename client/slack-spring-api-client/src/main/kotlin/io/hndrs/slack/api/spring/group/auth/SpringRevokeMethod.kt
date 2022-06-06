@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate
  */
 class SpringRevokeMethod(
     private val authToken: String,
-    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate()
+    private val restTemplate: RestTemplate = RestTemplateFactory.slackTemplate(),
 ) : AuthRevokeMethod() {
 
     override fun request(): ApiCallResult<SuccessfulAuthRevokeResponse, ErrorAuthRevokeResponse> {
@@ -36,6 +36,7 @@ class SpringRevokeMethod(
                 this.onFailure?.invoke(responseEntity)
                 ApiCallResult(failure = responseEntity)
             }
+            else -> throw IllegalStateException()
         }
     }
 }

@@ -5,11 +5,11 @@ import io.hndrs.slack.api.contract.jackson.common.ResponseMetadata
 import io.hndrs.slack.api.contract.jackson.common.sample
 
 fun SuccessfulConversationsResponse.Companion.sample(): SuccessfulConversationsResponse {
-    return SuccessfulConversationsResponse(true, listOf(), ResponseMetadata.sample())
+    return SuccessfulConversationsResponse(listOf(), ResponseMetadata.sample())
 }
 
 fun ErrorConversationsResponse.Companion.sample(): ErrorConversationsResponse {
-    return ErrorConversationsResponse(false, "")
+    return ErrorConversationsResponse("")
 }
 
 fun ConversationsRequest.Companion.sample(): ConversationsRequest {

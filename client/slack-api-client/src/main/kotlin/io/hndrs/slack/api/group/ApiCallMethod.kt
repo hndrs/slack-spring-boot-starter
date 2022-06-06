@@ -15,7 +15,7 @@ abstract class ApiCallMethod<Builder, Success, Failure, Params : Any> {
      * @return this
      */
     fun with(params: Params): Builder {
-        this.params = params
+        this.params =params
         return this as Builder
     }
 

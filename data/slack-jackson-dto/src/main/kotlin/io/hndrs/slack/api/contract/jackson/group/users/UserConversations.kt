@@ -18,21 +18,19 @@ import java.time.Instant
     JsonSubTypes.Type(value = ErrorConversationsResponse::class, name = "false")
 )
 @JacksonDataClass
-sealed class ConversationsResponse constructor(@JsonProperty("ok") open val ok: Boolean)
+sealed interface ConversationsResponse
 
 
 data class ErrorConversationsResponse(
-    override var ok: Boolean,
     @JsonProperty("error") val error: String
-) : ConversationsResponse(ok) {
+) : ConversationsResponse {
     companion object
 }
 
 data class SuccessfulConversationsResponse(
-    override var ok: Boolean,
     @JsonProperty("channels") val channels: List<Channel>,
     @JsonProperty("response_metadata") val responseMetadata: ResponseMetadata
-) : ConversationsResponse(ok) {
+) : ConversationsResponse {
     companion object
 }
 

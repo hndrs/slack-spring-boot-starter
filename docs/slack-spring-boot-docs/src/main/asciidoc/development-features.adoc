@@ -1,8 +1,0 @@
-[[development-features]]
-= Development Features
-:google-analytics-account: UA-82654714-4
-
-include::dev-features/credentials.adoc[leveloffset=+1]
-include::dev-features/teamstore.adoc[leveloffset=+1]
-include::dev-features/mock-client.adoc[leveloffset=+1]
-include::dev-features/kotlin-sample-extensions.adoc[leveloffset=+1]

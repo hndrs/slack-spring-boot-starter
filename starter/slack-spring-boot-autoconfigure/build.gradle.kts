@@ -13,7 +13,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-autoconfigure")
-    optional("org.springframework.boot:spring-boot-starter-actuator")
+    api("org.springframework.boot:spring-boot-starter-actuator")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     compileOnly("org.springframework.boot:spring-boot-configuration-processor")

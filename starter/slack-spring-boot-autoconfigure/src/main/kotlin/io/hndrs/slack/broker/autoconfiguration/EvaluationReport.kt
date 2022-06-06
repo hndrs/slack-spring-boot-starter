@@ -34,9 +34,9 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
      */
     fun buildEvaluationReport(ctx: ApplicationContext): String {
         val sb = StringBuilder()
-        sb.appendln("+------------------------------------+")
-        sb.appendln("| REGISTERED SLACK BROKER COMPONENTS |")
-        sb.appendln("+------------------------------------+")
+        sb.appendLine("+------------------------------------+")
+        sb.appendLine("| REGISTERED SLACK BROKER COMPONENTS |")
+        sb.appendLine("+------------------------------------+")
 
         io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
             sb,

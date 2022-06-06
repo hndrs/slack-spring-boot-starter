@@ -132,6 +132,10 @@ class SpringSlackClient : SlackClient {
         return SpringPinsMethodGroup()
     }
 
+    override fun apps() {
+        TODO("Not yet implemented")
+    }
+
     /**
      * [SpringSlackClient] configuration class that contains slack configuration options
      */

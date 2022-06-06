@@ -42,4 +42,7 @@ class MockSlackClient : io.hndrs.slack.api.SlackClient {
     override fun usergroups() = mockUsergroupsMethodGroup
     override fun reminders() = mockRemindersMethodGroup
     override fun pins() = mockPinsMethodGroup
+    override fun apps() {
+        TODO("Not yet implemented")
+    }
 }

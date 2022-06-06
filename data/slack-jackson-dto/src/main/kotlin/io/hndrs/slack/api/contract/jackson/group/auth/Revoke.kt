@@ -47,7 +47,13 @@ data class ErrorAuthRevokeResponse constructor(
     companion object
 }
 
-
+@JacksonDataClass
+data class ErrorResponse constructor(
+    override val ok: Boolean,
+    @JsonProperty("error") val error: String
+) : AuthRevokeResponse(ok) {
+    companion object
+}
 /**
  * Revokes a token.
  *
