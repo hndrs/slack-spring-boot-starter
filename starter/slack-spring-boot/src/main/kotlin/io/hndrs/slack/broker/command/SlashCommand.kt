@@ -22,7 +22,7 @@ import io.hndrs.slack.broker.util.JacksonDataClass
  * @property apiAppId the slack apps Id. Can be used for handling commands from multiple applications or environments.
  */
 @JacksonDataClass
-data class SlackCommand constructor(
+data class SlashCommand constructor(
     @JsonProperty(TOKEN_PROPERTY_NAME) val token: String,
     @JsonProperty(TEAM_ID_PROPERTY_NAME) val teamId: String,
     @JsonProperty(TEAM_DOMAIN_PROPERTY_NAME) val teamDomain: String,

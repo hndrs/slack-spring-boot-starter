@@ -1,7 +1,8 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.api.contract.jackson.InteractiveMessage
+import com.slack.api.methods.MethodsClient
 import io.hndrs.slack.api.contract.jackson.event.SlackEvent
+import io.hndrs.slack.broker.command.SlashCommand
 import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.receiver.InstallationReceiver
 import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
@@ -45,8 +46,6 @@ class EvaluationReportConfigurationTests {
                     it.getBean(io.hndrs.slack.broker.autoconfiguration.EvaluationReport::class.java)
                         .buildEvaluationReport(it)
                 assertThat(evaluationReport, containsString("testEventReceiver"))
-                assertThat(evaluationReport, containsString("testInteractiveComponentReceiver"))
-                assertThat(evaluationReport, containsString("testInteractiveComponentReceiver"))
                 assertThat(evaluationReport, containsString("testSlashCommandReceiver"))
                 assertThat(evaluationReport, containsString("testLoggingReceiver"))
                 assertThat(evaluationReport, containsString("testMismatchCommandReceiver"))
@@ -93,23 +92,12 @@ class EvaluationReportConfigurationTests {
 
         @Bean
         open fun testInstallationReceiver(): InstallationReceiver = object : InstallationReceiver {
-            override fun onReceiveInstallation(code: String, state: String, team: Team) {}
+            override fun onInstallation(team: Team, methods: MethodsClient) {}
         }
 
         @Bean
-        open fun testInteractiveComponentReceiver(): InteractiveComponentReceiver<InteractiveMessage> =
-            object : InteractiveComponentReceiver<InteractiveMessage> {
-                override fun onReceiveInteractiveMessage(
-                    interactiveComponentResponse: InteractiveMessage,
-                    headers: HttpHeaders,
-                    team: Team
-                ) {
-                }
-            }
-
-        @Bean
         open fun testSlashCommandReceiver(): SlashCommandReceiver = object : SlashCommandReceiver {
-            override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {}
+            override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {}
         }
 
         @Bean
@@ -117,7 +105,7 @@ class EvaluationReportConfigurationTests {
 
         @Bean
         open fun testMismatchCommandReceiver(): MismatchCommandReceiver = object : MismatchCommandReceiver {
-            override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {}
+            override fun onMismatchedSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team, methods: MethodsClient) {}
         }
     }
 

@@ -1,7 +1,7 @@
 package io.hndrs.slack.broker.receiver
 
-import com.slack.api.Slack
-import io.hndrs.slack.broker.command.SlackCommand
+import com.slack.api.methods.MethodsClient
+import io.hndrs.slack.broker.command.SlashCommand
 import io.hndrs.slack.broker.store.team.Team
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
@@ -13,22 +13,26 @@ interface MismatchCommandReceiver {
     /**
      * MismatchReceiver that responds with a default error message when no command was found
      *
-     * @param slackCommand the received slack-command
+     * @param slashCommand the received slack-command
      * @param team the team according to that slash-command
      */
-    fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team)
+    fun onMismatchedSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team, methods: MethodsClient)
 
 }
 
 /**
  * The Receiver that is invoked when an unknown command was entered
  */
-class CommandNotFoundReceiver(private val slackClient: Slack, private val text: String) :
+class CommandNotFoundReceiver(private val text: String) :
     MismatchCommandReceiver {
 
-    override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
-        //todo post message
-
+    override fun onMismatchedSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team, methods: MethodsClient) {
+        methods.chatPostEphemeral {
+            it
+                .channel(slashCommand.channelId)
+                .user(slashCommand.userId)
+                .text(text)
+        }
     }
 
     companion object {

@@ -1,7 +1,6 @@
 package io.hndrs.slack.broker.command
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.hndrs.slack.broker.command.SlackCommand
 import io.hndrs.slack.broker.security.VerificationMethodArgumentResolver
 import org.springframework.core.MethodParameter
 import org.springframework.web.bind.support.WebDataBinderFactory
@@ -13,13 +12,13 @@ import org.springframework.web.util.ContentCachingRequestWrapper
  *
  * @param signingSecret the signing secret to verify the request
  */
-class SlackCommandArgumentResolver(signingSecret: String) : VerificationMethodArgumentResolver(signingSecret) {
+class SlashCommandArgumentResolver(signingSecret: String) : VerificationMethodArgumentResolver(signingSecret) {
 
     private val objectMapper = ObjectMapper()
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         return parameter.getParameterAnnotation(Command::class.java) != null
-                && parameter.parameterType == SlackCommand::class.java
+                && parameter.parameterType == SlashCommand::class.java
     }
 
     override fun internalResolveArgument(
@@ -29,7 +28,7 @@ class SlackCommandArgumentResolver(signingSecret: String) : VerificationMethodAr
         binderFactory: WebDataBinderFactory?,
     ): Any? {
         val associateMap = request.parameterMap.entries.associate { it.key to it.value[0] }
-        return objectMapper.convertValue(associateMap, SlackCommand::class.java)
+        return objectMapper.convertValue(associateMap, SlashCommand::class.java)
     }
 }
 

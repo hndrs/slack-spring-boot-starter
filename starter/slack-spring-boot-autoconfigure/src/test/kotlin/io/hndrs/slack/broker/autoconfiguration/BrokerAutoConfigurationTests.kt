@@ -1,10 +1,9 @@
 package io.hndrs.slack.broker.autoconfiguration
 
 import io.hndrs.slack.broker.command.CommandBroker
-import io.hndrs.slack.broker.event.http.EventBroker
+import io.hndrs.slack.broker.command.SlashCommandArgumentResolver
 import io.hndrs.slack.broker.event.http.EventArgumentResolver
-import io.hndrs.slack.broker.interactive.InteractiveResponseArgumentResolver
-import io.hndrs.slack.broker.configuration.SlackCommandArgumentResolver
+import io.hndrs.slack.broker.event.http.EventBroker
 import io.hndrs.slack.broker.exception.SlackExceptionHandler
 import io.hndrs.slack.broker.receiver.CommandNotFoundReceiver
 import io.hndrs.slack.broker.receiver.SL4JLoggingReceiver
@@ -42,9 +41,9 @@ class BrokerAutoConfigurationTests {
                     it.getBean<WebMvcConfigurer>("io.hndrs.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration\$BrokerAutoConfiguration")
 
                 bean.addArgumentResolvers(listOf)
-                assertTrue(listOf[0] is SlackCommandArgumentResolver)
-                assertTrue(listOf[1] is InteractiveResponseArgumentResolver)
-                assertTrue(listOf[2] is EventArgumentResolver)
+                assertTrue(listOf[0] is SlashCommandArgumentResolver)
+                assertTrue(listOf[1] is EventArgumentResolver)
+                //assertTrue(listOf[1] is InteractiveResponseArgumentResolver)
             }
     }
 

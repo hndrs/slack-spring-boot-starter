@@ -1,6 +1,7 @@
 package io.hndrs.slack.broker.store.user
 
 import com.slack.api.Slack
+import com.slack.api.methods.MethodsClient
 import io.hndrs.slack.broker.receiver.InstallationReceiver
 import io.hndrs.slack.broker.store.team.Team
 import io.hndrs.slack.broker.util.on
@@ -15,9 +16,8 @@ class UserInstallationReceiver @Autowired constructor(
     private val userStore: UserStore,
 ) : InstallationReceiver {
 
-
-    override fun onReceiveInstallation(code: String, state: String, team: Team) {
-        slack.methods(team.accessToken, team.teamId).usersList {
+    override fun onInstallation(team: Team, methods: MethodsClient) {
+        methods.usersList {
             it.limit(100).includeLocale(true)
         }.on(
             { this.userStore.put(*it.members.map { userOfMember(it) }.toTypedArray()) },

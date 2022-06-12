@@ -2,7 +2,8 @@ extra["displayName"] = "Slack Spring Boot"
 description = "Spring Boot integration for Slack applications"
 
 dependencies {
-    api("com.slack.api:slack-api-client:1.22.1")
+    api("com.slack.api:slack-api-client:1.22.2")
+    api("com.slack.api:slack-api-client-kotlin-extension:1.22.2")
 
     compileOnly("org.springframework.boot:spring-boot-starter-logging")
     compileOnly("org.springframework.boot:spring-boot-starter-web")
@@ -19,6 +20,11 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("io.micrometer:micrometer-core")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude("junit:junit")
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+        exclude(module = "junit")
+        exclude(module = "mockito-core")
+
     }
+    testImplementation("com.ninja-squad:springmockk:3.1.1")
 }
+

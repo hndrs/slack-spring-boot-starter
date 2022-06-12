@@ -236,8 +236,7 @@ subprojects {
     }
 
     dependencies {
-        "testImplementation"("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
-        "testImplementation"(group = "org.junit.jupiter", name = "junit-jupiter", version = "5.4.2")
+        testImplementation("com.ninja-squad:springmockk:3.1.1")
     }
 }
 

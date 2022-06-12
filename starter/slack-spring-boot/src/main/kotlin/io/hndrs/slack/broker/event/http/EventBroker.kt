@@ -3,7 +3,6 @@ package io.hndrs.slack.broker.event.http
 import io.hndrs.slack.api.contract.jackson.event.EventRequest
 import io.hndrs.slack.api.contract.jackson.event.SlackChallenge
 import io.hndrs.slack.api.contract.jackson.event.SlackEvent
-import io.hndrs.slack.broker.metrics.EventMetricsCollector
 import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.team.Team
@@ -31,7 +30,6 @@ class EventBroker constructor(
     private val slackEventReceivers: List<EventReceiver>,
     private val teamStore: TeamStore,
     private val eventStore: EventStore,
-    private val metricsCollector: EventMetricsCollector? = null,
 ) {
 
     /**
@@ -44,9 +42,6 @@ class EventBroker constructor(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun receiveEvents(@Event event: EventRequest, @RequestHeader headers: HttpHeaders): Map<String, String> {
-
-        this.metricsCollector?.eventsReceived()
-
 
         if (event is SlackChallenge) {
             return mapOf(Pair("challenge", event.challenge))
@@ -102,10 +97,8 @@ class EventBroker constructor(
             .sortedBy { it.order() }
             .forEach { receiver ->
                 try {
-                    this.metricsCollector?.receiverExecuted()
                     receiver.onReceiveEvent(event, headers, team)
                 } catch (e: Exception) {
-                    this.metricsCollector?.receiverExecutionError()
                     if (receiver.shouldThrowException(e)) {
                         throw e
                     }

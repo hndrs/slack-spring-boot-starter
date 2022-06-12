@@ -1,8 +1,8 @@
 package io.hndrs.slack.broker
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
+import io.mockk.every
+import io.mockk.mockk
 import org.apache.commons.codec.digest.HmacAlgorithms
 import org.apache.commons.codec.digest.HmacUtils
 import org.springframework.core.MethodParameter
@@ -24,8 +24,15 @@ object RequestTestUtils {
     }
 
     fun mockMethodParameter(clazz: Class<*>, annotationClass: Class<out Annotation>): MethodParameter {
-        val parameter = mock<MethodParameter> { on { it.getParameterAnnotation(annotationClass) } doReturn mock {} }
-        doReturn(clazz).`when`(parameter).parameterType
+        val parameter = mockk<MethodParameter> {
+            every { getParameterAnnotation(any<Class<Annotation>>()) } answers {
+                println(" i was here")
+                if (firstArg<Class<Annotation>>() == annotationClass) {
+                    return@answers mockk<Annotation>()
+                } else null
+            }
+            every { parameterType } returns clazz
+        }
         return parameter
     }
 
@@ -35,7 +42,9 @@ object RequestTestUtils {
         mockRequest.addHeader("x-slack-signature", generatedHmacHex)
         mockRequest.addHeader("x-slack-request-timestamp", "${timestamp.epochSecond}")
         mockRequest.setContent(body.toByteArray(Charset.forName("UTF-8")))
-        return mock { on { it.nativeRequest } doReturn mockRequest }
+        return mockk {
+            every { nativeRequest } returns mockRequest
+        }
     }
 
     fun mockNativeWebRequest(timestamp: Instant, signingSecret: String, params: Map<String, List<String>>): NativeWebRequest {
@@ -50,7 +59,9 @@ object RequestTestUtils {
         mockRequest.method = HttpMethod.POST.name
         mockRequest.characterEncoding = "UTF-8"
 
-        return mock { on { it.nativeRequest } doReturn mockRequest }
+        return mockk {
+            every { nativeRequest } returns mockRequest
+        }
     }
 
     fun toFormUrlString(params: Map<String, List<String>>): String {

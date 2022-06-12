@@ -1,7 +1,6 @@
 package io.hndrs.slack.broker.installation
 
 import com.slack.api.Slack
-import io.hndrs.slack.broker.metrics.InstallationMetricsCollector
 import io.hndrs.slack.broker.receiver.InstallationReceiver
 import io.hndrs.slack.broker.store.team.Team
 import io.hndrs.slack.broker.store.team.TeamStore
@@ -27,12 +26,10 @@ import org.springframework.web.servlet.view.RedirectView
 @RestController
 class InstallationBroker constructor(
     private val installationReceivers: List<InstallationReceiver>,
-    private val metricsCollector: InstallationMetricsCollector?,
     private val teamStore: TeamStore,
     private val config: Config,
     private val slack: Slack,
 ) {
-
     /**
      * Installation-endpoint which is called by slack
      * Obtains the token by calling [oauth.access](https://api.slack.com/methods/oauth.access) and saves the response into the TeamStore
@@ -41,24 +38,20 @@ class InstallationBroker constructor(
     fun onInstall(@RequestParam("code") code: String, @RequestParam("state") state: String): RedirectView {
         return try {
 
-            this.metricsCollector?.installationAttempt()
 
             val team = obtainOauthAccess(code)
             this.teamStore.put(team)
-            this.metricsCollector?.successfulInstallation()
+
             this.installationReceivers
                 .forEach { receiver ->
                     try {
-                        this.metricsCollector?.receiverExecuted()
-                        receiver.onReceiveInstallation(code, state, team)
+                        receiver.onInstallation(team, slack.methods(team.accessToken, team.teamId))
                     } catch (e: Exception) {
-                        this.metricsCollector?.receiverExecutionError()
                     }
                 }
             RedirectView(this.config.successRedirectUrl)
         } catch (exception: Exception) {
             LOG.error("There was an error during the installation", exception)
-            this.metricsCollector?.errorDuringInstallation()
             RedirectView(this.config.errorRedirectUrl)
         }
     }

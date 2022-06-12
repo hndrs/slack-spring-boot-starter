@@ -4,18 +4,11 @@ import com.slack.api.Slack
 import io.hndrs.slack.broker.autoconfiguration.credentials.CredentialsProvider
 import io.hndrs.slack.broker.autoconfiguration.credentials.DefaultCredentialsProviderChain
 import io.hndrs.slack.broker.command.CommandBroker
-import io.hndrs.slack.broker.command.SlackCommandArgumentResolver
+import io.hndrs.slack.broker.command.SlashCommandArgumentResolver
 import io.hndrs.slack.broker.event.http.EventArgumentResolver
 import io.hndrs.slack.broker.event.http.EventBroker
 import io.hndrs.slack.broker.exception.SlackExceptionHandler
 import io.hndrs.slack.broker.installation.InstallationBroker
-import io.hndrs.slack.broker.metrics.CommandMetrics
-import io.hndrs.slack.broker.metrics.CommandMetricsCollector
-import io.hndrs.slack.broker.metrics.EventMetrics
-import io.hndrs.slack.broker.metrics.EventMetricsCollector
-import io.hndrs.slack.broker.metrics.InstallationMetrics
-import io.hndrs.slack.broker.metrics.InstallationMetricsCollector
-import io.hndrs.slack.broker.metrics.InteractiveComponentMetrics
 import io.hndrs.slack.broker.receiver.CommandNotFoundReceiver
 import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.receiver.InstallationReceiver
@@ -25,9 +18,6 @@ import io.hndrs.slack.broker.receiver.SlashCommandReceiver
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.event.InMemoryEventStore
 import io.hndrs.slack.broker.store.team.TeamStore
-import io.micrometer.core.instrument.MeterRegistry
-import org.springframework.boot.autoconfigure.AutoConfigureBefore
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
@@ -75,9 +65,8 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             slackEventReceivers: List<EventReceiver>,
             teamStore: TeamStore,
             eventStore: EventStore,
-            metricsCollector: EventMetricsCollector?,
         ): EventBroker {
-            return EventBroker(slackEventReceivers, teamStore, eventStore, metricsCollector)
+            return EventBroker(slackEventReceivers, teamStore, eventStore)
         }
 
         /**
@@ -88,9 +77,9 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             slackEventReceivers: List<SlashCommandReceiver>,
             teamStore: TeamStore,
             mismatchCommandReceiver: MismatchCommandReceiver?,
-            metricsCollector: CommandMetricsCollector?,
+            slack: Slack,
         ): CommandBroker {
-            return CommandBroker(slackEventReceivers, teamStore, mismatchCommandReceiver, metricsCollector)
+            return CommandBroker(slackEventReceivers, teamStore, slack, mismatchCommandReceiver)
         }
 
 
@@ -102,7 +91,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
             val signingSecret = credentialsProvider.applicationCredentials().signingSecret
 
-            resolvers.add(SlackCommandArgumentResolver(signingSecret))
+            resolvers.add(SlashCommandArgumentResolver(signingSecret))
             resolvers.add(EventArgumentResolver(signingSecret))
         }
 
@@ -134,7 +123,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         )
         @Bean
         open fun commandNotFoundMismatchReceiver(slackClient: Slack): MismatchCommandReceiver {
-            return CommandNotFoundReceiver(slackClient, configuration.commands.mismatch.text)
+            return CommandNotFoundReceiver(configuration.commands.mismatch.text)
         }
     }
 
@@ -159,7 +148,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             teamStore: TeamStore,
             slackClient: Slack,
             credentialsProvider: CredentialsProvider,
-            metricsCollector: InstallationMetricsCollector?,
         ): InstallationBroker {
 
             val installation = this.configuration.installation
@@ -167,7 +155,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
 
             return InstallationBroker(
                 installationReceivers,
-                metricsCollector,
                 teamStore,
                 InstallationBroker.Config(
                     applicationCredentials.clientId,
@@ -179,57 +166,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             )
         }
     }
-
-    /**
-     * Auto-configuration that registers the MeterBinders
-     */
-    @AutoConfigureBefore(
-        InstallationAutoConfiguration::class,
-        UserStoreAutoConfiguration::class,
-        TeamStoreAutoconfiguration::class,
-        BrokerAutoConfiguration::class
-    )
-    @ConditionalOnClass(MeterRegistry::class)
-    @Configuration
-    open class SlackBrokerMetricsAutoConfiguration {
-
-        /**
-         * MeterBinder that tracks installation metrics
-         */
-        @ConditionalOnMissingBean
-        @Bean
-        open fun installationMetrics(): InstallationMetrics {
-            return InstallationMetrics()
-        }
-
-        /**
-         * MeterBinder that tracks event metrics
-         */
-        @ConditionalOnMissingBean
-        @Bean
-        open fun eventMetrics(): EventMetrics {
-            return EventMetrics()
-        }
-
-        /**
-         * MeterBinder that tracks command metrics
-         */
-        @ConditionalOnMissingBean
-        @Bean
-        open fun commandMetrics(): CommandMetrics {
-            return CommandMetrics()
-        }
-
-        /**
-         * MeterBinder that tracks interactive-component metrics
-         */
-        @ConditionalOnMissingBean
-        @Bean
-        open fun interactiveComponentMetrics(): InteractiveComponentMetrics {
-            return InteractiveComponentMetrics()
-        }
-    }
-
 
     /**
      * Registers a [SpringSlackClient] if no different client is registered

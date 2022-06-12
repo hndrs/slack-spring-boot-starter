@@ -2,22 +2,10 @@ package io.hndrs.slack.broker.store
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import io.hndrs.slack.api.contract.jackson.common.types.Member
-import io.hndrs.slack.api.contract.jackson.common.types.sample
-import io.hndrs.slack.api.contract.jackson.event.SlackEvent
-import io.hndrs.slack.api.contract.jackson.event.sample
-import io.hndrs.slack.api.contract.jackson.event.type.team.TeamJoin
-import io.hndrs.slack.api.contract.jackson.event.type.user.UserChange
-import io.hndrs.slack.api.contract.jackson.group.users.SuccessfulListAllResponse
-import io.hndrs.slack.api.contract.jackson.group.users.sample
-import io.hndrs.slack.api.test.MockSlackClient
 import io.hndrs.slack.broker.extensions.sample
-import io.hndrs.slack.broker.store.team.Team
 import io.hndrs.slack.broker.store.user.FileUserStore
 import io.hndrs.slack.broker.store.user.User
-import io.hndrs.slack.broker.store.user.UserInstallationReceiver
 import io.hndrs.slack.broker.store.user.UserNotFoundException
-import io.hndrs.slack.broker.store.user.userOfMember
 import org.apache.commons.io.FileUtils
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
@@ -27,7 +15,6 @@ import org.junit.jupiter.api.extension.ConditionEvaluationResult
 import org.junit.jupiter.api.extension.ExecutionCondition
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.ExtensionContext
-import org.springframework.http.HttpHeaders
 import java.io.File
 import java.nio.charset.Charset
 
@@ -197,81 +184,6 @@ internal class FileUserStoreTests {
 
             //cleanup
             deleteFile()
-        }
-
-        @Nested
-        @DisplayName("User Changed EventReceiver")
-        inner class UserChangedEventReceiverTest() {
-            @Test
-            @DisplayName("test supports method")
-            fun testSupport() {
-                val receiver = UserChangedEventReceiver(FileUserStore())
-                Assertions.assertTrue(receiver.supportsEvent(SlackEvent.sample(
-                        UserChange.sample()
-                ).copy(type = UserChange.TYPE)))
-                deleteFile()
-            }
-
-            @Test
-            @DisplayName("test receive method")
-            fun testReceive() {
-                val store = FileUserStore()
-                val member = Member.sample().copy(id = "testuser1", teamId = "team1", name = "test")
-                store.put(userOfMember(member))
-                val receiver = UserChangedEventReceiver(store)
-
-                val event = SlackEvent.sample(UserChange.sample().copy(
-                        member = member.copy(name = "testNew")
-                ))
-
-                receiver.onReceiveEvent(event, HttpHeaders.EMPTY, Team.sample().copy(teamId = "team1"))
-                Assertions.assertEquals("testNew", store.findById("testuser1").name)
-                deleteFile()
-            }
-        }
-
-        @Nested
-        @DisplayName("Test UserManager")
-        inner class UserManagerTests {
-            @DisplayName("Test UserManager")
-            @Test
-            fun testDownload() {
-                val client = MockSlackClient()
-                client.users().listAll("").successResponse = SuccessfulListAllResponse.sample().copy(members = listOf(
-                        Member.sample().copy(id = "testUser", name = "testName")
-                ))
-                val store = FileUserStore()
-                val manager = UserInstallationReceiver(client, store)
-                val team = Team.sample().copy("testTeam")
-                manager.onReceiveInstallation("", "", team)
-                Assertions.assertEquals(userOfMember(Member.sample().copy(id = "testUser", name = "testName")),
-                        store.findById("testUser"))
-                deleteFile()
-            }
-        }
-
-        @Nested
-        @DisplayName("User Joined EventReceiver")
-        inner class UserJoinedEventReceiverTest() {
-            @Test
-            @DisplayName("test supports method")
-            fun testSupport() {
-                val receiver = UserJoinedEventReceiver(FileUserStore())
-                Assertions.assertTrue(receiver.supportsEvent(SlackEvent.sample(TeamJoin.sample()).copy(type = TeamJoin.TYPE)))
-                deleteFile()
-            }
-
-            @Test
-            @DisplayName("test receive method")
-            fun testReceive() {
-                val store = FileUserStore()
-                val receiver = UserJoinedEventReceiver(store)
-                val newUser = Member.sample().copy(id = "testuser1", teamId = "team1", name = "test")
-                val event = SlackEvent.sample(TeamJoin.sample().copy(member = newUser))
-                receiver.onReceiveEvent(event, HttpHeaders.EMPTY, Team.sample().copy(teamId = "team1"))
-                Assertions.assertEquals("test", store.findById("testuser1").name)
-                deleteFile()
-            }
         }
 
         @DisplayName("Remove Non Existent")
