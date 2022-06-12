@@ -53,4 +53,4 @@ jobs:
           SLACK_APP_SIGNING_SECRET: test-signingSecret
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew clean check jacocoTestReport sonarqube --info
+        run: ./gradlew check jacocoTestReport sonarqube --info --no-daemon
