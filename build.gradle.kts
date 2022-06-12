@@ -19,7 +19,7 @@ plugins {
     id("io.spring.dependency-management")
     id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.dokka")
-    id("io.gitlab.arturbosch.detekt") version "1.18.1"
+    id("io.gitlab.arturbosch.detekt") version "1.20.0"
     signing
     id("io.hndrs.publishing-info")
 }
@@ -69,7 +69,6 @@ allprojects {
     group = "io.hndrs.slack"
     version = rootProject.file("version.txt").readText().trim()
         .plus(if (isRelease?.toBoolean() == true) "" else "-SNAPSHOT")
-    println(version)
     project.ext {
         set("junitJupiterVersion", "5.4.2")
         set("junitPlatformVersion", "1.4.2")
