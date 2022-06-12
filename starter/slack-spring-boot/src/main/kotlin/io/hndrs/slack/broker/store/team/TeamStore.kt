@@ -37,18 +37,8 @@ class TeamNotFoundException(override val message: String?) : RuntimeException(me
 data class Team(
     val teamId: String,
     val teamName: String?,
-    val bot: Bot
+    val accessToken: String,
 ) {
     companion object {}
-
-    /**
-     * contains relevant information about the installed bot
-     */
-    data class Bot(
-        val userId: String,
-        val accessToken: String
-    ) {
-        companion object
-    }
 }
 

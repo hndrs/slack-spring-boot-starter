@@ -3,8 +3,8 @@ package io.hndrs.slack.broker.store.user
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import io.hndrs.slack.api.contract.jackson.util.InstantToInt
-import io.hndrs.slack.api.contract.jackson.util.JacksonDataClass
+import io.hndrs.slack.broker.util.InstantToInt
+import io.hndrs.slack.broker.util.JacksonDataClass
 import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -144,7 +144,7 @@ class FileUserStore : UserStore {
         val has2fa: Boolean,
         @field:JsonProperty("locale")
         @get:JsonProperty("locale")
-        val locale: String?
+        val locale: String?,
     ) {
 
         /**
@@ -173,9 +173,6 @@ class FileUserStore : UserStore {
             @field:JsonProperty("display_name_normalized")
             @get:JsonProperty("display_name_normalized")
             val displayNameNormalized: String,
-            @field:JsonProperty("fields")
-            @get:JsonProperty("fields")
-            val fields: Map<Any, Any>?,
             @field:JsonProperty("status_text")
             @get:JsonProperty("status_text")
             val statusText: String,
@@ -229,7 +226,7 @@ class FileUserStore : UserStore {
             val statusTextCanonical: String,
             @field:JsonProperty("team")
             @get:JsonProperty("team")
-            val team: String
+            val team: String,
         ) {
             companion object {
                 /**
@@ -244,7 +241,6 @@ class FileUserStore : UserStore {
                         userProfile.realNameNormalized,
                         userProfile.displayName,
                         userProfile.displayNameNormalized,
-                        userProfile.fields,
                         userProfile.statusText,
                         userProfile.statusEmoji,
                         userProfile.statusExpiration,

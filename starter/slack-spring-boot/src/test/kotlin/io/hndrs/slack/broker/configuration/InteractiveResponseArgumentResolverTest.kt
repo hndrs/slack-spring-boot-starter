@@ -7,6 +7,8 @@ import io.hndrs.slack.broker.RequestTestUtils
 import io.hndrs.slack.broker.RequestTestUtils.jsonBody
 import io.hndrs.slack.broker.RequestTestUtils.mockMethodParameter
 import io.hndrs.slack.broker.RequestTestUtils.mockNativeWebRequest
+import io.hndrs.slack.broker.interactive.InteractiveResponse
+import io.hndrs.slack.broker.interactive.InteractiveResponseArgumentResolver
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -16,13 +18,16 @@ internal class InteractiveResponseArgumentResolverTest {
 
     @Test
     fun supportsParameter() {
-        assertTrue(InteractiveResponseArgumentResolver("")
+        assertTrue(
+            InteractiveResponseArgumentResolver("")
                 .supportsParameter(mockMethodParameter(InteractiveComponentResponse::class.java, InteractiveResponse::class.java)))
 
-        Assertions.assertFalse(InteractiveResponseArgumentResolver("")
+        Assertions.assertFalse(
+            InteractiveResponseArgumentResolver("")
                 .supportsParameter(mockMethodParameter(InteractiveComponentResponse::class.java, RequestTestUtils.TestAnnotation::class.java)))
 
-        Assertions.assertFalse(InteractiveResponseArgumentResolver("")
+        Assertions.assertFalse(
+            InteractiveResponseArgumentResolver("")
                 .supportsParameter(mockMethodParameter(Any::class.java, InteractiveResponse::class.java)))
     }
 

@@ -1,11 +1,9 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.api.SlackClient
+import com.slack.api.Slack
 import io.hndrs.slack.broker.store.user.FileUserStore
 import io.hndrs.slack.broker.store.user.InMemoryUserStore
-import io.hndrs.slack.broker.store.user.UserChangedEventReceiver
 import io.hndrs.slack.broker.store.user.UserInstallationReceiver
-import io.hndrs.slack.broker.store.user.UserJoinedEventReceiver
 import io.hndrs.slack.broker.store.user.UserStore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
@@ -57,27 +55,10 @@ open class UserStoreAutoConfiguration {
     @Bean
     open fun userInstallationReceiver(
         applicationContext: ApplicationContext,
-        slackClient: io.hndrs.slack.api.SlackClient,
-        userStore: UserStore
+        slackClient: Slack,
+        userStore: UserStore,
     ): UserInstallationReceiver? {
         return UserInstallationReceiver(slackClient, userStore)
     }
 
-    /**
-     * Registers the [UserJoinedEventReceiver] if a [UserStore] registered, which adds users to the [UserStore] when they join a team
-     */
-    @ConditionalOnBean(UserStore::class)
-    @Bean
-    open fun userJoinedReceiver(userStore: UserStore): UserJoinedEventReceiver {
-        return UserJoinedEventReceiver(userStore)
-    }
-
-    /**
-     * Registers the [UserChangedEventReceiver] if a [UserStore] registered, which modifies users in the [UserStore] modify their profile
-     */
-    @ConditionalOnBean(UserStore::class)
-    @Bean
-    open fun userChangedReceiver(userStore: UserStore): UserChangedEventReceiver {
-        return UserChangedEventReceiver(userStore)
-    }
 }

@@ -5,8 +5,8 @@ import io.hndrs.slack.api.contract.jackson.InteractiveComponentResponse
 import io.hndrs.slack.api.contract.jackson.InteractiveMessage
 import io.hndrs.slack.api.contract.jackson.sample
 import io.hndrs.slack.broker.extensions.sample
+import io.hndrs.slack.broker.interactive.InteractiveComponentBroker
 import io.hndrs.slack.broker.metrics.InteractiveComponentMetrics
-import io.hndrs.slack.broker.receiver.InteractiveComponentReceiver
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore
 import io.hndrs.slack.broker.store.team.Team
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry

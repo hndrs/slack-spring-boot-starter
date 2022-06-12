@@ -8,6 +8,8 @@ import io.hndrs.slack.broker.RequestTestUtils
 import io.hndrs.slack.broker.RequestTestUtils.jsonBody
 import io.hndrs.slack.broker.RequestTestUtils.mockMethodParameter
 import io.hndrs.slack.broker.RequestTestUtils.mockNativeWebRequest
+import io.hndrs.slack.broker.event.http.Event
+import io.hndrs.slack.broker.event.http.EventArgumentResolver
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -18,13 +20,16 @@ internal class EventArgumentResolverTest {
 
     @Test
     fun supportsParameter() {
-        assertTrue(EventArgumentResolver("")
+        assertTrue(
+            EventArgumentResolver("")
                 .supportsParameter(mockMethodParameter(EventRequest::class.java, Event::class.java)))
 
-        assertFalse(EventArgumentResolver("")
+        assertFalse(
+            EventArgumentResolver("")
                 .supportsParameter(mockMethodParameter(EventRequest::class.java, RequestTestUtils.TestAnnotation::class.java)))
 
-        assertFalse(EventArgumentResolver("")
+        assertFalse(
+            EventArgumentResolver("")
                 .supportsParameter(mockMethodParameter(Any::class.java, Event::class.java)))
     }
 

@@ -1,15 +1,13 @@
 package io.hndrs.slack.broker.receiver
 
-import io.hndrs.slack.api.contract.jackson.InteractiveComponentResponse
-import io.hndrs.slack.api.contract.jackson.SlackCommand
 import io.hndrs.slack.api.contract.jackson.event.SlackEvent
+import io.hndrs.slack.broker.command.SlackCommand
 import io.hndrs.slack.broker.store.team.Team
 import org.slf4j.LoggerFactory
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
 
-class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver,
-    InteractiveComponentReceiver<InteractiveComponentResponse>, InstallationReceiver {
+class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InstallationReceiver {
     /**
      * receivers will be sorted ascending by this order
      */
@@ -27,14 +25,6 @@ class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver,
 
     override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {
         LOG.info("Received SlackCommand:    {}\nHeaders:    {}", slackCommand, headers)
-    }
-
-    override fun onReceiveInteractiveMessage(
-        interactiveComponentResponse: InteractiveComponentResponse,
-        headers: HttpHeaders,
-        team: Team
-    ) {
-        LOG.info("Received Interactive Component:   {}\nHeaders:    {}", interactiveComponentResponse, headers)
     }
 
     companion object {

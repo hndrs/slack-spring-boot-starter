@@ -15,9 +15,7 @@ import io.hndrs.slack.broker.extensions.sample
 import io.hndrs.slack.broker.store.team.Team
 import io.hndrs.slack.broker.store.user.FileUserStore
 import io.hndrs.slack.broker.store.user.User
-import io.hndrs.slack.broker.store.user.UserChangedEventReceiver
 import io.hndrs.slack.broker.store.user.UserInstallationReceiver
-import io.hndrs.slack.broker.store.user.UserJoinedEventReceiver
 import io.hndrs.slack.broker.store.user.UserNotFoundException
 import io.hndrs.slack.broker.store.user.userOfMember
 import org.apache.commons.io.FileUtils

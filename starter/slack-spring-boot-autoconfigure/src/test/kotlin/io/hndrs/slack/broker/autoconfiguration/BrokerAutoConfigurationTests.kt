@@ -1,9 +1,9 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.broker.broker.CommandBroker
-import io.hndrs.slack.broker.broker.EventBroker
-import io.hndrs.slack.broker.configuration.EventArgumentResolver
-import io.hndrs.slack.broker.configuration.InteractiveResponseArgumentResolver
+import io.hndrs.slack.broker.command.CommandBroker
+import io.hndrs.slack.broker.event.http.EventBroker
+import io.hndrs.slack.broker.event.http.EventArgumentResolver
+import io.hndrs.slack.broker.interactive.InteractiveResponseArgumentResolver
 import io.hndrs.slack.broker.configuration.SlackCommandArgumentResolver
 import io.hndrs.slack.broker.exception.SlackExceptionHandler
 import io.hndrs.slack.broker.receiver.CommandNotFoundReceiver
@@ -146,7 +146,7 @@ class BrokerAutoConfigurationTests {
                 )
             )
             .run {
-                assertDoesNotThrow { it.getBean(io.hndrs.slack.broker.broker.CommandBroker::class.java) }
+                assertDoesNotThrow { it.getBean(CommandBroker::class.java) }
             }
     }
 

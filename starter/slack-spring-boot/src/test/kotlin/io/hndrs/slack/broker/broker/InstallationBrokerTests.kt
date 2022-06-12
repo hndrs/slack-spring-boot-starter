@@ -5,6 +5,7 @@ import io.hndrs.slack.api.contract.jackson.group.oauth.SuccessfullAccessResponse
 import io.hndrs.slack.api.contract.jackson.group.oauth.sample
 import io.hndrs.slack.api.test.MockSlackClient
 import io.hndrs.slack.broker.extensions.sample
+import io.hndrs.slack.broker.installation.InstallationBroker
 import io.hndrs.slack.broker.metrics.InstallationMetrics
 import io.hndrs.slack.broker.receiver.InstallationReceiver
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore

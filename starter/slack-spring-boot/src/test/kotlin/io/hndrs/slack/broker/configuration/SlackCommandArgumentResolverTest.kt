@@ -1,6 +1,5 @@
 package io.hndrs.slack.broker.configuration
 
-import io.hndrs.slack.api.contract.jackson.SlackCommand
 import io.hndrs.slack.api.contract.jackson.sample
 import io.hndrs.slack.api.contract.jackson.toParameterMap
 import io.hndrs.slack.broker.RequestTestUtils

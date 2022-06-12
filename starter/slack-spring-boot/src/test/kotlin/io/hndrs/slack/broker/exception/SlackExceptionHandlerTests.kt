@@ -2,16 +2,14 @@ package io.hndrs.slack.broker.exception
 
 import com.fasterxml.jackson.databind.JsonMappingException
 import io.hndrs.slack.api.contract.jackson.InteractiveMessage
-import io.hndrs.slack.api.contract.jackson.SlackCommand
 import io.hndrs.slack.api.contract.jackson.group.dialog.DialogErrorResponse
 import io.hndrs.slack.api.contract.jackson.sample
 import io.hndrs.slack.api.contract.jackson.toParameterMap
 import io.hndrs.slack.broker.RequestTestUtils
-import io.hndrs.slack.broker.broker.CommandBroker
-import io.hndrs.slack.broker.broker.InteractiveComponentBroker
+import io.hndrs.slack.broker.command.CommandBroker
+import io.hndrs.slack.broker.interactive.InteractiveComponentBroker
 import io.hndrs.slack.broker.configuration.SlackCommandArgumentResolver
 import io.hndrs.slack.broker.extensions.sample
-import io.hndrs.slack.broker.receiver.InteractiveComponentReceiver
 import io.hndrs.slack.broker.receiver.SlashCommandReceiver
 import io.hndrs.slack.broker.security.VerificationException
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore
@@ -204,8 +202,8 @@ internal class SlackExceptionHandlerTests {
         }
 
 
-        private fun commandBroker(exception: Exception): io.hndrs.slack.broker.broker.CommandBroker {
-            return io.hndrs.slack.broker.broker.CommandBroker(listOf(ErrorCommand(exception)), inMemoryTeamStore)
+        private fun commandBroker(exception: Exception): CommandBroker {
+            return CommandBroker(listOf(ErrorCommand(exception)), inMemoryTeamStore)
         }
 
         private fun interactiveComponentBroker(exception: Exception): InteractiveComponentBroker {

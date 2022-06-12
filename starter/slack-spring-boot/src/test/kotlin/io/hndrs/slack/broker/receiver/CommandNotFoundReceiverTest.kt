@@ -1,6 +1,5 @@
 package io.hndrs.slack.broker.receiver
 
-import io.hndrs.slack.api.contract.jackson.SlackCommand
 import io.hndrs.slack.api.contract.jackson.group.chat.ErrorPostEphemeralResponse
 import io.hndrs.slack.api.contract.jackson.group.chat.PostEphemeralRequest
 import io.hndrs.slack.api.contract.jackson.group.chat.SuccessfulPostEphemeralResponse

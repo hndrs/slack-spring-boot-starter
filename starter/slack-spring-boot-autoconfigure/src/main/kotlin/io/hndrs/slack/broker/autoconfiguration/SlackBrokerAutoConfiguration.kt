@@ -1,19 +1,14 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.api.SlackClient
-import io.hndrs.slack.api.contract.jackson.BlockActions
-import io.hndrs.slack.api.contract.jackson.InteractiveMessage
-import io.hndrs.slack.api.spring.SpringSlackClient
+import com.slack.api.Slack
 import io.hndrs.slack.broker.autoconfiguration.credentials.CredentialsProvider
 import io.hndrs.slack.broker.autoconfiguration.credentials.DefaultCredentialsProviderChain
-import io.hndrs.slack.broker.broker.CommandBroker
-import io.hndrs.slack.broker.broker.EventBroker
-import io.hndrs.slack.broker.broker.InstallationBroker
-import io.hndrs.slack.broker.broker.InteractiveComponentBroker
-import io.hndrs.slack.broker.configuration.EventArgumentResolver
-import io.hndrs.slack.broker.configuration.InteractiveResponseArgumentResolver
-import io.hndrs.slack.broker.configuration.SlackCommandArgumentResolver
+import io.hndrs.slack.broker.command.CommandBroker
+import io.hndrs.slack.broker.command.SlackCommandArgumentResolver
+import io.hndrs.slack.broker.event.http.EventArgumentResolver
+import io.hndrs.slack.broker.event.http.EventBroker
 import io.hndrs.slack.broker.exception.SlackExceptionHandler
+import io.hndrs.slack.broker.installation.InstallationBroker
 import io.hndrs.slack.broker.metrics.CommandMetrics
 import io.hndrs.slack.broker.metrics.CommandMetricsCollector
 import io.hndrs.slack.broker.metrics.EventMetrics
@@ -21,11 +16,9 @@ import io.hndrs.slack.broker.metrics.EventMetricsCollector
 import io.hndrs.slack.broker.metrics.InstallationMetrics
 import io.hndrs.slack.broker.metrics.InstallationMetricsCollector
 import io.hndrs.slack.broker.metrics.InteractiveComponentMetrics
-import io.hndrs.slack.broker.metrics.InteractiveComponentMetricsCollector
 import io.hndrs.slack.broker.receiver.CommandNotFoundReceiver
 import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.receiver.InstallationReceiver
-import io.hndrs.slack.broker.receiver.InteractiveComponentReceiver
 import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
 import io.hndrs.slack.broker.receiver.SL4JLoggingReceiver
 import io.hndrs.slack.broker.receiver.SlashCommandReceiver
@@ -62,7 +55,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
     @Configuration
     open class BrokerAutoConfiguration(
         private val configuration: SlackBrokerConfigurationProperties,
-        private val credentialsProvider: CredentialsProvider
+        private val credentialsProvider: CredentialsProvider,
     ) : WebMvcConfigurer {
 
         /**
@@ -82,7 +75,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             slackEventReceivers: List<EventReceiver>,
             teamStore: TeamStore,
             eventStore: EventStore,
-            metricsCollector: EventMetricsCollector?
+            metricsCollector: EventMetricsCollector?,
         ): EventBroker {
             return EventBroker(slackEventReceivers, teamStore, eventStore, metricsCollector)
         }
@@ -95,28 +88,11 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             slackEventReceivers: List<SlashCommandReceiver>,
             teamStore: TeamStore,
             mismatchCommandReceiver: MismatchCommandReceiver?,
-            metricsCollector: CommandMetricsCollector?
-        ): io.hndrs.slack.broker.broker.CommandBroker {
-            return io.hndrs.slack.broker.broker.CommandBroker(slackEventReceivers, teamStore, mismatchCommandReceiver, metricsCollector)
+            metricsCollector: CommandMetricsCollector?,
+        ): CommandBroker {
+            return CommandBroker(slackEventReceivers, teamStore, mismatchCommandReceiver, metricsCollector)
         }
 
-        /**
-         * Registers the [InteractiveComponentBroker] which forwards interactive-components to all [InteractiveComponentReceiver]s
-         */
-        @Bean
-        open fun componentBroker(
-            slackInteractiveMessageReceivers: List<InteractiveComponentReceiver<InteractiveMessage>>,
-            slackBlockActionReceivers: List<InteractiveComponentReceiver<BlockActions>>,
-            teamStore: TeamStore,
-            metricsCollector: InteractiveComponentMetricsCollector?
-        ): InteractiveComponentBroker {
-            return InteractiveComponentBroker(
-                slackBlockActionReceivers,
-                slackInteractiveMessageReceivers,
-                teamStore,
-                metricsCollector
-            )
-        }
 
         /**
          * Adds argument-resolver to resolve incoming requests
@@ -127,7 +103,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             val signingSecret = credentialsProvider.applicationCredentials().signingSecret
 
             resolvers.add(SlackCommandArgumentResolver(signingSecret))
-            resolvers.add(InteractiveResponseArgumentResolver(signingSecret))
             resolvers.add(EventArgumentResolver(signingSecret))
         }
 
@@ -158,7 +133,7 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             matchIfMissing = true
         )
         @Bean
-        open fun commandNotFoundMismatchReceiver(slackClient: io.hndrs.slack.api.SlackClient): MismatchCommandReceiver {
+        open fun commandNotFoundMismatchReceiver(slackClient: Slack): MismatchCommandReceiver {
             return CommandNotFoundReceiver(slackClient, configuration.commands.mismatch.text)
         }
     }
@@ -182,9 +157,9 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         open fun installationBroker(
             installationReceivers: List<InstallationReceiver>,
             teamStore: TeamStore,
-            slackClient: io.hndrs.slack.api.SlackClient,
+            slackClient: Slack,
             credentialsProvider: CredentialsProvider,
-            metricsCollector: InstallationMetricsCollector?
+            metricsCollector: InstallationMetricsCollector?,
         ): InstallationBroker {
 
             val installation = this.configuration.installation
@@ -194,13 +169,13 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
                 installationReceivers,
                 metricsCollector,
                 teamStore,
-                slackClient,
                 InstallationBroker.Config(
                     applicationCredentials.clientId,
                     applicationCredentials.clientSecret,
                     installation.successRedirectUrl,
                     installation.errorRedirectUrl
-                )
+                ),
+                slackClient,
             )
         }
     }
@@ -261,8 +236,8 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
      */
     @ConditionalOnMissingBean
     @Bean
-    open fun slackClient(): io.hndrs.slack.api.SlackClient {
-        return io.hndrs.slack.api.spring.SpringSlackClient()
+    open fun slackClient(): Slack {
+        return Slack.getInstance()
     }
 
     /**

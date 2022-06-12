@@ -1,11 +1,9 @@
 package io.hndrs.slack.broker.autoconfiguration
 
 import io.hndrs.slack.api.contract.jackson.InteractiveMessage
-import io.hndrs.slack.api.contract.jackson.SlackCommand
 import io.hndrs.slack.api.contract.jackson.event.SlackEvent
 import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.receiver.InstallationReceiver
-import io.hndrs.slack.broker.receiver.InteractiveComponentReceiver
 import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
 import io.hndrs.slack.broker.receiver.SL4JLoggingReceiver
 import io.hndrs.slack.broker.receiver.SlashCommandReceiver

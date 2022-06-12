@@ -1,9 +1,9 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.broker.broker.CommandBroker
-import io.hndrs.slack.broker.broker.EventBroker
-import io.hndrs.slack.broker.broker.InstallationBroker
-import io.hndrs.slack.broker.broker.InteractiveComponentBroker
+import io.hndrs.slack.broker.command.CommandBroker
+import io.hndrs.slack.broker.event.http.EventBroker
+import io.hndrs.slack.broker.installation.InstallationBroker
+import io.hndrs.slack.broker.interactive.InteractiveComponentBroker
 import io.hndrs.slack.broker.metrics.CommandMetricsCollector
 import io.hndrs.slack.broker.metrics.EventMetricsCollector
 import io.hndrs.slack.broker.metrics.InstallationMetrics
@@ -168,7 +168,7 @@ class MetricsAutoConfigurationTests {
                             CommandMetricsCollector::class.java
                         )
                     }
-                    Assertions.assertDoesNotThrow { it.getBean(io.hndrs.slack.broker.broker.CommandBroker::class.java) }
+                    Assertions.assertDoesNotThrow { it.getBean(CommandBroker::class.java) }
                 }
 
         }

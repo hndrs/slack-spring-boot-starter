@@ -1,6 +1,6 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.broker.broker.InstallationBroker
+import io.hndrs.slack.broker.installation.InstallationBroker
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

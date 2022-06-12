@@ -3,7 +3,7 @@ package io.hndrs.slack.broker.store.team
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import io.hndrs.slack.api.contract.jackson.util.JacksonDataClass
+import io.hndrs.slack.broker.util.JacksonDataClass
 import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -51,10 +51,7 @@ class FileTeamStore : TeamStore {
         return Team(
             teamId = team.teamId,
             teamName = team.teamName,
-            bot = Team.Bot(
-                userId = team.bot.userId,
-                accessToken = team.bot.accessToken
-            )
+            accessToken = team.accessToken
         )
     }
 
@@ -69,10 +66,7 @@ class FileTeamStore : TeamStore {
         val localTeam = LocalTeam(
             teamId = team.teamId,
             teamName = team.teamName,
-            bot = LocalTeam.Bot(
-                userId = team.bot.userId,
-                accessToken = team.bot.accessToken
-            )
+            accessToken = team.accessToken
         )
 
         val result = origin.plus(localTeam)
@@ -104,27 +98,12 @@ class FileTeamStore : TeamStore {
         @param: JsonProperty("team_name")
         val teamName: String?,
 
-        @field: JsonProperty("bot")
-        @param: JsonProperty("bot")
-        val bot: Bot
+        @field: JsonProperty("accessToken")
+        @param: JsonProperty("accessToken")
+        val accessToken: String,
     ) {
         companion object {}
 
-        /**
-         * Bot-object that contains relevant bot-information
-         */
-        @JacksonDataClass
-        data class Bot(
-            @field: JsonProperty("user_id")
-            @param: JsonProperty("user_id")
-            val userId: String,
-
-            @field: JsonProperty("access_token")
-            @param: JsonProperty("access_token")
-            val accessToken: String
-        ) {
-            companion object
-        }
     }
 
     companion object {

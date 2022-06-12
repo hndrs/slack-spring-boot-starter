@@ -4,6 +4,7 @@ import io.hndrs.slack.api.contract.jackson.event.SlackChallenge
 import io.hndrs.slack.api.contract.jackson.event.SlackEvent
 import io.hndrs.slack.api.contract.jackson.event.sample
 import io.hndrs.slack.api.contract.jackson.event.type.user.UserChange
+import io.hndrs.slack.broker.event.http.EventBroker
 import io.hndrs.slack.broker.extensions.sample
 import io.hndrs.slack.broker.metrics.EventMetrics
 import io.hndrs.slack.broker.receiver.EventReceiver

@@ -8,20 +8,6 @@ project(":slack-spring-boot-autoconfigure").projectDir = File("starter/slack-spr
 include("slack-spring-boot")
 project(":slack-spring-boot").projectDir = File("starter/slack-spring-boot")
 
-//data libraries
-include("slack-jackson-dto")
-project(":slack-jackson-dto").projectDir = File("data/slack-jackson-dto")
-include("slack-jackson-dto-test")
-project(":slack-jackson-dto-test").projectDir = File("data/slack-jackson-dto-test-extensions")
-
-//Clients
-include("slack-api-client")
-project(":slack-api-client").projectDir = File("client/slack-api-client")
-include("slack-spring-api-client")
-project(":slack-spring-api-client").projectDir = File("client/slack-spring-api-client")
-include("slack-spring-test-api-client")
-project(":slack-spring-test-api-client").projectDir = File("client/slack-spring-test-api-client")
-
 //Samples
 include("slack-spring-boot-starter-sample")
 project(":slack-spring-boot-starter-sample").projectDir = File("samples/slack-spring-boot-starter-sample")

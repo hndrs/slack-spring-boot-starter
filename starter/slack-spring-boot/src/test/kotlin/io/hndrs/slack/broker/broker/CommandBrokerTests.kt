@@ -1,7 +1,7 @@
 package io.hndrs.slack.broker.broker
 
-import io.hndrs.slack.api.contract.jackson.SlackCommand
 import io.hndrs.slack.api.contract.jackson.sample
+import io.hndrs.slack.broker.command.CommandBroker
 import io.hndrs.slack.broker.extensions.sample
 import io.hndrs.slack.broker.metrics.CommandMetrics
 import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
@@ -25,7 +25,7 @@ class CommandBrokerTests {
         teamStore.put(Team.sample().copy(teamId = "TestId"))
         val sampleEvent = SlackCommand.sample().copy(teamId = "TestId")
         Assertions.assertThrows(Exception::class.java) {
-            io.hndrs.slack.broker.broker.CommandBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore).receiveCommand(sampleEvent, HttpHeaders.EMPTY)
+            CommandBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore).receiveCommand(sampleEvent, HttpHeaders.EMPTY)
         }
     }
 
@@ -56,9 +56,9 @@ class CommandBrokerTests {
         val errorReceiver = ErrorReceiver()
         val mismatchReceiver = Mismatch()
 
-        io.hndrs.slack.broker.broker.CommandBroker(listOf(successReceiver, errorReceiver), teamStore, null, commandMetrics)
+        CommandBroker(listOf(successReceiver, errorReceiver), teamStore, null, commandMetrics)
             .receiveCommand(SlackCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
-        io.hndrs.slack.broker.broker.CommandBroker(listOf(), teamStore, mismatchReceiver, commandMetrics)
+        CommandBroker(listOf(), teamStore, mismatchReceiver, commandMetrics)
             .receiveCommand(SlackCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
@@ -83,7 +83,7 @@ class CommandBrokerTests {
         val successReceiver = SuccessReceiver()
         val errorReceiver = ErrorReceiver()
 
-        io.hndrs.slack.broker.broker.CommandBroker(listOf(successReceiver, errorReceiver), teamStore)
+        CommandBroker(listOf(successReceiver, errorReceiver), teamStore)
             .receiveCommand(SlackCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
 
@@ -102,7 +102,7 @@ class CommandBrokerTests {
         val store = InMemoryTeamStore()
         store.put(Team.sample().copy(teamId = "TestTeamId"))
 
-        io.hndrs.slack.broker.broker.CommandBroker(listOf(third, second, first), store)
+        CommandBroker(listOf(third, second, first), store)
                 .receiveCommand(event, HttpHeaders.EMPTY)
 
         Assertions.assertEquals(0, first.currentOrder)

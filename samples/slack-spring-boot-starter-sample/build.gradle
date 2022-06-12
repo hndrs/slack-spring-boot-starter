@@ -1,10 +1,10 @@
 plugins {
-    id "org.springframework.boot" version "2.1.3.RELEASE"
-    id "org.jetbrains.kotlin.plugin.spring" version "1.4.10"
+    id "org.springframework.boot" version "2.7.0"
+    id "org.jetbrains.kotlin.plugin.spring" version "1.6.21"
 }
 
-sourceCompatibility = "11"
-targetCompatibility = "11"
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -16,8 +16,6 @@ bootRun {
 
 dependencies {
     implementation(project(":slack-spring-boot-starter"))
-    implementation(project(":slack-spring-test-api-client"))
-    testImplementation(project(":slack-jackson-dto-test"))
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -28,13 +26,13 @@ dependencies {
 compileKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "11"
+        jvmTarget = sourceCompatibility
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "11"
+        jvmTarget = targetCompatibility
     }
 }

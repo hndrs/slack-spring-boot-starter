@@ -2,7 +2,6 @@ package io.hndrs.slack.broker.autoconfiguration
 
 import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.receiver.InstallationReceiver
-import io.hndrs.slack.broker.receiver.InteractiveComponentReceiver
 import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
 import io.hndrs.slack.broker.receiver.SlashCommandReceiver
 import io.hndrs.slack.broker.store.event.EventStore
@@ -50,11 +49,6 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         )
         io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
             sb,
-            "Interactive Component Receivers",
-            ctx.getBeanNamesForType(InteractiveComponentReceiver::class.java)
-        )
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
-            sb,
             "Slash Command Receivers",
             ctx.getBeanNamesForType(SlashCommandReceiver::class.java)
         )
@@ -90,7 +84,7 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         private fun defaultChecks(
             ctx: ApplicationContext,
             sb: StringBuilder,
-            vararg checks: Pair<KClass<*>, KClass<*>>
+            vararg checks: Pair<KClass<*>, KClass<*>>,
         ) {
             sb.appendLine()
             sb.appendLine("Notes:")
@@ -98,8 +92,10 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
                 try {
                     val bean = ctx.getBean(it.first.java)
                     if (it.second.isInstance(bean)) {
-                        sb.appendLine("   - Default version of ${it.second.simpleName} is registered," +
-                                " this is not recommended for production")
+                        sb.appendLine(
+                            "   - Default version of ${it.second.simpleName} is registered," +
+                                    " this is not recommended for production"
+                        )
                     }
                 } catch (e: BeansException) {
                     //do nothing

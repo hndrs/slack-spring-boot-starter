@@ -1,6 +1,5 @@
 package io.hndrs.slack.sample
 
-import io.hndrs.slack.api.contract.jackson.SlackCommand
 import io.hndrs.slack.api.contract.jackson.sample
 import io.hndrs.slack.api.test.MockSlackClient
 import io.hndrs.slack.broker.store.team.Team
