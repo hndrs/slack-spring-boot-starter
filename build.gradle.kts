@@ -3,6 +3,7 @@ import io.hndrs.gradle.plugin.Developer
 import io.hndrs.gradle.plugin.License
 import io.hndrs.gradle.plugin.Organization
 import io.hndrs.gradle.plugin.Scm
+import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -77,7 +78,7 @@ allprojects {
 
     tasks.withType<Wrapper> {
         gradleVersion = "7.4.2"
-        // anything else
+        distributionType = DistributionType.ALL
     }
 
     apply {
