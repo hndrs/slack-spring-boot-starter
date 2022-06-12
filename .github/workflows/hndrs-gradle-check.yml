@@ -41,4 +41,4 @@ jobs:
           SLACK_APP_CLIENT_SECRET: test-clientSecret
           SLACK_APP_SIGNING_SECRET: test-signingSecret
         run: |
-          ./gradlew check --no-daemon
+          ./gradlew check --no-daemon --warn
