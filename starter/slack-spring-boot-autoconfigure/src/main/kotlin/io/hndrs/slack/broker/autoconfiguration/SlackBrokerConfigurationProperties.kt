@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
  * Configuration properties with which you can customise the auto-configuration
  */
 @ConfigurationProperties(prefix = SlackBrokerConfigurationProperties.PROPERTY_PREFIX)
+//TODO use Constructor configs
 open class SlackBrokerConfigurationProperties {
 
     /**

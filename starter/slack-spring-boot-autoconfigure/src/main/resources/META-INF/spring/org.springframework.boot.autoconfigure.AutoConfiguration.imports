@@ -1,0 +1,3 @@
+io.hndrs.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration
+io.hndrs.slack.broker.autoconfiguration.TeamStoreAutoconfiguration
+io.hndrs.slack.broker.autoconfiguration.UserStoreAutoConfiguration

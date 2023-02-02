@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - removes docs project
 - removes guides project
 - adds [publishing info plugin](https://github.com/hndrs/gradle-publishing-info-plugin) for pom details
+- upgrade to spring boot 3.0.2
 - upgrade to kotlin 1.6.21
 - upgrade to Java 17
 - remove redundant qualifiers

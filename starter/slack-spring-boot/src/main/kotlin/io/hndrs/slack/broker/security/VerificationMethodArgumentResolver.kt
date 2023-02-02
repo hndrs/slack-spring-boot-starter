@@ -1,5 +1,6 @@
 package io.hndrs.slack.broker.security
 
+import jakarta.servlet.http.HttpServletRequest
 import org.apache.commons.codec.digest.HmacAlgorithms
 import org.apache.commons.codec.digest.HmacUtils
 import org.springframework.core.MethodParameter
@@ -12,7 +13,6 @@ import org.springframework.web.util.ContentCachingRequestWrapper
 import java.nio.charset.Charset
 import java.time.Duration
 import java.time.Instant
-import javax.servlet.http.HttpServletRequest
 
 /**
  * thrown when a request could not be verified

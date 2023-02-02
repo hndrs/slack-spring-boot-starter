@@ -88,7 +88,7 @@ allprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.7.0") {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:3.0.2") {
                 bomProperty("kotlin.version", "$kotlinVersion")
             }
         }
