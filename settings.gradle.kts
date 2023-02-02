@@ -22,7 +22,7 @@ pluginManagement {
         kotlin("kapt").version(kotlinVersion)
         id("maven-publish")
         id("idea")
-        id("org.jetbrains.dokka").version(kotlinVersion)
+        id("org.jetbrains.dokka").version("1.7.20")
         id("io.hndrs.publishing-info").version("2.0.0")
     }
     repositories {

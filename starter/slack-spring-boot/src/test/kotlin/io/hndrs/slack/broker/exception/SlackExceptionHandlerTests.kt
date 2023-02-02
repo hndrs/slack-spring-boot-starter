@@ -38,18 +38,18 @@ internal class SlackExceptionHandlerTests {
         @Test
         @DisplayName("IllegalArgumentException without JsonMapping Exception")
         fun illegalArgumentExceptionWithoutJson() {
-            val response = SlackExceptionHandler("TestResponse")
+            val response = SlackExceptionHandler()
                 .handleIllegalArgumentException(
                     IllegalArgumentException()
                 )
             Assertions.assertEquals(response.statusCode, HttpStatus.OK)
-            Assertions.assertEquals(response.body, "TestResponse")
+            Assertions.assertEquals(response.body, SlackExceptionHandler.INTERNAL_ERROR_RESPONSE)
         }
 
         @Test
         @DisplayName("VerificationException")
         fun verificationException() {
-            val response = SlackExceptionHandler("TestResponse")
+            val response = SlackExceptionHandler()
                 .handleVerificationException(VerificationException("Unverified"))
 
             Assertions.assertEquals(response.statusCode, HttpStatus.UNAUTHORIZED)
@@ -59,11 +59,11 @@ internal class SlackExceptionHandlerTests {
         @Test
         @DisplayName("RuntimeException")
         fun runtimeException() {
-            val response = SlackExceptionHandler("TestResponse")
+            val response = SlackExceptionHandler()
                 .handleExceptionInternal(RuntimeException())
 
             Assertions.assertEquals(response.statusCode, HttpStatus.OK)
-            Assertions.assertEquals(response.body, "TestResponse")
+            Assertions.assertEquals(response.body, SlackExceptionHandler.INTERNAL_ERROR_RESPONSE)
         }
 
     }
@@ -73,8 +73,6 @@ internal class SlackExceptionHandlerTests {
     @DisplayName("Integration")
     internal class Integration {
 
-
-        private val testResponse = "TestResponse"
         private val inMemoryTeamStore = InMemoryTeamStore()
 
         init {
@@ -87,7 +85,7 @@ internal class SlackExceptionHandlerTests {
         fun verificationException() {
             val verificationException = VerificationException("")
             val mockMvc = MockMvcBuilders
-                .standaloneSetup(commandBroker(verificationException), SlackExceptionHandler(testResponse))
+                .standaloneSetup(commandBroker(verificationException), SlackExceptionHandler())
                 .setCustomArgumentResolvers(SlashCommandArgumentResolver("1"))
                 .build()
 
@@ -116,7 +114,7 @@ internal class SlackExceptionHandlerTests {
         fun unknownException() {
             val runtimeException = RuntimeException()
             val mockMvc = MockMvcBuilders
-                .standaloneSetup(commandBroker(runtimeException), SlackExceptionHandler(testResponse))
+                .standaloneSetup(commandBroker(runtimeException), SlackExceptionHandler())
                 .setCustomArgumentResolvers(SlashCommandArgumentResolver("1"))
                 .build()
 
@@ -136,7 +134,7 @@ internal class SlackExceptionHandlerTests {
             )
                 .andExpect {
                     Assertions.assertEquals(HttpStatus.OK.value(), it.response.status)
-                    Assertions.assertEquals(testResponse, it.response.contentAsString)
+                    Assertions.assertEquals(SlackExceptionHandler.INTERNAL_ERROR_RESPONSE, it.response.contentAsString)
                 }
 
         }

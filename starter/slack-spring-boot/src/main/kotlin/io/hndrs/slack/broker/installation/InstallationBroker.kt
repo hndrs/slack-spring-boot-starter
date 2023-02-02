@@ -47,6 +47,7 @@ class InstallationBroker constructor(
                     try {
                         receiver.onInstallation(team, slack.methods(team.accessToken, team.teamId))
                     } catch (e: Exception) {
+                        LOG.error("Execution of {} failed", receiver::class.simpleName, e)
                     }
                 }
             RedirectView(this.config.successRedirectUrl)

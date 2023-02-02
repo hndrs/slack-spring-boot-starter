@@ -39,8 +39,6 @@ interface UserStore {
  * creates a [User] object out of a [Member]
  */
 fun userOfMember(member: com.slack.api.model.User): User {
-
-
     return User(
         member.id,
         member.teamId,
@@ -57,7 +55,7 @@ fun userOfMember(member: com.slack.api.model.User): User {
             member.profile.displayNameNormalized, member.profile.statusText,
             member.profile.statusEmoji, member.profile.statusExpiration.toInt(), member.profile.avatarHash,
             member.profile.isAlwaysActive, member.profile.imageOriginal, member.profile.email,
-            member.profile.firstName, member.profile.lastName, member.profile.image24, member.profile.image32,
+            member.profile.image24, member.profile.image32,
             member.profile.image48, member.profile.image72, member.profile.image192, member.profile.image512,
             member.profile.image1024, member.profile.statusTextCanonical, member.profile.team
         ),
@@ -106,8 +104,6 @@ fun userOfLocalUser(localUser: FileUserStore.LocalUser): User {
             localUser.profile.alwaysActive,
             localUser.profile.imageOriginal,
             localUser.profile.email,
-            localUser.profile.firstName,
-            localUser.profile.lastName,
             localUser.profile.image24,
             localUser.profile.image32,
             localUser.profile.image48,
@@ -184,8 +180,6 @@ data class User(
         val alwaysActive: Boolean,
         val imageOriginal: String?,
         val email: String?,
-        val firstName: String?,
-        val lastName: String?,
         val image24: String?,
         val image32: String?,
         val image48: String?,

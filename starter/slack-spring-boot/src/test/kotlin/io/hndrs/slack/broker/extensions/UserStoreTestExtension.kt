@@ -14,7 +14,7 @@ fun User.Companion.sample(): User {
         "",
         "",
         0,
-        User.UserProfile("", "", "", "", "", "", "", "", "", 0, "", false, "", "", "", "", "", "", "", "", "", "", "", "", ""),
+        User.UserProfile("", "", "", "", "", "", "", "", "", 0, "", false, "", "", "", "", "", "", "", "", "", "", ""),
         isAdmin = false,
         isOwner = false,
         isPrimaryOwner = false,

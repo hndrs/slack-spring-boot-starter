@@ -11,11 +11,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - removes guides project
 - adds [publishing info plugin](https://github.com/hndrs/gradle-publishing-info-plugin) for pom details
 - upgrade to spring boot 3.0.2
-- upgrade to kotlin 1.6.21
+- upgrade to kotlin 1.7.21 (going to 1.8.0 when detekt 1.23.x is released)
 - upgrade to Java 17
 - remove redundant qualifiers
 - changes postEphemeral.asUser default value to `null`
 - changes postEphemeral.linkNames default value to `null`
+- refactored autoconfiguration classes (single responsibility)
 
 ## [3.0.0]
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
  * @property errorResponse
  */
 @ControllerAdvice(assignableTypes = [CommandBroker::class, EventBroker::class])
-class SlackExceptionHandler(private val errorResponse: String) {
+class SlackExceptionHandler() {
 
     /**
      * Handles [IllegalArgumentException]s
@@ -47,10 +47,11 @@ class SlackExceptionHandler(private val errorResponse: String) {
     @ExceptionHandler(Exception::class)
     fun handleExceptionInternal(ex: Exception): ResponseEntity<Any> {
         LOG.error("Unhandled Exception:", ex)
-        return ResponseEntity.ok(errorResponse)
+        return ResponseEntity.ok(INTERNAL_ERROR_RESPONSE)
     }
 
     companion object {
         private val LOG = LoggerFactory.getLogger(SlackExceptionHandler::class.java)
+        const val INTERNAL_ERROR_RESPONSE = "Something went wrong please try again later"
     }
 }

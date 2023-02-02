@@ -12,12 +12,13 @@ class InstallationAutoConfigurationTests {
 
     private val contextRunner = TestApplicationContext.base()
         .withSystemProperties(
-            "slack.installation.error-redirect-url:http://localhost:8080/installation/error",
-            "slack.installation.success-redirect-url:http://localhost:8080/installation/success"
+            "slack.installation-endpoint.error-redirect-url:http://localhost:8080/installation/error",
+            "slack.installation-endpoint.success-redirect-url:http://localhost:8080/installation/success"
         )
         .withConfiguration(
             AutoConfigurations.of(
-                SlackBrokerAutoConfiguration::class.java,
+                BaseAutoConfiguration::class.java,
+                InstallationEndpointAutoConfiguration::class.java,
                 TeamStoreAutoconfiguration::class.java,
                 WebMvcAutoConfiguration::class.java
             )

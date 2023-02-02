@@ -194,12 +194,6 @@ class FileUserStore : UserStore {
             @field:JsonProperty("email")
             @get:JsonProperty("email")
             val email: String?,
-            @field:JsonProperty("first_name")
-            @get:JsonProperty("first_name")
-            val firstName: String?,
-            @field:JsonProperty("last_name")
-            @get:JsonProperty("last_name")
-            val lastName: String?,
             @field:JsonProperty("image_24")
             @get:JsonProperty("image_24")
             val image24: String?,
@@ -248,8 +242,6 @@ class FileUserStore : UserStore {
                         userProfile.alwaysActive,
                         userProfile.imageOriginal,
                         userProfile.email,
-                        userProfile.firstName,
-                        userProfile.lastName,
                         userProfile.image24,
                         userProfile.image32,
                         userProfile.image48,

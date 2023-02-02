@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.boot.autoconfigure.AutoConfigurations
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -19,9 +18,7 @@ class CredentialsProviderAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
+                    BaseAutoConfiguration::class.java,
                 )
             )
             .run {
@@ -36,9 +33,7 @@ class CredentialsProviderAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
+                    BaseAutoConfiguration::class.java,
                 )
             )
             .withUserConfiguration(TestCredentialsProviderConfiguration::class.java)

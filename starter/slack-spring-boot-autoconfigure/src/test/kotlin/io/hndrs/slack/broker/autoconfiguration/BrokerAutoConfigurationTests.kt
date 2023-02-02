@@ -30,6 +30,7 @@ class BrokerAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
@@ -54,9 +55,7 @@ class BrokerAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
+                    BaseAutoConfiguration::class.java,
                 )
             )
             .run {
@@ -67,9 +66,7 @@ class BrokerAutoConfigurationTests {
             .withSystemProperties("slack.logging.enabled:false")
             .withConfiguration(
                 AutoConfigurations.of(
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
+                    BaseAutoConfiguration::class.java,
                 )
             )
             .run {
@@ -80,9 +77,7 @@ class BrokerAutoConfigurationTests {
             .withSystemProperties("slack.logging.enabled:true")
             .withConfiguration(
                 AutoConfigurations.of(
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
+                    BaseAutoConfiguration::class.java,
                 )
             )
             .run {
@@ -96,6 +91,7 @@ class BrokerAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
@@ -109,6 +105,7 @@ class BrokerAutoConfigurationTests {
             .withSystemProperties("slack.commands.mismatch.enabled:false")
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
@@ -122,6 +119,7 @@ class BrokerAutoConfigurationTests {
             .withSystemProperties("slack.commands.mismatch.enabled:true")
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
@@ -139,6 +137,7 @@ class BrokerAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
@@ -155,9 +154,7 @@ class BrokerAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
+                    BaseAutoConfiguration::class.java,
                 )
             )
             .run {
@@ -172,6 +169,7 @@ class BrokerAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java

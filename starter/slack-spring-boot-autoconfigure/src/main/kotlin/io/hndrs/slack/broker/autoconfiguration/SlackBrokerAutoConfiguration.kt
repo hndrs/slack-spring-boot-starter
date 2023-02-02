@@ -2,25 +2,19 @@ package io.hndrs.slack.broker.autoconfiguration
 
 import com.slack.api.Slack
 import io.hndrs.slack.broker.autoconfiguration.credentials.CredentialsProvider
-import io.hndrs.slack.broker.autoconfiguration.credentials.DefaultCredentialsProviderChain
 import io.hndrs.slack.broker.command.CommandBroker
 import io.hndrs.slack.broker.command.SlashCommandArgumentResolver
 import io.hndrs.slack.broker.event.http.EventArgumentResolver
 import io.hndrs.slack.broker.event.http.EventBroker
-import io.hndrs.slack.broker.exception.SlackExceptionHandler
-import io.hndrs.slack.broker.installation.InstallationBroker
 import io.hndrs.slack.broker.receiver.CommandNotFoundReceiver
 import io.hndrs.slack.broker.receiver.EventReceiver
-import io.hndrs.slack.broker.receiver.InstallationReceiver
 import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
-import io.hndrs.slack.broker.receiver.SL4JLoggingReceiver
 import io.hndrs.slack.broker.receiver.SlashCommandReceiver
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.event.InMemoryEventStore
 import io.hndrs.slack.broker.store.team.TeamStore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -96,22 +90,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         }
 
         /**
-         * Registers a logging receiver that logs all incoming requests
-         * Can be turned off by setting [SlackBrokerConfigurationProperties.LOGGING_PROPERTY_PREFIX].enabled to [false]
-         * @return
-         */
-        @ConditionalOnProperty(
-            prefix = SlackBrokerConfigurationProperties.LOGGING_PROPERTY_PREFIX,
-            name = ["enabled"],
-            havingValue = "true",
-            matchIfMissing = true
-        )
-        @Bean
-        open fun sL4JLoggingReceiver(): SL4JLoggingReceiver {
-            return SL4JLoggingReceiver()
-        }
-
-        /**
          * Registers a [MismatchCommandReceiver] that responds to unknown commands
          */
         @ConditionalOnMissingBean
@@ -127,78 +105,4 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         }
     }
 
-    /**
-     * Auto-configuration that registers the [InstallationReceiver]s
-     *
-     * @property configuration The Configuration properties with which you can customise the auto-configuration
-     */
-    @Configuration
-    open class InstallationAutoConfiguration(private val configuration: SlackBrokerConfigurationProperties) {
-
-        /**
-         * Registers the InstallationBroker if error-redirect-url and success-redirect-url are set
-         */
-        @ConditionalOnProperty(
-            prefix = SlackBrokerConfigurationProperties.Companion.INSTALLATION_PROPERTY_PREFIX,
-            name = ["error-redirect-url", "success-redirect-url"]
-        )
-        @Bean
-        open fun installationBroker(
-            installationReceivers: List<InstallationReceiver>,
-            teamStore: TeamStore,
-            slackClient: Slack,
-            credentialsProvider: CredentialsProvider,
-        ): InstallationBroker {
-
-            val installation = this.configuration.installation
-            val applicationCredentials = credentialsProvider.applicationCredentials()
-
-            return InstallationBroker(
-                installationReceivers,
-                teamStore,
-                InstallationBroker.Config(
-                    applicationCredentials.clientId,
-                    applicationCredentials.clientSecret,
-                    installation.successRedirectUrl,
-                    installation.errorRedirectUrl
-                ),
-                slackClient,
-            )
-        }
-    }
-
-    /**
-     * Registers a [SpringSlackClient] if no different client is registered
-     */
-    @ConditionalOnMissingBean
-    @Bean
-    open fun slackClient(): Slack {
-        return Slack.getInstance()
-    }
-
-    /**
-     * Registers the [SlackExceptionHandler]
-     */
-    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-    @Bean
-    open fun slackExceptionHandler(): SlackExceptionHandler {
-        return SlackExceptionHandler(configuration.application.errorResponse)
-    }
-
-    /**
-     * Registers a default credentials-provider chain if no different one is registered
-     */
-    @ConditionalOnMissingBean
-    @Bean
-    open fun slackCredentialsProvider(): CredentialsProvider {
-        return DefaultCredentialsProviderChain()
-    }
-
-    /**
-     * Registers the [EvaluationReport]
-     */
-    @Bean
-    open fun slackEvaluationReport(): io.hndrs.slack.broker.autoconfiguration.EvaluationReport {
-        return io.hndrs.slack.broker.autoconfiguration.EvaluationReport()
-    }
 }

@@ -19,6 +19,7 @@ class EventStoreAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
@@ -37,6 +38,7 @@ class EventStoreAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java

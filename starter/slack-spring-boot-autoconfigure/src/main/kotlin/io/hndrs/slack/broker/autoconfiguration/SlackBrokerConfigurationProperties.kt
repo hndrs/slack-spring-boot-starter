@@ -8,10 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties
  */
 @ConfigurationProperties(prefix = SlackBrokerConfigurationProperties.PROPERTY_PREFIX)
 data class SlackBrokerConfigurationProperties(
-    /**
-    Group that contains installation feature related configurations
-     */
-    val installation: Installation,
     val logging: Logging = Logging(),
     val application: Application = Application(),
     val commands: Commands = Commands(),
@@ -59,10 +55,8 @@ data class SlackBrokerConfigurationProperties(
 
     companion object {
         const val PROPERTY_PREFIX = "slack"
-        const val INSTALLATION_PROPERTY_PREFIX = "$PROPERTY_PREFIX.installation"
         const val LOGGING_PROPERTY_PREFIX = "$PROPERTY_PREFIX.logging"
         const val COMMANDS_PROPERTY_PREFIX = "$PROPERTY_PREFIX.commands"
         const val MISMATCH_PROPERTY_PREFIX = "$COMMANDS_PROPERTY_PREFIX.mismatch"
-        const val STORE_PREFIX = "$PROPERTY_PREFIX.store"
     }
 }
