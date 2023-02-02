@@ -1,119 +1,79 @@
 package io.hndrs.slack.broker.autoconfiguration
 
 import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.context.properties.bind.ConstructorBinding
+
 
 /**
  * Configuration properties with which you can customise the auto-configuration
  */
 @ConfigurationProperties(prefix = SlackBrokerConfigurationProperties.PROPERTY_PREFIX)
-//TODO use Constructor configs
-open class SlackBrokerConfigurationProperties {
-
+data class SlackBrokerConfigurationProperties @ConstructorBinding constructor(
     /**
     Group that contains installation feature related configurations
      */
-
-
-    var installation: Installation = Installation()
-
-    var logging: Logging = Logging()
-
-    var application: Application = Application()
-
-    var commands: Commands = Commands()
-
-    var store: Store = Store()
-
-    /**
-     * Installation-properties containing the redirect-urls after an installation
-     */
-    open class Installation {
+    val installation: Installation,
+    val logging: Logging = Logging(),
+    val application: Application = Application(),
+    val commands: Commands = Commands(),
+    val store: Store = Store(),
+) {
+    data class Installation(
 
         /**
         redirect url that is used when an installation is successful
          */
-        lateinit var successRedirectUrl: String
+        val successRedirectUrl: String,
 
         /**
         redirect url that is used when there is an error during the installation
          */
-        lateinit var errorRedirectUrl: String
+        val errorRedirectUrl: String,
+    )
 
-    }
-
-    /**
-     * Application properties
-     */
-    open class Application {
-
-        /**
-         * Contains the response which is sent when an error occurs
-         */
-        var errorResponse: String = "Sorry i am having troubles right now"
-    }
-
-    /**
-     * Logging properties which are used to customise the logging receiver
-     */
-    open class Logging {
-
+    data class Logging(
         /**
         Enables Logging receiver [io.hndrs.slack.broker.receiver.SL4JLoggingReceiver]
          */
-        lateinit var enabled: String
-    }
+        val enabled: Boolean = true,
+    )
 
-    /**
-     * Command properties which are used to customise command-behaviour
-     */
-    open class Commands {
-
-        var mismatch: Mismatch = Mismatch()
-
+    data class Application(
         /**
-         * MismatchReceiver that responds with a default error message when no Command was found
-         *
+         * Contains the response which is sent when an error occurs
          */
-        open class Mismatch {
+        val errorResponse: String = "Sorry i am having troubles right now",
+    )
+
+    data class Commands(
+        val mismatch: Mismatch = Mismatch(),
+    ) {
+        data class Mismatch(
 
             /**
             Enables Logging receiver [io.hndrs.slack.broker.receiver.CommandNotFoundReceiver]
              */
-            lateinit var enabled: String
+            val enabled: Boolean = false,
 
-            var text: String = "I am sorry i was not able to understand this"
-        }
+            val text: String = "I am sorry i was not able to understand this",
+        )
     }
 
-    /**
-     * Store properties which are used to customise the stores
-     */
-    open class Store {
-        var team = Team()
-        var user = User()
+    data class Store(
+        val team: Team = Team(),
+        val user: User = User(),
+    ) {
+        data class Team(
+            val type: Type = Type.MEMORY,
+        )
 
-        /**
-         * Team-store property
-         */
-        open class Team {
-            lateinit var type: Type
-        }
+        data class User(
+            val type: Type = Type.MEMORY,
+        )
 
-        /**
-         * User-store property
-         */
-        open class User {
-            lateinit var type: Type
-        }
-
-
-        /**
-         * StorageType of a Store
-         */
         enum class Type {
             MEMORY, FILE
         }
-
     }
 
     companion object {
