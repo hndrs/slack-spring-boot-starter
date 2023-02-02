@@ -40,14 +40,15 @@ class CommandBroker constructor(
             .filter { it.supportsCommand(slashCommand) }
             .sortedBy { it.order() }
             .ifEmpty {
+                //TODO figure out how to deal with mismatching commands when SL4J logger is active
                 mismatchCommandReceiver?.onMismatchedSlashCommand(slashCommand, headers, team, slack.methods(team))
                 listOf()
             }
-            .forEach { broker ->
+            .forEach { commandReceiver ->
                 try {
-                    broker.onSlashCommand(slashCommand, headers, team)
+                    commandReceiver.onSlashCommand(slashCommand, headers, team)
                 } catch (e: Exception) {
-                    if (broker.shouldThrowException(e)) {
+                    if (commandReceiver.shouldThrowException(e)) {
                         throw e
                     }
                 }
