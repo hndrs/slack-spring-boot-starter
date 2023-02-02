@@ -2,6 +2,7 @@ package io.hndrs.slack.broker.security
 
 import io.mockk.every
 import io.mockk.mockk
+import jakarta.servlet.http.HttpServletRequest
 import org.apache.commons.codec.digest.HmacAlgorithms
 import org.apache.commons.codec.digest.HmacUtils
 import org.junit.jupiter.api.Assertions
@@ -15,7 +16,6 @@ import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.util.ContentCachingRequestWrapper
 import java.time.Duration
 import java.time.Instant
-import javax.servlet.http.HttpServletRequest
 
 internal class VerificationArgumentResolverTests {
 

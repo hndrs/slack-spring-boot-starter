@@ -56,7 +56,7 @@ object RequestTestUtils {
         mockRequest.setContent(body.toByteArray(Charset.forName("UTF-8")))
         mockRequest.setParameters(toSupportedParameterMap(params))
         mockRequest.contentType = MediaType.APPLICATION_FORM_URLENCODED_VALUE
-        mockRequest.method = HttpMethod.POST.name
+        mockRequest.method = HttpMethod.POST.name()
         mockRequest.characterEncoding = "UTF-8"
 
         return mockk {

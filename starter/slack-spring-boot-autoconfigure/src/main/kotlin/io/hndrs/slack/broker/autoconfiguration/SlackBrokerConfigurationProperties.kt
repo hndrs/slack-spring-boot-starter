@@ -1,14 +1,13 @@
 package io.hndrs.slack.broker.autoconfiguration
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.bind.ConstructorBinding
 
 
 /**
  * Configuration properties with which you can customise the auto-configuration
  */
 @ConfigurationProperties(prefix = SlackBrokerConfigurationProperties.PROPERTY_PREFIX)
-data class SlackBrokerConfigurationProperties @ConstructorBinding constructor(
+data class SlackBrokerConfigurationProperties(
     /**
     Group that contains installation feature related configurations
      */
@@ -16,7 +15,6 @@ data class SlackBrokerConfigurationProperties @ConstructorBinding constructor(
     val logging: Logging = Logging(),
     val application: Application = Application(),
     val commands: Commands = Commands(),
-    val store: Store = Store(),
 ) {
     data class Installation(
 
@@ -59,23 +57,6 @@ data class SlackBrokerConfigurationProperties @ConstructorBinding constructor(
         )
     }
 
-    data class Store(
-        val team: Team = Team(),
-        val user: User = User(),
-    ) {
-        data class Team(
-            val type: Type = Type.MEMORY,
-        )
-
-        data class User(
-            val type: Type = Type.MEMORY,
-        )
-
-        enum class Type {
-            MEMORY, FILE
-        }
-    }
-
     companion object {
         const val PROPERTY_PREFIX = "slack"
         const val INSTALLATION_PROPERTY_PREFIX = "$PROPERTY_PREFIX.installation"
@@ -83,7 +64,5 @@ data class SlackBrokerConfigurationProperties @ConstructorBinding constructor(
         const val COMMANDS_PROPERTY_PREFIX = "$PROPERTY_PREFIX.commands"
         const val MISMATCH_PROPERTY_PREFIX = "$COMMANDS_PROPERTY_PREFIX.mismatch"
         const val STORE_PREFIX = "$PROPERTY_PREFIX.store"
-        const val TEAM_STORE = "$STORE_PREFIX.team"
-        const val USER_STORE = "$STORE_PREFIX.user"
     }
 }
