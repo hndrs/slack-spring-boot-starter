@@ -17,6 +17,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - changes postEphemeral.asUser default value to `null`
 - changes postEphemeral.linkNames default value to `null`
 - refactored autoconfiguration classes (single responsibility)
+- removes event metrics feature
 
 ## [3.0.0]
 
