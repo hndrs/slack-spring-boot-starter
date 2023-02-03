@@ -93,7 +93,6 @@ class TeamStoreAutoConfigurationTests {
             }
     }
 
-
     @Configuration
     open class TestConfiguration {
 
@@ -103,12 +102,16 @@ class TeamStoreAutoConfigurationTests {
 
     class TestTeamStore : TeamStore {
 
-        override fun findById(id: String): Team = throw NotImplementedError()
+        override fun findById(id: String): Team {
+            throw NotImplementedError()
+        }
 
-        override fun put(team: Team) {}
+        override fun put(team: Team) {
+            // stub
+        }
 
-        override fun removeById(id: String) {}
-
+        override fun removeById(id: String) {
+            // stub
+        }
     }
-
 }

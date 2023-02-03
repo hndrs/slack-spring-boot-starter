@@ -18,9 +18,8 @@ class CredentialsFailureAnalyzer : AbstractFailureAnalyzer<BeanInstantiationExce
     }
 
     companion object {
-        private val DESCRIPTION = "Could not resolve slack app credentials"
+        private const val DESCRIPTION = "Could not resolve slack app credentials"
 
-        //TODO add documentation url here
-        private val ACTION = "Consider setting the credentials"
+        private const val ACTION = "Consider setting the credentials"
     }
 }

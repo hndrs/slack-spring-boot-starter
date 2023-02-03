@@ -1,11 +1,10 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.api.contract.jackson.InteractiveMessage
-import io.hndrs.slack.api.contract.jackson.SlackCommand
-import io.hndrs.slack.api.contract.jackson.event.SlackEvent
+import com.slack.api.methods.MethodsClient
+import io.hndrs.slack.broker.command.SlashCommand
+import io.hndrs.slack.broker.event.SlackEvent
 import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.receiver.InstallationReceiver
-import io.hndrs.slack.broker.receiver.InteractiveComponentReceiver
 import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
 import io.hndrs.slack.broker.receiver.SL4JLoggingReceiver
 import io.hndrs.slack.broker.receiver.SlashCommandReceiver
@@ -30,9 +29,9 @@ class EvaluationReportConfigurationTests {
     @Test
     fun evalReportRegistration() {
         TestApplicationContext.base()
-            .withConfiguration(AutoConfigurations.of(io.hndrs.slack.broker.autoconfiguration.EvaluationReport::class.java))
+            .withConfiguration(AutoConfigurations.of(EvaluationReport::class.java))
             .run {
-                Assertions.assertDoesNotThrow { it.getBean(io.hndrs.slack.broker.autoconfiguration.EvaluationReport::class.java) }
+                Assertions.assertDoesNotThrow { it.getBean(EvaluationReport::class.java) }
             }
     }
 
@@ -40,15 +39,13 @@ class EvaluationReportConfigurationTests {
     @Test
     fun customEvalReportTest() {
         TestApplicationContext.base()
-            .withConfiguration(AutoConfigurations.of(io.hndrs.slack.broker.autoconfiguration.EvaluationReport::class.java))
+            .withConfiguration(AutoConfigurations.of(EvaluationReport::class.java))
             .withUserConfiguration(TestConfiguration::class.java)
             .run {
                 val evaluationReport =
-                    it.getBean(io.hndrs.slack.broker.autoconfiguration.EvaluationReport::class.java)
+                    it.getBean(EvaluationReport::class.java)
                         .buildEvaluationReport(it)
                 assertThat(evaluationReport, containsString("testEventReceiver"))
-                assertThat(evaluationReport, containsString("testInteractiveComponentReceiver"))
-                assertThat(evaluationReport, containsString("testInteractiveComponentReceiver"))
                 assertThat(evaluationReport, containsString("testSlashCommandReceiver"))
                 assertThat(evaluationReport, containsString("testLoggingReceiver"))
                 assertThat(evaluationReport, containsString("testMismatchCommandReceiver"))
@@ -59,28 +56,32 @@ class EvaluationReportConfigurationTests {
     @Test
     fun evaluationReportDefaultBeans() {
         TestApplicationContext.base()
-            .withConfiguration(AutoConfigurations.of(io.hndrs.slack.broker.autoconfiguration.EvaluationReport::class.java))
+            .withConfiguration(AutoConfigurations.of(EvaluationReport::class.java))
             .withUserConfiguration(DefaultEventStoreConfiguration::class.java)
             .run {
                 val evaluationReport =
-                    it.getBean(io.hndrs.slack.broker.autoconfiguration.EvaluationReport::class.java)
+                    it.getBean(EvaluationReport::class.java)
                         .buildEvaluationReport(it)
                 assertThat(
                     evaluationReport,
-                    containsString("Default version of ${InMemoryEventStore::class.simpleName} is registered, this is not recommended for production")
+                    containsString(
+                        "Default version of ${InMemoryEventStore::class.simpleName} is registered, this is not recommended for production"
+                    )
                 )
             }
 
         TestApplicationContext.base()
-            .withConfiguration(AutoConfigurations.of(io.hndrs.slack.broker.autoconfiguration.EvaluationReport::class.java))
+            .withConfiguration(AutoConfigurations.of(EvaluationReport::class.java))
             .withUserConfiguration(DefaultTeamStoreConfiguration::class.java)
             .run {
                 val evaluationReport =
-                    it.getBean(io.hndrs.slack.broker.autoconfiguration.EvaluationReport::class.java)
+                    it.getBean(EvaluationReport::class.java)
                         .buildEvaluationReport(it)
                 assertThat(
                     evaluationReport,
-                    containsString("Default version of ${InMemoryTeamStore::class.simpleName} is registered, this is not recommended for production")
+                    containsString(
+                        "Default version of ${InMemoryTeamStore::class.simpleName} is registered, this is not recommended for production"
+                    )
                 )
             }
     }
@@ -90,28 +91,23 @@ class EvaluationReportConfigurationTests {
 
         @Bean
         open fun testEventReceiver() = object : EventReceiver {
-            override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {}
+            override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
+                // stub
+            }
         }
 
         @Bean
         open fun testInstallationReceiver(): InstallationReceiver = object : InstallationReceiver {
-            override fun onReceiveInstallation(code: String, state: String, team: Team) {}
+            override fun onInstallation(team: Team) {
+                // stub
+            }
         }
 
         @Bean
-        open fun testInteractiveComponentReceiver(): InteractiveComponentReceiver<InteractiveMessage> =
-            object : InteractiveComponentReceiver<InteractiveMessage> {
-                override fun onReceiveInteractiveMessage(
-                    interactiveComponentResponse: InteractiveMessage,
-                    headers: HttpHeaders,
-                    team: Team
-                ) {
-                }
-            }
-
-        @Bean
         open fun testSlashCommandReceiver(): SlashCommandReceiver = object : SlashCommandReceiver {
-            override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {}
+            override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {
+                // stub
+            }
         }
 
         @Bean
@@ -119,7 +115,14 @@ class EvaluationReportConfigurationTests {
 
         @Bean
         open fun testMismatchCommandReceiver(): MismatchCommandReceiver = object : MismatchCommandReceiver {
-            override fun onReceiveSlashCommand(slackCommand: SlackCommand, headers: HttpHeaders, team: Team) {}
+            override fun onMismatchedSlashCommand(
+                slashCommand: SlashCommand,
+                headers: HttpHeaders,
+                team: Team,
+                methods: MethodsClient,
+            ) {
+                // stub
+            }
         }
     }
 
@@ -136,5 +139,4 @@ class EvaluationReportConfigurationTests {
         @Bean
         open fun eventStore(): EventStore = InMemoryEventStore()
     }
-
 }

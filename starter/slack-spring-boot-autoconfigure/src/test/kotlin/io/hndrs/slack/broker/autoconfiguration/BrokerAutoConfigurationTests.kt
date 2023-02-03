@@ -1,10 +1,9 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.broker.broker.CommandBroker
-import io.hndrs.slack.broker.broker.EventBroker
-import io.hndrs.slack.broker.configuration.EventArgumentResolver
-import io.hndrs.slack.broker.configuration.InteractiveResponseArgumentResolver
-import io.hndrs.slack.broker.configuration.SlackCommandArgumentResolver
+import io.hndrs.slack.broker.command.CommandBroker
+import io.hndrs.slack.broker.command.SlashCommandArgumentResolver
+import io.hndrs.slack.broker.event.http.EventArgumentResolver
+import io.hndrs.slack.broker.event.http.EventBroker
 import io.hndrs.slack.broker.exception.SlackExceptionHandler
 import io.hndrs.slack.broker.receiver.CommandNotFoundReceiver
 import io.hndrs.slack.broker.receiver.SL4JLoggingReceiver
@@ -21,7 +20,6 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
-
 @DisplayName("AutoConfiguration Tests")
 class BrokerAutoConfigurationTests {
 
@@ -31,6 +29,7 @@ class BrokerAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
@@ -39,15 +38,16 @@ class BrokerAutoConfigurationTests {
             .run {
                 val listOf = ArrayList<HandlerMethodArgumentResolver>()
                 val bean =
-                    it.getBean<WebMvcConfigurer>("io.hndrs.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration\$BrokerAutoConfiguration")
+                    it.getBean<WebMvcConfigurer>(
+                        "io.hndrs.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration\$BrokerAutoConfiguration"
+                    )
 
                 bean.addArgumentResolvers(listOf)
-                assertTrue(listOf[0] is SlackCommandArgumentResolver)
-                assertTrue(listOf[1] is InteractiveResponseArgumentResolver)
-                assertTrue(listOf[2] is EventArgumentResolver)
+                assertTrue(listOf[0] is SlashCommandArgumentResolver)
+                assertTrue(listOf[1] is EventArgumentResolver)
+                // assertTrue(listOf[1] is InteractiveResponseArgumentResolver)
             }
     }
-
 
     @DisplayName("SL4JLoggingReceiver Registration")
     @Test
@@ -55,9 +55,7 @@ class BrokerAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
+                    BaseAutoConfiguration::class.java,
                 )
             )
             .run {
@@ -68,9 +66,7 @@ class BrokerAutoConfigurationTests {
             .withSystemProperties("slack.logging.enabled:false")
             .withConfiguration(
                 AutoConfigurations.of(
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
+                    BaseAutoConfiguration::class.java,
                 )
             )
             .run {
@@ -81,9 +77,7 @@ class BrokerAutoConfigurationTests {
             .withSystemProperties("slack.logging.enabled:true")
             .withConfiguration(
                 AutoConfigurations.of(
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
+                    BaseAutoConfiguration::class.java,
                 )
             )
             .run {
@@ -97,6 +91,7 @@ class BrokerAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
@@ -110,6 +105,7 @@ class BrokerAutoConfigurationTests {
             .withSystemProperties("slack.commands.mismatch.enabled:false")
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
@@ -123,6 +119,7 @@ class BrokerAutoConfigurationTests {
             .withSystemProperties("slack.commands.mismatch.enabled:true")
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
@@ -133,20 +130,20 @@ class BrokerAutoConfigurationTests {
             }
     }
 
-
     @DisplayName("CommandBroker Registration")
     @Test
     fun commandBrokerRegistration() {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java
                 )
             )
             .run {
-                assertDoesNotThrow { it.getBean(io.hndrs.slack.broker.broker.CommandBroker::class.java) }
+                assertDoesNotThrow { it.getBean(CommandBroker::class.java) }
             }
     }
 
@@ -156,9 +153,7 @@ class BrokerAutoConfigurationTests {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
+                    BaseAutoConfiguration::class.java,
                 )
             )
             .run {
@@ -166,13 +161,13 @@ class BrokerAutoConfigurationTests {
             }
     }
 
-
     @DisplayName("EventBroker Registration")
     @Test
     fun eventBrokerRegistration() {
         TestApplicationContext.base()
             .withConfiguration(
                 AutoConfigurations.of(
+                    BaseAutoConfiguration::class.java,
                     SlackBrokerAutoConfiguration::class.java,
                     TeamStoreAutoconfiguration::class.java,
                     WebMvcAutoConfiguration::class.java

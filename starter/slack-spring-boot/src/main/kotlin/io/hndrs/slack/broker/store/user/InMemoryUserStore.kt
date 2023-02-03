@@ -17,7 +17,6 @@ class InMemoryUserStore(private val inMemoryUsers: MutableMap<String, User> = mu
         users.forEach { user ->
             inMemoryUsers[user.id] = user
         }
-
     }
 
     override fun update(newUser: User) {

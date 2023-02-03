@@ -1,8 +1,8 @@
 package io.hndrs.slack.broker
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
+import io.mockk.every
+import io.mockk.mockk
 import org.apache.commons.codec.digest.HmacAlgorithms
 import org.apache.commons.codec.digest.HmacUtils
 import org.springframework.core.MethodParameter
@@ -17,15 +17,23 @@ import java.time.Instant
 
 object RequestTestUtils {
 
-
     fun jsonBody(value: Any): String {
         val mapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()
         return mapper.writeValueAsString(value)
     }
 
     fun mockMethodParameter(clazz: Class<*>, annotationClass: Class<out Annotation>): MethodParameter {
-        val parameter = mock<MethodParameter> { on { it.getParameterAnnotation(annotationClass) } doReturn mock {} }
-        doReturn(clazz).`when`(parameter).parameterType
+        val parameter = mockk<MethodParameter> {
+            every { getParameterAnnotation(any<Class<Annotation>>()) } answers {
+                println(" i was here")
+                if (firstArg<Class<Annotation>>() == annotationClass) {
+                    return@answers mockk<Annotation>()
+                } else {
+                    null
+                }
+            }
+            every { parameterType } returns clazz
+        }
         return parameter
     }
 
@@ -35,10 +43,16 @@ object RequestTestUtils {
         mockRequest.addHeader("x-slack-signature", generatedHmacHex)
         mockRequest.addHeader("x-slack-request-timestamp", "${timestamp.epochSecond}")
         mockRequest.setContent(body.toByteArray(Charset.forName("UTF-8")))
-        return mock { on { it.nativeRequest } doReturn mockRequest }
+        return mockk {
+            every { nativeRequest } returns mockRequest
+        }
     }
 
-    fun mockNativeWebRequest(timestamp: Instant, signingSecret: String, params: Map<String, List<String>>): NativeWebRequest {
+    fun mockNativeWebRequest(
+        timestamp: Instant,
+        signingSecret: String,
+        params: Map<String, List<String>>,
+    ): NativeWebRequest {
         val mockRequest = MockHttpServletRequest()
         val body = toFormUrlEncodedString(params)
         val generatedHmacHex = generateHmacHex(body, timestamp, signingSecret)
@@ -47,10 +61,12 @@ object RequestTestUtils {
         mockRequest.setContent(body.toByteArray(Charset.forName("UTF-8")))
         mockRequest.setParameters(toSupportedParameterMap(params))
         mockRequest.contentType = MediaType.APPLICATION_FORM_URLENCODED_VALUE
-        mockRequest.method = HttpMethod.POST.name
+        mockRequest.method = HttpMethod.POST.name()
         mockRequest.characterEncoding = "UTF-8"
 
-        return mock { on { it.nativeRequest } doReturn mockRequest }
+        return mockk {
+            every { nativeRequest } returns mockRequest
+        }
     }
 
     fun toFormUrlString(params: Map<String, List<String>>): String {
@@ -58,16 +74,23 @@ object RequestTestUtils {
     }
 
     fun toFormUrlEncodedString(params: Map<String, List<String>>): String {
-        return params.flatMap { it.value.map { value -> "${URLEncoder.encode(it.key, "UTF8")}=${URLEncoder.encode(value, "UTF-8")}" } }.joinToString("&")
+        return params.flatMap {
+            it.value.map { value ->
+                "${URLEncoder.encode(it.key, "UTF8")}=${URLEncoder.encode(value, "UTF-8")}"
+            }
+        }.joinToString("&")
     }
-
 
     fun toSupportedParameterMap(params: Map<String, List<String>>): Map<String, Array<String>> {
         return params.entries.associate { it.key to it.value.toTypedArray() }
     }
 
     fun generateHmacHex(requestBody: String, timestamp: Instant, signingSecret: String): String {
-        return "v0=${HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex("v0:${timestamp.epochSecond}:$requestBody")}"
+        return "v0=${
+        HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex(
+            "v0:${timestamp.epochSecond}:$requestBody"
+        )
+        }"
     }
 
     annotation class TestAnnotation

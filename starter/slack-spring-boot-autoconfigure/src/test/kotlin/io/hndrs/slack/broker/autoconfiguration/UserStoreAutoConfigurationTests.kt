@@ -1,7 +1,6 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.api.SlackClient
-import io.hndrs.slack.api.spring.SpringSlackClient
+import com.slack.api.Slack
 import io.hndrs.slack.broker.store.user.FileUserStore
 import io.hndrs.slack.broker.store.user.InMemoryUserStore
 import io.hndrs.slack.broker.store.user.User
@@ -80,7 +79,11 @@ class UserStoreAutoConfigurationTests {
             )
             .run {
                 Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserStore::class.java) }
-                Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserInstallationReceiver::class.java) }
+                Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) {
+                    it.getBean(
+                        UserInstallationReceiver::class.java
+                    )
+                }
             }
     }
 
@@ -130,8 +133,8 @@ class UserStoreAutoConfigurationTests {
     @Configuration
     open class SlackConfiguration {
         @Bean
-        open fun slackClient(): io.hndrs.slack.api.SlackClient {
-            return io.hndrs.slack.api.spring.SpringSlackClient()
+        open fun slackClient(): Slack {
+            return Slack()
         }
     }
 
@@ -140,10 +143,12 @@ class UserStoreAutoConfigurationTests {
 
         override fun findById(id: String): User = throw NotImplementedError()
 
-        override fun put(vararg users: User) {}
+        override fun put(vararg users: User) {
+            // stub
+        }
 
-        override fun update(newUser: User) {}
-
+        override fun update(newUser: User) {
+            // stub
+        }
     }
-
 }

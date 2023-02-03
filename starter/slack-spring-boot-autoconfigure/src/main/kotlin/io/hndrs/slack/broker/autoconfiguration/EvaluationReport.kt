@@ -2,7 +2,6 @@ package io.hndrs.slack.broker.autoconfiguration
 
 import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.receiver.InstallationReceiver
-import io.hndrs.slack.broker.receiver.InteractiveComponentReceiver
 import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
 import io.hndrs.slack.broker.receiver.SlashCommandReceiver
 import io.hndrs.slack.broker.store.event.EventStore
@@ -10,6 +9,7 @@ import io.hndrs.slack.broker.store.event.InMemoryEventStore
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore
 import io.hndrs.slack.broker.store.team.TeamStore
 import io.hndrs.slack.broker.store.user.UserStore
+import org.slf4j.LoggerFactory
 import org.springframework.beans.BeansException
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationListener
@@ -34,9 +34,9 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
      */
     fun buildEvaluationReport(ctx: ApplicationContext): String {
         val sb = StringBuilder()
-        sb.appendln("+------------------------------------+")
-        sb.appendln("| REGISTERED SLACK BROKER COMPONENTS |")
-        sb.appendln("+------------------------------------+")
+        sb.appendLine("+------------------------------------+")
+        sb.appendLine("| REGISTERED SLACK BROKER COMPONENTS |")
+        sb.appendLine("+------------------------------------+")
 
         io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
             sb,
@@ -50,11 +50,6 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         )
         io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
             sb,
-            "Interactive Component Receivers",
-            ctx.getBeanNamesForType(InteractiveComponentReceiver::class.java)
-        )
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
-            sb,
             "Slash Command Receivers",
             ctx.getBeanNamesForType(SlashCommandReceiver::class.java)
         )
@@ -63,9 +58,21 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
             "Mismatch Command Receivers",
             ctx.getBeanNamesForType(MismatchCommandReceiver::class.java)
         )
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(sb, "Team Store", ctx.getBeanNamesForType(TeamStore::class.java))
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(sb, "User Store", ctx.getBeanNamesForType(UserStore::class.java))
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(sb, "Event Store", ctx.getBeanNamesForType(EventStore::class.java))
+        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+            sb,
+            "Team Store",
+            ctx.getBeanNamesForType(TeamStore::class.java)
+        )
+        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+            sb,
+            "User Store",
+            ctx.getBeanNamesForType(UserStore::class.java)
+        )
+        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+            sb,
+            "Event Store",
+            ctx.getBeanNamesForType(EventStore::class.java)
+        )
 
         io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.defaultChecks(
             ctx,
@@ -79,6 +86,8 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
 
     companion object {
 
+        private val LOGGER = LoggerFactory.getLogger(EvaluationReport::class.java)
+
         private fun addComponent(sb: StringBuilder, title: String, names: Array<out String>) {
             sb.appendLine("\n\n$title")
             sb.appendLine("------------------------------")
@@ -90,7 +99,7 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         private fun defaultChecks(
             ctx: ApplicationContext,
             sb: StringBuilder,
-            vararg checks: Pair<KClass<*>, KClass<*>>
+            vararg checks: Pair<KClass<*>, KClass<*>>,
         ) {
             sb.appendLine()
             sb.appendLine("Notes:")
@@ -98,16 +107,15 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
                 try {
                     val bean = ctx.getBean(it.first.java)
                     if (it.second.isInstance(bean)) {
-                        sb.appendLine("   - Default version of ${it.second.simpleName} is registered," +
-                                " this is not recommended for production")
+                        sb.appendLine(
+                            "   - Default version of ${it.second.simpleName} is registered," +
+                                " this is not recommended for production"
+                        )
                     }
                 } catch (e: BeansException) {
-                    //do nothing
+                    LOGGER.error("Error during default implementation check ", e)
                 }
             }
-
         }
-
     }
-
 }

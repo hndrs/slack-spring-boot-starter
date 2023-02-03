@@ -1,6 +1,6 @@
 package io.hndrs.slack.broker.store.event
 
-import io.hndrs.slack.api.contract.jackson.event.EventRequest
+import io.hndrs.slack.broker.event.EventRequest
 
 /**
  * Interface that is used to store received events
@@ -21,5 +21,4 @@ interface EventStore {
      * @param event the received event
      */
     fun put(event: EventRequest)
-
 }

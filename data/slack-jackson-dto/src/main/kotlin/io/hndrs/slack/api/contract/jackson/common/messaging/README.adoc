@@ -1,4 +1,0 @@
-= Message Payloads
-
-As referenced here https://api.slack.com/reference/messaging/payload
-

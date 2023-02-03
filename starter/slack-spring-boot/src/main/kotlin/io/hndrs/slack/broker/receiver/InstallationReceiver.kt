@@ -10,9 +10,8 @@ interface InstallationReceiver {
     /**
      * retrieves the installation-request
      *
-     * @param code the code with which you can obtain the oauth token
-     * @param state a state with which you can pass additional data
+     * @param methods already authorized methods client
      * @param team the team that requests the installation
      */
-    fun onReceiveInstallation(code: String, state: String, team: Team)
+    fun onInstallation(team: Team)
 }

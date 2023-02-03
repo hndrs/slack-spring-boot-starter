@@ -1,6 +1,5 @@
 package io.hndrs.slack.broker.store.user
 
-import io.hndrs.slack.api.contract.jackson.common.types.Member
 import java.time.Instant
 
 /**
@@ -39,7 +38,7 @@ interface UserStore {
 /**
  * creates a [User] object out of a [Member]
  */
-fun userOfMember(member: Member): User {
+fun userOfMember(member: com.slack.api.model.User): User {
     return User(
         member.id,
         member.teamId,
@@ -47,16 +46,16 @@ fun userOfMember(member: Member): User {
         member.isDeleted,
         member.color,
         member.realName,
-        member.timezone,
-        member.timezoneLabel,
-        member.timezoneOffset,
+        member.tz,
+        member.tzLabel,
+        member.tzOffset,
         User.UserProfile(
             member.profile.title, member.profile.phone, member.profile.skype,
             member.profile.realName, member.profile.realNameNormalized, member.profile.displayName,
-            member.profile.displayNameNormalized, member.profile.fields, member.profile.statusText,
-            member.profile.statusEmoji, member.profile.statusExpiration, member.profile.avatarHash,
-            member.profile.alwaysActive, member.profile.imageOriginal, member.profile.email,
-            member.profile.firstName, member.profile.lastName, member.profile.image24, member.profile.image32,
+            member.profile.displayNameNormalized, member.profile.statusText,
+            member.profile.statusEmoji, member.profile.statusExpiration.toInt(), member.profile.avatarHash,
+            member.profile.isAlwaysActive, member.profile.imageOriginal, member.profile.email,
+            member.profile.image24, member.profile.image32,
             member.profile.image48, member.profile.image72, member.profile.image192, member.profile.image512,
             member.profile.image1024, member.profile.statusTextCanonical, member.profile.team
         ),
@@ -66,9 +65,9 @@ fun userOfMember(member: Member): User {
         member.isRestricted,
         member.isUltraRestricted,
         member.isBot,
-        member.lastModifiedAt,
+        Instant.ofEpochSecond(member.updated),
         member.isAppUser,
-        member.has2fa,
+        member.isHas2fa,
         member.locale
     )
 }
@@ -98,7 +97,6 @@ fun userOfLocalUser(localUser: FileUserStore.LocalUser): User {
             localUser.profile.realNameNormalized,
             localUser.profile.displayName,
             localUser.profile.displayNameNormalized,
-            localUser.profile.fields,
             localUser.profile.statusText,
             localUser.profile.statusEmoji,
             localUser.profile.statusExpiration,
@@ -106,8 +104,6 @@ fun userOfLocalUser(localUser: FileUserStore.LocalUser): User {
             localUser.profile.alwaysActive,
             localUser.profile.imageOriginal,
             localUser.profile.email,
-            localUser.profile.firstName,
-            localUser.profile.lastName,
             localUser.profile.image24,
             localUser.profile.image32,
             localUser.profile.image48,
@@ -139,7 +135,7 @@ fun userOfLocalUser(localUser: FileUserStore.LocalUser): User {
 class UserNotFoundException(override val message: String?) : RuntimeException(message)
 
 /**
- * describes a Team that installed your App
+ * describes a User of a team that installed your App
  */
 data class User(
     val id: String,
@@ -161,10 +157,10 @@ data class User(
     val lastModifiedAt: Instant? = null,
     val isAppUser: Boolean,
     val has2fa: Boolean,
-    val locale: String?
+    val locale: String?,
 ) {
 
-    companion object {}
+    companion object;
 
     /**
      * describes the profile of a user
@@ -177,7 +173,6 @@ data class User(
         val realNameNormalized: String?,
         val displayName: String,
         val displayNameNormalized: String,
-        val fields: Map<Any, Any>?,
         val statusText: String,
         val statusEmoji: String,
         val statusExpiration: Int,
@@ -185,8 +180,6 @@ data class User(
         val alwaysActive: Boolean,
         val imageOriginal: String?,
         val email: String?,
-        val firstName: String?,
-        val lastName: String?,
         val image24: String?,
         val image32: String?,
         val image48: String?,
@@ -195,9 +188,8 @@ data class User(
         val image512: String?,
         val image1024: String?,
         val statusTextCanonical: String,
-        val team: String
+        val team: String,
     ) {
         companion object
     }
 }
-

@@ -3,8 +3,8 @@ package io.hndrs.slack.broker.store.user
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import io.hndrs.slack.api.contract.jackson.util.InstantToInt
-import io.hndrs.slack.api.contract.jackson.util.JacksonDataClass
+import io.hndrs.slack.broker.util.InstantToInt
+import io.hndrs.slack.broker.util.JacksonDataClass
 import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -54,12 +54,11 @@ class FileUserStore : UserStore {
 
     override fun findByTeam(teamId: String, includeDeleted: Boolean): List<User> {
         val localUsers: List<LocalUser> = objectMapper.readValue(dataFile())
-        //filter users by team id
+        // filter users by team id
         return localUsers.filter { it.teamId == teamId && !it.isDeleted }.map { userOfLocalUser(it) }
     }
 
     override fun put(vararg users: User) {
-
         LOG.info("Inserting users")
         val file = dataFile()
 
@@ -133,7 +132,8 @@ class FileUserStore : UserStore {
         @field:JsonProperty("is_bot")
         @get:JsonProperty("is_bot")
         val isBot: Boolean,
-        @InstantToInt @field:JsonProperty("updated")
+        @InstantToInt
+        @field:JsonProperty("updated")
         @get:JsonProperty("updated")
         val lastModifiedAt: Instant? = null,
         @field:JsonProperty("is_app_user")
@@ -144,7 +144,7 @@ class FileUserStore : UserStore {
         val has2fa: Boolean,
         @field:JsonProperty("locale")
         @get:JsonProperty("locale")
-        val locale: String?
+        val locale: String?,
     ) {
 
         /**
@@ -173,9 +173,6 @@ class FileUserStore : UserStore {
             @field:JsonProperty("display_name_normalized")
             @get:JsonProperty("display_name_normalized")
             val displayNameNormalized: String,
-            @field:JsonProperty("fields")
-            @get:JsonProperty("fields")
-            val fields: Map<Any, Any>?,
             @field:JsonProperty("status_text")
             @get:JsonProperty("status_text")
             val statusText: String,
@@ -197,12 +194,6 @@ class FileUserStore : UserStore {
             @field:JsonProperty("email")
             @get:JsonProperty("email")
             val email: String?,
-            @field:JsonProperty("first_name")
-            @get:JsonProperty("first_name")
-            val firstName: String?,
-            @field:JsonProperty("last_name")
-            @get:JsonProperty("last_name")
-            val lastName: String?,
             @field:JsonProperty("image_24")
             @get:JsonProperty("image_24")
             val image24: String?,
@@ -229,7 +220,7 @@ class FileUserStore : UserStore {
             val statusTextCanonical: String,
             @field:JsonProperty("team")
             @get:JsonProperty("team")
-            val team: String
+            val team: String,
         ) {
             companion object {
                 /**
@@ -244,7 +235,6 @@ class FileUserStore : UserStore {
                         userProfile.realNameNormalized,
                         userProfile.displayName,
                         userProfile.displayNameNormalized,
-                        userProfile.fields,
                         userProfile.statusText,
                         userProfile.statusEmoji,
                         userProfile.statusExpiration,
@@ -252,8 +242,6 @@ class FileUserStore : UserStore {
                         userProfile.alwaysActive,
                         userProfile.imageOriginal,
                         userProfile.email,
-                        userProfile.firstName,
-                        userProfile.lastName,
                         userProfile.image24,
                         userProfile.image32,
                         userProfile.image48,
@@ -297,6 +285,5 @@ class FileUserStore : UserStore {
             ?: throw IllegalArgumentException("Unable to load users-file:'user.home' System property is not set.")
 
         private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
-
     }
 }

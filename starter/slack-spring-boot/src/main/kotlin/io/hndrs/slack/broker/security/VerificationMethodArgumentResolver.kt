@@ -1,5 +1,6 @@
 package io.hndrs.slack.broker.security
 
+import jakarta.servlet.http.HttpServletRequest
 import org.apache.commons.codec.digest.HmacAlgorithms
 import org.apache.commons.codec.digest.HmacUtils
 import org.springframework.core.MethodParameter
@@ -12,7 +13,6 @@ import org.springframework.web.util.ContentCachingRequestWrapper
 import java.nio.charset.Charset
 import java.time.Duration
 import java.time.Instant
-import javax.servlet.http.HttpServletRequest
 
 /**
  * thrown when a request could not be verified
@@ -46,9 +46,7 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
         binderFactory: WebDataBinderFactory?
     ): Any?
 
-
     private fun validateSigning(request: ContentCachingRequestWrapper, signingSecret: String) {
-
         val slackSignature = request.getHeader(SLACK_SIGNATURE_HEADER_NAME)
             ?: throw VerificationException("No signature present in header")
         val slackTimestamp = request.getHeader(SLACK_REQUEST_TIMESTAMP_HEADER_NAME)
@@ -70,18 +68,16 @@ abstract class VerificationMethodArgumentResolver(private val signingSecret: Str
         if (hmac != slackSignature) throw VerificationException("InvalidSignature")
     }
 
-
     private fun generateHmacHex(requestBody: String, slackTimeStamp: String, signingSecret: String): String {
         return "v0=${
-            HmacUtils(
-                HmacAlgorithms.HMAC_SHA_256,
-                signingSecret
-            ).hmacHex("$SLACK_SIGNATURE_VERSION:$slackTimeStamp:$requestBody")
+        HmacUtils(
+            HmacAlgorithms.HMAC_SHA_256,
+            signingSecret
+        ).hmacHex("$SLACK_SIGNATURE_VERSION:$slackTimeStamp:$requestBody")
         }"
     }
 
     private fun validateTimeStamp(slackTimestamp: String, currentTime: Instant): String {
-
         val requestTimestamp = Instant.ofEpochSecond(slackTimestamp.toLong())
 
         if (requestTimestamp.isAfter(Instant.now())) {

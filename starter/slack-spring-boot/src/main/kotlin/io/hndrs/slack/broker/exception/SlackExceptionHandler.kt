@@ -1,10 +1,8 @@
 package io.hndrs.slack.broker.exception
 
 import com.fasterxml.jackson.databind.JsonMappingException
-import io.hndrs.slack.api.contract.jackson.group.dialog.DialogErrorResponse
-import io.hndrs.slack.broker.broker.CommandBroker
-import io.hndrs.slack.broker.broker.EventBroker
-import io.hndrs.slack.broker.broker.InteractiveComponentBroker
+import io.hndrs.slack.broker.command.CommandBroker
+import io.hndrs.slack.broker.event.http.EventBroker
 import io.hndrs.slack.broker.security.VerificationException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -17,18 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler
  *
  * @property errorResponse
  */
-@ControllerAdvice(assignableTypes = [io.hndrs.slack.broker.broker.CommandBroker::class, InteractiveComponentBroker::class, EventBroker::class])
-class SlackExceptionHandler(private val errorResponse: String) {
-
-    /**
-     * Handle [DialogValidationException]s
-     * This will handle dialog related exception and automatically map to the correct dialog response as mentioned here
-     * https://api.slack.com/dialogs#response
-     */
-    @ExceptionHandler(DialogValidationException::class)
-    fun handleDialogValidationException(ex: DialogValidationException): ResponseEntity<Any> {
-        return ResponseEntity.ok(DialogErrorResponse(ex.errors))
-    }
+@ControllerAdvice(assignableTypes = [CommandBroker::class, EventBroker::class])
+class SlackExceptionHandler {
 
     /**
      * Handles [IllegalArgumentException]s
@@ -37,15 +25,6 @@ class SlackExceptionHandler(private val errorResponse: String) {
      */
     @ExceptionHandler(IllegalArgumentException::class)
     fun handleIllegalArgumentException(ex: IllegalArgumentException): ResponseEntity<Any> {
-        val cause = ex.cause
-        // throw rootcause if available
-        if (cause is JsonMappingException) {
-            val exception = (cause.cause as? DialogValidationException)
-            if (exception != null) {
-                return handleDialogValidationException(exception)
-            }
-            throw cause
-        }
         return handleExceptionInternal(ex)
     }
 
@@ -68,10 +47,11 @@ class SlackExceptionHandler(private val errorResponse: String) {
     @ExceptionHandler(Exception::class)
     fun handleExceptionInternal(ex: Exception): ResponseEntity<Any> {
         LOG.error("Unhandled Exception:", ex)
-        return ResponseEntity.ok(errorResponse)
+        return ResponseEntity.ok(INTERNAL_ERROR_RESPONSE)
     }
 
     companion object {
         private val LOG = LoggerFactory.getLogger(SlackExceptionHandler::class.java)
+        const val INTERNAL_ERROR_RESPONSE = "Something went wrong please try again later"
     }
 }

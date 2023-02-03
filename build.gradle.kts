@@ -1,30 +1,28 @@
 import io.gitlab.arturbosch.detekt.Detekt
-import io.hndrs.publish.meta.Contributor
-import io.hndrs.publish.meta.Developer
-import io.hndrs.publish.meta.License
-import io.hndrs.publish.meta.Organization
-import io.hndrs.publish.meta.Scm
+import io.hndrs.gradle.plugin.Developer
+import io.hndrs.gradle.plugin.License
+import io.hndrs.gradle.plugin.Organization
+import io.hndrs.gradle.plugin.Scm
+import org.gradle.api.tasks.wrapper.Wrapper.DistributionType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories {
         jcenter()
         mavenCentral()
-        maven("https://repo.spring.io/plugins-release")
-    }
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20")
-        classpath("io.spring.gradle:propdeps-plugin:0.0.9.RELEASE")
     }
 }
 
+val kotlinVersion: String by extra
+
 plugins {
-    id("org.sonarqube") version "3.1.1"
-    id("io.spring.dependency-management") version "1.0.7.RELEASE"
-    id("org.jetbrains.kotlin.jvm") version "1.4.20" apply false
-    id("org.jetbrains.dokka") version "1.4.20"
-    id("io.gitlab.arturbosch.detekt") version "1.14.2"
+    id("org.sonarqube") version "3.3"
+    id("io.spring.dependency-management")
+    id("org.jetbrains.kotlin.jvm")
+    id("org.jetbrains.dokka")
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
     signing
+    id("io.hndrs.publishing-info")
 }
 
 sonarqube {
@@ -45,6 +43,21 @@ sonarqube {
     }
 }
 
+publishingInfo {
+    inceptionYear = "2019"
+    url = "\"https://github.com/hndrs/slack-spring-boot-starter"
+    license = License(
+        "https://github.com/hndrs/gradle-publishing-info-plugin/blob/main/LICENSE",
+        "MIT License"
+    )
+    developers = listOf(
+        Developer("marvinschramm", "Marvin Schramm", "marvin.schramm@gmail.com"),
+    )
+    contributers = listOf()
+    organization = Organization("hndrs", "https://oss.hndrs.io")
+    scm = Scm("scm:git:git://github.com/hndrs/slack-spring-boot-starter.git", "https://github.com/hndrs/slack-spring-boot-starter")
+}
+
 allprojects {
 
     val isRelease: String? by project
@@ -54,14 +67,9 @@ allprojects {
         jcenter()
     }
 
-    apply {
-        from("${rootProject.rootDir}/publish-meta.gradle.kts")
-    }
-
     group = "io.hndrs.slack"
     version = rootProject.file("version.txt").readText().trim()
         .plus(if (isRelease?.toBoolean() == true) "" else "-SNAPSHOT")
-
     project.ext {
         set("junitJupiterVersion", "5.4.2")
         set("junitPlatformVersion", "1.4.2")
@@ -69,19 +77,18 @@ allprojects {
     }
 
     tasks.withType<Wrapper> {
-        gradleVersion = "6.7.1"
-        // anything else
+        gradleVersion = "7.4.2"
+        distributionType = DistributionType.ALL
     }
 
     apply {
         plugin("io.spring.dependency-management")
     }
 
-
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.4.0") {
-                bomProperty("kotlin.version", "1.4.20")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:3.0.2") {
+                bomProperty("kotlin.version", "$kotlinVersion")
             }
         }
     }
@@ -99,15 +106,19 @@ subprojects {
         plugin("kotlin")
         plugin("jacoco")
         plugin("maven-publish")
-        plugin("propdeps")
         plugin("io.gitlab.arturbosch.detekt")
         plugin("signing")
         plugin("org.jetbrains.dokka")
     }
 
+    dependencies {
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+        testImplementation("io.kotest:kotest-assertions-core:5.5.4")
+    }
+
     afterEvaluate {
         configure<PublishingExtension> {
-            val projectsNotToPublish = listOf<Project>(project(":slack-spring-boot-starter-sample"), project(":slack-spring-boot-docs"))
+            val projectsNotToPublish = listOf<Project>(project(":slack-spring-boot-starter-sample"))
             repositories {
                 maven {
                     name = "snapshot"
@@ -145,53 +156,6 @@ subprojects {
                         from(components["java"])
                         artifact(sourcesJar.get())
                         artifact(javaDocJar.get())
-                        pom {
-                            if (project.extra.has("displayName")) {
-                                name.set(project.extra["displayName"] as? String)
-                            }
-                            description.set(project.description)
-                            pom {
-                                url.set("https://github.com/hndrs/slack-spring-boot-starter")
-                                (extra["organization"] as Organization).let {
-                                    this.organization {
-                                        name.set(it.name)
-                                        url.set(it.url)
-                                    }
-                                }
-
-                                licenses {
-                                    (extra["license"] as License).let {
-                                        this.license {
-                                            name.set(it.name)
-                                            url.set(it.url)
-                                        }
-                                    }
-                                }
-                                developers {
-                                    (extra["developers"] as List<Developer>).forEach {
-                                        this.developer {
-                                            id.set(it.id)
-                                            name.set(it.name)
-                                            email.set(it.email)
-                                        }
-                                    }
-                                }
-                                contributors {
-                                    (extra["contributors"] as List<Contributor>).forEach {
-                                        this.contributor {
-                                            name.set(it.name)
-                                            email.set(it.email)
-                                        }
-                                    }
-                                }
-                                (extra["scm"] as Scm).let {
-                                    this.scm {
-                                        connection.set(it.connection)
-                                        url.set(it.url)
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
                 val signingKey: String? = System.getenv("SIGNING_KEY")
@@ -223,17 +187,18 @@ subprojects {
     tasks.withType<KotlinCompile>() {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "11"
+            jvmTarget = JavaVersion.VERSION_17.majorVersion
         }
     }
+
     tasks.withType<KotlinCompile>() {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "11"
+            jvmTarget = JavaVersion.VERSION_17.majorVersion
         }
     }
     configure<JacocoPluginExtension> {
-        toolVersion = "0.8.6"
+        toolVersion = "0.8.8"
     }
 
     tasks.withType<JacocoReport> {
@@ -269,14 +234,14 @@ subprojects {
     }
 
     tasks.withType<Detekt> {
-        this.ignoreFailures = true
-        autoCorrect = true
+        buildUponDefaultConfig = true
+        ignoreFailures = true
         config.setFrom(files("${rootProject.rootDir}/detekt.yml"))
+        autoCorrect = true
     }
 
     dependencies {
-        "testImplementation"("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
-        "testImplementation"(group = "org.junit.jupiter", name = "junit-jupiter", version = "5.4.2")
+        testImplementation("com.ninja-squad:springmockk:3.1.1")
     }
 }
 

@@ -1,7 +1,13 @@
 plugins { id("java-library") }
 
-extra["displayName"] = "Slack Spring Boot Starter"
-description = "Spring Boot Starter package that aggregates and autoconfigures a slack application"
+publishingInfo {
+    // applies all values from rootProject publishingInfo block
+    applyFromRoot = true
+    // overrides name
+    name = "Slack Spring Boot Starter 1"
+    // overrides description
+    description = "Spring Boot Starter package that aggregates and autoconfigures a slack application"
+}
 
 dependencies {
     api(project(":slack-spring-boot-autoconfigure"))
