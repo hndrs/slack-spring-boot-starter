@@ -28,19 +28,21 @@ class CommandBrokerTests {
         teamStore.put(Team.sample().copy(teamId = "TestId"))
         val sampleEvent = SlashCommand.sample().copy(teamId = "TestId")
         Assertions.assertThrows(Exception::class.java) {
-            CommandBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore, mockk()).receiveCommand(sampleEvent, HttpHeaders.EMPTY)
+            CommandBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore, mockk()).receiveCommand(
+                sampleEvent,
+                HttpHeaders.EMPTY
+            )
         }
     }
 
     class ShouldThrowReceiver : SlashCommandReceiver {
         override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {
-            throw Exception()
+            error("Simulated error")
         }
 
         override fun shouldThrowException(exception: Exception): Boolean {
             return true
         }
-
     }
 
     @Test
@@ -69,11 +71,9 @@ class CommandBrokerTests {
         Assertions.assertTrue(mismatchReceiver.executed)
     }
 
-
     @Test
     @DisplayName("Broker Test Without Metrics")
     fun brokerTestWithoutMetrics() {
-
         val teamStore = InMemoryTeamStore()
 
         teamStore.put(Team.sample().copy(teamId = "TestId"))
@@ -83,7 +83,6 @@ class CommandBrokerTests {
 
         CommandBroker(listOf(successReceiver, errorReceiver), teamStore, mockk(relaxed = true))
             .receiveCommand(SlashCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
-
 
         Assertions.assertTrue(successReceiver.executed)
         Assertions.assertTrue(errorReceiver.executed)
@@ -142,7 +141,6 @@ class CommandBrokerTests {
         }
     }
 
-
     class SuccessReceiver : SlashCommandReceiver {
 
         var executed: Boolean = false
@@ -150,7 +148,6 @@ class CommandBrokerTests {
         override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {
             executed = true
         }
-
     }
 
     class ErrorReceiver : SlashCommandReceiver {
@@ -159,17 +156,20 @@ class CommandBrokerTests {
 
         override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {
             executed = true
-            throw IllegalStateException("Failing Test Case")
+            error("Failing Test Case")
         }
-
     }
 
     class Mismatch : MismatchCommandReceiver {
 
         var executed: Boolean = false
-        override fun onMismatchedSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team, methods: MethodsClient) {
+        override fun onMismatchedSlashCommand(
+            slashCommand: SlashCommand,
+            headers: HttpHeaders,
+            team: Team,
+            methods: MethodsClient,
+        ) {
             executed = true
         }
-
     }
 }

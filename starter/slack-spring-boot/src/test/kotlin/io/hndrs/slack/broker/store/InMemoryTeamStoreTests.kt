@@ -13,11 +13,9 @@ import org.junit.jupiter.api.Test
 @DisplayName("InMemoryTeamStore")
 class InMemoryTeamStoreTests {
 
-
     @DisplayName("Test Add and Remove")
     @Test
     fun addAndRemoveTeam() {
-
         val inMemoryTeamStore = InMemoryTeamStore()
         inMemoryTeamStore.put(Team.sample().copy(teamId = "TestTeamId"))
 
@@ -25,15 +23,12 @@ class InMemoryTeamStoreTests {
 
         inMemoryTeamStore.removeById("TestTeamId")
         assertThrows(TeamNotFoundException::class.java) { inMemoryTeamStore.findById("TestTeamId") }
-
     }
 
     @DisplayName("Remove Non Existent")
     @Test
     fun removeNonExistent() {
-
         val inMemoryTeamStore = InMemoryTeamStore()
         assertDoesNotThrow { inMemoryTeamStore.removeById("NonExistentTeamId") }
-
     }
 }

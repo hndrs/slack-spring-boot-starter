@@ -1,7 +1,7 @@
 package io.hndrs.slack.broker.event.http
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.hndrs.slack.api.contract.jackson.event.EventRequest
+import io.hndrs.slack.broker.event.EventRequest
 import io.hndrs.slack.broker.security.VerificationMethodArgumentResolver
 import org.springframework.core.MethodParameter
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
@@ -19,8 +19,8 @@ class EventArgumentResolver(signingSecret: String) : VerificationMethodArgumentR
     private val objectMapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.getParameterAnnotation(Event::class.java) != null
-                && parameter.parameterType == EventRequest::class.java
+        return parameter.getParameterAnnotation(Event::class.java) != null &&
+            parameter.parameterType == EventRequest::class.java
     }
 
     override fun internalResolveArgument(

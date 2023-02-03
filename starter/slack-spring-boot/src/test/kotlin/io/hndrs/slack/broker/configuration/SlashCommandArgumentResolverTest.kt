@@ -23,7 +23,9 @@ internal class SlashCommandArgumentResolverTest {
 
         Assertions.assertFalse(
             SlashCommandArgumentResolver("")
-                .supportsParameter(mockMethodParameter(SlashCommand::class.java, RequestTestUtils.TestAnnotation::class.java))
+                .supportsParameter(
+                    mockMethodParameter(SlashCommand::class.java, RequestTestUtils.TestAnnotation::class.java)
+                )
         )
 
         Assertions.assertFalse(
@@ -34,18 +36,22 @@ internal class SlashCommandArgumentResolverTest {
 
     @Test
     fun internalResolveArgument() {
-        //setup
+        // setup
         val command = SlashCommand.sample()
         val signingSecret = "mySecret"
         val timestamp = Instant.now()
 
         val mockNativeWebRequest = mockNativeWebRequest(timestamp, signingSecret, command.toParameterMap())
 
-        //test
+        // test
         val resolvedArgument = SlashCommandArgumentResolver(signingSecret)
-            .resolveArgument(mockMethodParameter(SlashCommand::class.java, Command::class.java), null, mockNativeWebRequest, null)
+            .resolveArgument(
+                mockMethodParameter(SlashCommand::class.java, Command::class.java),
+                null,
+                mockNativeWebRequest,
+                null
+            )
 
         Assertions.assertEquals(command, resolvedArgument)
     }
-
 }

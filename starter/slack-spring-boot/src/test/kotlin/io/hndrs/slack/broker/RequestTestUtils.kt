@@ -17,7 +17,6 @@ import java.time.Instant
 
 object RequestTestUtils {
 
-
     fun jsonBody(value: Any): String {
         val mapper = Jackson2ObjectMapperBuilder.json().build<ObjectMapper>()
         return mapper.writeValueAsString(value)
@@ -29,7 +28,9 @@ object RequestTestUtils {
                 println(" i was here")
                 if (firstArg<Class<Annotation>>() == annotationClass) {
                     return@answers mockk<Annotation>()
-                } else null
+                } else {
+                    null
+                }
             }
             every { parameterType } returns clazz
         }
@@ -47,7 +48,11 @@ object RequestTestUtils {
         }
     }
 
-    fun mockNativeWebRequest(timestamp: Instant, signingSecret: String, params: Map<String, List<String>>): NativeWebRequest {
+    fun mockNativeWebRequest(
+        timestamp: Instant,
+        signingSecret: String,
+        params: Map<String, List<String>>,
+    ): NativeWebRequest {
         val mockRequest = MockHttpServletRequest()
         val body = toFormUrlEncodedString(params)
         val generatedHmacHex = generateHmacHex(body, timestamp, signingSecret)
@@ -69,16 +74,23 @@ object RequestTestUtils {
     }
 
     fun toFormUrlEncodedString(params: Map<String, List<String>>): String {
-        return params.flatMap { it.value.map { value -> "${URLEncoder.encode(it.key, "UTF8")}=${URLEncoder.encode(value, "UTF-8")}" } }.joinToString("&")
+        return params.flatMap {
+            it.value.map { value ->
+                "${URLEncoder.encode(it.key, "UTF8")}=${URLEncoder.encode(value, "UTF-8")}"
+            }
+        }.joinToString("&")
     }
-
 
     fun toSupportedParameterMap(params: Map<String, List<String>>): Map<String, Array<String>> {
         return params.entries.associate { it.key to it.value.toTypedArray() }
     }
 
     fun generateHmacHex(requestBody: String, timestamp: Instant, signingSecret: String): String {
-        return "v0=${HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex("v0:${timestamp.epochSecond}:$requestBody")}"
+        return "v0=${
+        HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex(
+            "v0:${timestamp.epochSecond}:$requestBody"
+        )
+        }"
     }
 
     annotation class TestAnnotation

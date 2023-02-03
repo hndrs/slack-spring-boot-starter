@@ -54,12 +54,11 @@ class FileUserStore : UserStore {
 
     override fun findByTeam(teamId: String, includeDeleted: Boolean): List<User> {
         val localUsers: List<LocalUser> = objectMapper.readValue(dataFile())
-        //filter users by team id
+        // filter users by team id
         return localUsers.filter { it.teamId == teamId && !it.isDeleted }.map { userOfLocalUser(it) }
     }
 
     override fun put(vararg users: User) {
-
         LOG.info("Inserting users")
         val file = dataFile()
 
@@ -133,7 +132,8 @@ class FileUserStore : UserStore {
         @field:JsonProperty("is_bot")
         @get:JsonProperty("is_bot")
         val isBot: Boolean,
-        @InstantToInt @field:JsonProperty("updated")
+        @InstantToInt
+        @field:JsonProperty("updated")
         @get:JsonProperty("updated")
         val lastModifiedAt: Instant? = null,
         @field:JsonProperty("is_app_user")
@@ -285,6 +285,5 @@ class FileUserStore : UserStore {
             ?: throw IllegalArgumentException("Unable to load users-file:'user.home' System property is not set.")
 
         private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
-
     }
 }

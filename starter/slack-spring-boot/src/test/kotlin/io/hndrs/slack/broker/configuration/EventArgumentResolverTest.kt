@@ -1,11 +1,11 @@
 package io.hndrs.slack.broker.configuration
 
-import io.hndrs.slack.api.contract.jackson.event.EventRequest
-import io.hndrs.slack.api.contract.jackson.event.SlackEvent
 import io.hndrs.slack.broker.RequestTestUtils
 import io.hndrs.slack.broker.RequestTestUtils.jsonBody
 import io.hndrs.slack.broker.RequestTestUtils.mockMethodParameter
 import io.hndrs.slack.broker.RequestTestUtils.mockNativeWebRequest
+import io.hndrs.slack.broker.event.EventRequest
+import io.hndrs.slack.broker.event.SlackEvent
 import io.hndrs.slack.broker.event.http.Event
 import io.hndrs.slack.broker.event.http.EventArgumentResolver
 import io.hndrs.slack.broker.sample
@@ -26,7 +26,9 @@ internal class EventArgumentResolverTest {
 
         assertFalse(
             EventArgumentResolver("")
-                .supportsParameter(mockMethodParameter(EventRequest::class.java, RequestTestUtils.TestAnnotation::class.java))
+                .supportsParameter(
+                    mockMethodParameter(EventRequest::class.java, RequestTestUtils.TestAnnotation::class.java)
+                )
         )
 
         assertFalse(
@@ -37,17 +39,21 @@ internal class EventArgumentResolverTest {
 
     @Test
     fun internalResolveArgument() {
-
-        //setup
+        // setup
         val slackEvent = SlackEvent.sample()
         val signingSecret = "mySecret"
         val timestamp = Instant.now()
 
         val mockNativeWebRequest = mockNativeWebRequest(timestamp, signingSecret, jsonBody(slackEvent))
 
-        //test
+        // test
         val resolvedArgument = EventArgumentResolver(signingSecret)
-            .resolveArgument(mockMethodParameter(EventRequest::class.java, Event::class.java), null, mockNativeWebRequest, null)
+            .resolveArgument(
+                mockMethodParameter(EventRequest::class.java, Event::class.java),
+                null,
+                mockNativeWebRequest,
+                null
+            )
 
         Assertions.assertEquals(slackEvent, resolvedArgument)
     }

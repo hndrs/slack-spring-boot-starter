@@ -1,8 +1,7 @@
 package io.hndrs.slack.broker.receiver
 
-import com.slack.api.methods.MethodsClient
-import io.hndrs.slack.api.contract.jackson.event.SlackEvent
 import io.hndrs.slack.broker.command.SlashCommand
+import io.hndrs.slack.broker.event.SlackEvent
 import io.hndrs.slack.broker.store.team.Team
 import org.slf4j.LoggerFactory
 import org.springframework.core.Ordered
@@ -16,7 +15,7 @@ class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InstallationRec
 
     override fun shouldThrowException(exception: Exception): Boolean = false
 
-    override fun onInstallation(team: Team, methods: MethodsClient) {
+    override fun onInstallation(team: Team) {
         LOG.info("Received installation request by {}", team.teamName)
     }
 

@@ -1,7 +1,6 @@
 package io.hndrs.slack.broker.store.user
 
 import com.slack.api.Slack
-import com.slack.api.methods.MethodsClient
 import io.hndrs.slack.broker.receiver.InstallationReceiver
 import io.hndrs.slack.broker.store.team.Team
 import io.hndrs.slack.broker.util.on
@@ -16,9 +15,11 @@ class UserInstallationReceiver @Autowired constructor(
     private val userStore: UserStore,
 ) : InstallationReceiver {
 
-    override fun onInstallation(team: Team, methods: MethodsClient) {
-        methods.usersList {
-            it.limit(100).includeLocale(true)
+    @Suppress("SpreadOperator")
+    override fun onInstallation(team: Team) {
+        Slack.getInstance()
+        slack.methods().usersList {
+            it.limit(BATCH_SIZE).includeLocale(true)
         }.on(
             { this.userStore.put(*it.members.map { userOfMember(it) }.toTypedArray()) },
             { LOG.error("Failure while trying to load users\n{}", it) }
@@ -27,5 +28,6 @@ class UserInstallationReceiver @Autowired constructor(
 
     companion object {
         private val LOG = LoggerFactory.getLogger(UserInstallationReceiver::class.java)
+        private const val BATCH_SIZE = 100
     }
 }

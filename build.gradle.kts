@@ -85,7 +85,6 @@ allprojects {
         plugin("io.spring.dependency-management")
     }
 
-
     dependencyManagement {
         imports {
             mavenBom("org.springframework.boot:spring-boot-dependencies:3.0.2") {
@@ -110,6 +109,11 @@ subprojects {
         plugin("io.gitlab.arturbosch.detekt")
         plugin("signing")
         plugin("org.jetbrains.dokka")
+    }
+
+    dependencies {
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+        testImplementation("io.kotest:kotest-assertions-core:5.5.4")
     }
 
     afterEvaluate {
@@ -230,8 +234,8 @@ subprojects {
     }
 
     tasks.withType<Detekt> {
-        this.ignoreFailures = true
-        autoCorrect = true
+        buildUponDefaultConfig = true
+        ignoreFailures = true
         config.setFrom(files("${rootProject.rootDir}/detekt.yml"))
     }
 

@@ -1,6 +1,5 @@
 package io.hndrs.slack.broker.receiver
 
-import com.slack.api.methods.MethodsClient
 import io.hndrs.slack.broker.store.team.Team
 
 /**
@@ -14,5 +13,5 @@ interface InstallationReceiver {
      * @param methods already authorized methods client
      * @param team the team that requests the installation
      */
-    fun onInstallation(team: Team, methods: MethodsClient)
+    fun onInstallation(team: Team)
 }

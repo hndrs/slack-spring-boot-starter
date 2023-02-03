@@ -193,4 +193,3 @@ data class User(
         companion object
     }
 }
-

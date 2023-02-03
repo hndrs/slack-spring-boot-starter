@@ -65,9 +65,7 @@ internal class SlackExceptionHandlerTests {
             Assertions.assertEquals(response.statusCode, HttpStatus.OK)
             Assertions.assertEquals(response.body, SlackExceptionHandler.INTERNAL_ERROR_RESPONSE)
         }
-
     }
-
 
     @Nested
     @DisplayName("Integration")
@@ -79,7 +77,6 @@ internal class SlackExceptionHandlerTests {
             inMemoryTeamStore.put(Team.sample().copy(teamId = "sampleTeamId"))
         }
 
-
         @Test
         @DisplayName("Test Verification Exception")
         fun verificationException() {
@@ -88,7 +85,6 @@ internal class SlackExceptionHandlerTests {
                 .standaloneSetup(commandBroker(verificationException), SlackExceptionHandler())
                 .setCustomArgumentResolvers(SlashCommandArgumentResolver("1"))
                 .build()
-
 
             val parameterMap = LinkedMultiValueMap(SlashCommand.sample().toParameterMap())
 
@@ -106,7 +102,6 @@ internal class SlackExceptionHandlerTests {
                 .andExpect {
                     Assertions.assertEquals(it.response.status, HttpStatus.UNAUTHORIZED.value())
                 }
-
         }
 
         @Test
@@ -118,11 +113,14 @@ internal class SlackExceptionHandlerTests {
                 .setCustomArgumentResolvers(SlashCommandArgumentResolver("1"))
                 .build()
 
-
             val parameterMap = LinkedMultiValueMap(SlashCommand.sample().toParameterMap())
 
             val timestamp = Instant.now()
-            val generatedHmacHex = RequestTestUtils.generateHmacHex(RequestTestUtils.toFormUrlString(parameterMap), timestamp, "1")
+            val generatedHmacHex = RequestTestUtils.generateHmacHex(
+                RequestTestUtils.toFormUrlString(parameterMap),
+                timestamp,
+                "1"
+            )
 
             mockMvc.perform(
                 post("/commands")
@@ -136,9 +134,7 @@ internal class SlackExceptionHandlerTests {
                     Assertions.assertEquals(HttpStatus.OK.value(), it.response.status)
                     Assertions.assertEquals(SlackExceptionHandler.INTERNAL_ERROR_RESPONSE, it.response.contentAsString)
                 }
-
         }
-
 
         private fun commandBroker(exception: Exception): CommandBroker {
             return CommandBroker(listOf(ErrorCommand(exception)), inMemoryTeamStore, mockk())
@@ -150,7 +146,5 @@ internal class SlackExceptionHandlerTests {
                 throw exception
             }
         }
-
     }
-
 }

@@ -1,8 +1,8 @@
 package io.hndrs.slack.broker.autoconfiguration
 
 import com.slack.api.methods.MethodsClient
-import io.hndrs.slack.api.contract.jackson.event.SlackEvent
 import io.hndrs.slack.broker.command.SlashCommand
+import io.hndrs.slack.broker.event.SlackEvent
 import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.receiver.InstallationReceiver
 import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
@@ -87,17 +87,23 @@ class EvaluationReportConfigurationTests {
 
         @Bean
         open fun testEventReceiver() = object : EventReceiver {
-            override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {}
+            override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
+                // stub
+            }
         }
 
         @Bean
         open fun testInstallationReceiver(): InstallationReceiver = object : InstallationReceiver {
-            override fun onInstallation(team: Team, methods: MethodsClient) {}
+            override fun onInstallation(team: Team) {
+                // stub
+            }
         }
 
         @Bean
         open fun testSlashCommandReceiver(): SlashCommandReceiver = object : SlashCommandReceiver {
-            override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {}
+            override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {
+                // stub
+            }
         }
 
         @Bean
@@ -105,7 +111,9 @@ class EvaluationReportConfigurationTests {
 
         @Bean
         open fun testMismatchCommandReceiver(): MismatchCommandReceiver = object : MismatchCommandReceiver {
-            override fun onMismatchedSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team, methods: MethodsClient) {}
+            override fun onMismatchedSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team, methods: MethodsClient) {
+                // stub
+            }
         }
     }
 

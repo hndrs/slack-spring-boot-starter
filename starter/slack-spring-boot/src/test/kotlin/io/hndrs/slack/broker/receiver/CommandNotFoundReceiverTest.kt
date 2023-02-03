@@ -20,7 +20,6 @@ internal class CommandNotFoundReceiverTest {
     @Test
     @DisplayName("CommandNotFoundReceiver sends message with text")
     fun onReceiveSlashCommand() {
-
         val slot = slot<ChatPostEphemeralRequest>()
         val methods = spyk(Slack.getInstance().methods()) {
             every { chatPostEphemeral(capture(slot)) } returns mockk()
@@ -36,12 +35,16 @@ internal class CommandNotFoundReceiverTest {
                 userId = expectedUserId
             )
 
-        CommandNotFoundReceiver(expectedText).onMismatchedSlashCommand(command, HttpHeaders.EMPTY, Team.sample(), methods)
+        CommandNotFoundReceiver(expectedText).onMismatchedSlashCommand(
+            command,
+            HttpHeaders.EMPTY,
+            Team.sample(),
+            methods
+        )
         slot.captured.let {
             Assertions.assertEquals(expectedText, it.text)
             Assertions.assertEquals(expectedUserId, it.user)
             Assertions.assertEquals(expectedChannelId, it.channel)
-
         }
     }
 }

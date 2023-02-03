@@ -1,10 +1,9 @@
-package io.hndrs.slack.api.contract.jackson.event
+package io.hndrs.slack.broker.event
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import io.hndrs.slack.broker.util.JacksonDataClass
-
 
 /**
  * An event that triggered
@@ -22,9 +21,9 @@ import io.hndrs.slack.broker.util.JacksonDataClass
     JsonSubTypes.Type(value = SlackEvent::class, name = "event_callback")
 )
 @JacksonDataClass
-abstract class EventRequest constructor(
+open class EventRequest constructor(
     @JsonProperty("type") open val type: String,
-    @JsonProperty("token") open val token: String
+    @JsonProperty("token") open val token: String,
 )
 
 /**
@@ -34,7 +33,7 @@ abstract class EventRequest constructor(
 data class SlackChallenge constructor(
     override val type: String,
     override val token: String,
-    @JsonProperty("challenge") val challenge: String
+    @JsonProperty("challenge") val challenge: String,
 ) : EventRequest(type, token) {
     companion object
 }
@@ -61,7 +60,7 @@ data class SlackEvent constructor(
     @JsonProperty("authed_users") val authedUsers: Set<String>?,
     @JsonProperty("event_id") val eventId: String,
     @JsonProperty("event_time") val eventTime: Int,
-    @JsonProperty("event") val event: Map<String, Any>
+    @JsonProperty("event") val event: Map<String, Any>,
 ) : EventRequest(type, token) {
 
     fun isOfType(type: String): Boolean = this.event["type"] == type

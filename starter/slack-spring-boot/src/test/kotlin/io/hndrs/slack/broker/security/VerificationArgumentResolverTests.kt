@@ -22,12 +22,11 @@ internal class VerificationArgumentResolverTests {
     @DisplayName("SigningVerification")
     @Test
     fun resolve() {
-
         val signingSecret = "signingSecret"
         val timestamp = Instant.now().epochSecond.toString()
 
-        val expectedSignature = "v0=${HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex("${"v0"}:$timestamp:")}"
-
+        val expectedSignature =
+            "v0=${HmacUtils(HmacAlgorithms.HMAC_SHA_256, signingSecret).hmacHex("${"v0"}:$timestamp:")}"
 
         val request = mockk<HttpServletRequest>(relaxed = true) {
             every { getHeader("x-slack-request-timestamp") } returns timestamp
@@ -72,7 +71,8 @@ internal class VerificationArgumentResolverTests {
     @Test
     fun timestampTooOld() {
         val request = mockk<HttpServletRequest>(relaxed = true) {
-            every { getHeader("x-slack-request-timestamp") } returns Instant.now().minus(Duration.ofMinutes(6)).epochSecond.toString()
+            every { getHeader("x-slack-request-timestamp") } returns Instant.now()
+                .minus(Duration.ofMinutes(6)).epochSecond.toString()
             every { getHeader("x-slack-signature") } returns "somesig"
         }
 
@@ -94,7 +94,9 @@ internal class VerificationArgumentResolverTests {
     @Test
     fun timestampInFuture() {
         val request = mockk<HttpServletRequest>(relaxed = true) {
-            every { getHeader("x-slack-request-timestamp") } returns Instant.now().plus(Duration.ofMinutes(6)).epochSecond.toString()
+            every { getHeader("x-slack-request-timestamp") } returns Instant.now()
+                .plus(Duration.ofMinutes(6)).epochSecond.toString()
+
             every { getHeader("x-slack-signature") } returns "somesig"
         }
 
@@ -133,7 +135,6 @@ internal class VerificationArgumentResolverTests {
 
         Assertions.assertEquals("No signature present in header", assertThrows.message)
     }
-
 }
 
 class TestVerificationArgumentResolver(signingSecret: String) : VerificationMethodArgumentResolver(signingSecret) {
@@ -150,5 +151,4 @@ class TestVerificationArgumentResolver(signingSecret: String) : VerificationMeth
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         return true
     }
-
 }

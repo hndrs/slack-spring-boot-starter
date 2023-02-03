@@ -3,7 +3,7 @@ package io.hndrs.slack.broker.receiver
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.slack.api.model.event.Event
 import com.slack.api.util.json.GsonFactory
-import io.hndrs.slack.api.contract.jackson.event.SlackEvent
+import io.hndrs.slack.broker.event.SlackEvent
 import io.hndrs.slack.broker.store.team.Team
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
@@ -43,7 +43,6 @@ interface EventReceiver {
      */
     fun order(): Int = Ordered.HIGHEST_PRECEDENCE
 }
-
 
 abstract class TypedEventReceiver<T : Event>(private val clazz: KClass<T>) : EventReceiver {
 

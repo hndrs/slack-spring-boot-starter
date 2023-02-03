@@ -1,7 +1,7 @@
 package io.hndrs.slack.broker.broker
 
-//@DisplayName("Event Broker Tests")
-//class EventBrokerTests {
+// @DisplayName("Event Broker Tests")
+// class EventBrokerTests {
 //
 //    @Test
 //    @DisplayName("Broker Test")
@@ -191,4 +191,4 @@ package io.hndrs.slack.broker.broker
 //            return true
 //        }
 //    }
-//}
+// }

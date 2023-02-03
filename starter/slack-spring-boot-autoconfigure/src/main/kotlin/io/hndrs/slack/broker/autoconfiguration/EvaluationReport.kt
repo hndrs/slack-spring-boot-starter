@@ -9,6 +9,7 @@ import io.hndrs.slack.broker.store.event.InMemoryEventStore
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore
 import io.hndrs.slack.broker.store.team.TeamStore
 import io.hndrs.slack.broker.store.user.UserStore
+import org.slf4j.LoggerFactory
 import org.springframework.beans.BeansException
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationListener
@@ -73,6 +74,8 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
 
     companion object {
 
+        private val LOGGER = LoggerFactory.getLogger(EvaluationReport::class.java)
+
         private fun addComponent(sb: StringBuilder, title: String, names: Array<out String>) {
             sb.appendLine("\n\n$title")
             sb.appendLine("------------------------------")
@@ -98,7 +101,7 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
                         )
                     }
                 } catch (e: BeansException) {
-                    //do nothing
+                    LOGGER.error("Error during default implementation check ", e)
                 }
             }
 

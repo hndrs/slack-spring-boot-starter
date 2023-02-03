@@ -2,7 +2,6 @@ package io.hndrs.slack.broker.broker
 
 import com.slack.api.RequestConfigurator
 import com.slack.api.Slack
-import com.slack.api.methods.MethodsClient
 import com.slack.api.methods.request.oauth.OAuthV2AccessRequest
 import com.slack.api.methods.response.oauth.OAuthV2AccessResponse
 import io.hndrs.slack.broker.extensions.sample
@@ -19,18 +18,14 @@ import org.junit.jupiter.api.Test
 @DisplayName("Installation Test Broker Tests")
 class InstallationBrokerTests {
 
-
     @Test
     @DisplayName("Successful Installation")
     fun successfulInstallation() {
-
-
         val teamStore = InMemoryTeamStore()
         teamStore.put(Team.sample().copy(teamId = "TestId"))
 
         val successReceiver = SuccessReceiver()
         val errorReceiver = ErrorReceiver()
-
 
         val mockSlackClient = mockk<Slack>() {
             every {
@@ -47,7 +42,6 @@ class InstallationBrokerTests {
             every { methods(any(), any()) } returns mockk()
         }
 
-
         InstallationBroker(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)
             .onInstall("code", "state")
 
@@ -61,8 +55,6 @@ class InstallationBrokerTests {
     @Test
     @DisplayName("Error Installation")
     fun errorInstallation() {
-
-
         val teamStore = InMemoryTeamStore()
 
         teamStore.put(Team.sample().copy(teamId = "TestId"))
@@ -74,9 +66,9 @@ class InstallationBrokerTests {
             every {
                 methods().oauthV2Access(any<RequestConfigurator<OAuthV2AccessRequest.OAuthV2AccessRequestBuilder>>())
             } returns
-                    OAuthV2AccessResponse().apply {
-                        isOk = false
-                    }
+                OAuthV2AccessResponse().apply {
+                    isOk = false
+                }
         }
 
         InstallationBroker(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)
@@ -89,12 +81,11 @@ class InstallationBrokerTests {
         Assertions.assertFalse(errorReceiver.executed)
     }
 
-
     class SuccessReceiver : InstallationReceiver {
 
         var executed: Boolean = false
 
-        override fun onInstallation(team: Team, methods: MethodsClient) {
+        override fun onInstallation(team: Team) {
             executed = true
         }
     }
@@ -103,12 +94,11 @@ class InstallationBrokerTests {
 
         var executed: Boolean = false
 
-        override fun onInstallation(team: Team, methods: MethodsClient) {
+        override fun onInstallation(team: Team) {
             executed = true
-            throw IllegalStateException("Failure Test")
+            error("Failure Test")
         }
     }
-
 
     private companion object {
         val INSTALLATION_CONFIG = InstallationBroker.Config("someClientId", "", "", "")

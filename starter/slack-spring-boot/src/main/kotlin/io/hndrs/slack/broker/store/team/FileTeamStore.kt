@@ -38,7 +38,6 @@ class FileTeamStore : TeamStore {
         }
     }
 
-
     /**
      * Operations on the local file
      */
@@ -56,7 +55,6 @@ class FileTeamStore : TeamStore {
     }
 
     override fun put(team: Team) {
-
         LOG.info("Inserting $team")
         val file = dataFile()
 
@@ -74,7 +72,6 @@ class FileTeamStore : TeamStore {
     }
 
     override fun removeById(id: String) {
-
         val origin: List<LocalTeam> = objectMapper.readValue(dataFile())
 
         val teamToRemove = origin.find { it.teamId == id }
@@ -82,7 +79,6 @@ class FileTeamStore : TeamStore {
         teamToRemove?.let {
             objectMapper.writeValue(dataFile(), origin.minus(it))
         }
-
     }
 
     /**
@@ -103,7 +99,6 @@ class FileTeamStore : TeamStore {
         val accessToken: String,
     ) {
         companion object {}
-
     }
 
     companion object {
@@ -120,6 +115,5 @@ class FileTeamStore : TeamStore {
             ?: throw IllegalArgumentException("Unable to load team-file:'user.home' System property is not set.")
 
         private fun dataFile(): File = File(homeDirectory(), ".slack/$fileName")
-
     }
 }

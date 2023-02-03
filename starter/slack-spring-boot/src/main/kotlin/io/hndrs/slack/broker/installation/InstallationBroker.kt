@@ -16,8 +16,9 @@ import org.springframework.web.servlet.view.RedirectView
  * InstallationBroker provides an endpoint that is responsible for installation requests.
  *
  * It will execute all registered [InstallationReceiver]s on an installation request
- * If **all** [InstallationReceiver]s * execute successfully (return without exception) will redirect to a configurable successRedirectUrl.
- * If any of the registered [InstallationReceiver]s throws any exception it will redirect to another configurable errorRedirectUrl
+ * If **all** [InstallationReceiver]s * execute successfully (return without exception)
+ * will redirect to a configurable successRedirectUrl. If any of the registered
+ * [InstallationReceiver]s throws any exception it will redirect to another configurable errorRedirectUrl
  *
  * Notes:
  * At this point there is no guarantee on the execution order of the [InstallationReceiver]s
@@ -32,20 +33,20 @@ class InstallationBroker constructor(
 ) {
     /**
      * Installation-endpoint which is called by slack
-     * Obtains the token by calling [oauth.access](https://api.slack.com/methods/oauth.access) and saves the response into the TeamStore
+     * Obtains the token by calling [oauth.access](https://api.slack.com/methods/oauth.access)
+     * and saves the response into the TeamStore
      */
+    @Suppress("UnusedPrivateMember")
     @GetMapping(value = ["/installation"])
     fun onInstall(@RequestParam("code") code: String, @RequestParam("state") state: String): RedirectView {
         return try {
-
-
             val team = obtainOauthAccess(code)
             this.teamStore.put(team)
 
             this.installationReceivers
                 .forEach { receiver ->
                     try {
-                        receiver.onInstallation(team, slack.methods(team.accessToken, team.teamId))
+                        receiver.onInstallation(team)
                     } catch (e: Exception) {
                         LOG.error("Execution of {} failed", receiver::class.simpleName, e)
                     }
@@ -73,7 +74,6 @@ class InstallationBroker constructor(
             } else {
                 throw ResponseStatusException(HttpStatus.UNAUTHORIZED, it.toString())
             }
-
         }
     }
 
@@ -90,5 +90,4 @@ class InstallationBroker constructor(
     companion object {
         private val LOG = LoggerFactory.getLogger(InstallationBroker::class.java)
     }
-
 }

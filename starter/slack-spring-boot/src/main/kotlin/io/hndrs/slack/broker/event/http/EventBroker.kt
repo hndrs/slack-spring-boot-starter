@@ -1,8 +1,8 @@
 package io.hndrs.slack.broker.event.http
 
-import io.hndrs.slack.api.contract.jackson.event.EventRequest
-import io.hndrs.slack.api.contract.jackson.event.SlackChallenge
-import io.hndrs.slack.api.contract.jackson.event.SlackEvent
+import io.hndrs.slack.broker.event.EventRequest
+import io.hndrs.slack.broker.event.SlackChallenge
+import io.hndrs.slack.broker.event.SlackEvent
 import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.team.Team
@@ -42,15 +42,12 @@ class EventBroker constructor(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun receiveEvents(@Event event: EventRequest, @RequestHeader headers: HttpHeaders): Map<String, String> {
-
         if (event is SlackChallenge) {
             return mapOf(Pair("challenge", event.challenge))
         } else if (event is SlackEvent && shouldInvoke(event)) {
             val team = this.teamStore.findById(event.teamId)
             this.invoke(event, headers, team)
         }
-
-
 
         return mapOf()
     }

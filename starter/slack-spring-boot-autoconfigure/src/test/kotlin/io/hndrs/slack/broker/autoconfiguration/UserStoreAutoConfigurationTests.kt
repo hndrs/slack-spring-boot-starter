@@ -139,9 +139,13 @@ class UserStoreAutoConfigurationTests {
 
         override fun findById(id: String): User = throw NotImplementedError()
 
-        override fun put(vararg users: User) {}
+        override fun put(vararg users: User) {
+            // stub
+        }
 
-        override fun update(newUser: User) {}
+        override fun update(newUser: User) {
+            // stub
+        }
 
     }
 

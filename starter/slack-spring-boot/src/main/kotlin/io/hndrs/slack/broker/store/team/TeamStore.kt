@@ -41,4 +41,3 @@ data class Team(
 ) {
     companion object {}
 }
-

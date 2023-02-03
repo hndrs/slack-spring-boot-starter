@@ -17,8 +17,8 @@ class SlashCommandArgumentResolver(signingSecret: String) : VerificationMethodAr
     private val objectMapper = ObjectMapper()
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.getParameterAnnotation(Command::class.java) != null
-                && parameter.parameterType == SlashCommand::class.java
+        return parameter.getParameterAnnotation(Command::class.java) != null &&
+            parameter.parameterType == SlashCommand::class.java
     }
 
     override fun internalResolveArgument(

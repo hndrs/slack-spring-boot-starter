@@ -2,10 +2,9 @@ package io.hndrs.slack.broker
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.slack.api.model.event.Event
-import com.slack.api.model.event.UserChangeEvent
 import com.slack.api.util.json.GsonFactory
-import io.hndrs.slack.api.contract.jackson.event.SlackChallenge
-import io.hndrs.slack.api.contract.jackson.event.SlackEvent
+import io.hndrs.slack.broker.event.SlackChallenge
+import io.hndrs.slack.broker.event.SlackEvent
 
 fun SlackEvent.Companion.sample(): SlackEvent {
     return SlackEvent(
@@ -38,4 +37,3 @@ fun <T : Event> SlackEvent.Companion.sample(any: T): SlackEvent {
 fun SlackChallenge.Companion.sample(): SlackChallenge {
     return SlackChallenge("", "", "")
 }
-

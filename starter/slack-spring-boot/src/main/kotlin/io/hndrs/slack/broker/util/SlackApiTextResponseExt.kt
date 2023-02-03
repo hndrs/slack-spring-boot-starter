@@ -9,4 +9,3 @@ fun <T : SlackApiTextResponse, R> T.on(onSuccess: (response: T) -> R, onFailure:
         onFailure(this)
     }
 }
-

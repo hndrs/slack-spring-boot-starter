@@ -6,11 +6,13 @@ import io.hndrs.slack.broker.extensions.sample
 import io.hndrs.slack.broker.store.team.FileTeamStore
 import io.hndrs.slack.broker.store.team.Team
 import io.hndrs.slack.broker.store.team.TeamNotFoundException
+import io.kotest.assertions.throwables.shouldThrow
 import org.apache.commons.io.FileUtils
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ConditionEvaluationResult
 import org.junit.jupiter.api.extension.ExecutionCondition
 import org.junit.jupiter.api.extension.ExtendWith
@@ -39,30 +41,28 @@ internal class FileTeamStoreTests {
     @DisplayName("Initialization Tests")
     inner class InitializationTests {
 
-
         @DisplayName("File does not exist and no user home can be found")
         @Test
         fun fileDoesNotExistWhileNoUserHome() {
-            //setup
+            // setup
 
             val userHome = System.getProperty("user.home")
             System.clearProperty("user.home")
 
-            //test
+            // test
             Assertions.assertThrows(Exception::class.java) { FileTeamStore() }
 
-            //cleanup
+            // cleanup
             System.setProperty("user.home", userHome)
         }
 
         @DisplayName("File does not exist")
         @Test
         fun fileDoesNotExist() {
-
             // setup
             FileTeamStore()
 
-            //test
+            // test
             Assertions.assertTrue(dataFile().exists())
             val list: List<FileTeamStore.LocalTeam> = jacksonObjectMapper().readValue(dataFile())
             Assertions.assertEquals(listOf<FileTeamStore.LocalTeam>(), list)
@@ -73,14 +73,13 @@ internal class FileTeamStoreTests {
         @DisplayName("File exist but is empty")
         @Test
         fun fileExistButEmpty() {
-
             dataFile().parentFile.mkdirs()
             dataFile().createNewFile()
 
             // setup
             FileTeamStore()
 
-            //test
+            // test
             Assertions.assertTrue(dataFile().length() == 2L)
             val list: List<FileTeamStore.LocalTeam> = jacksonObjectMapper().readValue(dataFile())
             Assertions.assertEquals(listOf<FileTeamStore.LocalTeam>(), list)
@@ -91,7 +90,6 @@ internal class FileTeamStoreTests {
         @DisplayName("File exist not empty")
         @Test
         fun fileExistNotEmpty() {
-
             dataFile().parentFile.mkdirs()
             dataFile().createNewFile()
             FileUtils.write(dataFile(), "[]", Charset.forName("UTF-8"))
@@ -99,7 +97,7 @@ internal class FileTeamStoreTests {
             // setup
             FileTeamStore()
 
-            //test
+            // test
             Assertions.assertTrue(dataFile().length() == 2L)
             val list: List<FileTeamStore.LocalTeam> = jacksonObjectMapper().readValue(dataFile())
             Assertions.assertEquals(listOf<FileTeamStore.LocalTeam>(), list)
@@ -110,34 +108,31 @@ internal class FileTeamStoreTests {
         @DisplayName("File exist but is directory")
         @Test
         fun fileExistButIsDirectory() {
-
             // setup
             dataFile().mkdirs()
 
-            //test
+            // test
             Assertions.assertThrows(IllegalStateException::class.java) { FileTeamStore() }
-
 
             dataFile().deleteRecursively()
         }
-
     }
 
     @Nested
     @DisplayName("Operation Tests")
     inner class OperationTests {
 
-
         @Test
         @DisplayName("Exception On Non Existent Team")
         fun findNonExistentTeam() {
-
             createFile()
 
             // test
-            Assertions.assertThrows(TeamNotFoundException::class.java) { FileTeamStore().findById(Team.sample().teamId) }
+            assertThrows<TeamNotFoundException> {
+                FileTeamStore().findById(Team.sample().teamId)
+            }
 
-            //cleanup
+            // cleanup
             deleteFile()
         }
 
@@ -151,7 +146,7 @@ internal class FileTeamStoreTests {
             // test
             Assertions.assertEquals(Team.sample(), FileTeamStore().findById(Team.sample().teamId))
 
-            //cleanup
+            // cleanup
             deleteFile()
         }
 
@@ -164,26 +159,27 @@ internal class FileTeamStoreTests {
             // test
             FileTeamStore().removeById(Team.sample().teamId)
 
-            Assertions.assertThrows(TeamNotFoundException::class.java) { FileTeamStore().findById(Team.sample().teamId) }
+            shouldThrow<TeamNotFoundException> {
+                FileTeamStore().findById(Team.sample().teamId)
+            }
 
-            //cleanup
+            // cleanup
             deleteFile()
         }
 
         @DisplayName("Remove Non Existent")
         @Test
         fun removeNonExistent() {
-            //setup
+            // setup
             createFile()
             val localTeamStore = FileTeamStore()
 
-            //test
+            // test
             Assertions.assertDoesNotThrow { localTeamStore.removeById("missingTeamID") }
 
-            //cleanup
+            // cleanup
             deleteFile()
         }
-
     }
 
     class DisabledOnExistingTeamStoreFile : ExecutionCondition {
@@ -195,7 +191,5 @@ internal class FileTeamStoreTests {
                 ConditionEvaluationResult.enabled("No TeamStore File Present")
             }
         }
-
     }
-
 }

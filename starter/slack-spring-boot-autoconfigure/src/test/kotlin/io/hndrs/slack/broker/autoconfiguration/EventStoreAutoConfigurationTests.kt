@@ -1,6 +1,6 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.api.contract.jackson.event.EventRequest
+import io.hndrs.slack.broker.event.EventRequest
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.event.InMemoryEventStore
 import org.junit.jupiter.api.Assertions
@@ -60,7 +60,9 @@ class EventStoreAutoConfigurationTests {
     class TestEventStore : EventStore {
         override fun exists(id: String): Boolean = false
 
-        override fun put(event: EventRequest) {}
+        override fun put(event: EventRequest) {
+            // stub
+        }
 
     }
 

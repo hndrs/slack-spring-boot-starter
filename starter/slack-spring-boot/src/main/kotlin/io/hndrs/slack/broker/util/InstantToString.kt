@@ -10,4 +10,3 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 @JsonSerialize(using = JsonConverters.InstantToUnixTimestampStringSerializer::class)
 @JsonDeserialize(using = JsonConverters.UnixTimestampStringToInstantDeserializer::class)
 annotation class InstantToString
-

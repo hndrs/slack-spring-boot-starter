@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
  * @property errorResponse
  */
 @ControllerAdvice(assignableTypes = [CommandBroker::class, EventBroker::class])
-class SlackExceptionHandler() {
+class SlackExceptionHandler {
 
     /**
      * Handles [IllegalArgumentException]s

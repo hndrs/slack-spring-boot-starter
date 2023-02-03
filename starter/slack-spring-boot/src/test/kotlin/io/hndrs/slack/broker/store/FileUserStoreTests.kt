@@ -39,30 +39,28 @@ internal class FileUserStoreTests {
     @DisplayName("Initialization Tests")
     inner class InitializationTests {
 
-
         @DisplayName("File does not exist and no user home can be found")
         @Test
         fun fileDoesNotExistWhileNoUserHome() {
-            //setup
+            // setup
 
             val userHome = System.getProperty("user.home")
             System.clearProperty("user.home")
 
-            //test
+            // test
             Assertions.assertThrows(Exception::class.java) { FileUserStore() }
 
-            //cleanup
+            // cleanup
             System.setProperty("user.home", userHome)
         }
 
         @DisplayName("File does not exist")
         @Test
         fun fileDoesNotExist() {
-
             // setup
             FileUserStore()
 
-            //test
+            // test
             Assertions.assertTrue(dataFile().exists())
             val list: List<FileUserStore.LocalUser> = jacksonObjectMapper().readValue(dataFile())
             Assertions.assertEquals(listOf<FileUserStore.LocalUser>(), list)
@@ -73,14 +71,13 @@ internal class FileUserStoreTests {
         @DisplayName("File exist but is empty")
         @Test
         fun fileExistButEmpty() {
-
             dataFile().parentFile.mkdirs()
             dataFile().createNewFile()
 
             // setup
             FileUserStore()
 
-            //test
+            // test
             Assertions.assertTrue(dataFile().length() == 2L)
             val list: List<FileUserStore.LocalUser> = jacksonObjectMapper().readValue(dataFile())
             Assertions.assertEquals(listOf<FileUserStore.LocalUser>(), list)
@@ -91,7 +88,6 @@ internal class FileUserStoreTests {
         @DisplayName("File exist not empty")
         @Test
         fun fileExistNotEmpty() {
-
             dataFile().parentFile.mkdirs()
             dataFile().createNewFile()
             FileUtils.write(dataFile(), "[]", Charset.forName("UTF-8"))
@@ -99,7 +95,7 @@ internal class FileUserStoreTests {
             // setup
             FileUserStore()
 
-            //test
+            // test
             Assertions.assertTrue(dataFile().length() == 2L)
             val list: List<FileUserStore.LocalUser> = jacksonObjectMapper().readValue(dataFile())
             Assertions.assertEquals(listOf<FileUserStore.LocalUser>(), list)
@@ -110,34 +106,29 @@ internal class FileUserStoreTests {
         @DisplayName("File exist but is directory")
         @Test
         fun fileExistButIsDirectory() {
-
             // setup
             dataFile().mkdirs()
 
-            //test
+            // test
             Assertions.assertThrows(IllegalStateException::class.java) { FileUserStore() }
-
 
             dataFile().deleteRecursively()
         }
-
     }
 
     @Nested
     @DisplayName("Operation Tests")
     inner class OperationTests {
 
-
         @Test
         @DisplayName("Exception On Non Existent User")
         fun findNonExistentUser() {
-
             createFile()
 
             // test
             Assertions.assertThrows(UserNotFoundException::class.java) { FileUserStore().findById(User.sample().id) }
 
-            //cleanup
+            // cleanup
             deleteFile()
         }
 
@@ -151,7 +142,7 @@ internal class FileUserStoreTests {
             // test
             Assertions.assertEquals(User.sample(), FileUserStore().findById(User.sample().id))
 
-            //cleanup
+            // cleanup
             deleteFile()
         }
 
@@ -165,10 +156,9 @@ internal class FileUserStoreTests {
 
             Assertions.assertEquals(1, FileUserStore().findByTeam("team1").size)
 
-            //cleanup
+            // cleanup
             deleteFile()
         }
-
 
         @DisplayName("Test Update")
         @Test
@@ -182,21 +172,21 @@ internal class FileUserStoreTests {
 
             Assertions.assertEquals("tester123", store.findById("test").name)
 
-            //cleanup
+            // cleanup
             deleteFile()
         }
 
         @DisplayName("Remove Non Existent")
         @Test
         fun removeNonExistent() {
-            //setup
+            // setup
             createFile()
             val localUserStore = FileUserStore()
 
-            //test
+            // test
             Assertions.assertDoesNotThrow { localUserStore.update(User.sample().copy(id = "missingUserID")) }
 
-            //cleanup
+            // cleanup
             deleteFile()
         }
     }
@@ -210,7 +200,5 @@ internal class FileUserStoreTests {
                 ConditionEvaluationResult.enabled("No UserStore File Present")
             }
         }
-
     }
-
 }

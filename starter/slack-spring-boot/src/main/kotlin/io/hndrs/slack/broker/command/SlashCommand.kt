@@ -17,8 +17,10 @@ import io.hndrs.slack.broker.util.JacksonDataClass
  * @property text the text that was written after the command e.g. /test abc
  * @property responseUrl the response url that can be used to respond to the action
  * @property triggerId the trigger id which is used to open a dialog
- * @property enterpriseId the enterprise id which is only present, when the workspace is contained in the enterprise grid
- * @property enterpriseName the enterprise name which is only present, when the workspace is contained in the enterprise grid
+ * @property enterpriseId the enterprise id which is only present, when the workspace is contained
+ * in the enterprise grid
+ * @property enterpriseName the enterprise name which is only present, when the workspace is contained
+ * in the enterprise grid
  * @property apiAppId the slack apps Id. Can be used for handling commands from multiple applications or environments.
  */
 @JacksonDataClass
@@ -36,7 +38,7 @@ data class SlashCommand constructor(
     @JsonProperty(TRIGGER_ID_PROPERTY_NAME) val triggerId: String,
     @JsonProperty(ENTERPRISE_ID_PROPERTY_NAME) val enterpriseId: String?,
     @JsonProperty(ENTERPRISE_NAME_PROPERTY_NAME) val enterpriseName: String?,
-    @JsonProperty(API_APP_ID_PROPERTY_NAME) val apiAppId: String
+    @JsonProperty(API_APP_ID_PROPERTY_NAME) val apiAppId: String,
 ) {
     companion object {
         const val TOKEN_PROPERTY_NAME = "token"

@@ -2,11 +2,7 @@ package io.hndrs.slack.broker
 
 import java.time.Instant
 
-class TestTime {
+object TestTime {
 
-
-    companion object{
-
-        val INSTANT = Instant.ofEpochSecond(1655048251)
-    }
+    val INSTANT = Instant.ofEpochSecond(1655048251)
 }

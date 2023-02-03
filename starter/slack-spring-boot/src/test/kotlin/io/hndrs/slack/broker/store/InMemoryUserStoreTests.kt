@@ -11,11 +11,9 @@ import org.junit.jupiter.api.Test
 @DisplayName("InMemoryUserStore")
 class InMemoryUserStoreTests {
 
-
     @DisplayName("Test Add and Remove")
     @Test
     fun addAndRemoveUser() {
-
         val inMemoryUserStore = InMemoryUserStore()
         inMemoryUserStore.put(User.sample().copy(id = "TestUserId"))
 
@@ -24,7 +22,6 @@ class InMemoryUserStoreTests {
         inMemoryUserStore.update(User.sample().copy(id = "TestUserId", name = "test"))
         assertEquals("test", inMemoryUserStore.findById("TestUserId").name)
     }
-
 
     @DisplayName("Test Add and Remove")
     @Test
@@ -41,6 +38,5 @@ class InMemoryUserStoreTests {
     fun updateNonExistent() {
         val inMemoryUserStore = InMemoryUserStore()
         assertDoesNotThrow { inMemoryUserStore.update(User.sample().copy("NonExistentUserId")) }
-
     }
 }
