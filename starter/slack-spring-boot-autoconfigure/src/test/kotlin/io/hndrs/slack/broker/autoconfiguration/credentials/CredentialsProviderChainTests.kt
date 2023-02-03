@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test
 @DisplayName("CredentialsProviderChain")
 class CredentialsProviderChainTests {
 
-
     @Test
     @DisplayName("Empty Chain")
     fun emptyProviderChain() {
@@ -17,7 +16,6 @@ class CredentialsProviderChainTests {
     @Test
     @DisplayName("Order Adhered")
     fun orderAdhered() {
-
         val one = ApplicationCredentials("clientId1", "clientSecret1", "signingSecret1")
         val two = ApplicationCredentials("clientId2", "clientSecret2", "signingSecret2")
         Assertions.assertEquals(
@@ -44,7 +42,6 @@ class CredentialsProviderChainTests {
     @Test
     @DisplayName("Exception On Provider")
     fun exceptionOnProvider() {
-
         val two = ApplicationCredentials("clientId2", "clientSecret2", "signingSecret2")
         Assertions.assertEquals(
             two,
@@ -71,7 +68,6 @@ class CredentialsProviderChainTests {
         } catch (e: Exception) {
             println(e.message)
         }
-
     }
 
     class TestProviderChain(credentialsProviders: List<CredentialsProvider>) :
@@ -88,6 +84,5 @@ class CredentialsProviderChainTests {
         override fun applicationCredentials(): ApplicationCredentials {
             throw ApplicationCredentialsException(message)
         }
-
     }
 }

@@ -12,7 +12,6 @@ interface CredentialsProvider {
      */
     @Throws(ApplicationCredentialsException::class)
     fun applicationCredentials(): ApplicationCredentials
-
 }
 
 /**

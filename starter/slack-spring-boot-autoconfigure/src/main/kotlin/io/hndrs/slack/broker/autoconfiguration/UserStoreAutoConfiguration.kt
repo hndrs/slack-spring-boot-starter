@@ -21,7 +21,8 @@ import org.springframework.context.annotation.Configuration
 open class UserStoreAutoConfiguration {
 
     /**
-     * Registers the [InMemoryUserStore] if no other is defined and the property [SlackBrokerConfigurationProperties.USER_STORE].type is set to memory
+     * Registers the [InMemoryUserStore] if no other is defined and the property
+     * [SlackBrokerConfigurationProperties.USER_STORE].type is set to memory
      */
     @ConditionalOnProperty(
         prefix = UserStoreConfigurationProperties.PREFIX,
@@ -35,7 +36,8 @@ open class UserStoreAutoConfiguration {
     }
 
     /**
-     * Registers the [FileUserStore] if no other is defined and the property [SlackBrokerConfigurationProperties.USER_STORE].type is set to file
+     * Registers the [FileUserStore] if no other is defined and the property
+     * [SlackBrokerConfigurationProperties.USER_STORE].type is set to file
      */
     @ConditionalOnProperty(
         prefix = UserStoreConfigurationProperties.PREFIX,
@@ -49,7 +51,8 @@ open class UserStoreAutoConfiguration {
     }
 
     /**
-     * Registers the [UserInstallationReceiver] if a [UserStore] registered, that downloads the user after an installation
+     * Registers the [UserInstallationReceiver] if a [UserStore]
+     * registered, that downloads the user after an installation
      */
     @ConditionalOnBean(UserStore::class)
     @Bean
@@ -60,5 +63,4 @@ open class UserStoreAutoConfiguration {
     ): UserInstallationReceiver {
         return UserInstallationReceiver(slackClient, userStore)
     }
-
 }

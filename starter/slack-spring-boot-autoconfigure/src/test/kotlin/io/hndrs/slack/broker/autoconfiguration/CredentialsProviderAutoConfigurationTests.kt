@@ -50,12 +50,9 @@ class CredentialsProviderAutoConfigurationTests {
         open fun testCredentialsProvider(): CredentialsProvider {
             return TestCredentialsProvider()
         }
-
-
     }
 
     class TestCredentialsProvider : CredentialsProvider {
         override fun applicationCredentials(): ApplicationCredentials = ApplicationCredentials("", "", "")
-
     }
 }

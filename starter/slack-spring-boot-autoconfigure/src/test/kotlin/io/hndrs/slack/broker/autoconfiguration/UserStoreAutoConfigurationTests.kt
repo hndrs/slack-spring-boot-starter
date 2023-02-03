@@ -79,7 +79,11 @@ class UserStoreAutoConfigurationTests {
             )
             .run {
                 Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserStore::class.java) }
-                Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserInstallationReceiver::class.java) }
+                Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) {
+                    it.getBean(
+                        UserInstallationReceiver::class.java
+                    )
+                }
             }
     }
 
@@ -146,7 +150,5 @@ class UserStoreAutoConfigurationTests {
         override fun update(newUser: User) {
             // stub
         }
-
     }
-
 }

@@ -63,7 +63,5 @@ class EventStoreAutoConfigurationTests {
         override fun put(event: EventRequest) {
             // stub
         }
-
     }
-
 }

@@ -20,7 +20,6 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
-
 @DisplayName("AutoConfiguration Tests")
 class BrokerAutoConfigurationTests {
 
@@ -39,15 +38,16 @@ class BrokerAutoConfigurationTests {
             .run {
                 val listOf = ArrayList<HandlerMethodArgumentResolver>()
                 val bean =
-                    it.getBean<WebMvcConfigurer>("io.hndrs.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration\$BrokerAutoConfiguration")
+                    it.getBean<WebMvcConfigurer>(
+                        "io.hndrs.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration\$BrokerAutoConfiguration"
+                    )
 
                 bean.addArgumentResolvers(listOf)
                 assertTrue(listOf[0] is SlashCommandArgumentResolver)
                 assertTrue(listOf[1] is EventArgumentResolver)
-                //assertTrue(listOf[1] is InteractiveResponseArgumentResolver)
+                // assertTrue(listOf[1] is InteractiveResponseArgumentResolver)
             }
     }
-
 
     @DisplayName("SL4JLoggingReceiver Registration")
     @Test
@@ -130,7 +130,6 @@ class BrokerAutoConfigurationTests {
             }
     }
 
-
     @DisplayName("CommandBroker Registration")
     @Test
     fun commandBrokerRegistration() {
@@ -161,7 +160,6 @@ class BrokerAutoConfigurationTests {
                 assertDoesNotThrow { it.getBean(SlackExceptionHandler::class.java) }
             }
     }
-
 
     @DisplayName("EventBroker Registration")
     @Test

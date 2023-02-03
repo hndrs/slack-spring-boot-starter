@@ -2,7 +2,6 @@ package io.hndrs.slack.broker.autoconfiguration
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 
-
 /**
  * Configuration properties with which you can customise the auto-configuration
  */
@@ -15,19 +14,19 @@ data class SlackBrokerConfigurationProperties(
     data class Installation(
 
         /**
-        redirect url that is used when an installation is successful
+         redirect url that is used when an installation is successful
          */
         val successRedirectUrl: String,
 
         /**
-        redirect url that is used when there is an error during the installation
+         redirect url that is used when there is an error during the installation
          */
         val errorRedirectUrl: String,
     )
 
     data class Logging(
         /**
-        Enables Logging receiver [io.hndrs.slack.broker.receiver.SL4JLoggingReceiver]
+         Enables Logging receiver [io.hndrs.slack.broker.receiver.SL4JLoggingReceiver]
          */
         val enabled: Boolean = true,
     )
@@ -45,7 +44,7 @@ data class SlackBrokerConfigurationProperties(
         data class Mismatch(
 
             /**
-            Enables Logging receiver [io.hndrs.slack.broker.receiver.CommandNotFoundReceiver]
+             Enables Logging receiver [io.hndrs.slack.broker.receiver.CommandNotFoundReceiver]
              */
             val enabled: Boolean = false,
 

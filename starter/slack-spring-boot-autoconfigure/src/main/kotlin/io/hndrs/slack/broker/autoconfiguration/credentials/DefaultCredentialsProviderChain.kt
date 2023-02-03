@@ -7,11 +7,11 @@ package io.hndrs.slack.broker.autoconfiguration.credentials
  *  - [SystemPropertyCredentialsProvider]
  *  - [EnvironmentVariableCredentialsProvider]
  */
-class DefaultCredentialsProviderChain
-    : CredentialsProviderChain(
-    listOf(
-        CredentialsFileCredentialsProvider(),
-        SystemPropertyCredentialsProvider(),
-        EnvironmentVariableCredentialsProvider()
+class DefaultCredentialsProviderChain :
+    CredentialsProviderChain(
+        listOf(
+            CredentialsFileCredentialsProvider(),
+            SystemPropertyCredentialsProvider(),
+            EnvironmentVariableCredentialsProvider()
+        )
     )
-)

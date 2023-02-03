@@ -13,7 +13,7 @@ class SystemPropertyCredentialsProvider : CredentialsProvider {
         if (clientId != null && clientSecret != null && signingSecret != null) {
             return ApplicationCredentials(clientId, clientSecret, signingSecret)
         }
-        throw  ApplicationCredentialsException("Unable to load credentials: not all system properties have been set")
+        throw ApplicationCredentialsException("Unable to load credentials: not all system properties have been set")
     }
 
     companion object {

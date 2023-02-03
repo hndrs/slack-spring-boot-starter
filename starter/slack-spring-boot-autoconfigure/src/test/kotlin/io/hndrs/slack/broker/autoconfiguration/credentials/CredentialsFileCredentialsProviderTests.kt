@@ -15,7 +15,6 @@ import java.nio.charset.Charset
 @DisplayName("CredentialsFileCredentialsProvider")
 class CredentialsFileCredentialsProviderTests {
 
-
     @Test
     @DisplayName("Valid File On Home Path")
     @ExtendWith(DisabledOnExistingCredentialsFile::class)
@@ -31,16 +30,16 @@ class CredentialsFileCredentialsProviderTests {
         file.parentFile.mkdirs()
         file.createNewFile()
         FileUtils.write(
-            file, "slack_app_client_id=$clientId\n" +
-                    "slack_app_client_secret=$clientSecret\n" +
-                    "slack_app_signing_secret=$signingSecret", Charset.forName("UTF-8")
+            file,
+            "slack_app_client_id=$clientId\n" +
+                "slack_app_client_secret=$clientSecret\n" +
+                "slack_app_signing_secret=$signingSecret",
+            Charset.forName("UTF-8")
         )
-
 
         // test
         val applicationCredentials = CredentialsFileCredentialsProvider()
             .applicationCredentials()
-
 
         // assert
         Assertions.assertEquals(clientId, applicationCredentials.clientId)
@@ -65,15 +64,16 @@ class CredentialsFileCredentialsProviderTests {
         file.parentFile.mkdirs()
         file.createNewFile()
         FileUtils.write(
-            file, "slack_app_client_id=$clientId\n" +
-                    "slack_app_signing_secret=$signingSecret", Charset.forName("UTF-8")
+            file,
+            "slack_app_client_id=$clientId\n" +
+                "slack_app_signing_secret=$signingSecret",
+            Charset.forName("UTF-8")
         )
 
         // test and assert
         Assertions.assertThrows(ApplicationCredentialsException::class.java) {
             CredentialsFileCredentialsProvider().applicationCredentials()
         }
-
 
         // cleanup
         file.parentFile.deleteRecursively()
@@ -90,7 +90,6 @@ class CredentialsFileCredentialsProviderTests {
         Assertions.assertThrows(ApplicationCredentialsException::class.java) {
             CredentialsFileCredentialsProvider().applicationCredentials()
         }
-
 
         // cleanup
         System.setProperty("user.home", property)
@@ -113,6 +112,5 @@ class CredentialsFileCredentialsProviderTests {
                 ConditionEvaluationResult.enabled("No Credentials File Present")
             }
         }
-
     }
 }

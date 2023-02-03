@@ -7,13 +7,12 @@ import org.junit.jupiter.api.Test
 
 internal class CredentialsProviderTest {
 
-
     @Disabled
     @Test
     @DisplayName("EnvironmentVariableCredentialsProvider")
     fun envVarProvider() {
         assertFalse(true)
-        //TODO write JUnit5 Extension
+        // TODO write JUnit5 Extension
     }
 
     @Disabled

@@ -38,13 +38,11 @@ class CredentialsFileCredentialsProvider : CredentialsProvider {
         const val SLACK_APP_CLIENT_SECRET_VAR = "slack_app_client_secret"
         const val SLACK_APP_SIGNING_SECRET_VAR = "slack_app_signing_secret"
 
-
         private fun profileDirectory(): File = File(homeDirectory(), ".slack")
 
         private fun homeDirectory(): String = System.getProperty("user.home")
             ?: throw ApplicationCredentialsException(
                 "Unable to load credentials:'user.home' System property is not set."
             )
-
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.core.env.get
 class ApplicationEnvironmentCredentialsProvider(private val environment: Environment) : CredentialsProvider {
 
     override fun applicationCredentials(): ApplicationCredentials {
-
         val clientId = environment["$APPLICATION_PROPERTY_PREFIX.client-id"]?.trim()
         val clientSecret = environment["$APPLICATION_PROPERTY_PREFIX.client-secret"]?.trim()
         val signingSecret = environment["$APPLICATION_PROPERTY_PREFIX.signing-secret"]?.trim()
@@ -17,8 +16,7 @@ class ApplicationEnvironmentCredentialsProvider(private val environment: Environ
         if (clientId != null && clientSecret != null && signingSecret != null) {
             return ApplicationCredentials(clientId, clientSecret, signingSecret)
         }
-        throw  ApplicationCredentialsException("Unable to load credentials: not all system properties have been set")
-
+        throw ApplicationCredentialsException("Unable to load credentials: not all system properties have been set")
     }
 
     companion object {

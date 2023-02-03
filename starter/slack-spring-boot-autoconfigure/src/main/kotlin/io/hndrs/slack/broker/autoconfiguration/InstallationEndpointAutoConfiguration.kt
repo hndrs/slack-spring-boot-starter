@@ -29,7 +29,6 @@ open class InstallationEndpointAutoConfiguration {
         credentialsProvider: CredentialsProvider,
         properties: InstallationEndpointConfigurationProperties,
     ): InstallationBroker {
-
         val applicationCredentials = credentialsProvider.applicationCredentials()
 
         return InstallationBroker(
@@ -44,5 +43,4 @@ open class InstallationEndpointAutoConfiguration {
             slackClient,
         )
     }
-
 }

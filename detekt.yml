@@ -2,6 +2,12 @@ formatting:
   MaximumLineLength:
     active: true
     maxLineLength: 160
+    excludeCommentStatements: true
+    ignoreBackTickedIdentifier: true
+
+style:
+  MaxLineLength:
+    maxLineLength: 160
 
 empty-blocks:
   active: true

@@ -237,6 +237,7 @@ subprojects {
         buildUponDefaultConfig = true
         ignoreFailures = true
         config.setFrom(files("${rootProject.rootDir}/detekt.yml"))
+        autoCorrect = true
     }
 
     dependencies {

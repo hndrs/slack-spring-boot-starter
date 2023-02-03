@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration
 
 class SlackApiClientAutoConfigurationTests {
 
-
     @DisplayName("DefaultSlackClient Registration")
     @Test
     fun slackClientRegistration() {
@@ -41,7 +40,6 @@ class SlackApiClientAutoConfigurationTests {
             }
     }
 
-
     @Configuration
     open class TestConfiguration {
 
@@ -52,5 +50,4 @@ class SlackApiClientAutoConfigurationTests {
     }
 
     class TestSlack : Slack()
-
 }

@@ -135,7 +135,7 @@ fun userOfLocalUser(localUser: FileUserStore.LocalUser): User {
 class UserNotFoundException(override val message: String?) : RuntimeException(message)
 
 /**
- * describes a Team that installed your App
+ * describes a User of a team that installed your App
  */
 data class User(
     val id: String,
@@ -160,7 +160,7 @@ data class User(
     val locale: String?,
 ) {
 
-    companion object {}
+    companion object;
 
     /**
      * describes the profile of a user

@@ -58,9 +58,21 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
             "Mismatch Command Receivers",
             ctx.getBeanNamesForType(MismatchCommandReceiver::class.java)
         )
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(sb, "Team Store", ctx.getBeanNamesForType(TeamStore::class.java))
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(sb, "User Store", ctx.getBeanNamesForType(UserStore::class.java))
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(sb, "Event Store", ctx.getBeanNamesForType(EventStore::class.java))
+        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+            sb,
+            "Team Store",
+            ctx.getBeanNamesForType(TeamStore::class.java)
+        )
+        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+            sb,
+            "User Store",
+            ctx.getBeanNamesForType(UserStore::class.java)
+        )
+        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+            sb,
+            "Event Store",
+            ctx.getBeanNamesForType(EventStore::class.java)
+        )
 
         io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.defaultChecks(
             ctx,
@@ -97,16 +109,13 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
                     if (it.second.isInstance(bean)) {
                         sb.appendLine(
                             "   - Default version of ${it.second.simpleName} is registered," +
-                                    " this is not recommended for production"
+                                " this is not recommended for production"
                         )
                     }
                 } catch (e: BeansException) {
                     LOGGER.error("Error during default implementation check ", e)
                 }
             }
-
         }
-
     }
-
 }

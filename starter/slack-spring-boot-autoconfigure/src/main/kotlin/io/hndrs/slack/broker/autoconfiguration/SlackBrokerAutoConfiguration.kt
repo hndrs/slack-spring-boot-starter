@@ -76,7 +76,6 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             return CommandBroker(slackEventReceivers, teamStore, slack, mismatchCommandReceiver)
         }
 
-
         /**
          * Adds argument-resolver to resolve incoming requests
          *
@@ -104,5 +103,4 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             return CommandNotFoundReceiver(configuration.commands.mismatch.text)
         }
     }
-
 }

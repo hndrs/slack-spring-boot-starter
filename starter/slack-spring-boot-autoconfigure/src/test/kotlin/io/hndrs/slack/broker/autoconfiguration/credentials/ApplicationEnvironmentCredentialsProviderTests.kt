@@ -13,7 +13,6 @@ class ApplicationEnvironmentCredentialsProviderTests {
     fun validProperties() {
         // setup
 
-
         val clientId = "sampleClientId"
         val clientSecret = "sampleClientSecret"
         val signingSecret = "sampleSigningSecret"
@@ -49,7 +48,6 @@ class ApplicationEnvironmentCredentialsProviderTests {
             ApplicationEnvironmentCredentialsProvider(environment)
                 .applicationCredentials()
         }
-
     }
 
     @Test
@@ -89,6 +87,5 @@ class ApplicationEnvironmentCredentialsProviderTests {
                 ApplicationEnvironmentCredentialsProvider(environment)
                     .applicationCredentials()
             }
-
     }
 }

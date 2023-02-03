@@ -7,7 +7,6 @@ import org.springframework.beans.BeanInstantiationException
 
 internal class CredentialsFailureAnalyzerTest {
 
-
     @Test
     @DisplayName("Application Credentials Exceptions")
     fun testFailureAnalyzerWhenCauseApplicationCredentialsException() {

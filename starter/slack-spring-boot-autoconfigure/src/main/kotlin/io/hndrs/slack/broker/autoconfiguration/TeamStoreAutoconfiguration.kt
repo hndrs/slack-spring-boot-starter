@@ -17,7 +17,8 @@ import org.springframework.context.annotation.Configuration
 open class TeamStoreAutoconfiguration {
 
     /**
-     * Registers the [InMemoryTeamStore] if no other is defined and the property [SlackBrokerConfigurationProperties.TEAM_STORE].type is set to memory
+     * Registers the [InMemoryTeamStore] if no other is defined and the property
+     * [SlackBrokerConfigurationProperties.TEAM_STORE].type is set to memory
      */
     @ConditionalOnProperty(
         prefix = TeamStoreConfigurationProperties.PREFIX,
@@ -32,7 +33,8 @@ open class TeamStoreAutoconfiguration {
     }
 
     /**
-     * Registers the [FileTeamStore] if no other is defined and the property [SlackBrokerConfigurationProperties.TEAM_STORE].type is set to file
+     * Registers the [FileTeamStore] if no other is defined and the property
+     * [SlackBrokerConfigurationProperties.TEAM_STORE].type is set to file
      */
     @ConditionalOnProperty(
         prefix = TeamStoreConfigurationProperties.PREFIX,

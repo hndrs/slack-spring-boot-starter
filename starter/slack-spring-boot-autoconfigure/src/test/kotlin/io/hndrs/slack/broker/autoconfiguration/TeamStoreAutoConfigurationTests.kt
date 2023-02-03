@@ -93,7 +93,6 @@ class TeamStoreAutoConfigurationTests {
             }
     }
 
-
     @Configuration
     open class TestConfiguration {
 
@@ -108,13 +107,11 @@ class TeamStoreAutoConfigurationTests {
         }
 
         override fun put(team: Team) {
-            //stub
+            // stub
         }
 
         override fun removeById(id: String) {
-            //stub
+            // stub
         }
-
     }
-
 }
