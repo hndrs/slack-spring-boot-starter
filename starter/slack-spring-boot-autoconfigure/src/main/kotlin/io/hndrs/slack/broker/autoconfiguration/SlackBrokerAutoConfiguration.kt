@@ -3,13 +3,15 @@ package io.hndrs.slack.broker.autoconfiguration
 import com.slack.api.Slack
 import io.hndrs.slack.broker.autoconfiguration.credentials.CredentialsProvider
 import io.hndrs.slack.broker.command.CommandBroker
+import io.hndrs.slack.broker.command.CommandNotFoundReceiver
+import io.hndrs.slack.broker.command.MismatchCommandReceiver
 import io.hndrs.slack.broker.command.SlashCommandArgumentResolver
+import io.hndrs.slack.broker.command.SlashCommandReceiver
+import io.hndrs.slack.broker.event.EventReceiver
 import io.hndrs.slack.broker.event.http.EventArgumentResolver
 import io.hndrs.slack.broker.event.http.EventBroker
-import io.hndrs.slack.broker.receiver.CommandNotFoundReceiver
-import io.hndrs.slack.broker.receiver.EventReceiver
-import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
-import io.hndrs.slack.broker.receiver.SlashCommandReceiver
+import io.hndrs.slack.broker.interactive.BlockActionReceiver
+import io.hndrs.slack.broker.interactive.InteractiveComponentBroker
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.event.InMemoryEventStore
 import io.hndrs.slack.broker.store.team.TeamStore
@@ -61,6 +63,16 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
             eventStore: EventStore,
         ): EventBroker {
             return EventBroker(slackEventReceivers, teamStore, eventStore)
+        }
+
+
+        //TODO replace with seperate configuration
+        @Bean
+        open fun interactiveComponentBroker(
+            receivers: Set<BlockActionReceiver>,
+            teamStore: TeamStore,
+        ): InteractiveComponentBroker {
+            return InteractiveComponentBroker(receivers, teamStore)
         }
 
         /**

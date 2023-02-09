@@ -4,8 +4,8 @@ import io.hndrs.slack.broker.RequestTestUtils
 import io.hndrs.slack.broker.command.CommandBroker
 import io.hndrs.slack.broker.command.SlashCommand
 import io.hndrs.slack.broker.command.SlashCommandArgumentResolver
+import io.hndrs.slack.broker.command.SlashCommandReceiver
 import io.hndrs.slack.broker.extensions.sample
-import io.hndrs.slack.broker.receiver.SlashCommandReceiver
 import io.hndrs.slack.broker.sample
 import io.hndrs.slack.broker.security.VerificationException
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore

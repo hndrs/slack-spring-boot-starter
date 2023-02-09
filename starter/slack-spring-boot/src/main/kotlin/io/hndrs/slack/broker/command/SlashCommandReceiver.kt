@@ -1,6 +1,5 @@
-package io.hndrs.slack.broker.receiver
+package io.hndrs.slack.broker.command
 
-import io.hndrs.slack.broker.command.SlashCommand
 import io.hndrs.slack.broker.store.team.Team
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders

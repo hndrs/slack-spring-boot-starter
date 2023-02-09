@@ -1,9 +1,9 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.broker.receiver.EventReceiver
-import io.hndrs.slack.broker.receiver.InstallationReceiver
-import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
-import io.hndrs.slack.broker.receiver.SlashCommandReceiver
+import io.hndrs.slack.broker.command.MismatchCommandReceiver
+import io.hndrs.slack.broker.command.SlashCommandReceiver
+import io.hndrs.slack.broker.event.EventReceiver
+import io.hndrs.slack.broker.installation.InstallationReceiver
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.event.InMemoryEventStore
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore
@@ -109,7 +109,7 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
                     if (it.second.isInstance(bean)) {
                         sb.appendLine(
                             "   - Default version of ${it.second.simpleName} is registered," +
-                                " this is not recommended for production"
+                                    " this is not recommended for production"
                         )
                     }
                 } catch (e: BeansException) {

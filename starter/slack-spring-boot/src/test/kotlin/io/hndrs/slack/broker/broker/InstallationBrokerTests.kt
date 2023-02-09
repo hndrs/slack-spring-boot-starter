@@ -6,7 +6,7 @@ import com.slack.api.methods.request.oauth.OAuthV2AccessRequest
 import com.slack.api.methods.response.oauth.OAuthV2AccessResponse
 import io.hndrs.slack.broker.extensions.sample
 import io.hndrs.slack.broker.installation.InstallationBroker
-import io.hndrs.slack.broker.receiver.InstallationReceiver
+import io.hndrs.slack.broker.installation.InstallationReceiver
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore
 import io.hndrs.slack.broker.store.team.Team
 import io.mockk.every
@@ -66,9 +66,9 @@ class InstallationBrokerTests {
             every {
                 methods().oauthV2Access(any<RequestConfigurator<OAuthV2AccessRequest.OAuthV2AccessRequestBuilder>>())
             } returns
-                OAuthV2AccessResponse().apply {
-                    isOk = false
-                }
+                    OAuthV2AccessResponse().apply {
+                        isOk = false
+                    }
         }
 
         InstallationBroker(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)

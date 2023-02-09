@@ -3,10 +3,10 @@ package io.hndrs.slack.broker.broker
 import com.slack.api.Slack
 import com.slack.api.methods.MethodsClient
 import io.hndrs.slack.broker.command.CommandBroker
+import io.hndrs.slack.broker.command.MismatchCommandReceiver
 import io.hndrs.slack.broker.command.SlashCommand
+import io.hndrs.slack.broker.command.SlashCommandReceiver
 import io.hndrs.slack.broker.extensions.sample
-import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
-import io.hndrs.slack.broker.receiver.SlashCommandReceiver
 import io.hndrs.slack.broker.sample
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore
 import io.hndrs.slack.broker.store.team.Team

@@ -1,4 +1,4 @@
-package io.hndrs.slack.broker.receiver
+package io.hndrs.slack.broker.installation
 
 import io.hndrs.slack.broker.store.team.Team
 

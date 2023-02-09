@@ -2,6 +2,7 @@ package io.hndrs.slack.broker.receiver
 
 import com.slack.api.Slack
 import com.slack.api.methods.request.chat.ChatPostEphemeralRequest
+import io.hndrs.slack.broker.command.CommandNotFoundReceiver
 import io.hndrs.slack.broker.command.SlashCommand
 import io.hndrs.slack.broker.extensions.sample
 import io.hndrs.slack.broker.sample

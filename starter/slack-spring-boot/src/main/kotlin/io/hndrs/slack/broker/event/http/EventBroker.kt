@@ -1,9 +1,9 @@
 package io.hndrs.slack.broker.event.http
 
+import io.hndrs.slack.broker.event.EventReceiver
 import io.hndrs.slack.broker.event.EventRequest
 import io.hndrs.slack.broker.event.SlackChallenge
 import io.hndrs.slack.broker.event.SlackEvent
-import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.team.Team
 import io.hndrs.slack.broker.store.team.TeamStore

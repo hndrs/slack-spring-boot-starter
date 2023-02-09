@@ -1,7 +1,7 @@
 package io.hndrs.slack.broker.store.user
 
 import com.slack.api.Slack
-import io.hndrs.slack.broker.receiver.InstallationReceiver
+import io.hndrs.slack.broker.installation.InstallationReceiver
 import io.hndrs.slack.broker.store.team.Team
 import io.hndrs.slack.broker.util.on
 import org.slf4j.LoggerFactory

@@ -1,13 +1,13 @@
 package io.hndrs.slack.broker.autoconfiguration
 
 import com.slack.api.methods.MethodsClient
+import io.hndrs.slack.broker.command.MismatchCommandReceiver
 import io.hndrs.slack.broker.command.SlashCommand
+import io.hndrs.slack.broker.command.SlashCommandReceiver
+import io.hndrs.slack.broker.event.EventReceiver
 import io.hndrs.slack.broker.event.SlackEvent
-import io.hndrs.slack.broker.receiver.EventReceiver
-import io.hndrs.slack.broker.receiver.InstallationReceiver
-import io.hndrs.slack.broker.receiver.MismatchCommandReceiver
+import io.hndrs.slack.broker.installation.InstallationReceiver
 import io.hndrs.slack.broker.receiver.SL4JLoggingReceiver
-import io.hndrs.slack.broker.receiver.SlashCommandReceiver
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.event.InMemoryEventStore
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore

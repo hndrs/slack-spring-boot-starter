@@ -3,7 +3,7 @@ package io.hndrs.slack.broker.autoconfiguration
 import com.slack.api.Slack
 import io.hndrs.slack.broker.autoconfiguration.credentials.CredentialsProvider
 import io.hndrs.slack.broker.installation.InstallationBroker
-import io.hndrs.slack.broker.receiver.InstallationReceiver
+import io.hndrs.slack.broker.installation.InstallationReceiver
 import io.hndrs.slack.broker.store.team.TeamStore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties

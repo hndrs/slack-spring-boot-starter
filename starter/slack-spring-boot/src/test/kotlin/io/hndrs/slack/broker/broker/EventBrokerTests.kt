@@ -1,11 +1,11 @@
 package io.hndrs.slack.broker.broker
 
 import com.slack.api.model.event.UserChangeEvent
+import io.hndrs.slack.broker.event.EventReceiver
 import io.hndrs.slack.broker.event.SlackChallenge
 import io.hndrs.slack.broker.event.SlackEvent
 import io.hndrs.slack.broker.event.http.EventBroker
 import io.hndrs.slack.broker.extensions.sample
-import io.hndrs.slack.broker.receiver.EventReceiver
 import io.hndrs.slack.broker.sample
 import io.hndrs.slack.broker.store.event.InMemoryEventStore
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore

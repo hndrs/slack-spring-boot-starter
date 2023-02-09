@@ -1,9 +1,8 @@
-package io.hndrs.slack.broker.receiver
+package io.hndrs.slack.broker.event
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.slack.api.model.event.Event
 import com.slack.api.util.json.GsonFactory
-import io.hndrs.slack.broker.event.SlackEvent
 import io.hndrs.slack.broker.store.team.Team
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders

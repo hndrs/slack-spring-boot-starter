@@ -1,7 +1,6 @@
-package io.hndrs.slack.broker.receiver
+package io.hndrs.slack.broker.command
 
 import com.slack.api.methods.MethodsClient
-import io.hndrs.slack.broker.command.SlashCommand
 import io.hndrs.slack.broker.store.team.Team
 import org.springframework.http.HttpHeaders
 
@@ -28,7 +27,7 @@ class CommandNotFoundReceiver(private val text: String) :
         slashCommand: SlashCommand,
         headers: HttpHeaders,
         team: Team,
-        methods: MethodsClient
+        methods: MethodsClient,
     ) {
         methods.chatPostEphemeral {
             it

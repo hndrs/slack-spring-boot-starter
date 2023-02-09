@@ -1,11 +1,11 @@
 package io.hndrs.slack.broker.autoconfiguration
 
 import io.hndrs.slack.broker.command.CommandBroker
+import io.hndrs.slack.broker.command.CommandNotFoundReceiver
 import io.hndrs.slack.broker.command.SlashCommandArgumentResolver
 import io.hndrs.slack.broker.event.http.EventArgumentResolver
 import io.hndrs.slack.broker.event.http.EventBroker
 import io.hndrs.slack.broker.exception.SlackExceptionHandler
-import io.hndrs.slack.broker.receiver.CommandNotFoundReceiver
 import io.hndrs.slack.broker.receiver.SL4JLoggingReceiver
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertTrue
