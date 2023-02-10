@@ -149,4 +149,8 @@ data class BlockActionPayload(
             val value: String? = null,
         )
     }
+
+    companion object {
+        const val TYPE = "block_actions"
+    }
 }

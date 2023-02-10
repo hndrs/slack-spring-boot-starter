@@ -28,3 +28,13 @@ dependencies {
     testImplementation("com.ninja-squad:springmockk:3.1.1")
 }
 
+sonarqube {
+    properties {
+        property(
+            "sonar.exclusions",
+            """
+            **/BlockActionPayload.kt, **/ViewClosedPayload.kt,
+            """.trimIndent()
+        )
+    }
+}

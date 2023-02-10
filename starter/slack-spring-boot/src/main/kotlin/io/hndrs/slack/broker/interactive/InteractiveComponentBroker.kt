@@ -2,6 +2,8 @@ package io.hndrs.slack.broker.interactive
 
 import com.google.gson.Gson
 import com.slack.api.util.json.GsonFactory
+import io.hndrs.slack.broker.interactive.views.ViewClosedPayload
+import io.hndrs.slack.broker.interactive.views.ViewClosedReceiver
 import io.hndrs.slack.broker.store.team.TeamStore
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
@@ -17,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController
 @SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
 class InteractiveComponentBroker(
-    private val receivers: Set<BlockActionReceiver>,
+    private val blockActionReceivers: Set<BlockActionReceiver>,
+    private val viewClosedReceivers: Set<ViewClosedReceiver>,
     private val teamStore: TeamStore,
     private val gson: Gson = GsonFactory.createSnakeCase(),
 ) {
@@ -37,12 +40,21 @@ class InteractiveComponentBroker(
         val team = this.teamStore.findById(payload.team.id)
 
         when (payload.type) {
-            "block_actions" -> {
+            BlockActionPayload.TYPE -> {
                 val blockActionPayload = gson.fromJson(payloadJson, BlockActionPayload::class.java)
-                receivers.filter {
+                blockActionReceivers.filter {
                     it.supports(blockActionPayload)
                 }.forEach {
                     it.onBlockAction(blockActionPayload, headers, team)
+                }
+            }
+
+            ViewClosedPayload.TYPE -> {
+                val viewClosedPayload = gson.fromJson(payloadJson, ViewClosedPayload::class.java)
+                viewClosedReceivers.filter {
+                    it.supports(viewClosedPayload)
+                }.forEach {
+                    it.onViewClosed(viewClosedPayload, headers, team)
                 }
             }
 
@@ -55,7 +67,7 @@ class InteractiveComponentBroker(
      * Helper Json Class to extract payload type and team info from json before parsing
      * to the actual object
      */
-    private data class Payload(
+    internal data class Payload(
         val type: String,
         val team: Team,
     ) {

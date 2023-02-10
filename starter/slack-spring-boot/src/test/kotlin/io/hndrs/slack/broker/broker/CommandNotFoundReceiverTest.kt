@@ -1,4 +1,4 @@
-package io.hndrs.slack.broker.receiver
+package io.hndrs.slack.broker.broker
 
 import com.slack.api.Slack
 import com.slack.api.methods.request.chat.ChatPostEphemeralRequest

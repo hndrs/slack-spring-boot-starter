@@ -12,6 +12,7 @@ import io.hndrs.slack.broker.event.http.EventArgumentResolver
 import io.hndrs.slack.broker.event.http.EventBroker
 import io.hndrs.slack.broker.interactive.BlockActionReceiver
 import io.hndrs.slack.broker.interactive.InteractiveComponentBroker
+import io.hndrs.slack.broker.interactive.views.ViewClosedReceiver
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.event.InMemoryEventStore
 import io.hndrs.slack.broker.store.team.TeamStore
@@ -69,10 +70,11 @@ open class SlackBrokerAutoConfiguration(private val configuration: SlackBrokerCo
         //TODO replace with seperate configuration
         @Bean
         open fun interactiveComponentBroker(
-            receivers: Set<BlockActionReceiver>,
+            blockActionReceivers: Set<BlockActionReceiver>,
+            viewClosedReceivers: Set<ViewClosedReceiver>,
             teamStore: TeamStore,
         ): InteractiveComponentBroker {
-            return InteractiveComponentBroker(receivers, teamStore)
+            return InteractiveComponentBroker(blockActionReceivers, viewClosedReceivers, teamStore)
         }
 
         /**
