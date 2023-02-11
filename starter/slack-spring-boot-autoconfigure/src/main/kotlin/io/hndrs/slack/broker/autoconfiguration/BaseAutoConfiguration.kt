@@ -44,14 +44,6 @@ open class BaseAutoConfiguration {
     }
 
     /**
-     * Registers the [EvaluationReport]
-     */
-    @Bean
-    open fun slackEvaluationReport(): EvaluationReport {
-        return EvaluationReport()
-    }
-
-    /**
      * Registers a logging receiver that logs all incoming requests
      * Can be turned off by setting [SlackBrokerConfigurationProperties.LOGGING_PROPERTY_PREFIX].enabled to [false]
      * @return

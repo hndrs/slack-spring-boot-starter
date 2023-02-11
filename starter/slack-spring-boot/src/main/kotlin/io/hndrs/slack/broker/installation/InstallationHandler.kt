@@ -5,7 +5,7 @@ import io.hndrs.slack.broker.store.team.Team
 /**
  * Receiver where installations will be forwarded to
  */
-interface InstallationReceiver {
+interface InstallationHandler {
 
     /**
      * retrieves the installation-request

@@ -14,18 +14,18 @@ import org.springframework.web.servlet.view.RedirectView
 /**
  * InstallationBroker provides an endpoint that is responsible for installation requests.
  *
- * It will execute all registered [InstallationReceiver]s on an installation request
- * If **all** [InstallationReceiver]s * execute successfully (return without exception)
+ * It will execute all registered [InstallationHandler]s on an installation request
+ * If **all** [InstallationHandler]s * execute successfully (return without exception)
  * will redirect to a configurable successRedirectUrl. If any of the registered
- * [InstallationReceiver]s throws any exception it will redirect to another configurable errorRedirectUrl
+ * [InstallationHandler]s throws any exception it will redirect to another configurable errorRedirectUrl
  *
  * Notes:
- * At this point there is no guarantee on the execution order of the [InstallationReceiver]s
+ * At this point there is no guarantee on the execution order of the [InstallationHandler]s
  */
 @SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
-class InstallationBroker constructor(
-    private val installationReceivers: List<InstallationReceiver>,
+class InstallationEndpoint constructor(
+    private val installationHandlers: List<InstallationHandler>,
     private val teamStore: TeamStore,
     private val config: Config,
     private val slack: Slack,
@@ -42,7 +42,7 @@ class InstallationBroker constructor(
             val team = obtainOauthAccess(code)
             this.teamStore.put(team)
 
-            this.installationReceivers
+            this.installationHandlers
                 .forEach { receiver ->
                     try {
                         receiver.onInstallation(team)
@@ -87,6 +87,6 @@ class InstallationBroker constructor(
     )
 
     companion object {
-        private val LOG = LoggerFactory.getLogger(InstallationBroker::class.java)
+        private val LOG = LoggerFactory.getLogger(InstallationEndpoint::class.java)
     }
 }

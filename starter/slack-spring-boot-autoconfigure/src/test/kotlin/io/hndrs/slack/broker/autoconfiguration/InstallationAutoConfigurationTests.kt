@@ -1,6 +1,6 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.broker.installation.InstallationBroker
+import io.hndrs.slack.broker.installation.InstallationEndpoint
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -28,7 +28,7 @@ class InstallationAutoConfigurationTests {
     @Test
     fun installationBrokerRegistration() {
         contextRunner.run {
-            Assertions.assertDoesNotThrow { it.getBean(InstallationBroker::class.java) }
+            Assertions.assertDoesNotThrow { it.getBean(InstallationEndpoint::class.java) }
         }
     }
 }

@@ -3,7 +3,7 @@ package io.hndrs.slack.broker.autoconfiguration
 import com.slack.api.Slack
 import io.hndrs.slack.broker.store.user.FileUserStore
 import io.hndrs.slack.broker.store.user.InMemoryUserStore
-import io.hndrs.slack.broker.store.user.UserInstallationReceiver
+import io.hndrs.slack.broker.store.user.UserInstallationHandler
 import io.hndrs.slack.broker.store.user.UserStore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
@@ -51,7 +51,7 @@ open class UserStoreAutoConfiguration {
     }
 
     /**
-     * Registers the [UserInstallationReceiver] if a [UserStore]
+     * Registers the [UserInstallationHandler] if a [UserStore]
      * registered, that downloads the user after an installation
      */
     @ConditionalOnBean(UserStore::class)
@@ -60,7 +60,7 @@ open class UserStoreAutoConfiguration {
         applicationContext: ApplicationContext,
         slackClient: Slack,
         userStore: UserStore,
-    ): UserInstallationReceiver {
-        return UserInstallationReceiver(slackClient, userStore)
+    ): UserInstallationHandler {
+        return UserInstallationHandler(slackClient, userStore)
     }
 }

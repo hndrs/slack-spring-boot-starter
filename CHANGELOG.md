@@ -15,7 +15,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - upgrade to Java 17
 - removes custom data classes for most cases (replaced with official slack api client)
 - refactored autoconfiguration classes (single responsibility)
-- removes event metrics feature
+- removes evaluation report
 
 ## [3.0.0]
 
