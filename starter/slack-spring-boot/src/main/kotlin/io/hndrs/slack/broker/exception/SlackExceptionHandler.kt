@@ -1,8 +1,8 @@
 package io.hndrs.slack.broker.exception
 
 import com.fasterxml.jackson.databind.JsonMappingException
-import io.hndrs.slack.broker.command.CommandBroker
-import io.hndrs.slack.broker.event.http.EventBroker
+import io.hndrs.slack.broker.command.CommandEndpoint
+import io.hndrs.slack.broker.event.http.EventEndpoint
 import io.hndrs.slack.broker.security.VerificationException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
  *
  * @property errorResponse
  */
-@ControllerAdvice(assignableTypes = [CommandBroker::class, EventBroker::class])
+@ControllerAdvice(assignableTypes = [CommandEndpoint::class, EventEndpoint::class])
 class SlackExceptionHandler {
 
     /**

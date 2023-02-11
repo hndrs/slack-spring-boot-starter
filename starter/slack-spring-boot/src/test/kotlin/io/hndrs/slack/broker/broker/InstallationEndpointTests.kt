@@ -5,8 +5,8 @@ import com.slack.api.Slack
 import com.slack.api.methods.request.oauth.OAuthV2AccessRequest
 import com.slack.api.methods.response.oauth.OAuthV2AccessResponse
 import io.hndrs.slack.broker.extensions.sample
-import io.hndrs.slack.broker.installation.InstallationBroker
-import io.hndrs.slack.broker.receiver.InstallationReceiver
+import io.hndrs.slack.broker.installation.InstallationEndpoint
+import io.hndrs.slack.broker.installation.InstallationHandler
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore
 import io.hndrs.slack.broker.store.team.Team
 import io.mockk.every
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("Installation Test Broker Tests")
-class InstallationBrokerTests {
+class InstallationEndpointTests {
 
     @Test
     @DisplayName("Successful Installation")
@@ -24,8 +24,8 @@ class InstallationBrokerTests {
         val teamStore = InMemoryTeamStore()
         teamStore.put(Team.sample().copy(teamId = "TestId"))
 
-        val successReceiver = SuccessReceiver()
-        val errorReceiver = ErrorReceiver()
+        val successReceiver = SuccessHandler()
+        val errorReceiver = ErrorHandler()
 
         val mockSlackClient = mockk<Slack>() {
             every {
@@ -42,10 +42,10 @@ class InstallationBrokerTests {
             every { methods(any(), any()) } returns mockk()
         }
 
-        InstallationBroker(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)
+        InstallationEndpoint(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)
             .onInstall("code", "state")
 
-        InstallationBroker(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)
+        InstallationEndpoint(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)
             .onInstall("code", "state")
 
         Assertions.assertTrue(successReceiver.executed)
@@ -59,8 +59,8 @@ class InstallationBrokerTests {
 
         teamStore.put(Team.sample().copy(teamId = "TestId"))
 
-        val successReceiver = SuccessReceiver()
-        val errorReceiver = ErrorReceiver()
+        val successReceiver = SuccessHandler()
+        val errorReceiver = ErrorHandler()
 
         val mockSlackClient = mockk<Slack>() {
             every {
@@ -71,17 +71,17 @@ class InstallationBrokerTests {
                 }
         }
 
-        InstallationBroker(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)
+        InstallationEndpoint(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)
             .onInstall("code", "state")
 
-        InstallationBroker(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)
+        InstallationEndpoint(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)
             .onInstall("code", "state")
 
         Assertions.assertFalse(successReceiver.executed)
         Assertions.assertFalse(errorReceiver.executed)
     }
 
-    class SuccessReceiver : InstallationReceiver {
+    class SuccessHandler : InstallationHandler {
 
         var executed: Boolean = false
 
@@ -90,7 +90,7 @@ class InstallationBrokerTests {
         }
     }
 
-    class ErrorReceiver : InstallationReceiver {
+    class ErrorHandler : InstallationHandler {
 
         var executed: Boolean = false
 
@@ -101,6 +101,6 @@ class InstallationBrokerTests {
     }
 
     private companion object {
-        val INSTALLATION_CONFIG = InstallationBroker.Config("someClientId", "", "", "")
+        val INSTALLATION_CONFIG = InstallationEndpoint.Config("someClientId", "", "", "")
     }
 }

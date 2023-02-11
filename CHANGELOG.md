@@ -13,11 +13,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - upgrade to spring boot 3.0.2
 - upgrade to kotlin 1.7.21 (going to 1.8.0 when detekt 1.23.x is released)
 - upgrade to Java 17
-- remove redundant qualifiers
-- changes postEphemeral.asUser default value to `null`
-- changes postEphemeral.linkNames default value to `null`
+- removes custom data classes for most cases (replaced with official slack api client)
 - refactored autoconfiguration classes (single responsibility)
-- removes event metrics feature
+- removes evaluation report
 
 ## [3.0.0]
 

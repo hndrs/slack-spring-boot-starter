@@ -4,7 +4,7 @@ import com.slack.api.Slack
 import io.hndrs.slack.broker.store.user.FileUserStore
 import io.hndrs.slack.broker.store.user.InMemoryUserStore
 import io.hndrs.slack.broker.store.user.User
-import io.hndrs.slack.broker.store.user.UserInstallationReceiver
+import io.hndrs.slack.broker.store.user.UserInstallationHandler
 import io.hndrs.slack.broker.store.user.UserStore
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
@@ -60,7 +60,7 @@ class UserStoreAutoConfigurationTests {
             .withUserConfiguration(TestConfiguration::class.java)
             .withPropertyValues("slack.store.user.type:file")
             .run {
-                Assertions.assertDoesNotThrow { it.getBean(UserInstallationReceiver::class.java) }
+                Assertions.assertDoesNotThrow { it.getBean(UserInstallationHandler::class.java) }
                 Assertions.assertDoesNotThrow { it.getBean(UserStore::class.java) }
                 Assertions.assertTrue(it.getBean(UserStore::class.java) is TestUserStore)
             }
@@ -81,7 +81,7 @@ class UserStoreAutoConfigurationTests {
                 Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) { it.getBean(UserStore::class.java) }
                 Assertions.assertThrows(NoSuchBeanDefinitionException::class.java) {
                     it.getBean(
-                        UserInstallationReceiver::class.java
+                        UserInstallationHandler::class.java
                     )
                 }
             }

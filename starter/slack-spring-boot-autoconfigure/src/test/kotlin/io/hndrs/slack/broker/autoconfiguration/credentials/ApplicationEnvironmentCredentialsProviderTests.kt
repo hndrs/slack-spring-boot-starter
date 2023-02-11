@@ -80,12 +80,9 @@ class ApplicationEnvironmentCredentialsProviderTests {
             .withProperty("slack.application.client-secret", clientSecret)
 
         // test
-        val applicationCredentials =
-
-            // test
-            Assertions.assertThrows(ApplicationCredentialsException::class.java) {
-                ApplicationEnvironmentCredentialsProvider(environment)
-                    .applicationCredentials()
-            }
+        Assertions.assertThrows(ApplicationCredentialsException::class.java) {
+            ApplicationEnvironmentCredentialsProvider(environment)
+                .applicationCredentials()
+        }
     }
 }

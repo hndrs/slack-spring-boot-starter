@@ -1,9 +1,9 @@
 io.hndrs.slack.broker.autoconfiguration.BaseAutoConfiguration
-io.hndrs.slack.broker.autoconfiguration.SlackBrokerAutoConfiguration
 io.hndrs.slack.broker.autoconfiguration.TeamStoreAutoconfiguration
 io.hndrs.slack.broker.autoconfiguration.UserStoreAutoConfiguration
+io.hndrs.slack.broker.autoconfiguration.EventStoreAutoConfiguration
+io.hndrs.slack.broker.autoconfiguration.CommandEndpointAutoConfiguration
 io.hndrs.slack.broker.autoconfiguration.InstallationEndpointAutoConfiguration
-
-
-
+io.hndrs.slack.broker.autoconfiguration.InteractiveComponentAutoConfiguration
+io.hndrs.slack.broker.autoconfiguration.EventEndpointAutoConfiguration
 

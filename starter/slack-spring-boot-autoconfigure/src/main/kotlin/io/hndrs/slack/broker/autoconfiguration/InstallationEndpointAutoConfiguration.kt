@@ -2,8 +2,8 @@ package io.hndrs.slack.broker.autoconfiguration
 
 import com.slack.api.Slack
 import io.hndrs.slack.broker.autoconfiguration.credentials.CredentialsProvider
-import io.hndrs.slack.broker.installation.InstallationBroker
-import io.hndrs.slack.broker.receiver.InstallationReceiver
+import io.hndrs.slack.broker.installation.InstallationEndpoint
+import io.hndrs.slack.broker.installation.InstallationHandler
 import io.hndrs.slack.broker.store.team.TeamStore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -23,18 +23,18 @@ open class InstallationEndpointAutoConfiguration {
     )
     @Bean
     open fun installationBroker(
-        installationReceivers: List<InstallationReceiver>,
+        installationHandlers: List<InstallationHandler>,
         teamStore: TeamStore,
         slackClient: Slack,
         credentialsProvider: CredentialsProvider,
         properties: InstallationEndpointConfigurationProperties,
-    ): InstallationBroker {
+    ): InstallationEndpoint {
         val applicationCredentials = credentialsProvider.applicationCredentials()
 
-        return InstallationBroker(
-            installationReceivers,
+        return InstallationEndpoint(
+            installationHandlers,
             teamStore,
-            InstallationBroker.Config(
+            InstallationEndpoint.Config(
                 applicationCredentials.clientId,
                 applicationCredentials.clientSecret,
                 properties.successRedirectUrl!!,

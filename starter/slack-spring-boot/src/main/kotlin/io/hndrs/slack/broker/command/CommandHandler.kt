@@ -1,6 +1,5 @@
-package io.hndrs.slack.broker.receiver
+package io.hndrs.slack.broker.command
 
-import io.hndrs.slack.broker.command.SlashCommand
 import io.hndrs.slack.broker.store.team.Team
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
@@ -8,7 +7,7 @@ import org.springframework.http.HttpHeaders
 /**
  * Interface which is used to receive slash-commands
  */
-interface SlashCommandReceiver {
+interface CommandHandler {
     /**
      * Determines if the implementing receiver should handle the incoming command
      *
