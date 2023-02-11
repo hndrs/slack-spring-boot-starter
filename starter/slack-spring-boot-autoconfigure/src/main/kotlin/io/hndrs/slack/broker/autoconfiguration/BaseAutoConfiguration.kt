@@ -8,10 +8,12 @@ import io.hndrs.slack.broker.receiver.SL4JLoggingHandler
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
+@EnableConfigurationProperties(BaseConfigurationProperties::class)
 open class BaseAutoConfiguration {
 
     /**
@@ -55,7 +57,7 @@ open class BaseAutoConfiguration {
      * @return
      */
     @ConditionalOnProperty(
-        prefix = SlackBrokerConfigurationProperties.LOGGING_PROPERTY_PREFIX,
+        prefix = LOGGING_PROPERTY_PREFIX,
         name = ["enabled"],
         havingValue = "true",
         matchIfMissing = true
@@ -63,5 +65,10 @@ open class BaseAutoConfiguration {
     @Bean
     open fun sL4JLoggingReceiver(): SL4JLoggingHandler {
         return SL4JLoggingHandler()
+    }
+
+    companion object {
+        private const val PROPERTY_PREFIX = "slack"
+        private const val LOGGING_PROPERTY_PREFIX = "$PROPERTY_PREFIX.logging"
     }
 }

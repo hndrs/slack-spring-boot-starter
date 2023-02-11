@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.runner.WebApplicationContextRunner
 
 class InteractiveComponentAutoConfigurationTest {
 
-
     @Test
     fun `interactive component controller is registered`() {
         WebApplicationContextRunner()

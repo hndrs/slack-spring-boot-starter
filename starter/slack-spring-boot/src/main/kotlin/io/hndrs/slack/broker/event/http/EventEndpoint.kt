@@ -1,6 +1,6 @@
 package io.hndrs.slack.broker.event.http
 
-import io.hndrs.slack.broker.event.EventReceiver
+import io.hndrs.slack.broker.event.EventHandler
 import io.hndrs.slack.broker.event.EventRequest
 import io.hndrs.slack.broker.event.SlackChallenge
 import io.hndrs.slack.broker.event.SlackEvent
@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
 /**
- * EventBroker that forwards all incoming [SlackEvent]s to the [EventReceiver]s
+ * EventBroker that forwards all incoming [SlackEvent]s to the [EventHandler]s
  *
- * @property slackEventReceivers
+ * @property handlers
  * @property teamStore
  * @property eventStore
  * @property metricsCollector
  */
 @SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
-class EventBroker constructor(
-    private val slackEventReceivers: List<EventReceiver>,
+class EventEndpoint constructor(
+    private val handlers: List<EventHandler>,
     private val teamStore: TeamStore,
     private val eventStore: EventStore,
 ) {
@@ -77,7 +77,7 @@ class EventBroker constructor(
      * Invokes the receiver chain
      */
     private fun invoke(event: SlackEvent, headers: HttpHeaders, team: Team) {
-        this.slackEventReceivers
+        this.handlers
             .filter { receiver ->
                 val supportsEvent = receiver.supportsEvent(event)
 
@@ -104,6 +104,6 @@ class EventBroker constructor(
     }
 
     companion object {
-        private val LOG = LoggerFactory.getLogger(EventBroker::class.java)
+        private val LOG = LoggerFactory.getLogger(EventEndpoint::class.java)
     }
 }

@@ -2,7 +2,6 @@ package io.hndrs.slack.broker.interactive.views
 
 import com.slack.api.model.view.View
 
-
 data class ViewClosedPayload(
     val enterprise: Enterprise? = null,
     val team: Team,

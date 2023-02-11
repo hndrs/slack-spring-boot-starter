@@ -23,10 +23,9 @@ internal class CommandNotFoundReceiverTest {
     @Test
     @DisplayName("CommandNotFoundReceiver sends message with text")
     fun onReceiveSlashCommand() {
-
         val methodsClient = mockk<MethodsClient>(relaxed = true)
         val slack = spyk(Slack.getInstance()) {
-            every { methods() } returns methodsClient
+            every { methods(any()) } returns methodsClient
         }
 
         val expectedText = "Sample Text"
@@ -54,7 +53,8 @@ internal class CommandNotFoundReceiverTest {
                     req.channel shouldBe expectedChannelId
                     req.text shouldBe expectedText
                     req.user shouldBe expectedUserId
-                })
+                }
+            )
         }
     }
 }

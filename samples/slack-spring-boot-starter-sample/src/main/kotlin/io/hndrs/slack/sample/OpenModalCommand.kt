@@ -17,7 +17,6 @@ class OpenModalCommand(
     private val slack: Slack,
 ) : CommandHandler {
     override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {
-
         slack.methods().viewsOpen {
             it.view(
                 Views.view {

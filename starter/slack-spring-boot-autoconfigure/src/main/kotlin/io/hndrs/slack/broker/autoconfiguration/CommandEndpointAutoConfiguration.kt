@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
-
 @Configuration
 @EnableConfigurationProperties(CommandEndpointConfigurationProperties::class)
 open class CommandEndpointAutoConfiguration(
@@ -28,7 +27,7 @@ open class CommandEndpointAutoConfiguration(
      * Registers the [CommandEndpoint] which forwards commands to all [CommandHandler]s
      */
     @Bean
-    open fun commandBroker(
+    open fun commandEndpoint(
         teamStore: TeamStore,
         slackEventReceivers: List<CommandHandler>,
         unknownCommandHandler: UnknownCommandHandler?,
@@ -47,7 +46,7 @@ open class CommandEndpointAutoConfiguration(
         matchIfMissing = true
     )
     @Bean
-    open fun commandNotFoundMismatchReceiver(slack: Slack): UnknownCommandHandler {
+    open fun defaultUnknownCommandHandler(slack: Slack): UnknownCommandHandler {
         return DefaultUnknownCommandHandler(slack, properties.unknownCommand.unknownCommandResponse)
     }
 

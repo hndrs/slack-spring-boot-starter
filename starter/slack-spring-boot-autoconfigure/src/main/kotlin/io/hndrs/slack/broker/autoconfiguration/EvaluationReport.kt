@@ -2,7 +2,7 @@ package io.hndrs.slack.broker.autoconfiguration
 
 import io.hndrs.slack.broker.command.CommandHandler
 import io.hndrs.slack.broker.command.UnknownCommandHandler
-import io.hndrs.slack.broker.event.EventReceiver
+import io.hndrs.slack.broker.event.EventHandler
 import io.hndrs.slack.broker.installation.InstallationReceiver
 import io.hndrs.slack.broker.store.event.EventStore
 import io.hndrs.slack.broker.store.event.InMemoryEventStore
@@ -21,7 +21,7 @@ import kotlin.reflect.KClass
  * Class that lists all the auto-registered components
  *
  */
-//TODO rework
+// TODO rework
 class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
 
     override fun getOrder() = Ordered.LOWEST_PRECEDENCE
@@ -42,7 +42,7 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         addComponent(
             sb,
             "Event Receivers",
-            ctx.getBeanNamesForType(EventReceiver::class.java)
+            ctx.getBeanNamesForType(EventHandler::class.java)
         )
         addComponent(
             sb,

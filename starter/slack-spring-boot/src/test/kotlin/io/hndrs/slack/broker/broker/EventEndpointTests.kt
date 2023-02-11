@@ -1,10 +1,10 @@
 package io.hndrs.slack.broker.broker
 
 import com.slack.api.model.event.UserChangeEvent
-import io.hndrs.slack.broker.event.EventReceiver
+import io.hndrs.slack.broker.event.EventHandler
 import io.hndrs.slack.broker.event.SlackChallenge
 import io.hndrs.slack.broker.event.SlackEvent
-import io.hndrs.slack.broker.event.http.EventBroker
+import io.hndrs.slack.broker.event.http.EventEndpoint
 import io.hndrs.slack.broker.extensions.sample
 import io.hndrs.slack.broker.sample
 import io.hndrs.slack.broker.store.event.InMemoryEventStore
@@ -18,7 +18,7 @@ import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 
 @DisplayName("Event Broker Tests")
-class EventBrokerTests {
+class EventEndpointTests {
 
     @Test
     @DisplayName("Broker Test")
@@ -29,10 +29,10 @@ class EventBrokerTests {
 
         teamStore.put(Team.sample().copy(teamId = "TestId"))
 
-        val successReceiver = SuccessReceiver()
-        val errorReceiver = ErrorReceiver()
+        val successReceiver = SuccessHandler()
+        val errorReceiver = ErrorHandler()
 
-        EventBroker(listOf(successReceiver, errorReceiver), teamStore, eventStore)
+        EventEndpoint(listOf(successReceiver, errorReceiver), teamStore, eventStore)
             .receiveEvents(
                 SlackEvent.sample(UserChangeEvent())
                     .copy(teamId = "TestId"),
@@ -47,7 +47,7 @@ class EventBrokerTests {
     @DisplayName("SlackChallengeTest")
     fun testSlackChallenge() {
         val random = UUID.randomUUID().toString()
-        val receiveEvents = EventBroker(listOf(), InMemoryTeamStore(), InMemoryEventStore())
+        val receiveEvents = EventEndpoint(listOf(), InMemoryTeamStore(), InMemoryEventStore())
             .receiveEvents(SlackChallenge.sample().copy(challenge = random), HttpHeaders.EMPTY)
         Assertions.assertEquals(random, receiveEvents["challenge"])
     }
@@ -61,10 +61,10 @@ class EventBrokerTests {
 
         teamStore.put(Team.sample().copy(teamId = "TestId"))
 
-        val successReceiver = SuccessReceiver()
-        val errorReceiver = ErrorReceiver()
+        val successReceiver = SuccessHandler()
+        val errorReceiver = ErrorHandler()
 
-        EventBroker(listOf(successReceiver, errorReceiver), teamStore, eventStore)
+        EventEndpoint(listOf(successReceiver, errorReceiver), teamStore, eventStore)
             .receiveEvents(
                 SlackEvent.sample(UserChangeEvent())
                     .copy(teamId = "TestId"),
@@ -89,12 +89,12 @@ class EventBrokerTests {
 
         teamStore.put(Team.sample().copy(teamId = "TestId"))
 
-        val successReceiver = SuccessReceiver()
-        val errorReceiver = ErrorReceiver()
+        val successReceiver = SuccessHandler()
+        val errorReceiver = ErrorHandler()
 
         val listOf = listOf(successReceiver, errorReceiver)
 
-        EventBroker(listOf(successReceiver, errorReceiver), teamStore, eventStore).receiveEvents(
+        EventEndpoint(listOf(successReceiver, errorReceiver), teamStore, eventStore).receiveEvents(
             sampleEvent,
             HttpHeaders.EMPTY
         )
@@ -113,7 +113,7 @@ class EventBrokerTests {
 
         val sampleEvent = SlackEvent.sample(UserChangeEvent()).copy(teamId = "TestId", eventId = "TestEventId")
         Assertions.assertThrows(Exception::class.java) {
-            EventBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore, eventStore).receiveEvents(
+            EventEndpoint(listOf(ShouldThrowHandler(), ShouldThrowHandler()), teamStore, eventStore).receiveEvents(
                 sampleEvent,
                 HttpHeaders.EMPTY
             )
@@ -124,14 +124,14 @@ class EventBrokerTests {
     @DisplayName("Test Eventreceiver")
     fun testEventReceiverExecutionOrder() {
         val atomic = AtomicInteger(0)
-        val first = FirstEventReceiver(atomic)
-        val second = SecondEventReceiver(atomic)
-        val third = ThirdEventReceiver(atomic)
+        val first = FirstEventHandler(atomic)
+        val second = SecondEventHandler(atomic)
+        val third = ThirdEventHandler(atomic)
         val event = SlackEvent.sample(UserChangeEvent()).copy(teamId = "TestTeamId")
         val store = InMemoryTeamStore()
         store.put(Team.sample().copy(teamId = "TestTeamId"))
 
-        EventBroker(listOf(third, second, first), store, InMemoryEventStore())
+        EventEndpoint(listOf(third, second, first), store, InMemoryEventStore())
             .receiveEvents(event, HttpHeaders.EMPTY)
 
         Assertions.assertEquals(0, first.currentOrder)
@@ -139,7 +139,7 @@ class EventBrokerTests {
         Assertions.assertEquals(2, third.currentOrder)
     }
 
-    class FirstEventReceiver(private val current: AtomicInteger) : EventReceiver {
+    class FirstEventHandler(private val current: AtomicInteger) : EventHandler {
         override fun order(): Int {
             return 1
         }
@@ -150,7 +150,7 @@ class EventBrokerTests {
         }
     }
 
-    class SecondEventReceiver(private val current: AtomicInteger) : EventReceiver {
+    class SecondEventHandler(private val current: AtomicInteger) : EventHandler {
         override fun order(): Int {
             return 2
         }
@@ -161,7 +161,7 @@ class EventBrokerTests {
         }
     }
 
-    class ThirdEventReceiver(private val current: AtomicInteger) : EventReceiver {
+    class ThirdEventHandler(private val current: AtomicInteger) : EventHandler {
         override fun order(): Int {
             return 3
         }
@@ -172,7 +172,7 @@ class EventBrokerTests {
         }
     }
 
-    class SuccessReceiver : EventReceiver {
+    class SuccessHandler : EventHandler {
         var executed: Boolean = false
 
         override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
@@ -180,7 +180,7 @@ class EventBrokerTests {
         }
     }
 
-    class ErrorReceiver : EventReceiver {
+    class ErrorHandler : EventHandler {
 
         var executed: Boolean = false
 
@@ -190,7 +190,7 @@ class EventBrokerTests {
         }
     }
 
-    class ShouldThrowReceiver : EventReceiver {
+    class ShouldThrowHandler : EventHandler {
         override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
             error("Simulated error")
         }

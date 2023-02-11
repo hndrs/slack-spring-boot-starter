@@ -16,9 +16,7 @@ class ButtonCommand(
     private val slack: Slack,
 ) : CommandHandler {
     override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {
-
         slack.methods().chatPostMessage {
-
             it.blocks {
                 actions {
                     button {
@@ -40,7 +38,6 @@ class ButtonCommand(
                 .text("Components")
                 .channel(slashCommand.channelId)
                 .token(team.accessToken)
-
         }.also {
             LOG.info("{}", it)
         }

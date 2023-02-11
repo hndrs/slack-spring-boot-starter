@@ -33,7 +33,6 @@ class InteractiveComponentBrokerTest {
 
     @Test
     fun `execute block action`() {
-
         underTest.receiveCommand(
             """
             {
@@ -51,7 +50,6 @@ class InteractiveComponentBrokerTest {
 
     @Test
     fun `execute view closed`() {
-
         underTest.receiveCommand(
             """
             {
@@ -66,7 +64,6 @@ class InteractiveComponentBrokerTest {
 
         testViewClosed.executed shouldBe true
     }
-
 
     internal class TestBlockAction : BlockActionReceiver {
         var executed = false

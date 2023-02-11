@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 class CommandEndpoint constructor(
     private val slackCommandReceivers: List<CommandHandler>,
     private val teamStore: TeamStore,
-    private val mismatchCommandReceiver: UnknownCommandHandler? = null,
+    private val unknownCommandHandler: UnknownCommandHandler? = null,
 ) {
 
     /**
@@ -37,7 +37,7 @@ class CommandEndpoint constructor(
             .sortedBy { it.order() }
             .also {
                 if (it.isEmpty() || it.containsOnlySL4JLogger()) {
-                    mismatchCommandReceiver?.onUnknownCommand(slashCommand, headers, team)
+                    unknownCommandHandler?.onUnknownCommand(slashCommand, headers, team)
                 }
             }
             .forEach { commandReceiver ->

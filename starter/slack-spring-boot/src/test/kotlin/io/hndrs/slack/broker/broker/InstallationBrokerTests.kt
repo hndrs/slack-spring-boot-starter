@@ -66,9 +66,9 @@ class InstallationBrokerTests {
             every {
                 methods().oauthV2Access(any<RequestConfigurator<OAuthV2AccessRequest.OAuthV2AccessRequestBuilder>>())
             } returns
-                    OAuthV2AccessResponse().apply {
-                        isOk = false
-                    }
+                OAuthV2AccessResponse().apply {
+                    isOk = false
+                }
         }
 
         InstallationBroker(listOf(successReceiver, errorReceiver), teamStore, INSTALLATION_CONFIG, mockSlackClient)

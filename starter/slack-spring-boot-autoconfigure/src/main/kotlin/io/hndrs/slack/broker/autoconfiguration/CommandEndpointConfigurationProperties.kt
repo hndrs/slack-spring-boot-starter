@@ -13,7 +13,6 @@ data class CommandEndpointConfigurationProperties(
          */
         val enabled: Boolean = true,
 
-
         /**
          * default response string for unknown commands
          */

@@ -75,6 +75,4 @@ class InteractiveComponentBroker(
     companion object {
         private val LOG = LoggerFactory.getLogger(InteractiveComponentBroker::class.java)
     }
-
 }
-

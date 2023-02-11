@@ -23,15 +23,14 @@ interface UnknownCommandHandler {
 class DefaultUnknownCommandHandler(
     private val slack: Slack,
     private val text: String,
-) :
-    UnknownCommandHandler {
+) : UnknownCommandHandler {
 
     override fun onUnknownCommand(
         slashCommand: SlashCommand,
         headers: HttpHeaders,
         team: Team,
     ) {
-        slack.methods().chatPostEphemeral {
+        slack.methods(team.accessToken).chatPostEphemeral {
             it
                 .channel(slashCommand.channelId)
                 .user(slashCommand.userId)

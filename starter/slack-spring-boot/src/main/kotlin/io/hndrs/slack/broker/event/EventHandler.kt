@@ -12,7 +12,7 @@ import kotlin.reflect.full.staticProperties
 /**
  * EventReceiver that should be implemented to react to incoming events
  */
-interface EventReceiver {
+interface EventHandler {
 
     /**
      * Method that determines if the incoming event should be handled by the implementing receiver
@@ -43,7 +43,7 @@ interface EventReceiver {
     fun order(): Int = Ordered.HIGHEST_PRECEDENCE
 }
 
-abstract class TypedEventReceiver<T : Event>(private val clazz: KClass<T>) : EventReceiver {
+abstract class TypedEventHandler<T : Event>(private val clazz: KClass<T>) : EventHandler {
 
     final override fun onReceiveEvent(slackEvent: SlackEvent, headers: HttpHeaders, team: Team) {
         val event = GsonFactory.createSnakeCase()
