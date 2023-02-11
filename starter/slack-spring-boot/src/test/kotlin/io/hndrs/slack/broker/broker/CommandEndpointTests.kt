@@ -1,11 +1,10 @@
 package io.hndrs.slack.broker.broker
 
 import com.slack.api.Slack
-import com.slack.api.methods.MethodsClient
-import io.hndrs.slack.broker.command.CommandBroker
-import io.hndrs.slack.broker.command.MismatchCommandReceiver
+import io.hndrs.slack.broker.command.CommandEndpoint
+import io.hndrs.slack.broker.command.CommandHandler
 import io.hndrs.slack.broker.command.SlashCommand
-import io.hndrs.slack.broker.command.SlashCommandReceiver
+import io.hndrs.slack.broker.command.UnknownCommandHandler
 import io.hndrs.slack.broker.extensions.sample
 import io.hndrs.slack.broker.sample
 import io.hndrs.slack.broker.store.team.InMemoryTeamStore
@@ -19,7 +18,7 @@ import org.springframework.http.HttpHeaders
 import java.util.concurrent.atomic.AtomicInteger
 
 @DisplayName("Command Broker Tests")
-class CommandBrokerTests {
+class CommandEndpointTests {
 
     @Test
     @DisplayName("exceptions are thrown at the end of the execution")
@@ -28,14 +27,14 @@ class CommandBrokerTests {
         teamStore.put(Team.sample().copy(teamId = "TestId"))
         val sampleEvent = SlashCommand.sample().copy(teamId = "TestId")
         Assertions.assertThrows(Exception::class.java) {
-            CommandBroker(listOf(ShouldThrowReceiver(), ShouldThrowReceiver()), teamStore, mockk()).receiveCommand(
+            CommandEndpoint(listOf(ShouldThrowHandler(), ShouldThrowHandler()), teamStore, mockk()).receiveCommand(
                 sampleEvent,
                 HttpHeaders.EMPTY
             )
         }
     }
 
-    class ShouldThrowReceiver : SlashCommandReceiver {
+    class ShouldThrowHandler : CommandHandler {
         override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {
             error("Simulated error")
         }
@@ -56,14 +55,14 @@ class CommandBrokerTests {
             every { methods(any(), any()) } returns mockk()
         }
 
-        val successReceiver = SuccessReceiver()
-        val errorReceiver = ErrorReceiver()
-        val mismatchReceiver = Mismatch()
+        val successReceiver = SuccessHandler()
+        val errorReceiver = ErrorHandler()
+        val mismatchReceiver = Unknown()
 
-        CommandBroker(listOf(successReceiver, errorReceiver), teamStore, slack)
+        CommandEndpoint(listOf(successReceiver, errorReceiver), teamStore)
             .receiveCommand(SlashCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
-        CommandBroker(listOf(), teamStore, slack, mismatchReceiver)
+        CommandEndpoint(listOf(), teamStore, mismatchReceiver)
             .receiveCommand(SlashCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
@@ -78,10 +77,10 @@ class CommandBrokerTests {
 
         teamStore.put(Team.sample().copy(teamId = "TestId"))
 
-        val successReceiver = SuccessReceiver()
-        val errorReceiver = ErrorReceiver()
+        val successReceiver = SuccessHandler()
+        val errorReceiver = ErrorHandler()
 
-        CommandBroker(listOf(successReceiver, errorReceiver), teamStore, mockk(relaxed = true))
+        CommandEndpoint(listOf(successReceiver, errorReceiver), teamStore, mockk(relaxed = true))
             .receiveCommand(SlashCommand.sample().copy(teamId = "TestId"), HttpHeaders.EMPTY)
 
         Assertions.assertTrue(successReceiver.executed)
@@ -92,14 +91,14 @@ class CommandBrokerTests {
     @DisplayName("Test Command Receiver order")
     fun testCommandReceiverExecutionOrder() {
         val atomic = AtomicInteger(0)
-        val first = FirstCommandReceiver(atomic)
-        val second = SecondCommandReceiver(atomic)
-        val third = ThirdCommandReceiver(atomic)
+        val first = FirstCommandHandler(atomic)
+        val second = SecondCommandHandler(atomic)
+        val third = ThirdCommandHandler(atomic)
         val event = SlashCommand.sample().copy(teamId = "TestTeamId")
         val store = InMemoryTeamStore()
         store.put(Team.sample().copy(teamId = "TestTeamId"))
 
-        CommandBroker(listOf(third, second, first), store, mockk())
+        CommandEndpoint(listOf(third, second, first), store, mockk())
             .receiveCommand(event, HttpHeaders.EMPTY)
 
         Assertions.assertEquals(0, first.currentOrder)
@@ -107,7 +106,7 @@ class CommandBrokerTests {
         Assertions.assertEquals(2, third.currentOrder)
     }
 
-    class FirstCommandReceiver(private val current: AtomicInteger) : SlashCommandReceiver {
+    class FirstCommandHandler(private val current: AtomicInteger) : CommandHandler {
         var currentOrder: Int? = null
 
         override fun order(): Int {
@@ -119,7 +118,7 @@ class CommandBrokerTests {
         }
     }
 
-    class SecondCommandReceiver(private val current: AtomicInteger) : SlashCommandReceiver {
+    class SecondCommandHandler(private val current: AtomicInteger) : CommandHandler {
         var currentOrder: Int? = null
         override fun order(): Int {
             return 2
@@ -130,7 +129,7 @@ class CommandBrokerTests {
         }
     }
 
-    class ThirdCommandReceiver(private val current: AtomicInteger) : SlashCommandReceiver {
+    class ThirdCommandHandler(private val current: AtomicInteger) : CommandHandler {
         var currentOrder: Int? = null
         override fun order(): Int {
             return 3
@@ -141,7 +140,7 @@ class CommandBrokerTests {
         }
     }
 
-    class SuccessReceiver : SlashCommandReceiver {
+    class SuccessHandler : CommandHandler {
 
         var executed: Boolean = false
 
@@ -150,7 +149,7 @@ class CommandBrokerTests {
         }
     }
 
-    class ErrorReceiver : SlashCommandReceiver {
+    class ErrorHandler : CommandHandler {
 
         var executed: Boolean = false
 
@@ -160,14 +159,13 @@ class CommandBrokerTests {
         }
     }
 
-    class Mismatch : MismatchCommandReceiver {
+    class Unknown : UnknownCommandHandler {
 
         var executed: Boolean = false
-        override fun onMismatchedSlashCommand(
+        override fun onUnknownCommand(
             slashCommand: SlashCommand,
             headers: HttpHeaders,
             team: Team,
-            methods: MethodsClient,
         ) {
             executed = true
         }

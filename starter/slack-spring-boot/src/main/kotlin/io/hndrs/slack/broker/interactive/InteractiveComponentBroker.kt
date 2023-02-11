@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
-
-@SuppressWarnings("detekt:TooGenericExceptionCaught")
 @RestController
 class InteractiveComponentBroker(
     private val blockActionReceivers: Set<BlockActionReceiver>,
@@ -35,7 +33,6 @@ class InteractiveComponentBroker(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun receiveCommand(@RequestParam("payload") payloadJson: String, @RequestHeader headers: HttpHeaders) {
-
         val payload = gson.fromJson(payloadJson, Payload::class.java)
         val team = this.teamStore.findById(payload.team.id)
 
@@ -60,7 +57,6 @@ class InteractiveComponentBroker(
 
             else -> LOG.error("Interactive Payload type `{}` not implemented", payload.type)
         }
-
     }
 
     /**

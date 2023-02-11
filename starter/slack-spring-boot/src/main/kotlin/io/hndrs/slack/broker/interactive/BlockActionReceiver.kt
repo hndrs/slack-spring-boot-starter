@@ -21,5 +21,4 @@ interface BlockActionReceiver {
      * @param team the extracted team with the access-token that is used for further actions
      */
     fun onBlockAction(payload: BlockActionPayload, headers: HttpHeaders, team: Team)
-
 }

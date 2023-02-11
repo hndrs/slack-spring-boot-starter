@@ -1,7 +1,7 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.broker.command.MismatchCommandReceiver
-import io.hndrs.slack.broker.command.SlashCommandReceiver
+import io.hndrs.slack.broker.command.CommandHandler
+import io.hndrs.slack.broker.command.UnknownCommandHandler
 import io.hndrs.slack.broker.event.EventReceiver
 import io.hndrs.slack.broker.installation.InstallationReceiver
 import io.hndrs.slack.broker.store.event.EventStore
@@ -21,6 +21,7 @@ import kotlin.reflect.KClass
  * Class that lists all the auto-registered components
  *
  */
+//TODO rework
 class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
 
     override fun getOrder() = Ordered.LOWEST_PRECEDENCE
@@ -38,43 +39,43 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
         sb.appendLine("| REGISTERED SLACK BROKER COMPONENTS |")
         sb.appendLine("+------------------------------------+")
 
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+        addComponent(
             sb,
             "Event Receivers",
             ctx.getBeanNamesForType(EventReceiver::class.java)
         )
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+        addComponent(
             sb,
             "Installation Receivers",
             ctx.getBeanNamesForType(InstallationReceiver::class.java)
         )
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+        addComponent(
             sb,
             "Slash Command Receivers",
-            ctx.getBeanNamesForType(SlashCommandReceiver::class.java)
+            ctx.getBeanNamesForType(CommandHandler::class.java)
         )
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+        addComponent(
             sb,
             "Mismatch Command Receivers",
-            ctx.getBeanNamesForType(MismatchCommandReceiver::class.java)
+            ctx.getBeanNamesForType(UnknownCommandHandler::class.java)
         )
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+        addComponent(
             sb,
             "Team Store",
             ctx.getBeanNamesForType(TeamStore::class.java)
         )
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+        addComponent(
             sb,
             "User Store",
             ctx.getBeanNamesForType(UserStore::class.java)
         )
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.addComponent(
+        addComponent(
             sb,
             "Event Store",
             ctx.getBeanNamesForType(EventStore::class.java)
         )
 
-        io.hndrs.slack.broker.autoconfiguration.EvaluationReport.Companion.defaultChecks(
+        defaultChecks(
             ctx,
             sb,
             Pair(TeamStore::class, InMemoryTeamStore::class),
@@ -108,8 +109,10 @@ class EvaluationReport : ApplicationListener<ContextRefreshedEvent>, Ordered {
                     val bean = ctx.getBean(it.first.java)
                     if (it.second.isInstance(bean)) {
                         sb.appendLine(
-                            "   - Default version of ${it.second.simpleName} is registered," +
-                                    " this is not recommended for production"
+                            """
+                               - Default version of ${it.second.simpleName} is registered,
+                                this is not recommended for production
+                            """.trimIndent()
                         )
                     }
                 } catch (e: BeansException) {

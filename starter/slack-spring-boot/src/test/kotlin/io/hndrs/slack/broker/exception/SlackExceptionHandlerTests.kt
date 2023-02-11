@@ -1,10 +1,10 @@
 package io.hndrs.slack.broker.exception
 
 import io.hndrs.slack.broker.RequestTestUtils
-import io.hndrs.slack.broker.command.CommandBroker
+import io.hndrs.slack.broker.command.CommandEndpoint
+import io.hndrs.slack.broker.command.CommandHandler
 import io.hndrs.slack.broker.command.SlashCommand
 import io.hndrs.slack.broker.command.SlashCommandArgumentResolver
-import io.hndrs.slack.broker.command.SlashCommandReceiver
 import io.hndrs.slack.broker.extensions.sample
 import io.hndrs.slack.broker.sample
 import io.hndrs.slack.broker.security.VerificationException
@@ -136,11 +136,11 @@ internal class SlackExceptionHandlerTests {
                 }
         }
 
-        private fun commandBroker(exception: Exception): CommandBroker {
-            return CommandBroker(listOf(ErrorCommand(exception)), inMemoryTeamStore, mockk())
+        private fun commandBroker(exception: Exception): CommandEndpoint {
+            return CommandEndpoint(listOf(ErrorCommand(exception)), inMemoryTeamStore, mockk())
         }
 
-        class ErrorCommand(private val exception: Exception) : SlashCommandReceiver {
+        class ErrorCommand(private val exception: Exception) : CommandHandler {
 
             override fun onSlashCommand(slashCommand: SlashCommand, headers: HttpHeaders, team: Team) {
                 throw exception

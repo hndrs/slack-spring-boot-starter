@@ -4,7 +4,7 @@ import com.slack.api.Slack
 import io.hndrs.slack.broker.autoconfiguration.credentials.CredentialsProvider
 import io.hndrs.slack.broker.autoconfiguration.credentials.DefaultCredentialsProviderChain
 import io.hndrs.slack.broker.exception.SlackExceptionHandler
-import io.hndrs.slack.broker.receiver.SL4JLoggingReceiver
+import io.hndrs.slack.broker.receiver.SL4JLoggingHandler
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
@@ -61,7 +61,7 @@ open class BaseAutoConfiguration {
         matchIfMissing = true
     )
     @Bean
-    open fun sL4JLoggingReceiver(): SL4JLoggingReceiver {
-        return SL4JLoggingReceiver()
+    open fun sL4JLoggingReceiver(): SL4JLoggingHandler {
+        return SL4JLoggingHandler()
     }
 }

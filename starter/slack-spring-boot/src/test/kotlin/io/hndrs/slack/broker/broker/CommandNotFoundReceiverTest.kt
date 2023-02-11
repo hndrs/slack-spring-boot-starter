@@ -1,17 +1,19 @@
 package io.hndrs.slack.broker.broker
 
+import com.slack.api.RequestConfigurator
 import com.slack.api.Slack
+import com.slack.api.methods.MethodsClient
 import com.slack.api.methods.request.chat.ChatPostEphemeralRequest
-import io.hndrs.slack.broker.command.CommandNotFoundReceiver
+import io.hndrs.slack.broker.command.DefaultUnknownCommandHandler
 import io.hndrs.slack.broker.command.SlashCommand
 import io.hndrs.slack.broker.extensions.sample
 import io.hndrs.slack.broker.sample
 import io.hndrs.slack.broker.store.team.Team
+import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.slot
 import io.mockk.spyk
-import org.junit.jupiter.api.Assertions
+import io.mockk.verify
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
@@ -21,9 +23,10 @@ internal class CommandNotFoundReceiverTest {
     @Test
     @DisplayName("CommandNotFoundReceiver sends message with text")
     fun onReceiveSlashCommand() {
-        val slot = slot<ChatPostEphemeralRequest>()
-        val methods = spyk(Slack.getInstance().methods()) {
-            every { chatPostEphemeral(capture(slot)) } returns mockk()
+
+        val methodsClient = mockk<MethodsClient>(relaxed = true)
+        val slack = spyk(Slack.getInstance()) {
+            every { methods() } returns methodsClient
         }
 
         val expectedText = "Sample Text"
@@ -36,16 +39,22 @@ internal class CommandNotFoundReceiverTest {
                 userId = expectedUserId
             )
 
-        CommandNotFoundReceiver(expectedText).onMismatchedSlashCommand(
+        DefaultUnknownCommandHandler(slack, expectedText).onUnknownCommand(
             command,
             HttpHeaders.EMPTY,
             Team.sample(),
-            methods
         )
-        slot.captured.let {
-            Assertions.assertEquals(expectedText, it.text)
-            Assertions.assertEquals(expectedUserId, it.user)
-            Assertions.assertEquals(expectedChannelId, it.channel)
+
+        verify {
+            methodsClient.chatPostEphemeral(
+                withArg<RequestConfigurator<ChatPostEphemeralRequest.ChatPostEphemeralRequestBuilder>> {
+                    val reqBuilder = ChatPostEphemeralRequest.builder()
+                    it.configure(reqBuilder)
+                    val req = reqBuilder.build()
+                    req.channel shouldBe expectedChannelId
+                    req.text shouldBe expectedText
+                    req.user shouldBe expectedUserId
+                })
         }
     }
 }

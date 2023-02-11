@@ -1,12 +1,9 @@
 package io.hndrs.slack.broker.autoconfiguration
 
-import io.hndrs.slack.broker.command.CommandBroker
-import io.hndrs.slack.broker.command.CommandNotFoundReceiver
-import io.hndrs.slack.broker.command.SlashCommandArgumentResolver
 import io.hndrs.slack.broker.event.http.EventArgumentResolver
 import io.hndrs.slack.broker.event.http.EventBroker
 import io.hndrs.slack.broker.exception.SlackExceptionHandler
-import io.hndrs.slack.broker.receiver.SL4JLoggingReceiver
+import io.hndrs.slack.broker.receiver.SL4JLoggingHandler
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
@@ -43,9 +40,7 @@ class BrokerAutoConfigurationTests {
                     )
 
                 bean.addArgumentResolvers(listOf)
-                assertTrue(listOf[0] is SlashCommandArgumentResolver)
-                assertTrue(listOf[1] is EventArgumentResolver)
-                // assertTrue(listOf[1] is InteractiveResponseArgumentResolver)
+                assertTrue(listOf[0] is EventArgumentResolver)
             }
     }
 
@@ -59,7 +54,7 @@ class BrokerAutoConfigurationTests {
                 )
             )
             .run {
-                assertDoesNotThrow { it.getBean(SL4JLoggingReceiver::class.java) }
+                assertDoesNotThrow { it.getBean(SL4JLoggingHandler::class.java) }
             }
 
         ApplicationContextRunner()
@@ -70,7 +65,7 @@ class BrokerAutoConfigurationTests {
                 )
             )
             .run {
-                assertThrows<NoSuchBeanDefinitionException> { it.getBean(SL4JLoggingReceiver::class.java) }
+                assertThrows<NoSuchBeanDefinitionException> { it.getBean(SL4JLoggingHandler::class.java) }
             }
 
         ApplicationContextRunner()
@@ -81,69 +76,7 @@ class BrokerAutoConfigurationTests {
                 )
             )
             .run {
-                assertDoesNotThrow { it.getBean(SL4JLoggingReceiver::class.java) }
-            }
-    }
-
-    @DisplayName("CommandNotFound Registration")
-    @Test
-    fun testCommandNotFoundReceiverRegistration() {
-        TestApplicationContext.base()
-            .withConfiguration(
-                AutoConfigurations.of(
-                    BaseAutoConfiguration::class.java,
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
-                )
-            )
-            .run {
-                assertDoesNotThrow { it.getBean(CommandNotFoundReceiver::class.java) }
-            }
-
-        ApplicationContextRunner()
-            .withSystemProperties("slack.commands.mismatch.enabled:false")
-            .withConfiguration(
-                AutoConfigurations.of(
-                    BaseAutoConfiguration::class.java,
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
-                )
-            )
-            .run {
-                assertThrows<NoSuchBeanDefinitionException> { it.getBean(CommandNotFoundReceiver::class.java) }
-            }
-
-        ApplicationContextRunner()
-            .withSystemProperties("slack.commands.mismatch.enabled:true")
-            .withConfiguration(
-                AutoConfigurations.of(
-                    BaseAutoConfiguration::class.java,
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
-                )
-            )
-            .run {
-                assertDoesNotThrow { it.getBean(CommandNotFoundReceiver::class.java) }
-            }
-    }
-
-    @DisplayName("CommandBroker Registration")
-    @Test
-    fun commandBrokerRegistration() {
-        TestApplicationContext.base()
-            .withConfiguration(
-                AutoConfigurations.of(
-                    BaseAutoConfiguration::class.java,
-                    SlackBrokerAutoConfiguration::class.java,
-                    TeamStoreAutoconfiguration::class.java,
-                    WebMvcAutoConfiguration::class.java
-                )
-            )
-            .run {
-                assertDoesNotThrow { it.getBean(CommandBroker::class.java) }
+                assertDoesNotThrow { it.getBean(SL4JLoggingHandler::class.java) }
             }
     }
 

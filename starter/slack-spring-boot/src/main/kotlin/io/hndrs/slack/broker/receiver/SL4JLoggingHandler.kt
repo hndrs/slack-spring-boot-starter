@@ -1,7 +1,7 @@
 package io.hndrs.slack.broker.receiver
 
+import io.hndrs.slack.broker.command.CommandHandler
 import io.hndrs.slack.broker.command.SlashCommand
-import io.hndrs.slack.broker.command.SlashCommandReceiver
 import io.hndrs.slack.broker.event.EventReceiver
 import io.hndrs.slack.broker.event.SlackEvent
 import io.hndrs.slack.broker.installation.InstallationReceiver
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.core.Ordered
 import org.springframework.http.HttpHeaders
 
-class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InstallationReceiver {
+class SL4JLoggingHandler : EventReceiver, CommandHandler, InstallationReceiver {
     /**
      * receivers will be sorted ascending by this order
      */
@@ -31,6 +31,6 @@ class SL4JLoggingReceiver : EventReceiver, SlashCommandReceiver, InstallationRec
     }
 
     companion object {
-        private val LOG = LoggerFactory.getLogger(SL4JLoggingReceiver::class.java)!!
+        private val LOG = LoggerFactory.getLogger(SL4JLoggingHandler::class.java)!!
     }
 }

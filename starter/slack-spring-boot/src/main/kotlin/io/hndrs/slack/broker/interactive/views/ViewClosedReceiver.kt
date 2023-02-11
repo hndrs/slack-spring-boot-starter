@@ -21,5 +21,4 @@ interface ViewClosedReceiver {
      * @param team the extracted team with the access-token that is used for further actions
      */
     fun onViewClosed(payload: ViewClosedPayload, headers: HttpHeaders, team: Team)
-
 }
